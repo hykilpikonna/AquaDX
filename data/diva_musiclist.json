@@ -1,0 +1,8176 @@
+[
+  {
+    "pvId": 1,
+    "bpm": 175,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "恋は戦争",
+    "song_name_reading": "こいはせんそう",
+    "arranger": "ryo",
+    "lyrics": "ryo",
+    "music": "ryo",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 2,
+    "bpm": 165,
+    "date": "20160408",
+    "is_old_pv": 1,
+    "song_name": "ワールドイズマイン",
+    "song_name_reading": "わーるどいずまいん",
+    "arranger": "ryo",
+    "lyrics": "ryo",
+    "music": "ryo",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 3,
+    "bpm": 165,
+    "date": "20140807",
+    "is_old_pv": 1,
+    "song_name": "その一秒スローモーション",
+    "song_name_reading": "そのいちびょうすろーもーしょん",
+    "arranger": "ryo",
+    "lyrics": "ryo",
+    "music": "ryo",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 4,
+    "bpm": 70,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "ひねくれ者",
+    "song_name_reading": "ひねくれもの",
+    "arranger": "ryo",
+    "lyrics": "ryo",
+    "music": "ryo",
+    "difficulty": {
+      "normal": {},
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_01_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 5,
+    "bpm": 170,
+    "date": "20160212",
+    "is_old_pv": 1,
+    "song_name": "メルト",
+    "song_name_reading": "めると",
+    "arranger": "ryo",
+    "lyrics": "ryo",
+    "music": "ryo",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 6,
+    "bpm": 130,
+    "date": "20140807",
+    "is_old_pv": 1,
+    "song_name": "Far Away",
+    "song_name_reading": "ふぁーらうぇい",
+    "arranger": "kz",
+    "lyrics": "kz",
+    "music": "kz",
+    "difficulty": {
+      "normal": {},
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 7,
+    "bpm": 125,
+    "date": "20151203",
+    "is_old_pv": 1,
+    "song_name": "ストロボナイツ",
+    "song_name_reading": "すとろぼないつ",
+    "arranger": "kz",
+    "lyrics": "yae",
+    "music": "kz",
+    "difficulty": {
+      "normal": {},
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 8,
+    "bpm": 70,
+    "date": "20140905",
+    "is_old_pv": 1,
+    "song_name": "Star Story",
+    "song_name_reading": "すたーすとーりー",
+    "arranger": "kz",
+    "lyrics": "kz",
+    "music": "kz",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_07_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_01_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 9,
+    "bpm": 84,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "Last Night, Good Night",
+    "song_name_reading": "らすとないとぐっどないと",
+    "arranger": "kz",
+    "lyrics": "kz",
+    "music": "kz",
+    "difficulty": {
+      "normal": {},
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 10,
+    "bpm": 125,
+    "date": "20160108",
+    "is_old_pv": 1,
+    "song_name": "Packaged",
+    "song_name_reading": "ぱっけーじど",
+    "arranger": "kz",
+    "lyrics": "kz",
+    "music": "kz",
+    "difficulty": {
+      "normal": {},
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 11,
+    "bpm": 135,
+    "date": "20140523",
+    "is_old_pv": 1,
+    "song_name": "雨のちSweet*Drops",
+    "song_name_reading": "あめのちすいーとどろっぷす",
+    "arranger": "OSTER project",
+    "lyrics": "OSTER project",
+    "music": "OSTER project",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 12,
+    "bpm": 190,
+    "date": "20180411",
+    "is_old_pv": 1,
+    "song_name": "マージナル",
+    "song_name_reading": "まーじなる",
+    "arranger": "OSTER project",
+    "lyrics": "OSTER project",
+    "music": "OSTER project",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 13,
+    "bpm": 210,
+    "date": "20140807",
+    "is_old_pv": 1,
+    "song_name": "フキゲンワルツ",
+    "song_name_reading": "ふきげんわるつ",
+    "arranger": "OSTER project",
+    "lyrics": "OSTER project",
+    "music": "OSTER project",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 14,
+    "bpm": 215,
+    "date": "20141003",
+    "is_old_pv": 1,
+    "song_name": "ミラクルペイント",
+    "song_name_reading": "みらくるぺいんと",
+    "arranger": "OSTER project",
+    "lyrics": "OSTER project",
+    "music": "OSTER project",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 15,
+    "bpm": 170,
+    "date": "20141003",
+    "is_old_pv": 1,
+    "song_name": "Dreaming Leaf -ユメミルコトノハ-",
+    "song_name_reading": "どりーみんぐりーふ",
+    "arranger": "OSTER project",
+    "lyrics": "OSTER project",
+    "music": "OSTER project",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 16,
+    "bpm": 130,
+    "date": "20190225",
+    "is_old_pv": 1,
+    "song_name": "恋スルＶＯＣ＠ＬＯＩＤ",
+    "song_name_reading": "こいするぼーかろいど",
+    "arranger": "OSTER project",
+    "lyrics": "OSTER project",
+    "music": "OSTER project",
+    "difficulty": {
+      "normal": {},
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 17,
+    "bpm": 140,
+    "date": "20150716",
+    "is_old_pv": 1,
+    "song_name": "荒野と森と魔法の歌",
+    "song_name_reading": "こうやともりとまほうのうた",
+    "arranger": "トラボルタ",
+    "lyrics": "トラボルタ",
+    "music": "トラボルタ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 18,
+    "bpm": 80,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "いのちの歌",
+    "song_name_reading": "いのちのうた",
+    "arranger": "トラボルタ",
+    "lyrics": "トラボルタ",
+    "music": "トラボルタ",
+    "difficulty": {
+      "normal": {},
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_01_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 19,
+    "bpm": 200,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "ハト",
+    "song_name_reading": "はと",
+    "arranger": "秦野P",
+    "lyrics": "秦野P",
+    "music": "秦野P",
+    "difficulty": {
+      "normal": {},
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 20,
+    "bpm": 150,
+    "date": "20190225",
+    "is_old_pv": 1,
+    "song_name": "moon",
+    "song_name_reading": "むーん",
+    "arranger": "iroha(sasaki)",
+    "lyrics": "はっか＋iroha(sasaki)",
+    "music": "iroha(sasaki)",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 21,
+    "bpm": 92,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "みくみく菌にご注意♪",
+    "song_name_reading": "みくみくきんにごちゅうい",
+    "arranger": "はやや",
+    "lyrics": "はやや",
+    "music": "はやや",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 22,
+    "bpm": 133,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "The secret garden",
+    "song_name_reading": "しーくれっとがーでん",
+    "arranger": "神前 暁",
+    "lyrics": "畑 亜貴",
+    "music": "神前 暁",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 23,
+    "bpm": 180,
+    "date": "20160808",
+    "is_old_pv": 1,
+    "song_name": "Dear cocoa girls",
+    "song_name_reading": "でぃあここあがーるず",
+    "arranger": "神前 暁",
+    "lyrics": "畑 亜貴",
+    "music": "神前 暁",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 24,
+    "bpm": 120,
+    "date": "20141003",
+    "is_old_pv": 1,
+    "song_name": "天鵞絨アラベスク",
+    "song_name_reading": "びろーどあらべすく",
+    "arranger": "並木晃一",
+    "lyrics": "畑 亜貴",
+    "music": "畑 亜貴",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_01_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 25,
+    "bpm": 90,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "ラブリスト更新中？",
+    "song_name_reading": "らぶりすとこうしんちゅう",
+    "arranger": "並木晃一",
+    "lyrics": "畑 亜貴",
+    "music": "畑 亜貴",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 27,
+    "bpm": 119,
+    "date": "20160212",
+    "is_old_pv": 1,
+    "song_name": "Ievan Polkka",
+    "song_name_reading": "いえばんぽるっか",
+    "arranger": "Otomania",
+    "music": "フィンランド民謡",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 28,
+    "bpm": 160,
+    "date": "20150807",
+    "is_old_pv": 1,
+    "song_name": "みくみくにしてあげる♪【してやんよ】",
+    "song_name_reading": "みくみくにしてあげるしてやんよ",
+    "arranger": "ika_mo",
+    "lyrics": "ika_mo",
+    "music": "ika_mo",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 29,
+    "bpm": 185,
+    "date": "20161014",
+    "is_old_pv": 1,
+    "song_name": "金の聖夜霜雪に朽ちて",
+    "song_name_reading": "こがねのせいやそうせつにくちて",
+    "arranger": "デッドボールP",
+    "lyrics": "デッドボールP",
+    "music": "デッドボールP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 30,
+    "bpm": 150,
+    "date": "20151022",
+    "is_old_pv": 1,
+    "song_name": "えれくとりっく・えんじぇぅ",
+    "song_name_reading": "えれくとりっくえんじぇぅ",
+    "arranger": "ヤスオ",
+    "lyrics": "ヤスオ",
+    "music": "ヤスオ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_01_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 31,
+    "bpm": 89,
+    "date": "20160408",
+    "is_old_pv": 1,
+    "song_name": "あなたの歌姫",
+    "song_name_reading": "あなたのうたひめ",
+    "arranger": "azuma",
+    "lyrics": "azuma",
+    "music": "azuma",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 32,
+    "bpm": 240,
+    "date": "20141113",
+    "is_old_pv": 1,
+    "song_name": "初音ミクの消失",
+    "song_name_reading": "はつねみくのしょうしつ",
+    "arranger": "cosMo＠暴走P",
+    "lyrics": "cosMo＠暴走P",
+    "music": "cosMo＠暴走P",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_10_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 37,
+    "bpm": 150,
+    "date": "20140606",
+    "is_old_pv": 1,
+    "song_name": "初めての恋が終わる時",
+    "song_name_reading": "はじめてのこいがおわるとき",
+    "arranger": "ryo",
+    "lyrics": "ryo",
+    "music": "ryo",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 38,
+    "bpm": 185,
+    "date": "20150513",
+    "is_old_pv": 1,
+    "song_name": "こっち向いて Baby",
+    "song_name_reading": "こっちむいてべいびー",
+    "arranger": "ryo",
+    "lyrics": "ryo",
+    "music": "ryo",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 39,
+    "bpm": 150,
+    "date": "20150108",
+    "is_old_pv": 1,
+    "song_name": "ファインダー(DSLR remix - re:edit)",
+    "song_name_reading": "ふぁいんだー",
+    "arranger": "kz",
+    "lyrics": "kz",
+    "music": "kz",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 40,
+    "bpm": 127,
+    "date": "20111018",
+    "is_old_pv": 1,
+    "song_name": "Yellow",
+    "song_name_reading": "いえろー",
+    "arranger": "kz",
+    "lyrics": "kz",
+    "music": "kz",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 41,
+    "bpm": 185,
+    "date": "20161209",
+    "is_old_pv": 1,
+    "song_name": "カラフル×メロディ",
+    "song_name_reading": "からふるめろでぃ",
+    "arranger": "OSTER project",
+    "lyrics": "minato（流星P）",
+    "music": "doriko",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 42,
+    "bpm": 200,
+    "date": "20171102",
+    "is_old_pv": 1,
+    "song_name": "初音ミクの激唱",
+    "song_name_reading": "はつねみくのげきしょう",
+    "arranger": "Storyteller",
+    "lyrics": "Storyteller",
+    "music": "Storyteller",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_10_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_10_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 43,
+    "bpm": 170,
+    "date": "20150108",
+    "is_old_pv": 1,
+    "song_name": "ロミオとシンデレラ",
+    "song_name_reading": "ろみおとしんでれら",
+    "arranger": "doriko",
+    "lyrics": "doriko",
+    "music": "doriko",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 44,
+    "bpm": 150,
+    "date": "20171013",
+    "is_old_pv": 1,
+    "song_name": "magnet",
+    "song_name_reading": "まぐねっと",
+    "arranger": "minato（流星P）",
+    "lyrics": "minato（流星P）",
+    "music": "minato（流星P）",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 45,
+    "bpm": 135,
+    "date": "20150212",
+    "is_old_pv": 1,
+    "song_name": "Dear",
+    "song_name_reading": "でぃあ",
+    "arranger": "19-iku-",
+    "lyrics": "19-iku-",
+    "music": "19-iku-",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 46,
+    "bpm": 98,
+    "date": "20160408",
+    "is_old_pv": 1,
+    "song_name": "from Y to Y",
+    "song_name_reading": "ふろむわいとぅわい",
+    "arranger": "ジミーサムP",
+    "lyrics": "ジミーサムP",
+    "music": "ジミーサムP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 47,
+    "bpm": 150,
+    "date": "20111130",
+    "is_old_pv": 1,
+    "song_name": "ジェミニ",
+    "song_name_reading": "じぇみに",
+    "arranger": "Dixie Flatline",
+    "lyrics": "Dixie Flatline",
+    "music": "Dixie Flatline",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 48,
+    "bpm": 136,
+    "date": "20171102",
+    "is_old_pv": 1,
+    "song_name": "愛言葉",
+    "song_name_reading": "あいことば",
+    "arranger": "DECO*27",
+    "lyrics": "DECO*27",
+    "music": "DECO*27",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_01_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 49,
+    "bpm": 150,
+    "date": "20160617",
+    "is_old_pv": 1,
+    "song_name": "ぽっぴっぽー",
+    "song_name_reading": "ぽっぴっぽー",
+    "arranger": "ラマーズP",
+    "lyrics": "ラマーズP",
+    "music": "ラマーズP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_10_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 50,
+    "bpm": 150,
+    "date": "20150212",
+    "is_old_pv": 1,
+    "song_name": "サイハテ",
+    "song_name_reading": "さいはて",
+    "arranger": "小林オニキス",
+    "lyrics": "小林オニキス",
+    "music": "小林オニキス",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 51,
+    "bpm": 150,
+    "date": "20160218",
+    "is_old_pv": 1,
+    "song_name": "VOiCE -DIVA　MIX-",
+    "song_name_reading": "ぼいす",
+    "arranger": "ラヴリーP",
+    "lyrics": "ラヴリーP",
+    "music": "ラヴリーP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 52,
+    "bpm": 175,
+    "date": "20160408",
+    "is_old_pv": 1,
+    "song_name": "恋色病棟",
+    "song_name_reading": "こいいろびょうとう",
+    "arranger": "OSTER project",
+    "lyrics": "OSTER project",
+    "music": "OSTER project",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 53,
+    "bpm": 150,
+    "date": "20150924",
+    "is_old_pv": 1,
+    "song_name": "巨大少女",
+    "song_name_reading": "きょだいしょうじょ",
+    "arranger": "40mP",
+    "lyrics": "40mP",
+    "music": "40mP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 54,
+    "bpm": 165,
+    "date": "20160808",
+    "is_old_pv": 1,
+    "song_name": "炉心融解",
+    "song_name_reading": "ろしんゆうかい",
+    "arranger": "iroha(sasaki)",
+    "lyrics": "kuma(alfred)",
+    "music": "iroha(sasaki)",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 55,
+    "bpm": 150,
+    "date": "20160808",
+    "is_old_pv": 1,
+    "song_name": "ココロ",
+    "song_name_reading": "こころ",
+    "arranger": "トラボルタ",
+    "lyrics": "トラボルタ",
+    "music": "トラボルタ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 56,
+    "bpm": 140,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "右肩の蝶",
+    "song_name_reading": "みぎかたのちょう",
+    "arranger": "のりぴー",
+    "lyrics": "水野悠良",
+    "music": "のりぴー",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 57,
+    "bpm": 150,
+    "date": "20151203",
+    "is_old_pv": 1,
+    "song_name": "ダブルラリアット",
+    "song_name_reading": "だぶるらりあっと",
+    "arranger": "アゴアニキ",
+    "lyrics": "アゴアニキ",
+    "music": "アゴアニキ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 58,
+    "bpm": 144,
+    "date": "20160212",
+    "is_old_pv": 1,
+    "song_name": "カンタレラ",
+    "song_name_reading": "かんたれら",
+    "arranger": "WhiteFlame（黒うさP）",
+    "lyrics": "WhiteFlame（黒うさP）",
+    "music": "WhiteFlame（黒うさP）",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 59,
+    "bpm": 135,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "Change me",
+    "song_name_reading": "ちぇんじみー",
+    "arranger": "shu-t",
+    "lyrics": "shu-t",
+    "music": "shu-t",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 60,
+    "bpm": 150,
+    "date": "20150408",
+    "is_old_pv": 1,
+    "song_name": "サウンド",
+    "song_name_reading": "さうんど",
+    "arranger": "baker",
+    "lyrics": "baker",
+    "music": "baker",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 61,
+    "bpm": 150,
+    "date": "20120203",
+    "is_old_pv": 1,
+    "song_name": "クローバー・クラブ",
+    "song_name_reading": "くろーばーくらぶ",
+    "arranger": "ゆうゆ",
+    "lyrics": "ゆうゆ",
+    "music": "ゆうゆ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 62,
+    "bpm": 138,
+    "date": "20150716",
+    "is_old_pv": 1,
+    "song_name": "Promise",
+    "song_name_reading": "ぷろみす",
+    "arranger": "samfree",
+    "lyrics": "samfree",
+    "music": "samfree",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 63,
+    "bpm": 150,
+    "date": "20150212",
+    "is_old_pv": 1,
+    "song_name": "ほんとは分かってる",
+    "song_name_reading": "ほんとはわかってる",
+    "arranger": "フナコシP",
+    "lyrics": "フナコシP",
+    "music": "フナコシP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 64,
+    "bpm": 150,
+    "date": "20150513",
+    "is_old_pv": 1,
+    "song_name": "Innocence",
+    "song_name_reading": "いのせんす",
+    "arranger": "KazuP",
+    "lyrics": "KazuP",
+    "music": "KazuP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 65,
+    "bpm": 150,
+    "date": "20150312",
+    "is_old_pv": 1,
+    "song_name": "ハジメテノオト",
+    "song_name_reading": "はじめてのおと",
+    "arranger": "malo",
+    "lyrics": "malo",
+    "music": "malo",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 66,
+    "bpm": 128,
+    "date": "20141113",
+    "is_old_pv": 1,
+    "song_name": "Just Be Friends",
+    "song_name_reading": "じゃすとびーふれんず",
+    "arranger": "Dixie Flatline",
+    "lyrics": "Dixie Flatline",
+    "music": "Dixie Flatline",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 67,
+    "bpm": 185,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "金の聖夜霜雪に朽ちて（extend版)",
+    "song_name_reading": "こがねのせいやそうせつにくちて",
+    "arranger": "デッドボールP",
+    "lyrics": "デッドボールP",
+    "music": "デッドボールP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 0
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 0
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 0
+      }
+    }
+  },
+  {
+    "pvId": 68,
+    "bpm": 150,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "えれくとりっく・えんじぇぅ（extend版)",
+    "song_name_reading": "えれくとりっくえんじぇぅ",
+    "arranger": "ヤスオ",
+    "lyrics": "ヤスオ",
+    "music": "ヤスオ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 0
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 0
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_01_5",
+        "version": 0
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 0
+      }
+    }
+  },
+  {
+    "pvId": 79,
+    "bpm": 162,
+    "date": "20121026",
+    "is_old_pv": 1,
+    "song_name": "SPiCa -39's Giving Day Edition-",
+    "song_name_reading": "すぴか",
+    "arranger": "とく",
+    "lyrics": "kentax vs とく",
+    "music": "とく",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 81,
+    "bpm": 98,
+    "date": "20150212",
+    "is_old_pv": 1,
+    "song_name": "歌に形はないけれど",
+    "song_name_reading": "うたにかたちはないけれど",
+    "arranger": "doriko",
+    "lyrics": "doriko",
+    "music": "doriko",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 82,
+    "bpm": 159,
+    "date": "20160212",
+    "is_old_pv": 1,
+    "song_name": "裏表ラバーズ",
+    "song_name_reading": "うらおもてらばーず",
+    "arranger": "wowaka",
+    "lyrics": "wowaka",
+    "music": "wowaka",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_10_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_10_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 83,
+    "bpm": 150,
+    "date": "20121026",
+    "is_old_pv": 1,
+    "song_name": "*ハロー、プラネット。(I.M.PLSE-EDIT)",
+    "song_name_reading": "はろーぷらねっと",
+    "arranger": "sasakure.UK",
+    "lyrics": "sasakure.UK",
+    "music": "sasakure.UK",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 84,
+    "bpm": 198,
+    "date": "20161014",
+    "is_old_pv": 1,
+    "song_name": "那由他の彼方まで",
+    "song_name_reading": "なゆたのかなたまで",
+    "arranger": "釣り師P",
+    "lyrics": "釣り師P",
+    "music": "釣り師P",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 85,
+    "bpm": 180,
+    "date": "20151203",
+    "is_old_pv": 1,
+    "song_name": "孤独の果て -extend edition-",
+    "song_name_reading": "こどくのはて　えくすてんどえでぃしょん",
+    "arranger": "光収容",
+    "lyrics": "光収容",
+    "music": "光収容",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 86,
+    "bpm": 85,
+    "date": "20190225",
+    "is_old_pv": 1,
+    "song_name": "パズル",
+    "song_name_reading": "ぱずる",
+    "arranger": "クワガタP",
+    "lyrics": "クワガタP",
+    "music": "クワガタP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_01_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 87,
+    "bpm": 183,
+    "date": "20150408",
+    "is_old_pv": 1,
+    "song_name": "Palette",
+    "song_name_reading": "ぱれっと",
+    "arranger": "ゆよゆっぺ",
+    "lyrics": "ゆよゆっぺ/meola",
+    "music": "ゆよゆっぺ/meola",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 88,
+    "bpm": 183,
+    "date": "20150108",
+    "is_old_pv": 1,
+    "song_name": "千年の独奏歌 (DIVA edit)",
+    "song_name_reading": "せんねんのどくそうか",
+    "arranger": "yanagi",
+    "lyrics": "yanagi",
+    "music": "yanagi",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 89,
+    "bpm": 180,
+    "date": "20161014",
+    "is_old_pv": 1,
+    "song_name": "忘却心中",
+    "song_name_reading": "ぼうきゃくしんじゅう",
+    "arranger": "OPA",
+    "lyrics": "Asaki No'9",
+    "music": "OPA",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 90,
+    "bpm": 127,
+    "date": "20150716",
+    "is_old_pv": 1,
+    "song_name": "結んで開いて羅刹と骸",
+    "song_name_reading": "むすんでひらいてらせつとむくろ",
+    "arranger": "ハチ",
+    "lyrics": "ハチ",
+    "music": "ハチ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 91,
+    "bpm": 195,
+    "date": "20171013",
+    "is_old_pv": 1,
+    "song_name": "ローリンガール",
+    "song_name_reading": "ろーりんがーる",
+    "arranger": "wowaka",
+    "lyrics": "wowaka",
+    "music": "wowaka",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 92,
+    "bpm": 82,
+    "date": "20121026",
+    "is_old_pv": 1,
+    "song_name": "Starduster",
+    "song_name_reading": "すたーだすたー",
+    "arranger": "ジミーサムP",
+    "lyrics": "ジミーサムP",
+    "music": "ジミーサムP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 93,
+    "bpm": 183,
+    "date": "20130131",
+    "is_old_pv": 1,
+    "song_name": "パラジクロロベンゼン",
+    "song_name_reading": "ぱらじくろろべんぜん",
+    "arranger": "オワタP",
+    "lyrics": "オワタP",
+    "music": "オワタP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 94,
+    "bpm": 102,
+    "date": "20150924",
+    "is_old_pv": 1,
+    "song_name": "番凩",
+    "song_name_reading": "つがゐこがらし",
+    "arranger": "仕事してP",
+    "lyrics": "仕事してP",
+    "music": "仕事してP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 95,
+    "bpm": 160,
+    "date": "20121026",
+    "is_old_pv": 1,
+    "song_name": "ねこみみスイッチ",
+    "song_name_reading": "ねこみみすいっち",
+    "arranger": "daniwell",
+    "lyrics": "daniwell",
+    "music": "daniwell",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 96,
+    "bpm": 183,
+    "date": "20160218",
+    "is_old_pv": 1,
+    "song_name": "積乱雲グラフィティ",
+    "song_name_reading": "せきらんうんぐらふぃてぃ",
+    "arranger": "ryo",
+    "lyrics": "Dixie Flatline",
+    "music": "ryo",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 97,
+    "bpm": 124,
+    "date": "20121026",
+    "is_old_pv": 1,
+    "song_name": "リンリンシグナル -Append Mix-",
+    "song_name_reading": "りんりんしぐなる",
+    "arranger": "Dios/シグナルP",
+    "lyrics": "Dios/シグナルP",
+    "music": "Dios/シグナルP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 101,
+    "bpm": 120,
+    "date": "20140905",
+    "is_old_pv": 1,
+    "song_name": "Magical Sound Shower",
+    "song_name_reading": "まじかるさうんどしゃわー",
+    "arranger": "Kusemono/SWANTONE",
+    "lyrics": "Kusemono/SWANTONE",
+    "music": "HIRO",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 102,
+    "bpm": 150,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "多重未来のカルテット -Quartet Theme-",
+    "song_name_reading": "たじゅうみらいのかるてっと",
+    "arranger": "Kusemono/SWANTONE",
+    "lyrics": "Kusemono/SWANTONE",
+    "music": "Funky K.H",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 103,
+    "bpm": 173,
+    "date": "20130831",
+    "is_old_pv": 1,
+    "song_name": "AFTER BURNER",
+    "song_name_reading": "あふたーばーなー",
+    "arranger": "Hal",
+    "lyrics": "Hal",
+    "music": "HIRO",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 104,
+    "bpm": 124,
+    "date": "20130831",
+    "is_old_pv": 1,
+    "song_name": "LIKE THE WIND",
+    "song_name_reading": "らいくざうぃんど",
+    "arranger": "Kusemono/SWANTONE",
+    "lyrics": "Kusemono/SWANTONE",
+    "music": "HIRO",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 201,
+    "bpm": 240,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "星屑ユートピア",
+    "song_name_reading": "ほしくずゆーとぴあ",
+    "arranger": "otetsu",
+    "lyrics": "otetsu",
+    "music": "otetsu",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 202,
+    "bpm": 195,
+    "date": "20160212",
+    "is_old_pv": 1,
+    "song_name": "StargazeR",
+    "song_name_reading": "すたーげいざー",
+    "arranger": "骨盤P",
+    "lyrics": "骨盤P",
+    "music": "骨盤P",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 203,
+    "bpm": 120,
+    "date": "20130131",
+    "is_old_pv": 1,
+    "song_name": "孤独の果て",
+    "song_name_reading": "こどくのはて",
+    "arranger": "光収容",
+    "lyrics": "光収容",
+    "music": "光収容",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 204,
+    "bpm": 140,
+    "date": "20171013",
+    "is_old_pv": 1,
+    "song_name": "タイムリミット",
+    "song_name_reading": "たいむりみっと",
+    "arranger": "North-T",
+    "lyrics": "North-T",
+    "music": "North-T",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 205,
+    "bpm": 149,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "Holy Star -2010 DIVA mix-",
+    "song_name_reading": "ほーりーすたー",
+    "arranger": "おっさんP（K's Sound Project）",
+    "lyrics": "おっさんP（K's Sound Project）",
+    "music": "おっさんP（K's Sound Project）",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 206,
+    "bpm": 142,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "melody...",
+    "song_name_reading": "めろでぃ",
+    "arranger": "mikuru396",
+    "lyrics": "mikuru396",
+    "music": "mikuru396",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 207,
+    "bpm": 137,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "saturation",
+    "song_name_reading": "さちゅれいしょん",
+    "arranger": "fatP",
+    "lyrics": "Harmonia",
+    "music": "fatP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 208,
+    "bpm": 290,
+    "date": "20140905",
+    "is_old_pv": 1,
+    "song_name": "迷的サイバネティックス",
+    "song_name_reading": "めいてきさいばねてぃっくす",
+    "arranger": "otetsu",
+    "lyrics": "otetsu",
+    "music": "otetsu",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 209,
+    "bpm": 240,
+    "date": "20150513",
+    "is_old_pv": 1,
+    "song_name": "ピンクムーン",
+    "song_name_reading": "ぴんくむーん",
+    "arranger": "もじょP",
+    "lyrics": "もじょP",
+    "music": "もじょP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 210,
+    "bpm": 184,
+    "date": "20160808",
+    "is_old_pv": 1,
+    "song_name": "透明水彩",
+    "song_name_reading": "とうめいすいさい",
+    "arranger": "ヤスオ",
+    "lyrics": "ヤスオ",
+    "music": "ヤスオ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 211,
+    "bpm": 172,
+    "date": "20160808",
+    "is_old_pv": 1,
+    "song_name": "いろは唄",
+    "song_name_reading": "いろはうた",
+    "arranger": "銀サク",
+    "lyrics": "銀サク",
+    "music": "銀サク",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 212,
+    "bpm": 220,
+    "date": "20151022",
+    "is_old_pv": 1,
+    "song_name": "カラフル×セクシィ",
+    "song_name_reading": "からふるせくしぃ",
+    "arranger": "OSTER project",
+    "lyrics": "minato（流星P）",
+    "music": "doriko",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 213,
+    "bpm": 160,
+    "date": "20180831",
+    "is_old_pv": 1,
+    "song_name": "ルカルカ★ナイトフィーバー",
+    "song_name_reading": "るかるかないとふぃーばー",
+    "arranger": "samfree",
+    "lyrics": "samfree",
+    "music": "samfree",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 214,
+    "bpm": 140,
+    "date": "20130831",
+    "is_old_pv": 1,
+    "song_name": "右肩の蝶 -39's Giving Day Edition-",
+    "song_name_reading": "みぎかたのちょう　さんくすぎびんぐでいえでぃしょん",
+    "arranger": "のりぴー",
+    "lyrics": "水野悠良",
+    "music": "のりぴー",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 215,
+    "bpm": 190,
+    "date": "20171013",
+    "is_old_pv": 1,
+    "song_name": "Leia",
+    "song_name_reading": "れいあ",
+    "arranger": "ゆよゆっぺ",
+    "lyrics": "ゆよゆっぺ",
+    "music": "ゆよゆっぺ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 216,
+    "bpm": 154,
+    "date": "20130831",
+    "is_old_pv": 1,
+    "song_name": "千本桜",
+    "song_name_reading": "せんぼんざくら",
+    "arranger": "黒うさP",
+    "lyrics": "黒うさP",
+    "music": "黒うさP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 218,
+    "bpm": 171,
+    "date": "20161209",
+    "is_old_pv": 1,
+    "song_name": "白い雪のプリンセスは",
+    "song_name_reading": "しろいゆきのぷりんせすは",
+    "arranger": "のぼる↑",
+    "lyrics": "のぼる↑",
+    "music": "のぼる↑",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 219,
+    "bpm": 100,
+    "date": "20150610",
+    "is_old_pv": 1,
+    "song_name": "深海少女",
+    "song_name_reading": "しんかいしょうじょ",
+    "arranger": "ゆうゆ",
+    "lyrics": "ゆうゆ",
+    "music": "ゆうゆ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 220,
+    "bpm": 171,
+    "date": "20180411",
+    "is_old_pv": 1,
+    "song_name": "ワールズエンド・ダンスホール -Live Dance Edition-",
+    "song_name_reading": "わーるずえんどだんすほーる　らいぶだんすえでぃしょん",
+    "arranger": "wowaka",
+    "lyrics": "wowaka",
+    "music": "wowaka",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_10_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_10_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 221,
+    "bpm": 124,
+    "date": "20161014",
+    "is_old_pv": 1,
+    "song_name": "ネコミミアーカイブ",
+    "song_name_reading": "ねこみみあーかいぶ",
+    "arranger": "糞田舎P",
+    "lyrics": "糞田舎P",
+    "music": "糞田舎P",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 222,
+    "bpm": 124,
+    "date": "20161209",
+    "is_old_pv": 1,
+    "song_name": "ブラックゴールド",
+    "song_name_reading": "ぶらっくごーるど",
+    "arranger": "otetsu",
+    "lyrics": "otetsu",
+    "music": "otetsu",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 223,
+    "bpm": 109,
+    "date": "20131220",
+    "is_old_pv": 1,
+    "song_name": "アウト オブ エデン",
+    "song_name_reading": "あうとおぶえでん",
+    "arranger": "Kouhei (K's Sound Project)",
+    "lyrics": "orange",
+    "music": "Kouhei (K's Sound Project)",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 224,
+    "bpm": 148,
+    "date": "20160108",
+    "is_old_pv": 1,
+    "song_name": "Rosary Pale",
+    "song_name_reading": "ろざりーぺーる",
+    "arranger": "新城P",
+    "lyrics": "新城P",
+    "music": "新城P",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 225,
+    "bpm": 160,
+    "date": "20190225",
+    "is_old_pv": 1,
+    "song_name": "ゆめゆめ",
+    "song_name_reading": "ゆめゆめ",
+    "arranger": "DECO*27",
+    "lyrics": "DECO*27",
+    "music": "DECO*27",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 226,
+    "bpm": 150,
+    "date": "20141113",
+    "is_old_pv": 1,
+    "song_name": "on the rocks",
+    "song_name_reading": "おんざろっくす",
+    "arranger": "OSTER project",
+    "lyrics": "OSTER project",
+    "music": "OSTER project",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 227,
+    "bpm": 174,
+    "date": "20171102",
+    "is_old_pv": 1,
+    "song_name": "妄想スケッチ",
+    "song_name_reading": "もうそうすけっち",
+    "arranger": "40mP",
+    "lyrics": "40mP",
+    "music": "40mP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 228,
+    "bpm": 120,
+    "date": "20130831",
+    "is_old_pv": 1,
+    "song_name": "No Logic",
+    "song_name_reading": "のーろじっく",
+    "arranger": "ジミーサムP",
+    "lyrics": "ジミーサムP",
+    "music": "ジミーサムP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 231,
+    "bpm": 205,
+    "date": "20150807",
+    "is_old_pv": 1,
+    "song_name": "キップル・インダストリー",
+    "song_name_reading": "きっぷるいんだすとりー",
+    "arranger": "millstones",
+    "lyrics": "millstones",
+    "music": "millstones",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 232,
+    "bpm": 175,
+    "date": "20160617",
+    "is_old_pv": 1,
+    "song_name": "39",
+    "song_name_reading": "さんきゅう",
+    "arranger": "sasakure.UK & DECO*27",
+    "lyrics": "DECO*27",
+    "music": "sasakure.UK",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 233,
+    "bpm": 180,
+    "date": "20160808",
+    "is_old_pv": 1,
+    "song_name": "ふたりで。",
+    "song_name_reading": "ふたりで",
+    "arranger": "ねこぼーろ",
+    "lyrics": "ねこぼーろ",
+    "music": "ねこぼーろ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 234,
+    "bpm": 170,
+    "date": "20160212",
+    "is_old_pv": 1,
+    "song_name": "深海シティアンダーグラウンド",
+    "song_name_reading": "しんかいしてぃあんだーぐらうんど",
+    "arranger": "田中B",
+    "lyrics": "田中B",
+    "music": "田中B",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 235,
+    "bpm": 180,
+    "date": "20131220",
+    "is_old_pv": 1,
+    "song_name": "ルシッドドリーミング",
+    "song_name_reading": "るしっどどりーみんぐ",
+    "arranger": "くぇ（ナイーヴP）",
+    "lyrics": "灯下はこ、",
+    "music": "くぇ（ナイーヴP）",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 236,
+    "bpm": 189,
+    "date": "20131220",
+    "is_old_pv": 1,
+    "song_name": "Absolunote",
+    "song_name_reading": "あぶそるのーと",
+    "arranger": "Lemm",
+    "lyrics": "Lemm",
+    "music": "Lemm",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 238,
+    "bpm": 175,
+    "date": "20140210",
+    "song_name": "SING＆SMILE",
+    "song_name_reading": "しんぐあんどすまいる",
+    "arranger": "Re:nG",
+    "lyrics": "Re:nG",
+    "music": "Re:nG",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 239,
+    "bpm": 110,
+    "date": "20131220",
+    "song_name": "トリコロール・エア・ライン",
+    "song_name_reading": "とりころーるえあらいん",
+    "arranger": "あつぞうくん",
+    "lyrics": "あつぞうくん",
+    "music": "あつぞうくん",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 240,
+    "bpm": 136,
+    "date": "20131220",
+    "song_name": "システマティック・ラヴ",
+    "song_name_reading": "しすてまてぃっくらぶ",
+    "arranger": "かめりあ",
+    "lyrics": "さつき が てんこもり",
+    "music": "かめりあ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 241,
+    "bpm": 141,
+    "date": "20150212",
+    "song_name": "エレクトロサチュレイタ",
+    "song_name_reading": "えれくとろさちゅれいた",
+    "arranger": "tilt-six",
+    "lyrics": "tilt-six",
+    "music": "tilt-six",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 242,
+    "bpm": 125,
+    "date": "20140807",
+    "song_name": "1/6 -out of the gravity-",
+    "song_name_reading": "ろくぶんのいち",
+    "arranger": "ぼーかりおどP(noa)",
+    "lyrics": "ぼーかりおどP(noa)",
+    "music": "ぼーかりおどP(noa)",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 243,
+    "bpm": 125,
+    "date": "20150716",
+    "song_name": "インタビュア",
+    "song_name_reading": "いんたびゅあ",
+    "arranger": "クワガタP",
+    "lyrics": "クワガタP",
+    "music": "クワガタP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 244,
+    "bpm": 127,
+    "date": "20150108",
+    "song_name": "スノーマン",
+    "song_name_reading": "すのーまん",
+    "arranger": "halyosy",
+    "lyrics": "halyosy",
+    "music": "halyosy",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_01_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 246,
+    "bpm": 170,
+    "date": "20150408",
+    "song_name": "テレカクシ思春期",
+    "song_name_reading": "てれかくしししゅんき",
+    "arranger": "HoneyWorks",
+    "lyrics": "HoneyWorks",
+    "music": "HoneyWorks",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 247,
+    "bpm": 123,
+    "date": "20160808",
+    "song_name": "スイートマジック",
+    "song_name_reading": "すいーとまじっく",
+    "arranger": "Junky",
+    "lyrics": "Junky",
+    "music": "Junky",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_01_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 248,
+    "bpm": 150,
+    "date": "20150807",
+    "song_name": "ありふれたせかいせいふく",
+    "song_name_reading": "ありふれたせかいせいふく",
+    "arranger": "ピノキオピー",
+    "lyrics": "ピノキオピー",
+    "music": "ピノキオピー",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_01_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 249,
+    "bpm": 175,
+    "date": "20161209",
+    "song_name": "アゲアゲアゲイン",
+    "song_name_reading": "あげあげあげいん",
+    "arranger": "Mitchie M",
+    "lyrics": "Mitchie M",
+    "music": "Mitchie M",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 250,
+    "bpm": 175,
+    "date": "20161209",
+    "song_name": "はじめまして地球人さん",
+    "song_name_reading": "はじめましてちきゅうじんさん",
+    "arranger": "ピノキオピー",
+    "lyrics": "ピノキオピー",
+    "music": "ピノキオピー",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 251,
+    "bpm": 130,
+    "date": "20150924",
+    "song_name": "PIANO*GIRL",
+    "song_name_reading": "ぴあのがーる",
+    "arranger": "OSTER project",
+    "lyrics": "OSTER project",
+    "music": "OSTER project",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 253,
+    "bpm": 138,
+    "date": "20160808",
+    "song_name": "LOL -lots of laugh-",
+    "song_name_reading": "えるおーえる",
+    "arranger": "KeN",
+    "lyrics": "エンドケイプ",
+    "music": "KeN",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 255,
+    "bpm": 130,
+    "date": "20150617",
+    "song_name": "骸骨楽団とリリア",
+    "song_name_reading": "がいこつがくだんとりりあ",
+    "arranger": "トーマ",
+    "lyrics": "トーマ",
+    "music": "トーマ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 257,
+    "bpm": 130,
+    "date": "20161209",
+    "song_name": "shake it！",
+    "song_name_reading": "しぇいくいっと",
+    "arranger": "emon",
+    "lyrics": "emon",
+    "music": "emon",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 259,
+    "bpm": 148,
+    "date": "20161209",
+    "song_name": "サンドリヨン",
+    "song_name_reading": "さんどりよん",
+    "arranger": "Dios/シグナルP",
+    "lyrics": "orange",
+    "music": "Dios/シグナルP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_01_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 260,
+    "bpm": 148,
+    "date": "20161209",
+    "song_name": "アドレサンス",
+    "song_name_reading": "あどれさんす",
+    "arranger": "Dios/シグナルP",
+    "lyrics": "orange",
+    "music": "Dios/シグナルP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_01_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 261,
+    "bpm": 220,
+    "date": "20161209",
+    "song_name": "君の体温",
+    "song_name_reading": "きみのたいおん",
+    "arranger": "クワガタP",
+    "lyrics": "クワガタP",
+    "music": "クワガタP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 262,
+    "bpm": 135,
+    "date": "20161014",
+    "song_name": "ピアノ×フォルテ×スキャンダル",
+    "song_name_reading": "ぴあのふぉるてすきゃんだる",
+    "arranger": "OSTER project",
+    "lyrics": "OSTER project",
+    "music": "OSTER project",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 265,
+    "bpm": 140,
+    "date": "20161014",
+    "song_name": "ヒビカセ",
+    "song_name_reading": "ひびかせ",
+    "arranger": "ギガ",
+    "lyrics": "れをる",
+    "music": "ギガ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 401,
+    "bpm": 300,
+    "date": "20140905",
+    "is_old_pv": 1,
+    "song_name": "片想いサンバ",
+    "song_name_reading": "かたおもいさんば",
+    "arranger": "オワタP",
+    "lyrics": "オワタP",
+    "music": "オワタP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 402,
+    "bpm": 155,
+    "date": "20160212",
+    "is_old_pv": 1,
+    "song_name": "サヨナラ・グッバイ",
+    "song_name_reading": "さよならぐっばい",
+    "arranger": "のぼる↑",
+    "lyrics": "のぼる↑",
+    "music": "のぼる↑",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 403,
+    "bpm": 170,
+    "date": "20141003",
+    "is_old_pv": 1,
+    "song_name": "崩壊歌姫 -disruptive diva-",
+    "song_name_reading": "ほうかいうたひめ",
+    "arranger": "マチゲリータ",
+    "lyrics": "マチゲリータ",
+    "music": "マチゲリータ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 404,
+    "bpm": 138,
+    "date": "20141113",
+    "is_old_pv": 1,
+    "song_name": "ZIGG-ZAGG",
+    "song_name_reading": "じぐざぐ",
+    "arranger": "Junky",
+    "lyrics": "Junky",
+    "music": "Junky",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 405,
+    "bpm": 175,
+    "date": "20160108",
+    "is_old_pv": 1,
+    "song_name": "ナイトメア☆パーティーナイト",
+    "song_name_reading": "ないとめあぱーてぃーないと",
+    "arranger": "くちばし",
+    "lyrics": "くちばし",
+    "music": "くちばし",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 407,
+    "bpm": 125,
+    "date": "20151022",
+    "is_old_pv": 1,
+    "song_name": "恋ノート////",
+    "song_name_reading": "こいのーと",
+    "arranger": "ジェバンニP+ハットリP",
+    "lyrics": "Mr.DDR",
+    "music": "ジェバンニP+ハットリP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 408,
+    "bpm": 155,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "SYMPHONIC DIVE - DIVA edit -",
+    "song_name_reading": "しんふぉにっくだいぶ",
+    "arranger": "Re:nG",
+    "lyrics": "Re:nG",
+    "music": "Re:nG",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 409,
+    "bpm": 180,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "どうしてこうなった",
+    "song_name_reading": "どうしてこうなった",
+    "arranger": "うどんゲルゲ",
+    "lyrics": "うどんゲルゲ",
+    "music": "うどんゲルゲ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 410,
+    "bpm": 165,
+    "date": "20190225",
+    "is_old_pv": 1,
+    "song_name": "オオカミガール",
+    "song_name_reading": "おおかみがーる",
+    "arranger": "くらP",
+    "lyrics": "くらP",
+    "music": "くらP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 411,
+    "bpm": 146,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "Starlite★Lydian",
+    "song_name_reading": "すたーらいとりでぃあん",
+    "arranger": "Masaki",
+    "lyrics": "Masaki",
+    "music": "Masaki",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 412,
+    "bpm": 150,
+    "date": "20180831",
+    "is_old_pv": 1,
+    "song_name": "ペリコ・スペースシッパー",
+    "song_name_reading": "ぺりこすぺーすしっぱー",
+    "arranger": "ワンカップP",
+    "lyrics": "ワンカップP",
+    "music": "ワンカップP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 413,
+    "bpm": 250,
+    "date": "20160617",
+    "is_old_pv": 1,
+    "song_name": "マスターオブパペッツ",
+    "song_name_reading": "ますたーおぶぱぺっつ",
+    "arranger": "デスおはぎ",
+    "lyrics": "デスおはぎ",
+    "music": "デスおはぎ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 414,
+    "bpm": 300,
+    "date": "20150108",
+    "is_old_pv": 1,
+    "song_name": "Pane dhiria",
+    "song_name_reading": "ぱねでぃりあ",
+    "arranger": "新城P",
+    "lyrics": "新城P",
+    "music": "新城P",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 415,
+    "bpm": 234,
+    "date": "20150610",
+    "is_old_pv": 1,
+    "song_name": "ほしをつくるひと",
+    "song_name_reading": "ほしをつくるひと",
+    "arranger": "MazoP",
+    "lyrics": "MazoP",
+    "music": "MazoP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 416,
+    "bpm": 276,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "So much loving you★ -DIVA Edit-",
+    "song_name_reading": "そーまっちらびんゆー",
+    "arranger": "古墳P",
+    "lyrics": "longan",
+    "music": "古墳P",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 417,
+    "bpm": 200,
+    "date": "20171013",
+    "is_old_pv": 1,
+    "song_name": "ジュゲムシーケンサー",
+    "song_name_reading": "じゅげむしーけんさー",
+    "arranger": "ぼーかりおどP（noa）",
+    "lyrics": "ぼーかりおどP（noa）",
+    "music": "ぼーかりおどP（noa）",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_10_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 418,
+    "bpm": 220,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "さあ、どっち？",
+    "song_name_reading": "さあどっち",
+    "arranger": "ひなた春花",
+    "lyrics": "ひなた春花",
+    "music": "ひなた春花",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 419,
+    "bpm": 150,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "イヤイヤ星人",
+    "song_name_reading": "いやいやせいじん",
+    "arranger": "イヤイヤP",
+    "lyrics": "イヤイヤP",
+    "music": "イヤイヤP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 420,
+    "bpm": 140,
+    "date": "20101125",
+    "is_old_pv": 1,
+    "song_name": "Equation+**",
+    "song_name_reading": "いくえいしょん",
+    "arranger": "ぽわぽわP",
+    "lyrics": "ぽわぽわP",
+    "music": "ぽわぽわP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 421,
+    "bpm": 160,
+    "date": "20150610",
+    "is_old_pv": 1,
+    "song_name": "嘘つきベティ",
+    "song_name_reading": "うそつきべてぃ",
+    "arranger": "PolyphonicBranch",
+    "lyrics": "花うさぎ",
+    "music": "PolyphonicBranch",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 422,
+    "bpm": 183,
+    "date": "20150408",
+    "is_old_pv": 1,
+    "song_name": "数多の舞 -Dance of many-",
+    "song_name_reading": "あまたのまい",
+    "arranger": "koushirou（卑屈P）",
+    "lyrics": "koushirou（卑屈P）",
+    "music": "koushirou（卑屈P）",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 423,
+    "bpm": 183,
+    "date": "20160408",
+    "is_old_pv": 1,
+    "song_name": "迷子ライフ",
+    "song_name_reading": "まいごらいふ",
+    "arranger": "TOKOTOKO（西沢さんP）",
+    "lyrics": "TOKOTOKO（西沢さんP）",
+    "music": "TOKOTOKO（西沢さんP）",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 424,
+    "bpm": 183,
+    "date": "20150312",
+    "is_old_pv": 1,
+    "song_name": "ハイスクール Days - DIVA EDIT",
+    "song_name_reading": "はいすくーるでいず",
+    "arranger": "U-ji（霊長類P）",
+    "lyrics": "U-SUKE",
+    "music": "U-ji（霊長類P）",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 425,
+    "bpm": 183,
+    "date": "20171013",
+    "is_old_pv": 1,
+    "song_name": "そいやっさぁ!!",
+    "song_name_reading": "そいやっさぁ",
+    "arranger": "囚人P",
+    "lyrics": "囚人P",
+    "music": "囚人P",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 426,
+    "bpm": 183,
+    "date": "20111215",
+    "is_old_pv": 1,
+    "song_name": "break;down",
+    "song_name_reading": "ぶれいくだうん",
+    "arranger": "hmtk",
+    "lyrics": "クマー＠Taken",
+    "music": "hmtk",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 427,
+    "bpm": 183,
+    "date": "20171013",
+    "is_old_pv": 1,
+    "song_name": "花舞月詠譚",
+    "song_name_reading": "はなまいつくよみたん",
+    "arranger": "Hoskey",
+    "lyrics": "Yukie Dong",
+    "music": "Hoskey",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 428,
+    "bpm": 194,
+    "date": "20160408",
+    "is_old_pv": 1,
+    "song_name": "フランシスカ",
+    "song_name_reading": "ふらんしすか",
+    "arranger": "ぢゅ＠メラゾーマP",
+    "lyrics": "ぢゅ＠メラゾーマP",
+    "music": "ぢゅ＠メラゾーマP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 429,
+    "bpm": 100,
+    "date": "20150807",
+    "is_old_pv": 1,
+    "song_name": "悠久-Song of Eternity-DIVAMIX-",
+    "song_name_reading": "ゆうきゅう",
+    "arranger": "てぃあら",
+    "lyrics": "てぃあら",
+    "music": "てぃあら",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_01_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 430,
+    "bpm": 170,
+    "date": "20130131",
+    "is_old_pv": 1,
+    "song_name": "slump",
+    "song_name_reading": "すらんぷ",
+    "arranger": "しばいぬ",
+    "lyrics": "綾取り",
+    "music": "しばいぬ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 431,
+    "bpm": 157,
+    "date": "20161209",
+    "is_old_pv": 1,
+    "song_name": "Gothic and Loneliness ～I'm the very DIVA～",
+    "song_name_reading": "ごしっくあんどろんりねす",
+    "arranger": "なるしまたかし",
+    "lyrics": "なるしまたかし",
+    "music": "なるしまたかし",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_10_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 432,
+    "bpm": 175,
+    "date": "20140527",
+    "song_name": "唐傘さんが通る",
+    "song_name_reading": "からかささんがとおる",
+    "arranger": "イヤイヤP",
+    "lyrics": "イヤイヤP",
+    "music": "イヤイヤP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 433,
+    "bpm": 130,
+    "date": "20160212",
+    "song_name": "巴里映画少女",
+    "song_name_reading": "ぱりしねまがーる",
+    "arranger": "apfel note",
+    "lyrics": "apfel note",
+    "music": "apfel note",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 434,
+    "bpm": 175,
+    "date": "20140715",
+    "song_name": "おはヨーデル (Oha-Yo-del!!)",
+    "song_name_reading": "おはよーでる",
+    "arranger": "爆弾ポピー",
+    "lyrics": "爆弾ポピー",
+    "music": "爆弾ポピー",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 435,
+    "bpm": 175,
+    "date": "20180411",
+    "song_name": "デンパラダイム",
+    "song_name_reading": "でんぱらだいむ",
+    "arranger": "lumo",
+    "lyrics": "lumo",
+    "music": "lumo",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_10_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_10_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 436,
+    "bpm": 140,
+    "date": "20120927",
+    "song_name": "月向うまでのトラベル",
+    "song_name_reading": "つきむこうまでのとらべる",
+    "arranger": "vilP",
+    "lyrics": "vilP",
+    "music": "vilP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 437,
+    "bpm": 175,
+    "date": "20120927",
+    "song_name": "ブラックノートに溺れさせて",
+    "song_name_reading": "ぶらっくのーとにおぼれさせて",
+    "arranger": "Shun13",
+    "lyrics": "Shun13",
+    "music": "Shun13",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 438,
+    "bpm": 198,
+    "date": "20160212",
+    "song_name": "ステップフォワード",
+    "song_name_reading": "すてっぷふぉわーど",
+    "arranger": "Chesa",
+    "lyrics": "Ena-Yuzuru",
+    "music": "Chesa",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 439,
+    "bpm": 192,
+    "date": "20141204",
+    "song_name": "キミに",
+    "song_name_reading": "きみに",
+    "arranger": "teaeye",
+    "lyrics": "teaeye",
+    "music": "teaeye",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 440,
+    "bpm": 192,
+    "date": "20141204",
+    "song_name": "ナイト・オブ・ライト",
+    "song_name_reading": "ないとおぶらいと",
+    "arranger": "いーえるP @ TinySymphony",
+    "lyrics": "いーえるP @ TinySymphony",
+    "music": "いーえるP @ TinySymphony",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 441,
+    "bpm": 200,
+    "date": "20190225",
+    "song_name": "Mellow Yellow",
+    "song_name_reading": "めろーいえろー",
+    "arranger": "めりっさP",
+    "lyrics": "哀婉P",
+    "music": "めりっさP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 442,
+    "bpm": 136,
+    "date": "20150212",
+    "song_name": "ぎずも",
+    "song_name_reading": "ぎずも",
+    "arranger": "uguis08",
+    "lyrics": "uguis08",
+    "music": "uguis08",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 443,
+    "bpm": 175,
+    "date": "20140523",
+    "song_name": "偶像無線(Game edit)",
+    "song_name_reading": "ぐうぞうらじおげーむえでぃっと",
+    "arranger": "Daisuke Ohnuma(大福P)",
+    "lyrics": "紫川札喰",
+    "music": "Daisuke Ohnuma(大福P)",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 600,
+    "bpm": 174,
+    "date": "20180411",
+    "song_name": "キャットフード",
+    "song_name_reading": "きゃっとふーど",
+    "arranger": "doriko",
+    "lyrics": "doriko",
+    "music": "doriko",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 601,
+    "bpm": 130,
+    "date": "20140210",
+    "song_name": "モノクロ∞ブルースカイ",
+    "song_name_reading": "ものくろぶるーすかい",
+    "arranger": "のぼる↑",
+    "lyrics": "のぼる↑",
+    "music": "のぼる↑",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 602,
+    "bpm": 153,
+    "date": "20180831",
+    "song_name": "Fire◎Flower",
+    "song_name_reading": "ふぁいやーふらわー",
+    "arranger": "halyosy & is",
+    "lyrics": "halyosy",
+    "music": "halyosy",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 603,
+    "bpm": 158,
+    "date": "20101125",
+    "song_name": "DYE",
+    "song_name_reading": "だい",
+    "arranger": "AVTechNO!",
+    "lyrics": "AVTechNO!",
+    "music": "AVTechNO!",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 604,
+    "bpm": 135,
+    "date": "20161209",
+    "song_name": "トリノコシティ",
+    "song_name_reading": "とりのこしてぃ",
+    "arranger": "40mP",
+    "lyrics": "40mP",
+    "music": "40mP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 605,
+    "bpm": 192,
+    "date": "20180411",
+    "song_name": "え？あぁ、そう。",
+    "song_name_reading": "え　あぁ　そう",
+    "arranger": "papiyon",
+    "lyrics": "papiyon",
+    "music": "papiyon",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 607,
+    "bpm": 200,
+    "date": "20101125",
+    "song_name": "秘密警察",
+    "song_name_reading": "ひみつけいさつ",
+    "arranger": "ぶりる",
+    "lyrics": "ぶりる",
+    "music": "ぶりる",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 608,
+    "bpm": 175,
+    "date": "20140527",
+    "song_name": "どういうことなの！？",
+    "song_name_reading": "どういうことなの",
+    "arranger": "くちばしP",
+    "lyrics": "くちばしP",
+    "music": "くちばしP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 609,
+    "bpm": 163,
+    "date": "20150513",
+    "song_name": "神曲",
+    "song_name_reading": "かみきょく",
+    "arranger": "ピノキオピー",
+    "lyrics": "おにゅうP",
+    "music": "おにゅうP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 610,
+    "bpm": 142,
+    "date": "20140527",
+    "song_name": "Nyanyanyanyanyanyanya!",
+    "song_name_reading": "にゃにゃにゃにゃにゃにゃにゃ",
+    "arranger": "daniwell",
+    "lyrics": "daniwell",
+    "music": "daniwell",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 611,
+    "bpm": 114,
+    "date": "20101125",
+    "song_name": "ACUTE",
+    "song_name_reading": "あきゅーと",
+    "arranger": "黒うさ",
+    "lyrics": "黒うさ",
+    "music": "黒うさ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 612,
+    "bpm": 126,
+    "date": "20140807",
+    "song_name": "タイムマシン",
+    "song_name_reading": "たいむましん",
+    "arranger": "1640mP",
+    "lyrics": "164",
+    "music": "40mP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_01_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 613,
+    "bpm": 130,
+    "date": "20180831",
+    "song_name": "ハイハハイニ",
+    "song_name_reading": "はいははいに",
+    "arranger": "テンネン",
+    "lyrics": "niboshi",
+    "music": "テンネン",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_01_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 614,
+    "bpm": 120,
+    "date": "20140527",
+    "song_name": "MEGANE",
+    "song_name_reading": "めがね",
+    "arranger": "Ultra-Noob",
+    "lyrics": "Ultra-Noob",
+    "music": "Ultra-Noob",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 615,
+    "bpm": 140,
+    "date": "20180411",
+    "song_name": "メランコリック",
+    "song_name_reading": "めらんこりっく",
+    "arranger": "Junky",
+    "lyrics": "Junky",
+    "music": "Junky",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 616,
+    "bpm": 205,
+    "date": "20180411",
+    "song_name": "アンハッピーリフレイン",
+    "song_name_reading": "あんはっぴーりふれいん",
+    "arranger": "wowaka",
+    "lyrics": "wowaka",
+    "music": "wowaka",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 617,
+    "bpm": 175,
+    "date": "20180411",
+    "song_name": "ネトゲ廃人シュプレヒコール",
+    "song_name_reading": "ねとげはいじんしゅぷれひこーる",
+    "arranger": "さつき が てんこもり",
+    "lyrics": "さつき が てんこもり",
+    "music": "さつき が てんこもり",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 618,
+    "bpm": 166,
+    "date": "20140715",
+    "song_name": "鏡音八八花合戦",
+    "song_name_reading": "かがみねはちはちはなのかっせん",
+    "arranger": "モジャP",
+    "lyrics": "にれぎる",
+    "music": "モジャP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 619,
+    "bpm": 232,
+    "date": "20101125",
+    "song_name": "天樂",
+    "song_name_reading": "てんがく",
+    "arranger": "ゆうゆ",
+    "lyrics": "ゆうゆ",
+    "music": "ゆうゆ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 620,
+    "bpm": 165,
+    "date": "20101125",
+    "song_name": "リモコン",
+    "song_name_reading": "りもこん",
+    "arranger": "じーざす",
+    "lyrics": "じーざす",
+    "music": "じーざす",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 621,
+    "bpm": 140,
+    "date": "20101125",
+    "song_name": "Nostalogic",
+    "song_name_reading": "のすたろじっく",
+    "arranger": "yuukiss",
+    "lyrics": "yuukiss / rose",
+    "music": "yuukiss",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 622,
+    "bpm": 126,
+    "date": "20131220",
+    "song_name": "Stay with me",
+    "song_name_reading": "すていうぃずみー",
+    "arranger": "shu-t",
+    "lyrics": "shu-t",
+    "music": "shu-t",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 623,
+    "bpm": 165,
+    "date": "20150513",
+    "song_name": "Sadistic.Music∞Factory",
+    "song_name_reading": "さでぃすてぃっくみゅーじっくふぁくとりー",
+    "arranger": "cosMo＠暴走P",
+    "lyrics": "cosMo＠暴走P",
+    "music": "cosMo＠暴走P",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_10_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 624,
+    "bpm": 180,
+    "date": "20140715",
+    "song_name": "サマーアイドル",
+    "song_name_reading": "さまーあいどる",
+    "arranger": "OSTER project",
+    "lyrics": "OSTER project",
+    "music": "OSTER project",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 625,
+    "bpm": 192,
+    "date": "20180411",
+    "song_name": "ODDS&ENDS",
+    "song_name_reading": "おっずあんどえんず",
+    "arranger": "ryo",
+    "lyrics": "ryo",
+    "music": "ryo",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_09_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 626,
+    "bpm": 132,
+    "date": "20101125",
+    "song_name": "Weekender Girl",
+    "song_name_reading": "うぃーくえんだーがーる",
+    "arranger": "kz",
+    "lyrics": "kz",
+    "music": "八王子P",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 627,
+    "bpm": 180,
+    "date": "20150312",
+    "song_name": "WORLD'S END UMBRELLA",
+    "song_name_reading": "わーるずえんどあんぶれら",
+    "arranger": "ハチ",
+    "lyrics": "ハチ",
+    "music": "ハチ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 628,
+    "bpm": 129,
+    "date": "20101125",
+    "song_name": "FREELY TOMORROW",
+    "song_name_reading": "ふりーりーとぅもろう",
+    "arranger": "Mitchie M",
+    "lyrics": "Mitchie M/ЯIRE",
+    "music": "Mitchie M",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 629,
+    "bpm": 220,
+    "date": "20140210",
+    "song_name": "ネガポジ＊コンティニューズ",
+    "song_name_reading": "ねがぽじこんてぃにゅーず",
+    "arranger": "sasakure.UK",
+    "lyrics": "sasakure.UK",
+    "music": "sasakure.UK",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_10_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 630,
+    "bpm": 165,
+    "date": "20140918",
+    "song_name": "ブラック★ロックシューター",
+    "song_name_reading": "ぶらっくろっくしゅーたー",
+    "arranger": "ryo",
+    "lyrics": "ryo",
+    "music": "ryo",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 631,
+    "bpm": 160,
+    "date": "20150108",
+    "song_name": "夢の続き",
+    "song_name_reading": "ゆめのつづき",
+    "arranger": "Dixie Flatline",
+    "lyrics": "Dixie Flatline",
+    "music": "Dixie Flatline",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 637,
+    "bpm": 154,
+    "date": "20150312",
+    "song_name": "千本桜 -F edition-",
+    "song_name_reading": "せんぼんざくらえふえでぃしょん",
+    "arranger": "黒うさ",
+    "lyrics": "黒うさ",
+    "music": "黒うさ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 638,
+    "bpm": 150,
+    "date": "20180831",
+    "song_name": "Tell Your World",
+    "song_name_reading": "てるゆあわーるど",
+    "arranger": "kz",
+    "lyrics": "kz",
+    "music": "kz",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_01_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 639,
+    "bpm": 204,
+    "date": "20180411",
+    "song_name": "東京テディベア",
+    "song_name_reading": "とうきょうてでぃべあ",
+    "arranger": "Neru",
+    "lyrics": "Neru",
+    "music": "Neru",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 640,
+    "bpm": 197,
+    "date": "20141204",
+    "song_name": "夢喰い白黒バク",
+    "song_name_reading": "ゆめくいしろくろばく",
+    "arranger": "Nem",
+    "lyrics": "Nem",
+    "music": "Nem",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 641,
+    "bpm": 200,
+    "date": "20141204",
+    "song_name": "リンちゃんなう！",
+    "song_name_reading": "りんちゃんなう",
+    "arranger": "オワタP",
+    "lyrics": "sezu",
+    "music": "オワタP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 642,
+    "bpm": 132,
+    "date": "20140918",
+    "song_name": "Sweet Devil",
+    "song_name_reading": "すうぃーとでびる",
+    "arranger": "八王子P",
+    "lyrics": "q*Left",
+    "music": "八王子P",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 710,
+    "bpm": 76,
+    "date": "20161209",
+    "song_name": "桜ノ雨",
+    "song_name_reading": "さくらのあめ",
+    "arranger": "halyosy",
+    "lyrics": "halyosy",
+    "music": "halyosy",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 722,
+    "bpm": 140,
+    "date": "20161209",
+    "song_name": "メテオ",
+    "song_name_reading": "めてお",
+    "arranger": "じょん",
+    "lyrics": "じょん",
+    "music": "じょん",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_01_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 723,
+    "bpm": 180,
+    "date": "20161209",
+    "song_name": "二次元ドリームフィーバー",
+    "song_name_reading": "にじげんどりーむふぃーばー",
+    "arranger": "PolyphonicBranch",
+    "lyrics": "PolyphonicBranch",
+    "music": "PolyphonicBranch",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_10_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 724,
+    "bpm": 160,
+    "date": "20160808",
+    "song_name": "エンヴィキャットウォーク",
+    "song_name_reading": "えんヴぃきゃっとうぉーく",
+    "arranger": "トーマ",
+    "lyrics": "トーマ",
+    "music": "トーマ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 725,
+    "bpm": 195,
+    "date": "20161209",
+    "song_name": "指切り",
+    "song_name_reading": "ゆびきり",
+    "arranger": "すこっぷ",
+    "lyrics": "すこっぷ",
+    "music": "すこっぷ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_01_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 726,
+    "bpm": 204,
+    "date": "20161209",
+    "song_name": "からくりピエロ",
+    "song_name_reading": "からくりぴえろ",
+    "arranger": "40mP",
+    "lyrics": "40mP",
+    "music": "40mP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 727,
+    "bpm": 120,
+    "date": "20171013",
+    "song_name": "スキキライ",
+    "song_name_reading": "すききらい",
+    "arranger": "HoneyWorks",
+    "lyrics": "Gom",
+    "music": "Gom",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 728,
+    "bpm": 138,
+    "date": "20151203",
+    "song_name": "erase or zero",
+    "song_name_reading": "いれーすおあぜろ",
+    "arranger": "クリスタルP",
+    "lyrics": "クリスタルP",
+    "music": "クリスタルP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 729,
+    "bpm": 128,
+    "date": "20160616",
+    "song_name": "こちら、幸福安心委員会です。",
+    "song_name_reading": "こちらこうふくあんしんいいんかいです",
+    "arranger": "うたたP",
+    "lyrics": "鳥居羊",
+    "music": "うたたP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 730,
+    "bpm": 168,
+    "date": "20180831",
+    "song_name": "Hello, Worker",
+    "song_name_reading": "はろーわーかー",
+    "arranger": "ハヤシケイ",
+    "lyrics": "ハヤシケイ",
+    "music": "ハヤシケイ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme_extra": {
+        "edition": 1,
+        "level": "PV_LV_08_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 731,
+    "bpm": 110,
+    "date": "20151203",
+    "song_name": "Knife",
+    "song_name_reading": "ないふ",
+    "arranger": "れるりり",
+    "lyrics": "れるりり／マル",
+    "music": "れるりり",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_01_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 732,
+    "bpm": 135,
+    "date": "20160808",
+    "song_name": "アカツキアライヴァル",
+    "song_name_reading": "あかつきあらいヴぁる",
+    "arranger": "Last Note．",
+    "lyrics": "Last Note．",
+    "music": "Last Note．",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 733,
+    "bpm": 178,
+    "date": "20161209",
+    "song_name": "なりすましゲンガー",
+    "song_name_reading": "なりすましげんがー",
+    "arranger": "KulfiQ",
+    "lyrics": "KulfiQ",
+    "music": "KulfiQ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 734,
+    "bpm": 116,
+    "date": "20161209",
+    "song_name": "壊セ壊セ",
+    "song_name_reading": "こわせこわせ",
+    "arranger": "E.L.V.N",
+    "lyrics": "E.L.V.N",
+    "music": "E.L.V.N",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 736,
+    "bpm": 180,
+    "date": "20160808",
+    "song_name": "二息歩行",
+    "song_name_reading": "にそくほこう",
+    "arranger": "DECO*27",
+    "lyrics": "DECO*27",
+    "music": "DECO*27",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 737,
+    "bpm": 82,
+    "date": "20161209",
+    "song_name": "soundless voice",
+    "song_name_reading": "さうんどれすヴぉいす",
+    "arranger": "やま△",
+    "lyrics": "ひとしずくP",
+    "music": "ひとしずくP",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 738,
+    "bpm": 228,
+    "date": "20160108",
+    "song_name": "Blackjack",
+    "song_name_reading": "ぶらっくじゃっく",
+    "arranger": "ゆちゃＰ",
+    "lyrics": "ゆちゃＰ",
+    "music": "ゆちゃＰ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "easy": {},
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 739,
+    "bpm": 143,
+    "date": "20161209",
+    "song_name": "DECORATOR",
+    "song_name_reading": "でこれーたー",
+    "arranger": "kz",
+    "lyrics": "kz",
+    "music": "kz",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 740,
+    "bpm": 140,
+    "date": "20160808",
+    "song_name": "Glory 3usi9",
+    "song_name_reading": "ぐろーりーみゅーじっく",
+    "arranger": "ナノウ",
+    "lyrics": "ナノウ",
+    "music": "ナノウ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 832,
+    "bpm": 127,
+    "date": "20161209",
+    "song_name": "Hand in Hand",
+    "song_name_reading": "はんどいんはんど",
+    "arranger": "kz",
+    "lyrics": "kz",
+    "music": "kz",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_01_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 999,
+    "bpm": 100,
+    "date": "20120927",
+    "song_name": "ダミー",
+    "song_name_reading": "だみー",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_01_0",
+        "version": 0
+      },
+      "hard": {},
+      "easy": {}
+    }
+  },
+  {
+    "pvId": 254,
+    "bpm": 190,
+    "date": "20161209",
+    "song_name": "アマツキツネ",
+    "song_name_reading": "あまつきつね",
+    "arranger": "まらしぃ",
+    "lyrics": "まらしぃ",
+    "music": "まらしぃ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 263,
+    "bpm": 145,
+    "date": "20161209",
+    "song_name": "1925",
+    "song_name_reading": "いちきゅうにいご",
+    "arranger": "Ｔ-ＰＯＣＫＥＴ",
+    "lyrics": "Ｔ-ＰＯＣＫＥＴ",
+    "music": "Ｔ-ＰＯＣＫＥＴ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_04_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_06_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_02_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_08_5",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 266,
+    "bpm": 210,
+    "date": "20170301",
+    "song_name": "ゴーストルール",
+    "song_name_reading": "ごーすとるーる",
+    "arranger": "Naoki Itai (MUSIC FOR MUSIC)",
+    "lyrics": "DECO*27",
+    "music": "DECO*27",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_5",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_5",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  },
+  {
+    "pvId": 267,
+    "bpm": 190,
+    "date": "20161014",
+    "song_name": "砂の惑星 feat.初音ミク",
+    "song_name_reading": "すなのわくせい",
+    "arranger": "ハチ",
+    "lyrics": "ハチ",
+    "music": "ハチ",
+    "difficulty": {
+      "normal": {
+        "edition": 0,
+        "level": "PV_LV_05_5",
+        "version": 1
+      },
+      "hard": {
+        "edition": 0,
+        "level": "PV_LV_07_0",
+        "version": 1
+      },
+      "easy": {
+        "edition": 0,
+        "level": "PV_LV_03_0",
+        "version": 1
+      },
+      "extreme": {
+        "edition": 0,
+        "level": "PV_LV_09_0",
+        "version": 1
+      }
+    }
+  }
+]

@@ -1,0 +1,32 @@
+package icu.samnyan.aqua.sega.chunithm.model.gamedata;
+
+/**
+ * @author samnyan (privateamusement@protonmail.com)
+ */
+public enum Genre {
+    POPS_ANIME("POPS & ANIME"),
+    RESERVE("Reserve"),
+    NICONICO("niconico"),
+    TOUHOU("東方Project"),
+    RESERVE2("Reserve2"),
+    ORIGINAL("Original"),
+    VARIETY("Variety"),
+    IRODORI("イロドリミドリ"),
+    KOTONOHA("言ノ葉Project");
+
+
+    private String displayName;
+
+    Genre(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String displayName() {
+        return displayName;
+    }
+
+    @Override
+    public String toString() {
+        return displayName;
+    }
+}
