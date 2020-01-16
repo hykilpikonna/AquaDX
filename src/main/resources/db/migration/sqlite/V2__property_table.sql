@@ -8,3 +8,8 @@ CREATE TABLE property
                  id
         )
 );
+
+INSERT INTO `property` (id, property_key, property_value)
+VALUES (1, 'diva_news', 'Server Running                  No other news');
+INSERT INTO `property` (id, property_key, property_value)
+VALUES (2, 'diva_warning', 'Network Service Running');
