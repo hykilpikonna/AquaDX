@@ -10,7 +10,10 @@ Requirements:
 * Java 11 or above
 * MySQL (Optional)
 
-Just run `java -jar aqua.jar`
+Edit `application.properties` , change the `allnet.server.host` to your IP address or hostname.
+DIVA won't work with localhost and 127.0.0.1
+
+Then run `java -jar aqua.jar`
 
 or use the `start.bat` if you are using windows.
 

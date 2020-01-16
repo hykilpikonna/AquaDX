@@ -5,6 +5,7 @@ import icu.samnyan.aqua.sega.allnet.model.response.PowerOnResponse;
 import icu.samnyan.aqua.sega.allnet.util.Decoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +23,15 @@ public class AllNetController {
 
     private static final Logger logger = LoggerFactory.getLogger(AllNetController.class);
 
+    private final String HOST;
+    private final String PORT;
+
+    public AllNetController(@Value("${allnet.server.host}") String HOST,
+                            @Value("${allnet.server.port}") String PORT) {
+        this.HOST = HOST;
+        this.PORT = PORT;
+    }
+
     @PostMapping(value = "/sys/servlet/PowerOn", produces = "text/plain")
     String powerOn(InputStream dataStream) throws DataFormatException, IOException {
 
@@ -29,6 +39,7 @@ public class AllNetController {
         Map<String, String> reqMap = Decoder.decode(bytes);
 
         logger.info("Request: PowerOn, " + new ObjectMapper().writeValueAsString(reqMap));
+        // TODO: Verify KeyChip id
 
         String gameId = reqMap.getOrDefault("game_id", "");
         PowerOnResponse resp = new PowerOnResponse(
@@ -58,21 +69,22 @@ public class AllNetController {
     private String switchUri(String gameId) {
         switch (gameId) {
             case "SDBT":
-                return "http://192.168.123.208:80/";
+                return "http://" + HOST + ":" + PORT + "/";
             case "SBZV":
-                return "http://192.168.123.208:80/diva/";
+                return "http://" + HOST + ":" + PORT + "/diva/";
             default:
-                return "";
+                return "http://" + HOST + ":" + PORT + "/";
         }
     }
 
     private String switchHost(String gameId) {
         switch (gameId) {
             case "SDDF":
-                return "http://127.0.0.1:?/";
+                return "http://" + HOST + ":" + PORT + "/";
             default:
-                return "";
+                return "http://" + HOST + ":" + PORT + "/";
         }
     }
 
 }
+
