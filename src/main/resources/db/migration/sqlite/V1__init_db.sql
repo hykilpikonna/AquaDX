@@ -1,3 +1,889 @@
+--
+-- File generated with SQLiteStudio v3.2.1 on 木 1 16 23:33:40 2020
+--
+-- Text encoding used: UTF-8
+--
+
+-- Table: chuni_game_charge
+CREATE TABLE chuni_game_charge
+(
+    id              INTEGER,
+    charge_id       INTEGER UNIQUE,
+    end_date        DATETIME,
+    order_id        INTEGER NOT NULL,
+    price           INTEGER NOT NULL,
+    sale_end_date   DATETIME,
+    sale_price      INTEGER NOT NULL,
+    sale_start_date DATETIME,
+    start_date      DATETIME,
+    PRIMARY KEY (
+                 id
+        )
+);
+
+
+-- Table: chuni_game_event
+CREATE TABLE chuni_game_event
+(
+    id         INTEGER NOT NULL,
+    end_date   DATETIME,
+    start_date DATETIME,
+    type       INTEGER NOT NULL,
+    PRIMARY KEY (
+                 id
+        )
+);
+
+
+-- Table: chuni_game_message
+CREATE TABLE chuni_game_message
+(
+    id         INTEGER NOT NULL,
+    end_date   DATETIME,
+    message    VARCHAR(255),
+    start_date DATETIME,
+    type       INTEGER NOT NULL,
+    PRIMARY KEY (
+                 id
+        )
+);
+
+
+-- Table: chuni_music
+CREATE TABLE chuni_music
+(
+    music_id        INTEGER NOT NULL,
+    artist_name     VARCHAR(255),
+    copyright       VARCHAR(255),
+    genre           INTEGER,
+    name            VARCHAR(255),
+    release_version VARCHAR(255),
+    sort_name       VARCHAR(255),
+    PRIMARY KEY (
+                 music_id
+        )
+);
+
+
+-- Table: chuni_music_level
+CREATE TABLE chuni_music_level
+(
+    id            INTEGER,
+    diff          INTEGER NOT NULL,
+    enable        BOOLEAN NOT NULL,
+    level         INTEGER NOT NULL,
+    level_decimal INTEGER NOT NULL,
+    music_id      INTEGER,
+    PRIMARY KEY (
+                 id
+        )
+);
+
+
+-- Table: chuni_user_activity
+CREATE TABLE chuni_user_activity
+(
+    id          INTEGER,
+    activity_id INTEGER,
+    kind        INTEGER NOT NULL,
+    param1      INTEGER NOT NULL,
+    param2      INTEGER NOT NULL,
+    param3      INTEGER NOT NULL,
+    param4      INTEGER NOT NULL,
+    sort_number INTEGER NOT NULL,
+    user_id     BIGINT REFERENCES chuni_user_data (id) ON DELETE CASCADE,
+    PRIMARY KEY (
+                 id
+        ),
+    CONSTRAINT chuni_user_activity_uq UNIQUE (
+                                              activity_id,
+                                              kind,
+                                              user_id
+        ) ON CONFLICT REPLACE
+);
+
+
+-- Table: chuni_user_character
+CREATE TABLE chuni_user_character
+(
+    id             INTEGER,
+    character_id   INTEGER NOT NULL,
+    friendship_exp INTEGER NOT NULL,
+    is_new_mark    BOOLEAN NOT NULL,
+    is_valid       BOOLEAN NOT NULL,
+    level          INTEGER NOT NULL,
+    param1         INTEGER NOT NULL,
+    param2         INTEGER NOT NULL,
+    play_count     INTEGER NOT NULL,
+    skill_id       INTEGER NOT NULL,
+    user_id        BIGINT REFERENCES chuni_user_data (id) ON DELETE CASCADE,
+    PRIMARY KEY (
+                 id
+        ),
+    CONSTRAINT chuni_user_character_uq UNIQUE (
+                                               character_id,
+                                               user_id
+        ) ON CONFLICT REPLACE
+);
+
+
+-- Table: chuni_user_charge
+CREATE TABLE chuni_user_charge
+(
+    id            INTEGER,
+    charge_id     INTEGER NOT NULL,
+    param1        INTEGER NOT NULL,
+    param2        INTEGER NOT NULL,
+    param_date    DATETIME,
+    purchase_date DATETIME,
+    stock         INTEGER NOT NULL,
+    valid_date    DATETIME,
+    user_id       BIGINT REFERENCES chuni_user_data (id) ON DELETE CASCADE,
+    PRIMARY KEY (
+                 id
+        ),
+    CONSTRAINT chuni_user_charge_uq UNIQUE (
+                                            charge_id,
+                                            user_id
+        )
+);
+
+
+-- Table: chuni_user_course
+CREATE TABLE chuni_user_course
+(
+    id             INTEGER,
+    class_id       INTEGER NOT NULL,
+    course_id      INTEGER NOT NULL,
+    event_id       INTEGER NOT NULL,
+    is_all_justice BOOLEAN NOT NULL,
+    is_clear       BOOLEAN NOT NULL,
+    is_full_combo  BOOLEAN NOT NULL,
+    is_success     BOOLEAN NOT NULL,
+    last_play_date DATETIME,
+    param1         INTEGER NOT NULL,
+    param2         INTEGER NOT NULL,
+    param3         INTEGER NOT NULL,
+    param4         INTEGER NOT NULL,
+    play_count     INTEGER NOT NULL,
+    player_rating  INTEGER NOT NULL,
+    score_max      INTEGER NOT NULL,
+    score_rank     INTEGER NOT NULL,
+    user_id        BIGINT REFERENCES chuni_user_data (id) ON DELETE CASCADE,
+    PRIMARY KEY (
+                 id
+        ),
+    CONSTRAINT chuni_user_course_uq UNIQUE (
+                                            course_id,
+                                            user_id
+        )
+);
+
+
+-- Table: chuni_user_data
+CREATE TABLE chuni_user_data
+(
+    id                         INTEGER,
+    accept_res_count           INTEGER NOT NULL,
+    character_id               INTEGER NOT NULL,
+    event_watched_date         DATETIME,
+    exp                        VARCHAR(255),
+    first_data_version         VARCHAR(255),
+    first_game_id              VARCHAR(255),
+    first_play_date            DATETIME,
+    first_rom_version          VARCHAR(255),
+    first_tutorial_cancel_num  INTEGER NOT NULL,
+    frame_id                   INTEGER NOT NULL,
+    friend_count               INTEGER NOT NULL,
+    highest_rating             INTEGER NOT NULL,
+    is_maimai                  BOOLEAN NOT NULL,
+    is_web_join                BOOLEAN NOT NULL,
+    last_all_net_id            VARCHAR(255),
+    last_client_id             VARCHAR(255),
+    last_data_version          VARCHAR(255),
+    last_game_id               VARCHAR(255),
+    last_login_date            DATETIME,
+    last_place_id              INTEGER NOT NULL,
+    last_place_name            VARCHAR(255),
+    last_play_date             DATETIME,
+    last_region_id             VARCHAR(255),
+    last_region_name           VARCHAR(255),
+    last_rom_version           VARCHAR(255),
+    level                      INTEGER NOT NULL,
+    master_tutorial_cancel_num INTEGER NOT NULL,
+    multi_play_count           INTEGER NOT NULL,
+    multi_win_count            INTEGER NOT NULL,
+    nameplate_id               INTEGER NOT NULL,
+    play_count                 INTEGER NOT NULL,
+    played_tutorial_bit        INTEGER NOT NULL,
+    player_rating              INTEGER NOT NULL,
+    point                      BIGINT  NOT NULL,
+    reincarnation_num          INTEGER NOT NULL,
+    request_res_count          INTEGER NOT NULL,
+    success_res_count          INTEGER NOT NULL,
+    total_advanced_high_score  BIGINT  NOT NULL,
+    total_basic_high_score     BIGINT  NOT NULL,
+    total_expert_high_score    BIGINT  NOT NULL,
+    total_hi_score             BIGINT  NOT NULL,
+    total_map_num              INTEGER NOT NULL,
+    total_master_high_score    BIGINT  NOT NULL,
+    total_point                BIGINT  NOT NULL,
+    total_repertoire_count     INTEGER NOT NULL,
+    trophy_id                  INTEGER NOT NULL,
+    user_name                  VARCHAR(255),
+    web_limit_date             VARCHAR(255),
+    card_id                    BIGINT REFERENCES sega_card (id) ON DELETE CASCADE,
+    PRIMARY KEY (
+                 id
+        )
+);
+
+
+-- Table: chuni_user_data_ex
+CREATE TABLE chuni_user_data_ex
+(
+    id                    INTEGER,
+    compatible_cm_version VARCHAR(255),
+    ext1                  INTEGER NOT NULL,
+    ext10                 INTEGER NOT NULL,
+    ext11                 INTEGER NOT NULL,
+    ext12                 INTEGER NOT NULL,
+    ext13                 INTEGER NOT NULL,
+    ext14                 INTEGER NOT NULL,
+    ext15                 INTEGER NOT NULL,
+    ext16                 INTEGER NOT NULL,
+    ext17                 INTEGER NOT NULL,
+    ext18                 INTEGER NOT NULL,
+    ext19                 INTEGER NOT NULL,
+    ext2                  INTEGER NOT NULL,
+    ext20                 INTEGER NOT NULL,
+    ext3                  INTEGER NOT NULL,
+    ext4                  INTEGER NOT NULL,
+    ext5                  INTEGER NOT NULL,
+    ext6                  INTEGER NOT NULL,
+    ext7                  INTEGER NOT NULL,
+    ext8                  INTEGER NOT NULL,
+    ext9                  INTEGER NOT NULL,
+    ext_long1             BIGINT  NOT NULL,
+    ext_long2             BIGINT  NOT NULL,
+    ext_long3             BIGINT  NOT NULL,
+    ext_long4             BIGINT  NOT NULL,
+    ext_long5             BIGINT  NOT NULL,
+    ext_str1              VARCHAR(255),
+    ext_str2              VARCHAR(255),
+    ext_str3              VARCHAR(255),
+    ext_str4              VARCHAR(255),
+    ext_str5              VARCHAR(255),
+    map_icon_id           INTEGER NOT NULL,
+    medal                 INTEGER NOT NULL,
+    voice_id              INTEGER NOT NULL,
+    user_id               BIGINT REFERENCES chuni_user_data (id) ON DELETE CASCADE,
+    PRIMARY KEY (
+                 id
+        )
+);
+
+
+-- Table: chuni_user_duel
+CREATE TABLE chuni_user_duel
+(
+    id             INTEGER,
+    duel_id        INTEGER NOT NULL,
+    is_clear       BOOLEAN NOT NULL,
+    last_play_date DATETIME,
+    param1         INTEGER NOT NULL,
+    param2         INTEGER NOT NULL,
+    param3         INTEGER NOT NULL,
+    param4         INTEGER NOT NULL,
+    point          INTEGER NOT NULL,
+    progress       INTEGER NOT NULL,
+    user_id        BIGINT REFERENCES chuni_user_data (id) ON DELETE CASCADE,
+    PRIMARY KEY (
+                 id
+        ),
+    CONSTRAINT chuni_user_duel_uq UNIQUE (
+                                          duel_id,
+                                          user_id
+        )
+);
+
+
+-- Table: chuni_user_game_option
+CREATE TABLE chuni_user_game_option
+(
+    id                 INTEGER,
+    bg_info            INTEGER NOT NULL,
+    field_color        INTEGER NOT NULL,
+    guide_line         INTEGER NOT NULL,
+    guide_sound        INTEGER NOT NULL,
+    headphone          INTEGER NOT NULL,
+    judge_attack       INTEGER NOT NULL,
+    judge_justice      INTEGER NOT NULL,
+    judge_pos          INTEGER NOT NULL,
+    matching           INTEGER NOT NULL,
+    option_set         INTEGER NOT NULL,
+    player_level       INTEGER NOT NULL,
+    privacy            INTEGER NOT NULL,
+    rating             INTEGER NOT NULL,
+    sound_effect       INTEGER NOT NULL,
+    speed              INTEGER NOT NULL,
+    success_air        INTEGER NOT NULL,
+    success_ex_tap     INTEGER NOT NULL,
+    success_flick      INTEGER NOT NULL,
+    success_skill      INTEGER NOT NULL,
+    success_slide_hold INTEGER NOT NULL,
+    success_tap        INTEGER NOT NULL,
+    success_tap_timbre INTEGER NOT NULL,
+    user_id            BIGINT REFERENCES chuni_user_data (id) ON DELETE CASCADE,
+    PRIMARY KEY (
+                 id
+        )
+);
+
+
+-- Table: chuni_user_game_option_ex
+CREATE TABLE chuni_user_game_option_ex
+(
+    id      INTEGER,
+    ext1    INTEGER NOT NULL,
+    ext10   INTEGER NOT NULL,
+    ext11   INTEGER NOT NULL,
+    ext12   INTEGER NOT NULL,
+    ext13   INTEGER NOT NULL,
+    ext14   INTEGER NOT NULL,
+    ext15   INTEGER NOT NULL,
+    ext16   INTEGER NOT NULL,
+    ext17   INTEGER NOT NULL,
+    ext18   INTEGER NOT NULL,
+    ext19   INTEGER NOT NULL,
+    ext2    INTEGER NOT NULL,
+    ext20   INTEGER NOT NULL,
+    ext3    INTEGER NOT NULL,
+    ext4    INTEGER NOT NULL,
+    ext5    INTEGER NOT NULL,
+    ext6    INTEGER NOT NULL,
+    ext7    INTEGER NOT NULL,
+    ext8    INTEGER NOT NULL,
+    ext9    INTEGER NOT NULL,
+    user_id BIGINT REFERENCES chuni_user_data (id),
+    PRIMARY KEY (
+                 id
+        )
+);
+
+
+-- Table: chuni_user_item
+CREATE TABLE chuni_user_item
+(
+    id        INTEGER,
+    is_valid  BOOLEAN NOT NULL,
+    item_id   INTEGER NOT NULL,
+    item_kind INTEGER NOT NULL,
+    stock     INTEGER NOT NULL,
+    user_id   BIGINT REFERENCES chuni_user_data (id) ON DELETE CASCADE,
+    PRIMARY KEY (
+                 id
+        ),
+    CONSTRAINT chuni_user_item_uq UNIQUE (
+                                          item_id,
+                                          item_kind,
+                                          user_id
+        )
+);
+
+
+-- Table: chuni_user_map
+CREATE TABLE chuni_user_map
+(
+    id           INTEGER,
+    area_id      INTEGER NOT NULL,
+    event_id     INTEGER NOT NULL,
+    is_clear     BOOLEAN NOT NULL,
+    is_valid     BOOLEAN NOT NULL,
+    map_id       INTEGER NOT NULL,
+    position     INTEGER NOT NULL,
+    rate         INTEGER NOT NULL,
+    route_number INTEGER NOT NULL,
+    status_count INTEGER NOT NULL,
+    user_id      BIGINT REFERENCES chuni_user_data (id) ON DELETE CASCADE,
+    PRIMARY KEY (
+                 id
+        ),
+    CONSTRAINT chuni_user_map_uq UNIQUE (
+                                         map_id,
+                                         user_id
+        )
+);
+
+
+-- Table: chuni_user_music_detail
+CREATE TABLE chuni_user_music_detail
+(
+    id                INTEGER,
+    full_chain        INTEGER NOT NULL,
+    is_all_justice    BOOLEAN NOT NULL,
+    is_full_combo     BOOLEAN NOT NULL,
+    is_lock           BOOLEAN NOT NULL,
+    is_success        BOOLEAN NOT NULL,
+    level             INTEGER NOT NULL,
+    max_chain         INTEGER NOT NULL,
+    max_combo_count   INTEGER NOT NULL,
+    miss_count        INTEGER NOT NULL,
+    music_id          INTEGER NOT NULL,
+    play_count        INTEGER NOT NULL,
+    res_accept_count  INTEGER NOT NULL,
+    res_request_count INTEGER NOT NULL,
+    res_success_count INTEGER NOT NULL,
+    score_max         INTEGER NOT NULL,
+    score_rank        INTEGER NOT NULL,
+    user_id           BIGINT REFERENCES chuni_user_data (id) ON DELETE CASCADE,
+    PRIMARY KEY (
+                 id
+        ),
+    CONSTRAINT chuni_user_music_detail_uq UNIQUE (
+                                                  music_id,
+                                                  user_id
+        )
+);
+
+
+-- Table: chuni_user_playlog
+CREATE TABLE chuni_user_playlog
+(
+    id                  INTEGER,
+    character_id        INTEGER NOT NULL,
+    custom_id           INTEGER NOT NULL,
+    event_id            INTEGER NOT NULL,
+    full_chain_kind     INTEGER NOT NULL,
+    is_all_justice      BOOLEAN NOT NULL,
+    is_clear            BOOLEAN NOT NULL,
+    is_continue         BOOLEAN NOT NULL,
+    is_free_to_play     BOOLEAN NOT NULL,
+    is_full_combo       BOOLEAN NOT NULL,
+    is_maimai           BOOLEAN NOT NULL,
+    is_new_record       BOOLEAN NOT NULL,
+    judge_attack        INTEGER NOT NULL,
+    judge_critical      INTEGER NOT NULL,
+    judge_guilty        INTEGER NOT NULL,
+    judge_justice       INTEGER NOT NULL,
+    level               INTEGER NOT NULL,
+    max_chain           INTEGER NOT NULL,
+    max_combo           INTEGER NOT NULL,
+    music_id            INTEGER NOT NULL,
+    order_id            INTEGER NOT NULL,
+    place_id            INTEGER NOT NULL,
+    place_name          VARCHAR(255),
+    play_date           DATETIME,
+    play_kind           INTEGER NOT NULL,
+    played_custom1      INTEGER NOT NULL,
+    played_custom2      INTEGER NOT NULL,
+    played_custom3      INTEGER NOT NULL,
+    played_music_level1 INTEGER NOT NULL,
+    played_music_level2 INTEGER NOT NULL,
+    played_music_level3 INTEGER NOT NULL,
+    played_user_id1     INTEGER NOT NULL,
+    played_user_id2     INTEGER NOT NULL,
+    played_user_id3     INTEGER NOT NULL,
+    played_user_name1   VARCHAR(255),
+    played_user_name2   VARCHAR(255),
+    played_user_name3   VARCHAR(255),
+    player_rating       INTEGER NOT NULL,
+    rank                INTEGER NOT NULL,
+    rate_air            INTEGER NOT NULL,
+    rate_flick          INTEGER NOT NULL,
+    rate_hold           INTEGER NOT NULL,
+    rate_slide          INTEGER NOT NULL,
+    rate_tap            INTEGER NOT NULL,
+    score               INTEGER NOT NULL,
+    skill_effect        INTEGER NOT NULL,
+    skill_id            INTEGER NOT NULL,
+    skill_level         INTEGER NOT NULL,
+    sort_number         INTEGER NOT NULL,
+    track               INTEGER NOT NULL,
+    user_play_date      DATETIME,
+    user_id             BIGINT REFERENCES chuni_user_data (id) ON DELETE CASCADE,
+    PRIMARY KEY (
+                 id
+        )
+);
+
+
+-- Table: diva_contest
+CREATE TABLE diva_contest
+(
+    id             INTEGER,
+    bronze_borders INTEGER NOT NULL,
+    description    VARCHAR(255),
+    enable         BOOLEAN NOT NULL,
+    end_time       DATETIME,
+    gold_borders   INTEGER NOT NULL,
+    league         VARCHAR(255),
+    max_complexity INTEGER NOT NULL,
+    min_complexity INTEGER NOT NULL,
+    name           VARCHAR(255),
+    norma_type     VARCHAR(255),
+    sliver_borders INTEGER NOT NULL,
+    stage_limit    VARCHAR(255),
+    stages         INTEGER NOT NULL,
+    stars          INTEGER NOT NULL,
+    start_time     DATETIME,
+    PRIMARY KEY (
+                 id
+        )
+);
+
+
+-- Table: diva_customize
+CREATE TABLE diva_customize
+(
+    id           INTEGER NOT NULL,
+    end_date     DATETIME,
+    name         VARCHAR(255),
+    price        INTEGER NOT NULL,
+    release_date DATETIME,
+    sort_order   INTEGER NOT NULL,
+    PRIMARY KEY (
+                 id
+        )
+);
+
+
+-- Table: diva_festa
+CREATE TABLE diva_festa
+(
+    id            INTEGER,
+    addvp         INTEGER,
+    attributes    VARCHAR(255),
+    create_date   DATETIME,
+    difficulty    VARCHAR(255),
+    enable        BOOLEAN NOT NULL,
+    "end"         DATETIME,
+    kind          VARCHAR(255),
+    name          VARCHAR(255),
+    pv_list       VARCHAR(255),
+    start         DATETIME,
+    vp_multiplier INTEGER,
+    PRIMARY KEY (
+                 id
+        )
+);
+
+
+-- Table: diva_game_session
+CREATE TABLE diva_game_session
+(
+    id               INTEGER,
+    accept_id        INTEGER NOT NULL,
+    last_pv_id       INTEGER,
+    last_update_time DATETIME,
+    level_exp        INTEGER,
+    level_number     INTEGER,
+    old_level_exp    INTEGER,
+    old_level_number INTEGER,
+    stage_index      INTEGER,
+    start_mode       VARCHAR(255),
+    start_time       DATETIME,
+    vp               INTEGER,
+    pd_id            BIGINT UNIQUE
+        REFERENCES diva_player_profile (id) ON DELETE CASCADE,
+    PRIMARY KEY (
+                 id
+        )
+);
+
+
+-- Table: diva_module
+CREATE TABLE diva_module
+(
+    id           INTEGER NOT NULL,
+    end_date     DATETIME,
+    name         VARCHAR(255),
+    price        INTEGER NOT NULL,
+    release_date DATETIME,
+    sort_order   INTEGER NOT NULL,
+    PRIMARY KEY (
+                 id
+        )
+);
+
+
+-- Table: diva_ng_words
+CREATE TABLE diva_ng_words
+(
+    id   INTEGER,
+    word VARCHAR(255),
+    PRIMARY KEY (
+                 id
+        )
+);
+
+
+-- Table: diva_play_log
+CREATE TABLE diva_play_log
+(
+    id                  INTEGER,
+    chain_slide_se      INTEGER NOT NULL,
+    slider_touch_se     INTEGER NOT NULL,
+    attain_point        INTEGER NOT NULL,
+    button_se           INTEGER NOT NULL,
+    button_se_vol       INTEGER NOT NULL,
+    challenge_kind      VARCHAR(255),
+    challenge_result    INTEGER NOT NULL,
+    chance_time         INTEGER NOT NULL,
+    clear_result        VARCHAR(255),
+    cool_count          INTEGER NOT NULL,
+    cool_percent        INTEGER NOT NULL,
+    customize_items     VARCHAR(255),
+    date_time           DATETIME,
+    difficulty          VARCHAR(255),
+    edition             VARCHAR(255),
+    fine_count          INTEGER NOT NULL,
+    fine_percent        INTEGER NOT NULL,
+    hold_score          INTEGER NOT NULL,
+    is_vocal_change     INTEGER NOT NULL,
+    max_combo           INTEGER NOT NULL,
+    modules             VARCHAR(255),
+    pv_id               INTEGER NOT NULL,
+    rhythm_game_options VARCHAR(255),
+    sad_count           INTEGER NOT NULL,
+    sad_percent         INTEGER NOT NULL,
+    safe_count          INTEGER NOT NULL,
+    safe_percent        INTEGER NOT NULL,
+    score               INTEGER NOT NULL,
+    screen_shot_count   INTEGER NOT NULL,
+    script_ver          INTEGER NOT NULL,
+    skin_id             INTEGER NOT NULL,
+    slide_score         INTEGER NOT NULL,
+    slider_se           INTEGER NOT NULL,
+    stage_completion    INTEGER NOT NULL,
+    vp                  INTEGER NOT NULL,
+    wrong_count         INTEGER NOT NULL,
+    wrong_percent       INTEGER NOT NULL,
+    pd_id               BIGINT REFERENCES diva_player_profile (id) ON DELETE CASCADE,
+    PRIMARY KEY (
+                 id
+        )
+);
+
+
+-- Table: diva_player_contest
+CREATE TABLE diva_player_contest
+(
+    id               INTEGER,
+    best_value       INTEGER NOT NULL,
+    contest_id       INTEGER,
+    flag             INTEGER NOT NULL,
+    last_update_time DATETIME,
+    result_rank      VARCHAR(255),
+    start_count      INTEGER NOT NULL,
+    pd_id            BIGINT REFERENCES diva_player_profile (id) ON DELETE CASCADE,
+    PRIMARY KEY (
+                 id
+        ),
+    CONSTRAINT diva_player_contest_uq UNIQUE (
+                                              contest_id,
+                                              pd_id
+        )
+);
+
+
+-- Table: diva_player_customize
+CREATE TABLE diva_player_customize
+(
+    id           INTEGER,
+    customize_id INTEGER,
+    pd_id        BIGINT REFERENCES diva_player_profile (id) ON DELETE CASCADE,
+    PRIMARY KEY (
+                 id
+        ),
+    CONSTRAINT diva_player_customize_uq UNIQUE (
+                                                customize_id,
+                                                pd_id
+        )
+);
+
+
+-- Table: diva_player_module
+CREATE TABLE diva_player_module
+(
+    id        INTEGER,
+    module_id INTEGER REFERENCES diva_player_profile (id) ON DELETE CASCADE,
+    pd_id     BIGINT,
+    PRIMARY KEY (
+                 id
+        ),
+    CONSTRAINT diva_player_module_uq UNIQUE (
+                                             module_id,
+                                             pd_id
+        )
+);
+
+
+-- Table: diva_player_profile
+CREATE TABLE diva_player_profile
+(
+    id                              INTEGER,
+    button_se                       INTEGER NOT NULL,
+    button_se_on                    BOOLEAN NOT NULL,
+    button_se_volume                INTEGER NOT NULL,
+    chain_slide_se                  INTEGER NOT NULL,
+    common_customize_items          VARCHAR(255),
+    common_module                   VARCHAR(255),
+    common_module_set_time          DATETIME,
+    common_skin                     INTEGER NOT NULL,
+    contest_now_playing_enable      BOOLEAN NOT NULL,
+    contest_now_playing_id          INTEGER NOT NULL,
+    contest_now_playing_result_rank VARCHAR(255),
+    contest_now_playing_specifier   VARCHAR(255),
+    contest_now_playing_value       INTEGER NOT NULL,
+    headphone_volume                INTEGER NOT NULL,
+    level                           INTEGER NOT NULL,
+    level_exp                       INTEGER NOT NULL,
+    level_title                     VARCHAR(255),
+    module_select_item_flag         VARCHAR(255),
+    my_list0                        VARCHAR(255),
+    my_list1                        VARCHAR(255),
+    my_list2                        VARCHAR(255),
+    next_difficulty                 VARCHAR(255),
+    next_edition                    VARCHAR(255),
+    next_pv_id                      INTEGER NOT NULL,
+    password                        VARCHAR(255),
+    password_status                 VARCHAR(255),
+    pd_id                           INTEGER UNIQUE
+        REFERENCES sega_card (ext_id) ON DELETE CASCADE,
+    plate_effect_id                 INTEGER NOT NULL,
+    plate_id                        INTEGER NOT NULL,
+    player_name                     VARCHAR(255),
+    prefer_common_module            BOOLEAN NOT NULL,
+    prefer_per_pv_module            BOOLEAN NOT NULL,
+    show_clear_border               BOOLEAN NOT NULL,
+    show_clear_status               BOOLEAN NOT NULL,
+    show_interim_ranking            BOOLEAN NOT NULL,
+    show_rgo_setting                BOOLEAN NOT NULL,
+    slide_se                        INTEGER NOT NULL,
+    slider_se_volume                INTEGER NOT NULL,
+    slider_touch_se                 INTEGER NOT NULL,
+    sort_mode                       VARCHAR(255),
+    use_per_pv_button_se            BOOLEAN NOT NULL,
+    use_per_pv_chain_slider_se      BOOLEAN NOT NULL,
+    use_per_pv_skin                 BOOLEAN NOT NULL,
+    use_per_pv_slider_se            BOOLEAN NOT NULL,
+    use_per_pv_touch_slider_se      BOOLEAN NOT NULL,
+    vocaloid_points                 INTEGER NOT NULL,
+    PRIMARY KEY (
+                 id
+        )
+);
+
+
+-- Table: diva_player_pv_customize
+CREATE TABLE diva_player_pv_customize
+(
+    id              INTEGER,
+    button_se       INTEGER NOT NULL,
+    chain_slide_se  INTEGER NOT NULL,
+    customize       VARCHAR(255),
+    customize_flag  VARCHAR(255),
+    module          VARCHAR(255),
+    pv_id           INTEGER,
+    skin            INTEGER NOT NULL,
+    slide_se        INTEGER NOT NULL,
+    slider_touch_se INTEGER NOT NULL,
+    pd_id           BIGINT REFERENCES diva_player_profile (id) ON DELETE CASCADE,
+    PRIMARY KEY (
+                 id
+        ),
+    CONSTRAINT diva_player_pv_customize_uq UNIQUE (
+                                                   pv_id,
+                                                   pd_id
+        )
+);
+
+
+-- Table: diva_player_pv_record
+CREATE TABLE diva_player_pv_record
+(
+    id             INTEGER,
+    challenge_kind VARCHAR(255),
+    difficulty     VARCHAR(255),
+    edition        VARCHAR(255),
+    max_attain     INTEGER NOT NULL,
+    max_score      INTEGER NOT NULL,
+    pv_id          INTEGER,
+    result         VARCHAR(255),
+    rgo_played     VARCHAR(255),
+    rgo_purchased  VARCHAR(255),
+    pd_id          BIGINT REFERENCES diva_player_profile (id) ON DELETE CASCADE,
+    PRIMARY KEY (
+                 id
+        ),
+    CONSTRAINT diva_player_pv_record_uq UNIQUE (
+                                                difficulty,
+                                                edition,
+                                                pv_id,
+                                                pd_id
+        )
+);
+
+
+-- Table: diva_player_screen_shot
+CREATE TABLE diva_player_screen_shot
+(
+    id             INTEGER,
+    customize_list VARCHAR(255),
+    file_name      VARCHAR(255),
+    module_list    VARCHAR(255),
+    pv_id          INTEGER NOT NULL,
+    pd_id          BIGINT REFERENCES diva_player_profile (id) ON DELETE CASCADE,
+    PRIMARY KEY (
+                 id
+        )
+);
+
+
+-- Table: diva_pv_entry
+CREATE TABLE diva_pv_entry
+(
+    id             INTEGER,
+    demo_end       DATETIME,
+    demo_start     DATETIME,
+    difficulty     VARCHAR(255),
+    edition        VARCHAR(255),
+    playable_end   DATETIME,
+    playable_start DATETIME,
+    pv_id          INTEGER NOT NULL,
+    version        INTEGER NOT NULL,
+    PRIMARY KEY (
+                 id
+        ),
+    CONSTRAINT diva_pv_entry_uq UNIQUE (
+                                        difficulty,
+                                        edition,
+                                        pv_id
+        )
+);
+
+
+-- Table: hibernate_sequence
+CREATE TABLE hibernate_sequence
+(
+    next_val BIGINT
+);
+
+
+-- Table: sega_card
+CREATE TABLE sega_card
+(
+    id            INTEGER,
+    access_time   DATETIME,
+    ext_id        BIGINT UNIQUE,
+    luid          VARCHAR(255) UNIQUE,
+    register_time DATETIME,
+    PRIMARY KEY (
+                 id
+        )
+);
+
 INSERT INTO chuni_game_charge (id, charge_id, end_date, order_id, price, sale_end_date, sale_price, sale_start_date,
                                start_date)
 VALUES (1, 2310, '2029-01-01 00:00:00.000000', 0, 1, '2029-01-01 00:00:00.000000', 1, '2019-01-01 00:00:00.000000',

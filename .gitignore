@@ -29,3 +29,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Dev env ###
+application.properties
+aqua.jar
+data/

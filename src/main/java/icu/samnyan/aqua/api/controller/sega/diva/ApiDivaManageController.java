@@ -8,10 +8,13 @@ import icu.samnyan.aqua.sega.diva.dao.gamedata.*;
 import icu.samnyan.aqua.sega.diva.model.common.Difficulty;
 import icu.samnyan.aqua.sega.diva.model.common.Edition;
 import icu.samnyan.aqua.sega.diva.model.gamedata.*;
+import icu.samnyan.aqua.sega.general.dao.PropertyEntryRepository;
+import icu.samnyan.aqua.sega.general.model.PropertyEntry;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -25,13 +28,15 @@ public class ApiDivaManageController {
     private final DivaCustomizeRepository customizeRepository;
     private final FestaRepository festaRepository;
     private final ContestRepository contestRepository;
+    private final PropertyEntryRepository propertyEntryRepository;
 
-    public ApiDivaManageController(PvEntryRepository pvEntryRepository, DivaModuleRepository moduleRepository, DivaCustomizeRepository customizeRepository, FestaRepository festaRepository, ContestRepository contestRepository) {
+    public ApiDivaManageController(PvEntryRepository pvEntryRepository, DivaModuleRepository moduleRepository, DivaCustomizeRepository customizeRepository, FestaRepository festaRepository, ContestRepository contestRepository, PropertyEntryRepository propertyEntryRepository) {
         this.pvEntryRepository = pvEntryRepository;
         this.moduleRepository = moduleRepository;
         this.customizeRepository = customizeRepository;
         this.festaRepository = festaRepository;
         this.contestRepository = contestRepository;
+        this.propertyEntryRepository = propertyEntryRepository;
     }
 
     @PostMapping("pvList")
@@ -99,6 +104,28 @@ public class ApiDivaManageController {
     public OkResponse deleteContest(@PathVariable int id) {
         contestRepository.deleteById(id);
         return new OkResponse("Deleted " + id);
+    }
+
+    @GetMapping("news")
+    public Optional<PropertyEntry> getNews() {
+        return propertyEntryRepository.findByPropertyKey("diva_news");
+    }
+
+    @PutMapping("news")
+    public PropertyEntry updateNews(@RequestBody PropertyEntry property) {
+        PropertyEntry entry = propertyEntryRepository.findByPropertyKey("diva_news").orElseGet(() -> new PropertyEntry("diva_news", property.getPropertyValue()));
+        return propertyEntryRepository.save(entry);
+    }
+
+    @GetMapping("warning")
+    public Optional<PropertyEntry> getWarning() {
+        return propertyEntryRepository.findByPropertyKey("diva_warning");
+    }
+
+    @PutMapping("warning")
+    public PropertyEntry updateWarning(@RequestBody PropertyEntry property) {
+        PropertyEntry entry = propertyEntryRepository.findByPropertyKey("diva_warning").orElseGet(() -> new PropertyEntry("diva_warning", property.getPropertyValue()));
+        return propertyEntryRepository.save(entry);
     }
 
     @GetMapping("module")

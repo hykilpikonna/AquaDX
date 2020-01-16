@@ -20,7 +20,7 @@ or use the `start.bat` if you are using windows.
 User data will be save in data/db.sqlite.
 If you switch to MySQL, it will auto create the table and import some initial data.
 
-Auto creation won't work with Sqlite, so if you want to recreate the database please use the file come with the release
+Please go to the database migration tool's website to check if the Database version is being supported https://flywaydb.org/documentation/database/mariadb 
 
 ### Configuration:
 Configuration is save in `application.properties`
@@ -38,6 +38,11 @@ A Web App can be found on https://github.com/samnyan/aqua-viewer
 Live Version: http://aqua.samnyan.icu/
 
 And DIVA screenshot will be save in data folder.
+
+
+### Changelog:
+
+v0.0.3: Add database migration tool. If you are running on a old version, I encourage you to delete the old database and generate a new one.
 
 ### Credit:
 * **samnyan**

@@ -46,6 +46,16 @@ public class RegisterHandler implements BaseHandler {
 
         logger.info("Request: " + logMapper.write(requestMap));
 
+        if (((String) requestMap.get("luid")).equals("0c1ea200000000000000")) {
+            ctx.close();
+            return;
+        }
+
+        if (((String) requestMap.get("luid")).equals("0c1ea200000000000000")) {
+            ctx.close();
+            return;
+        }
+
         Card card = new Card();
         card.setLuid((String) requestMap.get("luid"));
         card.setExtId(ThreadLocalRandom.current().nextLong(99999999));

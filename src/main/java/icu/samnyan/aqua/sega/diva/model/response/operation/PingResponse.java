@@ -11,8 +11,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PingResponse extends BaseResponse {
-    private String ping_b_msg = URIEncoder.encode("Server testing                  No other news");
-    private String ping_m_msg = URIEncoder.encode("Nothing special           Server testing                  No other news");
+    private String ping_b_msg = URIEncoder.encode("Server Running                  No other news");
+    private String ping_m_msg = URIEncoder.encode("Network Service Running");
     private String atnd_lut;
     private String fi_lut;
     private String ci_lut;
@@ -52,5 +52,11 @@ public class PingResponse extends BaseResponse {
 
     public PingResponse(String cmd, String req_id, String stat) {
         super(cmd, req_id, stat);
+    }
+
+    public PingResponse(String cmd, String req_id, String stat, String ping_b_msg, String ping_m_msg) {
+        super(cmd, req_id, stat);
+        this.ping_b_msg = ping_b_msg;
+        this.ping_m_msg = ping_m_msg;
     }
 }
