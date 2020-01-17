@@ -1,6 +1,5 @@
 package icu.samnyan.aqua.sega.diva.model.gamedata;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import icu.samnyan.aqua.sega.diva.model.common.Difficulty;
 import icu.samnyan.aqua.sega.diva.model.common.Edition;
 import lombok.AllArgsConstructor;
@@ -25,7 +24,6 @@ public class PvEntry implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private long id;
 
     private int pvId;

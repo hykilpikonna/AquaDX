@@ -1,6 +1,5 @@
 package icu.samnyan.aqua.sega.diva.model.gamedata;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import icu.samnyan.aqua.sega.diva.model.common.ContestLeague;
 import icu.samnyan.aqua.sega.diva.model.common.ContestNormaType;
 import icu.samnyan.aqua.sega.diva.model.common.ContestStageLimit;
@@ -31,7 +30,6 @@ public class Contest implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private int id;
 
     private boolean enable;

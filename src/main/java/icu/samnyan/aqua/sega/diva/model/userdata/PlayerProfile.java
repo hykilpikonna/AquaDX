@@ -26,7 +26,6 @@ public class PlayerProfile implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private long id;
 
     @Column(unique = true)

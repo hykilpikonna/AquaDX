@@ -1,6 +1,5 @@
 package icu.samnyan.aqua.sega.diva.model.userdata;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import icu.samnyan.aqua.sega.diva.model.common.ContestBorder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,7 +23,6 @@ public class PlayerContest implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private long id;
 
     @ManyToOne

@@ -26,7 +26,6 @@ public class PlayerPvRecord implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private long id;
 
     @ManyToOne

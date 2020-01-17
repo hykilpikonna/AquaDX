@@ -1,6 +1,5 @@
 package icu.samnyan.aqua.sega.diva.model.userdata;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import icu.samnyan.aqua.sega.diva.model.common.StartMode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,7 +23,6 @@ public class GameSession implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private long id;
 
     private int acceptId;

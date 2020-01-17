@@ -23,7 +23,6 @@ public class PlayLog implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private long id;
 
     @ManyToOne
