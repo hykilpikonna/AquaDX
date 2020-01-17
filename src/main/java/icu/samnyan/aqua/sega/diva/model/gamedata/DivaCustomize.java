@@ -1,6 +1,5 @@
 package icu.samnyan.aqua.sega.diva.model.gamedata;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import icu.samnyan.aqua.sega.diva.model.Internalizable;
 import icu.samnyan.aqua.sega.diva.util.DivaDateTimeUtil;
 import icu.samnyan.aqua.sega.util.URIEncoder;
@@ -27,7 +26,6 @@ public class DivaCustomize implements Serializable, Internalizable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @JsonIgnore
     private int id;
 
     private String name;

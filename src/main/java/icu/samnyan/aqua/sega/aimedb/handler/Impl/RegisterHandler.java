@@ -51,7 +51,7 @@ public class RegisterHandler implements BaseHandler {
             return;
         }
 
-        if (((String) requestMap.get("luid")).equals("0c1ea200000000000000")) {
+        if (((String) requestMap.get("luid")).equals("37deac01000000000000")) {
             ctx.close();
             return;
         }

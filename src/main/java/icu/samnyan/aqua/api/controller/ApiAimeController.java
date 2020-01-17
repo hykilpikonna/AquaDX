@@ -25,6 +25,6 @@ public class ApiAimeController {
 
     @PostMapping("getByAccessCode")
     public Optional<Card> getByAccessCode(@RequestBody Map<String, String> request) {
-        return cardRepository.findByLuid(request.get("accessCode"));
+        return cardRepository.findByLuid(request.get("accessCode").replaceAll("-",""));
     }
 }
