@@ -15,7 +15,7 @@ import java.util.Optional;
 @Repository
 public interface UserItemRepository extends JpaRepository<UserItem, Long> {
 
-    Optional<UserItem> findTopByUserAndItemIdOrderByIdDesc(UserData user, int itemId);
+    Optional<UserItem> findTopByUserAndItemIdAndItemKindOrderByIdDesc(UserData user, int itemId, int itemKind);
 
     Page<UserItem> findAllByUser_Card_ExtIdAndItemKind(long extId, int itemKind, Pageable pageable);
 }

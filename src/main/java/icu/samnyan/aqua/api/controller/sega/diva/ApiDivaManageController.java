@@ -113,7 +113,9 @@ public class ApiDivaManageController {
 
     @PutMapping("news")
     public PropertyEntry updateNews(@RequestBody PropertyEntry property) {
-        PropertyEntry entry = propertyEntryRepository.findByPropertyKey("diva_news").orElseGet(() -> new PropertyEntry("diva_news", property.getPropertyValue()));
+        PropertyEntry entry = propertyEntryRepository.findByPropertyKey("diva_news")
+                .orElseGet(() -> new PropertyEntry("diva_news"));
+        entry.setPropertyValue(property.getPropertyValue());
         return propertyEntryRepository.save(entry);
     }
 
@@ -124,7 +126,9 @@ public class ApiDivaManageController {
 
     @PutMapping("warning")
     public PropertyEntry updateWarning(@RequestBody PropertyEntry property) {
-        PropertyEntry entry = propertyEntryRepository.findByPropertyKey("diva_warning").orElseGet(() -> new PropertyEntry("diva_warning", property.getPropertyValue()));
+        PropertyEntry entry = propertyEntryRepository.findByPropertyKey("diva_warning")
+                .orElseGet(() -> new PropertyEntry("diva_warning"));
+        entry.setPropertyValue(property.getPropertyValue());
         return propertyEntryRepository.save(entry);
     }
 

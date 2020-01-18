@@ -13,7 +13,10 @@ import icu.samnyan.aqua.sega.chunithm.model.userdata.UserMusicDetail;
 import icu.samnyan.aqua.sega.chunithm.model.userdata.UserPlaylog;
 import icu.samnyan.aqua.sega.chunithm.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -129,11 +132,11 @@ public class ApiAmazonController {
         return gameMusicService.getAll();
     }
 
-    @PostMapping("music/import")
-    public List<Music> addMusic(@RequestBody List<Music> musicList) {
-        musicList.forEach(music -> music.getLevels().forEach((integer, level) -> level.setMusic(music)));
-        return gameMusicService.saveAll(musicList);
-    }
+//    @PostMapping("music/import")
+//    public List<Music> addMusic(@RequestBody List<Music> musicList) {
+//        musicList.forEach(music -> music.getLevels().forEach((integer, level) -> level.setMusic(music)));
+//        return gameMusicService.saveAll(musicList);
+//    }
 
     private int calculateRating(int levelBase, int score) {
         if (score >= 1007500) return levelBase + 200;

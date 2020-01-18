@@ -191,16 +191,17 @@ public class UpsertUserAllHandler implements BaseHandler {
 
             userItemList.forEach(userItemMap -> {
                 String itemId = (String) userItemMap.get("itemId");
+                String itemKind = (String) userItemMap.get("itemKind");
 
 
-                Optional<UserItem> userItemOptional = userItemService.getByUserAndItemId(newUserData, itemId);
+                Optional<UserItem> userItemOptional = userItemService.getByUserAndItemId(newUserData, itemId, itemKind);
                 UserItem userItem = userItemOptional.orElseGet(() -> new UserItem(newUserData));
 
                 UserItem newUserItem = mapper.convert(userItemMap, UserItem.class);
                 newUserItem.setId(userItem.getId());
                 newUserItem.setUser(userItem.getUser());
 
-                newUserItemMap.put(itemId, newUserItem);
+                newUserItemMap.put(itemId + "-" + itemKind, newUserItem);
             });
             userItemService.saveAll(newUserItemMap.values());
         }

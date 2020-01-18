@@ -25,8 +25,8 @@ public class UserItemService {
     }
 
 
-    public Optional<UserItem> getByUserAndItemId(UserData user, String itemId) {
-        return userItemRepository.findTopByUserAndItemIdOrderByIdDesc(user, Integer.parseInt(itemId));
+    public Optional<UserItem> getByUserAndItemId(UserData user, String itemId, String itemKind) {
+        return userItemRepository.findTopByUserAndItemIdAndItemKindOrderByIdDesc(user, Integer.parseInt(itemId), Integer.parseInt(itemKind));
     }
 
     public UserItem save(UserItem userItem) {

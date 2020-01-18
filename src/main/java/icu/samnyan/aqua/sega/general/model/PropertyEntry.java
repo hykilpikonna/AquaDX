@@ -30,4 +30,7 @@ public class PropertyEntry implements Serializable {
         this.propertyKey = propertyKey;
         this.propertyValue = propertyValue;
     }
+    public PropertyEntry(String propertyKey) {
+        this.propertyKey = propertyKey;
+    }
 }
