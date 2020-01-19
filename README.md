@@ -41,8 +41,17 @@ And DIVA screenshot will be save in data folder.
 
 
 ### Changelog:
+v0.0.5:
+[aimedb] fix some card number causing overflow
+[chuni] fix unique key constraint , fix #1
+[API] allow input space in aime request
 
-v0.0.3: Add database migration tool. If you are running on a old version, I encourage you to delete the old database and generate a new one.
+v0.0.4: 
+[chuni] Fix user item being overwritten
+[API] Fix record id not being return.
+
+v0.0.3: 
+Add database migration tool. If you are running on a old version, I encourage you to delete the old database and generate a new one.
 
 ### Credit:
 * **samnyan**
