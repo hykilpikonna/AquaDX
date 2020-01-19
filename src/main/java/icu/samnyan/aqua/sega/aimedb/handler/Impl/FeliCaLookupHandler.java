@@ -42,7 +42,9 @@ public class FeliCaLookupHandler implements BaseHandler {
 
 
         // Get the decimal represent of the hex value, same from minime
-        StringBuilder accessCode = new StringBuilder(String.valueOf(((ByteBuf) requestMap.get("idm")).getLong(0)));
+        StringBuilder accessCode = new StringBuilder(
+                String.valueOf(((ByteBuf) requestMap.get("idm")).getLong(0)).replaceAll("-","") // Prevent negative overflow
+        );
         while (accessCode.length() < 20) {
             accessCode.insert(0, "0");
         }
