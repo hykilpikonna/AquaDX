@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Entity(name = "ChuniUserMap")
-@Table(name = "chuni_user_map")
+@Table(name = "chuni_user_map", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "map_id"})})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -43,6 +43,7 @@ public class UserMap implements Serializable {
     @JoinColumn(name = "user_id")
     private UserData user;
 
+    @Column(name = "map_id")
     private int mapId;
 
     private int position;

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Entity(name = "ChuniUserCharge")
-@Table(name = "chuni_user_charge")
+@Table(name = "chuni_user_charge", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "charge_id"})})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,6 +33,7 @@ public class UserCharge implements Serializable {
     @JoinColumn(name = "user_id")
     private UserData user;
 
+    @Column(name = "charge_id")
     private int chargeId;
 
     private int stock;

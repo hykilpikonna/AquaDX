@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Entity(name = "ChuniUserItem")
-@Table(name = "chuni_user_item")
+@Table(name = "chuni_user_item", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "item_id", "item_kind"})})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,8 +34,10 @@ public class UserItem implements Serializable {
     private UserData user;
 
     // Kind ,Type
+    @Column(name = "item_kind")
     private int itemKind;
 
+    @Column(name = "item_id")
     private int itemId;
 
     private int stock;

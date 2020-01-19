@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Entity(name = "ChuniUserMusicDetail")
-@Table(name = "chuni_user_music_detail")
+@Table(name = "chuni_user_music_detail", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "music_id", "level"})})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -50,6 +50,7 @@ public class UserMusicDetail implements Serializable {
     @JoinColumn(name = "user_id")
     private UserData user;
 
+    @Column(name = "music_id")
     private int musicId;
 
     private int level;

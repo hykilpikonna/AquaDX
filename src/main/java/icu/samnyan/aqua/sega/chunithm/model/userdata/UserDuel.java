@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Entity(name = "ChuniUserDuel")
-@Table(name = "chuni_user_duel")
+@Table(name = "chuni_user_duel", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "duel_id"})})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,6 +29,7 @@ public class UserDuel {
     @JoinColumn(name = "user_id")
     private UserData user;
 
+    @Column(name = "duel_id")
     private int duelId;
 
     private int progress;
