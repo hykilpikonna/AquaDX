@@ -1,16 +1,17 @@
 package icu.samnyan.aqua.api.controller.sega.diva;
 
 import icu.samnyan.aqua.api.model.ReducedPageResponse;
+import icu.samnyan.aqua.api.model.resp.sega.diva.PvRankRecord;
 import icu.samnyan.aqua.sega.diva.dao.userdata.*;
+import icu.samnyan.aqua.sega.diva.model.common.Difficulty;
+import icu.samnyan.aqua.sega.diva.model.common.Edition;
 import icu.samnyan.aqua.sega.diva.model.userdata.*;
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -39,6 +40,23 @@ public class ApiDivaPlayerDataController {
     @GetMapping("playerInfo")
     public Optional<PlayerProfile> getPlayerInfo(@RequestParam int pdId) {
         return playerProfileService.findByPdId(pdId);
+    }
+
+    @GetMapping("playerInfo/rival")
+    public Map<String, String> getRivalInfo(@RequestParam int pdId) {
+        int rId = playerProfileService.findByPdId(pdId).orElseThrow().getRivalPdId();
+        Map<String, String> result = new HashMap<>();
+        if (rId == -1) {
+            result.put("rival", "Not Set");
+        } else {
+            Optional<PlayerProfile> profile = playerProfileService.findByPdId(rId);
+            if (profile.isPresent()) {
+                result.put("rival", profile.get().getPlayerName());
+            } else {
+                result.put("rival", "Player Not Found");
+            }
+        }
+        return result;
     }
 
     @PutMapping("playerInfo/playerName")
@@ -170,6 +188,46 @@ public class ApiDivaPlayerDataController {
         playerPvCustomize.setChainSlideSe((Integer) request.get("chainSlideSe"));
         playerPvCustomize.setSliderTouchSe((Integer) request.get("sliderTouchSe"));
         return playerPvCustomizeRepository.save(playerPvCustomize);
+    }
+
+    @GetMapping("pvRecord/{pvId}/ranking/{difficulty}")
+    public ReducedPageResponse<PvRankRecord> getPvRanking(@PathVariable int pvId,
+                                                          @PathVariable String difficulty,
+                                                          @RequestParam(required = false, defaultValue = "0") int page,
+                                                          @RequestParam(required = false, defaultValue = "10") int size) {
+        Difficulty diff = null;
+        Edition edition = Edition.ORIGINAL;
+        switch (difficulty) {
+            case "EASY":
+                diff = Difficulty.EASY;
+                break;
+            case "NORMAL":
+                diff = Difficulty.NORMAL;
+                break;
+            case "HARD":
+                diff = Difficulty.HARD;
+                break;
+            case "EXTREME":
+                diff = Difficulty.EXTREME;
+                break;
+            case "EXTRA_EXTREME": {
+                diff = Difficulty.EXTREME;
+                edition = Edition.EXTRA;
+                break;
+            }
+        }
+        if(diff != null) {
+            Page<PlayerPvRecord> pvRecords = playerPvRecordRepository.findByPvIdAndEditionAndDifficultyOrderByMaxScoreDesc(pvId, edition,diff, PageRequest.of(page, size));
+
+            List<PvRankRecord> rankList = new LinkedList<>();
+
+            pvRecords.forEach(x ->{
+                rankList.add(new PvRankRecord(x.getId(),x.getPdId().getPlayerName(),x.getMaxScore(),x.getMaxAttain()));
+            });
+
+            return new ReducedPageResponse<>(rankList, pvRecords.getPageable().getPageNumber(), pvRecords.getTotalPages(), pvRecords.getTotalElements());
+        }
+        return null;
     }
 
     @GetMapping("module")

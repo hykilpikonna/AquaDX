@@ -39,7 +39,9 @@ public interface PlayerPvRecordRepository extends JpaRepository<PlayerPvRecord, 
 
     List<PlayerPvRecord> findByPdIdAndEdition(PlayerProfile profile, Edition edition);
 
-    List<PlayerPvRecord> findTop3ByPvIdAndEditionAndDifficultyOrderByMaxScore(int pvId, Edition edition, Difficulty difficulty);
+    List<PlayerPvRecord> findTop3ByPvIdAndEditionAndDifficultyOrderByMaxScoreDesc(int pvId, Edition edition, Difficulty difficulty);
+
+    Page<PlayerPvRecord> findByPvIdAndEditionAndDifficultyOrderByMaxScoreDesc(int pvId, Edition edition, Difficulty difficulty, Pageable page);
 
     Page<PlayerPvRecord> findByPdId_PdIdOrderByPvId(int pdId, Pageable page);
 

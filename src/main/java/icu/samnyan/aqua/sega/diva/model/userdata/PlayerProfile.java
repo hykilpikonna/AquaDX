@@ -155,6 +155,7 @@ public class PlayerProfile implements Serializable {
 
     private String myList2 = getDummyString("-1", 40);
 
+    @JsonIgnore
     private int rivalPdId = -1;
 
     public PlayerProfile(int pdId, String playerName) {
