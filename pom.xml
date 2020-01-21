@@ -10,7 +10,7 @@
     </parent>
     <groupId>icu.samnya</groupId>
     <artifactId>aqua</artifactId>
-    <version>0.0.5-Release</version>
+    <version>0.0.6-RELEASE</version>
     <name>Aqua Server</name>
     <description>A multipurpose game server</description>
 

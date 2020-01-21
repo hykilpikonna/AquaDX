@@ -149,7 +149,7 @@ public class ApiDivaPlayerDataController {
         PlayerProfile profile = playerProfileService.findByPdId((Integer) request.get("pdId")).orElseThrow();
         profile.setShowInterimRanking((Boolean) request.get("showInterimRanking"));
         profile.setShowClearStatus((Boolean) request.get("showClearStatus"));
-        profile.setShowGreatBorder((Boolean) request.get("showClearBorder"));
+        profile.setShowGreatBorder((Boolean) request.get("showGreatBorder"));
         profile.setShowExcellentBorder((Boolean) request.get("showExcellentBorder"));
         profile.setShowRivalBorder((Boolean) request.get("showRivalBorder"));
         profile.setShowRgoSetting((Boolean) request.get("showRgoSetting"));

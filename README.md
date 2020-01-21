@@ -41,9 +41,17 @@ And DIVA screenshot will be save in data folder.
 
 
 ### Changelog:
+
+v0.0.6:
+[DIVA] Replace with correct pv list databank [This will do database update]
+[DIVA] fix stage_result placeholder to the correct length, level up animation is now working
+[DIVA] Rival support and configurable border.
+[DIVA] Fix ranking being reversed
+[API] Allow edit diva rival and new border type
+
 v0.0.5:
 [aimedb] fix some card number causing overflow
-[chuni] fix unique key constraint , fix #1
+[chuni] fix unique key constraint , fix #1 [This will do database update]
 [API] allow input space in aime request
 
 v0.0.4: 
