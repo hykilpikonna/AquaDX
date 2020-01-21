@@ -53,12 +53,31 @@ public class GetPvPdHandler extends BaseHandler {
             } else {
                 int diff = request.getDifficulty();
                 Difficulty difficulty = Difficulty.fromValue(diff);
-                Optional<PlayerPvRecord> edition0optional = pvRecordRepository.findByPdIdAndPvIdAndEditionAndDifficulty(profile, pvId, Edition.ORIGINAL, difficulty);
-                PlayerPvRecord edition0 = edition0optional.orElseGet(() -> new PlayerPvRecord(pvId, Edition.ORIGINAL));
-                PlayerPvRecord edition1 = pvRecordRepository.findByPdIdAndPvIdAndEditionAndDifficulty(profile, pvId, Edition.EXTRA, difficulty).orElseGet(() -> new PlayerPvRecord(pvId, Edition.EXTRA));
+
+                // Myself
+                PlayerPvRecord edition0 = pvRecordRepository.findByPdIdAndPvIdAndEditionAndDifficulty(profile, pvId, Edition.ORIGINAL, difficulty)
+                        .orElseGet(() -> new PlayerPvRecord(pvId, Edition.ORIGINAL));
+
+                PlayerPvRecord edition1 = pvRecordRepository.findByPdIdAndPvIdAndEditionAndDifficulty(profile, pvId, Edition.EXTRA, difficulty)
+                        .orElseGet(() -> new PlayerPvRecord(pvId, Edition.EXTRA));
+
+                // Rival
+                PlayerPvRecord rivalEdition0;
+                PlayerPvRecord rivalEdition1;
+                if(profile.getRivalPdId() != -1) {
+                    rivalEdition0 = pvRecordRepository.findByPdId_PdIdAndPvIdAndEditionAndDifficulty(profile.getRivalPdId(), pvId, Edition.ORIGINAL, difficulty)
+                            .orElseGet(() -> new PlayerPvRecord(pvId, Edition.ORIGINAL));
+
+                    rivalEdition1 = pvRecordRepository.findByPdId_PdIdAndPvIdAndEditionAndDifficulty(profile.getRivalPdId(), pvId, Edition.EXTRA, difficulty)
+                            .orElseGet(() -> new PlayerPvRecord(pvId, Edition.EXTRA));
+                } else {
+                    rivalEdition0 = new PlayerPvRecord(pvId, Edition.ORIGINAL);
+                    rivalEdition1 = new PlayerPvRecord(pvId, Edition.EXTRA);
+                }
+
                 PlayerPvCustomize customize = pvCustomizeRepository.findByPdIdAndPvId(profile, pvId).orElseGet(() -> new PlayerPvCustomize(profile, pvId));
 
-                String str = getString(edition0, customize) + "," + getString(edition1, customize);
+                String str = getString(edition0, customize, rivalEdition0, profile.getRivalPdId()) + "," + getString(edition1, customize, rivalEdition1, profile.getRivalPdId());
 //                logger.info(str);
                 pd.append(URIEncoder.encode(str)).append(",");
             }
@@ -82,7 +101,7 @@ public class GetPvPdHandler extends BaseHandler {
     }
 
 
-    private String getString(PlayerPvRecord record, PlayerPvCustomize customize) {
+    private String getString(PlayerPvRecord record, PlayerPvCustomize customize, PlayerPvRecord rivalRecord, int rivalId) {
         return
                 "" + record.getPvId() + "," +
                         record.getEdition().getValue() + "," +
@@ -98,9 +117,9 @@ public class GetPvPdHandler extends BaseHandler {
                         customize.getSlideSe() + "," +
                         customize.getChainSlideSe() + "," +
                         customize.getSliderTouchSe() + "," +
-                        "15," +
-                        "0," +
-                        "0," +
+                        rivalId + "," +
+                        rivalRecord.getMaxScore() + "," +
+                        rivalRecord.getMaxAttain() + "," +
                         "-1,-1," +
                         pvRecordRepository.rankByPvIdAndPdIdAndEditionAndDifficulty(record.getPvId(), record.getPdId(), record.getEdition(), record.getDifficulty()) + "," +
                         record.getRgoPurchased() + "," +

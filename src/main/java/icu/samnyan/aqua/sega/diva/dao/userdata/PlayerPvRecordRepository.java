@@ -21,6 +21,8 @@ import java.util.Optional;
 public interface PlayerPvRecordRepository extends JpaRepository<PlayerPvRecord, Long> {
     Optional<PlayerPvRecord> findByPdIdAndPvIdAndEditionAndDifficulty(PlayerProfile profile, int pvId, Edition edition, Difficulty difficulty);
 
+    Optional<PlayerPvRecord> findByPdId_PdIdAndPvIdAndEditionAndDifficulty(int pdId, int pvId, Edition edition, Difficulty difficulty);
+
     @Query("SELECT COUNT(t1.id) as ranking from DivaPlayerPvRecord as t1 " +
             "where t1.maxScore >= (" +
             "SELECT maxScore from DivaPlayerPvRecord where pvId = :pvId and pdId = :pdId and edition = :edition and difficulty = :difficulty" +

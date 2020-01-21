@@ -119,7 +119,11 @@ public class PlayerProfile implements Serializable {
 
     private boolean showClearStatus = true;
 
-    private boolean showClearBorder = true;
+    private boolean showGreatBorder = true;
+
+    private boolean showExcellentBorder = true;
+
+    private boolean showRivalBorder = true;
 
     private boolean showRgoSetting = true;
 
@@ -150,6 +154,8 @@ public class PlayerProfile implements Serializable {
     private String myList1 = getDummyString("-1", 40);
 
     private String myList2 = getDummyString("-1", 40);
+
+    private int rivalPdId = -1;
 
     public PlayerProfile(int pdId, String playerName) {
         this.pdId = pdId;

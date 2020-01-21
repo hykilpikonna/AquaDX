@@ -101,6 +101,13 @@ public class ApiDivaPlayerDataController {
         return playerProfileService.save(profile);
     }
 
+    @PutMapping("rival")
+    public PlayerProfile updateRival(@RequestBody Map<String, Object> request) {
+        PlayerProfile profile = playerProfileService.findByPdId((Integer) request.get("pdId")).orElseThrow();
+        profile.setRivalPdId((Integer) request.get("rivalPdId"));
+        return playerProfileService.save(profile);
+    }
+
     @PutMapping("playerInfo/se")
     public PlayerProfile updateSe(@RequestBody Map<String, Object> request) {
         PlayerProfile profile = playerProfileService.findByPdId((Integer) request.get("pdId")).orElseThrow();
@@ -116,7 +123,7 @@ public class ApiDivaPlayerDataController {
         PlayerProfile profile = playerProfileService.findByPdId((Integer) request.get("pdId")).orElseThrow();
         profile.setShowInterimRanking((Boolean) request.get("showInterimRanking"));
         profile.setShowClearStatus((Boolean) request.get("showClearStatus"));
-        profile.setShowClearBorder((Boolean) request.get("showClearBorder"));
+//        profile.setShowClearBorder((Boolean) request.get("showClearBorder"));
         profile.setShowRgoSetting((Boolean) request.get("showRgoSetting"));
         return playerProfileService.save(profile);
     }
@@ -180,4 +187,6 @@ public class ApiDivaPlayerDataController {
         Page<PlayerCustomize> customizes = playerCustomizeRepository.findByPdId_PdId(pdId, PageRequest.of(page, size));
         return new ReducedPageResponse<>(customizes.getContent(), customizes.getPageable().getPageNumber(), customizes.getTotalPages(), customizes.getTotalElements());
     }
+
+
 }

@@ -75,6 +75,10 @@ public class StartHandler extends BaseHandler {
 
         Map<String, String> contestResult = getContestResult(profile);
 
+        int border = profile.isShowGreatBorder() ? 1 : 0;
+        border = border | ((profile.isShowExcellentBorder() ? 1 : 0) << 1);
+        border = border | ((profile.isShowRivalBorder() ? 1 : 0) << 2);
+
         StartResponse response = new StartResponse(
                 request.getCmd(),
                 request.getReq_id(),
@@ -127,7 +131,7 @@ public class StartHandler extends BaseHandler {
                 null,
 //                getDummyString("-1", 40),
 //                getDummyString("-1", 40),
-                profile.isShowClearBorder(),
+                String.valueOf(border),
                 profile.isShowInterimRanking(),
                 profile.isShowClearStatus(),
                 countClearStatus(profile),
