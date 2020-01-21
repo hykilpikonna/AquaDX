@@ -59,6 +59,21 @@ public class ApiDivaPlayerDataController {
         return result;
     }
 
+    @PutMapping("playerInfo/rival")
+    public PlayerProfile updateRivalWithId(@RequestBody Map<String, Object> request) {
+        PlayerProfile profile = playerProfileService.findByPdId((Integer) request.get("pdId")).orElseThrow();
+        profile.setRivalPdId((Integer) request.get("rivalId"));
+        return playerProfileService.save(profile);
+    }
+
+    @PutMapping("playerInfo/rival/byRecord")
+    public PlayerProfile updateRivalWithRecord(@RequestBody Map<String, Object> request) {
+        PlayerProfile profile = playerProfileService.findByPdId((Integer) request.get("pdId")).orElseThrow();
+        PlayerPvRecord record = playerPvRecordRepository.findById(((Integer) request.get("recordId")).longValue()).orElseThrow();
+        profile.setRivalPdId(record.getPdId().getPdId());
+        return playerProfileService.save(profile);
+    }
+
     @PutMapping("playerInfo/playerName")
     public PlayerProfile updateName(@RequestBody Map<String, Object> request) {
         PlayerProfile profile = playerProfileService.findByPdId((Integer) request.get("pdId")).orElseThrow();
@@ -119,13 +134,6 @@ public class ApiDivaPlayerDataController {
         return playerProfileService.save(profile);
     }
 
-    @PutMapping("rival")
-    public PlayerProfile updateRival(@RequestBody Map<String, Object> request) {
-        PlayerProfile profile = playerProfileService.findByPdId((Integer) request.get("pdId")).orElseThrow();
-        profile.setRivalPdId((Integer) request.get("rivalPdId"));
-        return playerProfileService.save(profile);
-    }
-
     @PutMapping("playerInfo/se")
     public PlayerProfile updateSe(@RequestBody Map<String, Object> request) {
         PlayerProfile profile = playerProfileService.findByPdId((Integer) request.get("pdId")).orElseThrow();
@@ -141,7 +149,9 @@ public class ApiDivaPlayerDataController {
         PlayerProfile profile = playerProfileService.findByPdId((Integer) request.get("pdId")).orElseThrow();
         profile.setShowInterimRanking((Boolean) request.get("showInterimRanking"));
         profile.setShowClearStatus((Boolean) request.get("showClearStatus"));
-//        profile.setShowClearBorder((Boolean) request.get("showClearBorder"));
+        profile.setShowGreatBorder((Boolean) request.get("showClearBorder"));
+        profile.setShowExcellentBorder((Boolean) request.get("showExcellentBorder"));
+        profile.setShowRivalBorder((Boolean) request.get("showRivalBorder"));
         profile.setShowRgoSetting((Boolean) request.get("showRgoSetting"));
         return playerProfileService.save(profile);
     }
