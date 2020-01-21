@@ -32,6 +32,6 @@ public class DivaCalculator {
         int level = totalAttain / 13979;
         int exp = Math.round((totalAttain % 13979) / 13979.0f * 100.0f);
 
-        return new LevelInfo(level, exp);
+        return new LevelInfo(level + 1, exp);
     }
 }
