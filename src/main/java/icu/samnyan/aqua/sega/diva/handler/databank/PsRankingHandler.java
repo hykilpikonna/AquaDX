@@ -83,8 +83,8 @@ public class PsRankingHandler extends BaseHandler {
             score2.add(obj.getSecond().getMaxScore());
             score3.add(obj.getThird().getMaxScore());
             name1.add(URIEncoder.encode(obj.getFirst().getPdId() != null ? obj.getFirst().getPdId().getPlayerName() : "xxx"));
-            name2.add(URIEncoder.encode(obj.getSecond().getPdId() != null ? obj.getFirst().getPdId().getPlayerName() : "xxx"));
-            name3.add(URIEncoder.encode(obj.getThird().getPdId() != null ? obj.getFirst().getPdId().getPlayerName() : "xxx"));
+            name2.add(URIEncoder.encode(obj.getSecond().getPdId() != null ? obj.getSecond().getPdId().getPlayerName() : "xxx"));
+            name3.add(URIEncoder.encode(obj.getThird().getPdId() != null ? obj.getThird().getPdId().getPlayerName() : "xxx"));
         });
 
         PsRankingResponse response = new PsRankingResponse(
