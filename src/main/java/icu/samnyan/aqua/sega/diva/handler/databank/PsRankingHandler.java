@@ -59,7 +59,7 @@ public class PsRankingHandler extends BaseHandler {
         for (int i :
                 list) {
 
-            List<PlayerPvRecord> records = playerPvRecordRepository.findTop3ByPvIdAndEditionAndDifficultyOrderByMaxScoreDesc(i, Edition.ORIGINAL, difficulty);
+            List<PlayerPvRecord> records = playerPvRecordRepository.findTop3ByPvIdAndEditionAndDifficultyOrderByMaxScoreDesc(i, edition, difficulty);
             resultCollections.put(i, new PsRankingCollection(i, edition, records));
         }
 
