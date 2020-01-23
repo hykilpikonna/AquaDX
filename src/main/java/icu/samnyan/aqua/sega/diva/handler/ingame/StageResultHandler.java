@@ -61,44 +61,50 @@ public class StageResultHandler extends BaseHandler {
             int[] pvIds = request.getStg_ply_pv_id();
             int stageIndex = session.getStageIndex();
 
-            // Convert to play log object
-            PlayLog log = getLog(request, profile, stageIndex);
-            logger.debug("Stage Result Object: {}", log.toString());
+            // Only save to database when stage index is larger than stage result index to prevent duplicate request.
+            if(stageIndex > session.getStageResultIndex()) {
 
-            PlayerPvRecord record = pvRecordRepository.findByPdIdAndPvIdAndEditionAndDifficulty(profile, log.getPvId(), log.getEdition(), log.getDifficulty())
-                    .orElseGet(() -> new PlayerPvRecord(profile, log.getPvId(), log.getEdition(), log.getDifficulty()));
+                // Convert to play log object
+                PlayLog log = getLog(request, profile, stageIndex);
+                logger.debug("Stage Result Object: {}", log.toString());
 
-            // Update pvRecord field
-            record.setMaxScore(Math.max(record.getMaxScore(), log.getScore()));
-            record.setMaxAttain(Math.max(record.getMaxAttain(), log.getAttainPoint()));
+                PlayerPvRecord record = pvRecordRepository.findByPdIdAndPvIdAndEditionAndDifficulty(profile, log.getPvId(), log.getEdition(), log.getDifficulty())
+                        .orElseGet(() -> new PlayerPvRecord(profile, log.getPvId(), log.getEdition(), log.getDifficulty()));
 
-            if (record.getResult().getValue() < log.getClearResult().getValue()) {
-                record.setResult(log.getClearResult());
-            }
+                // Update pvRecord field
+                record.setMaxScore(Math.max(record.getMaxScore(), log.getScore()));
+                record.setMaxAttain(Math.max(record.getMaxAttain(), log.getAttainPoint()));
 
-            String[] updateRgo = log.getRhythmGameOptions().split(",");
-            String[] oldRgo = record.getRgoPlayed().split(",");
-            for (int i = 0; i < updateRgo.length; i++) {
-                if (updateRgo[i].equals("1")) {
-                    oldRgo[i] = "1";
+                if (record.getResult().getValue() < log.getClearResult().getValue()) {
+                    record.setResult(log.getClearResult());
                 }
+
+                String[] updateRgo = log.getRhythmGameOptions().split(",");
+                String[] oldRgo = record.getRgoPlayed().split(",");
+                for (int i = 0; i < updateRgo.length; i++) {
+                    if (updateRgo[i].equals("1")) {
+                        oldRgo[i] = "1";
+                    }
+                }
+                record.setRgoPlayed(StringUtils.join(oldRgo, ","));
+
+                session.setVp(session.getVp() + log.getVp());
+                session.setLastPvId(log.getPvId());
+                session.setLastUpdateTime(LocalDateTime.now());
+
+                LevelInfo levelInfo = divaCalculator.getLevelInfo(profile);
+                session.setOldLevelNumber(session.getLevelNumber());
+                session.setOldLevelExp(session.getLevelExp());
+                session.setLevelNumber(levelInfo.getLevelNumber());
+                session.setLevelExp(levelInfo.getLevelExp());
+
+                session.setStageResultIndex(session.getStageResultIndex() + 1);
+
+                pvRecordRepository.save(record);
+                playLogRepository.save(log);
+                gameSessionRepository.save(session);
+
             }
-            record.setRgoPlayed(StringUtils.join(oldRgo, ","));
-
-            session.setVp(session.getVp() + log.getVp());
-            session.setLastPvId(log.getPvId());
-            session.setLastUpdateTime(LocalDateTime.now());
-
-            LevelInfo levelInfo = divaCalculator.getLevelInfo(profile);
-            session.setOldLevelNumber(session.getLevelNumber());
-            session.setOldLevelExp(session.getLevelExp());
-            session.setLevelNumber(levelInfo.getLevelNumber());
-            session.setLevelExp(levelInfo.getLevelExp());
-
-            pvRecordRepository.save(record);
-            playLogRepository.save(log);
-            gameSessionRepository.save(session);
-//        profileRepository.save(profile); // Profile save move to session end
 
             response = new StageResultResponse(
                     request.getCmd(),

@@ -40,6 +40,8 @@ public class GameSession implements Serializable {
 
     private Integer stageIndex;
 
+    private Integer stageResultIndex;
+
     private Integer lastPvId;
 
     private Integer levelNumber;
@@ -52,13 +54,14 @@ public class GameSession implements Serializable {
 
     private Integer vp;
 
-    public GameSession(int acceptId, PlayerProfile pdId, StartMode startMode, LocalDateTime startTime, LocalDateTime lastUpdateTime, Integer stageIndex, Integer lastPvId, Integer levelNumber, Integer levelExp, Integer oldLevelNumber, Integer oldLevelExp, Integer vp) {
+    public GameSession(int acceptId, PlayerProfile pdId, StartMode startMode, LocalDateTime startTime, LocalDateTime lastUpdateTime, Integer stageIndex, Integer stageResultIndex, Integer lastPvId, Integer levelNumber, Integer levelExp, Integer oldLevelNumber, Integer oldLevelExp, Integer vp) {
         this.acceptId = acceptId;
         this.pdId = pdId;
         this.startMode = startMode;
         this.startTime = startTime;
         this.lastUpdateTime = lastUpdateTime;
         this.stageIndex = stageIndex;
+        this.stageResultIndex = stageResultIndex;
         this.lastPvId = lastPvId;
         this.levelNumber = levelNumber;
         this.levelExp = levelExp;
