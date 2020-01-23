@@ -22,6 +22,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
 
 import static icu.samnyan.aqua.sega.diva.model.common.Const.NULL_QUEST;
 
@@ -96,10 +98,8 @@ public class StageResultHandler extends BaseHandler {
             pvRecordRepository.save(record);
             playLogRepository.save(log);
             gameSessionRepository.save(session);
-//        profileRepository.save(profile);
+//        profileRepository.save(profile); // Profile save move to session end
 
-            String cnp_sp = StringUtils.join(request.getCr_sp(), ",");
-            cnp_sp = cnp_sp.substring(cnp_sp.indexOf(",") + 1) + ",-1";
             response = new StageResultResponse(
                     request.getCmd(),
                     request.getReq_id(),
@@ -116,7 +116,15 @@ public class StageResultHandler extends BaseHandler {
                     0,
                     request.getCr_cid(),
                     request.getCr_tv(),
-                    cnp_sp,
+                    getContestSpecifier(request.getCr_sp()),
+                    "-1,-1,-1",
+                    "-1,-1,-1",
+                    "***,***,***",
+                    "***,***,***",
+                    -1,
+                    -1,
+                    "***",
+                    "***",
                     "xxx,xxx,xxx,xxx,xxx",
                     "-1,-1,-1,-1,-1",
                     "xxx,xxx,xxx,xxx,xxx",
@@ -195,7 +203,6 @@ public class StageResultHandler extends BaseHandler {
                 slice(request.getStg_rgo(), 3, i),
                 request.getStg_ss_num()[i],
                 request.getTime_stamp().toLocalDateTime()
-//                ZonedDateTime.parse(request.getTime_stamp()).toLocalDateTime()
         );
     }
 
@@ -208,5 +215,16 @@ public class StageResultHandler extends BaseHandler {
 
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
+    }
+
+    private String getContestSpecifier(String[] arr) {
+        List<String> result = new LinkedList<>();
+        for (int i = 0; i < arr.length; i++) {
+            if ((i % 6) != 0) result.add(arr[i]);
+        }
+        while (result.size() < 60) {
+            result.add("-1");
+        }
+        return String.join(",", result);
     }
 }
