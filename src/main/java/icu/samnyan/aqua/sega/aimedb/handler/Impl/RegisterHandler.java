@@ -46,28 +46,25 @@ public class RegisterHandler implements BaseHandler {
 
         logger.info("Request: " + logMapper.write(requestMap));
 
-        if (((String) requestMap.get("luid")).equals("0c1ea200000000000000")) {
-            ctx.close();
-            return;
-        }
-
-        if (((String) requestMap.get("luid")).equals("37deac01000000000000")) {
-            ctx.close();
-            return;
-        }
-
-        Card card = new Card();
-        card.setLuid((String) requestMap.get("luid"));
-        card.setExtId(ThreadLocalRandom.current().nextLong(99999999));
-        card.setRegisterTime(LocalDateTime.now());
-        card.setAccessTime(LocalDateTime.now());
-
-        cardRepository.save(card);
-
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("type", "register");
-        resultMap.put("status", 1);
-        resultMap.put("aimeId", card.getExtId());
+
+        if(cardRepository.findByLuid((String) requestMap.get("luid")).isEmpty()) {
+            Card card = new Card();
+            card.setLuid((String) requestMap.get("luid"));
+            card.setExtId(ThreadLocalRandom.current().nextLong(99999999));
+            card.setRegisterTime(LocalDateTime.now());
+            card.setAccessTime(LocalDateTime.now());
+
+            cardRepository.save(card);
+
+            resultMap.put("status", 1);
+            resultMap.put("aimeId", card.getExtId());
+        } else {
+            logger.warn("Duplicated Aime Card Register detected, access code: {}", requestMap.get("luid"));
+            resultMap.put("status", 0);
+            resultMap.put("aimeId", 0L);
+        }
 
         logger.info("Response: " + logMapper.write(resultMap));
 
