@@ -42,7 +42,23 @@ And DIVA screenshot will be save in data folder.
 
 ### Changelog:
 
-v0.0.6: [This will do database update]
+v0.0.7: **[This will do database update]**
+
+[chuni] Add basic support to old release
+
+[DIVA] Fix wrong name is being sent to the ranking
+
+[DIVA] Fix exex ranking not being return.
+
+[DIVA] Fix wrong contest progress is being sent
+
+[DIVA] Add stage result index to prevent multiple result being sent by client, fix #3
+
+[aimedb] Prevent same access code being register multiple times
+
+[allnet] Fix host header
+
+v0.0.6: **[This will do database update]**
 
 [DIVA] Replace with correct pv list databank
 
@@ -55,7 +71,7 @@ v0.0.6: [This will do database update]
 [API] Allow edit diva rival and new border type
 
 
-v0.0.5: [This will do database update]
+v0.0.5: **[This will do database update]**
 
 [aimedb] fix some card number causing overflow
 
