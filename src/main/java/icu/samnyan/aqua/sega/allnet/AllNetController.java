@@ -80,9 +80,9 @@ public class AllNetController {
     private String switchHost(String gameId) {
         switch (gameId) {
             case "SDDF":
-                return "http://" + HOST + ":" + PORT + "/";
+                return HOST + ":" + PORT + "/";
             default:
-                return "http://" + HOST + ":" + PORT + "/";
+                return HOST;
         }
     }
 

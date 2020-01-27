@@ -27,8 +27,8 @@ public class PingHandler extends BaseHandler {
 
     public String handle(BaseRequest request) {
 
-        PropertyEntry news = propertyEntryRepository.findByPropertyKey("diva_news").orElseGet(() -> new PropertyEntry("diva_news", "Server Running                  No other news"));
-        PropertyEntry warning = propertyEntryRepository.findByPropertyKey("diva_warning").orElseGet(() -> new PropertyEntry("diva_warning", "Network Service Running"));
+        PropertyEntry news = propertyEntryRepository.findByPropertyKey("diva_news").orElseGet(() -> new PropertyEntry("diva_news", "xxx"));
+        PropertyEntry warning = propertyEntryRepository.findByPropertyKey("diva_warning").orElseGet(() -> new PropertyEntry("diva_warning", "xxx"));
 
         PingResponse response = new PingResponse(
                 request.getCmd(),
