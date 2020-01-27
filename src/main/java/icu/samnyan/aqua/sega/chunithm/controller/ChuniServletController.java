@@ -206,6 +206,14 @@ public class ChuniServletController {
         return getUserRecentRatingHandler.handle(request);
     }
 
+    /**
+     * For older version chunithm
+     */
+    @PostMapping("GetUserRecentPlayerApi")
+    String getUserRecentPlayerApi(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserRecentRatingHandler.handle(request);
+    }
+
     @PostMapping("GetUserRegionApi")
     String getUserRegion(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserRegionHandler.handle(request);
