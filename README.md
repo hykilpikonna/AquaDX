@@ -42,6 +42,14 @@ And DIVA screenshot will be save in data folder.
 
 ### Changelog:
 
+v0.0.8: **[This will do database update]**
+
+[chuni] Fix a course table column
+
+[api] Force unlock diva session
+
+[api] Get screenshot
+
 v0.0.7: **[This will do database update]**
 
 [chuni] Add basic support to old release
