@@ -61,8 +61,6 @@ public class UserCourse {
 
     private int param4;
 
-    private int playerRating;
-
     @JsonProperty("isClear")
     private boolean isClear;
 
