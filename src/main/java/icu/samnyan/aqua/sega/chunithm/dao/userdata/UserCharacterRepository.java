@@ -17,5 +17,5 @@ public interface UserCharacterRepository extends JpaRepository<UserCharacter, Lo
 
     Optional<UserCharacter> findTopByUserAndCharacterIdOrderByIdDesc(UserData user, int characterId);
 
-    Page<UserCharacter> findByUser_Card_ExtId(long parseLong, Pageable pageable);
+    Page<UserCharacter> findByUser_Card_ExtId(int extId, Pageable pageable);
 }
