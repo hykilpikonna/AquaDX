@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.api.controller.sega.diva;
 
+import icu.samnyan.aqua.api.model.MessageResponse;
 import icu.samnyan.aqua.api.model.ReducedPageResponse;
 import icu.samnyan.aqua.api.model.resp.sega.diva.PvRankRecord;
 import icu.samnyan.aqua.sega.diva.dao.userdata.*;
@@ -9,6 +10,8 @@ import icu.samnyan.aqua.sega.diva.model.userdata.*;
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -22,19 +25,33 @@ public class ApiDivaPlayerDataController {
 
     private final PlayerProfileService playerProfileService;
 
+    private final GameSessionRepository gameSessionRepository;
     private final PlayLogRepository playLogRepository;
     private final PlayerPvRecordRepository playerPvRecordRepository;
     private final PlayerPvCustomizeRepository playerPvCustomizeRepository;
     private final PlayerModuleRepository playerModuleRepository;
     private final PlayerCustomizeRepository playerCustomizeRepository;
 
-    public ApiDivaPlayerDataController(PlayerProfileService playerProfileService, PlayLogRepository playLogRepository, PlayerPvRecordRepository playerPvRecordRepository, PlayerPvCustomizeRepository playerPvCustomizeRepository, PlayerModuleRepository playerModuleRepository, PlayerCustomizeRepository playerCustomizeRepository) {
+    public ApiDivaPlayerDataController(PlayerProfileService playerProfileService, GameSessionRepository gameSessionRepository, PlayLogRepository playLogRepository, PlayerPvRecordRepository playerPvRecordRepository, PlayerPvCustomizeRepository playerPvCustomizeRepository, PlayerModuleRepository playerModuleRepository, PlayerCustomizeRepository playerCustomizeRepository) {
         this.playerProfileService = playerProfileService;
+        this.gameSessionRepository = gameSessionRepository;
         this.playLogRepository = playLogRepository;
         this.playerPvRecordRepository = playerPvRecordRepository;
         this.playerPvCustomizeRepository = playerPvCustomizeRepository;
         this.playerModuleRepository = playerModuleRepository;
         this.playerCustomizeRepository = playerCustomizeRepository;
+    }
+
+    @PostMapping("forceUnlock")
+    public ResponseEntity<MessageResponse> forceUnlock(@RequestParam int pdId) {
+        PlayerProfile profile = playerProfileService.findByPdId(pdId).orElseThrow();
+        Optional<GameSession> session = gameSessionRepository.findByPdId(profile);
+        if(session.isPresent()) {
+            gameSessionRepository.delete(session.get());
+            return ResponseEntity.ok(new MessageResponse("Session deleted."));
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new MessageResponse("Session doesn't exist."));
+        }
     }
 
     @GetMapping("playerInfo")
