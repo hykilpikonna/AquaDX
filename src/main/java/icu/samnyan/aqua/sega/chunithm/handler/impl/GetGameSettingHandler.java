@@ -38,9 +38,9 @@ public class GetGameSettingHandler implements BaseHandler {
                 0,
                 0,
                 false,
-                999,
-                999,
-                999);
+                300,
+                300,
+                300);
 
         GetGameSettingResp resp = new GetGameSettingResp(
                 gameSetting,
