@@ -25,6 +25,7 @@ public class PlayerPvCustomize implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "pd_id")
+    @JsonIgnore
     private PlayerProfile pdId;
 
     @Column(name = "pv_id")

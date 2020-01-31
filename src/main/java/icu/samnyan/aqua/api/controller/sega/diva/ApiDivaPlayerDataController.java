@@ -32,8 +32,9 @@ public class ApiDivaPlayerDataController {
     private final PlayerPvCustomizeRepository playerPvCustomizeRepository;
     private final PlayerModuleRepository playerModuleRepository;
     private final PlayerCustomizeRepository playerCustomizeRepository;
+    private final PlayerScreenShotRepository playerScreenShotRepository;
 
-    public ApiDivaPlayerDataController(PlayerProfileService playerProfileService, GameSessionRepository gameSessionRepository, PlayLogRepository playLogRepository, PlayerPvRecordRepository playerPvRecordRepository, PlayerPvCustomizeRepository playerPvCustomizeRepository, PlayerModuleRepository playerModuleRepository, PlayerCustomizeRepository playerCustomizeRepository) {
+    public ApiDivaPlayerDataController(PlayerProfileService playerProfileService, GameSessionRepository gameSessionRepository, PlayLogRepository playLogRepository, PlayerPvRecordRepository playerPvRecordRepository, PlayerPvCustomizeRepository playerPvCustomizeRepository, PlayerModuleRepository playerModuleRepository, PlayerCustomizeRepository playerCustomizeRepository, PlayerScreenShotRepository playerScreenShotRepository) {
         this.playerProfileService = playerProfileService;
         this.gameSessionRepository = gameSessionRepository;
         this.playLogRepository = playLogRepository;
@@ -41,6 +42,7 @@ public class ApiDivaPlayerDataController {
         this.playerPvCustomizeRepository = playerPvCustomizeRepository;
         this.playerModuleRepository = playerModuleRepository;
         this.playerCustomizeRepository = playerCustomizeRepository;
+        this.playerScreenShotRepository = playerScreenShotRepository;
     }
 
     @PostMapping("forceUnlock")
@@ -274,5 +276,9 @@ public class ApiDivaPlayerDataController {
         return new ReducedPageResponse<>(customizes.getContent(), customizes.getPageable().getPageNumber(), customizes.getTotalPages(), customizes.getTotalElements());
     }
 
+    @GetMapping("screenshot")
+    public List<PlayerScreenShot> getScreenshotList(@RequestParam int pdId) {
+        return playerScreenShotRepository.findByPdId_PdId(pdId);
+    }
 
 }
