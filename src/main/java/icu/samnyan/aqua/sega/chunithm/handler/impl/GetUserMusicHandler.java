@@ -10,6 +10,7 @@ import icu.samnyan.aqua.sega.util.jackson.StringMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -43,53 +44,35 @@ public class GetUserMusicHandler implements BaseHandler {
         String userId = (String) request.get("userId");
         int nextIndex = Integer.parseInt((String) request.get("nextIndex"));
         int maxCount = Integer.parseInt((String) request.get("maxCount"));
+        int pageNum = nextIndex / maxCount;
 
+        Page<UserMusicDetail> dbPage = userMusicDetailService.getByUser(userId,pageNum,maxCount);
 
-        List<UserMusicDetail> userMusicDetailList = userMusicDetailService.getByUser(userId);
-
-
-        Map<Integer, Map<Integer, UserMusicDetail>> allMusicMap = new LinkedHashMap<>();
-
-        userMusicDetailList.forEach(userMusicDetail -> {
-
-            int musicId = userMusicDetail.getMusicId();
-            int level = userMusicDetail.getLevel();
-
-            if (allMusicMap.containsKey(musicId)) {
-                allMusicMap.get(musicId).put(level, userMusicDetail);
-            } else {
-                Map<Integer, UserMusicDetail> levelMap = new HashMap<>();
-                levelMap.put(level, userMusicDetail);
-                allMusicMap.put(musicId, levelMap);
-            }
-        });
 
         // Convert to result format
         // Result Map
         Map<Integer, UserMusicListItem> userMusicMap = new LinkedHashMap<>();
 
-        allMusicMap.forEach((mid, lvMap) -> {
+        dbPage.getContent().forEach(userMusicDetail -> {
             UserMusicListItem list;
-            if (userMusicMap.containsKey(mid)) {
-                list = userMusicMap.get(mid);
+            if (userMusicMap.containsKey(userMusicDetail.getMusicId())) {
+                list = userMusicMap.get(userMusicDetail.getMusicId());
             } else {
                 list = new UserMusicListItem(0, new ArrayList<>());
-                userMusicMap.put(mid, list);
+                userMusicMap.put(userMusicDetail.getMusicId(), list);
             }
-            list.getUserMusicDetailList().addAll(lvMap.values());
-            list.setLength(lvMap.size());
+            list.getUserMusicDetailList().add(userMusicDetail);
+            list.setLength(list.getUserMusicDetailList().size());
         });
 
-        List<UserMusicListItem> result = userMusicMap.values().stream().skip(nextIndex).limit(maxCount).collect(Collectors.toList());
 
-
-        long currentIndex = result.size();
+        long currentIndex = maxCount * pageNum + dbPage.getNumberOfElements();
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userId);
-        resultMap.put("length", result.size());
-        resultMap.put("nextIndex", allMusicMap.size() < maxCount ? -1 : currentIndex);
-        resultMap.put("userMusicList", result);
+        resultMap.put("length", userMusicMap.size());
+        resultMap.put("nextIndex", dbPage.getNumberOfElements() < maxCount ? -1 : currentIndex);
+        resultMap.put("userMusicList", userMusicMap.values());
 
         String json = mapper.write(resultMap);
         logger.info("Response: " + json);
