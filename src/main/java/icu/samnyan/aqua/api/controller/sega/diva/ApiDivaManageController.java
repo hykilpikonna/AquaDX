@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.api.controller.sega.diva;
 
-import icu.samnyan.aqua.api.model.OkResponse;
+import icu.samnyan.aqua.api.model.MessageResponse;
 import icu.samnyan.aqua.api.model.req.sega.diva.ModuleEntry;
 import icu.samnyan.aqua.api.model.req.sega.diva.PvListEntry;
 import icu.samnyan.aqua.api.model.req.sega.diva.PvListRequest;
@@ -85,9 +85,9 @@ public class ApiDivaManageController {
     }
 
     @DeleteMapping("festa/{id}")
-    public OkResponse getFesta(@PathVariable int id) {
+    public MessageResponse getFesta(@PathVariable int id) {
         festaRepository.deleteById(id);
-        return new OkResponse("Deleted " + id);
+        return new MessageResponse("Deleted " + id);
     }
 
     @GetMapping("contest")
@@ -101,9 +101,9 @@ public class ApiDivaManageController {
     }
 
     @DeleteMapping("contest/{id}")
-    public OkResponse deleteContest(@PathVariable int id) {
+    public MessageResponse deleteContest(@PathVariable int id) {
         contestRepository.deleteById(id);
-        return new OkResponse("Deleted " + id);
+        return new MessageResponse("Deleted " + id);
     }
 
     @GetMapping("news")

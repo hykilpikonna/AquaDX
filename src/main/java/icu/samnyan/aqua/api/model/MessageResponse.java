@@ -3,14 +3,14 @@ package icu.samnyan.aqua.api.model;
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
-public class OkResponse {
+public class MessageResponse {
     private String message = "ok";
 
-    public OkResponse(String message) {
+    public MessageResponse(String message) {
         this.message = message;
     }
 
-    public OkResponse() {
+    public MessageResponse() {
     }
 
     public String getMessage() {

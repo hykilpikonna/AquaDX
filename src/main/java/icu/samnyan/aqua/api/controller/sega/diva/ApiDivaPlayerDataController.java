@@ -8,6 +8,7 @@ import icu.samnyan.aqua.sega.diva.model.common.Difficulty;
 import icu.samnyan.aqua.sega.diva.model.common.Edition;
 import icu.samnyan.aqua.sega.diva.model.userdata.*;
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
+import icu.samnyan.aqua.sega.general.model.Card;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
