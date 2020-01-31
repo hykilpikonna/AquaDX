@@ -1,4 +1,4 @@
-package icu.samnyan.aqua.api.controller.sega.diva;
+package icu.samnyan.aqua.api.controller.sega.game.diva;
 
 import icu.samnyan.aqua.sega.diva.dao.gamedata.DivaCustomizeRepository;
 import icu.samnyan.aqua.sega.diva.dao.gamedata.DivaModuleRepository;

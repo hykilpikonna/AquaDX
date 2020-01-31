@@ -1,4 +1,4 @@
-package icu.samnyan.aqua.api.controller.sega.chuni.amazon;
+package icu.samnyan.aqua.api.controller.sega.game.chuni.amazon;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import icu.samnyan.aqua.api.model.resp.sega.chuni.amazon.ProfileResp;
@@ -132,11 +132,6 @@ public class ApiAmazonController {
         return gameMusicService.getAll();
     }
 
-//    @PostMapping("music/import")
-//    public List<Music> addMusic(@RequestBody List<Music> musicList) {
-//        musicList.forEach(music -> music.getLevels().forEach((integer, level) -> level.setMusic(music)));
-//        return gameMusicService.saveAll(musicList);
-//    }
 
     private int calculateRating(int levelBase, int score) {
         if (score >= 1007500) return levelBase + 200;

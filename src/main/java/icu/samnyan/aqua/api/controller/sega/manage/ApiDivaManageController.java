@@ -1,4 +1,4 @@
-package icu.samnyan.aqua.api.controller.sega.diva;
+package icu.samnyan.aqua.api.controller.sega.manage;
 
 import icu.samnyan.aqua.api.model.MessageResponse;
 import icu.samnyan.aqua.api.model.req.sega.diva.ModuleEntry;
@@ -20,7 +20,7 @@ import java.util.Optional;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @RestController
-@RequestMapping("api/game/diva/manage")
+@RequestMapping("api/manage/diva/")
 public class ApiDivaManageController {
 
     private final PvEntryRepository pvEntryRepository;

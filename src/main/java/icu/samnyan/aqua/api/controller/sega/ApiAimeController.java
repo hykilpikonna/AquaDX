@@ -1,4 +1,4 @@
-package icu.samnyan.aqua.api.controller;
+package icu.samnyan.aqua.api.controller.sega;
 
 import icu.samnyan.aqua.sega.general.dao.CardRepository;
 import icu.samnyan.aqua.sega.general.model.Card;
