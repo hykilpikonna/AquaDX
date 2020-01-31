@@ -16,5 +16,5 @@ public interface UserDuelRepository extends JpaRepository<UserDuel, Long> {
 
     Optional<UserDuel> findTopByUserAndDuelIdOrderByIdDesc(UserData user, int duelId);
 
-    List<UserDuel> findByUser_Card_ExtId(long extId);
+    List<UserDuel> findByUser_Card_ExtId(int extId);
 }

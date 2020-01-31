@@ -52,7 +52,11 @@ public class RegisterHandler implements BaseHandler {
         if(cardRepository.findByLuid((String) requestMap.get("luid")).isEmpty()) {
             Card card = new Card();
             card.setLuid((String) requestMap.get("luid"));
-            card.setExtId(ThreadLocalRandom.current().nextLong(99999999));
+            int extId = ThreadLocalRandom.current().nextInt(99999999);
+            while (cardRepository.findByExtId(extId).isPresent()) {
+                extId = ThreadLocalRandom.current().nextInt(99999999);
+            }
+            card.setExtId(extId);
             card.setRegisterTime(LocalDateTime.now());
             card.setAccessTime(LocalDateTime.now());
 

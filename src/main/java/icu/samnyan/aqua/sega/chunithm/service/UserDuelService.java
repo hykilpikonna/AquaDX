@@ -35,7 +35,7 @@ public class UserDuelService {
     }
 
     public List<UserDuel> getByUser(String userId) {
-        return userDuelRepository.findByUser_Card_ExtId(Long.parseLong(userId));
+        return userDuelRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
     }
 
 }

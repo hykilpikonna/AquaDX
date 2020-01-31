@@ -18,7 +18,7 @@ public interface UserMusicDetailRepository extends JpaRepository<UserMusicDetail
 
     Optional<UserMusicDetail> findTopByUserAndMusicIdAndLevelOrderByIdDesc(UserData user, int musicId, int level);
 
-    List<UserMusicDetail> findByUser_Card_ExtId(long parseLong);
+    List<UserMusicDetail> findByUser_Card_ExtId(int extId);
 
-    Page<UserMusicDetail> findByUser_Card_ExtId(long aimeId, Pageable page);
+    Page<UserMusicDetail> findByUser_Card_ExtId(int extId, Pageable page);
 }

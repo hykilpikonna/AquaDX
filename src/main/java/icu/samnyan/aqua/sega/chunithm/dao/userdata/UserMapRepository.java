@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface UserMapRepository extends JpaRepository<UserMap, Long> {
     List<UserMap> findAllByUser(UserData user);
 
-    List<UserMap> findAllByUser_Card_ExtId(long extId);
+    List<UserMap> findAllByUser_Card_ExtId(int extId);
 
     Optional<UserMap> findTopByUserAndMapIdOrderByIdDesc(UserData user, int mapId);
 }

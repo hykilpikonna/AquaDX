@@ -22,7 +22,7 @@ public class UserDataService {
     }
 
     public Optional<UserData> getUserByExtId(String aimeId) {
-        return userDataRepository.findByCard_ExtId(Long.parseLong(aimeId));
+        return userDataRepository.findByCard_ExtId(Integer.parseInt(aimeId));
     }
 
     public String updateLoginTime(UserData userData) {

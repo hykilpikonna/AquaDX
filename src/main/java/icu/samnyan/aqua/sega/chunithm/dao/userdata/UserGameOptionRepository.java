@@ -15,5 +15,5 @@ public interface UserGameOptionRepository extends JpaRepository<UserGameOption, 
 
     Optional<UserGameOption> findByUser(UserData user);
 
-    Optional<UserGameOption> findByUser_Card_ExtId(long extId);
+    Optional<UserGameOption> findByUser_Card_ExtId(int extId);
 }

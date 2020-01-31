@@ -38,11 +38,11 @@ public class UserCourseService {
     }
 
     public List<UserCourse> getByUser(String userId) {
-        return userCourseRepository.findByUser_Card_ExtId(Long.parseLong(userId));
+        return userCourseRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
     }
 
     public Page<UserCourse> getByUser(String userId, int pageNum, int maxCount) {
         Pageable page = PageRequest.of(pageNum, maxCount);
-        return userCourseRepository.findByUser_Card_ExtId(Long.parseLong(userId), page);
+        return userCourseRepository.findByUser_Card_ExtId(Integer.parseInt(userId), page);
     }
 }

@@ -38,11 +38,11 @@ public class UserMusicDetailService {
     }
 
     public List<UserMusicDetail> getByUser(String userId) {
-        return userMusicDetailRepository.findByUser_Card_ExtId(Long.parseLong(userId));
+        return userMusicDetailRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
     }
 
     public Page<UserMusicDetail> getByUser(String userId, int pageNum, int maxCount) {
         Pageable page = PageRequest.of(pageNum, maxCount);
-        return userMusicDetailRepository.findByUser_Card_ExtId(Long.parseLong(userId), page);
+        return userMusicDetailRepository.findByUser_Card_ExtId(Integer.parseInt(userId), page);
     }
 }

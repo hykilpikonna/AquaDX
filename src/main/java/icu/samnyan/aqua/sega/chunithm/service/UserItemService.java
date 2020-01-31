@@ -39,6 +39,6 @@ public class UserItemService {
 
     public Page<UserItem> getByUserAndItemKind(String userId, int kind, int pageNumber, int maxCount) {
         Pageable page = PageRequest.of(pageNumber, maxCount);
-        return userItemRepository.findAllByUser_Card_ExtIdAndItemKind(Long.parseLong(userId), kind, page);
+        return userItemRepository.findAllByUser_Card_ExtIdAndItemKind(Integer.parseInt(userId), kind, page);
     }
 }

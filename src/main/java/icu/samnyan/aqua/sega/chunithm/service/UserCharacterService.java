@@ -43,6 +43,6 @@ public class UserCharacterService {
 
     public Page<UserCharacter> getByUser(String userId, int pageNumber, int maxCount) {
         Pageable pageable = PageRequest.of(pageNumber, maxCount);
-        return userCharacterRepository.findByUser_Card_ExtId(Long.parseLong(userId), pageable);
+        return userCharacterRepository.findByUser_Card_ExtId(Integer.parseInt(userId), pageable);
     }
 }

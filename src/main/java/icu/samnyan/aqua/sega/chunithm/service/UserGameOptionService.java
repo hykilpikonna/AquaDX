@@ -22,7 +22,7 @@ public class UserGameOptionService {
     }
 
     public Optional<UserGameOption> getByUserId(String userId) {
-        return userGameOptionRepository.findByUser_Card_ExtId(Long.parseLong(userId));
+        return userGameOptionRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
     }
 
     public Optional<UserGameOption> getByUser(UserData user) {

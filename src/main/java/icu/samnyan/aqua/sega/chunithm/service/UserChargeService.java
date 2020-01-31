@@ -25,7 +25,7 @@ public class UserChargeService {
     }
 
     public List<UserCharge> getByUserId(String userId) {
-        return userChargeRepository.findByUser_Card_ExtId(Long.parseLong(userId));
+        return userChargeRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
     }
 
     public Optional<UserCharge> getByUserAndChargeId(UserData user, String chargeId) {

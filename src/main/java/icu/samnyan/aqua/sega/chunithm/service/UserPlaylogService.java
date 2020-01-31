@@ -33,11 +33,11 @@ public class UserPlaylogService {
 
     public List<UserPlaylog> getRecent30Plays(String userId) {
         Pageable page = PageRequest.of(0, 30, Sort.by(Sort.Direction.DESC, "userPlayDate"));
-        return userPlaylogRepository.findByUser_Card_ExtIdAndLevelNot(Long.parseLong(userId), 4, page);
+        return userPlaylogRepository.findByUser_Card_ExtIdAndLevelNot(Integer.parseInt(userId), 4, page);
     }
 
     public List<UserPlaylog> getRecentPlays(String userId) {
         Pageable page = PageRequest.of(0, 50, Sort.by(Sort.Direction.DESC, "userPlayDate"));
-        return userPlaylogRepository.findByUser_Card_ExtId(Long.parseLong(userId), page);
+        return userPlaylogRepository.findByUser_Card_ExtId(Integer.parseInt(userId), page);
     }
 }

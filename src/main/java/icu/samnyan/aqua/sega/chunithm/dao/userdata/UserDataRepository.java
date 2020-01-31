@@ -15,5 +15,5 @@ public interface UserDataRepository extends JpaRepository<UserData, Long> {
 
     Optional<UserData> findByCard(Card card);
 
-    Optional<UserData> findByCard_ExtId(long extId);
+    Optional<UserData> findByCard_ExtId(int extId);
 }

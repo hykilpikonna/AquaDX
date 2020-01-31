@@ -27,7 +27,7 @@ public class UserMapService {
     }
 
     public List<UserMap> getByUser(String userId) {
-        return userMapRepository.findAllByUser_Card_ExtId(Long.parseLong(userId));
+        return userMapRepository.findAllByUser_Card_ExtId(Integer.parseInt(userId));
     }
 
     public Optional<UserMap> getByUserAndMapId(UserData user, String mapId) {
