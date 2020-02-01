@@ -94,6 +94,25 @@ public class EndHandler extends BaseHandler {
             }
         }
 
+        int savedIndex = session.getStageResultIndex();
+        int[] stageArr = request.getStg_ply_pv_id();
+        int stageIndex = 0;
+        if(stageArr[0] != -1) {
+            stageIndex = 0;
+        }
+        if(stageArr[1] != -1) {
+            stageIndex = 1;
+        }
+        if(stageArr[2] != -1) {
+            stageIndex = 2;
+        }
+        if(stageArr[3] != -1) {
+            stageIndex = 3;
+        }
+        if(stageIndex != savedIndex) {
+            logger.error("Some stage not saved");
+        }
+
 
         playerProfileService.save(profile);
         gameSessionRepository.delete(session);

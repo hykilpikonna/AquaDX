@@ -36,12 +36,22 @@ public class StageStartHandler extends BaseHandler {
             PlayerProfile profile = profileRepository.findByPdId(request.getPd_id()).orElseThrow(ProfileNotFoundException::new);
             GameSession session = gameSessionRepository.findByPdId(profile).orElseThrow(SessionNotFoundException::new);
 
-            if(session.getStageResultIndex() <= session.getStageIndex()) {
-                session.setStageIndex(session.getStageIndex() + 1);
-                gameSessionRepository.save(session);
-            } else {
-                logger.warn("Stage index is greater than stage result index. Maybe due to duplicated request.");
+            int[] stageArr = request.getStg_ply_pv_id();
+            int stageIndex = 0;
+            if(stageArr[0] != -1) {
+                stageIndex = 0;
             }
+            if(stageArr[1] != -1) {
+                stageIndex = 1;
+            }
+            if(stageArr[2] != -1) {
+                stageIndex = 2;
+            }
+            if(stageArr[3] != -1) {
+                stageIndex = 3;
+            }
+            session.setStageIndex(stageIndex);
+            gameSessionRepository.save(session);
         }
 
         BaseResponse response = new BaseResponse(

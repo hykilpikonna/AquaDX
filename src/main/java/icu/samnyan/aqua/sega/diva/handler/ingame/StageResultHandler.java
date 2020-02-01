@@ -61,8 +61,6 @@ public class StageResultHandler extends BaseHandler {
             int[] pvIds = request.getStg_ply_pv_id();
             int stageIndex = session.getStageIndex();
 
-            // Only save to database when stage index is larger than stage result index to prevent duplicate request.
-            if(stageIndex > session.getStageResultIndex()) {
 
                 // Convert to play log object
                 PlayLog log = getLog(request, profile, stageIndex);
@@ -98,13 +96,12 @@ public class StageResultHandler extends BaseHandler {
                 session.setLevelNumber(levelInfo.getLevelNumber());
                 session.setLevelExp(levelInfo.getLevelExp());
 
-                session.setStageResultIndex(session.getStageResultIndex() + 1);
+                session.setStageResultIndex(stageIndex);
 
                 pvRecordRepository.save(record);
                 playLogRepository.save(log);
                 gameSessionRepository.save(session);
 
-            }
 
             response = new StageResultResponse(
                     request.getCmd(),
