@@ -69,12 +69,18 @@ public class StageResultHandler extends BaseHandler {
                 PlayerPvRecord record = pvRecordRepository.findByPdIdAndPvIdAndEditionAndDifficulty(profile, log.getPvId(), log.getEdition(), log.getDifficulty())
                         .orElseGet(() -> new PlayerPvRecord(profile, log.getPvId(), log.getEdition(), log.getDifficulty()));
 
-                // Update pvRecord field
-                record.setMaxScore(Math.max(record.getMaxScore(), log.getScore()));
-                record.setMaxAttain(Math.max(record.getMaxAttain(), log.getAttainPoint()));
+                // Not save personal record in no fail mode
+                if(request.getGame_type() != 1) {
+                    // Only update personal record when using rhythm game option
+                    if (log.getRhythmGameOptions().equals("0,0,0")) {
+                        // Update pvRecord field
+                        record.setMaxScore(Math.max(record.getMaxScore(), log.getScore()));
+                        record.setMaxAttain(Math.max(record.getMaxAttain(), log.getAttainPoint()));
 
-                if (record.getResult().getValue() < log.getClearResult().getValue()) {
-                    record.setResult(log.getClearResult());
+                        if (record.getResult().getValue() < log.getClearResult().getValue()) {
+                            record.setResult(log.getClearResult());
+                        }
+                    }
                 }
 
                 String[] updateRgo = log.getRhythmGameOptions().split(",");
