@@ -16,7 +16,7 @@ public class ChuniResponseWrapper extends HttpServletResponseWrapper {
     private ServletOutputStream filterOutput;
 
 
-    ChuniResponseWrapper(HttpServletResponse response) {
+    public ChuniResponseWrapper(HttpServletResponse response) {
         super(response);
         output = new ByteArrayOutputStream();
     }
@@ -44,7 +44,7 @@ public class ChuniResponseWrapper extends HttpServletResponseWrapper {
         return filterOutput;
     }
 
-    byte[] toByteArray() {
+    public byte[] toByteArray() {
         return output.toByteArray();
     }
 }

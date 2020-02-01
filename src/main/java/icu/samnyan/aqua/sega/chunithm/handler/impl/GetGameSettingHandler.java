@@ -45,7 +45,7 @@ public class GetGameSettingHandler implements BaseHandler {
         GetGameSettingResp resp = new GetGameSettingResp(
                 gameSetting,
                 false,
-                false
+                true
         );
 
         String json = mapper.write(resp);
