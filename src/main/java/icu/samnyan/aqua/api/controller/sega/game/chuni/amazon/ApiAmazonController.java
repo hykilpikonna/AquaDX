@@ -83,11 +83,15 @@ public class ApiAmazonController {
         List<RatingItem> result = new ArrayList<>();
         for (UserMusicDetail detail : details) {
             Music music = musicMap.get(detail.getMusicId());
-            Level level = music.getLevels().get(detail.getLevel());
-            int levelBase = level.getLevel() * 100 + level.getLevelDecimal();
-            int score = detail.getScoreMax();
-            int rating = calculateRating(levelBase, score);
-            result.add(new RatingItem(music.getMusicId(), music.getName(), music.getArtistName(), level.getDiff(), score, levelBase, rating));
+            if (music != null) {
+                Level level = music.getLevels().get(detail.getLevel());
+                if (level != null) {
+                    int levelBase = level.getLevel() * 100 + level.getLevelDecimal();
+                    int score = detail.getScoreMax();
+                    int rating = calculateRating(levelBase, score);
+                    result.add(new RatingItem(music.getMusicId(), music.getName(), music.getArtistName(), level.getDiff(), score, levelBase, rating));
+                }
+            }
         }
 
         return result.stream()
@@ -105,14 +109,17 @@ public class ApiAmazonController {
         List<RatingItem> result = new ArrayList<>();
         for (UserPlaylog log : logList) {
             Music music = musicMap.get(log.getMusicId());
-            Level level = music.getLevels().get(log.getLevel());
-            int levelBase = level.getLevel() * 100 + level.getLevelDecimal();
-            int score = log.getScore();
-            int rating = calculateRating(levelBase, score);
+            if (music != null) {
+                Level level = music.getLevels().get(log.getLevel());
+                if (level != null) {
+                    int levelBase = level.getLevel() * 100 + level.getLevelDecimal();
+                    int score = log.getScore();
+                    int rating = calculateRating(levelBase, score);
 
-            result.add(new RatingItem(music.getMusicId(), music.getName(), music.getArtistName(), level.getDiff(), score, levelBase, rating));
+                    result.add(new RatingItem(music.getMusicId(), music.getName(), music.getArtistName(), level.getDiff(), score, levelBase, rating));
+                }
+            }
         }
-        List<String> keys = new ArrayList<>();
 
         return result.stream()
                 .filter(detail -> detail.getLevel() != 4)
