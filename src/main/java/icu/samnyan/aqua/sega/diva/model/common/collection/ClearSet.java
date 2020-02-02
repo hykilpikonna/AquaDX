@@ -19,14 +19,20 @@ public class ClearSet {
     }
 
     public void addGreat() {
+        this.clear += 1;
         this.great += 1;
     }
 
     public void addExcellent() {
+        this.clear += 1;
+        this.great += 1;
         this.excellent += 1;
     }
 
     public void addPerfect() {
+        this.clear += 1;
+        this.great += 1;
+        this.excellent += 1;
         this.perfect += 1;
     }
 }
