@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.api.controller.sega.game.chuni.amazon;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import icu.samnyan.aqua.api.model.MessageResponse;
 import icu.samnyan.aqua.api.model.resp.sega.chuni.amazon.ProfileResp;
 import icu.samnyan.aqua.api.model.resp.sega.chuni.amazon.RatingItem;
 import icu.samnyan.aqua.api.model.resp.sega.chuni.amazon.RecentResp;
@@ -8,11 +9,10 @@ import icu.samnyan.aqua.api.model.resp.sega.chuni.amazon.ScoreResp;
 import icu.samnyan.aqua.api.util.ApiMapper;
 import icu.samnyan.aqua.sega.chunithm.model.gamedata.Level;
 import icu.samnyan.aqua.sega.chunithm.model.gamedata.Music;
-import icu.samnyan.aqua.sega.chunithm.model.userdata.UserCourse;
-import icu.samnyan.aqua.sega.chunithm.model.userdata.UserMusicDetail;
-import icu.samnyan.aqua.sega.chunithm.model.userdata.UserPlaylog;
+import icu.samnyan.aqua.sega.chunithm.model.userdata.*;
 import icu.samnyan.aqua.sega.chunithm.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -34,16 +34,18 @@ public class ApiAmazonController {
     private final UserPlaylogService userPlaylogService;
     private final UserMusicDetailService userMusicDetailService;
     private final UserCourseService userCourseService;
+    private final UserGameOptionService userGameOptionService;
 
     private final GameMusicService gameMusicService;
 
     @Autowired
-    public ApiAmazonController(ApiMapper mapper, UserDataService userDataService, UserPlaylogService userPlaylogService, UserMusicDetailService userMusicDetailService, UserCourseService userCourseService, GameMusicService gameMusicService) {
+    public ApiAmazonController(ApiMapper mapper, UserDataService userDataService, UserPlaylogService userPlaylogService, UserMusicDetailService userMusicDetailService, UserCourseService userCourseService, UserGameOptionService userGameOptionService, GameMusicService gameMusicService) {
         this.mapper = mapper;
         this.userDataService = userDataService;
         this.userPlaylogService = userPlaylogService;
         this.userMusicDetailService = userMusicDetailService;
         this.userCourseService = userCourseService;
+        this.userGameOptionService = userGameOptionService;
         this.gameMusicService = gameMusicService;
     }
 
@@ -63,6 +65,33 @@ public class ApiAmazonController {
                 .orElseGet(() -> new UserCourse(0));
         resp.setCourseClass(course.getClassId());
         return resp;
+    }
+
+    @PutMapping("profile/userName")
+    public UserData updateName(@RequestBody Map<String, Object> request) {
+        UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
+        profile.setUserName((String) request.get("userName"));
+        return userDataService.saveUserData(profile);
+    }
+
+    @PutMapping("profile/plate")
+    public UserData updatePlate(@RequestBody Map<String, Object> request) {
+        UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
+        profile.setNameplateId((Integer) request.get("nameplateId"));
+        profile.setFrameId((Integer) request.get("frameId"));
+        return userDataService.saveUserData(profile);
+    }
+
+    @PutMapping("profile/privacy")
+    public ResponseEntity<Object> updatePrivacy(@RequestBody Map<String, Object> request) {
+        UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
+        UserGameOption option = userGameOptionService.getByUser(profile).orElseThrow();
+        int privacy = (Integer) request.get("privacy");
+        if (privacy != 1 && privacy != 0) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Wrong data"));
+        }
+        option.setPrivacy(privacy);
+        return ResponseEntity.ok(userDataService.saveUserData(profile));
     }
 
     @GetMapping("recent")
