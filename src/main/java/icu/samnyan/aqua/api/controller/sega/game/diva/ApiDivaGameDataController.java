@@ -2,8 +2,10 @@ package icu.samnyan.aqua.api.controller.sega.game.diva;
 
 import icu.samnyan.aqua.sega.diva.dao.gamedata.DivaCustomizeRepository;
 import icu.samnyan.aqua.sega.diva.dao.gamedata.DivaModuleRepository;
+import icu.samnyan.aqua.sega.diva.dao.gamedata.DivaPvRepository;
 import icu.samnyan.aqua.sega.diva.model.gamedata.DivaCustomize;
 import icu.samnyan.aqua.sega.diva.model.gamedata.DivaModule;
+import icu.samnyan.aqua.sega.diva.model.gamedata.Pv;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -24,24 +26,26 @@ public class ApiDivaGameDataController {
 
     private final DivaModuleRepository divaModuleRepository;
     private final DivaCustomizeRepository divaCustomizeRepository;
+    private final DivaPvRepository divaPvRepository;
 
-    public ApiDivaGameDataController(DivaModuleRepository divaModuleRepository, DivaCustomizeRepository divaCustomizeRepository) {
+    public ApiDivaGameDataController(DivaModuleRepository divaModuleRepository, DivaCustomizeRepository divaCustomizeRepository, DivaPvRepository divaPvRepository) {
         this.divaModuleRepository = divaModuleRepository;
         this.divaCustomizeRepository = divaCustomizeRepository;
+        this.divaPvRepository = divaPvRepository;
     }
 
-    @GetMapping(value = "musicList", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Resource musicList() throws IOException {
-        return new FileSystemResource(Paths.get("data/diva_musiclist.json"));
+    @GetMapping(value = "musicList")
+    public List<Pv> musicList() {
+        return divaPvRepository.findAll();
     }
 
     @GetMapping(value = "moduleList")
-    public List<DivaModule> moduleList() throws IOException {
+    public List<DivaModule> moduleList() {
         return divaModuleRepository.findAll();
     }
 
     @GetMapping(value = "customizeList")
-    public List<DivaCustomize> customizeList() throws IOException {
+    public List<DivaCustomize> customizeList() {
         return divaCustomizeRepository.findAll();
     }
 }

@@ -29,14 +29,16 @@ public class ApiDivaManageController {
     private final FestaRepository festaRepository;
     private final ContestRepository contestRepository;
     private final PropertyEntryRepository propertyEntryRepository;
+    private final DivaPvRepository divaPvRepository;
 
-    public ApiDivaManageController(PvEntryRepository pvEntryRepository, DivaModuleRepository moduleRepository, DivaCustomizeRepository customizeRepository, FestaRepository festaRepository, ContestRepository contestRepository, PropertyEntryRepository propertyEntryRepository) {
+    public ApiDivaManageController(PvEntryRepository pvEntryRepository, DivaModuleRepository moduleRepository, DivaCustomizeRepository customizeRepository, FestaRepository festaRepository, ContestRepository contestRepository, PropertyEntryRepository propertyEntryRepository, DivaPvRepository divaPvRepository) {
         this.pvEntryRepository = pvEntryRepository;
         this.moduleRepository = moduleRepository;
         this.customizeRepository = customizeRepository;
         this.festaRepository = festaRepository;
         this.contestRepository = contestRepository;
         this.propertyEntryRepository = propertyEntryRepository;
+        this.divaPvRepository = divaPvRepository;
     }
 
     @PostMapping("pvList")
