@@ -42,6 +42,16 @@ And DIVA screenshot will be save in data folder.
 
 ### Changelog:
 
+v0.0.9: **[This will do database update]**
+
+[api] Fix rating fail to calculate due to lack of music level info
+
+[api] Move diva music list to database
+
+[DIVA] Fix continue not work
+
+[DIVA] Clear status now will count lower clear rank
+
 v0.0.8: **[This will do database update]**
 
 [chuni] Fix a course table column
