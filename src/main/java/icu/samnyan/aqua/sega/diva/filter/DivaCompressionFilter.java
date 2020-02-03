@@ -43,6 +43,7 @@ public class DivaCompressionFilter extends OncePerRequestFilter {
         filterChain.doFilter(requestWrapper, responseWrapper);
         byte[] respSrc = responseWrapper.toByteArray();
         byte[] respResult = Compression.compress(respSrc);
+        respResult = Base64.getMimeEncoder().encode(respResult);
 
 
         response.setContentLength(respResult.length);
