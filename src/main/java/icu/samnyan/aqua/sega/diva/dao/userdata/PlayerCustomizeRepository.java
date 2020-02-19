@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -17,4 +18,6 @@ public interface PlayerCustomizeRepository extends JpaRepository<PlayerCustomize
     List<PlayerCustomize> findByPdId(PlayerProfile profile);
 
     Page<PlayerCustomize> findByPdId_PdId(int pdId, Pageable page);
+
+    Optional<PlayerCustomize> findByPdIdAndCustomizeId(PlayerProfile currentProfile, int parseInt);
 }

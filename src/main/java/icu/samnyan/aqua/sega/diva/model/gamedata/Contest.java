@@ -8,6 +8,7 @@ import icu.samnyan.aqua.sega.util.URIEncoder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -47,14 +48,13 @@ public class Contest implements Serializable {
 
     private int stars;
 
-    private int minComplexity;
+    private int minComplexity; // Only use when Pv difficulty list is not set.
 
     private int maxComplexity;
 
     private int stages;
 
-    @Enumerated(EnumType.STRING)
-    private ContestStageLimit stageLimit;
+    private String stageLimit;
 
     @Enumerated(EnumType.STRING)
     private ContestNormaType normaType;
@@ -65,161 +65,90 @@ public class Contest implements Serializable {
 
     private int goldBorders = 0;
 
+    // Pv List format: "pv_id_start:pv_id_end,pv_id_start:pv_id_end,pv_id_start:pv_id_end" more than 20 group will be ignore, put in -1 for empty end
+    private String pvList;
+
+    // Pv difficulty list format: "pv_difficulty:min_complexity:max_complexity"
+    private String pvDiffList;
+
+    // ContestReward format:
+    // Reward Type: (-1 None, 0 VP, 1 Skin, 2 Callsign, 3 Customize)
+    // Format: "rewardType:reward:string1:string2" string1 and 2 should be urlencoded and must exist. use *** aka %2A%2A%2A as placeholder
+    private String bronzeContestReward;
+
+    private String sliverContestReward;
+
+    private String goldContestReward;
+
+    // ContestReward format: "rewardType:reward:string1:string2"
+    private String contestEntryReward;
+
     public String getString() {
         List<Object> list = new LinkedList<>();
-        list.add(this.id);
-        list.add(DivaDateTimeUtil.format(this.startTime));
-        list.add(DivaDateTimeUtil.format(this.endTime));
-        list.add(URIEncoder.encode(this.name));
-        list.add(URIEncoder.encode(this.description));
-        list.add(this.league.getValue());
-        list.add(this.stars);
-        list.add(this.stages);
-        list.add(this.stageLimit.getValue());
+        list.add(this.id); // Contest ID
+        list.add(DivaDateTimeUtil.format(this.startTime)); // Start time
+        list.add(DivaDateTimeUtil.format(this.endTime)); // End time
+        list.add(URIEncoder.encode(this.name)); // Contest name
+        list.add(URIEncoder.encode(this.description)); // Contest description
+        list.add(this.league.getValue()); // Contest league
+        list.add(this.stars); // Contest starts
+        list.add(this.stages); // Contest stage, 1~9
+        list.add(this.stageLimit); // list_lump_num ( 0 will be all stage same. > 1 will became stage max defined chart? )
         list.add(this.normaType.getValue());
         list.add(this.bronzeBorders);
         list.add(this.sliverBorders);
         list.add(this.goldBorders);
-        list.add(-1);
-        list.add(-2);
-        list.add(this.minComplexity);
-        list.add(this.maxComplexity);
-        list.add(-1);
-        list.add(-2);
-        list.add("7fffffffffffffffffffffffffffffff");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("7fffffffffffffffffffffffffffffff");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("7fffffffffffffffffffffffffffffff");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("7fffffffffffffffffffffffffffffff");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("7fffffffffffffffffffffffffffffff");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("7fffffffffffffffffffffffffffffff");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("7fffffffffffffffffffffffffffffff");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("7fffffffffffffffffffffffffffffff");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("7fffffffffffffffffffffffffffffff");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("7fffffffffffffffffffffffffffffff");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("7fffffffffffffffffffffffffffffff");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("7fffffffffffffffffffffffffffffff");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("7fffffffffffffffffffffffffffffff");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("7fffffffffffffffffffffffffffffff");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("7fffffffffffffffffffffffffffffff");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("7fffffffffffffffffffffffffffffff");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("7fffffffffffffffffffffffffffffff");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("7fffffffffffffffffffffffffffffff");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("7fffffffffffffffffffffffffffffff");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("-2");
-        list.add("7fffffffffffffffffffffffffffffff");
+        for (int i = 1; i <= 20; i++) {
+            // format is "pv_range_start,pv_range_end,min_complexity,max_complexity,difficulty,unknown"
+            if (StringUtils.isBlank(pvList) || !pvList.contains(":")) {
+                list.add(-1);
+                list.add(-1);
+                if (i == 1) {
+                    list.add(this.minComplexity);
+                    list.add(this.maxComplexity);
+                } else {
+                    list.add(-2);
+                    list.add(-2);
+                }
+                list.add(-1);
+                list.add(-2);
+                list.add("7fffffffffffffffffffffffffffffff");
+            } else {
+                String[] groups = pvList.split(",");
+                if (groups.length < i) {
+                    list.add(-1);
+                    list.add(-1);
+                    list.add(-2);
+                    list.add(-2);
+                    list.add(-1);
+                    list.add(-2);
+                    list.add("7fffffffffffffffffffffffffffffff");
+                } else {
+                    String[] ids = groups[i - 1].split(":");
+                    list.add(ids[0]);
+                    list.add(ids[1]);
+                    if(StringUtils.isBlank(pvDiffList) || !pvDiffList.contains(":")) {
+                        list.add(this.minComplexity);
+                        list.add(this.maxComplexity);
+                        list.add(-1);
+                    } else {
+                        String[] diffList = pvDiffList.split(",");
+                        if(diffList.length < i) {
+                            list.add(this.minComplexity);
+                            list.add(this.maxComplexity);
+                            list.add(-1);
+                        } else {
+                            String[] diff = diffList[i-1].split(":");
+                            list.add(diff[1]);
+                            list.add(diff[2]);
+                            list.add(diff[0]);
+                        }
+                    }
+                    list.add(-2);
+                    list.add("7fffffffffffffffffffffffffffffff");
+                }
+            }
+        }
         return list.stream().map(Object::toString).collect(Collectors.joining(","));
     }
 }
