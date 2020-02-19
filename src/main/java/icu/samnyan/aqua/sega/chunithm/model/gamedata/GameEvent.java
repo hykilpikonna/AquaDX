@@ -30,4 +30,6 @@ public class GameEvent implements Serializable {
     private LocalDateTime startDate;
 
     private LocalDateTime endDate;
+
+    private boolean enable;
 }

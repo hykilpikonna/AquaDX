@@ -36,7 +36,7 @@ public class GetGameEventHandler implements BaseHandler {
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         String type = (String) request.get("type");
 
-        List<GameEvent> gameEventList = gameEventRepository.findAll();
+        List<GameEvent> gameEventList = gameEventRepository.findByEnable(true);
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("type", type);
