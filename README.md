@@ -30,6 +30,18 @@ This will be send to the game at booting and being used by following request.
 
 And you can switch to MySQL(MariaDB) database by commenting the Sqlite part.
 
+####Game specific setting:
+
+#####CHUNITHM:
+Game version overwrite
+```
+game.chunithm.overwrite-version=false
+game.chunithm.rom-version=1.30.00
+game.chunithm.data-version=1.30.00
+```
+Enable version overwrite and set to the game version you currently running, will allow profile downgrade. As the game data format is supported by all the version.
+
+
 ### Other Information:
 This server provide a simple API for changing some DIVA's setting.
 
@@ -41,6 +53,18 @@ And DIVA screenshot will be save in data folder.
 
 
 ### Changelog:
+
+v0.0.10: **[This will do database update]**
+
+[DIVA] Add mega39's pv list
+
+[DIVA] Configurable contest pv limit and reward
+
+[chuni] Add all old version event
+
+[chuni] Disable all type 1 event by default
+
+[chuni] Allow game version overwrite to play the same profile across all version
 
 v0.0.9: **[This will do database update]**
 
