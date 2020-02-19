@@ -45,4 +45,8 @@ public class UserCourseService {
         Pageable page = PageRequest.of(pageNum, maxCount);
         return userCourseRepository.findByUser_Card_ExtId(Integer.parseInt(userId), page);
     }
+
+    public List<UserCourse> getAllByUser(String userId) {
+        return userCourseRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
+    }
 }

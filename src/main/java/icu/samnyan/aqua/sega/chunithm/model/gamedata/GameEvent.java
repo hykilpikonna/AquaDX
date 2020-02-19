@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.sega.chunithm.model.gamedata;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,5 +32,6 @@ public class GameEvent implements Serializable {
 
     private LocalDateTime endDate;
 
+    @JsonIgnore
     private boolean enable;
 }

@@ -13,6 +13,7 @@ import icu.samnyan.aqua.sega.util.jackson.StringMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -36,17 +37,32 @@ public class GetUserPreviewHandler implements BaseHandler {
     private final UserCharacterService userCharacterService;
     private final UserGameOptionService userGameOptionService;
 
+    private final boolean overwriteVersion;
+    private final String romVersion;
+    private final String dataVersion;
+
     @Autowired
-    public GetUserPreviewHandler(StringMapper mapper, UserDataService userDataService, UserCharacterService userCharacterService, UserGameOptionService userGameOptionService) {
+    public GetUserPreviewHandler(StringMapper mapper,
+                                 UserDataService userDataService,
+                                 UserCharacterService userCharacterService,
+                                 UserGameOptionService userGameOptionService,
+                                 @Value("${game.chunithm.overwrite-version}") boolean overwriteVersion,
+                                 @Value("${game.chunithm.rom-version}") String romVersion,
+                                 @Value("${game.chunithm.data-version}") String dataVersion
+    ) {
         this.mapper = mapper;
         this.userDataService = userDataService;
         this.userCharacterService = userCharacterService;
         this.userGameOptionService = userGameOptionService;
+        this.overwriteVersion = overwriteVersion;
+        this.romVersion = romVersion;
+        this.dataVersion = dataVersion;
     }
 
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         String userId = (String) request.get("userId");
+
 
         Optional<UserData> userData = userDataService.getUserByExtId(userId);
 
@@ -67,8 +83,14 @@ public class GetUserPreviewHandler implements BaseHandler {
         resp.setExp(user.getExp());
         resp.setPlayerRating(user.getPlayerRating());
         resp.setLastGameId(user.getLastGameId());
+
         resp.setLastRomVersion(user.getLastRomVersion());
         resp.setLastDataVersion(user.getLastDataVersion());
+
+        if (overwriteVersion) {
+            resp.setLastRomVersion(romVersion);
+            resp.setLastDataVersion(dataVersion);
+        }
         resp.setLastPlayDate(user.getLastPlayDate());
         resp.setTrophyId(user.getTrophyId());
 
