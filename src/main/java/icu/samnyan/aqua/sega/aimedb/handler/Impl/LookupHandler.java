@@ -50,7 +50,7 @@ public class LookupHandler implements BaseHandler {
         long aimeId = -1;
         Optional<Card> card = cardRepository.findByLuid((String) requestMap.get("luid"));
         if (card.isPresent()) {
-            aimeId = card.get().getExtId();
+            aimeId = card.get().getExtId().longValue();
         }
 
         Map<String, Object> resultMap = new HashMap<>();
