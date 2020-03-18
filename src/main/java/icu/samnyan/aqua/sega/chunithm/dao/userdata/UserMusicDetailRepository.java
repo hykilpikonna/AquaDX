@@ -20,5 +20,7 @@ public interface UserMusicDetailRepository extends JpaRepository<UserMusicDetail
 
     List<UserMusicDetail> findByUser_Card_ExtId(int extId);
 
+    List<UserMusicDetail> findByUser_Card_ExtIdAndMusicId(int extId, int musicId);
+
     Page<UserMusicDetail> findByUser_Card_ExtId(int extId, Pageable page);
 }

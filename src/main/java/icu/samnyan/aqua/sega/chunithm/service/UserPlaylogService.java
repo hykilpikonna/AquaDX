@@ -2,7 +2,9 @@ package icu.samnyan.aqua.sega.chunithm.service;
 
 import icu.samnyan.aqua.sega.chunithm.dao.userdata.UserPlaylogRepository;
 import icu.samnyan.aqua.sega.chunithm.model.userdata.UserPlaylog;
+import icu.samnyan.aqua.sega.diva.model.userdata.PlayLog;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -36,8 +38,11 @@ public class UserPlaylogService {
         return userPlaylogRepository.findByUser_Card_ExtIdAndLevelNot(Integer.parseInt(userId), 4, page);
     }
 
-    public List<UserPlaylog> getRecentPlays(String userId) {
-        Pageable page = PageRequest.of(0, 50, Sort.by(Sort.Direction.DESC, "userPlayDate"));
+    public Page<UserPlaylog> getRecentPlays(String userId, Pageable page) {
         return userPlaylogRepository.findByUser_Card_ExtId(Integer.parseInt(userId), page);
+    }
+
+    public List<UserPlaylog> getByUserAndMusicIdAndLevel(String userId, int id, int level) {
+        return userPlaylogRepository.findByUser_Card_ExtIdAndMusicIdAndLevel(Integer.parseInt(userId), id, level);
     }
 }

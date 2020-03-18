@@ -57,6 +57,11 @@ public class GameBalanceParameter implements Internalizable {
                 1,
                 1,
                 1,
+                1,
+                1,
+                1,
+                1,
+                1,
                 2,
                 3,
                 4, // unkn

@@ -2,16 +2,19 @@ package icu.samnyan.aqua.api.controller.sega.game.chuni.amazon;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import icu.samnyan.aqua.api.model.MessageResponse;
+import icu.samnyan.aqua.api.model.ReducedPageResponse;
 import icu.samnyan.aqua.api.model.resp.sega.chuni.amazon.ProfileResp;
 import icu.samnyan.aqua.api.model.resp.sega.chuni.amazon.RatingItem;
 import icu.samnyan.aqua.api.model.resp.sega.chuni.amazon.RecentResp;
-import icu.samnyan.aqua.api.model.resp.sega.chuni.amazon.ScoreResp;
 import icu.samnyan.aqua.api.util.ApiMapper;
 import icu.samnyan.aqua.sega.chunithm.model.gamedata.Level;
 import icu.samnyan.aqua.sega.chunithm.model.gamedata.Music;
 import icu.samnyan.aqua.sega.chunithm.model.userdata.*;
 import icu.samnyan.aqua.sega.chunithm.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,6 +50,12 @@ public class ApiAmazonController {
         this.userCourseService = userCourseService;
         this.userGameOptionService = userGameOptionService;
         this.gameMusicService = gameMusicService;
+    }
+
+
+    @GetMapping("music")
+    public List<Music> getMusicList() {
+        return gameMusicService.getAll();
     }
 
     /**
@@ -95,9 +104,12 @@ public class ApiAmazonController {
     }
 
     @GetMapping("recent")
-    public List<RecentResp> getRecentPlay(@RequestParam String aimeId) {
-        return mapper.convert(userPlaylogService.getRecentPlays(aimeId), new TypeReference<>() {
-        });
+    public ReducedPageResponse<RecentResp> getRecentPlay(@RequestParam String aimeId,
+                                          @RequestParam(required = false, defaultValue = "0") int page,
+                                          @RequestParam(required = false, defaultValue = "10") int size) {
+        Page<UserPlaylog> playLogs = userPlaylogService.getRecentPlays(aimeId, PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "userPlayDate")));
+        return new ReducedPageResponse<>(mapper.convert(playLogs.getContent(), new TypeReference<>() {
+        }), playLogs.getPageable().getPageNumber(), playLogs.getTotalPages(), playLogs.getTotalElements());
     }
 
     @GetMapping("rating")
@@ -154,17 +166,15 @@ public class ApiAmazonController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("score/list")
-    public List<ScoreResp> getScoreList(@RequestParam String aimeId) {
-        return mapper.convert(userMusicDetailService.getByUser(aimeId), new TypeReference<>() {
-        });
+    @GetMapping("song/{id}")
+    public List<UserMusicDetail> getSongDetail(@RequestParam String aimeId, @PathVariable int id) {
+        return userMusicDetailService.getByUserAndMusicId(aimeId, id);
     }
 
-    @GetMapping("music")
-    public List<Music> getMusicList() {
-        return gameMusicService.getAll();
+    @GetMapping("song/{id}/{level}")
+    public List<UserPlaylog> getLevelPlaylog(@RequestParam String aimeId, @PathVariable int id, @PathVariable int level) {
+        return userPlaylogService.getByUserAndMusicIdAndLevel(aimeId, id, level);
     }
-
 
     private int calculateRating(int levelBase, int score) {
         if (score >= 1007500) return levelBase + 200;
