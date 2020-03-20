@@ -1,4 +1,4 @@
-package icu.samnyan.aqua.sega.chunithm.filter;
+package icu.samnyan.aqua.sega.general.filter;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.WriteListener;
@@ -10,13 +10,13 @@ import java.io.IOException;
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
-public class ChuniResponseWrapper extends HttpServletResponseWrapper {
+public class CompressResponseWrapper extends HttpServletResponseWrapper {
 
     private ByteArrayOutputStream output;
     private ServletOutputStream filterOutput;
 
 
-    public ChuniResponseWrapper(HttpServletResponse response) {
+    public CompressResponseWrapper(HttpServletResponse response) {
         super(response);
         output = new ByteArrayOutputStream();
     }

@@ -1,0 +1,17 @@
+package icu.samnyan.aqua.sega.ongeki.dao.userdata;
+
+import icu.samnyan.aqua.sega.ongeki.model.userdata.UserData;
+import icu.samnyan.aqua.sega.ongeki.model.userdata.UserLoginBonus;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * @author samnyan (privateamusement@protonmail.com)
+ */
+public interface UserLoginBonusRepository extends JpaRepository<UserLoginBonus, Long> {
+    Optional<UserLoginBonus> findByUserAndBonusId(UserData userData, int bonusId);
+
+    List<UserLoginBonus> findByUser_Card_ExtId(int userId);
+}

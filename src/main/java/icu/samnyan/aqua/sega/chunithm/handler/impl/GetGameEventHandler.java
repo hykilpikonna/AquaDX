@@ -40,7 +40,7 @@ public class GetGameEventHandler implements BaseHandler {
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("type", type);
-        resultMap.put("length", 0);
+        resultMap.put("length", gameEventList.size());
         resultMap.put("gameEventList", gameEventList);
 
         String json = mapper.write(resultMap);

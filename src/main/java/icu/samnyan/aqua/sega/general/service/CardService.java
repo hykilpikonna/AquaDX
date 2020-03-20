@@ -23,4 +23,8 @@ public class CardService {
     public Optional<Card> getCardByExtId(String extId) {
         return cardRepository.findByExtId(Integer.parseInt(extId));
     }
+
+    public Optional<Card> getCardByExtId(int extId) {
+        return cardRepository.findByExtId(extId);
+    }
 }

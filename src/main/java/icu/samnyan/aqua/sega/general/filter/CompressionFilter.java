@@ -1,4 +1,4 @@
-package icu.samnyan.aqua.sega.chunithm.filter;
+package icu.samnyan.aqua.sega.general.filter;
 
 import icu.samnyan.aqua.sega.util.Compression;
 import org.slf4j.Logger;
@@ -11,6 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -19,10 +21,18 @@ import java.io.IOException;
 public class CompressionFilter extends OncePerRequestFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(CompressionFilter.class);
+    private final List<String> filterList;
+
+    public CompressionFilter() {
+        filterList = new ArrayList<>();
+        filterList.add("/ChuniServlet");
+        filterList.add("/ongeki");
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
+        logger.debug("Do compress filter");
         String encoding = request.getHeader("content-encoding");
         byte[] reqSrc = request.getInputStream().readAllBytes();
 
@@ -33,8 +43,8 @@ public class CompressionFilter extends OncePerRequestFilter {
             reqResult = reqSrc;
         }
 
-        ChuniRequestWrapper requestWrapper = new ChuniRequestWrapper(request, reqResult);
-        ChuniResponseWrapper responseWrapper = new ChuniResponseWrapper(response);
+        CompressRequestWrapper requestWrapper = new CompressRequestWrapper(request, reqResult);
+        CompressResponseWrapper responseWrapper = new CompressResponseWrapper(response);
 
         filterChain.doFilter(requestWrapper, responseWrapper);
 
@@ -53,6 +63,13 @@ public class CompressionFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getServletPath();
-        return !path.startsWith("/ChuniServlet");
+        boolean notFilter = true;
+        for (String prefix : filterList) {
+            if (path.startsWith(prefix)) {
+                notFilter = false;
+                break;
+            }
+        }
+        return notFilter;
     }
 }

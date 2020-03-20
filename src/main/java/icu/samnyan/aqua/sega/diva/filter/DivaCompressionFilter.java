@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.diva.filter;
 
-import icu.samnyan.aqua.sega.chunithm.filter.ChuniRequestWrapper;
-import icu.samnyan.aqua.sega.chunithm.filter.ChuniResponseWrapper;
+import icu.samnyan.aqua.sega.general.filter.CompressRequestWrapper;
+import icu.samnyan.aqua.sega.general.filter.CompressResponseWrapper;
 import icu.samnyan.aqua.sega.util.Compression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,8 +37,8 @@ public class DivaCompressionFilter extends OncePerRequestFilter {
             reqResult = reqSrc;
         }
 
-        ChuniRequestWrapper requestWrapper = new ChuniRequestWrapper(request, reqResult);
-        ChuniResponseWrapper responseWrapper = new ChuniResponseWrapper(response);
+        CompressRequestWrapper requestWrapper = new CompressRequestWrapper(request, reqResult);
+        CompressResponseWrapper responseWrapper = new CompressResponseWrapper(response);
 
         filterChain.doFilter(requestWrapper, responseWrapper);
         byte[] respSrc = responseWrapper.toByteArray();

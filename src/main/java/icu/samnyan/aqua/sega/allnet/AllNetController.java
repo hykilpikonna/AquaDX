@@ -73,7 +73,7 @@ public class AllNetController {
             case "SBZV":
                 return "http://" + HOST + ":" + PORT + "/diva/";
             default:
-                return "http://" + HOST + ":" + PORT + "/";
+                return "http://" + HOST + ":" + PORT + "/ongeki/";
         }
     }
 

@@ -1,0 +1,68 @@
+package icu.samnyan.aqua.sega.ongeki.model.userdata;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.io.Serializable;
+
+/**
+ * @author samnyan (privateamusement@protonmail.com)
+ */
+@Entity(name = "OngekiUserMusicDetail")
+@Table(name = "ongeki_user_music_detail")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserMusicDetail implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
+    private long id;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserData user;
+
+    private int musicId;
+
+    private int level;
+
+    private int playCount;
+
+    private int techScoreMax;
+
+    private int techScoreRank;
+
+    private int battleScoreMax;
+
+    private int battleScoreRank;
+
+    private int maxComboCount;
+
+    private int maxOverKill;
+
+    private int maxTeamOverKill;
+
+    private boolean isFullBell;
+
+    private boolean isFullCombo;
+
+    private boolean isAllBreake;
+
+    private boolean isLock;
+
+    private int clearStatus;
+
+    private boolean isStoryWatched;
+
+    public UserMusicDetail(UserData userData) {
+        this.user = userData;
+    }
+}

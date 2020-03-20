@@ -1,4 +1,4 @@
-package icu.samnyan.aqua.sega.chunithm.filter;
+package icu.samnyan.aqua.sega.general.filter;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
@@ -10,12 +10,12 @@ import java.io.IOException;
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
-public class ChuniRequestWrapper extends HttpServletRequestWrapper {
+public class CompressRequestWrapper extends HttpServletRequestWrapper {
 
     private ByteArrayInputStream input;
     private ServletInputStream filterInput;
 
-    public ChuniRequestWrapper(HttpServletRequest request, byte[] input) {
+    public CompressRequestWrapper(HttpServletRequest request, byte[] input) {
         super(request);
         this.input = new ByteArrayInputStream(input);
     }
