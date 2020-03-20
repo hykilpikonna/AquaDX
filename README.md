@@ -4,6 +4,7 @@ An multipurpose game server power by Spring Boot.
 ### Supported Game:
 * CHUNITHM Amazon
 * Project DIVA Arcade Future Tone
+* O.N.G.E.K.I. PLUS
 
 ### Usage:
 Requirements:
@@ -53,6 +54,9 @@ And DIVA screenshot will be save in data folder.
 
 
 ### Changelog:
+v0.0.11: **[This will do database update]**
+
+[ongeki] Add support to ongeki plus
 
 v0.0.10: **[This will do database update]**
 
