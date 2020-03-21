@@ -33,4 +33,4 @@ build/
 ### Dev env ###
 application.properties
 aqua.jar
-data/
+/data/
