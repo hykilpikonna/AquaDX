@@ -17,4 +17,6 @@ public interface UserCardRepository extends JpaRepository<UserCard, Long> {
     Optional<UserCard> findByUserAndCardId(UserData userData, int cardId);
 
     Page<UserCard> findByUser_Card_ExtId(int userId, Pageable page);
+
+    Optional<UserCard> findByUser_Card_ExtIdAndCardId(int aimeId, int cardId);
 }

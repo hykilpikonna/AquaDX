@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.api.controller.sega.game.ongeki;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import icu.samnyan.aqua.api.model.MessageResponse;
 import icu.samnyan.aqua.api.model.ReducedPageResponse;
 import icu.samnyan.aqua.api.model.resp.sega.ongeki.ProfileResp;
 import icu.samnyan.aqua.api.util.ApiMapper;
@@ -11,10 +12,15 @@ import icu.samnyan.aqua.sega.ongeki.model.userdata.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -24,6 +30,8 @@ import java.util.Map;
 public class ApiOngekiPlayerDataController {
 
     private final ApiMapper mapper;
+
+    private static DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.0");
 
     private final UserActivityRepository userActivityRepository;
     private final UserCardRepository userCardRepository;
@@ -91,20 +99,84 @@ public class ApiOngekiPlayerDataController {
     public ReducedPageResponse<UserCard> getCard(@RequestParam Integer aimeId,
                                                  @RequestParam(required = false, defaultValue = "0") int page,
                                                  @RequestParam(required = false, defaultValue = "10") int size) {
-        Page<UserCard> cards = userCardRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page,size));
+        Page<UserCard> cards = userCardRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page,size, Sort.Direction.DESC, "id"));
         return new ReducedPageResponse<>(cards.getContent(), cards.getPageable().getPageNumber(), cards.getTotalPages(), cards.getTotalElements());
     }
 
-    @PostMapping("insert")
-    public UserCard insertCard(@RequestBody Map<String, Object> request) {
+    /**
+     * Force insert a card. This will use to create a new card or update a currently existed card star level.
+     * @param request Map of aimeId and cardId
+     * @return result UserCard or error message
+     */
+    @PostMapping("card")
+    public ResponseEntity<Object> insertCard(@RequestBody Map<String, Object> request) {
         UserData profile = userDataRepository.findByCard_ExtId((Integer) request.get("aimeId")).orElseThrow();
         Integer cardId = (Integer) request.get("cardId");
+        Optional<UserCard> userCardOptional = userCardRepository.findByUserAndCardId(profile, cardId);
+        if(userCardOptional.isPresent()) {
+            UserCard card = userCardOptional.get();
+            if(card.getDigitalStock() < 5) {
+                card.setDigitalStock(card.getDigitalStock() + 1);
+                return ResponseEntity.ok(userCardRepository.save(card));
+            } else {
+                // If digital stock is larger than 5, check if this card is N card.
+                Optional<GameCard> gameCard = gameCardRepository.findById((long) card.getCardId());
+                if(gameCard.isPresent()) {
+                    if(gameCard.get().getRarity().equals("N")) {
+                        card.setDigitalStock(card.getDigitalStock() + 1);
+                        return ResponseEntity.ok(userCardRepository.save(card));
+                    } else {
+                        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new MessageResponse("This card has reached max limit."));
+                    }
+                } else {
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                            .body(new MessageResponse("Card info not found on server, not allow to edit with api, please make edit to database directly."));
+                }
+            }
+        }
         GameCard card = gameCardRepository.findById(cardId.longValue()).orElseThrow();
-        return userCardRepository.save(new UserCard(
-                profile,
-                cardId,
-                card.getSkillId()
+        return ResponseEntity.ok(
+                userCardRepository.save(
+                        new UserCard(
+                            profile,
+                            cardId,
+                            card.getSkillId(),
+                            LocalDateTime.now().format(df))
                 ));
+    }
+
+    @PostMapping("card/{cardId}/kaika")
+    public ResponseEntity<Object> kaikaCard(@RequestParam Integer aimeId, @PathVariable Integer cardId) {
+        Optional<UserCard> userCardOptional = userCardRepository.findByUser_Card_ExtIdAndCardId(aimeId, cardId);
+        if(userCardOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("Card not found."));
+        } else {
+            UserCard card = userCardOptional.get();
+            if(!card.getKaikaDate().equals("0000-00-00 00:00:00.0")) {
+                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new MessageResponse("No, you have done this before."));
+            } else {
+                card.setKaikaDate(LocalDateTime.now().format(df));
+                card.setPrintCount(card.getPrintCount() + 1);
+                return ResponseEntity.ok(userCardRepository.save(card));
+            }
+        }
+    }
+
+    @PostMapping("card/{cardId}/choKaika")
+    public ResponseEntity<Object> choKaikaCard(@RequestParam Integer aimeId, @PathVariable Integer cardId) {
+        Optional<UserCard> userCardOptional = userCardRepository.findByUser_Card_ExtIdAndCardId(aimeId, cardId);
+        if(userCardOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("Card not found."));
+        } else {
+            UserCard card = userCardOptional.get();
+            if(!card.getChoKaikaDate().equals("0000-00-00 00:00:00.0")) {
+                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new MessageResponse("No, you have done this before."));
+            } else {
+                card.setChoKaikaDate(LocalDateTime.now().format(df));
+                card.setPrintCount(card.getPrintCount() + 1);
+                return ResponseEntity.ok(userCardRepository.save(card));
+            }
+        }
     }
 
     @GetMapping("character")
@@ -115,12 +187,71 @@ public class ApiOngekiPlayerDataController {
         return new ReducedPageResponse<>(characters.getContent(), characters.getPageable().getPageNumber(), characters.getTotalPages(), characters.getTotalElements());
     }
 
+    @GetMapping("activity")
+    public List<UserActivity> getActivities(@RequestParam Integer aimeId) {
+        return userActivityRepository.findByUser_Card_ExtId(aimeId);
+    }
+
+    @PostMapping("activity")
+    public ResponseEntity<Object> updateActivities(@RequestBody Map<String, Object> request) {
+        UserData profile = userDataRepository.findByCard_ExtId((Integer) request.get("aimeId")).orElseThrow();
+        Integer activityId = (Integer) request.get("id");
+        Integer kind = (Integer) request.get("kind");
+        Integer sortNumber = (Integer) request.get("sortNumber");
+        Integer param1 = (Integer) request.get("param1");
+        Integer param2 = (Integer) request.get("param2");
+        Integer param3 = (Integer) request.get("param3");
+        Integer param4 = (Integer) request.get("param4");
+
+        Optional<UserActivity> userActivityOptional = userActivityRepository.findByUserAndKindAndActivityId(profile, kind, activityId);
+
+        UserActivity userActivity;
+        if(userActivityOptional.isPresent()) {
+            userActivity = userActivityOptional.get();
+        } else {
+            userActivity = new UserActivity(profile);
+            userActivity.setActivityId(activityId);
+            userActivity.setKind(kind);
+            userActivity.setSortNumber(sortNumber);
+        }
+        userActivity.setParam1(param1);
+        userActivity.setParam2(param2);
+        userActivity.setParam3(param3);
+        userActivity.setParam4(param4);
+        return ResponseEntity.ok(userActivityRepository.save(userActivity));
+    }
+
     @GetMapping("item")
     public ReducedPageResponse<UserItem> getItem(@RequestParam Integer aimeId,
                                                  @RequestParam(required = false, defaultValue = "0") int page,
                                                  @RequestParam(required = false, defaultValue = "10") int size) {
         Page<UserItem> items = userItemRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page,size));
         return new ReducedPageResponse<>(items.getContent(), items.getPageable().getPageNumber(), items.getTotalPages(), items.getTotalElements());
+    }
+
+    @PostMapping("item")
+    public ResponseEntity<Object> updateItem(@RequestBody Map<String, Object> request) {
+        UserData profile = userDataRepository.findByCard_ExtId((Integer) request.get("aimeId")).orElseThrow();
+        Integer itemKind = (Integer) request.get("itemKind");
+        Integer itemId = (Integer) request.get("itemId");
+        int stock = 1;
+        if(request.containsKey("stock")) {
+            stock = (Integer) request.get("stock");
+        }
+
+        Optional<UserItem> userItemOptional = userItemRepository.findByUserAndItemKindAndItemId(profile, itemKind, itemId);
+
+        UserItem userItem;
+        if(userItemOptional.isPresent()) {
+            userItem = userItemOptional.get();
+        } else {
+            userItem = new UserItem(profile);
+            userItem.setItemId(itemId);
+            userItem.setItemKind(itemKind);
+        }
+        userItem.setStock(stock);
+        userItem.setValid(true);
+        return ResponseEntity.ok(userItemRepository.save(userItem));
     }
 
     @GetMapping("recent")

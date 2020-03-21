@@ -65,9 +65,10 @@ public class UserCard implements Serializable {
         this.user = userData;
     }
 
-    public UserCard(UserData userData, int cardId, int skillId) {
+    public UserCard(UserData userData, int cardId, int skillId, String created) {
         this.user = userData;
         this.cardId = cardId;
         this.skillId = skillId;
+        this.created = created;
     }
 }

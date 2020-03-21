@@ -54,6 +54,11 @@ And DIVA screenshot will be save in data folder.
 
 
 ### Changelog:
+
+v0.0.11a:
+
+[api] Add more ongeki feature
+
 v0.0.11: **[This will do database update]**
 
 [ongeki] Add support to ongeki plus
