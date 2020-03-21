@@ -117,6 +117,7 @@ public class ApiOngekiPlayerDataController {
             UserCard card = userCardOptional.get();
             if(card.getDigitalStock() < 5) {
                 card.setDigitalStock(card.getDigitalStock() + 1);
+                card.setMaxLevel(card.getMaxLevel() + 5);
                 return ResponseEntity.ok(userCardRepository.save(card));
             } else {
                 // If digital stock is larger than 5, check if this card is N card.
@@ -124,6 +125,7 @@ public class ApiOngekiPlayerDataController {
                 if(gameCard.isPresent()) {
                     if(gameCard.get().getRarity().equals("N")) {
                         card.setDigitalStock(card.getDigitalStock() + 1);
+                        card.setMaxLevel(card.getMaxLevel() + 5);
                         return ResponseEntity.ok(userCardRepository.save(card));
                     } else {
                         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new MessageResponse("This card has reached max limit."));
@@ -156,6 +158,7 @@ public class ApiOngekiPlayerDataController {
                 return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new MessageResponse("No, you have done this before."));
             } else {
                 card.setKaikaDate(LocalDateTime.now().format(df));
+                card.setMaxLevel(card.getMaxLevel() + 40);
                 card.setPrintCount(card.getPrintCount() + 1);
                 return ResponseEntity.ok(userCardRepository.save(card));
             }
