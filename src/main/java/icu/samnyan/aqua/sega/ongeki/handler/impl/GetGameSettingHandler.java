@@ -36,8 +36,10 @@ public class GetGameSettingHandler implements BaseHandler {
                 "1.05.00",
                 false,
                 10,
-                LocalDateTime.now().minusHours(5),
-                LocalDateTime.now().minusHours(2),
+                // So I test the game code that the game just
+                // can't run over 24 hour? Patch the isAutoRebootNeeded return false instead.
+                LocalDateTime.now().minusMinutes(1).minusSeconds(1),
+                LocalDateTime.now().minusMinutes(1),
                 false,
                 300,
                 300,
