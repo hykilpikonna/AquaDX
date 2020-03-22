@@ -54,14 +54,23 @@ And DIVA screenshot will be save in data folder.
 
 
 ### Changelog:
+v0.0.12:
+
+[ONGEKI] Save UserMissionPoint, UserTrainingRoom, UserGeneralData, GamePoint, GamePresent, GameReward to database
+
+[ONGEKI] Add custom maintenance time to database
+
+[ONGEKI] Save the battle point and rating info send by the game to database
+
+[API] Read database from general table
 
 v0.0.11a:
 
-[api] Add more ongeki feature
+[API] Add more ongeki feature
 
 v0.0.11: **[This will do database update]**
 
-[ongeki] Add support to ongeki plus
+[ONGEKI] Add support to ongeki plus
 
 v0.0.10: **[This will do database update]**
 
@@ -77,9 +86,9 @@ v0.0.10: **[This will do database update]**
 
 v0.0.9: **[This will do database update]**
 
-[api] Fix rating fail to calculate due to lack of music level info
+[API] Fix rating fail to calculate due to lack of music level info
 
-[api] Move diva music list to database
+[API] Move diva music list to database
 
 [DIVA] Fix continue not work
 
@@ -89,9 +98,9 @@ v0.0.8: **[This will do database update]**
 
 [chuni] Fix a course table column
 
-[api] Force unlock diva session
+[API] Force unlock diva session
 
-[api] Get screenshot
+[API] Get screenshot
 
 v0.0.7: **[This will do database update]**
 
