@@ -1,6 +1,8 @@
 package icu.samnyan.aqua.sega.ongeki.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import icu.samnyan.aqua.sega.general.dao.PropertyEntryRepository;
+import icu.samnyan.aqua.sega.general.model.PropertyEntry;
 import icu.samnyan.aqua.sega.ongeki.handler.BaseHandler;
 import icu.samnyan.aqua.sega.ongeki.model.response.GetGameSettingResp;
 import icu.samnyan.aqua.sega.ongeki.model.response.data.GameSetting;
@@ -10,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
@@ -23,23 +24,29 @@ public class GetGameSettingHandler implements BaseHandler {
 
     private final BasicMapper mapper;
 
+    private final PropertyEntryRepository propertyEntryRepository;
+
     @Autowired
-    public GetGameSettingHandler(BasicMapper mapper) {
+    public GetGameSettingHandler(BasicMapper mapper, PropertyEntryRepository propertyEntryRepository) {
         this.mapper = mapper;
+        this.propertyEntryRepository = propertyEntryRepository;
     }
 
 
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
 
+        PropertyEntry start = propertyEntryRepository.findByPropertyKey("reboot_start_time")
+                .orElseGet(() -> new PropertyEntry("reboot_start_time", "2020-01-01 23:59:00.0"));
+        PropertyEntry end = propertyEntryRepository.findByPropertyKey("reboot_end_time")
+                .orElseGet(() -> new PropertyEntry("reboot_end_time", "2020-01-01 23:59:00.0"));
+
         GameSetting gameSetting = new GameSetting(
                 "1.05.00",
                 false,
                 10,
-                // So I test the game code that the game just
-                // can't run over 24 hour? Patch the isAutoRebootNeeded return false instead.
-                LocalDateTime.now().minusMinutes(1).minusSeconds(1),
-                LocalDateTime.now().minusMinutes(1),
+                start.getPropertyValue(),
+                end.getPropertyValue(),
                 false,
                 300,
                 300,

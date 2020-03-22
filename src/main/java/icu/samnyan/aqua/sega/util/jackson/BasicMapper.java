@@ -39,8 +39,12 @@ public class BasicMapper {
 
     }
 
-    public <T> T convert(Map<String, Object> map, Class<T> toClass) {
+    public <T> T convert(Object map, Class<T> toClass) {
         return mapper.convertValue(map, toClass);
+    }
+
+    public <T> T convert(Object map, TypeReference<T> toValueTypeRef) {
+        return mapper.convertValue(map, toValueTypeRef);
     }
 
     public LinkedHashMap<String, Object> toMap(Object object) {

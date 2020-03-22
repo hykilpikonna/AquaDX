@@ -47,7 +47,6 @@ public class GetUserRecentRatingHandler implements BaseHandler {
         List<UserRecentRating> ratingList = playlogList.stream().map(log -> new UserRecentRating(log.getMusicId(), log.getLevel(), "1000000", log.getTechScore()))
                 .collect(Collectors.toList());
 
-
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userId);
         resultMap.put("length", ratingList.size());

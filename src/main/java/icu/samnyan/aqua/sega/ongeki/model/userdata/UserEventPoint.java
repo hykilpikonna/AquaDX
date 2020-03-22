@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
+ * For chapter event.
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Entity(name = "OngekiUserEventPoint")

@@ -1,7 +1,9 @@
 package icu.samnyan.aqua.sega.ongeki.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import icu.samnyan.aqua.sega.ongeki.dao.userdata.UserMissionPointRepository;
 import icu.samnyan.aqua.sega.ongeki.handler.BaseHandler;
+import icu.samnyan.aqua.sega.ongeki.model.userdata.UserMissionPoint;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +24,12 @@ public class GetUserMissionPointHandler implements BaseHandler {
 
     private final BasicMapper mapper;
 
+    private final UserMissionPointRepository userMissionPointRepository;
+
     @Autowired
-    public GetUserMissionPointHandler(BasicMapper mapper) {
+    public GetUserMissionPointHandler(BasicMapper mapper, UserMissionPointRepository userMissionPointRepository) {
         this.mapper = mapper;
+        this.userMissionPointRepository = userMissionPointRepository;
     }
 
 
@@ -32,10 +37,12 @@ public class GetUserMissionPointHandler implements BaseHandler {
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         Integer userId = (Integer) request.get("userId");
 
+        List<UserMissionPoint> missionPointList = userMissionPointRepository.findByUser_Card_ExtId(userId);
+
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userId);
-        resultMap.put("length", 0);
-        resultMap.put("userMissionPointList", new List[]{});
+        resultMap.put("length", missionPointList.size());
+        resultMap.put("userMissionPointList", missionPointList);
 
         String json = mapper.write(resultMap);
 

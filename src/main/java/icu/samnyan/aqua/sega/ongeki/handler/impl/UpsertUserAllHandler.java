@@ -1,6 +1,8 @@
 package icu.samnyan.aqua.sega.ongeki.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import icu.samnyan.aqua.sega.chunithm.model.response.data.UserRecentRating;
 import icu.samnyan.aqua.sega.general.model.Card;
 import icu.samnyan.aqua.sega.general.service.CardService;
 import icu.samnyan.aqua.sega.ongeki.dao.userdata.*;
@@ -48,10 +50,13 @@ public class UpsertUserAllHandler implements BaseHandler {
     private final UserMusicItemRepository userMusicItemRepository;
     private final UserLoginBonusRepository userLoginBonusRepository;
     private final UserEventPointRepository userEventPointRepository;
+    private final UserMissionPointRepository userMissionPointRepository;
+    private final UserTrainingRoomRepository userTrainingRoomRepository;
+    private final UserGeneralDataRepository userGeneralDataRepository;
 
     @Autowired
     public UpsertUserAllHandler(BasicMapper mapper,
-                                CardService cardService, UserDataRepository userDataRepository, UserOptionRepository userOptionRepository, UserPlaylogRepository userPlaylogRepository, UserActivityRepository userActivityRepository, UserMusicDetailRepository userMusicDetailRepository, UserCharacterRepository userCharacterRepository, UserCardRepository userCardRepository, UserDeckRepository userDeckRepository, UserStoryRepository userStoryRepository, UserChapterRepository userChapterRepository, UserItemRepository userItemRepository, UserMusicItemRepository userMusicItemRepository, UserLoginBonusRepository userLoginBonusRepository, UserEventPointRepository userEventPointRepository) {
+                                CardService cardService, UserDataRepository userDataRepository, UserOptionRepository userOptionRepository, UserPlaylogRepository userPlaylogRepository, UserActivityRepository userActivityRepository, UserMusicDetailRepository userMusicDetailRepository, UserCharacterRepository userCharacterRepository, UserCardRepository userCardRepository, UserDeckRepository userDeckRepository, UserStoryRepository userStoryRepository, UserChapterRepository userChapterRepository, UserItemRepository userItemRepository, UserMusicItemRepository userMusicItemRepository, UserLoginBonusRepository userLoginBonusRepository, UserEventPointRepository userEventPointRepository, UserMissionPointRepository userMissionPointRepository, UserTrainingRoomRepository userTrainingRoomRepository, UserGeneralDataRepository userGeneralDataRepository) {
         this.mapper = mapper;
         this.cardService = cardService;
         this.userDataRepository = userDataRepository;
@@ -68,6 +73,9 @@ public class UpsertUserAllHandler implements BaseHandler {
         this.userMusicItemRepository = userMusicItemRepository;
         this.userLoginBonusRepository = userLoginBonusRepository;
         this.userEventPointRepository = userEventPointRepository;
+        this.userMissionPointRepository = userMissionPointRepository;
+        this.userTrainingRoomRepository = userTrainingRoomRepository;
+        this.userGeneralDataRepository = userGeneralDataRepository;
     }
 
     @Override
@@ -85,7 +93,7 @@ public class UpsertUserAllHandler implements BaseHandler {
 
             Optional<UserData> userOptional = userDataRepository.findByCard_ExtId(userId);
 
-            if(userOptional.isPresent()) {
+            if (userOptional.isPresent()) {
                 userData = userOptional.get();
             } else {
                 userData = new UserData();
@@ -139,7 +147,7 @@ public class UpsertUserAllHandler implements BaseHandler {
                 Integer kind = (Integer) userActivityMap.get("kind");
                 Integer id = (Integer) userActivityMap.get("id");
 
-                if(kind != 0 && id!=0) {
+                if (kind != 0 && id != 0) {
                     Optional<UserActivity> activityOptional = userActivityRepository.findByUserAndKindAndActivityId(newUserData, kind, id);
                     UserActivity userActivity = activityOptional.orElseGet(() -> new UserActivity(newUserData));
 
@@ -149,21 +157,54 @@ public class UpsertUserAllHandler implements BaseHandler {
                     newUserActivityList.add(newUserActivity);
                 }
             }
+            newUserActivityList.sort((a, b) -> Integer.compare(b.getSortNumber(), a.getSortNumber()));
             userActivityRepository.saveAll(newUserActivityList);
         }
 
         // UserRecentRatingList
         // This doesn't need to save. It can get from playlog
 
-        // UserBpBaseList
-        // From UserBatterPoint.cs, the game doesn't use the value here. So it doesn't need to save.
+        /*
+         * The rating and battle point calculation is little bit complex.
+         * So I just create a UserGeneralData class to store this value
+         * into a csv format for convenience
+         */
+        // UserBpBaseList (For calculating Battle point)
+        if (upsertUserAll.containsKey("userBpBaseList")) {
+            this.saveGeneralData(upsertUserAll, newUserData, "userBpBaseList", "battle_point_base");
+        }
 
-        // userRatingBaseBestNewList
+        // This is the best rating of all charts. Best 30 + 10 after that.
         // userRatingBaseBestList
-        // userRatingBaseHotList
-        // userRatingBaseNextNewList
+        if (upsertUserAll.containsKey("userRatingBaseBestList")) {
+            this.saveGeneralData(upsertUserAll, newUserData, "userRatingBaseBestList", "rating_base_best");
+        }
         // userRatingBaseNextList
+        if (upsertUserAll.containsKey("userRatingBaseNextList")) {
+            this.saveGeneralData(upsertUserAll, newUserData, "userRatingBaseNextList", "rating_base_next");
+        }
+
+
+        // This is the best rating of new charts. Best 15 + 10 after that.
+        // New chart means same version
+        // userRatingBaseBestNewList
+        if (upsertUserAll.containsKey("userRatingBaseBestNewList")) {
+            this.saveGeneralData(upsertUserAll, newUserData, "userRatingBaseBestNewList", "rating_base_new_best");
+        }
+        // userRatingBaseNextNewList
+        if (upsertUserAll.containsKey("userRatingBaseNextNewList")) {
+            this.saveGeneralData(upsertUserAll, newUserData, "userRatingBaseBestNewList", "rating_base_new_next");
+        }
+
+        // This is the recent best
+        // userRatingBaseHotList
+        if (upsertUserAll.containsKey("userRatingBaseHotList")) {
+            this.saveGeneralData(upsertUserAll, newUserData, "userRatingBaseHotList", "rating_base_hot_best");
+        }
         // userRatingBaseHotNextList
+        if (upsertUserAll.containsKey("userRatingBaseHotNextList")) {
+            this.saveGeneralData(upsertUserAll, newUserData, "userRatingBaseHotNextList", "rating_base_hot_next");
+        }
 
         // UserMusicDetailList
         if (upsertUserAll.containsKey("userMusicDetailList")) {
@@ -242,7 +283,25 @@ public class UpsertUserAllHandler implements BaseHandler {
             userDeckRepository.saveAll(newUserDeckList);
         }
 
-        // TODO: userTrainingRoomList
+        // userTrainingRoomList
+        if (upsertUserAll.containsKey("userTrainingRoomList")) {
+            List<Map<String, Object>> userTrainingRoomList = ((List<Map<String, Object>>) upsertUserAll.get("userTrainingRoomList"));
+            List<UserTrainingRoom> newUserTrainingRoomList = new ArrayList<>();
+
+            for (Map<String, Object> userTrainingRoomMap : userTrainingRoomList) {
+                Integer roomId = (Integer) userTrainingRoomMap.get("roomId");
+
+                Optional<UserTrainingRoom> trainingRoomOptional = userTrainingRoomRepository.findByUserAndRoomId(newUserData, roomId);
+                UserTrainingRoom trainingRoom = trainingRoomOptional.orElseGet(() -> new UserTrainingRoom(newUserData));
+
+                UserTrainingRoom newUserTrainingRoom = mapper.convert(userTrainingRoomMap, UserTrainingRoom.class);
+                newUserTrainingRoom.setId(trainingRoom.getId());
+                newUserTrainingRoom.setUser(newUserData);
+                newUserTrainingRoomList.add(newUserTrainingRoom);
+            }
+            userTrainingRoomRepository.saveAll(newUserTrainingRoomList);
+        }
+
 
         // UserStoryList
         if (upsertUserAll.containsKey("userStoryList")) {
@@ -363,13 +422,51 @@ public class UpsertUserAllHandler implements BaseHandler {
         }
 
         // UserMissionPointList
+        if (upsertUserAll.containsKey("userMissionPointList")) {
+            List<Map<String, Object>> userMissionPointList = ((List<Map<String, Object>>) upsertUserAll.get("userMissionPointList"));
+            List<UserMissionPoint> newUserMissionPointList = new ArrayList<>();
 
-        // UserRatinglogList
+            for (Map<String, Object> userMissionPointMap : userMissionPointList) {
+                Integer eventId = (Integer) userMissionPointMap.get("eventId");
+
+                Optional<UserMissionPoint> userMissionPointOptional = userMissionPointRepository.findByUserAndEventId(newUserData, eventId);
+                UserMissionPoint userMissionPoint = userMissionPointOptional.orElseGet(() -> new UserMissionPoint(newUserData));
+
+                UserMissionPoint newUserEventPoint = mapper.convert(userMissionPointMap, UserMissionPoint.class);
+                newUserEventPoint.setId(userMissionPoint.getId());
+                newUserEventPoint.setUser(newUserData);
+                newUserMissionPointList.add(newUserEventPoint);
+            }
+            userMissionPointRepository.saveAll(newUserMissionPointList);
+        }
+
+        // UserRatinglogList (For the highest rating of each version)
 
 
-        String json = mapper.write(new CodeResp(1,"upsertUserAll"));
+        String json = mapper.write(new CodeResp(1, "upsertUserAll"));
         logger.info("Response: " + json);
         return json;
 
+    }
+
+    private void saveGeneralData(Map<String, Object> upsertUserAll, UserData newUserData, String jsonName, String key) {
+        List<Map<String, Object>> recordList = ((List<Map<String, Object>>) upsertUserAll.get(jsonName));
+        // User this recent rating class from chunithm
+        List<UserRecentRating> itemList = mapper.convert(recordList, new TypeReference<>() {
+        });
+        StringBuilder sb = new StringBuilder();
+        // Convert to a string
+        for (UserRecentRating item :
+                itemList) {
+            sb.append(item.getMusicId()).append(":").append(item.getDifficultId()).append(":").append(item.getScore());
+            sb.append(",");
+        }
+        if(sb.length() > 0) {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        Optional<UserGeneralData> uOptional = userGeneralDataRepository.findByUserAndPropertyKey(newUserData, key);
+        UserGeneralData userGeneralData = uOptional.orElseGet(() -> new UserGeneralData(newUserData, key));
+        userGeneralData.setPropertyValue(sb.toString());
+        userGeneralDataRepository.save(userGeneralData);
     }
 }

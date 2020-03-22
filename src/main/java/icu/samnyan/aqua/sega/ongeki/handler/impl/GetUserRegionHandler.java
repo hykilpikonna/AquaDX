@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * The game doesn't send this to save
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component("OngekiGetUserRegionHandler")

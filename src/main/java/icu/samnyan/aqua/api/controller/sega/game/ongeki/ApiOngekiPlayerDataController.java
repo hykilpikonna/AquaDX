@@ -43,10 +43,11 @@ public class ApiOngekiPlayerDataController {
     private final UserMusicDetailRepository userMusicDetailRepository;
     private final UserOptionRepository userOptionRepository;
     private final UserPlaylogRepository userPlaylogRepository;
+    private final UserGeneralDataRepository userGeneralDataRepository;
 
     private final GameCardRepository gameCardRepository;
 
-    public ApiOngekiPlayerDataController(ApiMapper mapper, UserActivityRepository userActivityRepository, UserCardRepository userCardRepository, UserCharacterRepository userCharacterRepository, UserDataRepository userDataRepository, UserDeckRepository userDeckRepository, UserEventPointRepository userEventPointRepository, UserItemRepository userItemRepository, UserMusicDetailRepository userMusicDetailRepository, UserOptionRepository userOptionRepository, UserPlaylogRepository userPlaylogRepository, GameCardRepository gameCardRepository) {
+    public ApiOngekiPlayerDataController(ApiMapper mapper, UserActivityRepository userActivityRepository, UserCardRepository userCardRepository, UserCharacterRepository userCharacterRepository, UserDataRepository userDataRepository, UserDeckRepository userDeckRepository, UserEventPointRepository userEventPointRepository, UserItemRepository userItemRepository, UserMusicDetailRepository userMusicDetailRepository, UserOptionRepository userOptionRepository, UserPlaylogRepository userPlaylogRepository, UserGeneralDataRepository userGeneralDataRepository, GameCardRepository gameCardRepository) {
         this.mapper = mapper;
         this.userActivityRepository = userActivityRepository;
         this.userCardRepository = userCardRepository;
@@ -58,6 +59,7 @@ public class ApiOngekiPlayerDataController {
         this.userMusicDetailRepository = userMusicDetailRepository;
         this.userOptionRepository = userOptionRepository;
         this.userPlaylogRepository = userPlaylogRepository;
+        this.userGeneralDataRepository = userGeneralDataRepository;
         this.gameCardRepository = gameCardRepository;
     }
 
@@ -279,5 +281,12 @@ public class ApiOngekiPlayerDataController {
     @GetMapping("options")
     public UserOption getOptions(@RequestParam Integer aimeId) {
         return userOptionRepository.findByUser_Card_ExtId(aimeId).orElseThrow();
+    }
+
+    @GetMapping("general")
+    public ResponseEntity<Object> getGeneralData(@RequestParam Integer aimeId, @RequestParam String key) {
+        Optional<UserGeneralData> userGeneralDataOptional = userGeneralDataRepository.findByUser_Card_ExtIdAndPropertyKey(aimeId,key);
+        return userGeneralDataOptional.<ResponseEntity<Object>>map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("User or value not found.")));
     }
 }

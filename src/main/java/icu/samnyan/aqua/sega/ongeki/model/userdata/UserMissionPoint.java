@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.sega.ongeki.model.userdata;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,14 +10,15 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
+ * For mission event
  * @author samnyan (privateamusement@protonmail.com)
  */
-@Entity(name = "OngekiTrainingRoom")
-@Table(name = "ongeki_user_training_room")
+@Entity(name = "OngekiUserMissionPoint")
+@Table(name = "ongeki_user_mission_point")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserTrainingRoom implements Serializable {
+public class UserMissionPoint implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,15 +32,11 @@ public class UserTrainingRoom implements Serializable {
     @JoinColumn(name = "user_id")
     private UserData user;
 
-    public String authKey;
+    private int eventId;
 
-    public int roomId;
+    private long point;
 
-    public int cardId;
-
-    public String valueDate;
-
-    public UserTrainingRoom(UserData userData) {
+    public UserMissionPoint(UserData userData) {
         this.user = userData;
     }
 }

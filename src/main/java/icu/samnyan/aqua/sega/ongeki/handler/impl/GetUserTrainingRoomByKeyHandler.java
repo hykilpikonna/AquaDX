@@ -1,7 +1,9 @@
 package icu.samnyan.aqua.sega.ongeki.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import icu.samnyan.aqua.sega.ongeki.dao.userdata.UserTrainingRoomRepository;
 import icu.samnyan.aqua.sega.ongeki.handler.BaseHandler;
+import icu.samnyan.aqua.sega.ongeki.model.userdata.UserTrainingRoom;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +24,12 @@ public class GetUserTrainingRoomByKeyHandler implements BaseHandler {
 
     private final BasicMapper mapper;
 
+    private final UserTrainingRoomRepository userTrainingRoomRepository;
+
     @Autowired
-    public GetUserTrainingRoomByKeyHandler(BasicMapper mapper) {
+    public GetUserTrainingRoomByKeyHandler(BasicMapper mapper, UserTrainingRoomRepository userTrainingRoomRepository) {
         this.mapper = mapper;
+        this.userTrainingRoomRepository = userTrainingRoomRepository;
     }
 
 
@@ -32,10 +37,12 @@ public class GetUserTrainingRoomByKeyHandler implements BaseHandler {
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         Integer userId = (Integer) request.get("userId");
 
+        List<UserTrainingRoom> trainingRoomList = userTrainingRoomRepository.findByUser_Card_ExtId(userId);
+
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userId);
-        resultMap.put("length", 0);
-        resultMap.put("userTrainingRoomList", new List[]{});
+        resultMap.put("length", trainingRoomList.size());
+        resultMap.put("userTrainingRoomList", trainingRoomList);
 
         String json = mapper.write(resultMap);
 

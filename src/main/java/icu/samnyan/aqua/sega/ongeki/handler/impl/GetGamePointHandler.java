@@ -1,13 +1,17 @@
 package icu.samnyan.aqua.sega.ongeki.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import icu.samnyan.aqua.sega.ongeki.dao.gamedata.GamePointRepository;
 import icu.samnyan.aqua.sega.ongeki.handler.BaseHandler;
+import icu.samnyan.aqua.sega.ongeki.model.common.GpProductID;
+import icu.samnyan.aqua.sega.ongeki.model.gamedata.GamePoint;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,19 +26,26 @@ public class GetGamePointHandler implements BaseHandler {
 
     private final BasicMapper mapper;
 
+    private final GamePointRepository gamePointRepository;
+
     @Autowired
-    public GetGamePointHandler(BasicMapper mapper) {
+    public GetGamePointHandler(BasicMapper mapper, GamePointRepository gamePointRepository) {
         this.mapper = mapper;
+        this.gamePointRepository = gamePointRepository;
     }
 
 
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
+        // This value is always false
         Boolean isAllGP = (Boolean) request.get("isAllGP");
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
-        resultMap.put("length", 0);
-        resultMap.put("gamePointList", new List[]{});
+
+        List<GamePoint> gpList = gamePointRepository.findAll();
+
+        resultMap.put("length", gpList.size());
+        resultMap.put("gamePointList", gpList);
 
         String json = mapper.write(resultMap);
 
