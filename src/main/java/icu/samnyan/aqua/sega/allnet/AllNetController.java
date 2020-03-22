@@ -72,8 +72,10 @@ public class AllNetController {
                 return "http://" + HOST + ":" + PORT + "/";
             case "SBZV":
                 return "http://" + HOST + ":" + PORT + "/diva/";
+            case "SDDT":
+                return "http://" + HOST + ":" + PORT + "/OngekiServlet/";
             default:
-                return "http://" + HOST + ":" + PORT + "/ongeki/";
+                return "http://" + HOST + ":" + PORT + "/";
         }
     }
 

@@ -15,7 +15,7 @@ import java.util.Map;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @RestController
-@RequestMapping("ongeki")
+@RequestMapping("OngekiServlet")
 public class OngekiController {
 
     private final GetGameEventHandler getGameEventHandler;

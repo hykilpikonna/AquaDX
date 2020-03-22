@@ -26,7 +26,7 @@ public class CompressionFilter extends OncePerRequestFilter {
     public CompressionFilter() {
         filterList = new ArrayList<>();
         filterList.add("/ChuniServlet");
-        filterList.add("/ongeki");
+        filterList.add("/OngekiServlet");
     }
 
     @Override
