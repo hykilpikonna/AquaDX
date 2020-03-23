@@ -193,7 +193,7 @@ public class UpsertUserAllHandler implements BaseHandler {
         }
         // userRatingBaseNextNewList
         if (upsertUserAll.containsKey("userRatingBaseNextNewList")) {
-            this.saveGeneralData(upsertUserAll, newUserData, "userRatingBaseBestNewList", "rating_base_new_next");
+            this.saveGeneralData(upsertUserAll, newUserData, "userRatingBaseNextNewList", "rating_base_new_next");
         }
 
         // This is the recent best
