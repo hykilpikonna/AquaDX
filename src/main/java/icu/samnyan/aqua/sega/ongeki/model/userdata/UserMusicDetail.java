@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.sega.ongeki.model.userdata;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -50,12 +51,16 @@ public class UserMusicDetail implements Serializable {
 
     private int maxTeamOverKill;
 
+    @JsonProperty("isFullBell")
     private boolean isFullBell;
 
+    @JsonProperty("isFullCombo")
     private boolean isFullCombo;
 
+    @JsonProperty("isAllBreake")
     private boolean isAllBreake;
 
+    @JsonProperty("isLock")
     private boolean isLock;
 
     private int clearStatus;

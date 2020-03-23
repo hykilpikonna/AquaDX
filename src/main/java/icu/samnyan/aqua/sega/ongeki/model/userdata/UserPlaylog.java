@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.sega.ongeki.model.userdata;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -132,16 +133,22 @@ public class UserPlaylog implements Serializable {
 
     private int overDamage;
 
+    @JsonProperty("isTechNewRecord")
     private boolean isTechNewRecord;
 
+    @JsonProperty("isBattleNewRecord")
     private boolean isBattleNewRecord;
 
+    @JsonProperty("isOverDamageNewRecord")
     private boolean isOverDamageNewRecord;
 
+    @JsonProperty("isFullCombo")
     private boolean isFullCombo;
 
+    @JsonProperty("isFullBell")
     private boolean isFullBell;
 
+    @JsonProperty("isAllBreak")
     private boolean isAllBreak;
 
     private int playerRating;
