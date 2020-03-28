@@ -13,7 +13,9 @@ import java.util.Optional;
  */
 @Repository("OngekiUserTrainingRoomRepository")
 public interface UserTrainingRoomRepository extends JpaRepository<UserTrainingRoom, Long> {
+
     Optional<UserTrainingRoom> findByUserAndRoomId(UserData user, int roomId);
 
     List<UserTrainingRoom> findByUser_Card_ExtId(int userId);
+
 }

@@ -2,9 +2,11 @@ package icu.samnyan.aqua.sega.diva.util;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.json.JsonWriteFeature;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import icu.samnyan.aqua.sega.util.jackson.BooleanNumberDeserializer;
@@ -26,17 +28,19 @@ public class DivaMapper {
     private final ObjectMapper mapper;
 
     public DivaMapper() {
-        mapper = new ObjectMapper().configure(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS, true);
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         SimpleModule module = new SimpleModule();
         module.addSerializer(LocalDateTime.class, new DivaDateTimeSerializer());
+        module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.0")));
+        module.addDeserializer(ZonedDateTime.class, new ZonedDateTimeDeserializer());
         module.addSerializer(Boolean.class, new BooleanNumberSerializer());
         module.addSerializer(boolean.class, new BooleanNumberSerializer());
         module.addDeserializer(Boolean.class, new BooleanNumberDeserializer());
         module.addDeserializer(boolean.class, new BooleanNumberDeserializer());
 
-        module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.0")));
-        module.addDeserializer(ZonedDateTime.class, new ZonedDateTimeDeserializer());
+        mapper = JsonMapper.builder().enable(JsonWriteFeature.WRITE_NUMBERS_AS_STRINGS)
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .build();
+
         mapper.registerModule(module);
     }
 

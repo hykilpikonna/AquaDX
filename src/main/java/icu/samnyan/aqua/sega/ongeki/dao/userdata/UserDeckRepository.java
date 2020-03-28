@@ -13,7 +13,9 @@ import java.util.Optional;
  */
 @Repository("OngekiUserDeckRepository")
 public interface UserDeckRepository extends JpaRepository<UserDeck, Long> {
-    Optional<UserDeck> findByUserAndDeckId(UserData userData, int deckId);
 
     List<UserDeck> findByUser_Card_ExtId(int userId);
+
+    Optional<UserDeck> findByUserAndDeckId(UserData userData, int deckId);
+    
 }

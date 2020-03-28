@@ -2,6 +2,7 @@ package icu.samnyan.aqua.sega.chunithm.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.chunithm.handler.BaseHandler;
+import icu.samnyan.aqua.sega.chunithm.model.requet.UpsertUserAll;
 import icu.samnyan.aqua.sega.chunithm.model.response.CodeResp;
 import icu.samnyan.aqua.sega.chunithm.model.userdata.*;
 import icu.samnyan.aqua.sega.chunithm.service.*;
@@ -67,20 +68,19 @@ public class UpsertUserAllHandler implements BaseHandler {
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         String userId = (String) request.get("userId");
-        Map<String, Object> upsertUserAll = (Map<String, Object>) request.get("upsertUserAll");
+        UpsertUserAll upsertUserAll = mapper.convert(request.get("upsertUserAll"), UpsertUserAll.class);
 
         // Not all field will be sent. Check if they are exist first.
 
         UserData userData;
         UserData newUserData;
         // UserData
-        if (!upsertUserAll.containsKey("userData")) {
+        if (upsertUserAll.getUserData() == null) {
             return null;
         } else {
-            Map<String, Object> userDataMap = ((List<Map<String, Object>>) upsertUserAll.get("userData")).get(0);
+            newUserData = upsertUserAll.getUserData().get(0);
 
             Optional<UserData> userOptional = userDataService.getUserByExtId(userId);
-
 
             if (userOptional.isPresent()) {
                 userData = userOptional.get();
@@ -89,9 +89,6 @@ public class UpsertUserAllHandler implements BaseHandler {
                 Card card = cardService.getCardByExtId(userId).orElseThrow();
                 userData.setCard(card);
             }
-
-            // Map the map to object
-            newUserData = mapper.convert(userDataMap, UserData.class);
 
             newUserData.setId(userData.getId());
             newUserData.setCard(userData.getCard());
@@ -107,30 +104,26 @@ public class UpsertUserAllHandler implements BaseHandler {
         }
 
         // userGameOption
-        if (upsertUserAll.containsKey("userGameOption")) {
-            Map<String, Object> userGameOptionMap = ((List<Map<String, Object>>) upsertUserAll.get("userGameOption")).get(0);
+        if (upsertUserAll.getUserGameOption() != null) {
+            UserGameOption newUserGameOption = upsertUserAll.getUserGameOption().get(0);
 
             Optional<UserGameOption> userGameOptionOptional = userGameOptionService.getByUser(newUserData);
 
             UserGameOption userGameOption = userGameOptionOptional.orElseGet(() -> new UserGameOption(newUserData));
 
-            UserGameOption newUserGameOption = mapper.convert(userGameOptionMap, UserGameOption.class);
             newUserGameOption.setId(userGameOption.getId());
             newUserGameOption.setUser(userGameOption.getUser());
 
             userGameOptionService.save(newUserGameOption);
-
-
         }
 
         // userGameOptionEx
-        if (upsertUserAll.containsKey("userGameOptionEx")) {
-            Map<String, Object> userGameOptionExMap = ((List<Map<String, Object>>) upsertUserAll.get("userGameOptionEx")).get(0);
+        if (upsertUserAll.getUserGameOptionEx() != null) {
+            UserGameOptionEx newUserGameOptionEx = upsertUserAll.getUserGameOptionEx().get(0);
 
             Optional<UserGameOptionEx> userGameOptionExOptional = userGameOptionExService.getByUser(newUserData);
             UserGameOptionEx userGameOptionEx = userGameOptionExOptional.orElseGet(() -> new UserGameOptionEx(newUserData));
 
-            UserGameOptionEx newUserGameOptionEx = mapper.convert(userGameOptionExMap, UserGameOptionEx.class);
             newUserGameOptionEx.setId(userGameOptionEx.getId());
             newUserGameOptionEx.setUser(userGameOptionEx.getUser());
 
@@ -138,43 +131,35 @@ public class UpsertUserAllHandler implements BaseHandler {
         }
 
         // userMapList
-        if (upsertUserAll.containsKey("userMapList")) {
+        if (upsertUserAll.getUserMapList() != null) {
+            List<UserMap> userMapList = upsertUserAll.getUserMapList();
+            Map<Integer, UserMap> newUserMapMap = new HashMap<>();
 
-            int mapPos = 0;
-
-            List<Map<String, Object>> userMapList = (List<Map<String, Object>>) upsertUserAll.get("userMapList");
-            Map<String, UserMap> newUserMapMap = new HashMap<>();
-
-            userMapList.forEach(userMapListMap -> {
-                String mapId = (String) userMapListMap.get("mapId");
+            userMapList.forEach(newUserMap -> {
+                int mapId = newUserMap.getMapId();
                 UserMap userMap;
                 Optional<UserMap> userMapOptional = userMapService.getByUserAndMapId(newUserData, mapId);
                 userMap = userMapOptional.orElseGet(() -> new UserMap(newUserData));
 
-
-                UserMap newUserMap = mapper.convert(userMapListMap, UserMap.class);
                 newUserMap.setId(userMap.getId());
                 newUserMap.setUser(userMap.getUser());
 
                 newUserMapMap.put(mapId, newUserMap);
-
             });
             userMapService.saveAll(newUserMapMap.values());
         }
 
         // userCharacterList
-        if (upsertUserAll.containsKey("userCharacterList")) {
+        if (upsertUserAll.getUserCharacterList() != null) {
+            List<UserCharacter> userCharacterList = upsertUserAll.getUserCharacterList();
+            Map<Integer, UserCharacter> newCharacterMap = new HashMap<>();
 
-            List<Map<String, Object>> userCharacterList = (List<Map<String, Object>>) upsertUserAll.get("userCharacterList");
-            Map<String, UserCharacter> newCharacterMap = new HashMap<>();
-
-            userCharacterList.forEach(userCharacterMap -> {
-                String characterId = (String) userCharacterMap.get("characterId");
+            userCharacterList.forEach(newUserCharacter -> {
+                int characterId = newUserCharacter.getCharacterId();
 
                 Optional<UserCharacter> userCharacterOptional = userCharacterService.getByUserAndCharacterId(newUserData, characterId);
                 UserCharacter userCharacter = userCharacterOptional.orElseGet(() -> new UserCharacter(newUserData));
 
-                UserCharacter newUserCharacter = mapper.convert(userCharacterMap, UserCharacter.class);
                 newUserCharacter.setId(userCharacter.getId());
                 newUserCharacter.setUser(userCharacter.getUser());
 
@@ -184,20 +169,18 @@ public class UpsertUserAllHandler implements BaseHandler {
         }
 
         // userItemList
-        if (upsertUserAll.containsKey("userItemList")) {
-
-            List<Map<String, Object>> userItemList = (List<Map<String, Object>>) upsertUserAll.get("userItemList");
+        if (upsertUserAll.getUserItemList() != null) {
+            List<UserItem> userItemList = upsertUserAll.getUserItemList();
             Map<String, UserItem> newUserItemMap = new HashMap<>();
 
-            userItemList.forEach(userItemMap -> {
-                String itemId = (String) userItemMap.get("itemId");
-                String itemKind = (String) userItemMap.get("itemKind");
+            userItemList.forEach(newUserItem -> {
+                int itemId = newUserItem.getItemId();
+                int itemKind = newUserItem.getItemKind();
 
 
-                Optional<UserItem> userItemOptional = userItemService.getByUserAndItemId(newUserData, itemId, itemKind);
+                Optional<UserItem> userItemOptional = userItemService.getByUserAndItemIdAndKind(newUserData, itemId, itemKind);
                 UserItem userItem = userItemOptional.orElseGet(() -> new UserItem(newUserData));
 
-                UserItem newUserItem = mapper.convert(userItemMap, UserItem.class);
                 newUserItem.setId(userItem.getId());
                 newUserItem.setUser(userItem.getUser());
 
@@ -207,100 +190,92 @@ public class UpsertUserAllHandler implements BaseHandler {
         }
 
         // userMusicDetailList
-        if (upsertUserAll.containsKey("userMusicDetailList")) {
+        if (upsertUserAll.getUserMusicDetailList() != null) {
 
-            List<Map<String, Object>> userMusicDetailList = (List<Map<String, Object>>) upsertUserAll.get("userMusicDetailList");
+            List<UserMusicDetail> userMusicDetailList = upsertUserAll.getUserMusicDetailList();
             Map<String, UserMusicDetail> newUserMusicDetailMap = new HashMap<>();
 
-            userMusicDetailList.forEach(userMusicDetailMap -> {
-                String musicId = (String) userMusicDetailMap.get("musicId");
-                String level = (String) userMusicDetailMap.get("level");
+            userMusicDetailList.forEach(newUserMusicDetail -> {
+                int musicId = newUserMusicDetail.getMusicId();
+                int level = newUserMusicDetail.getLevel();
 
                 Optional<UserMusicDetail> userMusicDetailOptional = userMusicDetailService.getByUserAndMusicIdAndLevel(newUserData, musicId, level);
                 UserMusicDetail userMusicDetail = userMusicDetailOptional.orElseGet(() -> new UserMusicDetail(newUserData));
 
-                UserMusicDetail newUserMusicDetail = mapper.convert(userMusicDetailMap, UserMusicDetail.class);
                 newUserMusicDetail.setId(userMusicDetail.getId());
                 newUserMusicDetail.setUser(userMusicDetail.getUser());
 
-                newUserMusicDetailMap.put(musicId + "," + level, newUserMusicDetail);
-
+                newUserMusicDetailMap.put(musicId + "-" + level, newUserMusicDetail);
             });
             userMusicDetailService.saveAll(newUserMusicDetailMap.values());
-
         }
 
         // userActivityList
-        if (upsertUserAll.containsKey("userActivityList")) {
+        if (upsertUserAll.getUserActivityList() != null) {
+            List<UserActivity> userActivityList = upsertUserAll.getUserActivityList();
+            List<UserActivity> newUserActivityList = new LinkedList<>();
 
-            List<Map<String, Object>> userActivityList = (List<Map<String, Object>>) upsertUserAll.get("userActivityList");
-            userActivityList.forEach(userActivityMap -> {
+            userActivityList.forEach(newUserActivity -> {
                 // No need to rename to activityId. jackson auto handle that
-                String activityId = (String) userActivityMap.get("id");
-                String kind = (String) userActivityMap.get("kind");
+                int activityId = newUserActivity.getActivityId();
+                int kind = newUserActivity.getKind();
 
                 Optional<UserActivity> userActivityOptional = userActivityService.getByUserAndActivityIdAndKind(newUserData, activityId, kind);
                 UserActivity userActivity = userActivityOptional.orElseGet(() -> new UserActivity(newUserData));
 
-                UserActivity newUserActivity = mapper.convert(userActivityMap, UserActivity.class);
                 newUserActivity.setId(userActivity.getId());
                 newUserActivity.setUser(userActivity.getUser());
 
-                userActivityService.save(newUserActivity);
-
+                newUserActivityList.add(newUserActivity);
             });
+            userActivityService.saveAll(newUserActivityList);
         }
 
         // userRecentRatingList
 
         // userChargeList
-
-        if (upsertUserAll.containsKey("userChargeList")) {
-            List<Map<String, Object>> userChargeList = (List<Map<String, Object>>) upsertUserAll.get("userChargeList");
+        if (upsertUserAll.getUserChargeList() != null) {
+            List<UserCharge> userChargeList = upsertUserAll.getUserChargeList();
             List<UserCharge> newUserChargeList = new ArrayList<>();
-            userChargeList.forEach(userChargeMap -> {
-                String chargeId = (String) userChargeMap.get("chargeId");
+
+            userChargeList.forEach(newUserCharge -> {
+                int chargeId = newUserCharge.getChargeId();
 
                 Optional<UserCharge> userChargeOptional = userChargeService.getByUserAndChargeId(newUserData, chargeId);
                 UserCharge userCharge = userChargeOptional.orElseGet(() -> new UserCharge(newUserData));
 
-                UserCharge newUserCharge = mapper.convert(userChargeMap, UserCharge.class);
                 newUserCharge.setId(userCharge.getId());
                 newUserCharge.setUser(userCharge.getUser());
+
                 newUserChargeList.add(newUserCharge);
             });
-
             userChargeService.saveAll(newUserChargeList);
         }
 
         // userPlaylogList
-        if (upsertUserAll.containsKey("userPlaylogList")) {
-
-            List<Map<String, Object>> userPlaylogList = (List<Map<String, Object>>) upsertUserAll.get("userPlaylogList");
+        if (upsertUserAll.getUserPlaylogList() != null) {
+            List<UserPlaylog> userPlaylogList = upsertUserAll.getUserPlaylogList();
             List<UserPlaylog> newUserPlaylogList = new ArrayList<>();
-            userPlaylogList.forEach(userPlayLogMap -> {
 
-                UserPlaylog newUserPlaylog = mapper.convert(userPlayLogMap, UserPlaylog.class);
+            userPlaylogList.forEach(newUserPlaylog -> {
                 newUserPlaylog.setUser(newUserData);
 
                 newUserPlaylogList.add(newUserPlaylog);
             });
-
             if (newUserPlaylogList.size() > 0) userPlaylogService.saveAll(newUserPlaylogList);
         }
 
 
         // userCourseList
-        if (upsertUserAll.containsKey("userCourseList")) {
-            List<Map<String, Object>> userCourseList = (List<Map<String, Object>>) upsertUserAll.get("userCourseList");
+        if (upsertUserAll.getUserCourseList() != null) {
+            List<UserCourse> userCourseList = upsertUserAll.getUserCourseList();
 
-            userCourseList.forEach(userCourseMap -> {
-                String courseId = (String) userCourseMap.get("courseId");
+            userCourseList.forEach(newUserCourse -> {
+                int courseId = newUserCourse.getCourseId();
 
                 Optional<UserCourse> userCourseOptional = userCourseService.getByUserAndCourseId(newUserData, courseId);
                 UserCourse userCourse = userCourseOptional.orElseGet(() -> new UserCourse(newUserData));
 
-                UserCourse newUserCourse = mapper.convert(userCourseMap, UserCourse.class);
                 newUserCourse.setId(userCourse.getId());
                 newUserCourse.setUser(userCourse.getUser());
 
@@ -310,13 +285,12 @@ public class UpsertUserAllHandler implements BaseHandler {
 
 
         // userDataEx
-        if (upsertUserAll.containsKey("userDataEx")) {
-            Map<String, Object> userDataExMap = ((List<Map<String, Object>>) upsertUserAll.get("userDataEx")).get(0);
+        if (upsertUserAll.getUserDataEx() != null) {
+            UserDataEx newUserDataEx = upsertUserAll.getUserDataEx().get(0);
 
             Optional<UserDataEx> userDataExOptional = userDataExService.getByUser(newUserData);
             UserDataEx userDataEx = userDataExOptional.orElseGet(() -> new UserDataEx(newUserData));
 
-            UserDataEx newUserDataEx = mapper.convert(userDataExMap, UserDataEx.class);
             newUserDataEx.setId(userDataEx.getId());
             newUserDataEx.setUser(userDataEx.getUser());
 
@@ -324,23 +298,21 @@ public class UpsertUserAllHandler implements BaseHandler {
         }
 
         // userDuelList
-        if (upsertUserAll.containsKey("userDuelList")) {
+        if (upsertUserAll.getUserDuelList() != null) {
+            List<UserDuel> userDuelList = upsertUserAll.getUserDuelList();
+            Map<Integer, UserDuel> newUserDuelMap = new HashMap<>();
 
-            List<Map<String, Object>> userDuelList = (List<Map<String, Object>>) upsertUserAll.get("userDuelList");
-            Map<String, UserDuel> newUserDuelMap = new HashMap<>();
-            userDuelList.forEach(userDuelMap -> {
-                String duelId = (String) userDuelMap.get("duelId");
+            userDuelList.forEach(newUserDuel -> {
+                int duelId = newUserDuel.getDuelId();
 
                 Optional<UserDuel> userDuelOptional = userDuelService.getByUserAndDuelId(newUserData, duelId);
                 UserDuel userDuel = userDuelOptional.orElseGet(() -> new UserDuel(newUserData));
 
-                UserDuel newUserDuel = mapper.convert(userDuelMap, UserDuel.class);
                 newUserDuel.setId(userDuel.getId());
                 newUserDuel.setUser(userDuel.getUser());
 
                 newUserDuelMap.put(duelId, newUserDuel);
             });
-
             userDuelService.saveAll(newUserDuelMap.values());
         }
 

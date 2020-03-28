@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.aimedb;
 
-import icu.samnyan.aqua.sega.aimedb.handler.Impl.*;
+import icu.samnyan.aqua.sega.aimedb.handler.impl.*;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;

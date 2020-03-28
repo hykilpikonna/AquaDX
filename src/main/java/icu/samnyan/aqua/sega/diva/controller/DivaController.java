@@ -246,7 +246,7 @@ public class DivaController {
     }
 
     @PostMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String fileRequest(@RequestParam String query, @RequestParam(required = false) MultipartFile bin) throws IOException, ServletException {
+    public String fileRequest(@RequestParam String query, @RequestParam(required = false) MultipartFile bin) {
 
         Map<String, Object> body = parse(query);
 

@@ -46,15 +46,13 @@ public class GetUserEventRankingHandler implements BaseHandler {
         // TODO: query ranking from database
         List<UserEventPoint> eventPointList = userEventPointRepository.findByUser_Card_ExtId(userId);
         List<UserEventRankingItem> rankingItemList = new LinkedList<>();
-        eventPointList.forEach(x -> {
-            rankingItemList.add(new UserEventRankingItem(
-                    x.getEventId(),
-                    1, // Type 1 is latest ranking
-                    time,
-                    1,
-                    x.getPoint()
-            ));
-        });
+        eventPointList.forEach(x -> rankingItemList.add(new UserEventRankingItem(
+                x.getEventId(),
+                1, // Type 1 is latest ranking
+                time,
+                1,
+                x.getPoint()
+        )));
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userId);

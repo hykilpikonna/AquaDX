@@ -36,8 +36,8 @@ public class UserItemService {
         return userItemRepository.findAllByUser_Card_ExtId(Integer.parseInt(userId));
     }
 
-    public Optional<UserItem> getByUserAndItemId(UserData user, String itemId, String itemKind) {
-        return userItemRepository.findTopByUserAndItemIdAndItemKindOrderByIdDesc(user, Integer.parseInt(itemId), Integer.parseInt(itemKind));
+    public Optional<UserItem> getByUserAndItemIdAndKind(UserData user, int itemId, int itemKind) {
+        return userItemRepository.findTopByUserAndItemIdAndItemKindOrderByIdDesc(user, itemId, itemKind);
     }
 
     public Page<UserItem> getByUserAndItemKind(String userId, int kind, int pageNumber, int maxCount) {

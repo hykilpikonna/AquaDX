@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.aimedb;
 
-import icu.samnyan.aqua.sega.aimedb.handler.Impl.*;
+import icu.samnyan.aqua.sega.aimedb.handler.impl.*;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -40,7 +40,7 @@ public class AimeDbServerInitializer extends ChannelInitializer<SocketChannel> {
 
 
     @Override
-    protected void initChannel(SocketChannel ch) throws Exception {
+    protected void initChannel(SocketChannel ch) {
         ChannelPipeline pipeline = ch.pipeline();
         pipeline.addLast("encoder", new AimeDbEncoder());
         pipeline.addLast("decoder", new AimeDbDecoder());

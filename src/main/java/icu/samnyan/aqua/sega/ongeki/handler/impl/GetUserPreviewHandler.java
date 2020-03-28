@@ -50,11 +50,9 @@ public class GetUserPreviewHandler implements BaseHandler {
         GetUserPreviewResp resp = new GetUserPreviewResp();
         resp.setUserId(userId);
         if (userData.isEmpty()) {
-            /**
-             * From BaseDialogController.cs
-             * <code>if (string.IsNullOrEmpty(instance.userPreview.lastPlayDate))</code>
-             * so send a null value will trigger new user register
-             */
+             // From BaseDialogController.cs
+             // <code>if (string.IsNullOrEmpty(instance.userPreview.lastPlayDate))</code>
+             // so send a null value will trigger new user register
             resp.setLastPlayDate(null);
 
         } else {

@@ -1,4 +1,4 @@
-package icu.samnyan.aqua.sega.chunithm.model.response.data;
+package icu.samnyan.aqua.sega.general.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

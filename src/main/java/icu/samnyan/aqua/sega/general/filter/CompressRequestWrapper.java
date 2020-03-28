@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 public class CompressRequestWrapper extends HttpServletRequestWrapper {
 
-    private ByteArrayInputStream input;
+    private final ByteArrayInputStream input;
     private ServletInputStream filterInput;
 
     public CompressRequestWrapper(HttpServletRequest request, byte[] input) {
@@ -22,7 +22,7 @@ public class CompressRequestWrapper extends HttpServletRequestWrapper {
 
 
     @Override
-    public ServletInputStream getInputStream() throws IOException {
+    public ServletInputStream getInputStream() {
         if (filterInput == null) {
             filterInput = new ServletInputStream() {
                 @Override
@@ -41,7 +41,7 @@ public class CompressRequestWrapper extends HttpServletRequestWrapper {
                 }
 
                 @Override
-                public int read() throws IOException {
+                public int read() {
                     return input.read();
                 }
             };

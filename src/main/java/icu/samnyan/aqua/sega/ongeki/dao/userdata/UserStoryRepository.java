@@ -12,5 +12,7 @@ import java.util.Optional;
  */
 @Repository("OngekiUserStoryRepository")
 public interface UserStoryRepository extends JpaRepository<UserStory, Long> {
+
     Optional<UserStory> findByUserAndStoryId(UserData userData, int storyId);
+
 }

@@ -14,11 +14,10 @@ import org.springframework.stereotype.Component;
 public class LogMapper {
 
     private final ObjectMapper mapper;
-    private final SimpleModule module;
 
     public LogMapper() {
         mapper = new ObjectMapper();
-        module = new SimpleModule();
+        SimpleModule module = new SimpleModule();
         module.addSerializer(ByteBuf.class, new ByteBufSerializer());
         mapper.registerModule(module);
     }

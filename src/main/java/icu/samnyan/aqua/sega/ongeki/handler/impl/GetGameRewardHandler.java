@@ -3,7 +3,6 @@ package icu.samnyan.aqua.sega.ongeki.handler.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.ongeki.dao.gamedata.GameRewardRepository;
 import icu.samnyan.aqua.sega.ongeki.handler.BaseHandler;
-import icu.samnyan.aqua.sega.ongeki.model.common.ItemType;
 import icu.samnyan.aqua.sega.ongeki.model.gamedata.GameReward;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
@@ -11,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;

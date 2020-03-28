@@ -14,9 +14,11 @@ import java.util.Optional;
  */
 @Repository("OngekiUserItemRepository")
 public interface UserItemRepository extends JpaRepository<UserItem, Long> {
+
+    Page<UserItem> findByUser_Card_ExtId(Integer aimeId, Pageable page);
+
     Optional<UserItem> findByUserAndItemKindAndItemId(UserData userData, int itemKind, int itemId);
 
     Page<UserItem> findByUser_Card_ExtIdAndItemKind(int userId, int kind, Pageable page);
 
-    Page<UserItem> findByUser_Card_ExtId(Integer aimeId, Pageable page);
 }

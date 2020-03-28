@@ -2,7 +2,6 @@ package icu.samnyan.aqua.sega.diva.model.gamedata;
 
 import icu.samnyan.aqua.sega.diva.model.common.ContestLeague;
 import icu.samnyan.aqua.sega.diva.model.common.ContestNormaType;
-import icu.samnyan.aqua.sega.diva.model.common.ContestStageLimit;
 import icu.samnyan.aqua.sega.diva.util.DivaDateTimeUtil;
 import icu.samnyan.aqua.sega.util.URIEncoder;
 import lombok.AllArgsConstructor;

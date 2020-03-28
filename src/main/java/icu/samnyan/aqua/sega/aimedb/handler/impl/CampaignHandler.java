@@ -1,4 +1,4 @@
-package icu.samnyan.aqua.sega.aimedb.handler.Impl;
+package icu.samnyan.aqua.sega.aimedb.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.aimedb.handler.BaseHandler;
@@ -19,36 +19,35 @@ import java.util.Map;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-public class LogHandler implements BaseHandler {
+public class CampaignHandler implements BaseHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(LogHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(CampaignHandler.class);
 
     private final LogMapper logMapper;
 
     @Autowired
-    public LogHandler(LogMapper logMapper) {
+    public CampaignHandler(LogMapper logMapper) {
         this.logMapper = logMapper;
     }
 
     @Override
     public void handle(ChannelHandlerContext ctx, ByteBuf msg) throws JsonProcessingException {
         Map<String, Object> requestMap = AimeDbUtil.getBaseInfo(msg);
-        requestMap.put("type", "log");
+        requestMap.put("type", "campaign");
 
 
         logger.info("Request: " + logMapper.write(requestMap));
 
         Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("type", "log");
+        resultMap.put("type", "campaign");
         resultMap.put("status", 1);
 
         logger.info("Response: " + logMapper.write(resultMap));
 
-        ByteBuf respSrc = Unpooled.copiedBuffer(new byte[0x0020]);
-        respSrc.setShortLE(0x0004, 0x000a);
+        ByteBuf respSrc = Unpooled.copiedBuffer(new byte[0x0200]);
+        respSrc.setShortLE(0x0004, 0x000c);
         respSrc.setShortLE(0x0008, (int) resultMap.get("status"));
 
         ctx.writeAndFlush(respSrc);
-
     }
 }

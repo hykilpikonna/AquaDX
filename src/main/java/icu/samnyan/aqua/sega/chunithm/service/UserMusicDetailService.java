@@ -50,7 +50,7 @@ public class UserMusicDetailService {
         return userMusicDetailRepository.findByUser_Card_ExtIdAndMusicId(Integer.parseInt(userId), musicId);
     }
 
-    public Optional<UserMusicDetail> getByUserAndMusicIdAndLevel(UserData user, String musicId, String level) {
-        return userMusicDetailRepository.findTopByUserAndMusicIdAndLevelOrderByIdDesc(user, Integer.parseInt(musicId), Integer.parseInt(level));
+    public Optional<UserMusicDetail> getByUserAndMusicIdAndLevel(UserData user, int musicId, int level) {
+        return userMusicDetailRepository.findTopByUserAndMusicIdAndLevelOrderByIdDesc(user, musicId, level);
     }
 }

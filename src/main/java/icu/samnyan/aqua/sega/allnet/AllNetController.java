@@ -33,7 +33,7 @@ public class AllNetController {
     }
 
     @PostMapping(value = "/sys/servlet/PowerOn", produces = "text/plain")
-    String powerOn(InputStream dataStream) throws DataFormatException, IOException {
+    public String powerOn(InputStream dataStream) throws IOException {
 
         byte[] bytes = dataStream.readAllBytes();
         Map<String, String> reqMap = Decoder.decode(bytes);

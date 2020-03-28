@@ -1,6 +1,5 @@
 package icu.samnyan.aqua.sega.ongeki.model.gamedata;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import icu.samnyan.aqua.sega.ongeki.model.common.ItemType;
 import lombok.AllArgsConstructor;
 import lombok.Data;

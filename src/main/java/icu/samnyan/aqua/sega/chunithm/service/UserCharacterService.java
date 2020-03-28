@@ -42,10 +42,6 @@ public class UserCharacterService {
         return userCharacterRepository.findByUser_Card_ExtId(Integer.parseInt(userId), pageable);
     }
 
-    public Optional<UserCharacter> getByUserAndCharacterId(UserData user, String characterId) {
-        return getByUserAndCharacterId(user, Integer.parseInt(characterId));
-    }
-
     public Optional<UserCharacter> getByUserAndCharacterId(UserData user, int characterId) {
         return userCharacterRepository.findTopByUserAndCharacterIdOrderByIdDesc(user, characterId);
     }

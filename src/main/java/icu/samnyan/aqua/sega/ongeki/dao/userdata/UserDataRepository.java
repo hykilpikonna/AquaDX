@@ -13,4 +13,5 @@ import java.util.Optional;
 public interface UserDataRepository extends JpaRepository<UserData, Long> {
 
     Optional<UserData> findByCard_ExtId(int aimeId);
+
 }

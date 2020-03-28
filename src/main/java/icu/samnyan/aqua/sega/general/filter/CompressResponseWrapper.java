@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 public class CompressResponseWrapper extends HttpServletResponseWrapper {
 
-    private ByteArrayOutputStream output;
+    private final ByteArrayOutputStream output;
     private ServletOutputStream filterOutput;
 
 
@@ -22,7 +22,7 @@ public class CompressResponseWrapper extends HttpServletResponseWrapper {
     }
 
     @Override
-    public ServletOutputStream getOutputStream() throws IOException {
+    public ServletOutputStream getOutputStream() {
         if (filterOutput == null) {
             filterOutput = new ServletOutputStream() {
                 @Override
@@ -36,7 +36,7 @@ public class CompressResponseWrapper extends HttpServletResponseWrapper {
                 }
 
                 @Override
-                public void write(int b) throws IOException {
+                public void write(int b) {
                     output.write(b);
                 }
             };

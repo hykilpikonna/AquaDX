@@ -38,7 +38,7 @@ public class UserMapService {
         return userMapRepository.findAllByUser_Card_ExtId(Integer.parseInt(userId));
     }
 
-    public Optional<UserMap> getByUserAndMapId(UserData user, String mapId) {
-        return userMapRepository.findTopByUserAndMapIdOrderByIdDesc(user, Integer.parseInt(mapId));
+    public Optional<UserMap> getByUserAndMapId(UserData user, int mapId) {
+        return userMapRepository.findTopByUserAndMapIdOrderByIdDesc(user, mapId);
     }
 }

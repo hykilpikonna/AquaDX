@@ -1,6 +1,5 @@
 package icu.samnyan.aqua.sega.ongeki.dao.gamedata;
 
-import icu.samnyan.aqua.sega.ongeki.model.gamedata.GamePresent;
 import icu.samnyan.aqua.sega.ongeki.model.gamedata.GameReward;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

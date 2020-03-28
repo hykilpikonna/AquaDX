@@ -13,7 +13,9 @@ import java.util.Optional;
  */
 @Repository("OngekiUserEventPointRepository")
 public interface UserEventPointRepository extends JpaRepository<UserEventPoint, Long> {
-    Optional<UserEventPoint> findByUserAndEventId(UserData userData, int eventId);
 
     List<UserEventPoint> findByUser_Card_ExtId(int userId);
+
+    Optional<UserEventPoint> findByUserAndEventId(UserData userData, int eventId);
+
 }

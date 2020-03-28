@@ -22,8 +22,8 @@ public class UserDuelService {
         this.userDuelRepository = userDuelRepository;
     }
 
-    public Optional<UserDuel> getByUserAndDuelId(UserData user, String duelId) {
-        return userDuelRepository.findTopByUserAndDuelIdOrderByIdDesc(user, Integer.parseInt(duelId));
+    public Optional<UserDuel> getByUserAndDuelId(UserData user, int duelId) {
+        return userDuelRepository.findTopByUserAndDuelIdOrderByIdDesc(user, duelId);
     }
 
     public UserDuel save(UserDuel userDuel) {

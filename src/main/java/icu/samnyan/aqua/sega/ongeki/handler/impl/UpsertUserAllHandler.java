@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.ongeki.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import icu.samnyan.aqua.sega.chunithm.model.response.data.UserRecentRating;
+import icu.samnyan.aqua.sega.general.model.response.UserRecentRating;
 import icu.samnyan.aqua.sega.general.model.Card;
 import icu.samnyan.aqua.sega.general.service.CardService;
 import icu.samnyan.aqua.sega.ongeki.dao.userdata.*;
@@ -21,10 +21,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * The handler for loading basic profile information.
- * <p>
- * return null if no profile exist
- *
+ * The handler for saving all data of a ONGEKI profile
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component("OngekiUserAllHandler")
@@ -451,7 +448,7 @@ public class UpsertUserAllHandler implements BaseHandler {
 
     private void saveGeneralData(Map<String, Object> upsertUserAll, UserData newUserData, String jsonName, String key) {
         List<Map<String, Object>> recordList = ((List<Map<String, Object>>) upsertUserAll.get(jsonName));
-        // User this recent rating class from chunithm
+
         List<UserRecentRating> itemList = mapper.convert(recordList, new TypeReference<>() {
         });
         StringBuilder sb = new StringBuilder();

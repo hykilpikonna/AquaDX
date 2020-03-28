@@ -12,7 +12,9 @@ import java.util.Optional;
  */
 @Repository("OngekiUserOptionRepository")
 public interface UserOptionRepository extends JpaRepository<UserOption, Long> {
+
     Optional<UserOption> findByUser(UserData userData);
 
     Optional<UserOption> findByUser_Card_ExtId(int userId);
+
 }

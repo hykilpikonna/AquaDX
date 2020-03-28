@@ -32,8 +32,8 @@ public class UserChargeService {
         return userChargeRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
     }
 
-    public Optional<UserCharge> getByUserAndChargeId(UserData user, String chargeId) {
-        return userChargeRepository.findByUserAndChargeId(user, Integer.parseInt(chargeId));
+    public Optional<UserCharge> getByUserAndChargeId(UserData user, int chargeId) {
+        return userChargeRepository.findByUserAndChargeId(user, chargeId);
     }
 
 }

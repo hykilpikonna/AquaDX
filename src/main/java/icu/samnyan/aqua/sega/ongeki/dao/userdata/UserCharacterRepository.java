@@ -14,7 +14,9 @@ import java.util.Optional;
  */
 @Repository("OngekiUserCharacterRepository")
 public interface UserCharacterRepository extends JpaRepository<UserCharacter, Long> {
-    Optional<UserCharacter> findByUserAndCharacterId(UserData userData, int characterId);
 
     Page<UserCharacter> findByUser_Card_ExtId(Integer userId, Pageable page);
+
+    Optional<UserCharacter> findByUserAndCharacterId(UserData userData, int characterId);
+
 }

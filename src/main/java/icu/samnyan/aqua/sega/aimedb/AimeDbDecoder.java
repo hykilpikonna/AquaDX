@@ -33,10 +33,9 @@ public class AimeDbDecoder extends ByteToMessageDecoder {
 
     /**
      * Decrypt the incoming request including frame management
-     *
-     * @param ctx
-     * @param in
-     * @param out
+     * @param ctx ChannelHandlerContext
+     * @param in ByteBuf in
+     * @param out List<Object>
      * @throws Exception
      */
     @Override

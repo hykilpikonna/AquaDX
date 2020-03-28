@@ -13,9 +13,11 @@ import java.util.Optional;
  */
 @Repository("OngekiUserActivityRepository")
 public interface UserActivityRepository extends JpaRepository<UserActivity, Long> {
+
+    List<UserActivity> findByUser_Card_ExtId(int userId);
+
     Optional<UserActivity> findByUserAndKindAndActivityId(UserData userData, int kind, int activityId);
 
     List<UserActivity> findByUser_Card_ExtIdAndKindOrderBySortNumberDesc(int userId, int kind);
 
-    List<UserActivity> findByUser_Card_ExtId(int userId);
 }

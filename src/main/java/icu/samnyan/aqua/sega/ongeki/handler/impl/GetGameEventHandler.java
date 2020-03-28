@@ -40,14 +40,12 @@ public class GetGameEventHandler implements BaseHandler {
 
         List<GameEvent> eventIdList = gameEventRepository.findAll();
         List<GameEventItem> eventList = new ArrayList<>();
-        eventIdList.forEach(x -> {
-            eventList.add(new GameEventItem(
-                    x.getId(),
-                    type,
-                    "2005-01-01 00:00:00.0",
-                    "2099-01-01 05:00:00.0"
-            ));
-        });
+        eventIdList.forEach(x -> eventList.add(new GameEventItem(
+                x.getId(),
+                type,
+                "2005-01-01 00:00:00.0",
+                "2099-01-01 05:00:00.0"
+        )));
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("type", type);

@@ -128,7 +128,7 @@ public class ChuniServletController {
     /**
      * The game start up request
      *
-     * @return
+     * @return json of GameSetting object
      */
     @PostMapping("GetGameSettingApi")
     String getGameSetting(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {

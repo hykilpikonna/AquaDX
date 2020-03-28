@@ -42,7 +42,7 @@ public class UserCourseService {
         return userCourseRepository.findByUser_Card_ExtId(Integer.parseInt(userId), page);
     }
 
-    public Optional<UserCourse> getByUserAndCourseId(UserData user, String courseId) {
-        return userCourseRepository.findTopByUserAndCourseIdOrderByIdDesc(user, Integer.parseInt(courseId));
+    public Optional<UserCourse> getByUserAndCourseId(UserData user, int courseId) {
+        return userCourseRepository.findTopByUserAndCourseIdOrderByIdDesc(user, courseId);
     }
 }

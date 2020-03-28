@@ -1,4 +1,4 @@
-package icu.samnyan.aqua.sega.aimedb.handler.Impl;
+package icu.samnyan.aqua.sega.aimedb.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.aimedb.handler.BaseHandler;

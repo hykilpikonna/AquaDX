@@ -30,8 +30,8 @@ public class UserActivityService {
         return userActivityRepository.saveAll(userActivityList);
     }
 
-    public Optional<UserActivity> getByUserAndActivityIdAndKind(UserData user, String activityId, String kind) {
-        return userActivityRepository.findTopByUserAndActivityIdAndKindOrderByIdDesc(user, Integer.parseInt(activityId), Integer.parseInt(kind));
+    public Optional<UserActivity> getByUserAndActivityIdAndKind(UserData user, int activityId, int kind) {
+        return userActivityRepository.findTopByUserAndActivityIdAndKindOrderByIdDesc(user, activityId, kind);
     }
 
     public List<UserActivity> getAllByUserIdAndKind(String userId, String kind) {

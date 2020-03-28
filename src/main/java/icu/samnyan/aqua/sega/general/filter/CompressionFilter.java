@@ -61,7 +61,7 @@ public class CompressionFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+    protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getServletPath();
         boolean notFilter = true;
         for (String prefix : filterList) {

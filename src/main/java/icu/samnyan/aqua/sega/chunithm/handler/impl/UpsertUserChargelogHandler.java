@@ -42,7 +42,7 @@ public class UpsertUserChargelogHandler implements BaseHandler {
         String chargeId = (String) userChargeMap.get("chargeId");
         UserCharge charge = mapper.convert(userChargeMap, UserCharge.class);
 
-        UserCharge userCharge = userChargeService.getByUserAndChargeId(user, chargeId).orElseGet(() -> new UserCharge(user));
+        UserCharge userCharge = userChargeService.getByUserAndChargeId(user, Integer.parseInt(chargeId)).orElseGet(() -> new UserCharge(user));
         userCharge.setChargeId(charge.getChargeId());
         userCharge.setStock(charge.getStock());
         userCharge.setPurchaseDate(charge.getPurchaseDate());
