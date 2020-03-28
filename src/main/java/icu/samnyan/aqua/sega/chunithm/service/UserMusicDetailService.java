@@ -25,10 +25,6 @@ public class UserMusicDetailService {
         this.userMusicDetailRepository = userMusicDetailRepository;
     }
 
-    public Optional<UserMusicDetail> getByUserAndMusicIdAndLevel(UserData user, String musicId, String level) {
-        return userMusicDetailRepository.findTopByUserAndMusicIdAndLevelOrderByIdDesc(user, Integer.parseInt(musicId), Integer.parseInt(level));
-    }
-
     public UserMusicDetail save(UserMusicDetail userMusicDetail) {
         return userMusicDetailRepository.save(userMusicDetail);
     }
@@ -46,7 +42,15 @@ public class UserMusicDetailService {
         return userMusicDetailRepository.findByUser_Card_ExtId(Integer.parseInt(userId), page);
     }
 
-    public List<UserMusicDetail> getByUserAndMusicId(String userId, int id) {
-        return userMusicDetailRepository.findByUser_Card_ExtIdAndMusicId(Integer.parseInt(userId), id);
+    public List<UserMusicDetail> getByUserId(String userId) {
+        return userMusicDetailRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
+    }
+
+    public List<UserMusicDetail> getByUserIdAndMusicId(String userId, int musicId) {
+        return userMusicDetailRepository.findByUser_Card_ExtIdAndMusicId(Integer.parseInt(userId), musicId);
+    }
+
+    public Optional<UserMusicDetail> getByUserAndMusicIdAndLevel(UserData user, String musicId, String level) {
+        return userMusicDetailRepository.findTopByUserAndMusicIdAndLevelOrderByIdDesc(user, Integer.parseInt(musicId), Integer.parseInt(level));
     }
 }

@@ -34,6 +34,7 @@ public class Card implements Serializable {
 
     @Column(name = "register_time")
     private LocalDateTime registerTime;
+
     @Column(name = "access_time")
     private LocalDateTime accessTime;
 

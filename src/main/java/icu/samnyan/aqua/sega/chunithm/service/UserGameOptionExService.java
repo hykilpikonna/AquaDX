@@ -21,12 +21,12 @@ public class UserGameOptionExService {
         this.userGameOptionExRepository = userGameOptionExRepository;
     }
 
-    public Optional<UserGameOptionEx> getByUser(UserData userData) {
-        return userGameOptionExRepository.findByUser(userData);
-    }
-
     public UserGameOptionEx save(UserGameOptionEx userGameOptionEx) {
         return userGameOptionExRepository.save(userGameOptionEx);
+    }
+
+    public Optional<UserGameOptionEx> getByUser(UserData userData) {
+        return userGameOptionExRepository.findByUser(userData);
     }
 
     public Optional<UserGameOptionEx> getByUserId(String userId) {

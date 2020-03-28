@@ -24,17 +24,20 @@ public class UserItemService {
         this.userItemRepository = userItemRepository;
     }
 
-
-    public Optional<UserItem> getByUserAndItemId(UserData user, String itemId, String itemKind) {
-        return userItemRepository.findTopByUserAndItemIdAndItemKindOrderByIdDesc(user, Integer.parseInt(itemId), Integer.parseInt(itemKind));
-    }
-
     public UserItem save(UserItem userItem) {
         return userItemRepository.save(userItem);
     }
 
     public List<UserItem> saveAll(Iterable<UserItem> userItem) {
         return userItemRepository.saveAll(userItem);
+    }
+
+    public List<UserItem> getByUserId(String userId) {
+        return userItemRepository.findAllByUser_Card_ExtId(Integer.parseInt(userId));
+    }
+
+    public Optional<UserItem> getByUserAndItemId(UserData user, String itemId, String itemKind) {
+        return userItemRepository.findTopByUserAndItemIdAndItemKindOrderByIdDesc(user, Integer.parseInt(itemId), Integer.parseInt(itemKind));
     }
 
     public Page<UserItem> getByUserAndItemKind(String userId, int kind, int pageNumber, int maxCount) {

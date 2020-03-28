@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Handle GetUserDuel request
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
@@ -40,7 +41,7 @@ public class GetUserDuelHandler implements BaseHandler {
 
         // TODO:
 
-        List<UserDuel> userDuelList = userDuelService.getByUser(userId);
+        List<UserDuel> userDuelList = userDuelService.getByUserId(userId);
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userId);

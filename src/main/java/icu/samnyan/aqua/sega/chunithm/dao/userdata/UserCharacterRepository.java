@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -18,4 +19,6 @@ public interface UserCharacterRepository extends JpaRepository<UserCharacter, Lo
     Optional<UserCharacter> findTopByUserAndCharacterIdOrderByIdDesc(UserData user, int characterId);
 
     Page<UserCharacter> findByUser_Card_ExtId(int extId, Pageable pageable);
+
+    List<UserCharacter> findByUser_Card_ExtId(int extId);
 }

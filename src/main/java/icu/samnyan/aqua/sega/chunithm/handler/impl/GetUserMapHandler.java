@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Handle GetUserMap request
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
@@ -36,7 +37,7 @@ public class GetUserMapHandler implements BaseHandler {
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         String userId = (String) request.get("userId");
 
-        List<UserMap> userMapList = userMapService.getByUser(userId);
+        List<UserMap> userMapList = userMapService.getByUserId(userId);
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userId);

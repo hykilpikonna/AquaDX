@@ -25,10 +25,6 @@ public class UserCourseService {
         this.userCourseRepository = userCourseRepository;
     }
 
-    public Optional<UserCourse> getByUserAndCourseId(UserData user, String courseId) {
-        return userCourseRepository.findTopByUserAndCourseIdOrderByIdDesc(user, Integer.parseInt(courseId));
-    }
-
     public UserCourse save(UserCourse userCourse) {
         return userCourseRepository.save(userCourse);
     }
@@ -37,16 +33,16 @@ public class UserCourseService {
         return userCourseRepository.saveAll(userMusicDetail);
     }
 
-    public List<UserCourse> getByUser(String userId) {
+    public List<UserCourse> getByUserId(String userId) {
         return userCourseRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
     }
 
-    public Page<UserCourse> getByUser(String userId, int pageNum, int maxCount) {
+    public Page<UserCourse> getByUserId(String userId, int pageNum, int maxCount) {
         Pageable page = PageRequest.of(pageNum, maxCount);
         return userCourseRepository.findByUser_Card_ExtId(Integer.parseInt(userId), page);
     }
 
-    public List<UserCourse> getAllByUser(String userId) {
-        return userCourseRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
+    public Optional<UserCourse> getByUserAndCourseId(UserData user, String courseId) {
+        return userCourseRepository.findTopByUserAndCourseIdOrderByIdDesc(user, Integer.parseInt(courseId));
     }
 }

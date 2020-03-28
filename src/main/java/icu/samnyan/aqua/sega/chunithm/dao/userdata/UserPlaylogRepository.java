@@ -1,7 +1,6 @@
 package icu.samnyan.aqua.sega.chunithm.dao.userdata;
 
 import icu.samnyan.aqua.sega.chunithm.model.userdata.UserPlaylog;
-import icu.samnyan.aqua.sega.diva.model.userdata.PlayLog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +18,6 @@ public interface UserPlaylogRepository extends JpaRepository<UserPlaylog, Long> 
     Page<UserPlaylog> findByUser_Card_ExtId(int extId, Pageable page);
 
     List<UserPlaylog> findByUser_Card_ExtIdAndMusicIdAndLevel(int extId, int musicId, int level);
+
+    List<UserPlaylog> findByUser_Card_ExtId(int extId);
 }

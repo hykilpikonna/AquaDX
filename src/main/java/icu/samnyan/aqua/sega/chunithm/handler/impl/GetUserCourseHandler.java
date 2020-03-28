@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Handle GetUserCourse request
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
@@ -46,7 +47,7 @@ public class GetUserCourseHandler implements BaseHandler {
 
             int pageNum = nextIndex / maxCount;
 
-            Page<UserCourse> dbPage = userCourseService.getByUser(userId, pageNum, maxCount);
+            Page<UserCourse> dbPage = userCourseService.getByUserId(userId, pageNum, maxCount);
 
             long currentIndex = maxCount * pageNum + dbPage.getNumberOfElements();
 
@@ -54,7 +55,7 @@ public class GetUserCourseHandler implements BaseHandler {
             resultMap.put("nextIndex", dbPage.getNumberOfElements() < maxCount ? -1 : currentIndex);
             resultMap.put("userCourseList", dbPage.getContent());
         } else {
-            List<UserCourse> courseList = userCourseService.getAllByUser(userId);
+            List<UserCourse> courseList = userCourseService.getByUserId(userId);
             resultMap.put("length", courseList.size());
             resultMap.put("userCourseList", courseList);
         }

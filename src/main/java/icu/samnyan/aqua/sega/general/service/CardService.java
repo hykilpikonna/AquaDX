@@ -5,7 +5,9 @@ import icu.samnyan.aqua.sega.general.model.Card;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -20,11 +22,48 @@ public class CardService {
         this.cardRepository = cardRepository;
     }
 
+    /**
+     * Find a card by External Id
+     * @param extId External Id
+     * @return Optional of a Card
+     */
     public Optional<Card> getCardByExtId(String extId) {
         return cardRepository.findByExtId(Integer.parseInt(extId));
     }
 
+    /**
+     * Find a card by External Id
+     * @param extId External Id
+     * @return Optional of a Card
+     */
     public Optional<Card> getCardByExtId(int extId) {
         return cardRepository.findByExtId(extId);
+    }
+
+    /**
+     * Find a card by it's access code
+     * @param accessCode String represent of a access code
+     * @return Optional of a Card
+     */
+    public Optional<Card> getCardByAccessCode(String accessCode) {
+        return cardRepository.findByLuid(accessCode);
+    }
+
+    /**
+     * Register a new card with access code
+     * @param accessCode String represent of a access code
+     * @return a new registered Card
+     */
+    public Card registerByAccessCode(String accessCode) {
+        Card card = new Card();
+        card.setLuid(accessCode);
+        int extId = ThreadLocalRandom.current().nextInt(99999999);
+        while (cardRepository.findByExtId(extId).isPresent()) {
+            extId = ThreadLocalRandom.current().nextInt(99999999);
+        }
+        card.setExtId(extId);
+        card.setRegisterTime(LocalDateTime.now());
+        card.setAccessTime(LocalDateTime.now());
+        return cardRepository.save(card);
     }
 }

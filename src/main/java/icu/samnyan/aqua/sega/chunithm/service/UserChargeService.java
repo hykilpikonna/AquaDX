@@ -24,6 +24,10 @@ public class UserChargeService {
         return userChargeRepository.save(userCharge);
     }
 
+    public List<UserCharge> saveAll(List<UserCharge> newUserChargeList) {
+        return userChargeRepository.saveAll(newUserChargeList);
+    }
+
     public List<UserCharge> getByUserId(String userId) {
         return userChargeRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
     }
@@ -32,7 +36,4 @@ public class UserChargeService {
         return userChargeRepository.findByUserAndChargeId(user, Integer.parseInt(chargeId));
     }
 
-    public List<UserCharge> saveAll(List<UserCharge> newUserChargeList) {
-        return userChargeRepository.saveAll(newUserChargeList);
-    }
 }

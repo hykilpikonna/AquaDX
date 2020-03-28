@@ -15,6 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
+ * Handle getUserCharacter request
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
@@ -42,7 +43,7 @@ public class GetUserCharacterHandler implements BaseHandler {
 
         int pageNum = nextIndex / maxCount;
 
-        Page<UserCharacter> dbPage = userCharacterService.getByUser(userId, pageNum, maxCount);
+        Page<UserCharacter> dbPage = userCharacterService.getByUserId(userId, pageNum, maxCount);
 
         long currentIndex = maxCount * pageNum + dbPage.getNumberOfElements();
 

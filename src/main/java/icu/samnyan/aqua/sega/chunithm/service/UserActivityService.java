@@ -37,4 +37,8 @@ public class UserActivityService {
     public List<UserActivity> getAllByUserIdAndKind(String userId, String kind) {
         return userActivityRepository.findAllByUser_Card_ExtIdAndKindOrderBySortNumberDesc(Integer.parseInt(userId), Integer.parseInt(kind));
     }
+
+    public List<UserActivity> getByUserId(String userId) {
+        return userActivityRepository.findAllByUser_Card_ExtId(Integer.parseInt(userId));
+    }
 }

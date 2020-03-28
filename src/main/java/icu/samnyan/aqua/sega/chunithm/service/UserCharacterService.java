@@ -25,14 +25,6 @@ public class UserCharacterService {
         this.userCharacterRepository = userCharacterRepository;
     }
 
-    public Optional<UserCharacter> getByUserAndCharacterId(UserData user, String characterId) {
-        return getByUserAndCharacterId(user, Integer.parseInt(characterId));
-    }
-
-    public Optional<UserCharacter> getByUserAndCharacterId(UserData user, int characterId) {
-        return userCharacterRepository.findTopByUserAndCharacterIdOrderByIdDesc(user, characterId);
-    }
-
     public UserCharacter save(UserCharacter userCharacter) {
         return userCharacterRepository.save(userCharacter);
     }
@@ -41,8 +33,20 @@ public class UserCharacterService {
         return userCharacterRepository.saveAll(userCharacter);
     }
 
-    public Page<UserCharacter> getByUser(String userId, int pageNumber, int maxCount) {
+    public List<UserCharacter> getByUserId(String userId) {
+        return userCharacterRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
+    }
+
+    public Page<UserCharacter> getByUserId(String userId, int pageNumber, int maxCount) {
         Pageable pageable = PageRequest.of(pageNumber, maxCount);
         return userCharacterRepository.findByUser_Card_ExtId(Integer.parseInt(userId), pageable);
+    }
+
+    public Optional<UserCharacter> getByUserAndCharacterId(UserData user, String characterId) {
+        return getByUserAndCharacterId(user, Integer.parseInt(characterId));
+    }
+
+    public Optional<UserCharacter> getByUserAndCharacterId(UserData user, int characterId) {
+        return userCharacterRepository.findTopByUserAndCharacterIdOrderByIdDesc(user, characterId);
     }
 }

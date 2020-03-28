@@ -88,7 +88,6 @@ public class UserData implements Serializable {
 
     private String userName;
 
-    @JsonIgnore
     private LocalDateTime lastLoginDate;
 
     @JsonProperty("isWebJoin")

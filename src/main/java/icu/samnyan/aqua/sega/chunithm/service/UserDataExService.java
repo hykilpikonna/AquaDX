@@ -21,15 +21,15 @@ public class UserDataExService {
         this.userDataExRepository = userDataExRepository;
     }
 
-    public Optional<UserDataEx> getByUser(UserData user) {
-        return userDataExRepository.findByUser(user);
-    }
-
     public UserDataEx save(UserDataEx userDataEx) {
         return userDataExRepository.save(userDataEx);
     }
 
-    public Optional<UserDataEx> getUserByExtId(String userId) {
+    public Optional<UserDataEx> getByUser(UserData user) {
+        return userDataExRepository.findByUser(user);
+    }
+
+    public Optional<UserDataEx> getByExtId(String userId) {
         return userDataExRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
     }
 }

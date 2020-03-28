@@ -21,15 +21,15 @@ public class UserGameOptionService {
         this.userGameOptionRepository = userGameOptionRepository;
     }
 
-    public Optional<UserGameOption> getByUserId(String userId) {
-        return userGameOptionRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
+    public UserGameOption save(UserGameOption userGameOption) {
+        return userGameOptionRepository.save(userGameOption);
     }
 
     public Optional<UserGameOption> getByUser(UserData user) {
         return userGameOptionRepository.findByUser(user);
     }
 
-    public UserGameOption save(UserGameOption userGameOption) {
-        return userGameOptionRepository.save(userGameOption);
+    public Optional<UserGameOption> getByUserId(String userId) {
+        return userGameOptionRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
     }
 }

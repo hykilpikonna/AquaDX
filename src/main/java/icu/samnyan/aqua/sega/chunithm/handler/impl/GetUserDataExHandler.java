@@ -35,7 +35,7 @@ public class GetUserDataExHandler implements BaseHandler {
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         String userId = (String) request.get("userId");
-        Optional<UserDataEx> userDataExOptional = userDataExService.getUserByExtId(userId);
+        Optional<UserDataEx> userDataExOptional = userDataExService.getByExtId(userId);
 
         if (userDataExOptional.isPresent()) {
             Map<String, Object> resultMap = new LinkedHashMap<>();

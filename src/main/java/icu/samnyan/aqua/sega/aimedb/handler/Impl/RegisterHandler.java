@@ -6,6 +6,7 @@ import icu.samnyan.aqua.sega.aimedb.util.AimeDbUtil;
 import icu.samnyan.aqua.sega.aimedb.util.LogMapper;
 import icu.samnyan.aqua.sega.general.dao.CardRepository;
 import icu.samnyan.aqua.sega.general.model.Card;
+import icu.samnyan.aqua.sega.general.service.CardService;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
@@ -15,10 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -30,12 +29,12 @@ public class RegisterHandler implements BaseHandler {
 
     private final LogMapper logMapper;
 
-    private final CardRepository cardRepository;
+    private final CardService cardService;
 
     @Autowired
-    public RegisterHandler(LogMapper logMapper, CardRepository cardRepository) {
+    public RegisterHandler(LogMapper logMapper, CardService cardService) {
         this.logMapper = logMapper;
-        this.cardRepository = cardRepository;
+        this.cardService = cardService;
     }
 
     @Override
@@ -49,18 +48,8 @@ public class RegisterHandler implements BaseHandler {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("type", "register");
 
-        if(cardRepository.findByLuid((String) requestMap.get("luid")).isEmpty()) {
-            Card card = new Card();
-            card.setLuid((String) requestMap.get("luid"));
-            int extId = ThreadLocalRandom.current().nextInt(99999999);
-            while (cardRepository.findByExtId(extId).isPresent()) {
-                extId = ThreadLocalRandom.current().nextInt(99999999);
-            }
-            card.setExtId(extId);
-            card.setRegisterTime(LocalDateTime.now());
-            card.setAccessTime(LocalDateTime.now());
-
-            cardRepository.save(card);
+        if (cardService.getCardByAccessCode((String) requestMap.get("luid")).isEmpty()) {
+            Card card = cardService.registerByAccessCode((String) requestMap.get("luid"));
 
             resultMap.put("status", 1);
             resultMap.put("aimeId", card.getExtId().longValue());

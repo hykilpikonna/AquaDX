@@ -22,23 +22,23 @@ public class UserMapService {
         this.userMapRepository = userMapRepository;
     }
 
-    public List<UserMap> getByUser(UserData user) {
-        return userMapRepository.findAllByUser(user);
-    }
-
-    public List<UserMap> getByUser(String userId) {
-        return userMapRepository.findAllByUser_Card_ExtId(Integer.parseInt(userId));
-    }
-
-    public Optional<UserMap> getByUserAndMapId(UserData user, String mapId) {
-        return userMapRepository.findTopByUserAndMapIdOrderByIdDesc(user, Integer.parseInt(mapId));
-    }
-
     public UserMap save(UserMap userMap) {
         return userMapRepository.save(userMap);
     }
 
     public List<UserMap> saveAll(Iterable<UserMap> userMap) {
         return userMapRepository.saveAll(userMap);
+    }
+
+    public List<UserMap> getByUser(UserData user) {
+        return userMapRepository.findAllByUser(user);
+    }
+
+    public List<UserMap> getByUserId(String userId) {
+        return userMapRepository.findAllByUser_Card_ExtId(Integer.parseInt(userId));
+    }
+
+    public Optional<UserMap> getByUserAndMapId(UserData user, String mapId) {
+        return userMapRepository.findTopByUserAndMapIdOrderByIdDesc(user, Integer.parseInt(mapId));
     }
 }
