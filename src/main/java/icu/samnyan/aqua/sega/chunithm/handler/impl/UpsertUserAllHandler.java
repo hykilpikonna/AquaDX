@@ -7,6 +7,7 @@ import icu.samnyan.aqua.sega.chunithm.model.response.CodeResp;
 import icu.samnyan.aqua.sega.chunithm.model.userdata.*;
 import icu.samnyan.aqua.sega.chunithm.service.*;
 import icu.samnyan.aqua.sega.general.model.Card;
+import icu.samnyan.aqua.sega.general.model.response.UserRecentRating;
 import icu.samnyan.aqua.sega.general.service.CardService;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
 import org.slf4j.Logger;
@@ -44,9 +45,10 @@ public class UpsertUserAllHandler implements BaseHandler {
     private final UserDataExService userDataExService;
     private final UserCourseService userCourseService;
     private final UserDuelService userDuelService;
+    private final UserGeneralDataService userGeneralDataService;
 
     @Autowired
-    public UpsertUserAllHandler(StringMapper mapper, CardService cardService, UserDataService userDataService, UserCharacterService userCharacterService, UserGameOptionService userGameOptionService, UserGameOptionExService userGameOptionExService, UserMapService userMapService, UserItemService userItemService, UserMusicDetailService userMusicDetailService, UserActivityService userActivityService, UserPlaylogService userPlaylogService, UserChargeService userChargeService, UserDataExService userDataExService, UserCourseService userCourseService, UserDuelService userDuelService) {
+    public UpsertUserAllHandler(StringMapper mapper, CardService cardService, UserDataService userDataService, UserCharacterService userCharacterService, UserGameOptionService userGameOptionService, UserGameOptionExService userGameOptionExService, UserMapService userMapService, UserItemService userItemService, UserMusicDetailService userMusicDetailService, UserActivityService userActivityService, UserPlaylogService userPlaylogService, UserChargeService userChargeService, UserDataExService userDataExService, UserCourseService userCourseService, UserDuelService userDuelService, UserGeneralDataService userGeneralDataService) {
         this.mapper = mapper;
         this.cardService = cardService;
         this.userDataService = userDataService;
@@ -62,6 +64,7 @@ public class UpsertUserAllHandler implements BaseHandler {
         this.userDataExService = userDataExService;
         this.userCourseService = userCourseService;
         this.userDuelService = userDuelService;
+        this.userGeneralDataService = userGeneralDataService;
     }
 
 
@@ -232,6 +235,23 @@ public class UpsertUserAllHandler implements BaseHandler {
         }
 
         // userRecentRatingList
+        if(upsertUserAll.getUserRecentRatingList() != null) {
+            List<UserRecentRating> userRecentRatingList = upsertUserAll.getUserRecentRatingList();
+
+            StringBuilder sb = new StringBuilder();
+            userRecentRatingList.forEach(userRecentRating -> {
+                sb.append(userRecentRating.getMusicId()).append(":");
+                sb.append(userRecentRating.getDifficultId()).append(":");
+                sb.append(userRecentRating.getScore()).append(",");
+            });
+            if(sb.length() > 0) {
+                sb.deleteCharAt(sb.length() - 1);
+            }
+            UserGeneralData userGeneralData = userGeneralDataService.getByUserAndKey(newUserData, "recent_rating_list")
+                    .orElseGet(() -> new UserGeneralData(newUserData, "recent_rating_list"));
+            userGeneralData.setPropertyValue(sb.toString());
+            userGeneralDataService.save(userGeneralData);
+        }
 
         // userChargeList
         if (upsertUserAll.getUserChargeList() != null) {

@@ -56,11 +56,12 @@ public class ApiAmazonController {
     private final UserMapService userMapService;
     private final UserMusicDetailService userMusicDetailService;
     private final UserPlaylogService userPlaylogService;
+    private final UserGeneralDataService userGeneralDataService;
 
     private final GameMusicService gameMusicService;
 
     @Autowired
-    public ApiAmazonController(ApiMapper mapper, CardService cardService, UserActivityService userActivityService, UserCharacterService userCharacterService, UserChargeService userChargeService, UserDataService userDataService, UserDataExService userDataExService, UserGameOptionExService userGameOptionExService, UserMapService userMapService, UserPlaylogService userPlaylogService, UserMusicDetailService userMusicDetailService, UserCourseService userCourseService, UserDuelService userDuelService, UserGameOptionService userGameOptionService, UserItemService userItemService, GameMusicService gameMusicService) {
+    public ApiAmazonController(ApiMapper mapper, CardService cardService, UserActivityService userActivityService, UserCharacterService userCharacterService, UserChargeService userChargeService, UserDataService userDataService, UserDataExService userDataExService, UserGameOptionExService userGameOptionExService, UserMapService userMapService, UserPlaylogService userPlaylogService, UserMusicDetailService userMusicDetailService, UserCourseService userCourseService, UserDuelService userDuelService, UserGameOptionService userGameOptionService, UserItemService userItemService, UserGeneralDataService userGeneralDataService, GameMusicService gameMusicService) {
         this.mapper = mapper;
         this.cardService = cardService;
         this.userActivityService = userActivityService;
@@ -76,6 +77,7 @@ public class ApiAmazonController {
         this.userDuelService = userDuelService;
         this.userGameOptionService = userGameOptionService;
         this.userItemService = userItemService;
+        this.userGeneralDataService = userGeneralDataService;
         this.gameMusicService = gameMusicService;
     }
 
@@ -304,6 +306,13 @@ public class ApiAmazonController {
         userPlaylogService.saveAll(userPlaylogList);
 
         return ResponseEntity.ok(new MessageResponse("Import successfully, aimeId: " + card.getExtId()));
+    }
+
+    @GetMapping("general")
+    public ResponseEntity<Object> getGeneralData(@RequestParam String aimeId, @RequestParam String key) {
+        Optional<UserGeneralData> userGeneralDataOptional = userGeneralDataService.getByUserIdAndKey(aimeId,key);
+        return userGeneralDataOptional.<ResponseEntity<Object>>map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("User or value not found.")));
     }
 
     private int calculateRating(int levelBase, int score) {

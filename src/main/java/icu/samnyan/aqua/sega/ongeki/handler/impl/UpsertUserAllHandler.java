@@ -159,7 +159,10 @@ public class UpsertUserAllHandler implements BaseHandler {
         }
 
         // UserRecentRatingList
-        // This doesn't need to save. It can get from playlog
+        // This thing still need to save to solve the rating drop
+        if (upsertUserAll.containsKey("userRecentRatingList")) {
+            this.saveGeneralData(upsertUserAll, newUserData, "userRecentRatingList", "recent_rating_list");
+        }
 
         /*
          * The rating and battle point calculation is little bit complex.

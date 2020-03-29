@@ -2,10 +2,13 @@ package icu.samnyan.aqua.sega.ongeki.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.general.model.response.UserRecentRating;
+import icu.samnyan.aqua.sega.ongeki.dao.userdata.UserGeneralDataRepository;
 import icu.samnyan.aqua.sega.ongeki.dao.userdata.UserPlaylogRepository;
 import icu.samnyan.aqua.sega.ongeki.handler.BaseHandler;
+import icu.samnyan.aqua.sega.ongeki.model.userdata.UserGeneralData;
 import icu.samnyan.aqua.sega.ongeki.model.userdata.UserPlaylog;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -30,11 +31,13 @@ public class GetUserRecentRatingHandler implements BaseHandler {
     private final BasicMapper mapper;
 
     private final UserPlaylogRepository userPlaylogRepository;
+    private final UserGeneralDataRepository userGeneralDataRepository;
 
     @Autowired
-    public GetUserRecentRatingHandler(BasicMapper mapper, UserPlaylogRepository userPlaylogRepository) {
+    public GetUserRecentRatingHandler(BasicMapper mapper, UserPlaylogRepository userPlaylogRepository, UserGeneralDataRepository userGeneralDataRepository) {
         this.mapper = mapper;
         this.userPlaylogRepository = userPlaylogRepository;
+        this.userGeneralDataRepository = userGeneralDataRepository;
     }
 
 
@@ -42,10 +45,31 @@ public class GetUserRecentRatingHandler implements BaseHandler {
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         Integer userId = (Integer) request.get("userId");
 
-        Pageable page = PageRequest.of(0, 30, Sort.by(Sort.Direction.DESC, "id"));
-        List<UserPlaylog> playlogList = userPlaylogRepository.findByUser_Card_ExtId(userId, page).getContent();
-        List<UserRecentRating> ratingList = playlogList.stream().map(log -> new UserRecentRating(log.getMusicId(), log.getLevel(), "1000000", log.getTechScore()))
-                .collect(Collectors.toList());
+        Optional<UserGeneralData> recentOptional = userGeneralDataRepository.findByUser_Card_ExtIdAndPropertyKey(userId, "recent_rating_list");
+
+        List<UserRecentRating> ratingList;
+        if(recentOptional.isPresent()) {
+            ratingList = new LinkedList<>();
+            String val = recentOptional.get().getPropertyValue();
+            if(StringUtils.isNotBlank(val) && val.contains(",")) {
+                String[] records = val.split(",");
+                for (String record :
+                        records) {
+                    String[] value = record.split(":");
+                    ratingList.add(new UserRecentRating(
+                            Integer.parseInt(value[0]),
+                            Integer.parseInt(value[1]),
+                            "1000000",
+                            Integer.parseInt(value[2])
+                    ));
+                }
+            }
+        } else {
+            Pageable page = PageRequest.of(0, 30, Sort.by(Sort.Direction.DESC, "id"));
+            List<UserPlaylog> playlogList = userPlaylogRepository.findByUser_Card_ExtId(userId, page).getContent();
+            ratingList = playlogList.stream().map(log -> new UserRecentRating(log.getMusicId(), log.getLevel(), "1000000", log.getTechScore()))
+                    .collect(Collectors.toList());
+        }
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userId);
