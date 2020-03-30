@@ -209,6 +209,7 @@ public class ApiAmazonController {
     public ResponseEntity<Object> exportAllUserData(@RequestParam String aimeId) {
         ChuniDataExport data = new ChuniDataExport();
         try {
+            data.setGameId("SDBT");
             data.setUserData(userDataService.getUserByExtId(aimeId).orElseThrow());
             data.setUserActivityList(userActivityService.getByUserId(aimeId));
             data.setUserCharacterList(userCharacterService.getByUserId(aimeId));
@@ -231,12 +232,16 @@ public class ApiAmazonController {
         }
         // Set filename
         HttpHeaders headers = new HttpHeaders();
-        headers.set("content-disposition", "attachment; filename=" + aimeId + "_exported.json");
+        headers.set("content-disposition", "attachment; filename=chuni_" + aimeId + "_exported.json");
         return new ResponseEntity<>(data, headers, HttpStatus.OK);
     }
 
     @PostMapping("import")
     public ResponseEntity<Object> importAllUserData(@RequestBody ChuniDataImport data) {
+        if(!data.getGameId().equals("SDBT")) {
+            return ResponseEntity.unprocessableEntity().body(new MessageResponse("Wrong Game Profile, Expected 'SDBT', Get " + data.getGameId()));
+        }
+
         ExternalUserData exUser = data.getUserData();
 
         Optional<Card> cardOptional = cardService.getCardByAccessCode(exUser.getAccessCode());

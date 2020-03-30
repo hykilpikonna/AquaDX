@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -15,7 +16,9 @@ import java.util.Optional;
 @Repository("OngekiUserCharacterRepository")
 public interface UserCharacterRepository extends JpaRepository<UserCharacter, Long> {
 
-    Page<UserCharacter> findByUser_Card_ExtId(Integer userId, Pageable page);
+    List<UserCharacter> findByUser_Card_ExtId(int userId);
+
+    Page<UserCharacter> findByUser_Card_ExtId(int userId, Pageable page);
 
     Optional<UserCharacter> findByUserAndCharacterId(UserData userData, int characterId);
 

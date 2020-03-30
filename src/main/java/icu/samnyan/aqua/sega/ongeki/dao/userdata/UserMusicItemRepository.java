@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -15,8 +16,10 @@ import java.util.Optional;
 @Repository("OngekiUserMusicItemRepository")
 public interface UserMusicItemRepository extends JpaRepository<UserMusicItem, Long> {
 
-    Optional<UserMusicItem> findByUserAndMusicId(UserData userData, int musicId);
+    List<UserMusicItem> findByUser_Card_ExtId(int aimeId);
 
     Page<UserMusicItem> findByUser_Card_ExtId(int userId, Pageable page);
+
+    Optional<UserMusicItem> findByUserAndMusicId(UserData userData, int musicId);
 
 }

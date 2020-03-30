@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChuniDataImport {
+    private String gameId;
     private ExternalUserData userData;
     private List<UserActivity> userActivityList;
     private List<UserCharacter> userCharacterList;

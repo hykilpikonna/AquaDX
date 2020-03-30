@@ -4,7 +4,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import icu.samnyan.aqua.api.model.MessageResponse;
 import icu.samnyan.aqua.api.model.ReducedPageResponse;
 import icu.samnyan.aqua.api.model.resp.sega.ongeki.ProfileResp;
+import icu.samnyan.aqua.api.model.resp.sega.ongeki.external.ExternalUserData;
+import icu.samnyan.aqua.api.model.resp.sega.ongeki.external.OngekiDataExport;
+import icu.samnyan.aqua.api.model.resp.sega.ongeki.external.OngekiDataImport;
 import icu.samnyan.aqua.api.util.ApiMapper;
+import icu.samnyan.aqua.sega.general.model.Card;
+import icu.samnyan.aqua.sega.general.service.CardService;
 import icu.samnyan.aqua.sega.ongeki.dao.gamedata.GameCardRepository;
 import icu.samnyan.aqua.sega.ongeki.dao.userdata.*;
 import icu.samnyan.aqua.sega.ongeki.model.gamedata.GameCard;
@@ -12,6 +17,7 @@ import icu.samnyan.aqua.sega.ongeki.model.userdata.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +26,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -33,32 +41,47 @@ public class ApiOngekiPlayerDataController {
 
     private static DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.0");
 
+    private final CardService cardService;
+
     private final UserActivityRepository userActivityRepository;
     private final UserCardRepository userCardRepository;
+    private final UserChapterRepository userChapterRepository;
     private final UserCharacterRepository userCharacterRepository;
     private final UserDataRepository userDataRepository;
     private final UserDeckRepository userDeckRepository;
     private final UserEventPointRepository userEventPointRepository;
     private final UserItemRepository userItemRepository;
+    private final UserLoginBonusRepository userLoginBonusRepository;
+    private final UserMissionPointRepository userMissionPointRepository;
     private final UserMusicDetailRepository userMusicDetailRepository;
+    private final UserMusicItemRepository userMusicItemRepository;
     private final UserOptionRepository userOptionRepository;
     private final UserPlaylogRepository userPlaylogRepository;
+    private final UserStoryRepository userStoryRepository;
+    private final UserTrainingRoomRepository userTrainingRoomRepository;
     private final UserGeneralDataRepository userGeneralDataRepository;
 
     private final GameCardRepository gameCardRepository;
 
-    public ApiOngekiPlayerDataController(ApiMapper mapper, UserActivityRepository userActivityRepository, UserCardRepository userCardRepository, UserCharacterRepository userCharacterRepository, UserDataRepository userDataRepository, UserDeckRepository userDeckRepository, UserEventPointRepository userEventPointRepository, UserItemRepository userItemRepository, UserMusicDetailRepository userMusicDetailRepository, UserOptionRepository userOptionRepository, UserPlaylogRepository userPlaylogRepository, UserGeneralDataRepository userGeneralDataRepository, GameCardRepository gameCardRepository) {
+    public ApiOngekiPlayerDataController(ApiMapper mapper, CardService cardService, UserActivityRepository userActivityRepository, UserCardRepository userCardRepository, UserChapterRepository userChapterRepository, UserCharacterRepository userCharacterRepository, UserDataRepository userDataRepository, UserDeckRepository userDeckRepository, UserEventPointRepository userEventPointRepository, UserItemRepository userItemRepository, UserLoginBonusRepository userLoginBonusRepository, UserMissionPointRepository userMissionPointRepository, UserMusicDetailRepository userMusicDetailRepository, UserMusicItemRepository userMusicItemRepository, UserOptionRepository userOptionRepository, UserPlaylogRepository userPlaylogRepository, UserStoryRepository userStoryRepository, UserTrainingRoomRepository userTrainingRoomRepository, UserGeneralDataRepository userGeneralDataRepository, GameCardRepository gameCardRepository) {
         this.mapper = mapper;
+        this.cardService = cardService;
         this.userActivityRepository = userActivityRepository;
         this.userCardRepository = userCardRepository;
+        this.userChapterRepository = userChapterRepository;
         this.userCharacterRepository = userCharacterRepository;
         this.userDataRepository = userDataRepository;
         this.userDeckRepository = userDeckRepository;
         this.userEventPointRepository = userEventPointRepository;
         this.userItemRepository = userItemRepository;
+        this.userLoginBonusRepository = userLoginBonusRepository;
+        this.userMissionPointRepository = userMissionPointRepository;
         this.userMusicDetailRepository = userMusicDetailRepository;
+        this.userMusicItemRepository = userMusicItemRepository;
         this.userOptionRepository = userOptionRepository;
         this.userPlaylogRepository = userPlaylogRepository;
+        this.userStoryRepository = userStoryRepository;
+        this.userTrainingRoomRepository = userTrainingRoomRepository;
         this.userGeneralDataRepository = userGeneralDataRepository;
         this.gameCardRepository = gameCardRepository;
     }
@@ -289,4 +312,117 @@ public class ApiOngekiPlayerDataController {
         return userGeneralDataOptional.<ResponseEntity<Object>>map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("User or value not found.")));
     }
+
+    @GetMapping("export")
+    public ResponseEntity<Object> exportAllUserData(@RequestParam Integer aimeId) {
+        OngekiDataExport data = new OngekiDataExport();
+        try {
+            data.setGameId("SDDT");
+            data.setUserData(userDataRepository.findByCard_ExtId(aimeId).orElseThrow());
+            data.setUserActivityList(userActivityRepository.findByUser_Card_ExtId(aimeId));
+            data.setUserCardList(userCardRepository.findByUser_Card_ExtId(aimeId));
+            data.setUserChapterList(userChapterRepository.findByUser_Card_ExtId(aimeId));
+            data.setUserCharacterList(userCharacterRepository.findByUser_Card_ExtId(aimeId));
+            data.setUserDeckList(userDeckRepository.findByUser_Card_ExtId(aimeId));
+            data.setUserEventPointList(userEventPointRepository.findByUser_Card_ExtId(aimeId));
+            data.setUserGeneralDataList(userGeneralDataRepository.findByUser_Card_ExtId(aimeId));
+            data.setUserItemList(userItemRepository.findByUser_Card_ExtId(aimeId));
+            data.setUserLoginBonusList(userLoginBonusRepository.findByUser_Card_ExtId(aimeId));
+            data.setUserMissionPointList(userMissionPointRepository.findByUser_Card_ExtId(aimeId));
+            data.setUserMusicDetailList(userMusicDetailRepository.findByUser_Card_ExtId(aimeId));
+            data.setUserMusicItemList(userMusicItemRepository.findByUser_Card_ExtId(aimeId));
+            data.setUserOption(userOptionRepository.findByUser_Card_ExtId(aimeId).orElseThrow());
+            data.setUserPlaylogList(userPlaylogRepository.findByUser_Card_ExtId(aimeId));
+            data.setUserStoryList(userStoryRepository.findByUser_Card_ExtId(aimeId));
+            data.setUserTrainingRoomList(userTrainingRoomRepository.findByUser_Card_ExtId(aimeId));
+        } catch (NoSuchElementException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new MessageResponse("User not found"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new MessageResponse("Error during data export. Reason: " + e.getMessage()));
+        }
+        // Set filename
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("content-disposition", "attachment; filename=ongeki_" + aimeId + "_exported.json");
+        return new ResponseEntity<>(data, headers, HttpStatus.OK);
+    }
+
+    @PostMapping("import")
+    public ResponseEntity<Object> importAllUserData(@RequestBody OngekiDataImport data) {
+        if(!data.getGameId().equals("SDDT")) {
+            return ResponseEntity.unprocessableEntity().body(new MessageResponse("Wrong Game Profile, Expected 'SDDT', Get " + data.getGameId()));
+        }
+
+        ExternalUserData exUser = data.getUserData();
+
+        Optional<Card> cardOptional = cardService.getCardByAccessCode(exUser.getAccessCode());
+        Card card;
+        if (cardOptional.isPresent()) {
+            if (userDataRepository.findByCard(cardOptional.get()).isPresent()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new MessageResponse("This card already has a ongeki profile."));
+            } else {
+                card = cardOptional.get();
+            }
+        } else {
+            card = cardService.registerByAccessCode(exUser.getAccessCode());
+        }
+
+        UserData userData = mapper.convert(exUser, new TypeReference<>() {
+        });
+        userData.setCard(card);
+        userDataRepository.saveAndFlush(userData);
+
+        userActivityRepository.saveAll(data.getUserActivityList().stream()
+                .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
+
+        userCardRepository.saveAll(data.getUserCardList().stream()
+                .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
+
+        userChapterRepository.saveAll(data.getUserChapterList().stream()
+                .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
+
+        userCharacterRepository.saveAll(data.getUserCharacterList().stream()
+                .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
+
+        userDeckRepository.saveAll(data.getUserDeckList().stream()
+                .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
+
+        userEventPointRepository.saveAll(data.getUserEventPointList().stream()
+                .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
+
+        userGeneralDataRepository.saveAll(data.getUserGeneralDataList().stream()
+                .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
+
+        userItemRepository.saveAll(data.getUserItemList().stream()
+                .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
+
+        userLoginBonusRepository.saveAll(data.getUserLoginBonusList().stream()
+                .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
+
+        userMissionPointRepository.saveAll(data.getUserMissionPointList().stream()
+                .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
+
+        userMusicDetailRepository.saveAll(data.getUserMusicDetailList().stream()
+                .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
+
+        userMusicItemRepository.saveAll(data.getUserMusicItemList().stream()
+                .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
+
+        UserOption userOption = data.getUserOption();
+        userOption.setUser(userData);
+        userOptionRepository.save(userOption);
+        userPlaylogRepository.saveAll(data.getUserPlaylogList().stream()
+                .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
+
+        userStoryRepository.saveAll(data.getUserStoryList().stream()
+                .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
+
+        userTrainingRoomRepository.saveAll(data.getUserTrainingRoomList().stream()
+                .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
+
+        return ResponseEntity.ok(new MessageResponse("Import successfully, aimeId: " + card.getExtId()));
+    }
+
 }

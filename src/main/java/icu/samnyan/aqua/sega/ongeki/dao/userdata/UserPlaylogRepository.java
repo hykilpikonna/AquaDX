@@ -14,7 +14,9 @@ import java.util.List;
 @Repository("OngekiUserPlaylogRepository")
 public interface UserPlaylogRepository extends JpaRepository<UserPlaylog, Long> {
 
-    Page<UserPlaylog> findByUser_Card_ExtId(Integer userId, Pageable page);
+    List<UserPlaylog> findByUser_Card_ExtId(int userId);
+
+    Page<UserPlaylog> findByUser_Card_ExtId(int userId, Pageable page);
 
     List<UserPlaylog> findByUser_Card_ExtIdAndMusicIdAndLevel(Integer userId, int musicId, int level);
 

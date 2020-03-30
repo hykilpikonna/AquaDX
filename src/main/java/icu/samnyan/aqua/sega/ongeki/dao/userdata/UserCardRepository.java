@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -17,7 +18,9 @@ public interface UserCardRepository extends JpaRepository<UserCard, Long> {
 
     Optional<UserCard> findByUserAndCardId(UserData userData, int cardId);
 
-    Optional<UserCard> findByUser_Card_ExtIdAndCardId(int aimeId, int cardId);
+    Optional<UserCard> findByUser_Card_ExtIdAndCardId(int userId, int cardId);
+
+    List<UserCard> findByUser_Card_ExtId(int userId);
 
     Page<UserCard> findByUser_Card_ExtId(int userId, Pageable page);
 

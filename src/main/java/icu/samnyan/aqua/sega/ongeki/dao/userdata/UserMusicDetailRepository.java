@@ -16,6 +16,8 @@ import java.util.Optional;
 @Repository("OngekiUserMusicDetailRepository")
 public interface UserMusicDetailRepository extends JpaRepository<UserMusicDetail, Long> {
 
+    List<UserMusicDetail> findByUser_Card_ExtId(int userId);
+
     Page<UserMusicDetail> findByUser_Card_ExtId(int userId, Pageable page);
 
     List<UserMusicDetail> findByUser_Card_ExtIdAndMusicId(int userId, int id);

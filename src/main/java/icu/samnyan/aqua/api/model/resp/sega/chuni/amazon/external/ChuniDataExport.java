@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChuniDataExport {
+    private String gameId = "SDBT";
     private UserData userData;
     private List<UserActivity> userActivityList;
     private List<UserCharacter> userCharacterList;
