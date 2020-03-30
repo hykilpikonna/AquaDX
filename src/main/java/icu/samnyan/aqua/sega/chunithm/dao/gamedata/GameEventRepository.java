@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
-@Repository
+@Repository("ChuniGameEventRepository")
 public interface GameEventRepository extends JpaRepository<GameEvent, Integer> {
 
     List<GameEvent> findByEnable(boolean enable);

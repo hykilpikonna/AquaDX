@@ -9,7 +9,7 @@ import java.util.Optional;
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
-@Repository
+@Repository("ChuniGameMusicRepository")
 public interface GameMusicRepository extends JpaRepository<Music, Long> {
 
     Optional<Music> findByMusicId(int musicId);

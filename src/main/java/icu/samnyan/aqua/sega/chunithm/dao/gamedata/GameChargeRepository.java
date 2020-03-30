@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
-@Repository
+@Repository("ChuniGameChargeRepository")
 public interface GameChargeRepository extends JpaRepository<GameCharge, Long> {
 }
