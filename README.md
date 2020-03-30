@@ -54,6 +54,15 @@ And DIVA screenshot will be save in data folder.
 
 
 ### Changelog:
+
+v0.0.13: **[This will do database update]**
+
+[ONGEKI & chuni] Fix rating drop
+
+[aimedb] Allow bind to specific interface
+
+[API] Allow export and import ongeki and chuni profile. More feature to chuni's api
+
 v0.0.12:
 
 [ONGEKI] Save UserMissionPoint, UserTrainingRoom, UserGeneralData, GamePoint, GamePresent, GameReward to database
