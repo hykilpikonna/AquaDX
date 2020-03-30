@@ -36,23 +36,23 @@ public class UserCharacter implements Serializable {
     @Column(name = "character_id")
     private int characterId;
 
-    private int playCount;
+    private int playCount = 0;
 
-    private int level;
+    private int level = 1;
 
-    private int skillId;
+    private int skillId = 0;
 
-    private int friendshipExp;
+    private int friendshipExp = 0;
 
     @JsonProperty("isValid")
-    private boolean isValid;
+    private boolean isValid = true;
 
     @JsonProperty("isNewMark")
-    private boolean isNewMark;
+    private boolean isNewMark = true;
 
-    private int param1;
+    private int param1 = 0;
 
-    private int param2;
+    private int param2 = 0;
 
     public UserCharacter(UserData userData) {
         user = userData;

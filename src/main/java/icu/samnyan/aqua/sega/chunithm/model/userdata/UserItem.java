@@ -40,10 +40,10 @@ public class UserItem implements Serializable {
     @Column(name = "item_id")
     private int itemId;
 
-    private int stock;
+    private int stock = 1;
 
     @JsonProperty("isValid")
-    private boolean isValid;
+    private boolean isValid = true;
 
     public UserItem(UserData userData) {
         user = userData;

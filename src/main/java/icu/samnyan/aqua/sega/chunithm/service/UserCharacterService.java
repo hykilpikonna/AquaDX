@@ -45,4 +45,5 @@ public class UserCharacterService {
     public Optional<UserCharacter> getByUserAndCharacterId(UserData user, int characterId) {
         return userCharacterRepository.findTopByUserAndCharacterIdOrderByIdDesc(user, characterId);
     }
+
 }

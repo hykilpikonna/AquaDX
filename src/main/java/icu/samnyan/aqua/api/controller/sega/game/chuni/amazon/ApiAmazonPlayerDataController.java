@@ -31,13 +31,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * For all aimeId parameter, should use String
  * @author samnyan (privateamusement@protonmail.com)
  */
 @RestController
 @RequestMapping("api/game/chuni/amazon")
-public class ApiAmazonController {
+public class ApiAmazonPlayerDataController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ApiAmazonController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ApiAmazonPlayerDataController.class);
 
     private final ApiMapper mapper;
 
@@ -61,7 +62,7 @@ public class ApiAmazonController {
     private final GameMusicService gameMusicService;
 
     @Autowired
-    public ApiAmazonController(ApiMapper mapper, CardService cardService, UserActivityService userActivityService, UserCharacterService userCharacterService, UserChargeService userChargeService, UserDataService userDataService, UserDataExService userDataExService, UserGameOptionExService userGameOptionExService, UserMapService userMapService, UserPlaylogService userPlaylogService, UserMusicDetailService userMusicDetailService, UserCourseService userCourseService, UserDuelService userDuelService, UserGameOptionService userGameOptionService, UserItemService userItemService, UserGeneralDataService userGeneralDataService, GameMusicService gameMusicService) {
+    public ApiAmazonPlayerDataController(ApiMapper mapper, CardService cardService, UserActivityService userActivityService, UserCharacterService userCharacterService, UserChargeService userChargeService, UserDataService userDataService, UserDataExService userDataExService, UserGameOptionExService userGameOptionExService, UserMapService userMapService, UserPlaylogService userPlaylogService, UserMusicDetailService userMusicDetailService, UserCourseService userCourseService, UserDuelService userDuelService, UserGameOptionService userGameOptionService, UserItemService userItemService, UserGeneralDataService userGeneralDataService, GameMusicService gameMusicService) {
         this.mapper = mapper;
         this.cardService = cardService;
         this.userActivityService = userActivityService;
@@ -82,6 +83,7 @@ public class ApiAmazonController {
     }
 
 
+    // Keep it here for legacy
     @GetMapping("music")
     public List<Music> getMusicList() {
         return gameMusicService.getAll();
@@ -205,6 +207,78 @@ public class ApiAmazonController {
         return userPlaylogService.getByUserIdAndMusicIdAndLevel(aimeId, id, level);
     }
 
+    @GetMapping("character")
+    public ReducedPageResponse<UserCharacter> getCharacter(@RequestParam String aimeId,
+                                        @RequestParam(required = false, defaultValue = "0") int page,
+                                        @RequestParam(required = false, defaultValue = "10") int size) {
+        Page<UserCharacter> characters = userCharacterService.getByUserId(aimeId, page, size);
+        return new ReducedPageResponse<>(characters.getContent(), characters.getPageable().getPageNumber(), characters.getTotalPages(), characters.getTotalElements());
+    }
+
+    @PostMapping("character")
+    public ResponseEntity<Object> updateCharacter(@RequestBody Map<String, Object> request) {
+        UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
+        Integer characterId = (Integer) request.get("characterId");
+        Optional<UserCharacter> characterOptional = userCharacterService.getByUserAndCharacterId(profile, characterId);
+        UserCharacter character;
+        if(characterOptional.isPresent()) {
+            character = characterOptional.get();
+        } else {
+            character = new UserCharacter(profile);
+            character.setCharacterId(characterId);
+        }
+        if(request.containsKey("level")) {
+            character.setLevel((Integer) request.get("level"));
+        }
+
+        return ResponseEntity.ok(userCharacterService.save(character));
+    }
+
+    @GetMapping("course")
+    public List<UserCourse> getCourse(@RequestParam String aimeId) {
+        return userCourseService.getByUserId(aimeId);
+    }
+
+    @GetMapping("duel")
+    public List<UserDuel> getDuel(@RequestParam String aimeId) {
+        return userDuelService.getByUserId(aimeId);
+    }
+
+    @GetMapping("item")
+    public ReducedPageResponse<UserItem> getItem(@RequestParam String aimeId,
+                                  @RequestParam(required = false, defaultValue = "0") int page,
+                                  @RequestParam(required = false, defaultValue = "10") int size) {
+        Page<UserItem> items = userItemService.getByUserId(aimeId, page, size);
+        return new ReducedPageResponse<>(items.getContent(), items.getPageable().getPageNumber(), items.getTotalPages(), items.getTotalElements());
+    }
+
+    @PostMapping("item")
+    public ResponseEntity<Object> updateItem(@RequestBody Map<String, Object> request) {
+        UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
+        Integer itemId = (Integer) request.get("itemId");
+        Integer itemKind = (Integer) request.get("itemKind");
+        Optional<UserItem> itemOptional = userItemService.getByUserAndItemIdAndKind(profile, itemId,itemKind);
+        UserItem item;
+        if(itemOptional.isPresent()) {
+            item = itemOptional.get();
+        } else {
+            item = new UserItem(profile);
+            item.setItemId(itemId);
+            item.setItemKind(itemKind);
+        }
+        if(request.containsKey("stock")) {
+            item.setStock((Integer) request.get("stock"));
+        }
+        return ResponseEntity.ok(userItemService.save(item));
+    }
+
+    @GetMapping("general")
+    public ResponseEntity<Object> getGeneralData(@RequestParam String aimeId, @RequestParam String key) {
+        Optional<UserGeneralData> userGeneralDataOptional = userGeneralDataService.getByUserIdAndKey(aimeId,key);
+        return userGeneralDataOptional.<ResponseEntity<Object>>map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("User or value not found.")));
+    }
+
     @GetMapping("export")
     public ResponseEntity<Object> exportAllUserData(@RequestParam String aimeId) {
         ChuniDataExport data = new ChuniDataExport();
@@ -311,13 +385,6 @@ public class ApiAmazonController {
         userPlaylogService.saveAll(userPlaylogList);
 
         return ResponseEntity.ok(new MessageResponse("Import successfully, aimeId: " + card.getExtId()));
-    }
-
-    @GetMapping("general")
-    public ResponseEntity<Object> getGeneralData(@RequestParam String aimeId, @RequestParam String key) {
-        Optional<UserGeneralData> userGeneralDataOptional = userGeneralDataService.getByUserIdAndKey(aimeId,key);
-        return userGeneralDataOptional.<ResponseEntity<Object>>map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("User or value not found.")));
     }
 
     private int calculateRating(int levelBase, int score) {
