@@ -6,15 +6,17 @@ import icu.samnyan.aqua.sega.ongeki.handler.BaseHandler;
 import icu.samnyan.aqua.sega.ongeki.model.response.data.UserMusicListItem;
 import icu.samnyan.aqua.sega.ongeki.model.userdata.UserMusicDetail;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
+import icu.samnyan.aqua.spring.data.OffsetPageRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,10 +42,13 @@ public class GetUserMusicHandler implements BaseHandler {
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         Integer userId = (Integer) request.get("userId");
         Integer maxCount = (Integer) request.get("maxCount");
-        Integer nextIndex = (Integer) request.get("nextIndex");
-        int pageNum = nextIndex / maxCount;
+        Integer currentIndex = (Integer) request.get("nextIndex");
+        if(currentIndex < 0) {
+            currentIndex = 0;
+        }
 
-        Page<UserMusicDetail> dbPage = userMusicDetailRepository.findByUser_Card_ExtId(userId, PageRequest.of(pageNum, maxCount));
+        Page<UserMusicDetail> dbPage = userMusicDetailRepository
+                .findByUser_Card_ExtId(userId, OffsetPageRequest.of(currentIndex, maxCount, Sort.by("musicId")));
 
         Map<Integer, UserMusicListItem> userMusicMap = new LinkedHashMap<>();
         dbPage.getContent().forEach(userMusicDetail -> {
@@ -58,12 +63,23 @@ public class GetUserMusicHandler implements BaseHandler {
             list.setLength(list.getUserMusicDetailList().size());
         });
 
-        long currentIndex = maxCount * pageNum + dbPage.getNumberOfElements();
+        // Someone report that ongeki also has the score missing problem
+        int lastListSize = 0;
+        if(dbPage.getNumberOfElements() >= maxCount) {
+            // Get last key
+            int lastMusicId = userMusicMap.keySet().stream().reduce((a, b) -> b).orElseThrow();
+            List<UserMusicDetail> lastList = userMusicMap.get(lastMusicId).getUserMusicDetailList();
+            lastListSize = lastList.size();
+            // Remove last one from map
+            userMusicMap.remove(lastMusicId);
+        }
+
+        long nextIndex = currentIndex + dbPage.getNumberOfElements() - lastListSize;
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userId);
         resultMap.put("length", userMusicMap.size());
-        resultMap.put("nextIndex", dbPage.getNumberOfElements() < maxCount ? -1 : currentIndex);
+        resultMap.put("nextIndex", dbPage.getNumberOfElements() < maxCount ? -1 : nextIndex);
         resultMap.put("userMusicList", userMusicMap.values());
 
         String json = mapper.write(resultMap);

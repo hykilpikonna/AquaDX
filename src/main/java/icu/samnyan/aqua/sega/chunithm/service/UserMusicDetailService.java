@@ -37,8 +37,7 @@ public class UserMusicDetailService {
         return userMusicDetailRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
     }
 
-    public Page<UserMusicDetail> getByUser(String userId, int pageNum, int maxCount) {
-        Pageable page = PageRequest.of(pageNum, maxCount);
+    public Page<UserMusicDetail> getByUser(String userId, Pageable page) {
         return userMusicDetailRepository.findByUser_Card_ExtId(Integer.parseInt(userId), page);
     }
 

@@ -7,10 +7,12 @@ import icu.samnyan.aqua.sega.chunithm.model.userdata.UserMusicDetail;
 import icu.samnyan.aqua.sega.chunithm.service.GameMusicService;
 import icu.samnyan.aqua.sega.chunithm.service.UserMusicDetailService;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
+import icu.samnyan.aqua.spring.data.OffsetPageRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -41,11 +43,14 @@ public class GetUserMusicHandler implements BaseHandler {
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         String userId = (String) request.get("userId");
-        int nextIndex = Integer.parseInt((String) request.get("nextIndex"));
+        int currentIndex = Integer.parseInt((String) request.get("nextIndex"));
         int maxCount = Integer.parseInt((String) request.get("maxCount"));
-        int pageNum = nextIndex / maxCount;
+        if(currentIndex < 0) {
+            currentIndex = 0;
+        }
 
-        Page<UserMusicDetail> dbPage = userMusicDetailService.getByUser(userId,pageNum,maxCount);
+        Page<UserMusicDetail> dbPage = userMusicDetailService
+                .getByUser(userId, OffsetPageRequest.of(currentIndex, maxCount, Sort.by("musicId")));
 
 
         // Convert to result format
@@ -64,13 +69,25 @@ public class GetUserMusicHandler implements BaseHandler {
             list.setLength(list.getUserMusicDetailList().size());
         });
 
+        // Remove the last music id if the result length is the same as maxCount,
+        // to prevent a music id split across multiple page, which will cause some
+        // problem with the game.
+        int lastListSize = 0;
+        if(dbPage.getNumberOfElements() >= maxCount) {
+            // Get last key
+            int lastMusicId = userMusicMap.keySet().stream().reduce((a, b) -> b).orElseThrow();
+            List<UserMusicDetail> lastList = userMusicMap.get(lastMusicId).getUserMusicDetailList();
+            lastListSize = lastList.size();
+            // Remove last one from map
+            userMusicMap.remove(lastMusicId);
+        }
 
-        long currentIndex = maxCount * pageNum + dbPage.getNumberOfElements();
+        long nextIndex = currentIndex + dbPage.getNumberOfElements() - lastListSize;
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userId);
         resultMap.put("length", userMusicMap.size());
-        resultMap.put("nextIndex", dbPage.getNumberOfElements() < maxCount ? -1 : currentIndex);
+        resultMap.put("nextIndex", dbPage.getNumberOfElements() < maxCount ? -1 : nextIndex);
         resultMap.put("userMusicList", userMusicMap.values());
 
         String json = mapper.write(resultMap);
