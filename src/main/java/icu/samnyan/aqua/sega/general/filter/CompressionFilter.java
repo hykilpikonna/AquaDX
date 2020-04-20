@@ -38,7 +38,9 @@ public class CompressionFilter extends OncePerRequestFilter {
 
         byte[] reqResult;
         if (encoding != null && encoding.equals("deflate")) {
+            logger.debug("Request length (compressed): {}", reqSrc.length);
             reqResult = Compression.decompress(reqSrc);
+            logger.debug("Request length (decompressed): {}", reqResult.length);
         } else {
             reqResult = reqSrc;
         }
@@ -49,7 +51,9 @@ public class CompressionFilter extends OncePerRequestFilter {
         filterChain.doFilter(requestWrapper, responseWrapper);
 
         byte[] respSrc = responseWrapper.toByteArray();
+        logger.debug("Response length (uncompressed): {}", respSrc.length);
         byte[] respResult = Compression.compress(respSrc);
+        logger.debug("Response length (compressed): {}", respResult.length);
 
 
         response.setContentLength(respResult.length);

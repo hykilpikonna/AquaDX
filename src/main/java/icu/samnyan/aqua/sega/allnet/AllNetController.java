@@ -6,6 +6,7 @@ import icu.samnyan.aqua.sega.allnet.util.Decoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +31,16 @@ public class AllNetController {
                             @Value("${allnet.server.port}") String PORT) {
         this.HOST = HOST;
         this.PORT = PORT;
+    }
+
+    @GetMapping("/")
+    public String root() {
+        return "Server running";
+    }
+
+    @GetMapping("/sys/test")
+    public String selfTest() {
+        return "Server running";
     }
 
     @PostMapping(value = "/sys/servlet/PowerOn", produces = "text/plain")
