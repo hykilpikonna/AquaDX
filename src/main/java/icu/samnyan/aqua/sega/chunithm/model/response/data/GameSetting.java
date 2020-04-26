@@ -16,8 +16,8 @@ public class GameSetting {
     @JsonProperty("isMaintenance")
     private boolean isMaintenance;
     private int requestInterval;
-    private int rebootStartTime;
-    private int rebootEndTime;
+    private String rebootStartTime;
+    private String rebootEndTime;
     @JsonProperty("isBackgroundDistribute")
     private boolean isBackgroundDistribute;
     private int maxCountCharacter;
