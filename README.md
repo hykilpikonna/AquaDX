@@ -55,6 +55,17 @@ And DIVA screenshot will be save in data folder.
 
 ### Changelog:
 
+v0.0.14:
+
+[general] Reduce connection pool size to 1 to prevent dead lock with sqlite
+
+[ONGEKI & chuni] Fix score missing again
+
+[chuni] Read reboot time from database
+
+[api] Set level to max when chouKaika a card
+
+
 v0.0.13: **[This will do database update]**
 
 [ONGEKI & chuni] Fix rating drop
