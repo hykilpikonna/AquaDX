@@ -197,13 +197,22 @@ public class ApiOngekiPlayerDataController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("Card not found."));
         } else {
             UserCard card = userCardOptional.get();
-            if(!card.getChoKaikaDate().equals("0000-00-00 00:00:00.0")) {
-                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new MessageResponse("No, you have done this before."));
+            Optional<GameCard> gameCard = gameCardRepository.findById((long) card.getCardId());
+            if(gameCard.isPresent()) {
+                if(gameCard.get().getRarity().equals("N")) {
+                    card.setMaxLevel(100);
+                    card.setLevel(100);
+                } else {
+                    card.setMaxLevel(70);
+                    card.setLevel(70);
+                }
             } else {
-                card.setChoKaikaDate(LocalDateTime.now().format(df));
-                card.setPrintCount(card.getPrintCount() + 1);
-                return ResponseEntity.ok(userCardRepository.save(card));
+                card.setMaxLevel(100);
+                card.setLevel(100);
             }
+            card.setChoKaikaDate(LocalDateTime.now().format(df));
+            card.setPrintCount(card.getPrintCount() + 1);
+            return ResponseEntity.ok(userCardRepository.save(card));
         }
     }
 
