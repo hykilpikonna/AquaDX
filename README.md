@@ -2,8 +2,9 @@
 An multipurpose game server power by Spring Boot.
 
 ### Supported Game:
-* CHUNITHM Amazon
+* CHUNITHM Amazon ( And below )
 * Project DIVA Arcade Future Tone
+* O.N.G.E.K.I. SUMMER
 * O.N.G.E.K.I. PLUS
 
 ### Usage:
@@ -54,6 +55,10 @@ And DIVA screenshot will be save in data folder.
 
 
 ### Changelog:
+
+v0.0.15:
+
+[ONGEKI] Add support for ONGEKI Summer
 
 v0.0.14:
 
