@@ -50,10 +50,13 @@ public class UpsertUserAllHandler implements BaseHandler {
     private final UserMissionPointRepository userMissionPointRepository;
     private final UserTrainingRoomRepository userTrainingRoomRepository;
     private final UserGeneralDataRepository userGeneralDataRepository;
+    private final UserBossRepository userBossRepository;
+    private final UserScenarioRepository userScenarioRepository;
+    private final UserTechCountRepository userTechCountRepository;
 
     @Autowired
     public UpsertUserAllHandler(BasicMapper mapper,
-                                CardService cardService, UserDataRepository userDataRepository, UserOptionRepository userOptionRepository, UserPlaylogRepository userPlaylogRepository, UserActivityRepository userActivityRepository, UserMusicDetailRepository userMusicDetailRepository, UserCharacterRepository userCharacterRepository, UserCardRepository userCardRepository, UserDeckRepository userDeckRepository, UserStoryRepository userStoryRepository, UserChapterRepository userChapterRepository, UserItemRepository userItemRepository, UserMusicItemRepository userMusicItemRepository, UserLoginBonusRepository userLoginBonusRepository, UserEventPointRepository userEventPointRepository, UserMissionPointRepository userMissionPointRepository, UserTrainingRoomRepository userTrainingRoomRepository, UserGeneralDataRepository userGeneralDataRepository) {
+                                CardService cardService, UserDataRepository userDataRepository, UserOptionRepository userOptionRepository, UserPlaylogRepository userPlaylogRepository, UserActivityRepository userActivityRepository, UserMusicDetailRepository userMusicDetailRepository, UserCharacterRepository userCharacterRepository, UserCardRepository userCardRepository, UserDeckRepository userDeckRepository, UserStoryRepository userStoryRepository, UserChapterRepository userChapterRepository, UserItemRepository userItemRepository, UserMusicItemRepository userMusicItemRepository, UserLoginBonusRepository userLoginBonusRepository, UserEventPointRepository userEventPointRepository, UserMissionPointRepository userMissionPointRepository, UserTrainingRoomRepository userTrainingRoomRepository, UserGeneralDataRepository userGeneralDataRepository, UserBossRepository userBossRepository, UserScenarioRepository userScenarioRepository, UserTechCountRepository userTechCountRepository) {
         this.mapper = mapper;
         this.cardService = cardService;
         this.userDataRepository = userDataRepository;
@@ -73,6 +76,9 @@ public class UpsertUserAllHandler implements BaseHandler {
         this.userMissionPointRepository = userMissionPointRepository;
         this.userTrainingRoomRepository = userTrainingRoomRepository;
         this.userGeneralDataRepository = userGeneralDataRepository;
+        this.userBossRepository = userBossRepository;
+        this.userScenarioRepository = userScenarioRepository;
+        this.userTechCountRepository = userTechCountRepository;
     }
 
     @Override
@@ -392,6 +398,57 @@ public class UpsertUserAllHandler implements BaseHandler {
         userMissionPointRepository.saveAll(newUserMissionPointList);
 
         // UserRatinglogList (For the highest rating of each version)
+
+        // UserBossList
+        List<UserBoss> userBossList = upsertUserAll.getUserBossList();
+        if (userBossList != null) {
+            List<UserBoss> newUserBossList = new ArrayList<>();
+            for (UserBoss newUserBoss : userBossList) {
+                int musicId = newUserBoss.getMusicId();
+
+                Optional<UserBoss> userBossOptional = userBossRepository.findByUserAndMusicId(newUserData, musicId);
+                UserBoss userBoss = userBossOptional.orElseGet(() -> new UserBoss(newUserData));
+
+                newUserBoss.setId(userBoss.getId());
+                newUserBoss.setUser(userBoss.getUser());
+                newUserBossList.add(newUserBoss);
+            }
+            userBossRepository.saveAll(newUserBossList);
+        }
+
+        // UserTechCountList
+        List<UserTechCount> userTechCountList = upsertUserAll.getUserTechCountList();
+        if (userTechCountList != null) {
+            List<UserTechCount> newUserTechCountList = new ArrayList<>();
+            for (UserTechCount newUserTechCount : userTechCountList) {
+                int levelId = newUserTechCount.getLevelId();
+
+                Optional<UserTechCount> userTechCountOptional = userTechCountRepository.findByUserAndLevelId(newUserData, levelId);
+                UserTechCount userTechCount = userTechCountOptional.orElseGet(() -> new UserTechCount(newUserData));
+
+                newUserTechCount.setId(userTechCount.getId());
+                newUserTechCount.setUser(userTechCount.getUser());
+                newUserTechCountList.add(newUserTechCount);
+            }
+            userTechCountRepository.saveAll(newUserTechCountList);
+        }
+
+        // UserScenarioList
+        List<UserScenario> userScenarioList = upsertUserAll.getUserScenarioList();
+        if (userScenarioList != null) {
+            List<UserScenario> newUserScenarioList = new ArrayList<>();
+            for (UserScenario newUserScenario : userScenarioList) {
+                int scenarioId = newUserScenario.getScenarioId();
+
+                Optional<UserScenario> userScenarioOptional = userScenarioRepository.findByUserAndScenarioId(newUserData, scenarioId);
+                UserScenario userScenario = userScenarioOptional.orElseGet(() -> new UserScenario(newUserData));
+
+                newUserScenario.setId(userScenario.getId());
+                newUserScenario.setUser(userScenario.getUser());
+                newUserScenarioList.add(newUserScenario);
+            }
+            userScenarioRepository.saveAll(newUserScenarioList);
+        }
 
 
         String json = mapper.write(new CodeResp(1, "upsertUserAll"));

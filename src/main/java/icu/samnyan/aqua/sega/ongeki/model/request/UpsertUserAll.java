@@ -71,6 +71,12 @@ public class UpsertUserAll implements Serializable {
 
     private List<Map<String, Object>> userRatinglogList;
 
+    private List<UserBoss> userBossList;
+
+    private List<UserTechCount> userTechCountList;
+
+    private List<UserScenario> userScenarioList;
+
     @JsonProperty("isNewMusicDetailList")
     private String isNewMusicDetailList;
 
