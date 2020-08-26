@@ -34,6 +34,14 @@ public class UserStory implements Serializable {
 
     private int lastChapterId;
 
+    private int jewelCount;
+
+    private int lastPlayMusicId;
+
+    private int lastPlayMusicCategory;
+
+    private int lastPlayMusicLevel;
+
     public UserStory(UserData userData) {
         this.user = userData;
     }
