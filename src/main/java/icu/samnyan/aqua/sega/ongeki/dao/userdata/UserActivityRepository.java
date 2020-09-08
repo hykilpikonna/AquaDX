@@ -4,6 +4,7 @@ import icu.samnyan.aqua.sega.ongeki.model.userdata.UserActivity;
 import icu.samnyan.aqua.sega.ongeki.model.userdata.UserData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,4 +21,6 @@ public interface UserActivityRepository extends JpaRepository<UserActivity, Long
 
     List<UserActivity> findByUser_Card_ExtIdAndKindOrderBySortNumberDesc(int userId, int kind);
 
+    @Transactional
+    void deleteByUser(UserData user);
 }

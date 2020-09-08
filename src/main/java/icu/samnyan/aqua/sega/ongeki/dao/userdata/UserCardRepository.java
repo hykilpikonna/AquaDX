@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,4 +25,6 @@ public interface UserCardRepository extends JpaRepository<UserCard, Long> {
 
     Page<UserCard> findByUser_Card_ExtId(int userId, Pageable page);
 
+    @Transactional
+    void deleteByUser(UserData user);
 }

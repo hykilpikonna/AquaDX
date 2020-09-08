@@ -375,11 +375,47 @@ public class ApiOngekiPlayerDataController {
         Optional<Card> cardOptional = cardService.getCardByAccessCode(exUser.getAccessCode());
         Card card;
         if (cardOptional.isPresent()) {
-            if (userDataRepository.findByCard(cardOptional.get()).isPresent()) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body(new MessageResponse("This card already has a ongeki profile."));
-            } else {
-                card = cardOptional.get();
+            card = cardOptional.get();
+            Optional<UserData> existUserData = userDataRepository.findByCard(cardOptional.get());
+            if (existUserData.isPresent()) {
+//                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+//                        .body(new MessageResponse("This card already has a ongeki profile."));
+                // delete all same card data
+                userActivityRepository.deleteByUser(existUserData.get());
+                userActivityRepository.flush();
+                userCardRepository.deleteByUser(existUserData.get());
+                userCardRepository.flush();
+                userChapterRepository.deleteByUser(existUserData.get());
+                userChapterRepository.flush();
+                userCharacterRepository.deleteByUser(existUserData.get());
+                userCharacterRepository.flush();
+                userDeckRepository.deleteByUser(existUserData.get());
+                userDeckRepository.flush();
+                userEventPointRepository.deleteByUser(existUserData.get());
+                userEventPointRepository.flush();
+                userGeneralDataRepository.deleteByUser(existUserData.get());
+                userGeneralDataRepository.flush();
+                userItemRepository.deleteByUser(existUserData.get());
+                userItemRepository.flush();
+                userLoginBonusRepository.deleteByUser(existUserData.get());
+                userLoginBonusRepository.flush();
+                userMissionPointRepository.deleteByUser(existUserData.get());
+                userMissionPointRepository.flush();
+                userMusicDetailRepository.deleteByUser(existUserData.get());
+                userMusicDetailRepository.flush();
+                userMusicItemRepository.deleteByUser(existUserData.get());
+                userMusicItemRepository.flush();
+                userOptionRepository.deleteByUser(existUserData.get());
+                userOptionRepository.flush();
+                userPlaylogRepository.deleteByUser(existUserData.get());
+                userPlaylogRepository.flush();
+                userStoryRepository.deleteByUser(existUserData.get());
+                userStoryRepository.flush();
+                userTrainingRoomRepository.deleteByUser(existUserData.get());
+                userTrainingRoomRepository.flush();
+
+                userDataRepository.deleteByCard(card);
+                userDataRepository.flush();
             }
         } else {
             card = cardService.registerByAccessCode(exUser.getAccessCode());
