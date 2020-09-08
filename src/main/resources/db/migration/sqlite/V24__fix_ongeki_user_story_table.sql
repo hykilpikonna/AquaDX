@@ -22,12 +22,20 @@ INSERT INTO ongeki_user_story_new (
     id,
     last_chapter_id,
     story_id,
-    user_id
+    user_id,
+    jewel_count,
+    last_play_music_id,
+    last_play_music_category,
+    last_play_music_level
 )
 SELECT  id,
         last_chapter_id,
         story_id,
-        user_id
+        user_id,
+        0,
+        0,
+        0,
+        0
 FROM ongeki_user_story;
 
 ALTER TABLE ongeki_user_story RENAME TO bak_ongeki_user_story;
