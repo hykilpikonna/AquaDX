@@ -124,12 +124,13 @@ public class ApiOngekiPlayerDataController {
     public ReducedPageResponse<UserCard> getCard(@RequestParam Integer aimeId,
                                                  @RequestParam(required = false, defaultValue = "0") int page,
                                                  @RequestParam(required = false, defaultValue = "10") int size) {
-        Page<UserCard> cards = userCardRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page,size, Sort.Direction.DESC, "id"));
+        Page<UserCard> cards = userCardRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page, size, Sort.Direction.DESC, "id"));
         return new ReducedPageResponse<>(cards.getContent(), cards.getPageable().getPageNumber(), cards.getTotalPages(), cards.getTotalElements());
     }
 
     /**
      * Force insert a card. This will use to create a new card or update a currently existed card star level.
+     *
      * @param request Map of aimeId and cardId
      * @return result UserCard or error message
      */
@@ -138,17 +139,17 @@ public class ApiOngekiPlayerDataController {
         UserData profile = userDataRepository.findByCard_ExtId((Integer) request.get("aimeId")).orElseThrow();
         Integer cardId = (Integer) request.get("cardId");
         Optional<UserCard> userCardOptional = userCardRepository.findByUserAndCardId(profile, cardId);
-        if(userCardOptional.isPresent()) {
+        if (userCardOptional.isPresent()) {
             UserCard card = userCardOptional.get();
-            if(card.getDigitalStock() < 5) {
+            if (card.getDigitalStock() < 5) {
                 card.setDigitalStock(card.getDigitalStock() + 1);
                 card.setMaxLevel(card.getMaxLevel() + 5);
                 return ResponseEntity.ok(userCardRepository.save(card));
             } else {
                 // If digital stock is larger than 5, check if this card is N card.
                 Optional<GameCard> gameCard = gameCardRepository.findById((long) card.getCardId());
-                if(gameCard.isPresent()) {
-                    if(gameCard.get().getRarity().equals("N")) {
+                if (gameCard.isPresent()) {
+                    if (gameCard.get().getRarity().equals("N")) {
                         card.setDigitalStock(card.getDigitalStock() + 1);
                         card.setMaxLevel(card.getMaxLevel() + 5);
                         return ResponseEntity.ok(userCardRepository.save(card));
@@ -165,21 +166,21 @@ public class ApiOngekiPlayerDataController {
         return ResponseEntity.ok(
                 userCardRepository.save(
                         new UserCard(
-                            profile,
-                            cardId,
-                            card.getSkillId(),
-                            LocalDateTime.now().format(df))
+                                profile,
+                                cardId,
+                                card.getSkillId(),
+                                LocalDateTime.now().format(df))
                 ));
     }
 
     @PostMapping("card/{cardId}/kaika")
     public ResponseEntity<Object> kaikaCard(@RequestParam Integer aimeId, @PathVariable Integer cardId) {
         Optional<UserCard> userCardOptional = userCardRepository.findByUser_Card_ExtIdAndCardId(aimeId, cardId);
-        if(userCardOptional.isEmpty()) {
+        if (userCardOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("Card not found."));
         } else {
             UserCard card = userCardOptional.get();
-            if(!card.getKaikaDate().equals("0000-00-00 00:00:00.0")) {
+            if (!card.getKaikaDate().equals("0000-00-00 00:00:00.0")) {
                 return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new MessageResponse("No, you have done this before."));
             } else {
                 card.setKaikaDate(LocalDateTime.now().format(df));
@@ -193,22 +194,28 @@ public class ApiOngekiPlayerDataController {
     @PostMapping("card/{cardId}/choKaika")
     public ResponseEntity<Object> choKaikaCard(@RequestParam Integer aimeId, @PathVariable Integer cardId) {
         Optional<UserCard> userCardOptional = userCardRepository.findByUser_Card_ExtIdAndCardId(aimeId, cardId);
-        if(userCardOptional.isEmpty()) {
+        if (userCardOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("Card not found."));
         } else {
             UserCard card = userCardOptional.get();
             Optional<GameCard> gameCard = gameCardRepository.findById((long) card.getCardId());
-            if(gameCard.isPresent()) {
-                if(gameCard.get().getRarity().equals("N")) {
+            if (gameCard.isPresent()) {
+                if (gameCard.get().getRarity().equals("N")) {
                     card.setMaxLevel(100);
                     card.setLevel(100);
+                    card.setDigitalStock(11);
                 } else {
                     card.setMaxLevel(70);
                     card.setLevel(70);
+                    card.setDigitalStock(5);
                 }
             } else {
-                card.setMaxLevel(100);
-                card.setLevel(100);
+                card.setMaxLevel(70);
+                card.setLevel(70);
+                card.setDigitalStock(5);
+            }
+            if (card.getKaikaDate().equals("0000-00-00 00:00:00.0")) {
+                card.setKaikaDate(LocalDateTime.now().format(df));
             }
             card.setChoKaikaDate(LocalDateTime.now().format(df));
             card.setPrintCount(card.getPrintCount() + 1);
@@ -220,7 +227,7 @@ public class ApiOngekiPlayerDataController {
     public ReducedPageResponse<UserCharacter> getCharacter(@RequestParam Integer aimeId,
                                                            @RequestParam(required = false, defaultValue = "0") int page,
                                                            @RequestParam(required = false, defaultValue = "10") int size) {
-        Page<UserCharacter> characters = userCharacterRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page,size));
+        Page<UserCharacter> characters = userCharacterRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page, size));
         return new ReducedPageResponse<>(characters.getContent(), characters.getPageable().getPageNumber(), characters.getTotalPages(), characters.getTotalElements());
     }
 
@@ -243,7 +250,7 @@ public class ApiOngekiPlayerDataController {
         Optional<UserActivity> userActivityOptional = userActivityRepository.findByUserAndKindAndActivityId(profile, kind, activityId);
 
         UserActivity userActivity;
-        if(userActivityOptional.isPresent()) {
+        if (userActivityOptional.isPresent()) {
             userActivity = userActivityOptional.get();
         } else {
             userActivity = new UserActivity(profile);
@@ -262,7 +269,7 @@ public class ApiOngekiPlayerDataController {
     public ReducedPageResponse<UserItem> getItem(@RequestParam Integer aimeId,
                                                  @RequestParam(required = false, defaultValue = "0") int page,
                                                  @RequestParam(required = false, defaultValue = "10") int size) {
-        Page<UserItem> items = userItemRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page,size));
+        Page<UserItem> items = userItemRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page, size));
         return new ReducedPageResponse<>(items.getContent(), items.getPageable().getPageNumber(), items.getTotalPages(), items.getTotalElements());
     }
 
@@ -272,14 +279,14 @@ public class ApiOngekiPlayerDataController {
         Integer itemKind = (Integer) request.get("itemKind");
         Integer itemId = (Integer) request.get("itemId");
         int stock = 1;
-        if(request.containsKey("stock")) {
+        if (request.containsKey("stock")) {
             stock = (Integer) request.get("stock");
         }
 
         Optional<UserItem> userItemOptional = userItemRepository.findByUserAndItemKindAndItemId(profile, itemKind, itemId);
 
         UserItem userItem;
-        if(userItemOptional.isPresent()) {
+        if (userItemOptional.isPresent()) {
             userItem = userItemOptional.get();
         } else {
             userItem = new UserItem(profile);
@@ -295,7 +302,7 @@ public class ApiOngekiPlayerDataController {
     public ReducedPageResponse<UserPlaylog> getRecent(@RequestParam Integer aimeId,
                                                       @RequestParam(required = false, defaultValue = "0") int page,
                                                       @RequestParam(required = false, defaultValue = "10") int size) {
-        Page<UserPlaylog> playlogs = userPlaylogRepository.findByUser_Card_ExtId(aimeId,PageRequest.of(page,size, Sort.Direction.DESC, "id"));
+        Page<UserPlaylog> playlogs = userPlaylogRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page, size, Sort.Direction.DESC, "id"));
         return new ReducedPageResponse<>(playlogs.getContent(), playlogs.getPageable().getPageNumber(), playlogs.getTotalPages(), playlogs.getTotalElements());
 
     }
@@ -317,7 +324,7 @@ public class ApiOngekiPlayerDataController {
 
     @GetMapping("general")
     public ResponseEntity<Object> getGeneralData(@RequestParam Integer aimeId, @RequestParam String key) {
-        Optional<UserGeneralData> userGeneralDataOptional = userGeneralDataRepository.findByUser_Card_ExtIdAndPropertyKey(aimeId,key);
+        Optional<UserGeneralData> userGeneralDataOptional = userGeneralDataRepository.findByUser_Card_ExtIdAndPropertyKey(aimeId, key);
         return userGeneralDataOptional.<ResponseEntity<Object>>map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("User or value not found.")));
     }
@@ -344,7 +351,7 @@ public class ApiOngekiPlayerDataController {
             data.setUserPlaylogList(userPlaylogRepository.findByUser_Card_ExtId(aimeId));
             data.setUserStoryList(userStoryRepository.findByUser_Card_ExtId(aimeId));
             data.setUserTrainingRoomList(userTrainingRoomRepository.findByUser_Card_ExtId(aimeId));
-        } catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new MessageResponse("User not found"));
         } catch (Exception e) {
@@ -359,7 +366,7 @@ public class ApiOngekiPlayerDataController {
 
     @PostMapping("import")
     public ResponseEntity<Object> importAllUserData(@RequestBody OngekiDataImport data) {
-        if(!data.getGameId().equals("SDDT")) {
+        if (!data.getGameId().equals("SDDT")) {
             return ResponseEntity.unprocessableEntity().body(new MessageResponse("Wrong Game Profile, Expected 'SDDT', Get " + data.getGameId()));
         }
 
@@ -368,11 +375,47 @@ public class ApiOngekiPlayerDataController {
         Optional<Card> cardOptional = cardService.getCardByAccessCode(exUser.getAccessCode());
         Card card;
         if (cardOptional.isPresent()) {
-            if (userDataRepository.findByCard(cardOptional.get()).isPresent()) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body(new MessageResponse("This card already has a ongeki profile."));
-            } else {
-                card = cardOptional.get();
+            card = cardOptional.get();
+            Optional<UserData> existUserData = userDataRepository.findByCard(cardOptional.get());
+            if (existUserData.isPresent()) {
+//                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+//                        .body(new MessageResponse("This card already has a ongeki profile."));
+                // delete all same card data
+                userActivityRepository.deleteByUser(existUserData.get());
+                userActivityRepository.flush();
+                userCardRepository.deleteByUser(existUserData.get());
+                userCardRepository.flush();
+                userChapterRepository.deleteByUser(existUserData.get());
+                userChapterRepository.flush();
+                userCharacterRepository.deleteByUser(existUserData.get());
+                userCharacterRepository.flush();
+                userDeckRepository.deleteByUser(existUserData.get());
+                userDeckRepository.flush();
+                userEventPointRepository.deleteByUser(existUserData.get());
+                userEventPointRepository.flush();
+                userGeneralDataRepository.deleteByUser(existUserData.get());
+                userGeneralDataRepository.flush();
+                userItemRepository.deleteByUser(existUserData.get());
+                userItemRepository.flush();
+                userLoginBonusRepository.deleteByUser(existUserData.get());
+                userLoginBonusRepository.flush();
+                userMissionPointRepository.deleteByUser(existUserData.get());
+                userMissionPointRepository.flush();
+                userMusicDetailRepository.deleteByUser(existUserData.get());
+                userMusicDetailRepository.flush();
+                userMusicItemRepository.deleteByUser(existUserData.get());
+                userMusicItemRepository.flush();
+                userOptionRepository.deleteByUser(existUserData.get());
+                userOptionRepository.flush();
+                userPlaylogRepository.deleteByUser(existUserData.get());
+                userPlaylogRepository.flush();
+                userStoryRepository.deleteByUser(existUserData.get());
+                userStoryRepository.flush();
+                userTrainingRoomRepository.deleteByUser(existUserData.get());
+                userTrainingRoomRepository.flush();
+
+                userDataRepository.deleteByCard(card);
+                userDataRepository.flush();
             }
         } else {
             card = cardService.registerByAccessCode(exUser.getAccessCode());

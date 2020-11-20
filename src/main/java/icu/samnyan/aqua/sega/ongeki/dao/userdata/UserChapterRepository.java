@@ -4,6 +4,7 @@ import icu.samnyan.aqua.sega.ongeki.model.userdata.UserChapter;
 import icu.samnyan.aqua.sega.ongeki.model.userdata.UserData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,4 +19,6 @@ public interface UserChapterRepository extends JpaRepository<UserChapter, Long> 
 
     Optional<UserChapter> findByUserAndChapterId(UserData userData, int chapterId);
 
+    @Transactional
+    void deleteByUser(UserData user);
 }

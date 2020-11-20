@@ -4,6 +4,7 @@ import icu.samnyan.aqua.sega.ongeki.model.userdata.UserData;
 import icu.samnyan.aqua.sega.ongeki.model.userdata.UserGeneralData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,4 +21,6 @@ public interface UserGeneralDataRepository extends JpaRepository<UserGeneralData
 
     Optional<UserGeneralData> findByUser_Card_ExtIdAndPropertyKey(int userId, String key);
 
+    @Transactional
+    void deleteByUser(UserData user);
 }
