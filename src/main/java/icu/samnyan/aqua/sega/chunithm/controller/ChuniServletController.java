@@ -4,10 +4,7 @@ package icu.samnyan.aqua.sega.chunithm.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.chunithm.handler.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -15,7 +12,7 @@ import java.util.Map;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @RestController
-@RequestMapping("ChuniServlet")
+@RequestMapping({"/ChuniServlet/{ROM_VERSION}/{CLIENT_ID}/ChuniServlet", "/ChuniServlet"})
 public class ChuniServletController {
 
     private final GameLoginHandler gameLoginHandler;
@@ -242,8 +239,8 @@ public class ChuniServletController {
     }
 
     @PostMapping("UpsertClientSettingApi")
-    String upsertClientSetting(@ModelAttribute Map<String, Object> request) {
-        return "{\"returnCode\":\"1\"}";
+    String upsertClientSetting(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return upsertClientSettingHandler.handle(request);
     }
 
     @PostMapping("UpsertClientTestmodeApi")

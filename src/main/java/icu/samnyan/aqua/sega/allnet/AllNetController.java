@@ -17,7 +17,10 @@ import java.io.InputStream;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.UUID;
 import java.util.zip.DataFormatException;
+
+import static icu.samnyan.aqua.sega.util.AquaConst.DEFAULT_KEYCHIP_ID;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -53,17 +56,22 @@ public class AllNetController {
         byte[] bytes = dataStream.readAllBytes();
         Map<String, String> reqMap = Decoder.decode(bytes);
 
-        logger.info("Request: PowerOn, " + new ObjectMapper().writeValueAsString(reqMap));
+        logger.info("Request: PowerOn, " + mapper.writeValueAsString(reqMap));
         // TODO: Verify KeyChip id
 
         String gameId = reqMap.getOrDefault("game_id", "");
+        String ver = reqMap.getOrDefault("ver", "1.0");
+        String serial = reqMap.getOrDefault("serial", DEFAULT_KEYCHIP_ID);
+        if (serial.equals(DEFAULT_KEYCHIP_ID)) {
+            serial = UUID.randomUUID().toString();
+        }
         String format_ver = reqMap.getOrDefault("format_ver", "");
         PowerOnResponse resp;
         if (format_ver.startsWith("2")) {
             var now = LocalDateTime.now();
             resp = new PowerOnResponseV2(
                     1,
-                    switchUri(gameId),
+                    switchUri(gameId, ver, serial),
                     switchHost(gameId),
                     "123",
                     "",
@@ -87,7 +95,7 @@ public class AllNetController {
         } else {
             resp = new PowerOnResponseV3(
                     1,
-                    switchUri(gameId),
+                    switchUri(gameId, ver, serial),
                     switchHost(gameId),
                     "123",
                     "",
@@ -110,10 +118,10 @@ public class AllNetController {
         return resp.toString().concat("\n");
     }
 
-    private String switchUri(String gameId) {
+    private String switchUri(String gameId, String ver, String serial) {
         switch (gameId) {
             case "SDBT":
-                return "http://" + HOST + ":" + PORT + "/";
+                return "http://" + HOST + ":" + PORT + "/ChuniServlet/" + ver + "/" + serial + "/";
             case "SBZV":
                 return "http://" + HOST + ":" + PORT + "/diva/";
             case "SDDT":
