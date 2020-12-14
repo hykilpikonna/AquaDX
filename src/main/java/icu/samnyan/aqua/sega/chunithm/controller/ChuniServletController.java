@@ -34,6 +34,7 @@ public class ChuniServletController {
     private final GetUserDataExHandler getUserDataExHandler;
     private final GetUserDataHandler getUserDataHandler;
     private final GetUserDuelHandler getUserDuelHandler;
+    private final GetUserFavoriteMusicHandler getUserFavoriteMusicHandler;
     private final GetUserItemHandler getUserItemHandler;
     private final GetUserMapHandler getUserMapHandler;
     private final GetUserMusicHandler getUserMusicHandler;
@@ -51,7 +52,7 @@ public class ChuniServletController {
     private final UpsertUserChargelogHandler upsertUserChargelogHandler;
 
     @Autowired
-    public ChuniServletController(GameLoginHandler gameLoginHandler, GameLogoutHandler gameLogoutHandler, GetGameChargeHandler getGameChargeHandler, GetGameEventHandler getGameEventHandler, GetGameIdlistHandler getGameIdlistHandler, GetGameMessageHandler getGameMessageHandler, GetGameRankingHandler getGameRankingHandler, GetGameSaleHandler getGameSaleHandler, GetGameSettingHandler getGameSettingHandler, GetUserActivityHandler getUserActivityHandler, GetUserCharacterHandler getUserCharacterHandler, GetUserChargeHandler getUserChargeHandler, GetUserCourseHandler getUserCourseHandler, GetUserDataExHandler getUserDataExHandler, GetUserDataHandler getUserDataHandler, GetUserDuelHandler getUserDuelHandler, GetUserItemHandler getUserItemHandler, GetUserMapHandler getUserMapHandler, GetUserMusicHandler getUserMusicHandler, GetUserOptionExHandler getUserOptionExHandler, GetUserOptionHandler getUserOptionHandler, GetUserPreviewHandler getUserPreviewHandler, GetUserRecentRatingHandler getUserRecentRatingHandler, GetUserRegionHandler getUserRegionHandler, UpsertClientBookkeepingHandler upsertClientBookkeepingHandler, UpsertClientDevelopHandler upsertClientDevelopHandler, UpsertClientErrorHandler upsertClientErrorHandler, UpsertClientSettingHandler upsertClientSettingHandler, UpsertClientTestmodeHandler upsertClientTestmodeHandler, UpsertUserAllHandler upsertUserAllHandler, UpsertUserChargelogHandler upsertUserChargelogHandler) {
+    public ChuniServletController(GameLoginHandler gameLoginHandler, GameLogoutHandler gameLogoutHandler, GetGameChargeHandler getGameChargeHandler, GetGameEventHandler getGameEventHandler, GetGameIdlistHandler getGameIdlistHandler, GetGameMessageHandler getGameMessageHandler, GetGameRankingHandler getGameRankingHandler, GetGameSaleHandler getGameSaleHandler, GetGameSettingHandler getGameSettingHandler, GetUserActivityHandler getUserActivityHandler, GetUserCharacterHandler getUserCharacterHandler, GetUserChargeHandler getUserChargeHandler, GetUserCourseHandler getUserCourseHandler, GetUserDataExHandler getUserDataExHandler, GetUserDataHandler getUserDataHandler, GetUserDuelHandler getUserDuelHandler, GetUserFavoriteMusicHandler getUserFavoriteMusicHandler, GetUserItemHandler getUserItemHandler, GetUserMapHandler getUserMapHandler, GetUserMusicHandler getUserMusicHandler, GetUserOptionExHandler getUserOptionExHandler, GetUserOptionHandler getUserOptionHandler, GetUserPreviewHandler getUserPreviewHandler, GetUserRecentRatingHandler getUserRecentRatingHandler, GetUserRegionHandler getUserRegionHandler, UpsertClientBookkeepingHandler upsertClientBookkeepingHandler, UpsertClientDevelopHandler upsertClientDevelopHandler, UpsertClientErrorHandler upsertClientErrorHandler, UpsertClientSettingHandler upsertClientSettingHandler, UpsertClientTestmodeHandler upsertClientTestmodeHandler, UpsertUserAllHandler upsertUserAllHandler, UpsertUserChargelogHandler upsertUserChargelogHandler) {
         this.gameLoginHandler = gameLoginHandler;
         this.gameLogoutHandler = gameLogoutHandler;
         this.getGameChargeHandler = getGameChargeHandler;
@@ -68,6 +69,7 @@ public class ChuniServletController {
         this.getUserDataExHandler = getUserDataExHandler;
         this.getUserDataHandler = getUserDataHandler;
         this.getUserDuelHandler = getUserDuelHandler;
+        this.getUserFavoriteMusicHandler = getUserFavoriteMusicHandler;
         this.getUserItemHandler = getUserItemHandler;
         this.getUserMapHandler = getUserMapHandler;
         this.getUserMusicHandler = getUserMusicHandler;
@@ -168,6 +170,11 @@ public class ChuniServletController {
     @PostMapping("GetUserDuelApi")
     String getUserDuel(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserDuelHandler.handle(request);
+    }
+
+    @PostMapping("GetUserFavoriteMusicApi")
+    public String getUserFavoriteMusic(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserFavoriteMusicHandler.handle(request);
     }
 
     @PostMapping("GetUserItemApi")
