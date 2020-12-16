@@ -1,5 +1,3 @@
-PRAGMA foreign_keys = 0;
-
 CREATE TABLE ongeki_user_story_new (
     id                        INTEGER,
     last_chapter_id           INTEGER NOT NULL,
@@ -40,5 +38,3 @@ FROM ongeki_user_story;
 
 ALTER TABLE ongeki_user_story RENAME TO bak_ongeki_user_story;
 ALTER TABLE ongeki_user_story_new RENAME TO ongeki_user_story;
-
-PRAGMA foreign_keys = 1;
