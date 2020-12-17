@@ -2,7 +2,7 @@
 An multipurpose game server power by Spring Boot.
 
 ### Supported Game:
-* CHUNITHM Amazon ( And below )
+* CHUNITHM Amazon Plus ( And below )
 * Project DIVA Arcade Future Tone
 * O.N.G.E.K.I. SUMMER
 * O.N.G.E.K.I. PLUS
@@ -35,14 +35,7 @@ And you can switch to MySQL(MariaDB) database by commenting the Sqlite part.
 ####Game specific setting:
 
 #####CHUNITHM:
-Game version overwrite
-```
-game.chunithm.overwrite-version=false
-game.chunithm.rom-version=1.30.00
-game.chunithm.data-version=1.30.00
-```
-Enable version overwrite and set to the game version you currently running, will allow profile downgrade. As the game data format is supported by all the version.
-
+Support auto profile downgrade now. You can just run any legacy version, but works better if you set a different keychip serial.
 
 ### Other Information:
 This server provide a simple API for changing some DIVA's setting.
@@ -55,6 +48,15 @@ And DIVA screenshot will be save in data folder.
 
 
 ### Changelog:
+v0.0.16: **[This will do database update]**
+
+[chuni] Add support for CHUNITHM Amazon Plus
+
+[chuni] Support auto profile downgrade now.
+
+[ONGEKI] Fix jewel not being saved (bbs)
+
+[ONGEKI] Better choKaika method (bbs)
 
 v0.0.15:
 
