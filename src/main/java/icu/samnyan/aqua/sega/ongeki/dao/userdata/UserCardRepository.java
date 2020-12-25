@@ -19,11 +19,11 @@ public interface UserCardRepository extends JpaRepository<UserCard, Long> {
 
     Optional<UserCard> findByUserAndCardId(UserData userData, int cardId);
 
-    Optional<UserCard> findByUser_Card_ExtIdAndCardId(int userId, int cardId);
+    Optional<UserCard> findByUser_Card_ExtIdAndCardId(long userId, int cardId);
 
-    List<UserCard> findByUser_Card_ExtId(int userId);
+    List<UserCard> findByUser_Card_ExtId(long userId);
 
-    Page<UserCard> findByUser_Card_ExtId(int userId, Pageable page);
+    Page<UserCard> findByUser_Card_ExtId(long userId, Pageable page);
 
     @Transactional
     void deleteByUser(UserData user);

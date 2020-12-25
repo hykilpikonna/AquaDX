@@ -14,5 +14,5 @@ import java.util.Optional;
 public interface UserGameOptionExRepository extends JpaRepository<UserGameOptionEx, Long> {
     Optional<UserGameOptionEx> findByUser(UserData user);
 
-    Optional<UserGameOptionEx> findByUser_Card_ExtId(int extId);
+    Optional<UserGameOptionEx> findByUser_Card_ExtId(Long extId);
 }

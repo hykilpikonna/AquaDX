@@ -35,7 +35,7 @@ public class GetUserTrainingRoomByKeyHandler implements BaseHandler {
 
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
-        Integer userId = (Integer) request.get("userId");
+        Long userId = (Long) request.get("userId");
 
         List<UserTrainingRoom> trainingRoomList = userTrainingRoomRepository.findByUser_Card_ExtId(userId);
 

@@ -35,7 +35,7 @@ public class GetUserDeckByKeyHandler implements BaseHandler {
 
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
-        Integer userId = (Integer) request.get("userId");
+        Long userId = (Long) request.get("userId");
 
         List<UserDeck> deckList = userDeckRepository.findByUser_Card_ExtId(userId);
 

@@ -16,12 +16,12 @@ import java.util.Optional;
 @Repository
 public interface UserCharacterRepository extends JpaRepository<UserCharacter, Long> {
 
-    Page<UserCharacter> findByUser_Card_ExtId(int extId, Pageable pageable);
+    Page<UserCharacter> findByUser_Card_ExtId(Long extId, Pageable pageable);
 
-    List<UserCharacter> findByUser_Card_ExtId(int extId);
+    List<UserCharacter> findByUser_Card_ExtId(Long extId);
 
     Optional<UserCharacter> findTopByUserAndCharacterIdOrderByIdDesc(UserData user, int characterId);
 
-    Optional<UserCharacter> findByUser_Card_ExtIdAndCharacterId(int extId, int characterId);
+    Optional<UserCharacter> findByUser_Card_ExtIdAndCharacterId(Long extId, int characterId);
 
 }

@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository("SegaCardRepository")
 public interface CardRepository extends JpaRepository<Card, Long> {
 
-    Optional<Card> findByExtId(int extId);
+    Optional<Card> findByExtId(Long extId);
 
     Optional<Card> findByLuid(String luid);
 }

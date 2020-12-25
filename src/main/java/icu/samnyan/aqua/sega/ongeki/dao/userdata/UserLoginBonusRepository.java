@@ -13,7 +13,7 @@ import java.util.Optional;
  */
 public interface UserLoginBonusRepository extends JpaRepository<UserLoginBonus, Long> {
 
-    List<UserLoginBonus> findByUser_Card_ExtId(int userId);
+    List<UserLoginBonus> findByUser_Card_ExtId(long userId);
 
     Optional<UserLoginBonus> findByUserAndBonusId(UserData userData, int bonusId);
 

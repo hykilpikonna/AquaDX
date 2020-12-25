@@ -33,6 +33,7 @@ public class UserGeneralData implements Serializable {
 
     private String propertyKey;
 
+    @Column(columnDefinition = "TEXT")
     private String propertyValue;
 
     public UserGeneralData(UserData userData, String key) {

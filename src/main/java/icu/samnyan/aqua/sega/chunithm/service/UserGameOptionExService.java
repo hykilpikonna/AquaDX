@@ -30,6 +30,6 @@ public class UserGameOptionExService {
     }
 
     public Optional<UserGameOptionEx> getByUserId(String userId) {
-        return userGameOptionExRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
+        return userGameOptionExRepository.findByUser_Card_ExtId(Long.parseLong(userId));
     }
 }

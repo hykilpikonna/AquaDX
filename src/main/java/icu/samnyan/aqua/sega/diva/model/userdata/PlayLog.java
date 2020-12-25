@@ -5,7 +5,9 @@ import icu.samnyan.aqua.sega.diva.model.common.ChallengeKind;
 import icu.samnyan.aqua.sega.diva.model.common.ClearResult;
 import icu.samnyan.aqua.sega.diva.model.common.Difficulty;
 import icu.samnyan.aqua.sega.diva.model.common.Edition;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,6 +19,8 @@ import java.time.LocalDateTime;
 @Entity(name = "DivaPlayLog")
 @Table(name = "diva_play_log")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PlayLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -109,9 +113,6 @@ public class PlayLog implements Serializable {
     private int screenShotCount = -1;
 
     private LocalDateTime dateTime;
-
-    public PlayLog() {
-    }
 
     public PlayLog(PlayerProfile pdId, int pvId, Difficulty difficulty, Edition edition, int scriptVer, int score, ChallengeKind challengeKind, int challengeResult, ClearResult clearResult, int vp, int coolCount, int coolPercent, int fineCount, int finePercent, int safeCount, int safePercent, int sadCount, int sadPercent, int wrongCount, int wrongPercent, int maxCombo, int chanceTime, int holdScore, int attainPoint, int skinId, int buttonSe, int buttonSeVol, int sliderSe, int chainSlideSe, int sliderTouchSe, String modules, int stageCompletion, int slideScore, int isVocalChange, String customizeItems, String rhythmGameOptions, int screenShotCount, LocalDateTime dateTime) {
         this.pdId = pdId;

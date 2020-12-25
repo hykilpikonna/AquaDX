@@ -87,41 +87,41 @@ public class ApiOngekiPlayerDataController {
     }
 
     @GetMapping("profile")
-    public ProfileResp getProfile(@RequestParam Integer aimeId) {
+    public ProfileResp getProfile(@RequestParam long aimeId) {
         return mapper.convert(userDataRepository.findByCard_ExtId(aimeId).orElseThrow(), new TypeReference<>() {
         });
     }
 
     @PostMapping("profile/userName")
     public UserData updateName(@RequestBody Map<String, Object> request) {
-        UserData profile = userDataRepository.findByCard_ExtId((Integer) request.get("aimeId")).orElseThrow();
+        UserData profile = userDataRepository.findByCard_ExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         profile.setUserName((String) request.get("userName"));
         return userDataRepository.save(profile);
     }
 
     @PostMapping("profile/plate")
     public UserData updatePlate(@RequestBody Map<String, Object> request) {
-        UserData profile = userDataRepository.findByCard_ExtId((Integer) request.get("aimeId")).orElseThrow();
+        UserData profile = userDataRepository.findByCard_ExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         profile.setNameplateId((Integer) request.get("nameplateId"));
         return userDataRepository.save(profile);
     }
 
     @PostMapping("profile/trophy")
     public UserData updateTrophy(@RequestBody Map<String, Object> request) {
-        UserData profile = userDataRepository.findByCard_ExtId((Integer) request.get("aimeId")).orElseThrow();
+        UserData profile = userDataRepository.findByCard_ExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         profile.setTrophyId((Integer) request.get("trophyId"));
         return userDataRepository.save(profile);
     }
 
     @PostMapping("profile/card")
     public UserData updateCard(@RequestBody Map<String, Object> request) {
-        UserData profile = userDataRepository.findByCard_ExtId((Integer) request.get("aimeId")).orElseThrow();
+        UserData profile = userDataRepository.findByCard_ExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         profile.setCardId((Integer) request.get("cardId"));
         return userDataRepository.save(profile);
     }
 
     @GetMapping("card")
-    public ReducedPageResponse<UserCard> getCard(@RequestParam Integer aimeId,
+    public ReducedPageResponse<UserCard> getCard(@RequestParam long aimeId,
                                                  @RequestParam(required = false, defaultValue = "0") int page,
                                                  @RequestParam(required = false, defaultValue = "10") int size) {
         Page<UserCard> cards = userCardRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page, size, Sort.Direction.DESC, "id"));
@@ -136,7 +136,7 @@ public class ApiOngekiPlayerDataController {
      */
     @PostMapping("card")
     public ResponseEntity<Object> insertCard(@RequestBody Map<String, Object> request) {
-        UserData profile = userDataRepository.findByCard_ExtId((Integer) request.get("aimeId")).orElseThrow();
+        UserData profile = userDataRepository.findByCard_ExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         Integer cardId = (Integer) request.get("cardId");
         Optional<UserCard> userCardOptional = userCardRepository.findByUserAndCardId(profile, cardId);
         if (userCardOptional.isPresent()) {
@@ -174,7 +174,7 @@ public class ApiOngekiPlayerDataController {
     }
 
     @PostMapping("card/{cardId}/kaika")
-    public ResponseEntity<Object> kaikaCard(@RequestParam Integer aimeId, @PathVariable Integer cardId) {
+    public ResponseEntity<Object> kaikaCard(@RequestParam long aimeId, @PathVariable Integer cardId) {
         Optional<UserCard> userCardOptional = userCardRepository.findByUser_Card_ExtIdAndCardId(aimeId, cardId);
         if (userCardOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("Card not found."));
@@ -192,7 +192,7 @@ public class ApiOngekiPlayerDataController {
     }
 
     @PostMapping("card/{cardId}/choKaika")
-    public ResponseEntity<Object> choKaikaCard(@RequestParam Integer aimeId, @PathVariable Integer cardId) {
+    public ResponseEntity<Object> choKaikaCard(@RequestParam long aimeId, @PathVariable Integer cardId) {
         Optional<UserCard> userCardOptional = userCardRepository.findByUser_Card_ExtIdAndCardId(aimeId, cardId);
         if (userCardOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("Card not found."));
@@ -224,7 +224,7 @@ public class ApiOngekiPlayerDataController {
     }
 
     @GetMapping("character")
-    public ReducedPageResponse<UserCharacter> getCharacter(@RequestParam Integer aimeId,
+    public ReducedPageResponse<UserCharacter> getCharacter(@RequestParam long aimeId,
                                                            @RequestParam(required = false, defaultValue = "0") int page,
                                                            @RequestParam(required = false, defaultValue = "10") int size) {
         Page<UserCharacter> characters = userCharacterRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page, size));
@@ -232,13 +232,13 @@ public class ApiOngekiPlayerDataController {
     }
 
     @GetMapping("activity")
-    public List<UserActivity> getActivities(@RequestParam Integer aimeId) {
+    public List<UserActivity> getActivities(@RequestParam long aimeId) {
         return userActivityRepository.findByUser_Card_ExtId(aimeId);
     }
 
     @PostMapping("activity")
     public ResponseEntity<Object> updateActivities(@RequestBody Map<String, Object> request) {
-        UserData profile = userDataRepository.findByCard_ExtId((Integer) request.get("aimeId")).orElseThrow();
+        UserData profile = userDataRepository.findByCard_ExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         Integer activityId = (Integer) request.get("id");
         Integer kind = (Integer) request.get("kind");
         Integer sortNumber = (Integer) request.get("sortNumber");
@@ -266,7 +266,7 @@ public class ApiOngekiPlayerDataController {
     }
 
     @GetMapping("item")
-    public ReducedPageResponse<UserItem> getItem(@RequestParam Integer aimeId,
+    public ReducedPageResponse<UserItem> getItem(@RequestParam long aimeId,
                                                  @RequestParam(required = false, defaultValue = "0") int page,
                                                  @RequestParam(required = false, defaultValue = "10") int size) {
         Page<UserItem> items = userItemRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page, size));
@@ -275,7 +275,7 @@ public class ApiOngekiPlayerDataController {
 
     @PostMapping("item")
     public ResponseEntity<Object> updateItem(@RequestBody Map<String, Object> request) {
-        UserData profile = userDataRepository.findByCard_ExtId((Integer) request.get("aimeId")).orElseThrow();
+        UserData profile = userDataRepository.findByCard_ExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         Integer itemKind = (Integer) request.get("itemKind");
         Integer itemId = (Integer) request.get("itemId");
         int stock = 1;
@@ -299,7 +299,7 @@ public class ApiOngekiPlayerDataController {
     }
 
     @GetMapping("recent")
-    public ReducedPageResponse<UserPlaylog> getRecent(@RequestParam Integer aimeId,
+    public ReducedPageResponse<UserPlaylog> getRecent(@RequestParam long aimeId,
                                                       @RequestParam(required = false, defaultValue = "0") int page,
                                                       @RequestParam(required = false, defaultValue = "10") int size) {
         Page<UserPlaylog> playlogs = userPlaylogRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page, size, Sort.Direction.DESC, "id"));
@@ -308,29 +308,29 @@ public class ApiOngekiPlayerDataController {
     }
 
     @GetMapping("song/{id}")
-    public List<UserMusicDetail> getSongDetail(@RequestParam Integer aimeId, @PathVariable int id) {
+    public List<UserMusicDetail> getSongDetail(@RequestParam long aimeId, @PathVariable int id) {
         return userMusicDetailRepository.findByUser_Card_ExtIdAndMusicId(aimeId, id);
     }
 
     @GetMapping("song/{id}/{level}")
-    public List<UserPlaylog> getLevelPlaylog(@RequestParam Integer aimeId, @PathVariable int id, @PathVariable int level) {
+    public List<UserPlaylog> getLevelPlaylog(@RequestParam long aimeId, @PathVariable int id, @PathVariable int level) {
         return userPlaylogRepository.findByUser_Card_ExtIdAndMusicIdAndLevel(aimeId, id, level);
     }
 
     @GetMapping("options")
-    public UserOption getOptions(@RequestParam Integer aimeId) {
+    public UserOption getOptions(@RequestParam long aimeId) {
         return userOptionRepository.findByUser_Card_ExtId(aimeId).orElseThrow();
     }
 
     @GetMapping("general")
-    public ResponseEntity<Object> getGeneralData(@RequestParam Integer aimeId, @RequestParam String key) {
+    public ResponseEntity<Object> getGeneralData(@RequestParam long aimeId, @RequestParam String key) {
         Optional<UserGeneralData> userGeneralDataOptional = userGeneralDataRepository.findByUser_Card_ExtIdAndPropertyKey(aimeId, key);
         return userGeneralDataOptional.<ResponseEntity<Object>>map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("User or value not found.")));
     }
 
     @GetMapping("export")
-    public ResponseEntity<Object> exportAllUserData(@RequestParam Integer aimeId) {
+    public ResponseEntity<Object> exportAllUserData(@RequestParam long aimeId) {
         OngekiDataExport data = new OngekiDataExport();
         try {
             data.setGameId("SDDT");

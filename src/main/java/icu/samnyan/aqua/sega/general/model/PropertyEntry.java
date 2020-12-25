@@ -24,6 +24,7 @@ public class PropertyEntry implements Serializable {
     @Column(unique = true)
     private String propertyKey;
 
+    @Column(columnDefinition = "TEXT")
     private String propertyValue;
 
     public PropertyEntry(String propertyKey, String propertyValue) {

@@ -28,7 +28,7 @@ public class UserGeneralDataService {
     }
 
     public Optional<UserGeneralData> getByUserIdAndKey(String userId, String key) {
-        return userGeneralDataRepository.findByUser_Card_ExtIdAndPropertyKey(Integer.parseInt(userId), key);
+        return userGeneralDataRepository.findByUser_Card_ExtIdAndPropertyKey(Long.parseLong(userId), key);
     }
 
 }

@@ -33,7 +33,7 @@ public class UserItemService {
     }
 
     public List<UserItem> getByUserId(String userId) {
-        return userItemRepository.findAllByUser_Card_ExtId(Integer.parseInt(userId));
+        return userItemRepository.findAllByUser_Card_ExtId(Long.parseLong(userId));
     }
 
     public Optional<UserItem> getByUserAndItemIdAndKind(UserData user, int itemId, int itemKind) {
@@ -42,10 +42,10 @@ public class UserItemService {
 
     public Page<UserItem> getByUserAndItemKind(String userId, int kind, int pageNumber, int maxCount) {
         Pageable page = PageRequest.of(pageNumber, maxCount);
-        return userItemRepository.findAllByUser_Card_ExtIdAndItemKind(Integer.parseInt(userId), kind, page);
+        return userItemRepository.findAllByUser_Card_ExtIdAndItemKind(Long.parseLong(userId), kind, page);
     }
 
     public Page<UserItem> getByUserId(String userId, int page, int size) {
-        return userItemRepository.findByUser_Card_ExtId(Integer.parseInt(userId), PageRequest.of(page, size));
+        return userItemRepository.findByUser_Card_ExtId(Long.parseLong(userId), PageRequest.of(page, size));
     }
 }

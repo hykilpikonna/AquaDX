@@ -5,7 +5,6 @@ import icu.samnyan.aqua.sega.chunithm.model.userdata.UserData;
 import icu.samnyan.aqua.sega.chunithm.model.userdata.UserMusicDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -34,15 +33,15 @@ public class UserMusicDetailService {
     }
 
     public List<UserMusicDetail> getByUserId(String userId) {
-        return userMusicDetailRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
+        return userMusicDetailRepository.findByUser_Card_ExtId(Long.parseLong(userId));
     }
 
     public Page<UserMusicDetail> getByUserId(String userId, Pageable page) {
-        return userMusicDetailRepository.findByUser_Card_ExtId(Integer.parseInt(userId), page);
+        return userMusicDetailRepository.findByUser_Card_ExtId(Long.parseLong(userId), page);
     }
 
     public List<UserMusicDetail> getByUserIdAndMusicId(String userId, int musicId) {
-        return userMusicDetailRepository.findByUser_Card_ExtIdAndMusicId(Integer.parseInt(userId), musicId);
+        return userMusicDetailRepository.findByUser_Card_ExtIdAndMusicId(Long.parseLong(userId), musicId);
     }
 
     public Optional<UserMusicDetail> getByUserAndMusicIdAndLevel(UserData user, int musicId, int level) {

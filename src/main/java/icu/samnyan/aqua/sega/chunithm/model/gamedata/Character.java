@@ -1,10 +1,13 @@
 package icu.samnyan.aqua.sega.chunithm.model.gamedata;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Map;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -29,7 +32,7 @@ public class Character implements Serializable {
 
     private String illustratorName;
 
-    private Integer firstSkillId;
+    private String firstSkillId;
 
     // Format: level:skillId,level:skillId
     // Keep 0 skillId

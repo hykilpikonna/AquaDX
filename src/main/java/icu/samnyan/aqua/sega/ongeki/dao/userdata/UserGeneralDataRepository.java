@@ -15,11 +15,11 @@ import java.util.Optional;
 @Repository("OngekiUserGeneralDataRepository")
 public interface UserGeneralDataRepository extends JpaRepository<UserGeneralData, Long> {
 
-    List<UserGeneralData> findByUser_Card_ExtId(int userId);
+    List<UserGeneralData> findByUser_Card_ExtId(long userId);
 
     Optional<UserGeneralData> findByUserAndPropertyKey(UserData user, String key);
 
-    Optional<UserGeneralData> findByUser_Card_ExtIdAndPropertyKey(int userId, String key);
+    Optional<UserGeneralData> findByUser_Card_ExtIdAndPropertyKey(long userId, String key);
 
     @Transactional
     void deleteByUser(UserData user);

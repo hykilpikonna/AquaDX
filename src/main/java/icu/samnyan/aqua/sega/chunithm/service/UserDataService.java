@@ -31,7 +31,7 @@ public class UserDataService {
     }
 
     public Optional<UserData> getUserByExtId(String aimeId) {
-        return userDataRepository.findByCard_ExtId(Integer.parseInt(aimeId));
+        return userDataRepository.findByCard_ExtId(Long.parseLong(aimeId));
     }
 
     public Optional<UserData> getUserByCard(Card card) {

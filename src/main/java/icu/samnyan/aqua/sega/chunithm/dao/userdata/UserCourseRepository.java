@@ -17,7 +17,7 @@ import java.util.Optional;
 public interface UserCourseRepository extends JpaRepository<UserCourse, Long> {
     Optional<UserCourse> findTopByUserAndCourseIdOrderByIdDesc(UserData user, int courseId);
 
-    Page<UserCourse> findByUser_Card_ExtId(int extId, Pageable page);
+    Page<UserCourse> findByUser_Card_ExtId(Long extId, Pageable page);
 
-    List<UserCourse> findByUser_Card_ExtId(int extId);
+    List<UserCourse> findByUser_Card_ExtId(Long extId);
 }

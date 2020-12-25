@@ -6,16 +6,15 @@ import icu.samnyan.aqua.sega.chunithm.model.response.GetUserPreviewResp;
 import icu.samnyan.aqua.sega.chunithm.model.userdata.UserCharacter;
 import icu.samnyan.aqua.sega.chunithm.model.userdata.UserData;
 import icu.samnyan.aqua.sega.chunithm.model.userdata.UserGameOption;
-import icu.samnyan.aqua.sega.general.service.ClientSettingService;
 import icu.samnyan.aqua.sega.chunithm.service.UserCharacterService;
 import icu.samnyan.aqua.sega.chunithm.service.UserDataService;
 import icu.samnyan.aqua.sega.chunithm.service.UserGameOptionService;
+import icu.samnyan.aqua.sega.general.service.ClientSettingService;
 import icu.samnyan.aqua.sega.util.VersionUtil;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -43,27 +42,17 @@ public class GetUserPreviewHandler implements BaseHandler {
     private final UserCharacterService userCharacterService;
     private final UserGameOptionService userGameOptionService;
 
-    private final boolean overwriteVersion;
-    private final String romVersion;
-    private final String dataVersion;
-
     @Autowired
     public GetUserPreviewHandler(StringMapper mapper,
                                  ClientSettingService clientSettingService, UserDataService userDataService,
                                  UserCharacterService userCharacterService,
-                                 UserGameOptionService userGameOptionService,
-                                 @Value("${game.chunithm.overwrite-version}") boolean overwriteVersion,
-                                 @Value("${game.chunithm.rom-version}") String romVersion,
-                                 @Value("${game.chunithm.data-version}") String dataVersion
+                                 UserGameOptionService userGameOptionService
     ) {
         this.mapper = mapper;
         this.clientSettingService = clientSettingService;
         this.userDataService = userDataService;
         this.userCharacterService = userCharacterService;
         this.userGameOptionService = userGameOptionService;
-        this.overwriteVersion = overwriteVersion;
-        this.romVersion = romVersion;
-        this.dataVersion = dataVersion;
     }
 
     @Override
@@ -101,10 +90,6 @@ public class GetUserPreviewHandler implements BaseHandler {
             resp.setLastDataVersion(user.getLastDataVersion());
         }
 
-        if (overwriteVersion) {
-            resp.setLastRomVersion(romVersion);
-            resp.setLastDataVersion(dataVersion);
-        }
         resp.setLastPlayDate(user.getLastPlayDate());
         resp.setTrophyId(user.getTrophyId());
 

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GetUserPreviewResp {
 
-    private Integer userId = 0;
+    private long userId = 0;
     @JsonProperty("isLogin")
     private boolean isLogin = false;
     private String lastLoginDate = null;

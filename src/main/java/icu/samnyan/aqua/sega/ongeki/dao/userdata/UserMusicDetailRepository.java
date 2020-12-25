@@ -17,11 +17,11 @@ import java.util.Optional;
 @Repository("OngekiUserMusicDetailRepository")
 public interface UserMusicDetailRepository extends JpaRepository<UserMusicDetail, Long> {
 
-    List<UserMusicDetail> findByUser_Card_ExtId(int userId);
+    List<UserMusicDetail> findByUser_Card_ExtId(long userId);
 
-    Page<UserMusicDetail> findByUser_Card_ExtId(int userId, Pageable page);
+    Page<UserMusicDetail> findByUser_Card_ExtId(long userId, Pageable page);
 
-    List<UserMusicDetail> findByUser_Card_ExtIdAndMusicId(int userId, int id);
+    List<UserMusicDetail> findByUser_Card_ExtIdAndMusicId(long userId, int id);
 
     Optional<UserMusicDetail> findByUserAndMusicIdAndLevel(UserData userData, int musicId, int level);
 

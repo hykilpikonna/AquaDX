@@ -15,5 +15,5 @@ public interface UserDataExRepository extends JpaRepository<UserDataEx, Long> {
 
     Optional<UserDataEx> findByUser(UserData user);
 
-    Optional<UserDataEx> findByUser_Card_ExtId(int extId);
+    Optional<UserDataEx> findByUser_Card_ExtId(Long extId);
 }

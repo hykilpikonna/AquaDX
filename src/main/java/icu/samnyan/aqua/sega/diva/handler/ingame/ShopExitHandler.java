@@ -1,6 +1,5 @@
 package icu.samnyan.aqua.sega.diva.handler.ingame;
 
-import icu.samnyan.aqua.sega.diva.dao.userdata.PlayerProfileRepository;
 import icu.samnyan.aqua.sega.diva.dao.userdata.PlayerPvCustomizeRepository;
 import icu.samnyan.aqua.sega.diva.exception.ProfileNotFoundException;
 import icu.samnyan.aqua.sega.diva.handler.BaseHandler;
@@ -9,6 +8,7 @@ import icu.samnyan.aqua.sega.diva.model.request.ingame.ShopExitRequest;
 import icu.samnyan.aqua.sega.diva.model.response.ingame.ShopExitResponse;
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerProfile;
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerPvCustomize;
+import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,19 +24,19 @@ public class ShopExitHandler extends BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(ShopExitHandler.class);
 
-    private final PlayerProfileRepository playerProfileRepository;
+    private final PlayerProfileService playerProfileService;
 
     private final PlayerPvCustomizeRepository pvCustomizeRepository;
 
-    public ShopExitHandler(DivaMapper mapper, PlayerProfileRepository playerProfileRepository, PlayerPvCustomizeRepository pvCustomizeRepository) {
+    public ShopExitHandler(DivaMapper mapper, PlayerProfileService playerProfileService, PlayerPvCustomizeRepository pvCustomizeRepository) {
         super(mapper);
-        this.playerProfileRepository = playerProfileRepository;
+        this.playerProfileService = playerProfileService;
         this.pvCustomizeRepository = pvCustomizeRepository;
     }
 
     public String handle(ShopExitRequest request) {
 
-        PlayerProfile profile = playerProfileRepository.findByPdId(request.getPd_id()).orElseThrow(ProfileNotFoundException::new);
+        PlayerProfile profile = playerProfileService.findByPdId(request.getPd_id()).orElseThrow(ProfileNotFoundException::new);
         PlayerPvCustomize customize = pvCustomizeRepository.findByPdIdAndPvId(profile, request.getPly_pv_id()).orElseGet(() -> new PlayerPvCustomize(profile, request.getPly_pv_id()));
 
         if (request.getUse_pv_mdl_eqp() == 1) {
@@ -53,7 +53,7 @@ public class ShopExitHandler extends BaseHandler {
         profile.setCommonCustomizeItems(arrToCsv(request.getC_itm_eqp_cmn_ary()));
         profile.setModuleSelectItemFlag(arrToCsv(request.getMs_itm_flg_cmn_ary()));
 
-        playerProfileRepository.save(profile);
+        playerProfileService.save(profile);
         pvCustomizeRepository.save(customize);
         ShopExitResponse response = new ShopExitResponse(
                 request.getCmd(),

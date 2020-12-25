@@ -15,6 +15,6 @@ public interface UserGeneralDataRepository extends JpaRepository<UserGeneralData
 
     Optional<UserGeneralData> findByUserAndPropertyKey(UserData user, String key);
 
-    Optional<UserGeneralData> findByUser_Card_ExtIdAndPropertyKey(int extId, String key);
+    Optional<UserGeneralData> findByUser_Card_ExtIdAndPropertyKey(Long extId, String key);
 
 }

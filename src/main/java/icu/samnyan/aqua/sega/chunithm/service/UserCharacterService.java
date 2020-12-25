@@ -34,12 +34,12 @@ public class UserCharacterService {
     }
 
     public List<UserCharacter> getByUserId(String userId) {
-        return userCharacterRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
+        return userCharacterRepository.findByUser_Card_ExtId(Long.parseLong(userId));
     }
 
     public Page<UserCharacter> getByUserId(String userId, int pageNumber, int maxCount) {
         Pageable pageable = PageRequest.of(pageNumber, maxCount);
-        return userCharacterRepository.findByUser_Card_ExtId(Integer.parseInt(userId), pageable);
+        return userCharacterRepository.findByUser_Card_ExtId(Long.parseLong(userId), pageable);
     }
 
     public Optional<UserCharacter> getByUserAndCharacterId(UserData user, int characterId) {

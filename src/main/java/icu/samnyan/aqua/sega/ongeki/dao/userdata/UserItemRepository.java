@@ -17,13 +17,13 @@ import java.util.Optional;
 @Repository("OngekiUserItemRepository")
 public interface UserItemRepository extends JpaRepository<UserItem, Long> {
 
-    List<UserItem> findByUser_Card_ExtId(int userId);
+    List<UserItem> findByUser_Card_ExtId(long userId);
 
-    Page<UserItem> findByUser_Card_ExtId(int userId, Pageable page);
+    Page<UserItem> findByUser_Card_ExtId(long userId, Pageable page);
 
     Optional<UserItem> findByUserAndItemKindAndItemId(UserData userData, int itemKind, int itemId);
 
-    Page<UserItem> findByUser_Card_ExtIdAndItemKind(int userId, int kind, Pageable page);
+    Page<UserItem> findByUser_Card_ExtIdAndItemKind(long userId, int kind, Pageable page);
 
     @Transactional
     void deleteByUser(UserData user);

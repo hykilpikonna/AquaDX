@@ -13,7 +13,7 @@ import java.util.Optional;
  */
 @Repository
 public interface UserChargeRepository extends JpaRepository<UserCharge, Long> {
-    List<UserCharge> findByUser_Card_ExtId(int extId);
+    List<UserCharge> findByUser_Card_ExtId(Long extId);
 
     Optional<UserCharge> findByUserAndChargeId(UserData extId, int chargeId);
 }

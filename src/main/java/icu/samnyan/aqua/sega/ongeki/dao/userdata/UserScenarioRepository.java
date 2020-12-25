@@ -14,7 +14,7 @@ import java.util.Optional;
 @Repository("OngekiUserScenarioRepository")
 public interface UserScenarioRepository extends JpaRepository<UserScenario, Long> {
 
-    List<UserScenario> findByUser_Card_ExtId(int userId);
+    List<UserScenario> findByUser_Card_ExtId(long userId);
 
     Optional<UserScenario> findByUserAndScenarioId(UserData user, int scenarioId);
 

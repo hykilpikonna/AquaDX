@@ -14,7 +14,7 @@ import java.util.Optional;
 @Repository("OngekiUserBossRepository")
 public interface UserBossRepository extends JpaRepository<UserBoss, Long> {
 
-    List<UserBoss> findByUser_Card_ExtId(int userId);
+    List<UserBoss> findByUser_Card_ExtId(long userId);
 
     Optional<UserBoss> findByUserAndMusicId(UserData user, int musicId);
 

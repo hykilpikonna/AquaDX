@@ -1,6 +1,5 @@
 package icu.samnyan.aqua.sega.diva.handler.ingame;
 
-import icu.samnyan.aqua.sega.diva.dao.userdata.PlayerProfileRepository;
 import icu.samnyan.aqua.sega.diva.dao.userdata.PlayerPvCustomizeRepository;
 import icu.samnyan.aqua.sega.diva.dao.userdata.PlayerPvRecordRepository;
 import icu.samnyan.aqua.sega.diva.handler.BaseHandler;
@@ -11,6 +10,7 @@ import icu.samnyan.aqua.sega.diva.model.response.ingame.GetPvPdResponse;
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerProfile;
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerPvCustomize;
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerPvRecord;
+import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
 import icu.samnyan.aqua.sega.diva.util.DivaDateTimeUtil;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
 import icu.samnyan.aqua.sega.util.URIEncoder;
@@ -31,18 +31,18 @@ public class GetPvPdHandler extends BaseHandler {
 
     private final PlayerPvRecordRepository pvRecordRepository;
     private final PlayerPvCustomizeRepository pvCustomizeRepository;
-    private final PlayerProfileRepository profileRepository;
+    private final PlayerProfileService playerProfileService;
 
-    public GetPvPdHandler(DivaMapper mapper, PlayerPvRecordRepository pvRecordRepository, PlayerPvCustomizeRepository pvCustomizeRepository, PlayerProfileRepository profileRepository) {
+    public GetPvPdHandler(DivaMapper mapper, PlayerPvRecordRepository pvRecordRepository, PlayerPvCustomizeRepository pvCustomizeRepository, PlayerProfileService playerProfileService) {
         super(mapper);
         this.pvRecordRepository = pvRecordRepository;
         this.pvCustomizeRepository = pvCustomizeRepository;
-        this.profileRepository = profileRepository;
+        this.playerProfileService = playerProfileService;
     }
 
     public String handle(GetPvPdRequest request) {
 
-        Optional<PlayerProfile> profileO = profileRepository.findByPdId(request.getPd_id());
+        Optional<PlayerProfile> profileO = playerProfileService.findByPdId(request.getPd_id());
         StringBuilder pd = new StringBuilder();
 
         for (int pvId :

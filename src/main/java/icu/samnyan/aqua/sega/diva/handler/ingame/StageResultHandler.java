@@ -10,6 +10,7 @@ import icu.samnyan.aqua.sega.diva.model.gamedata.Contest;
 import icu.samnyan.aqua.sega.diva.model.request.ingame.StageResultRequest;
 import icu.samnyan.aqua.sega.diva.model.response.ingame.StageResultResponse;
 import icu.samnyan.aqua.sega.diva.model.userdata.*;
+import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
 import icu.samnyan.aqua.sega.diva.util.DivaCalculator;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
 import org.apache.commons.lang3.StringUtils;
@@ -32,7 +33,7 @@ public class StageResultHandler extends BaseHandler {
 
     private final GameSessionRepository gameSessionRepository;
     private final PlayerPvRecordRepository pvRecordRepository;
-    private final PlayerProfileRepository profileRepository;
+    private final PlayerProfileService playerProfileService;
     private final PlayLogRepository playLogRepository;
     private final ContestRepository contestRepository;
     private final PlayerContestRepository playerContestRepository;
@@ -43,11 +44,11 @@ public class StageResultHandler extends BaseHandler {
 
     private PlayerProfile currentProfile = null;
 
-    public StageResultHandler(DivaMapper mapper, GameSessionRepository gameSessionRepository, PlayerPvRecordRepository pvRecordRepository, PlayerProfileRepository profileRepository, PlayLogRepository playLogRepository, ContestRepository contestRepository, PlayerContestRepository playerContestRepository, PlayerCustomizeRepository playerCustomizeRepository, PlayerInventoryRepository playerInventoryRepository, DivaCalculator divaCalculator) {
+    public StageResultHandler(DivaMapper mapper, GameSessionRepository gameSessionRepository, PlayerPvRecordRepository pvRecordRepository, PlayerProfileService playerProfileService, PlayLogRepository playLogRepository, ContestRepository contestRepository, PlayerContestRepository playerContestRepository, PlayerCustomizeRepository playerCustomizeRepository, PlayerInventoryRepository playerInventoryRepository, DivaCalculator divaCalculator) {
         super(mapper);
         this.gameSessionRepository = gameSessionRepository;
         this.pvRecordRepository = pvRecordRepository;
-        this.profileRepository = profileRepository;
+        this.playerProfileService = playerProfileService;
         this.playLogRepository = playLogRepository;
         this.contestRepository = contestRepository;
         this.playerContestRepository = playerContestRepository;
@@ -59,7 +60,7 @@ public class StageResultHandler extends BaseHandler {
     public String handle(StageResultRequest request) {
         StageResultResponse response;
         if (request.getPd_id() != -1) {
-            PlayerProfile profile = profileRepository.findByPdId(request.getPd_id()).orElseThrow(ProfileNotFoundException::new);
+            PlayerProfile profile = playerProfileService.findByPdId(request.getPd_id()).orElseThrow(ProfileNotFoundException::new);
             GameSession session = gameSessionRepository.findByPdId(profile).orElseThrow(SessionNotFoundException::new);
 
             currentProfile = profile;

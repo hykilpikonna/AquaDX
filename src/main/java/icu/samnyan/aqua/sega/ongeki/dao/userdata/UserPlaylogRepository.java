@@ -16,11 +16,11 @@ import java.util.List;
 @Repository("OngekiUserPlaylogRepository")
 public interface UserPlaylogRepository extends JpaRepository<UserPlaylog, Long> {
 
-    List<UserPlaylog> findByUser_Card_ExtId(int userId);
+    List<UserPlaylog> findByUser_Card_ExtId(long userId);
 
-    Page<UserPlaylog> findByUser_Card_ExtId(int userId, Pageable page);
+    Page<UserPlaylog> findByUser_Card_ExtId(long userId, Pageable page);
 
-    List<UserPlaylog> findByUser_Card_ExtIdAndMusicIdAndLevel(Integer userId, int musicId, int level);
+    List<UserPlaylog> findByUser_Card_ExtIdAndMusicIdAndLevel(long userId, int musicId, int level);
 
     @Transactional
     void deleteByUser(UserData user);

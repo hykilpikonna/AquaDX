@@ -30,6 +30,6 @@ public class UserDataExService {
     }
 
     public Optional<UserDataEx> getByExtId(String userId) {
-        return userDataExRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
+        return userDataExRepository.findByUser_Card_ExtId(Long.parseLong(userId));
     }
 }

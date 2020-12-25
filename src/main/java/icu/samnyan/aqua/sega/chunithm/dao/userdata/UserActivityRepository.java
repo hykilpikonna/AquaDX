@@ -16,7 +16,7 @@ public interface UserActivityRepository extends JpaRepository<UserActivity, Long
 
     Optional<UserActivity> findTopByUserAndActivityIdAndKindOrderByIdDesc(UserData user, int activityId, int kind);
 
-    List<UserActivity> findAllByUser_Card_ExtIdAndKindOrderBySortNumberDesc(int extId, int kind);
+    List<UserActivity> findAllByUser_Card_ExtIdAndKindOrderBySortNumberDesc(Long extId, int kind);
 
-    List<UserActivity> findAllByUser_Card_ExtId(int extId);
+    List<UserActivity> findAllByUser_Card_ExtId(Long extId);
 }

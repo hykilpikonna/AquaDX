@@ -17,7 +17,7 @@ public interface UserTrainingRoomRepository extends JpaRepository<UserTrainingRo
 
     Optional<UserTrainingRoom> findByUserAndRoomId(UserData user, int roomId);
 
-    List<UserTrainingRoom> findByUser_Card_ExtId(int userId);
+    List<UserTrainingRoom> findByUser_Card_ExtId(long userId);
 
     @Transactional
     void deleteByUser(UserData user);

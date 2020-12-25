@@ -14,7 +14,7 @@ import java.util.Optional;
 @Repository("OngekiUserTechCountRepository")
 public interface UserTechCountRepository extends JpaRepository<UserTechCount, Long> {
 
-    List<UserTechCount> findByUser_Card_ExtId(int userId);
+    List<UserTechCount> findByUser_Card_ExtId(long userId);
 
     Optional<UserTechCount> findByUserAndLevelId(UserData user, int levelId);
 

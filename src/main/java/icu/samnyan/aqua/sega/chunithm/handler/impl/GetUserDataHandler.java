@@ -3,14 +3,13 @@ package icu.samnyan.aqua.sega.chunithm.handler.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.chunithm.handler.BaseHandler;
 import icu.samnyan.aqua.sega.chunithm.model.userdata.UserData;
-import icu.samnyan.aqua.sega.general.service.ClientSettingService;
 import icu.samnyan.aqua.sega.chunithm.service.UserDataService;
+import icu.samnyan.aqua.sega.general.service.ClientSettingService;
 import icu.samnyan.aqua.sega.util.VersionUtil;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
@@ -33,23 +32,13 @@ public class GetUserDataHandler implements BaseHandler {
 
     private final UserDataService userDataService;
 
-    private final boolean overwriteVersion;
-    private final String romVersion;
-    private final String dataVersion;
-
     @Autowired
     public GetUserDataHandler(StringMapper mapper,
-                              ClientSettingService clientSettingService, UserDataService userDataService,
-                              @Value("${game.chunithm.overwrite-version}") boolean overwriteVersion,
-                              @Value("${game.chunithm.rom-version}") String romVersion,
-                              @Value("${game.chunithm.data-version}") String dataVersion
+                              ClientSettingService clientSettingService, UserDataService userDataService
     ) {
         this.mapper = mapper;
         this.clientSettingService = clientSettingService;
         this.userDataService = userDataService;
-        this.overwriteVersion = overwriteVersion;
-        this.romVersion = romVersion;
-        this.dataVersion = dataVersion;
     }
 
     @Override

@@ -33,19 +33,19 @@ public class UserPlaylogService {
     }
 
     public Page<UserPlaylog> getRecentPlays(String userId, Pageable page) {
-        return userPlaylogRepository.findByUser_Card_ExtId(Integer.parseInt(userId), page);
+        return userPlaylogRepository.findByUser_Card_ExtId(Long.parseLong(userId), page);
     }
 
     public List<UserPlaylog> getRecent30Plays(String userId) {
         Pageable page = PageRequest.of(0, 30, Sort.by(Sort.Direction.DESC, "userPlayDate"));
-        return userPlaylogRepository.findByUser_Card_ExtIdAndLevelNot(Integer.parseInt(userId), 4, page);
+        return userPlaylogRepository.findByUser_Card_ExtIdAndLevelNot(Long.parseLong(userId), 4, page);
     }
 
     public List<UserPlaylog> getByUserId(String userId) {
-        return userPlaylogRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
+        return userPlaylogRepository.findByUser_Card_ExtId(Long.parseLong(userId));
     }
 
     public List<UserPlaylog> getByUserIdAndMusicIdAndLevel(String userId, int id, int level) {
-        return userPlaylogRepository.findByUser_Card_ExtIdAndMusicIdAndLevel(Integer.parseInt(userId), id, level);
+        return userPlaylogRepository.findByUser_Card_ExtIdAndMusicIdAndLevel(Long.parseLong(userId), id, level);
     }
 }

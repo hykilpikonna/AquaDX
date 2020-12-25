@@ -28,15 +28,16 @@ public class CardService {
      * @return Optional of a Card
      */
     public Optional<Card> getCardByExtId(String extId) {
-        return cardRepository.findByExtId(Integer.parseInt(extId));
+        return cardRepository.findByExtId(Long.parseLong(extId));
     }
 
     /**
      * Find a card by External Id
+     *
      * @param extId External Id
      * @return Optional of a Card
      */
-    public Optional<Card> getCardByExtId(int extId) {
+    public Optional<Card> getCardByExtId(Long extId) {
         return cardRepository.findByExtId(extId);
     }
 
@@ -57,9 +58,9 @@ public class CardService {
     public Card registerByAccessCode(String accessCode) {
         Card card = new Card();
         card.setLuid(accessCode);
-        int extId = ThreadLocalRandom.current().nextInt(99999999);
+        long extId = ThreadLocalRandom.current().nextLong(99999999);
         while (cardRepository.findByExtId(extId).isPresent()) {
-            extId = ThreadLocalRandom.current().nextInt(99999999);
+            extId = ThreadLocalRandom.current().nextLong(99999999);
         }
         card.setExtId(extId);
         card.setRegisterTime(LocalDateTime.now());

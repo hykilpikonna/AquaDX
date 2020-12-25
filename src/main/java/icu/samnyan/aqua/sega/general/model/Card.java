@@ -26,7 +26,7 @@ public class Card implements Serializable {
 
     // A external id
     @Column(name = "ext_id", unique = true)
-    private Integer extId;
+    private Long extId;
 
     // Access Code
     @Column(unique = true)

@@ -16,7 +16,7 @@ public interface UserOptionRepository extends JpaRepository<UserOption, Long> {
 
     Optional<UserOption> findByUser(UserData userData);
 
-    Optional<UserOption> findByUser_Card_ExtId(int userId);
+    Optional<UserOption> findByUser_Card_ExtId(long userId);
 
     @Transactional
     void deleteByUser(UserData user);
