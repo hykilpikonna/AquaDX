@@ -3,7 +3,6 @@ package icu.samnyan.aqua.sega.diva.handler.ingame;
 import icu.samnyan.aqua.sega.diva.dao.userdata.PlayerProfileRepository;
 import icu.samnyan.aqua.sega.diva.dao.userdata.PlayerPvCustomizeRepository;
 import icu.samnyan.aqua.sega.diva.dao.userdata.PlayerPvRecordRepository;
-import icu.samnyan.aqua.sega.diva.exception.ProfileNotFoundException;
 import icu.samnyan.aqua.sega.diva.handler.BaseHandler;
 import icu.samnyan.aqua.sega.diva.model.common.Difficulty;
 import icu.samnyan.aqua.sega.diva.model.common.Edition;
@@ -20,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -42,7 +42,7 @@ public class GetPvPdHandler extends BaseHandler {
 
     public String handle(GetPvPdRequest request) {
 
-        PlayerProfile profile = profileRepository.findByPdId(request.getPd_id()).orElseThrow(ProfileNotFoundException::new);
+        Optional<PlayerProfile> profileO = profileRepository.findByPdId(request.getPd_id());
         StringBuilder pd = new StringBuilder();
 
         for (int pvId :
@@ -50,35 +50,40 @@ public class GetPvPdHandler extends BaseHandler {
             if (pvId == -1) {
                 pd.append("***").append(",");
             } else {
-                int diff = request.getDifficulty();
-                Difficulty difficulty = Difficulty.fromValue(diff);
+                if (profileO.isEmpty()) {
+                    pd.append("***").append(",");
+                } else {
+                    var profile = profileO.get();
+                    int diff = request.getDifficulty();
+                    Difficulty difficulty = Difficulty.fromValue(diff);
 
-                // Myself
-                PlayerPvRecord edition0 = pvRecordRepository.findByPdIdAndPvIdAndEditionAndDifficulty(profile, pvId, Edition.ORIGINAL, difficulty)
-                        .orElseGet(() -> new PlayerPvRecord(pvId, Edition.ORIGINAL));
-
-                PlayerPvRecord edition1 = pvRecordRepository.findByPdIdAndPvIdAndEditionAndDifficulty(profile, pvId, Edition.EXTRA, difficulty)
-                        .orElseGet(() -> new PlayerPvRecord(pvId, Edition.EXTRA));
-
-                // Rival
-                PlayerPvRecord rivalEdition0;
-                PlayerPvRecord rivalEdition1;
-                if(profile.getRivalPdId() != -1) {
-                    rivalEdition0 = pvRecordRepository.findByPdId_PdIdAndPvIdAndEditionAndDifficulty(profile.getRivalPdId(), pvId, Edition.ORIGINAL, difficulty)
+                    // Myself
+                    PlayerPvRecord edition0 = pvRecordRepository.findByPdIdAndPvIdAndEditionAndDifficulty(profile, pvId, Edition.ORIGINAL, difficulty)
                             .orElseGet(() -> new PlayerPvRecord(pvId, Edition.ORIGINAL));
 
-                    rivalEdition1 = pvRecordRepository.findByPdId_PdIdAndPvIdAndEditionAndDifficulty(profile.getRivalPdId(), pvId, Edition.EXTRA, difficulty)
+                    PlayerPvRecord edition1 = pvRecordRepository.findByPdIdAndPvIdAndEditionAndDifficulty(profile, pvId, Edition.EXTRA, difficulty)
                             .orElseGet(() -> new PlayerPvRecord(pvId, Edition.EXTRA));
-                } else {
-                    rivalEdition0 = new PlayerPvRecord(pvId, Edition.ORIGINAL);
-                    rivalEdition1 = new PlayerPvRecord(pvId, Edition.EXTRA);
-                }
 
-                PlayerPvCustomize customize = pvCustomizeRepository.findByPdIdAndPvId(profile, pvId).orElseGet(() -> new PlayerPvCustomize(profile, pvId));
+                    // Rival
+                    PlayerPvRecord rivalEdition0;
+                    PlayerPvRecord rivalEdition1;
+                    if (profile.getRivalPdId() != -1) {
+                        rivalEdition0 = pvRecordRepository.findByPdId_PdIdAndPvIdAndEditionAndDifficulty(profile.getRivalPdId(), pvId, Edition.ORIGINAL, difficulty)
+                                .orElseGet(() -> new PlayerPvRecord(pvId, Edition.ORIGINAL));
 
-                String str = getString(edition0, customize, rivalEdition0, profile.getRivalPdId()) + "," + getString(edition1, customize, rivalEdition1, profile.getRivalPdId());
+                        rivalEdition1 = pvRecordRepository.findByPdId_PdIdAndPvIdAndEditionAndDifficulty(profile.getRivalPdId(), pvId, Edition.EXTRA, difficulty)
+                                .orElseGet(() -> new PlayerPvRecord(pvId, Edition.EXTRA));
+                    } else {
+                        rivalEdition0 = new PlayerPvRecord(pvId, Edition.ORIGINAL);
+                        rivalEdition1 = new PlayerPvRecord(pvId, Edition.EXTRA);
+                    }
+
+                    PlayerPvCustomize customize = pvCustomizeRepository.findByPdIdAndPvId(profile, pvId).orElseGet(() -> new PlayerPvCustomize(profile, pvId));
+
+                    String str = getString(edition0, customize, rivalEdition0, profile.getRivalPdId()) + "," + getString(edition1, customize, rivalEdition1, profile.getRivalPdId());
 //                logger.info(str);
-                pd.append(URIEncoder.encode(str)).append(",");
+                    pd.append(URIEncoder.encode(str)).append(",");
+                }
             }
         }
         pd.deleteCharAt(pd.length() - 1);
