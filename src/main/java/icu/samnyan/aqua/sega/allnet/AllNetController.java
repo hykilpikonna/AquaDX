@@ -18,7 +18,6 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
-import java.util.zip.DataFormatException;
 
 import static icu.samnyan.aqua.sega.util.AquaConst.DEFAULT_KEYCHIP_ID;
 
@@ -126,6 +125,8 @@ public class AllNetController {
                 return "http://" + HOST + ":" + PORT + "/diva/";
             case "SDDT":
                 return "http://" + HOST + ":" + PORT + "/OngekiServlet/";
+            case "SDEY":
+                return "http://" + HOST + ":" + PORT + "/";
             default:
                 return "http://" + HOST + ":" + PORT + "/";
         }
