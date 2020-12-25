@@ -50,7 +50,7 @@ public class GetUserMusicHandler implements BaseHandler {
         }
 
         Page<UserMusicDetail> dbPage = userMusicDetailService
-                .getByUser(userId, OffsetPageRequest.of(currentIndex, maxCount, Sort.by("musicId")));
+                .getByUserId(userId, OffsetPageRequest.of(currentIndex, maxCount, Sort.by("musicId")));
 
 
         // Convert to result format

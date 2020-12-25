@@ -16,6 +16,9 @@ import icu.samnyan.aqua.sega.chunithm.model.userdata.*;
 import icu.samnyan.aqua.sega.chunithm.service.*;
 import icu.samnyan.aqua.sega.general.model.Card;
 import icu.samnyan.aqua.sega.general.service.CardService;
+import icu.samnyan.aqua.sega.util.VersionInfo;
+import icu.samnyan.aqua.sega.util.VersionUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -147,7 +150,10 @@ public class ApiAmazonPlayerDataController {
     public List<RatingItem> getRating(@RequestParam String aimeId) {
 
         Map<Integer, Music> musicMap = gameMusicService.getIdMap();
-        List<UserMusicDetail> details = userMusicDetailService.getByUser(aimeId);
+        List<UserMusicDetail> details = userMusicDetailService.getByUserId(aimeId);
+
+        var user = userDataService.getUserByExtId(aimeId).orElseThrow();
+        var version = VersionUtil.parseVersion(user.getLastRomVersion());
 
         List<RatingItem> result = new ArrayList<>();
         for (UserMusicDetail detail : details) {
@@ -157,7 +163,7 @@ public class ApiAmazonPlayerDataController {
                 if (level != null) {
                     int levelBase = level.getLevel() * 100 + level.getLevelDecimal();
                     int score = detail.getScoreMax();
-                    int rating = calculateRating(levelBase, score);
+                    int rating = calculateRating(levelBase, score, version);
                     result.add(new RatingItem(music.getMusicId(), music.getName(), music.getArtistName(), level.getDiff(), score, levelBase, rating));
                 }
             }
@@ -173,19 +179,46 @@ public class ApiAmazonPlayerDataController {
     @GetMapping("rating/recent")
     public List<RatingItem> getRecentRating(@RequestParam String aimeId) {
         Map<Integer, Music> musicMap = gameMusicService.getIdMap();
-        List<UserPlaylog> logList = userPlaylogService.getRecent30Plays(aimeId);
+        Optional<UserGeneralData> recentOptional = userGeneralDataService.getByUserIdAndKey(aimeId, "recent_rating_list");
 
-        List<RatingItem> result = new ArrayList<>();
-        for (UserPlaylog log : logList) {
-            Music music = musicMap.get(log.getMusicId());
-            if (music != null) {
-                Level level = music.getLevels().get(log.getLevel());
-                if (level != null) {
-                    int levelBase = level.getLevel() * 100 + level.getLevelDecimal();
-                    int score = log.getScore();
-                    int rating = calculateRating(levelBase, score);
 
-                    result.add(new RatingItem(music.getMusicId(), music.getName(), music.getArtistName(), level.getDiff(), score, levelBase, rating));
+        var user = userDataService.getUserByExtId(aimeId).orElseThrow();
+        var version = VersionUtil.parseVersion(user.getLastRomVersion());
+
+        List<RatingItem> result = new LinkedList<>();
+        if (recentOptional.isPresent()) {
+            // Read from recent_rating_list
+            String val = recentOptional.get().getPropertyValue();
+            if (StringUtils.isNotBlank(val) && val.contains(",")) {
+                String[] records = val.split(",");
+                for (String record :
+                        records) {
+                    String[] value = record.split(":");
+                    Music music = musicMap.get(Integer.parseInt(value[0]));
+                    if (music != null) {
+                        Level level = music.getLevels().get(Integer.parseInt(value[1]));
+                        if (level != null) {
+                            int levelBase = getLevelBase(level.getLevel(), level.getLevelDecimal());
+                            int score = Integer.parseInt(value[2]);
+                            int rating = calculateRating(levelBase, score, version);
+                            result.add(new RatingItem(music.getMusicId(), music.getName(), music.getArtistName(), level.getDiff(), score, levelBase, rating));
+                        }
+                    }
+                }
+            }
+        } else {
+            // Use old method
+            List<UserPlaylog> logList = userPlaylogService.getRecent30Plays(aimeId);
+            for (UserPlaylog log : logList) {
+                Music music = musicMap.get(log.getMusicId());
+                if (music != null) {
+                    Level level = music.getLevels().get(log.getLevel());
+                    if (level != null) {
+                        int levelBase = getLevelBase(level.getLevel(), level.getLevelDecimal());
+                        int score = log.getScore();
+                        int rating = calculateRating(levelBase, score, version);
+                        result.add(new RatingItem(music.getMusicId(), music.getName(), music.getArtistName(), level.getDiff(), score, levelBase, rating));
+                    }
                 }
             }
         }
@@ -387,14 +420,20 @@ public class ApiAmazonPlayerDataController {
         return ResponseEntity.ok(new MessageResponse("Import successfully, aimeId: " + card.getExtId()));
     }
 
-    private int calculateRating(int levelBase, int score) {
+    private int getLevelBase(int level, int levelDecimal) {
+        return level * 100 + levelDecimal;
+    }
+
+    private int calculateRating(int levelBase, int score, VersionInfo version) {
         if (score >= 1007500) return levelBase + 200;
         if (score >= 1005000) return levelBase + 150 + (score - 1005000) * 10 / 500;
         if (score >= 1000000) return levelBase + 100 + (score - 1000000) * 5 / 500;
         if (score >= 975000) return levelBase + (score - 975000) * 2 / 500;
-        if (score >= 950000) return levelBase - 150 + (score - 950000) * 3 / 500;
+        if (score >= 950000 && version.getMinorVersion() < 35) return levelBase - 150 + (score - 950000) * 3 / 500;
         if (score >= 925000) return levelBase - 300 + (score - 925000) * 3 / 500;
         if (score >= 900000) return levelBase - 500 + (score - 900000) * 4 / 500;
+        if (score >= 800000)
+            return ((levelBase - 500) / 2 + (score - 800000) * ((levelBase - 500) / 2) / (100000));
         return 0;
     }
 }

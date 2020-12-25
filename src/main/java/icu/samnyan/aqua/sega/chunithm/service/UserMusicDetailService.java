@@ -33,16 +33,12 @@ public class UserMusicDetailService {
         return userMusicDetailRepository.saveAll(userMusicDetail);
     }
 
-    public List<UserMusicDetail> getByUser(String userId) {
-        return userMusicDetailRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
-    }
-
-    public Page<UserMusicDetail> getByUser(String userId, Pageable page) {
-        return userMusicDetailRepository.findByUser_Card_ExtId(Integer.parseInt(userId), page);
-    }
-
     public List<UserMusicDetail> getByUserId(String userId) {
         return userMusicDetailRepository.findByUser_Card_ExtId(Integer.parseInt(userId));
+    }
+
+    public Page<UserMusicDetail> getByUserId(String userId, Pageable page) {
+        return userMusicDetailRepository.findByUser_Card_ExtId(Integer.parseInt(userId), page);
     }
 
     public List<UserMusicDetail> getByUserIdAndMusicId(String userId, int musicId) {
