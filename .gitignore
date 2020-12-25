@@ -31,6 +31,6 @@ build/
 .vscode/
 
 ### Dev env ###
-application.properties
-aqua.jar
+/application.properties
+/aqua.jar
 /data/
