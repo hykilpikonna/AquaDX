@@ -24,6 +24,8 @@ public class ChuniServletController {
     private final GetGameRankingHandler getGameRankingHandler;
     private final GetGameSaleHandler getGameSaleHandler;
     private final GetGameSettingHandler getGameSettingHandler;
+    private final GetTeamCourseRuleHandler getTeamCourseRuleHandler;
+    private final GetTeamCourseSettingHandler getTeamCourseSettingHandler;
     private final GetUserActivityHandler getUserActivityHandler;
     private final GetUserCharacterHandler getUserCharacterHandler;
     private final GetUserChargeHandler getUserChargeHandler;
@@ -31,8 +33,10 @@ public class ChuniServletController {
     private final GetUserDataExHandler getUserDataExHandler;
     private final GetUserDataHandler getUserDataHandler;
     private final GetUserDuelHandler getUserDuelHandler;
+    private final GetUserFavoriteItemHandler getUserFavoriteItemHandler;
     private final GetUserFavoriteMusicHandler getUserFavoriteMusicHandler;
     private final GetUserItemHandler getUserItemHandler;
+    private final GetUserLoginBonusHandler getUserLoginBonusHandler;
     private final GetUserMapHandler getUserMapHandler;
     private final GetUserMusicHandler getUserMusicHandler;
     private final GetUserOptionExHandler getUserOptionExHandler;
@@ -40,6 +44,9 @@ public class ChuniServletController {
     private final GetUserPreviewHandler getUserPreviewHandler;
     private final GetUserRecentRatingHandler getUserRecentRatingHandler;
     private final GetUserRegionHandler getUserRegionHandler;
+    private final GetUserRivalDataHandler getUserRivalDataHandler;
+    private final GetUserRivalMusicHandler getUserRivalMusicHandler;
+    private final GetUserTeamHandler getUserTeamHandler;
     private final UpsertClientBookkeepingHandler upsertClientBookkeepingHandler;
     private final UpsertClientDevelopHandler upsertClientDevelopHandler;
     private final UpsertClientErrorHandler upsertClientErrorHandler;
@@ -49,7 +56,7 @@ public class ChuniServletController {
     private final UpsertUserChargelogHandler upsertUserChargelogHandler;
 
     @Autowired
-    public ChuniServletController(GameLoginHandler gameLoginHandler, GameLogoutHandler gameLogoutHandler, GetGameChargeHandler getGameChargeHandler, GetGameEventHandler getGameEventHandler, GetGameIdlistHandler getGameIdlistHandler, GetGameMessageHandler getGameMessageHandler, GetGameRankingHandler getGameRankingHandler, GetGameSaleHandler getGameSaleHandler, GetGameSettingHandler getGameSettingHandler, GetUserActivityHandler getUserActivityHandler, GetUserCharacterHandler getUserCharacterHandler, GetUserChargeHandler getUserChargeHandler, GetUserCourseHandler getUserCourseHandler, GetUserDataExHandler getUserDataExHandler, GetUserDataHandler getUserDataHandler, GetUserDuelHandler getUserDuelHandler, GetUserFavoriteMusicHandler getUserFavoriteMusicHandler, GetUserItemHandler getUserItemHandler, GetUserMapHandler getUserMapHandler, GetUserMusicHandler getUserMusicHandler, GetUserOptionExHandler getUserOptionExHandler, GetUserOptionHandler getUserOptionHandler, GetUserPreviewHandler getUserPreviewHandler, GetUserRecentRatingHandler getUserRecentRatingHandler, GetUserRegionHandler getUserRegionHandler, UpsertClientBookkeepingHandler upsertClientBookkeepingHandler, UpsertClientDevelopHandler upsertClientDevelopHandler, UpsertClientErrorHandler upsertClientErrorHandler, UpsertClientSettingHandler upsertClientSettingHandler, UpsertClientTestmodeHandler upsertClientTestmodeHandler, UpsertUserAllHandler upsertUserAllHandler, UpsertUserChargelogHandler upsertUserChargelogHandler) {
+    public ChuniServletController(GameLoginHandler gameLoginHandler, GameLogoutHandler gameLogoutHandler, GetGameChargeHandler getGameChargeHandler, GetGameEventHandler getGameEventHandler, GetGameIdlistHandler getGameIdlistHandler, GetGameMessageHandler getGameMessageHandler, GetGameRankingHandler getGameRankingHandler, GetGameSaleHandler getGameSaleHandler, GetGameSettingHandler getGameSettingHandler,GetTeamCourseRuleHandler getTeamCourseRuleHandler, GetTeamCourseSettingHandler getTeamCourseSettingHandler, GetUserActivityHandler getUserActivityHandler, GetUserCharacterHandler getUserCharacterHandler, GetUserChargeHandler getUserChargeHandler, GetUserCourseHandler getUserCourseHandler, GetUserDataExHandler getUserDataExHandler, GetUserDataHandler getUserDataHandler, GetUserDuelHandler getUserDuelHandler, GetUserFavoriteItemHandler getUserFavoriteItemHandler, GetUserFavoriteMusicHandler getUserFavoriteMusicHandler, GetUserItemHandler getUserItemHandler, GetUserLoginBonusHandler getUserLoginBonusHandler, GetUserMapHandler getUserMapHandler, GetUserMusicHandler getUserMusicHandler, GetUserOptionExHandler getUserOptionExHandler, GetUserOptionHandler getUserOptionHandler, GetUserPreviewHandler getUserPreviewHandler, GetUserRecentRatingHandler getUserRecentRatingHandler, GetUserRegionHandler getUserRegionHandler, GetUserRivalDataHandler getUserRivalDataHandler, GetUserRivalMusicHandler getUserRivalMusicHandler, GetUserTeamHandler getUserTeamHandler, UpsertClientBookkeepingHandler upsertClientBookkeepingHandler, UpsertClientDevelopHandler upsertClientDevelopHandler, UpsertClientErrorHandler upsertClientErrorHandler, UpsertClientSettingHandler upsertClientSettingHandler, UpsertClientTestmodeHandler upsertClientTestmodeHandler, UpsertUserAllHandler upsertUserAllHandler, UpsertUserChargelogHandler upsertUserChargelogHandler) {
         this.gameLoginHandler = gameLoginHandler;
         this.gameLogoutHandler = gameLogoutHandler;
         this.getGameChargeHandler = getGameChargeHandler;
@@ -59,6 +66,8 @@ public class ChuniServletController {
         this.getGameRankingHandler = getGameRankingHandler;
         this.getGameSaleHandler = getGameSaleHandler;
         this.getGameSettingHandler = getGameSettingHandler;
+        this.getTeamCourseRuleHandler = getTeamCourseRuleHandler;
+        this.getTeamCourseSettingHandler = getTeamCourseSettingHandler;
         this.getUserActivityHandler = getUserActivityHandler;
         this.getUserCharacterHandler = getUserCharacterHandler;
         this.getUserChargeHandler = getUserChargeHandler;
@@ -66,8 +75,10 @@ public class ChuniServletController {
         this.getUserDataExHandler = getUserDataExHandler;
         this.getUserDataHandler = getUserDataHandler;
         this.getUserDuelHandler = getUserDuelHandler;
+        this.getUserFavoriteItemHandler = getUserFavoriteItemHandler;
         this.getUserFavoriteMusicHandler = getUserFavoriteMusicHandler;
         this.getUserItemHandler = getUserItemHandler;
+        this.getUserLoginBonusHandler = getUserLoginBonusHandler;
         this.getUserMapHandler = getUserMapHandler;
         this.getUserMusicHandler = getUserMusicHandler;
         this.getUserOptionExHandler = getUserOptionExHandler;
@@ -75,6 +86,9 @@ public class ChuniServletController {
         this.getUserPreviewHandler = getUserPreviewHandler;
         this.getUserRecentRatingHandler = getUserRecentRatingHandler;
         this.getUserRegionHandler = getUserRegionHandler;
+        this.getUserRivalDataHandler = getUserRivalDataHandler;
+        this.getUserRivalMusicHandler = getUserRivalMusicHandler;
+        this.getUserTeamHandler = getUserTeamHandler;
         this.upsertClientBookkeepingHandler = upsertClientBookkeepingHandler;
         this.upsertClientDevelopHandler = upsertClientDevelopHandler;
         this.upsertClientErrorHandler = upsertClientErrorHandler;
@@ -134,6 +148,15 @@ public class ChuniServletController {
         return getGameSettingHandler.handle(request);
     }
 
+    @PostMapping("GetTeamCourseRuleHandlerApi")
+    String getTeamCourseRule(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getTeamCourseRuleHandler.handle(request);
+    }
+    @PostMapping("GetTeamCourseSettingHandlerApi")
+    String getTeamCourseSetting(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getTeamCourseSettingHandler.handle(request);
+    }
+
     @PostMapping("GetUserActivityApi")
     String getUserActivity(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserActivityHandler.handle(request);
@@ -169,6 +192,11 @@ public class ChuniServletController {
         return getUserDuelHandler.handle(request);
     }
 
+    @PostMapping("GetUserFavoriteItemApi")
+    String getUserFavoriteItem(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserFavoriteItemHandler.handle(request);
+    }
+
     @PostMapping("GetUserFavoriteMusicApi")
     public String getUserFavoriteMusic(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserFavoriteMusicHandler.handle(request);
@@ -177,6 +205,11 @@ public class ChuniServletController {
     @PostMapping("GetUserItemApi")
     String getUserItem(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserItemHandler.handle(request);
+    }
+
+    @PostMapping("GetUserLoginBonusApi")
+    String getUserLoginBonus(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserLoginBonusHandler.handle(request);
     }
 
     @PostMapping("GetUserMapApi")
@@ -221,6 +254,20 @@ public class ChuniServletController {
     @PostMapping("GetUserRegionApi")
     String getUserRegion(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserRegionHandler.handle(request);
+    }
+
+    @PostMapping("GetUserRivalDataApi")
+    String getUserRivalData(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserRivalDataHandler.handle(request);
+    }
+    @PostMapping("GetUserRivalMusicApi")
+    String getUserRivalMusic(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserRivalMusicHandler.handle(request);
+    }
+
+    @PostMapping("GetUserTeamApi")
+    String getUserTeam(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserTeamHandler.handle(request);
     }
 
     @PostMapping("UpsertClientBookkeepingApi")
