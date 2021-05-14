@@ -39,13 +39,13 @@ public class GetUserFavoriteItemHandler  implements BaseHandler {
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userId);
-        resultMap.put("kind", kind);
         resultMap.put("length", 0);
-        resultMap.put("nextIndex", 0);
-        resultMap.put("userFavoriteMusicList", List.of());
+        resultMap.put("kind", kind);
+        resultMap.put("nextIndex", -1);
+        resultMap.put("userFavoriteItemList", List.of());
 
         String json = mapper.write(resultMap);
-        logger.debug("Response: " + json);
+        logger.info("Response: " + json);
         return json;
     }
 }

@@ -43,7 +43,7 @@ public class GetUserFavoriteMusicHandler implements BaseHandler {
         resultMap.put("userFavoriteMusicList", List.of());
 
         String json = mapper.write(resultMap);
-        logger.debug("Response: " + json);
+        logger.info("Response: " + json);
         return json;
     }
 }

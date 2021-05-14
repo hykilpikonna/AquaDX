@@ -37,7 +37,7 @@ public class GetUserLoginBonusHandler  implements BaseHandler {
         resultMap.put("userLoginBonusList", List.of());
 
         String json = mapper.write(resultMap);
-        logger.debug("Response: " + json);
+        logger.info("Response: " + json);
         return json;
     }
 }

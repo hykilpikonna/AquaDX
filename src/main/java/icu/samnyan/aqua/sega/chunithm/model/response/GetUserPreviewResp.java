@@ -34,5 +34,7 @@ public class GetUserPreviewResp {
     private int playerLevel;
     private int rating;
     private int headphone;
+    private int chargeState;
+    private String userNameEx;
 
 }
