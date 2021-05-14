@@ -148,11 +148,11 @@ public class ChuniServletController {
         return getGameSettingHandler.handle(request);
     }
 
-    @PostMapping("GetTeamCourseRuleHandlerApi")
+    @PostMapping("GetTeamCourseRuleApi")
     String getTeamCourseRule(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getTeamCourseRuleHandler.handle(request);
     }
-    @PostMapping("GetTeamCourseSettingHandlerApi")
+    @PostMapping("GetTeamCourseSettingApi")
     String getTeamCourseSetting(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getTeamCourseSettingHandler.handle(request);
     }

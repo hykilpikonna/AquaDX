@@ -29,8 +29,6 @@ public class GetTeamCourseRuleHandler implements BaseHandler {
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         String userId = (String) request.get("userId");
 
-        List tcr = new ArrayList<>();
-
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userId);
         resultMap.put("length", 0);

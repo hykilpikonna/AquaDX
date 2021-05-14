@@ -29,15 +29,15 @@ public class GetUserTeamHandler implements BaseHandler {
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userId);
-        resultMap.put("teamId", 0);
-        resultMap.put("teamRank", 0);
-        resultMap.put("teamName", "");
+        resultMap.put("teamId", 1);
+        resultMap.put("teamRank", 1);
+        resultMap.put("teamName", "AQUA");
 
         Map<String, Object> userTeamMap = new LinkedHashMap<>();
         userTeamMap.put("userId", userId);
-        userTeamMap.put("teamId", 0);
-        userTeamMap.put("orderId", 0);
-        userTeamMap.put("teamPoint", 0);
+        userTeamMap.put("teamId", 1);
+        userTeamMap.put("orderId", 1);
+        userTeamMap.put("teamPoint", 1);
         userTeamMap.put("aggrDate", playDate);
 
         resultMap.put("userTeamPoint", userTeamMap);

@@ -103,7 +103,7 @@ public class GetUserPreviewHandler implements BaseHandler {
             resp.setHeadphone(userGameOption.getHeadphone());
         });
 
-        resp.setChargeState(0);
+        resp.setChargeState(1);
         resp.setUserNameEx(user.getUserName());
 
         String json = mapper.write(resp);
