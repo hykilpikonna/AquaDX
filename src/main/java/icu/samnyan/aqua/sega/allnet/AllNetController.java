@@ -126,7 +126,10 @@ public class AllNetController {
             case "SDDT":
                 return "http://" + HOST + ":" + PORT + "/OngekiServlet/";
             case "SDEY":
-                return "http://" + HOST + ":" + PORT + "/";
+                return "http://" + HOST + ":" + PORT + "/MaimaiServlet/";
+            case "SDEZ":
+                // This leads to http://HOST+PORT/Maimai2Servlet/
+                return HOST + ":" + PORT + "/";
             default:
                 return "http://" + HOST + ":" + PORT + "/";
         }
