@@ -2,7 +2,9 @@
 An multipurpose game server power by Spring Boot.
 
 ### Supported Game:
-* CHUNITHM Amazon Plus ( And below )
+* CHUNITHM Paradise Lost (and below)
+* Maimai DX Splash
+* Maimai Finale (not tested)
 * Project DIVA Arcade Future Tone
 * O.N.G.E.K.I. SUMMER
 * O.N.G.E.K.I. PLUS
@@ -40,14 +42,20 @@ Support auto profile downgrade now. You can just run any legacy version, but wor
 ### Other Information:
 This server provide a simple API for changing some DIVA's setting.
 
-A Web App can be found on https://github.com/samnyan/aqua-viewer
-
-Live Version: http://aqua.samnyan.icu/
-
 And DIVA screenshot will be save in data folder.
 
 
 ### Changelog:
+v0.0.17: **[This will do database update]**
+
+[maimai2] Add support for Maimai DX Splash
+
+[chuni] Enable standard course and team function
+
+[chuni] Add support for CHUNITHM Paradise Lost
+
+[maimai] Add Maimai Finale support
+
 v0.0.16: **[This will do database update]**
 
 [chuni] Add support for CHUNITHM Amazon Plus
