@@ -83,7 +83,7 @@ public class UpsertUserAllHandler implements BaseHandler {
 
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
-        Long userId = (Long) request.get("userId");
+        long userId = ((Number) request.get("userId")).longValue();
         UpsertUserAll upsertUserAll = mapper.convert(request.get("upsertUserAll"), UpsertUserAll.class);
 
         // All the field should exist, no need to check now.

@@ -6,6 +6,7 @@ An multipurpose game server power by Spring Boot.
 * Maimai DX Splash
 * Maimai Finale (not tested)
 * Project DIVA Arcade Future Tone
+* O.N.G.E.K.I. RED PLUS
 * O.N.G.E.K.I. SUMMER
 * O.N.G.E.K.I. PLUS
 
@@ -34,9 +35,9 @@ This will be send to the game at booting and being used by following request.
 
 And you can switch to MySQL(MariaDB) database by commenting the Sqlite part.
 
-####Game specific setting:
+#### Game specific setting:
 
-#####CHUNITHM:
+##### CHUNITHM:
 Support auto profile downgrade now. You can just run any legacy version, but works better if you set a different keychip serial.
 
 ### Other Information:
@@ -46,6 +47,10 @@ And DIVA screenshot will be save in data folder.
 
 
 ### Changelog:
+v0.0.18:
+
+[ONGEKI] Add support for ONGEKI Red Plus
+
 v0.0.17: **[This will do database update]**
 
 [maimai2] Add support for Maimai DX Splash

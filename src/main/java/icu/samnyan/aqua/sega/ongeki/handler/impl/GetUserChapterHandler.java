@@ -35,7 +35,7 @@ public class GetUserChapterHandler implements BaseHandler {
 
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
-        Long userId = (Long) request.get("userId");
+        long userId = ((Number) request.get("userId")).longValue();
 
         List<UserChapter> chapterList = userChapterRepository.findByUser_Card_ExtId(userId);
         Map<String, Object> resultMap = new LinkedHashMap<>();

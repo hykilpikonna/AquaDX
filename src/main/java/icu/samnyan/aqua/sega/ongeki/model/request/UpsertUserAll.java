@@ -25,6 +25,8 @@ public class UpsertUserAll implements Serializable {
 
     private List<UserPlaylog> userPlaylogList;
 
+    private List<Map<String, Object>> userJewelboostlogList;
+
     private List<Map<String, Object>> userSessionlogList;
 
     private List<UserActivity> userActivityList;
@@ -77,6 +79,16 @@ public class UpsertUserAll implements Serializable {
 
     private List<UserScenario> userScenarioList;
 
+    private List<Map<String, Object>> userTradeItemList;
+
+    private List<Map<String, Object>> userEventMusicList;
+
+    private List<Map<String, Object>> userTechEventList;
+
+    private List<Map<String, Object>> userKopList;
+
+    private Map<String, Object> clientSystemInfo;
+
     @JsonProperty("isNewMusicDetailList")
     private String isNewMusicDetailList;
 
@@ -115,5 +127,26 @@ public class UpsertUserAll implements Serializable {
 
     @JsonProperty("isNewRatinglogList")
     private String isNewRatinglogList;
+
+    @JsonProperty("isNewBossList")
+    private String isNewBossList;
+
+    @JsonProperty("isNewTechCountList")
+    private String isNewTechCountList;
+
+    @JsonProperty("isNewScenarioList")
+    private String isNewScenarioList;
+
+    @JsonProperty("isNewTradeItemList")
+    private String isNewTradeItemList;
+
+    @JsonProperty("isNewEventMusicList")
+    private String isNewEventMusicList;
+
+    @JsonProperty("isNewTechEventList")
+    private String isNewTechEventList;
+
+    @JsonProperty("isNewKopList")
+    private String isNewKopList;
 
 }

@@ -35,7 +35,7 @@ public class GetUserEventPointHandler implements BaseHandler {
 
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
-        Long userId = (Long) request.get("userId");
+        long userId = ((Number) request.get("userId")).longValue();
 
         List<UserEventPoint> eventPointList = userEventPointRepository.findByUser_Card_ExtId(userId);
 
