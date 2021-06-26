@@ -38,7 +38,8 @@ And you can switch to MySQL(MariaDB) database by commenting the Sqlite part.
 #### Game specific setting:
 
 ##### CHUNITHM:
-Support auto profile downgrade now. You can just run any legacy version, but works better if you set a different keychip serial.
+- Support auto profile downgrade now. You can just run any legacy version, but works better if you set a different keychip serial.
+- You can enable team function and customize team name by changing `game.chunithm.team-name` value. Leave this blank to disable team function.
 
 ### Other Information:
 This server provide a simple API for changing some DIVA's setting.

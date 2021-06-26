@@ -5,6 +5,7 @@ import icu.samnyan.aqua.sega.chunithm.handler.BaseHandler;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
@@ -17,9 +18,12 @@ public class GetUserTeamHandler implements BaseHandler {
 
     private final StringMapper mapper;
 
+    private final String teamName;
 
-    public GetUserTeamHandler(StringMapper mapper) {
+
+    public GetUserTeamHandler(StringMapper mapper, @Value("${game.chunithm.team-name:#{null}}") String teamName) {
         this.mapper = mapper;
+        this.teamName = teamName;
     }
 
     @Override
@@ -29,18 +33,23 @@ public class GetUserTeamHandler implements BaseHandler {
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userId);
-        resultMap.put("teamId", 1);
-        resultMap.put("teamRank", 1);
-        resultMap.put("teamName", "AQUA");
 
-        Map<String, Object> userTeamMap = new LinkedHashMap<>();
-        userTeamMap.put("userId", userId);
-        userTeamMap.put("teamId", 1);
-        userTeamMap.put("orderId", 1);
-        userTeamMap.put("teamPoint", 1);
-        userTeamMap.put("aggrDate", playDate);
+        if (teamName != null && !teamName.isEmpty()) {
+            resultMap.put("teamId", 1);
+            resultMap.put("teamRank", 1);
+            resultMap.put("teamName", teamName);
 
-        resultMap.put("userTeamPoint", userTeamMap);
+            Map<String, Object> userTeamMap = new LinkedHashMap<>();
+            userTeamMap.put("userId", userId);
+            userTeamMap.put("teamId", 1);
+            userTeamMap.put("orderId", 1);
+            userTeamMap.put("teamPoint", 1);
+            userTeamMap.put("aggrDate", playDate);
+
+            resultMap.put("userTeamPoint", userTeamMap);
+        } else {
+            resultMap.put("teamId", 0);
+        }
 
         String json = mapper.write(resultMap);
         logger.info("Response: " + json);
