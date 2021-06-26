@@ -5,14 +5,15 @@ package icu.samnyan.aqua.sega.chunithm.model.gamedata;
  */
 public enum Genre {
     POPS_ANIME("POPS & ANIME"),
-    RESERVE("Reserve"),
+    GAME("GAME"),
     NICONICO("niconico"),
     TOUHOU("東方Project"),
     RESERVE2("Reserve2"),
     ORIGINAL("Original"),
     VARIETY("Variety"),
     IRODORI("イロドリミドリ"),
-    KOTONOHA("言ノ葉Project");
+    KOTONOHA("言ノ葉Project"),
+    GEKICHUMA("ゲキマイ");
 
 
     private String displayName;
