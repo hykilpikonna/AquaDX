@@ -79,13 +79,13 @@ public class UpsertUserAll implements Serializable {
 
     private List<UserScenario> userScenarioList;
 
-    private List<Map<String, Object>> userTradeItemList;
+    private List<UserTradeItem> userTradeItemList;
 
-    private List<Map<String, Object>> userEventMusicList;
+    private List<UserEventMusic> userEventMusicList;
 
-    private List<Map<String, Object>> userTechEventList;
+    private List<UserTechEvent> userTechEventList;
 
-    private List<Map<String, Object>> userKopList;
+    private List<UserKop> userKopList;
 
     private Map<String, Object> clientSystemInfo;
 

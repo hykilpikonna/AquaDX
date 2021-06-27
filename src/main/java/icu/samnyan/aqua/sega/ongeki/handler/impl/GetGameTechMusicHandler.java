@@ -32,6 +32,8 @@ public class GetGameTechMusicHandler implements BaseHandler {
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         List<Object> techMusicList = new ArrayList<>();
 
+        // This endpoint seems related to "techchallengeevent" in game data, TBD
+
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("length", 0);
         resultMap.put("gameTechMusicList", techMusicList);

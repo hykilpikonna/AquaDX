@@ -53,10 +53,14 @@ public class UpsertUserAllHandler implements BaseHandler {
     private final UserBossRepository userBossRepository;
     private final UserScenarioRepository userScenarioRepository;
     private final UserTechCountRepository userTechCountRepository;
+    private final UserTradeItemRepository userTradeItemRepository;
+    private final UserEventMusicRepository userEventMusicRepository;
+    private final UserTechEventRepository userTechEventRepository;
+    private final UserKopRepository userKopRepository;
 
     @Autowired
     public UpsertUserAllHandler(BasicMapper mapper,
-                                CardService cardService, UserDataRepository userDataRepository, UserOptionRepository userOptionRepository, UserPlaylogRepository userPlaylogRepository, UserActivityRepository userActivityRepository, UserMusicDetailRepository userMusicDetailRepository, UserCharacterRepository userCharacterRepository, UserCardRepository userCardRepository, UserDeckRepository userDeckRepository, UserStoryRepository userStoryRepository, UserChapterRepository userChapterRepository, UserItemRepository userItemRepository, UserMusicItemRepository userMusicItemRepository, UserLoginBonusRepository userLoginBonusRepository, UserEventPointRepository userEventPointRepository, UserMissionPointRepository userMissionPointRepository, UserTrainingRoomRepository userTrainingRoomRepository, UserGeneralDataRepository userGeneralDataRepository, UserBossRepository userBossRepository, UserScenarioRepository userScenarioRepository, UserTechCountRepository userTechCountRepository) {
+                                CardService cardService, UserDataRepository userDataRepository, UserOptionRepository userOptionRepository, UserPlaylogRepository userPlaylogRepository, UserActivityRepository userActivityRepository, UserMusicDetailRepository userMusicDetailRepository, UserCharacterRepository userCharacterRepository, UserCardRepository userCardRepository, UserDeckRepository userDeckRepository, UserStoryRepository userStoryRepository, UserChapterRepository userChapterRepository, UserItemRepository userItemRepository, UserMusicItemRepository userMusicItemRepository, UserLoginBonusRepository userLoginBonusRepository, UserEventPointRepository userEventPointRepository, UserMissionPointRepository userMissionPointRepository, UserTrainingRoomRepository userTrainingRoomRepository, UserGeneralDataRepository userGeneralDataRepository, UserBossRepository userBossRepository, UserScenarioRepository userScenarioRepository, UserTechCountRepository userTechCountRepository, UserTradeItemRepository userTradeItemRepository, UserEventMusicRepository userEventMusicRepository, UserTechEventRepository userTechEventRepository, UserKopRepository userKopRepository) {
         this.mapper = mapper;
         this.cardService = cardService;
         this.userDataRepository = userDataRepository;
@@ -79,6 +83,10 @@ public class UpsertUserAllHandler implements BaseHandler {
         this.userBossRepository = userBossRepository;
         this.userScenarioRepository = userScenarioRepository;
         this.userTechCountRepository = userTechCountRepository;
+        this.userTradeItemRepository = userTradeItemRepository;
+        this.userEventMusicRepository = userEventMusicRepository;
+        this.userTechEventRepository = userTechEventRepository;
+        this.userKopRepository = userKopRepository;
     }
 
     @Override
@@ -131,7 +139,7 @@ public class UpsertUserAllHandler implements BaseHandler {
         userPlaylogRepository.saveAll(newUserPlaylogList);
 
 
-        // UserSessionlogList doesn't need to save for a private server
+        // UserSessionlogList, UserJewelboostlogLost doesn't need to save for a private server
 
 
         // UserActivityList
@@ -450,6 +458,73 @@ public class UpsertUserAllHandler implements BaseHandler {
             userScenarioRepository.saveAll(newUserScenarioList);
         }
 
+        // UserTradeItemList
+        List<UserTradeItem> userTradeItemList = upsertUserAll.getUserTradeItemList();
+        List<UserTradeItem> newUserTradeItemList = new ArrayList<>();
+
+        for (UserTradeItem newUserTradeItem : userTradeItemList) {
+            int chapterId = newUserTradeItem.getChapterId();
+            int tradeItemId = newUserTradeItem.getTradeItemId();
+
+            Optional<UserTradeItem> tradeItemOptional = userTradeItemRepository.findByUserAndChapterIdAndTradeItemId(newUserData, chapterId, tradeItemId);
+            UserTradeItem userTradeItem = tradeItemOptional.orElseGet(() -> new UserTradeItem(newUserData));
+
+            newUserTradeItem.setId(userTradeItem.getId());
+            newUserTradeItem.setUser(newUserData);
+            newUserTradeItemList.add(newUserTradeItem);
+        }
+        userTradeItemRepository.saveAll(newUserTradeItemList);
+
+        // UserEventMusicList
+        List<UserEventMusic> userEventMusicList = upsertUserAll.getUserEventMusicList();
+        List<UserEventMusic> newUserEventMusicList = new ArrayList<>();
+
+        for (UserEventMusic newUserEventMusic : userEventMusicList) {
+            int eventId = newUserEventMusic.getEventId();
+            int type = newUserEventMusic.getType();
+            int musicId = newUserEventMusic.getMusicId();
+
+            Optional<UserEventMusic> eventMusicOptional = userEventMusicRepository.findByUserAndEventIdAndTypeAndMusicId(newUserData, eventId, type, musicId);
+            UserEventMusic userEventMusic = eventMusicOptional.orElseGet(() -> new UserEventMusic(newUserData));
+
+            newUserEventMusic.setId(userEventMusic.getId());
+            newUserEventMusic.setUser(newUserData);
+            newUserEventMusicList.add(newUserEventMusic);
+        }
+        userEventMusicRepository.saveAll(newUserEventMusicList);
+
+        // UserTechEventList
+        List<UserTechEvent> userTechEventList = upsertUserAll.getUserTechEventList();
+        List<UserTechEvent> newUserTechEventList = new ArrayList<>();
+
+        for (UserTechEvent newUserTechEvent : userTechEventList) {
+            int eventId = newUserTechEvent.getEventId();
+
+            Optional<UserTechEvent> techEventOptional = userTechEventRepository.findByUserAndEventId(newUserData, eventId);
+            UserTechEvent userTechEvent = techEventOptional.orElseGet(() -> new UserTechEvent(newUserData));
+
+            newUserTechEvent.setId(userTechEvent.getId());
+            newUserTechEvent.setUser(newUserData);
+            newUserTechEventList.add(newUserTechEvent);
+        }
+        userTechEventRepository.saveAll(newUserTechEventList);
+
+        // UserKopList
+        List<UserKop> userKopList = upsertUserAll.getUserKopList();
+        List<UserKop> newUserKopList = new ArrayList<>();
+
+        for (UserKop newUserKop : userKopList) {
+            int kopId = newUserKop.getKopId();
+            int areaId = newUserKop.getAreaId();
+
+            Optional<UserKop> kopOptional = userKopRepository.findByUserAndKopIdAndAreaId(newUserData, kopId, areaId);
+            UserKop userKop = kopOptional.orElseGet(() -> new UserKop(newUserData));
+
+            newUserKop.setId(userKop.getId());
+            newUserKop.setUser(newUserData);
+            newUserKopList.add(newUserKop);
+        }
+        userKopRepository.saveAll(newUserKopList);
 
         String json = mapper.write(new CodeResp(1, "upsertUserAll"));
         logger.info("Response: " + json);
