@@ -48,6 +48,18 @@ And DIVA screenshot will be save in data folder.
 
 
 ### Changelog:
+v0.0.19: **[This will do database update]**
+
+[chuni] Add missing data: skill, character, music, music level
+
+[ongeki] Add missing data: card, character, music, event
+
+[ongeki] Add proper endpoint for new APIs
+
+[chuni] Add team name customization feature
+
+[api] Fix broken chunithm API
+
 v0.0.18:
 
 [ONGEKI] Add support for ONGEKI Red Plus
