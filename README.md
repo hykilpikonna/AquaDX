@@ -48,6 +48,12 @@ And DIVA screenshot will be save in data folder.
 
 
 ### Changelog:
+v0.0.19a: **[This will do database update]**
+
+[ongeki] Add game data: card, music, event
+
+[ongeki] Fix judgement offset saving
+
 v0.0.19: **[This will do database update]**
 
 [chuni] Add missing data: skill, character, music, music level
