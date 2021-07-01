@@ -394,7 +394,7 @@ class OngekiRepositoryTest {
     }
 
     private UserOption getOption(UserData u) {
-        return new UserOption(-1, u, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+        return new UserOption(-1, u, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
     }
 
     private UserPlaylog getPlaylog(UserData u, Integer musicId) {
