@@ -48,6 +48,15 @@ And DIVA screenshot will be save in data folder.
 
 
 ### Changelog:
+
+v0.0.19c:
+
+[maimai2] Fix incorrect scope during save UserRating
+
+v0.0.19b:
+
+[chuni] Add game data: event, music, music level
+
 v0.0.19a: **[This will do database update]**
 
 [ongeki] Add game data: card, music, event
