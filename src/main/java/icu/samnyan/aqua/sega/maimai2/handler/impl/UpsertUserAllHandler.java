@@ -196,8 +196,9 @@ public class UpsertUserAllHandler implements BaseHandler {
             // UserRate
             for (UserRate newUserRate : userRateList) {
                 int musicId = newUserRate.getMusicId();
+                int musicLevel = newUserRate.getLevel();
 
-                Optional<UserRate> rateOptional = userRateRepository.findByUserAndMusicId(newUserData, musicId);
+                Optional<UserRate> rateOptional = userRateRepository.findByUserAndMusicIdAndLevel(newUserData, musicId, musicLevel);
                 UserRate userRate = rateOptional.orElseGet(() -> new UserRate(newUserData));
 
                 newUserRate.setId(userRate.getId());

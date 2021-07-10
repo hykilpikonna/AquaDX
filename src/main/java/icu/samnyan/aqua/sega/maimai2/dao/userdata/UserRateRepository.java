@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 @Repository("Maimai2UserRateRepository")
 public interface UserRateRepository extends JpaRepository<UserRate, Long> {
 
-    Optional<UserRate> findByUserAndMusicId(UserDetail user, int musicId);
+    Optional<UserRate> findByUserAndMusicIdAndLevel(UserDetail user, int musicId, int level);
 
     List<UserRate> findByUser_Card_ExtId(long userId);
 
