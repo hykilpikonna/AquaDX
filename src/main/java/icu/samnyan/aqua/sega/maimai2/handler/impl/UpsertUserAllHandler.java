@@ -70,6 +70,11 @@ public class UpsertUserAllHandler implements BaseHandler {
         long userId = upsertUserAll.getUserId();
         UserAll userAll = upsertUserAll.getUpsertUserAll();
 
+        // If user is guest, just return OK response.
+        if ((userId & 281474976710657L) == 281474976710657L) {
+            return "{\"returnCode\":1,\"apiName\":\"com.sega.maimai2servlet.api.UpsertUserAllApi\"}";
+        } 
+
         // UserData
         UserDetail userData;
         UserDetail newUserData;
