@@ -32,6 +32,10 @@ public class UserCharacter implements Serializable {
     private UserData user;
 
     private int characterId;
+    
+    private int costumeId;
+
+    private int attachmentId;
 
     private int playCount;
 

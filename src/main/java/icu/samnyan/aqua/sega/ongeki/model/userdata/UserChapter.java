@@ -39,6 +39,8 @@ public class UserChapter implements Serializable {
 
     private int lastPlayMusicId;
 
+    private int lastPlayMusicLevel;
+
     @JsonProperty("isStoryWatched")
     private boolean isStoryWatched;
 

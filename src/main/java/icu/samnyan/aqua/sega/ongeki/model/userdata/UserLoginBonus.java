@@ -34,6 +34,8 @@ public class UserLoginBonus implements Serializable {
 
     private int bonusCount;
 
+    private String lastUpdateDate;
+
     public UserLoginBonus(UserData userData) {
         this.user = userData;
     }

@@ -338,7 +338,7 @@ class OngekiRepositoryTest {
     }
 
     private UserData getUser(Card c) {
-        return new UserData(-1, c, "Hello", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "2020", "SDDT", "1.00.00", "1.00.00", "2020", "SDDT", "1.00.00", "1.00.00", "", "2020", 0, "0", 0, "123", 0, "A000000", 0, 0);
+        return new UserData(-1, c, "Hello", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "2020", "2020", "SDDT", "1.00.00", "1.00.00", "2020", "SDDT", "1.00.00", "1.00.00", "", "2020", 0, "0", 0, "123", 0, "A000000", 0, 0);
     }
 
     private UserActivity getActivity(UserData u, Integer activityId) {
@@ -346,7 +346,7 @@ class OngekiRepositoryTest {
     }
 
     private UserBoss getBoss(UserData u, Integer musicId) {
-        return new UserBoss(-1, u, musicId, 10, false);
+        return new UserBoss(-1, u, musicId, 10, false, 0);
     }
 
     private UserCard getUserCard(UserData u, Integer cardId) {
@@ -354,11 +354,11 @@ class OngekiRepositoryTest {
     }
 
     private UserChapter getChapter(UserData u, Integer chapterId) {
-        return new UserChapter(-1, u, chapterId, 10, 1, 1, true, true, 1, 1);
+        return new UserChapter(-1, u, chapterId, 10, 1, 1, 0, true, true, 1, 1);
     }
 
     private UserCharacter getCharacter(UserData u, Integer characterId) {
-        return new UserCharacter(-1, u, characterId, 10, 1, 1, 1, "2020", false);
+        return new UserCharacter(-1, u, characterId, 0, 0, 10, 1, 1, 1, "2020", false);
     }
 
     private UserDeck getDeck(UserData u, Integer deckId) {
@@ -378,7 +378,7 @@ class OngekiRepositoryTest {
     }
 
     private UserLoginBonus getLoginBonus(UserData u, Integer bonusId) {
-        return new UserLoginBonus(-1, u, bonusId, 1);
+        return new UserLoginBonus(-1, u, bonusId, 1, "2020");
     }
 
     private UserMissionPoint getMissionPoint(UserData u, Integer eventId) {
@@ -394,7 +394,7 @@ class OngekiRepositoryTest {
     }
 
     private UserOption getOption(UserData u) {
-        return new UserOption(-1, u, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+        return new UserOption(-1, u, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
     }
 
     private UserPlaylog getPlaylog(UserData u, Integer musicId) {

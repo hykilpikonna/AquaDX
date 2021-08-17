@@ -38,6 +38,8 @@ public class UserBoss implements Serializable {
     @JsonProperty("isClear")
     private boolean isClear;
 
+    private int eventId;
+
     public UserBoss(UserData userData) {
         this.user = userData;
     }
