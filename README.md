@@ -49,6 +49,14 @@ And DIVA screenshot will be save in data folder.
 
 ### Changelog:
 
+v0.020: **[This will do database update]**
+
+[chuni] Fix: make event popup to not show
+
+[ongeki] Add table properties for Red Plus
+
+[maimai2] Fix play record saving when guest is involved
+
 v0.019e:
 
 [chuni] Add game data: chara, skill, event, music, music level
