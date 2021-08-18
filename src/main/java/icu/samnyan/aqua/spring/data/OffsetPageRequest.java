@@ -153,4 +153,9 @@ public class OffsetPageRequest implements Pageable, Serializable {
         return this.offset == other.offset && this.limit == other.limit;
     }
 
+    @Override
+    public Pageable withPage(int pageNumber) {
+        return new OffsetPageRequest(pageNumber, getPageSize(), getSort());
+    }
+
 }
