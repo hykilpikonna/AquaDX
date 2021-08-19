@@ -49,6 +49,12 @@ And DIVA screenshot will be save in data folder.
 
 ### Changelog:
 
+v0.021: **[This will do database update]**
+
+Update to Spring Boot 2.5
+
+[maimai2] Experimental Splash Plus Support
+
 v0.020a:
 
 [chuni] Add game data: chara, skill, event, music, music level
