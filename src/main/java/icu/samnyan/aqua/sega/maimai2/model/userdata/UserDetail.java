@@ -52,6 +52,8 @@ public class UserDetail implements Serializable {
     private int playerRating;
     private int highestRating;
     private int gradeRank;
+    private int classRank;
+    private int courseRank;
 
     @Convert(converter = IntegerListConverter.class)
     private List<Integer> charaSlot; // Entries: 5
@@ -67,6 +69,8 @@ public class UserDetail implements Serializable {
     private String lastDataVersion;
     private String lastLoginDate;
     private String lastPlayDate;
+    private int lastPlayCredit;
+    private int lastPlayMode;
     private int lastPlaceId;
     private String lastPlaceName;
     private int lastAllNetId;
@@ -74,12 +78,17 @@ public class UserDetail implements Serializable {
     private String lastRegionName;
     private String lastClientId;
     private String lastCountryCode;
+    private int lastSelectEMoney;
+    private int lastSelectTicket;
+    private int lastSelectCourse;
+    private int lastCountCourse;
     private String firstGameId;
     private String firstRomVersion;
     private String firstDataVersion;
     private String firstPlayDate;
     private String compatibleCmVersion;
     private String dailyBonusDate;
+    private String dailyCourseBonusDate;
     private int playVsCount;
     private int playSyncCount;
     private int winCount;

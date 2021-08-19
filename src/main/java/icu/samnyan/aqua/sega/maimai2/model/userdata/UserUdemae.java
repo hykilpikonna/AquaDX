@@ -32,6 +32,8 @@ public class UserUdemae implements Serializable {
 
     private int rate;
     private int maxRate;
+    private int classValue;
+    private int maxClassValue;
     private int totalWinNum;
     private int totalLoseNum;
     private int maxWinNum;

@@ -21,6 +21,7 @@ public class Maimai2ServletController {
     private final GetGameEventHandler getGameEventHandler;
     private final GetGameRankingHandler getGameRankingHandler;
     private final GetGameTournamentInfoHandler getGameTournamentInfoHandler;
+    private final GetGameChargeHandler getGameChargeHandler;
     private final GetTransferFriendHandler getTransferFriendHandler;
     private final GetUserActivityHandler getUserActivityHandler;
     private final UserLoginHandler userLoginHandler;
@@ -40,13 +41,16 @@ public class Maimai2ServletController {
     private final GetUserMusicHandler getUserMusicHandler;
     private final GetUserRatingHandler getUserRatingHandler;
     private final GetUserRegionHandler getUserRegionHandler;
+    private final GetUserChargeHandler getUserChargeHandler;
+    private final GetUserCourseHandler getUserCourseHandler;
 
     public Maimai2ServletController(GetGameSettingHandler getGameSettingHandler, GetGameEventHandler getGameEventHandler, GetGameRankingHandler getGameRankingHandler, GetGameTournamentInfoHandler getGameTournamentInfoHandler,
     GetTransferFriendHandler getTransferFriendHandler, GetUserActivityHandler getUserActivityHandler, UserLoginHandler userLoginHandler, UserLogoutHandler userLogoutHandler,
     GetUserDataHandler getUserDataHandler, UpsertUserAllHandler upsertUserAllHandler, GetUserPreviewHandler getUserPreviewHandler, GetUserCharacterHandler getUserCharacterHandler,
     GetUserOptionHandler getUserOptionHandler, GetUserItemHandler getUserItemHandler, GetUserExtendHandler getUserExtendHandler, GetUserGhostHandler getUserGhostHandler,
     GetUserLoginBonusHandler getUserLoginBonusHandler, GetUserMapHandler getUserMapHandler, GetUserFavoriteHandler getUserFavoriteHandler,
-    GetUserCardHandler getUserCardHandler, GetUserMusicHandler getUserMusicHandler, GetUserRatingHandler getUserRatingHandler, GetUserRegionHandler getUserRegionHandler) {
+    GetUserCardHandler getUserCardHandler, GetUserMusicHandler getUserMusicHandler, GetUserRatingHandler getUserRatingHandler, GetUserRegionHandler getUserRegionHandler,
+    GetGameChargeHandler getGameChargeHandler, GetUserChargeHandler getUserChargeHandler, GetUserCourseHandler getUserCourseHandler) {
         this.getGameSettingHandler = getGameSettingHandler;
         this.getGameEventHandler = getGameEventHandler;
         this.getGameRankingHandler = getGameRankingHandler;
@@ -70,6 +74,9 @@ public class Maimai2ServletController {
         this.getUserMusicHandler = getUserMusicHandler;
         this.getUserRatingHandler = getUserRatingHandler;
         this.getUserRegionHandler = getUserRegionHandler;
+        this.getGameChargeHandler = getGameChargeHandler;
+        this.getUserChargeHandler = getUserChargeHandler;
+        this.getUserCourseHandler = getUserCourseHandler;
     }
 
     // Mandatory for boot
@@ -240,6 +247,27 @@ public class Maimai2ServletController {
     @PostMapping("UpsertUserAllApi")
     public String upsertUserAllHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return upsertUserAllHandler.handle(request);
+    }
+
+    // Splash plus APIs
+    @PostMapping("GetGameChargeApi")
+    public String getGameChargeHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getGameChargeHandler.handle(request);
+    }
+
+    @PostMapping("GetUserChargeApi")
+    public String getUserChargeHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserChargeHandler.handle(request);
+    }
+
+    @PostMapping("UploadUserChargelogApi")
+    public String uploadUserChargelog(@ModelAttribute Map<String, Object> request) {
+        return "{\"returnCode\":1,\"apiName\":\"com.sega.maimai2servlet.api.UploadUserChargelogApi\"}";
+    }
+
+    @PostMapping("GetUserCourseApi")
+    public String getUserCourseHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserCourseHandler.handle(request);
     }
 
 }

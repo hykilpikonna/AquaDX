@@ -58,6 +58,7 @@ public class UserOption implements Serializable {
     private int dispJudgePos;
     private int dispJudgeTouchPos;
     private int adjustTiming;
+    private int judgeTiming;
     private int ansVolume;
     private int tapHoldVolume;
     private int criticalSe;

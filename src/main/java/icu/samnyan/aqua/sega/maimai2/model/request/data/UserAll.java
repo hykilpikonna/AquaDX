@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -17,22 +18,26 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserAll implements Serializable {
-		public List<UserDetail> userData;
-		public List<UserExtend> userExtend;
-		public List<UserOption> userOption;
-		public List<UserCharacter> userCharacterList;
-		public List<UserGhost> userGhost;
-		public List<UserMap> userMapList;
-		public List<UserLoginBonus> userLoginBonusList;
-		public List<UserRating> userRatingList;
-		public List<UserItem> userItemList;
-		public List<UserMusicDetail> userMusicDetailList;
-		public List<UserFavorite> userFavoriteList;
-		public List<UserActivity> userActivityList;
-		public String isNewCharacterList;
-		public String isNewMapList;
-		public String isNewLoginBonusList;
-		public String isNewItemList;
-		public String isNewMusicDetailList;
-		public String isNewFavoriteList;
+	private List<UserDetail> userData;
+	private List<UserExtend> userExtend;
+	private List<UserOption> userOption;
+	private List<UserCharacter> userCharacterList;
+	private List<UserGhost> userGhost;
+	private List<UserMap> userMapList;
+	private List<UserLoginBonus> userLoginBonusList;
+	private List<UserRating> userRatingList;
+	private List<UserItem> userItemList;
+	private List<UserMusicDetail> userMusicDetailList;
+	private List<UserCourse> userCourseList;
+	private List<UserCharge> userChargeList;
+	private List<UserFavorite> userFavoriteList;
+	private List<UserActivity> userActivityList;
+	private Map<String, Object> userGamePlaylogList;
+	private String isNewCharacterList;
+	private String isNewMapList;
+	private String isNewLoginBonusList;
+	private String isNewItemList;
+	private String isNewMusicDetailList;
+	private String isNewCourseList;
+	private String isNewFavoriteList;
 }

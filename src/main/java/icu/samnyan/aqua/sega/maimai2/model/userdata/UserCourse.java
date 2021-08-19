@@ -1,7 +1,6 @@
 package icu.samnyan.aqua.sega.maimai2.model.userdata;
 
 import java.io.Serializable;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,17 +11,15 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import icu.samnyan.aqua.sega.maimai2.util.IntegerListConverter;
-
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
-@Entity(name = "Maimai2UserFavorite")
-@Table(name = "maimai2_user_favorite")
+@Entity(name = "MaiMai2UserCourse")
+@Table(name = "maimai2_user_course")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserFavorite implements Serializable {
+public class UserCourse implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,14 +31,21 @@ public class UserFavorite implements Serializable {
     @JoinColumn(name = "user_id")
     private UserDetail user;
 
-    @JsonProperty("userId")
-    private long favUserId;
-    private int itemKind;
+    private int courseId;
+    @JsonProperty("isLastClear")
+    private boolean isLastClear;
+    private int totalRestlife;
+    private int totalAchievement;
+    private int totalDeluxscore;
+    private int playCount;
+    private String clearDate;
+    private String lastPlayDate;
+    private int bestAchievement;
+    private String bestAchievementDate;
+    private int bestDeluxscore;
+    private String bestDeluxscoreDate;
 
-    @Convert(converter = IntegerListConverter.class)
-    private List<Integer> itemIdList;
-
-    public UserFavorite(UserDetail user) {
+    public UserCourse(UserDetail user) {
         this.user = user;
     }
 }

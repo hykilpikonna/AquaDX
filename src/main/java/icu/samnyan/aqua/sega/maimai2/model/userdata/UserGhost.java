@@ -19,6 +19,9 @@ public class UserGhost {
 	private int titleId;
 	private int rate;
 	private int udemaeRate;
+	private int courseRank;
+	private int classRank;
+	private int classValue;
 	private String playDatetime;
 	private int shopId;
 	private int regionCode;

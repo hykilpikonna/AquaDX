@@ -15,11 +15,11 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpsertUserAll implements Serializable {
-		public long userId;
-		public long playlogId;
-        @JsonProperty("isEventMode")
-		public boolean isEventMode;
-        @JsonProperty("isFreePlay")
-		public boolean isFreePlay;
-		public UserAll upsertUserAll;
+	private long userId;
+	private long playlogId;
+	@JsonProperty("isEventMode")
+	private boolean isEventMode;
+	@JsonProperty("isFreePlay")
+	private boolean isFreePlay;
+	private UserAll upsertUserAll;
 }
