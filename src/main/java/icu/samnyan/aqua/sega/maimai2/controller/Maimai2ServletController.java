@@ -43,6 +43,7 @@ public class Maimai2ServletController {
     private final GetUserRegionHandler getUserRegionHandler;
     private final GetUserChargeHandler getUserChargeHandler;
     private final GetUserCourseHandler getUserCourseHandler;
+    private final UploadUserPhotoHandler uploadUserPhotoHandler;
 
     public Maimai2ServletController(GetGameSettingHandler getGameSettingHandler, GetGameEventHandler getGameEventHandler, GetGameRankingHandler getGameRankingHandler, GetGameTournamentInfoHandler getGameTournamentInfoHandler,
     GetTransferFriendHandler getTransferFriendHandler, GetUserActivityHandler getUserActivityHandler, UserLoginHandler userLoginHandler, UserLogoutHandler userLogoutHandler,
@@ -50,7 +51,7 @@ public class Maimai2ServletController {
     GetUserOptionHandler getUserOptionHandler, GetUserItemHandler getUserItemHandler, GetUserExtendHandler getUserExtendHandler, GetUserGhostHandler getUserGhostHandler,
     GetUserLoginBonusHandler getUserLoginBonusHandler, GetUserMapHandler getUserMapHandler, GetUserFavoriteHandler getUserFavoriteHandler,
     GetUserCardHandler getUserCardHandler, GetUserMusicHandler getUserMusicHandler, GetUserRatingHandler getUserRatingHandler, GetUserRegionHandler getUserRegionHandler,
-    GetGameChargeHandler getGameChargeHandler, GetUserChargeHandler getUserChargeHandler, GetUserCourseHandler getUserCourseHandler) {
+    GetGameChargeHandler getGameChargeHandler, GetUserChargeHandler getUserChargeHandler, GetUserCourseHandler getUserCourseHandler, UploadUserPhotoHandler uploadUserPhotoHandler) {
         this.getGameSettingHandler = getGameSettingHandler;
         this.getGameEventHandler = getGameEventHandler;
         this.getGameRankingHandler = getGameRankingHandler;
@@ -77,6 +78,7 @@ public class Maimai2ServletController {
         this.getGameChargeHandler = getGameChargeHandler;
         this.getUserChargeHandler = getUserChargeHandler;
         this.getUserCourseHandler = getUserCourseHandler;
+        this.uploadUserPhotoHandler = uploadUserPhotoHandler;
     }
 
     // Mandatory for boot
@@ -196,10 +198,9 @@ public class Maimai2ServletController {
         return "{}";
     }
 
-    // No support
     @PostMapping("UploadUserPhotoApi")
     public String uploadUserPhotoHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
-        return "{\"returnCode\":1,\"apiName\":\"com.sega.maimai2servlet.api.UploadUserPhotoApi\"}";
+        return uploadUserPhotoHandler.handle(request);
     }
 
     @PostMapping("UploadUserPlaylogApi")

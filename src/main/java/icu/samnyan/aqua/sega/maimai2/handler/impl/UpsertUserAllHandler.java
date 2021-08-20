@@ -98,6 +98,9 @@ public class UpsertUserAllHandler implements BaseHandler {
             String userName = new String(newUserData.getUserName());
 
             newUserData.setUserName(userName);
+
+            // Set isNetMember value to 1, which enables some in-game features.
+            newUserData.setIsNetMember(1);
             userDataRepository.saveAndFlush(newUserData);
         }
 
