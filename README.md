@@ -49,6 +49,10 @@ And DIVA screenshot will be save in data folder.
 
 ### Changelog:
 
+v0.0.22a:
+
+[ongeki] Add game data: event, music
+
 v0.0.22: **[This will do database update]**
 
 [chuni] Implement GetGameRankingApi
