@@ -49,17 +49,27 @@ And DIVA screenshot will be save in data folder.
 
 ### Changelog:
 
-v0.021: **[This will do database update]**
+v0.0.22: **[This will do database update]**
+
+[chuni] Implement GetGameRankingApi
+
+[maimai2] Enable isNetUser and implement UploadUserPhotoApi
+
+[maimai2] Implement GetGameEventApi and UploadUserPlaylogApi
+
+[chuni] Add game data: chara, skill, event, music, music level
+
+v0.0.21: **[This will do database update]**
 
 Update to Spring Boot 2.5
 
 [maimai2] Experimental Splash Plus Support
 
-v0.020a:
+v0.0.20a:
 
 [chuni] Add game data: chara, skill, event, music, music level
 
-v0.020: **[This will do database update]**
+v0.0.20: **[This will do database update]**
 
 [chuni] Fix: make event popup to not show
 
@@ -67,13 +77,13 @@ v0.020: **[This will do database update]**
 
 [maimai2] Fix play record saving when guest is involved
 
-v0.019e:
+v0.0.19e:
 
 [chuni] Add game data: chara, skill, event, music, music level
 
 [ongeki] Add game data: event, music
 
-v0.019d:
+v0.0.19d:
 
 [chuni] Add game data: chara, skill, event, music, music level
 
