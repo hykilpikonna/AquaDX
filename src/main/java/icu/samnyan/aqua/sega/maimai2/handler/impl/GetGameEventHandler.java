@@ -1,14 +1,15 @@
 package icu.samnyan.aqua.sega.maimai2.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import icu.samnyan.aqua.sega.maimai2.dao.gamedata.GameEventRepository;
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
+import icu.samnyan.aqua.sega.maimai2.model.gamedata.GameEvent;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,19 +22,20 @@ public class GetGameEventHandler implements BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GetGameEventHandler.class);
 
-    //private final GameEventRepository gameEventRepository;
+    private final GameEventRepository gameEventRepository;
 
     private final StringMapper mapper;
 
-    public GetGameEventHandler(StringMapper mapper) {
+    public GetGameEventHandler(GameEventRepository gameEventRepository, StringMapper mapper) {
+        this.gameEventRepository = gameEventRepository;
         this.mapper = mapper;
     }
 
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
-        String type = Integer.toString((int) request.get("type"));
+        int type = ((Number) request.get("type")).intValue();
 
-        List<Object> gameEventList = new ArrayList<>();
+        List<GameEvent> gameEventList = gameEventRepository.findByTypeAndEnable(type, true);
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("type", type);
