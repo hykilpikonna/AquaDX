@@ -49,6 +49,12 @@ And DIVA screenshot will be save in data folder.
 
 ### Changelog:
 
+v0.0.22b:
+
+[chuni] Add game data: event, music, music level
+
+[ongeki] Add game data: event, music
+
 v0.0.22a:
 
 [ongeki] Add game data: event, music
