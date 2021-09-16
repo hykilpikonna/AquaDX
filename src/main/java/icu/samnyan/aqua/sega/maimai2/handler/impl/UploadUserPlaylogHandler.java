@@ -39,11 +39,20 @@ public class UploadUserPlaylogHandler implements BaseHandler {
         UploadUserPlaylog uploadUserPlaylog = mapper.convert(request, UploadUserPlaylog.class);
 
         Optional<UserDetail> userOptional = userDataRepository.findByCard_ExtId(uploadUserPlaylog.getUserId());
-        UserDetail userDetail = userOptional.orElseThrow();
 
-        UserPlaylog userPlaylog = uploadUserPlaylog.getUserPlaylog();
-        userPlaylog.setUser(userDetail);
-        userPlaylogRepository.save(userPlaylog);
+        /*
+        Due to how we handle userId, first user playlog can't be saved.
+        (sequence order swapped, it sends playlog then user detail)
+        It might be possible to fix this with some workaround, but leave it like this at this time.
+        */
+        if (userOptional.isPresent()) {
+            UserDetail userDetail = userOptional.get();
+
+            UserPlaylog userPlaylog = uploadUserPlaylog.getUserPlaylog();
+
+            userPlaylog.setUser(userDetail);
+            userPlaylogRepository.save(userPlaylog);
+        }
 
         return "{\"returnCode\":1,\"apiName\":\"com.sega.maimai2servlet.api.UploadUserPlaylogApi\"}";
     }
