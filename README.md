@@ -49,6 +49,14 @@ And DIVA screenshot will be save in data folder.
 
 ### Changelog:
 
+v0.0.22c:
+
+[maimai2] Fix play saving on first entry session
+
+[chuni] Add game data: chara, skill, event, music, music level
+
+[ongeki] Add game data: event, music
+
 v0.0.22b:
 
 [chuni] Add game data: event, music, music level
