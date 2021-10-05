@@ -18,6 +18,7 @@ public class AimeDbServerInitializer extends ChannelInitializer<SocketChannel> {
 
     private final CampaignHandler campaignHandler;
     private final FeliCaLookupHandler feliCaLookupHandler;
+    private final FeliCaLookup2Handler feliCaLookup2Handler;
     private final GoodbyeHandler goodbyeHandler;
     private final HelloHandler helloHandler;
     private final LogHandler logHandler;
@@ -26,9 +27,9 @@ public class AimeDbServerInitializer extends ChannelInitializer<SocketChannel> {
     private final RegisterHandler registerHandler;
 
     @Autowired
-    public AimeDbServerInitializer(CampaignHandler campaignHandler, FeliCaLookupHandler feliCaLookupHandler, GoodbyeHandler goodbyeHandler, HelloHandler helloHandler, LogHandler logHandler, LookupHandler lookupHandler, Lookup2Handler lookup2Handler, RegisterHandler registerHandler) {
+    public AimeDbServerInitializer(CampaignHandler campaignHandler, FeliCaLookupHandler feliCaLookupHandler, FeliCaLookup2Handler feliCaLookup2Handler, GoodbyeHandler goodbyeHandler, HelloHandler helloHandler, LogHandler logHandler, LookupHandler lookupHandler, Lookup2Handler lookup2Handler, RegisterHandler registerHandler) {
         this.campaignHandler = campaignHandler;
-
+        this.feliCaLookup2Handler = feliCaLookup2Handler;
         this.feliCaLookupHandler = feliCaLookupHandler;
         this.goodbyeHandler = goodbyeHandler;
         this.helloHandler = helloHandler;
@@ -44,7 +45,7 @@ public class AimeDbServerInitializer extends ChannelInitializer<SocketChannel> {
         ChannelPipeline pipeline = ch.pipeline();
         pipeline.addLast("encoder", new AimeDbEncoder());
         pipeline.addLast("decoder", new AimeDbDecoder());
-        pipeline.addLast("handler", new AimeDbRequestHandler(campaignHandler, feliCaLookupHandler, goodbyeHandler, helloHandler, logHandler, lookupHandler, lookup2Handler, registerHandler));
+        pipeline.addLast("handler", new AimeDbRequestHandler(campaignHandler, feliCaLookupHandler, feliCaLookup2Handler, goodbyeHandler, helloHandler, logHandler, lookupHandler, lookup2Handler, registerHandler));
 
     }
 }

@@ -24,6 +24,7 @@ public class AimeDbRequestHandler extends ChannelInboundHandlerAdapter {
 
     private final CampaignHandler campaignHandler;
     private final FeliCaLookupHandler feliCaLookupHandler;
+    private final FeliCaLookup2Handler feliCaLookup2Handler;
     private final GoodbyeHandler goodbyeHandler;
     private final HelloHandler helloHandler;
     private final LogHandler logHandler;
@@ -32,9 +33,10 @@ public class AimeDbRequestHandler extends ChannelInboundHandlerAdapter {
     private final RegisterHandler registerHandler;
 
     @Autowired
-    public AimeDbRequestHandler(CampaignHandler campaignHandler, FeliCaLookupHandler feliCaLookupHandler, GoodbyeHandler goodbyeHandler, HelloHandler helloHandler, LogHandler logHandler, LookupHandler lookupHandler, Lookup2Handler lookup2Handler, RegisterHandler registerHandler) {
+    public AimeDbRequestHandler(CampaignHandler campaignHandler, FeliCaLookupHandler feliCaLookupHandler, FeliCaLookup2Handler feliCaLookup2Handler, GoodbyeHandler goodbyeHandler, HelloHandler helloHandler, LogHandler logHandler, LookupHandler lookupHandler, Lookup2Handler lookup2Handler, RegisterHandler registerHandler) {
         this.campaignHandler = campaignHandler;
         this.feliCaLookupHandler = feliCaLookupHandler;
+        this.feliCaLookup2Handler = feliCaLookup2Handler;
         this.goodbyeHandler = goodbyeHandler;
         this.helloHandler = helloHandler;
         this.logHandler = logHandler;
@@ -70,6 +72,9 @@ public class AimeDbRequestHandler extends ChannelInboundHandlerAdapter {
                     break;
                 case 0x000f:
                     lookup2Handler.handle(ctx, data);
+                    break;
+                case 0x0011:
+                    feliCaLookup2Handler.handle(ctx, data);
                     break;
                 case 0x0064:
                     helloHandler.handle(ctx, data);
