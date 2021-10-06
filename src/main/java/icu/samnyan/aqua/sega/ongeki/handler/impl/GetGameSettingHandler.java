@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 /**
@@ -36,17 +38,29 @@ public class GetGameSettingHandler implements BaseHandler {
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
 
+        /*
         PropertyEntry start = propertyEntryRepository.findByPropertyKey("reboot_start_time")
                 .orElseGet(() -> new PropertyEntry("reboot_start_time", "2020-01-01 23:59:00.0"));
         PropertyEntry end = propertyEntryRepository.findByPropertyKey("reboot_end_time")
                 .orElseGet(() -> new PropertyEntry("reboot_end_time", "2020-01-01 23:59:00.0"));
+        */
+
+        /*
+        Ongeki is picky about reboot time value, and fixed one doesn't work very well.
+        So let's not use fixed value. Instead, give a dynamically adjusted time.
+        */
+
+        LocalDateTime rebootTime = LocalDateTime.now().minusHours(2); // taken from some fork of minime.
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
+        String strRebootTime = rebootTime.format(formatter);
 
         GameSetting gameSetting = new GameSetting(
                 "1.05.00",
                 false,
                 10,
-                start.getPropertyValue(),
-                end.getPropertyValue(),
+                strRebootTime,
+                strRebootTime,
                 false,
                 300,
                 300,
