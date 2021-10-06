@@ -49,6 +49,12 @@ And DIVA screenshot will be save in data folder.
 
 ### Changelog:
 
+v0.0.23:
+
+[aimedb] Add FeliCaLookup2 mode
+
+[chuni] Add game data: chara, skill, event, music, music level
+
 v0.0.22c:
 
 [maimai2] Fix play saving on first entry session
