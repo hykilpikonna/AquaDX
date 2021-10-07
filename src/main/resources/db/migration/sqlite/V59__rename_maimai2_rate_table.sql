@@ -1,0 +1,1 @@
+ALTER TABLE maimai2_user_rate RENAME TO bak_maimai2_user_rate;

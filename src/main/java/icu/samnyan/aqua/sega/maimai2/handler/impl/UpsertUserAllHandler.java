@@ -43,10 +43,10 @@ public class UpsertUserAllHandler implements BaseHandler {
     private final UserMapRepository userMapRepository;
     private final UserLoginBonusRepository userLoginBonusRepository;
     private final UserFavoriteRepository userFavoriteRepository;
-    private final UserRateRepository userRateRepository;
     private final UserUdemaeRepository userUdemaeRepository;
+    private final UserGeneralDataRepository userGeneralDataRepository;
 
-    public UpsertUserAllHandler(BasicMapper mapper, CardService cardService, UserDataRepository userDataRepository, UserExtendRepository userExtendRepository, UserOptionRepository userOptionRepository, UserItemRepository userItemRepository, UserMusicDetailRepository userMusicDetailRepository, UserActRepository userActRepository, UserCharacterRepository userCharacterRepository, UserMapRepository userMapRepository, UserLoginBonusRepository userLoginBonusRepository, UserFavoriteRepository userFavoriteRepository, UserRateRepository userRateRepository, UserUdemaeRepository userUdemaeRepository) {
+    public UpsertUserAllHandler(BasicMapper mapper, CardService cardService, UserDataRepository userDataRepository, UserExtendRepository userExtendRepository, UserOptionRepository userOptionRepository, UserItemRepository userItemRepository, UserMusicDetailRepository userMusicDetailRepository, UserActRepository userActRepository, UserCharacterRepository userCharacterRepository, UserMapRepository userMapRepository, UserLoginBonusRepository userLoginBonusRepository, UserFavoriteRepository userFavoriteRepository, UserUdemaeRepository userUdemaeRepository, UserGeneralDataRepository userGeneralDataRepository) {
         this.mapper = mapper;
         this.cardService = cardService;
         this.userDataRepository = userDataRepository;
@@ -59,8 +59,8 @@ public class UpsertUserAllHandler implements BaseHandler {
         this.userMapRepository = userMapRepository;
         this.userLoginBonusRepository = userLoginBonusRepository;
         this.userFavoriteRepository = userFavoriteRepository;
-        this.userRateRepository = userRateRepository;
         this.userUdemaeRepository = userUdemaeRepository;
+        this.userGeneralDataRepository = userGeneralDataRepository;
     }
 
     @Override
@@ -198,23 +198,15 @@ public class UpsertUserAllHandler implements BaseHandler {
 
             userUdemaeRepository.saveAndFlush(newUserUdemae);
 
-            List<UserRate> userRateList = userRating.getRatingList();
-            List<UserRate> newUserRateList = new ArrayList<>();
+            /* UserRate:
+            Let's save recent user rating as same as ongeki implementation.
+            Previously saved rating will not compatible with this and will be lost, sorry.
+            */
 
-            // UserRate
-            for (UserRate newUserRate : userRateList) {
-                int musicId = newUserRate.getMusicId();
-                int musicLevel = newUserRate.getLevel();
-
-                Optional<UserRate> rateOptional = userRateRepository.findByUserAndMusicIdAndLevel(newUserData, musicId, musicLevel);
-                UserRate userRate = rateOptional.orElseGet(() -> new UserRate(newUserData));
-
-                newUserRate.setId(userRate.getId());
-                newUserRate.setUser(newUserData);
-                newUserRateList.add(newUserRate);
-
-            }
-            userRateRepository.saveAll(newUserRateList);
+            this.saveGeneralData(userRating.getRatingList(), newUserData, "recent_rating");
+            this.saveGeneralData(userRating.getNewRatingList(), newUserData, "recent_rating_new");
+            this.saveGeneralData(userRating.getNextRatingList(), newUserData, "recent_rating_next");
+            this.saveGeneralData(userRating.getNextNewRatingList(), newUserData, "recent_rating_next_new");
         }
 
         // UserItemList
@@ -302,5 +294,22 @@ public class UpsertUserAllHandler implements BaseHandler {
         }
 
         return "{\"returnCode\":1,\"apiName\":\"com.sega.maimai2servlet.api.UpsertUserAllApi\"}";
+    }
+
+    private void saveGeneralData(List<UserRate> itemList, UserDetail newUserData, String key) {
+        StringBuilder sb = new StringBuilder();
+        // Convert to a string
+        for (UserRate item :
+                itemList) {
+            sb.append(item.getMusicId()).append(":").append(item.getLevel()).append(":").append(item.getRomVersion()).append(":").append(item.getAchievement());
+            sb.append(",");
+        }
+        if (sb.length() > 0) {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        Optional<UserGeneralData> uOptional = userGeneralDataRepository.findByUserAndPropertyKey(newUserData, key);
+        UserGeneralData userGeneralData = uOptional.orElseGet(() -> new UserGeneralData(newUserData, key));
+        userGeneralData.setPropertyValue(sb.toString());
+        userGeneralDataRepository.save(userGeneralData);
     }
 }

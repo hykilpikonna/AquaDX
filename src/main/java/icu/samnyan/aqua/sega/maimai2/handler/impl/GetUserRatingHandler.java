@@ -3,23 +3,21 @@ package icu.samnyan.aqua.sega.maimai2.handler.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserDataRepository;
-import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserRateRepository;
+import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserGeneralDataRepository;
 import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserUdemaeRepository;
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRating;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserDetail;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.UserGeneralData;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserRate;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserUdemae;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -30,15 +28,14 @@ public class GetUserRatingHandler implements BaseHandler {
     private static final Logger logger = LoggerFactory.getLogger(GetUserRatingHandler.class);
 
     private final BasicMapper mapper;
-
-    private final UserRateRepository userRateRepository;
+    private final UserGeneralDataRepository userGeneralDataRepository;
     private final UserUdemaeRepository userUdemaeRepository;
     private final UserDataRepository userDataRepository;
 
-    public GetUserRatingHandler(BasicMapper mapper, UserRateRepository userRateRepository, UserUdemaeRepository userUdemaeRepository,
+    public GetUserRatingHandler(BasicMapper mapper, UserUdemaeRepository userUdemaeRepository, UserGeneralDataRepository userGeneralDataRepository,
     UserDataRepository userDataRepository) {
         this.mapper = mapper;
-        this.userRateRepository = userRateRepository;
+        this.userGeneralDataRepository = userGeneralDataRepository;
         this.userUdemaeRepository = userUdemaeRepository;
         this.userDataRepository = userDataRepository;
     }
@@ -47,7 +44,10 @@ public class GetUserRatingHandler implements BaseHandler {
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         long userId = ((Number) request.get("userId")).longValue();
 
-        List<UserRate> userRate = userRateRepository.findByUser_Card_ExtId(userId);
+        Optional<UserGeneralData> recentOptional = userGeneralDataRepository.findByUser_Card_ExtIdAndPropertyKey(userId, "recent_rating");
+        Optional<UserGeneralData> recentNewOptional = userGeneralDataRepository.findByUser_Card_ExtIdAndPropertyKey(userId, "recent_rating_new");
+        Optional<UserGeneralData> recentNextOptional = userGeneralDataRepository.findByUser_Card_ExtIdAndPropertyKey(userId, "recent_rating_next");
+        Optional<UserGeneralData> recentNextNewOptional = userGeneralDataRepository.findByUser_Card_ExtIdAndPropertyKey(userId, "recent_rating_next_new");
         List<UserRate> emptyRating = new ArrayList<>();
 
         UserRating userRating = new UserRating();
@@ -58,17 +58,36 @@ public class GetUserRatingHandler implements BaseHandler {
             userRating.setRating(user.getPlayerRating());
         }
 
-        // TODO: Fix these, rating is incorrect
-
         // Old charts (standard) = 25
-        userRating.setRatingList(userRate);
+        if (recentOptional.isPresent()) {
+            String val = recentOptional.get().getPropertyValue();
+            userRating.setRatingList(loadRateData(val));
+        } else {
+            userRating.setRatingList(emptyRating);
+        }
 
         // New charts (DX) = 15
-        userRating.setNewRatingList(emptyRating);
-
+        if (recentNewOptional.isPresent()) {
+            String val = recentNewOptional.get().getPropertyValue();
+            userRating.setNewRatingList(loadRateData(val));
+        } else {
+            userRating.setNewRatingList(emptyRating);
+        }
+        
         // ??
-        userRating.setNextRatingList(emptyRating);
-        userRating.setNextNewRatingList(emptyRating);
+        if (recentNextOptional.isPresent()) {
+            String val = recentNextOptional.get().getPropertyValue();
+            userRating.setNextRatingList(loadRateData(val));
+        } else {
+            userRating.setNextRatingList(emptyRating);
+        }
+
+        if (recentNextNewOptional.isPresent()) {
+            String val = recentNextNewOptional.get().getPropertyValue();
+            userRating.setNextNewRatingList(loadRateData(val));
+        } else {
+            userRating.setNextNewRatingList(emptyRating);
+        }
 
         Optional<UserUdemae> optionalUserUdemae = userUdemaeRepository.findByUser_Card_ExtId(userId);
         if (optionalUserUdemae.isPresent()) {
@@ -86,4 +105,25 @@ public class GetUserRatingHandler implements BaseHandler {
         logger.info("Response: " + json);
         return json;
     }
+
+    private List<UserRate> loadRateData(String val) {
+        List<UserRate> rateList = new LinkedList<>();
+
+        if(StringUtils.isNotBlank(val) && val.contains(",")) {
+            String[] records = val.split(",");
+            for (String record :
+                    records) {
+                String[] value = record.split(":");
+                rateList.add(new UserRate(
+                        Integer.parseInt(value[0]),
+                        Integer.parseInt(value[1]),
+                        Integer.parseInt(value[2]),
+                        Integer.parseInt(value[3])
+                ));
+            }
+        }
+
+        return rateList;
+    }
+
 }
