@@ -35,7 +35,8 @@ public class GetGameEventHandler implements BaseHandler {
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         int type = ((Number) request.get("type")).intValue();
 
-        List<GameEvent> gameEventList = gameEventRepository.findByTypeAndEnable(type, true);
+        // Not sure why maimai2 only do type=1 request
+        List<GameEvent> gameEventList = gameEventRepository.findByTypeAndEnable(0, true);
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("type", type);
