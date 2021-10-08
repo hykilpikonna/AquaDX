@@ -4,11 +4,8 @@ An multipurpose game server power by Spring Boot.
 ### Supported Game:
 * CHUNITHM Paradise Lost (and below)
 * Maimai DX Splash
-* Maimai Finale (not tested)
 * Project DIVA Arcade Future Tone
-* O.N.G.E.K.I. RED PLUS
-* O.N.G.E.K.I. SUMMER
-* O.N.G.E.K.I. PLUS
+* O.N.G.E.K.I. RED PLUS (and below)
 
 ### Usage:
 Requirements:
