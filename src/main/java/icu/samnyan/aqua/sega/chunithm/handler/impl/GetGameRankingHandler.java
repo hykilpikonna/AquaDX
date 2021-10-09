@@ -42,7 +42,6 @@ public class GetGameRankingHandler implements BaseHandler {
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("type", type);
-        resultMap.put("length", 10);
         resultMap.put("gameRankingList", rankingPage.getContent());
 
         String json = mapper.write(resultMap);
