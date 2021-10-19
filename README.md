@@ -46,6 +46,28 @@ And DIVA screenshot will be save in data folder.
 
 ### Changelog:
 
+v0.0.24: **[This will do database update]**
+
+[general] Set maintenance reboot date to far future
+
+[ongeki] Limit maximum activityList entries
+
+[maimai2] Add userGeneralData table
+
+[ongeki] Fix wrong references in user tables
+
+[maimai2] Implement proper player rate saving
+
+[maimai2] Fix GetGameEvent Handler to return events to game
+
+[maimai2] Add game events
+
+[chuni] Remove unnecessary length info in GetGameRankingApi
+
+[chuni] Add new music and music level data
+
+[chuni] Use dynamic reboot time instead of fixed one
+
 v0.0.23:
 
 [aimedb] Add FeliCaLookup2 mode
