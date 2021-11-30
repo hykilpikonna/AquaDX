@@ -3,7 +3,7 @@ An multipurpose game server power by Spring Boot.
 
 ### Supported Game:
 * CHUNITHM Paradise Lost (and below)
-* Maimai DX Splash
+* Maimai DX Splash Plus (and below)
 * Project DIVA Arcade Future Tone
 * O.N.G.E.K.I. RED PLUS (and below)
 
@@ -45,6 +45,12 @@ And DIVA screenshot will be save in data folder.
 
 
 ### Changelog:
+
+v0.0.25: **[This will do database update]**
+
+[generic] Fix MySQL table initialization error
+
+[maimai2] Add Splash Plus support
 
 v0.0.24: **[This will do database update]**
 
