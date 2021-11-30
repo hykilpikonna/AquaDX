@@ -45,8 +45,9 @@ public class UpsertUserAllHandler implements BaseHandler {
     private final UserFavoriteRepository userFavoriteRepository;
     private final UserUdemaeRepository userUdemaeRepository;
     private final UserGeneralDataRepository userGeneralDataRepository;
+    private final UserCourseRepository userCourseRepository;
 
-    public UpsertUserAllHandler(BasicMapper mapper, CardService cardService, UserDataRepository userDataRepository, UserExtendRepository userExtendRepository, UserOptionRepository userOptionRepository, UserItemRepository userItemRepository, UserMusicDetailRepository userMusicDetailRepository, UserActRepository userActRepository, UserCharacterRepository userCharacterRepository, UserMapRepository userMapRepository, UserLoginBonusRepository userLoginBonusRepository, UserFavoriteRepository userFavoriteRepository, UserUdemaeRepository userUdemaeRepository, UserGeneralDataRepository userGeneralDataRepository) {
+    public UpsertUserAllHandler(BasicMapper mapper, CardService cardService, UserDataRepository userDataRepository, UserExtendRepository userExtendRepository, UserOptionRepository userOptionRepository, UserItemRepository userItemRepository, UserMusicDetailRepository userMusicDetailRepository, UserActRepository userActRepository, UserCharacterRepository userCharacterRepository, UserMapRepository userMapRepository, UserLoginBonusRepository userLoginBonusRepository, UserFavoriteRepository userFavoriteRepository, UserUdemaeRepository userUdemaeRepository, UserGeneralDataRepository userGeneralDataRepository, UserCourseRepository userCourseRepository) {
         this.mapper = mapper;
         this.cardService = cardService;
         this.userDataRepository = userDataRepository;
@@ -61,6 +62,7 @@ public class UpsertUserAllHandler implements BaseHandler {
         this.userFavoriteRepository = userFavoriteRepository;
         this.userUdemaeRepository = userUdemaeRepository;
         this.userGeneralDataRepository = userGeneralDataRepository;
+        this.userCourseRepository = userCourseRepository;
     }
 
     @Override
@@ -246,6 +248,24 @@ public class UpsertUserAllHandler implements BaseHandler {
                 newUserMusicDetailList.add(newUserMusicDetail);
             }
             userMusicDetailRepository.saveAll(newUserMusicDetailList);
+        }
+
+        // UserCourseList
+        if (userAll.getUserCourseList() != null) {
+            List<UserCourse> userCourseList = userAll.getUserCourseList();
+            List<UserCourse> newUserCourseList = new ArrayList<>();
+
+            for (UserCourse newUserCourse : userCourseList) {
+                int courseId = newUserCourse.getCourseId();
+
+                Optional<UserCourse> userCourseOptional = userCourseRepository.findByUserAndCourseId(newUserData, courseId);
+                UserCourse userCourse = userCourseOptional.orElseGet(() -> new UserCourse(newUserData));
+
+                newUserCourse.setId(userCourse.getId());
+                newUserCourse.setUser(newUserData);
+                newUserCourseList.add(newUserCourse);
+            }
+            userCourseRepository.saveAll(newUserCourseList);
         }
 
         // UserFavoriteList

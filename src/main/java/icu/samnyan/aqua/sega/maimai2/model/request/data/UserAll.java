@@ -32,7 +32,7 @@ public class UserAll implements Serializable {
 	private List<UserCharge> userChargeList;
 	private List<UserFavorite> userFavoriteList;
 	private List<UserActivity> userActivityList;
-	private Map<String, Object> userGamePlaylogList;
+	private List<Map<String, Object>> userGamePlaylogList;
 	private String isNewCharacterList;
 	private String isNewMapList;
 	private String isNewLoginBonusList;
