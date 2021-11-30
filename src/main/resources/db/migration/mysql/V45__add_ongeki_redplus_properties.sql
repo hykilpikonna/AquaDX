@@ -1,7 +1,7 @@
 ALTER TABLE `ongeki_user_option`
     ADD COLUMN `platinum_break_disp` int DEFAULT 1,
     ADD COLUMN `judge_critical_break` int DEFAULT 0,
-    ALTER COLUMN `judge_adjustment` int NULL;
+    MODIFY COLUMN `judge_adjustment` int NULL;
 
 ALTER TABLE `ongeki_user_login_bonus`
     ADD COLUMN `last_update_date` varchar(255) DEFAULT "2000-01-01 05:00:00.0";
