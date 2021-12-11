@@ -42,7 +42,7 @@ public class LookupHandler implements BaseHandler {
     @Override
     public void handle(ChannelHandlerContext ctx, ByteBuf msg) throws JsonProcessingException {
         Map<String, Object> requestMap = AimeDbUtil.getBaseInfo(msg);
-        requestMap.put("type", "lookup2");
+        requestMap.put("type", "lookup");
         requestMap.put("luid", ByteBufUtil.hexDump(msg.slice(0x0020, 0x002a - 0x0020)));
 
         logger.info("Request: " + logMapper.write(requestMap));
