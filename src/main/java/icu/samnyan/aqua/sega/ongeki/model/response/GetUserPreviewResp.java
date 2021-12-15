@@ -36,4 +36,6 @@ public class GetUserPreviewResp {
     private int banStatus = 0;
     @JsonProperty("isWarningConfirmed")
     private boolean isWarningConfirmed = true;
+    private int lastEmoneyBrand = 0;
+    private int lastEmoneyCredit = 0;
 }

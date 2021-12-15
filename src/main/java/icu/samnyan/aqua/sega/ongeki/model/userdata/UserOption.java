@@ -42,6 +42,8 @@ public class UserOption implements Serializable {
 
     private int abort;
 
+    public int stealthField;
+
     private int tapSound;
 
     private int volGuide;
@@ -69,6 +71,8 @@ public class UserOption implements Serializable {
     private int colorField;
 
     private int colorLaneBright;
+
+    public int colorWallBright;
 
     private int colorLane;
 

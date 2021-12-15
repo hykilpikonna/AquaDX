@@ -48,7 +48,10 @@ public class GetGameSettingHandler implements BaseHandler {
                 start.getPropertyValue(),
                 end.getPropertyValue(),
                 false,
+                50,
                 300,
+                300,
+                50,
                 300,
                 300);
 

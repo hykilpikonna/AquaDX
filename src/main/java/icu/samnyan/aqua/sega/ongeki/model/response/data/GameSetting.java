@@ -22,6 +22,9 @@ public class GameSetting {
     @JsonProperty("isBackgroundDistribute")
     private boolean isBackgroundDistribute;
     private int maxCountCharacter;
+    private int maxCountCard;
     private int maxCountItem;
     private int maxCountMusic;
+    private int maxCountMusicItem;
+    private int macCountRivalMusic;
 }
