@@ -88,7 +88,9 @@ public class GetUserPreviewHandler implements BaseHandler {
                 resp.setHeadphone(x.getHeadphone());
             });
 
-
+            // test for now
+            resp.setLastEmoneyBrand(4);
+            resp.setLastEmoneyCredit(10000);
         }
 
         String json = mapper.write(resp);

@@ -62,6 +62,10 @@ public class UserData implements Serializable {
 
     private int battlePoint;
 
+    private int bestBattlePoint;
+
+    private int overDamageBattlePoint;
+
     private int nameplateId;
 
     private int trophyId;
@@ -77,6 +81,8 @@ public class UserData implements Serializable {
     private int cardCategorySetting;
 
     private int cardSortSetting;
+
+    private int rivalScoreCategorySetting;
 
     private int playedTutorialBit;
 
@@ -143,5 +149,7 @@ public class UserData implements Serializable {
     private int lastUsedDeckId;
 
     private int lastPlayMusicLevel;
+
+    private int lastEmoneyBrand;
 
 }

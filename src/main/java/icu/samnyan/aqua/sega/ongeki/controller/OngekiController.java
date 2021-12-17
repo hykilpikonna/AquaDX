@@ -48,6 +48,8 @@ public class OngekiController {
     private final GetUserRatinglogListHandler getUserRatinglogListHandler;
     private final GetUserRecentRatingHandler getUserRecentRatingHandler;
     private final GetUserRegionHandler getUserRegionHandler;
+    private final GetUserRivalHandler getUserRivalHandler;
+    private final GetUserRivalMusicHandler getUserRivalMusicHandler;
     private final GetUserScenarioHandler getUserScenarioHandler;
     private final GetUserStoryHandler getUserStoryHandler;
     private final GetUserTechCountHandler getUserTechCountHandler;
@@ -59,7 +61,7 @@ public class OngekiController {
     private final UpsertUserAllHandler upsertUserAllHandler;
 
     @Autowired
-    public OngekiController(GetGameEventHandler getGameEventHandler, GetGameIdlistHandler getGameIdlistHandler, GetGameMessageHandler getGameMessageHandler, GetGamePointHandler getGamePointHandler, GetGamePresentHandler getGamePresentHandler, GetGameRankingHandler getGameRankingHandler, GetGameRewardHandler getGameRewardHandler, GetGameSettingHandler getGameSettingHandler, GetUserActivityHandler getUserActivityHandler, GetUserBossHandler getUserBossHandler, GetUserBpBaseHandler getUserBpBaseHandler, GetUserCardHandler getUserCardHandler, GetUserChapterHandler getUserChapterHandler, GetUserCharacterHandler getUserCharacterHandler, GetUserDataHandler getUserDataHandler, GetUserDeckByKeyHandler getUserDeckByKeyHandler, GetUserEventPointHandler getUserEventPointHandler, GetUserEventRankingHandler getUserEventRankingHandler, GetUserItemHandler getUserItemHandler, GetUserLoginBonusHandler getUserLoginBonusHandler, GetUserMissionPointHandler getUserMissionPointHandler, GetUserMusicHandler getUserMusicHandler, GetUserMusicItemHandler getUserMusicItemHandler, GetUserOptionHandler getUserOptionHandler, GetUserPreviewHandler getUserPreviewHandler, GetUserRatinglogListHandler getUserRatinglogListHandler, GetUserRecentRatingHandler getUserRecentRatingHandler, GetUserRegionHandler getUserRegionHandler, GetUserScenarioHandler getUserScenarioHandler, GetUserStoryHandler getUserStoryHandler, GetUserTechCountHandler getUserTechCountHandler, GetUserTrainingRoomByKeyHandler getUserTrainingRoomByKeyHandler, UpsertUserAllHandler upsertUserAllHandler, GetGameTechMusicHandler getGameTechMusicHandler, GetUserTechEventHandler getUserTechEventHandler, GetUserTechEventRankingHandler getUserTechEventRankingHandler, GetUserEventMusicHandler getUserEventMusicHandler, GetUserTradeItemHandler getUserTradeItemHandler, GetUserKopHandler getUserKopHandler) {
+    public OngekiController(GetGameEventHandler getGameEventHandler, GetGameIdlistHandler getGameIdlistHandler, GetGameMessageHandler getGameMessageHandler, GetGamePointHandler getGamePointHandler, GetGamePresentHandler getGamePresentHandler, GetGameRankingHandler getGameRankingHandler, GetGameRewardHandler getGameRewardHandler, GetGameSettingHandler getGameSettingHandler, GetUserActivityHandler getUserActivityHandler, GetUserBossHandler getUserBossHandler, GetUserBpBaseHandler getUserBpBaseHandler, GetUserCardHandler getUserCardHandler, GetUserChapterHandler getUserChapterHandler, GetUserCharacterHandler getUserCharacterHandler, GetUserDataHandler getUserDataHandler, GetUserDeckByKeyHandler getUserDeckByKeyHandler, GetUserEventPointHandler getUserEventPointHandler, GetUserEventRankingHandler getUserEventRankingHandler, GetUserItemHandler getUserItemHandler, GetUserLoginBonusHandler getUserLoginBonusHandler, GetUserMissionPointHandler getUserMissionPointHandler, GetUserMusicHandler getUserMusicHandler, GetUserMusicItemHandler getUserMusicItemHandler, GetUserOptionHandler getUserOptionHandler, GetUserPreviewHandler getUserPreviewHandler, GetUserRatinglogListHandler getUserRatinglogListHandler, GetUserRecentRatingHandler getUserRecentRatingHandler, GetUserRegionHandler getUserRegionHandler, GetUserRivalHandler getUserRivalHandler, GetUserRivalMusicHandler getUserRivalMusicHandler, GetUserScenarioHandler getUserScenarioHandler, GetUserStoryHandler getUserStoryHandler, GetUserTechCountHandler getUserTechCountHandler, GetUserTrainingRoomByKeyHandler getUserTrainingRoomByKeyHandler, UpsertUserAllHandler upsertUserAllHandler, GetGameTechMusicHandler getGameTechMusicHandler, GetUserTechEventHandler getUserTechEventHandler, GetUserTechEventRankingHandler getUserTechEventRankingHandler, GetUserEventMusicHandler getUserEventMusicHandler, GetUserTradeItemHandler getUserTradeItemHandler, GetUserKopHandler getUserKopHandler) {
         this.getGameEventHandler = getGameEventHandler;
         this.getGameIdlistHandler = getGameIdlistHandler;
         this.getGameMessageHandler = getGameMessageHandler;
@@ -88,6 +90,8 @@ public class OngekiController {
         this.getUserRatinglogListHandler = getUserRatinglogListHandler;
         this.getUserRecentRatingHandler = getUserRecentRatingHandler;
         this.getUserRegionHandler = getUserRegionHandler;
+        this.getUserRivalHandler = getUserRivalHandler;
+        this.getUserRivalMusicHandler = getUserRivalMusicHandler;
         this.getUserScenarioHandler = getUserScenarioHandler;
         this.getUserStoryHandler = getUserStoryHandler;
         this.getUserTechCountHandler = getUserTechCountHandler;
@@ -190,6 +194,7 @@ public class OngekiController {
     public String getUserCard(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserCardHandler.handle(request);
     }
+
     @PostMapping("GetUserChapterApi")
     public String getUserChapter(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserChapterHandler.handle(request);
@@ -278,6 +283,23 @@ public class OngekiController {
     @PostMapping("GetUserRegionApi")
     public String getUserRegion(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserRegionHandler.handle(request);
+    }
+
+    @PostMapping("GetUserRivalApi")
+    public String getUserRival(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserRivalHandler.handle(request);
+    }
+
+    // seems same as GetUserRivalApi
+    @PostMapping("GetUserRivalDataApi")
+    public String getUserRivalData(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserRivalHandler.handle(request);
+    }
+
+    // dummy for now
+    @PostMapping("GetUserRivalMusicApi")
+    public String getUserRivalMusic(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserRivalMusicHandler.handle(request);
     }
 
     @PostMapping("GetUserScenarioApi")
