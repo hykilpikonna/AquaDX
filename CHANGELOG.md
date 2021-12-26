@@ -2,7 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
-## 0.0.26 - 2021-12-26
+## 0.0.26a - 2021-12-26
+- Fix V66 migration - this was critical show-stopper bug in 0.0.26
+
+## 0.0.26 - 2021-12-26 [YANKED]
 
 - **This will do database update**
 - Add support for O.N.G.E.K.I bright!
