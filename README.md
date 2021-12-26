@@ -5,7 +5,7 @@ An multipurpose game server power by Spring Boot.
 * CHUNITHM Paradise Lost (and below)
 * Maimai DX Splash Plus (and below)
 * Project DIVA Arcade Future Tone
-* O.N.G.E.K.I. RED PLUS (and below)
+* O.N.G.E.K.I. bright (and below)
 
 ### Notes:
 * Some game may require additional patches and these will not provided in this project and repository. You already found this, so you know where to find related resources too.
