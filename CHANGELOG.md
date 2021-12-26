@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.26 - 2021-12-26
+
+- **This will do database update**
+- Add support for O.N.G.E.K.I bright!
+- Disabled O.N.G.E.K.I Red Plus login announcements. You can now create new account without numerous event popups.
+- Delete some non-user-obtainable cards. This was available in card gacha if you were lucky, and made game crash if you did. Special thanks to htk030 for this.
+- Improve some documentations. Like what you seeing right now.
+- Fix typo in AimeDB lookup handler.
+- Change some mismatches, and delete previous backup tables in Sqlite DB.
+- Update dependencies, which includes fixed version for log4j and logback vulnerbilities.
+
 ## 0.0.25 - 2021-11-30
 
 - **This will do database update**
