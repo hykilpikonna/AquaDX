@@ -194,7 +194,7 @@ CREATE TABLE ongeki_user_data_new (
     medal_count INTEGER,
     cm_event_watched_date VARCHAR(255),
     user_name VARCHAR(255),
-    aime_card_id BIGINT,
+    aime_card_id BIGINT REFERENCES sega_card (id) ON DELETE CASCADE,
     PRIMARY KEY (id)
 );
 
