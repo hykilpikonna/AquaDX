@@ -22,7 +22,7 @@ import java.util.*;
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
-@Component
+@Component("Maimai2GetUserRatingHandler")
 public class GetUserRatingHandler implements BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GetUserRatingHandler.class);

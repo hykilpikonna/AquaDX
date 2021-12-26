@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
-@Component
+@Component("Maimai2GetGameSettingHandler")
 public class GetGameSettingHandler implements BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GetGameSettingHandler.class);

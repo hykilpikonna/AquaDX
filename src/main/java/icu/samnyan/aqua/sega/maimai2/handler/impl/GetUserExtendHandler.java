@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
-@Component
+@Component("Maimai2GetUserExtendHandler")
 public class GetUserExtendHandler implements BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GetUserExtendHandler.class);

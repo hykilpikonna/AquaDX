@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
-@Component
+@Component("Maimai2GetTransferFriendHandler")
 public class GetTransferFriendHandler implements BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GetTransferFriendHandler.class);

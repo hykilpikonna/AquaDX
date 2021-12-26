@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
-@Component
+@Component("Maimai2GetUserRegionHandler")
 public class GetUserRegionHandler implements BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GetUserDataHandler.class);

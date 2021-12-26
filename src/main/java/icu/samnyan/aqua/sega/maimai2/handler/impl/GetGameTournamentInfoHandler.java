@@ -5,7 +5,6 @@ import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ import java.util.Map;
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
-@Component
+@Component("Maimai2GetGameTournamentInfoHandler")
 public class GetGameTournamentInfoHandler implements BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GetGameTournamentInfoHandler.class);

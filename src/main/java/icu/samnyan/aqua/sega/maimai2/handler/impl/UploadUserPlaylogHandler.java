@@ -19,7 +19,7 @@ import java.util.Optional;
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
-@Component
+@Component("Maimai2UploadUserPlaylogHandler")
 public class UploadUserPlaylogHandler implements BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(UploadUserPlaylogHandler.class);

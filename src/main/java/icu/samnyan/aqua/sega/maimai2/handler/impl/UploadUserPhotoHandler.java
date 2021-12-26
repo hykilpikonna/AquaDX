@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
-@Component
+@Component("Maimai2UploadUserPhotoHandler")
 public class UploadUserPhotoHandler implements BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(UploadUserPhotoHandler.class);

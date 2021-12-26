@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
-@Component
+@Component("Maimai2UserLoginHandler")
 public class UserLoginHandler implements BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(UserLoginHandler.class);

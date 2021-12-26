@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
-@Repository
+@Repository("Maimai2UserPlaylogRepository")
 public interface UserPlaylogRepository extends JpaRepository<UserPlaylog, Long> {
 
 }

@@ -11,7 +11,7 @@ import java.util.Optional;
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
-@Repository
+@Repository("Maimai2UserChargeRepository")
 public interface UserChargeRepository extends JpaRepository<UserCharge, Long> {
     List<UserCharge> findByUser_Card_ExtId(Long extId);
 
