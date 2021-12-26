@@ -1,3 +1,5 @@
+PRAGMA foreign_keys = 0;
+
 -- Affected game table: maimai2, ongeki
 -- This fixes reference table (FK entries) mismatch due to "create-copy-drop-rename" nature of sqlite
 -- Sqlite doesn't provide a way to edit FK so this mess always happens
