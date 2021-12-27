@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.26b - 2021-12-27
+- Add new music and event data for O.N.G.E.K.I bright.
+- Switch to typical bean name. Previously it was generated dynamically with classpath. No user-side difference.
+- Fix tests during build and change default test profile to Sqlite. It was broken since v0.0.17. No user-side difference.
+- Update dependencides.
+
 ## 0.0.26a - 2021-12-26
 - Fix V66 migration - this was critical show-stopper bug in 0.0.26
 
