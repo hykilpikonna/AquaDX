@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -77,7 +78,9 @@ public class MaimaiServletController {
     }
 
     @PostMapping("GetGameSettingApi")
-    public String getGameSetting(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+    public String getGameSetting(@ModelAttribute Map<String, Object> request, HttpServletRequest http) throws JsonProcessingException {
+        request.put("localAddr", http.getLocalAddr());
+        request.put("localPort", Integer.toString(http.getLocalPort()));
         return getGameSettingHandler.handle(request);
     }
 

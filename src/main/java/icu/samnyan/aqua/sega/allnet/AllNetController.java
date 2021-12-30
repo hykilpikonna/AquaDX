@@ -31,13 +31,13 @@ public class AllNetController {
     private static final Logger logger = LoggerFactory.getLogger(AllNetController.class);
 
     private final ObjectMapper mapper = new ObjectMapper();
-    private final String HOST;
-    private final String PORT;
+    private final String HOST_OVERRIDE;
+    private final String PORT_OVERRIDE;
 
-    public AllNetController(@Value("${allnet.server.host}") String HOST,
-                            @Value("${allnet.server.port}") String PORT) {
-        this.HOST = HOST;
-        this.PORT = PORT;
+    public AllNetController(@Value("${allnet.server.host:}") String HOST,
+                            @Value("${allnet.server.port:}") String PORT) {
+        this.HOST_OVERRIDE = HOST;
+        this.PORT_OVERRIDE = PORT;
     }
 
     @GetMapping("/")
@@ -121,28 +121,32 @@ public class AllNetController {
     }
 
     private String switchUri(String localAddr, String localPort, String gameId, String ver, String serial) {
+        String addr = HOST_OVERRIDE.equals("") ? localAddr : HOST_OVERRIDE;
+        String port = PORT_OVERRIDE.equals("") ? localPort : PORT_OVERRIDE;
         switch (gameId) {
             case "SDBT":
-                return "http://" + localAddr + ":" + localPort + "/ChuniServlet/" + ver + "/" + serial + "/";
+                return "http://" + addr + ":" + port + "/ChuniServlet/" + ver + "/" + serial + "/";
             case "SBZV":
-                return "http://" + localAddr + ":" + localPort + "/diva/";
+                return "http://" + addr + ":" + port + "/diva/";
             case "SDDT":
-                return "http://" + localAddr + ":" + localPort + "/OngekiServlet/";
+                return "http://" + addr + ":" + port + "/OngekiServlet/";
             case "SDEY":
-                return "http://" + localAddr + ":" + localPort + "/MaimaiServlet/";
+                return "http://" + addr + ":" + port + "/MaimaiServlet/";
             case "SDEZ":
-                return "http://" + localAddr + ":" + localPort + "/";
+                return "http://" + addr + ":" + port + "/";
             default:
-                return "http://" + localAddr + ":" + localPort + "/";
+                return "http://" + addr + ":" + port + "/";
         }
     }
 
     private String switchHost(String localAddr, String localPort, String gameId) {
+        String addr = HOST_OVERRIDE.equals("") ? localAddr : HOST_OVERRIDE;
+        String port = PORT_OVERRIDE.equals("") ? localPort : PORT_OVERRIDE;
         switch (gameId) {
             case "SDDF":
-                return localAddr + ":" + localPort + "/";
+                return addr + ":" + port + "/";
             default:
-                return localAddr;
+                return addr;
         }
     }
 

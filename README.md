@@ -16,10 +16,7 @@ Requirements:
 * Java 11 or above
 * Optional: MariaDB or MySQL (<8.0)
 
-1. Edit `application.properties` , change the `allnet.server.host` to your IP address or hostname.
-Many games won't work with localhost and 127.0.0.1
-
-2. Run `java -jar aqua.jar` or use the `start.bat` if you are using windows.
+Run `java -jar aqua.jar` or use the `start.bat` if you are using windows.
 
 By default, aqua will use sqlite and save user data in data/db.sqlite.
 
@@ -30,7 +27,7 @@ Please go to the database migration tool's website to check if your database ver
 ### Configuration:
 Configuration is save in `application.properties`
 
-- If you are going to deploy on other machine, you must change the `allnet.server.host` and `allnet.server.port` to the IP or Hostname of the hosting machine.
+- The host and port of game title servers can be overritten in `allnet.server.host` and `allnet.server.port`. By default it will send the same host and port the client used the request this information.
 This will be send to the game at booting and being used by following request.
 
 - You can switch to MySQL (or MariaDB) database by commenting the Sqlite part.
