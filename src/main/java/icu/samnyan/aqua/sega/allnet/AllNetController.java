@@ -18,6 +18,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
+import javax.servlet.http.HttpServletRequest;
 
 import static icu.samnyan.aqua.sega.util.AquaConst.DEFAULT_KEYCHIP_ID;
 
@@ -50,8 +51,10 @@ public class AllNetController {
     }
 
     @PostMapping(value = "/sys/servlet/PowerOn", produces = "text/plain")
-    public String powerOn(InputStream dataStream) throws IOException {
+    public String powerOn(InputStream dataStream, HttpServletRequest req) throws IOException {
 
+        String localAddr = req.getLocalAddr();
+        String localPort = Integer.toString(req.getLocalPort());
         byte[] bytes = dataStream.readAllBytes();
         Map<String, String> reqMap = Decoder.decode(bytes);
 
@@ -70,8 +73,8 @@ public class AllNetController {
             var now = LocalDateTime.now();
             resp = new PowerOnResponseV2(
                     1,
-                    switchUri(gameId, ver, serial),
-                    switchHost(gameId),
+                    switchUri(localAddr, localPort, gameId, ver, serial),
+                    switchHost(localAddr, localPort, gameId),
                     "123",
                     "",
                     "",
@@ -94,8 +97,8 @@ public class AllNetController {
         } else {
             resp = new PowerOnResponseV3(
                     1,
-                    switchUri(gameId, ver, serial),
-                    switchHost(gameId),
+                    switchUri(localAddr, localPort, gameId, ver, serial),
+                    switchHost(localAddr, localPort, gameId),
                     "123",
                     "",
                     "",
@@ -117,29 +120,29 @@ public class AllNetController {
         return resp.toString().concat("\n");
     }
 
-    private String switchUri(String gameId, String ver, String serial) {
+    private String switchUri(String localAddr, String localPort, String gameId, String ver, String serial) {
         switch (gameId) {
             case "SDBT":
-                return "http://" + HOST + ":" + PORT + "/ChuniServlet/" + ver + "/" + serial + "/";
+                return "http://" + localAddr + ":" + localPort + "/ChuniServlet/" + ver + "/" + serial + "/";
             case "SBZV":
-                return "http://" + HOST + ":" + PORT + "/diva/";
+                return "http://" + localAddr + ":" + localPort + "/diva/";
             case "SDDT":
-                return "http://" + HOST + ":" + PORT + "/OngekiServlet/";
+                return "http://" + localAddr + ":" + localPort + "/OngekiServlet/";
             case "SDEY":
-                return "http://" + HOST + ":" + PORT + "/MaimaiServlet/";
+                return "http://" + localAddr + ":" + localPort + "/MaimaiServlet/";
             case "SDEZ":
-                return "http://" + HOST + ":" + PORT + "/";
+                return "http://" + localAddr + ":" + localPort + "/";
             default:
-                return "http://" + HOST + ":" + PORT + "/";
+                return "http://" + localAddr + ":" + localPort + "/";
         }
     }
 
-    private String switchHost(String gameId) {
+    private String switchHost(String localAddr, String localPort, String gameId) {
         switch (gameId) {
             case "SDDF":
-                return HOST + ":" + PORT + "/";
+                return localAddr + ":" + localPort + "/";
             default:
-                return HOST;
+                return localAddr;
         }
     }
 
