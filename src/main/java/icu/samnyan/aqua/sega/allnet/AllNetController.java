@@ -18,6 +18,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
+import javax.servlet.http.HttpServletRequest;
 
 import static icu.samnyan.aqua.sega.util.AquaConst.DEFAULT_KEYCHIP_ID;
 
@@ -30,13 +31,13 @@ public class AllNetController {
     private static final Logger logger = LoggerFactory.getLogger(AllNetController.class);
 
     private final ObjectMapper mapper = new ObjectMapper();
-    private final String HOST;
-    private final String PORT;
+    private final String HOST_OVERRIDE;
+    private final String PORT_OVERRIDE;
 
-    public AllNetController(@Value("${allnet.server.host}") String HOST,
-                            @Value("${allnet.server.port}") String PORT) {
-        this.HOST = HOST;
-        this.PORT = PORT;
+    public AllNetController(@Value("${allnet.server.host:}") String HOST,
+                            @Value("${allnet.server.port:}") String PORT) {
+        this.HOST_OVERRIDE = HOST;
+        this.PORT_OVERRIDE = PORT;
     }
 
     @GetMapping("/")
@@ -50,8 +51,10 @@ public class AllNetController {
     }
 
     @PostMapping(value = "/sys/servlet/PowerOn", produces = "text/plain")
-    public String powerOn(InputStream dataStream) throws IOException {
+    public String powerOn(InputStream dataStream, HttpServletRequest req) throws IOException {
 
+        String localAddr = req.getLocalAddr();
+        String localPort = Integer.toString(req.getLocalPort());
         byte[] bytes = dataStream.readAllBytes();
         Map<String, String> reqMap = Decoder.decode(bytes);
 
@@ -70,8 +73,8 @@ public class AllNetController {
             var now = LocalDateTime.now();
             resp = new PowerOnResponseV2(
                     1,
-                    switchUri(gameId, ver, serial),
-                    switchHost(gameId),
+                    switchUri(localAddr, localPort, gameId, ver, serial),
+                    switchHost(localAddr, localPort, gameId),
                     "123",
                     "",
                     "",
@@ -94,8 +97,8 @@ public class AllNetController {
         } else {
             resp = new PowerOnResponseV3(
                     1,
-                    switchUri(gameId, ver, serial),
-                    switchHost(gameId),
+                    switchUri(localAddr, localPort, gameId, ver, serial),
+                    switchHost(localAddr, localPort, gameId),
                     "123",
                     "",
                     "",
@@ -117,29 +120,33 @@ public class AllNetController {
         return resp.toString().concat("\n");
     }
 
-    private String switchUri(String gameId, String ver, String serial) {
+    private String switchUri(String localAddr, String localPort, String gameId, String ver, String serial) {
+        String addr = HOST_OVERRIDE.equals("") ? localAddr : HOST_OVERRIDE;
+        String port = PORT_OVERRIDE.equals("") ? localPort : PORT_OVERRIDE;
         switch (gameId) {
             case "SDBT":
-                return "http://" + HOST + ":" + PORT + "/ChuniServlet/" + ver + "/" + serial + "/";
+                return "http://" + addr + ":" + port + "/ChuniServlet/" + ver + "/" + serial + "/";
             case "SBZV":
-                return "http://" + HOST + ":" + PORT + "/diva/";
+                return "http://" + addr + ":" + port + "/diva/";
             case "SDDT":
-                return "http://" + HOST + ":" + PORT + "/OngekiServlet/";
+                return "http://" + addr + ":" + port + "/OngekiServlet/";
             case "SDEY":
-                return "http://" + HOST + ":" + PORT + "/MaimaiServlet/";
+                return "http://" + addr + ":" + port + "/MaimaiServlet/";
             case "SDEZ":
-                return "http://" + HOST + ":" + PORT + "/";
+                return "http://" + addr + ":" + port + "/";
             default:
-                return "http://" + HOST + ":" + PORT + "/";
+                return "http://" + addr + ":" + port + "/";
         }
     }
 
-    private String switchHost(String gameId) {
+    private String switchHost(String localAddr, String localPort, String gameId) {
+        String addr = HOST_OVERRIDE.equals("") ? localAddr : HOST_OVERRIDE;
+        String port = PORT_OVERRIDE.equals("") ? localPort : PORT_OVERRIDE;
         switch (gameId) {
             case "SDDF":
-                return HOST + ":" + PORT + "/";
+                return addr + ":" + port + "/";
             default:
-                return HOST;
+                return addr;
         }
     }
 

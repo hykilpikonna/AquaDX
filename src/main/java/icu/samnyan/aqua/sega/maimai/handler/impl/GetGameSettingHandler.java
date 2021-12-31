@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -27,17 +28,17 @@ public class GetGameSettingHandler implements BaseHandler {
 
     private final PropertyEntryRepository propertyEntryRepository;
 
-    private final String HOST;
-    private final String PORT;
+    private final String HOST_OVERRIDE;
+    private final String PORT_OVERRIDE;
 
     @Autowired
     public GetGameSettingHandler(BasicMapper mapper, PropertyEntryRepository propertyEntryRepository,
-                                 @Value("${allnet.server.host}") String HOST,
-                                 @Value("${allnet.server.port}") String PORT) {
+                                 @Value("${allnet.server.host:}") String HOST,
+                                 @Value("${allnet.server.port:}") String PORT) {
         this.mapper = mapper;
         this.propertyEntryRepository = propertyEntryRepository;
-        this.HOST = HOST;
-        this.PORT = PORT;
+        this.HOST_OVERRIDE = HOST;
+        this.PORT_OVERRIDE = PORT;
     }
 
     @Override
@@ -48,6 +49,9 @@ public class GetGameSettingHandler implements BaseHandler {
         PropertyEntry end = propertyEntryRepository.findByPropertyKey("reboot_end_time")
                 .orElseGet(() -> new PropertyEntry("reboot_end_time", "2020-01-01 07:59:59.0"));
 
+        String addr = HOST_OVERRIDE.equals("") ? (String) request.get("localAddr") : HOST_OVERRIDE;
+        String port = PORT_OVERRIDE.equals("") ? (String) request.get("localPort") : PORT_OVERRIDE;
+
         GameSetting gameSetting = new GameSetting(
                 false,
                 1800,
@@ -57,7 +61,7 @@ public class GetGameSettingHandler implements BaseHandler {
                 0,
                 "",
                 "",
-                "http://" + HOST + ":" + PORT + "/",
+                "http://" + addr + ":" + port + "/",
                 "");
 
         GetGameSettingResp resp = new GetGameSettingResp(

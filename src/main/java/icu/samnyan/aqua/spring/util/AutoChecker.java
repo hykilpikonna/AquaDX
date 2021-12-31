@@ -21,19 +21,22 @@ public class AutoChecker {
 
     private final String LINEBREAK = System.getProperty("line.separator");
 
-    private final String ALLNET_HOST;
-    private final String ALLNET_PORT;
+    private final String SERVER_PORT;
+    private final String ALLNET_HOST_OVERRIDE;
+    private final String ALLNET_PORT_OVERRIDE;
     private final String AIMEDB_BIND;
     private final int AIMEDB_PORT;
     private final boolean AIMEDB_ENABLED;
     public AutoChecker(
-            @Value("${allnet.server.host}") String ALLNET_HOST,
-            @Value("${allnet.server.port}") String ALLNET_PORT,
+            @Value("${server.host:}") String SERVER_PORT,
+            @Value("${allnet.server.host:}") String ALLNET_HOST,
+            @Value("${allnet.server.port:}") String ALLNET_PORT,
             @Value("${aimedb.server.address}") String AIMEDB_BIND,
             @Value("${aimedb.server.port}") int AIMEDB_PORT,
             @Value("${aimedb.server.enable}") boolean AIMEDB_ENABLED) {
-        this.ALLNET_HOST = ALLNET_HOST;
-        this.ALLNET_PORT = ALLNET_PORT;
+        this.SERVER_PORT = SERVER_PORT;
+        this.ALLNET_HOST_OVERRIDE = ALLNET_HOST;
+        this.ALLNET_PORT_OVERRIDE = ALLNET_PORT;
         this.AIMEDB_BIND = AIMEDB_BIND;
         this.AIMEDB_PORT = AIMEDB_PORT;
         this.AIMEDB_ENABLED = AIMEDB_ENABLED;
@@ -71,7 +74,7 @@ public class AutoChecker {
         // Check http part
         System.out.print("        AllNet    :  ");
         StringBuilder allNetSb = new StringBuilder();
-        if(ALLNET_HOST.equals("localhost")||ALLNET_HOST.startsWith("127.0.0.")) {
+        if(ALLNET_HOST_OVERRIDE.equals("localhost")||ALLNET_HOST_OVERRIDE.startsWith("127.0.0.")) {
             System.out.print("WARNING!!   ");
             allNetSb.append("You are using loopback address.").append(LINEBREAK);
             allNetSb.append("Some game won't connect with loopback address,").append(LINEBREAK);
@@ -79,7 +82,9 @@ public class AutoChecker {
         }
 
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://" + ALLNET_HOST + ":" + ALLNET_PORT + "/sys/test";
+        String host = ALLNET_HOST_OVERRIDE.equals("") ? "127.0.0.1" : ALLNET_HOST_OVERRIDE;
+        String port = ALLNET_PORT_OVERRIDE.equals("") ? SERVER_PORT : ALLNET_PORT_OVERRIDE;
+        String url = "http://" + host + ":" + port + "/sys/test";
         try{
             ResponseEntity<String> resp = restTemplate.getForEntity(url, String.class);
             if(resp.getStatusCode().is2xxSuccessful() && Objects.equals(resp.getBody(), "Server running")) {
