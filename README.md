@@ -49,7 +49,7 @@ mvnw package
 ```
 The output jar will be in `target` folder.
 
-Currently, there is no script for making distrubution package automatically.
+Currently, there is no script for making distribution package automatically.
 
 ### Credit:
 * **samnyan**
