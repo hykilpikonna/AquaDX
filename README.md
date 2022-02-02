@@ -42,6 +42,15 @@ This will be send to the game at booting and being used by following request.
 - This server provide a simple API for view play information and edit settings for some games.
 - DIVA and Maimai DX screenshot will be save in data folder.
 
+### Building:
+You need to install JDK on your system. However, you don't need to care about Maven, as wrapper script is included.
+```
+mvnw package
+```
+The output jar will be in `target` folder.
+
+Currently, there is no script for making distrubution package automatically.
+
 ### Credit:
 * **samnyan**
 * **Akasaka Ryuunosuke** : providing all the DIVA protocol information
