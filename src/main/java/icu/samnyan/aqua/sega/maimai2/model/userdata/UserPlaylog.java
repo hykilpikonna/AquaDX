@@ -183,42 +183,42 @@ public class UserPlaylog implements Serializable {
 
     private int breakMiss;
 
-    @JsonProperty("Tap")
+    @JsonProperty("isTap")
     private boolean isTap;
 
-    @JsonProperty("Hold")
+    @JsonProperty("isHold")
     private boolean isHold;
 
-    @JsonProperty("Slide")
+    @JsonProperty("isSlide")
     private boolean isSlide;
 
-    @JsonProperty("Touch")
+    @JsonProperty("isTouch")
     private boolean isTouch;
 
-    @JsonProperty("Break")
+    @JsonProperty("isBreak")
     private boolean isBreak;
 
-    @JsonProperty("CriticalDisp")
+    @JsonProperty("isCriticalDisp")
     private boolean isCriticalDisp;
 
-    @JsonProperty("FastLateDisp")
+    @JsonProperty("isFastLateDisp")
     private boolean isFastLateDisp;
 
     private int fastCount;
 
     private int lateCount;
 
-    @JsonProperty("AchieveNewRecord")
+    @JsonProperty("isAchieveNewRecord")
     private boolean isAchieveNewRecord;
 
-    @JsonProperty("DeluxscoreNewRecord")
+    @JsonProperty("isDeluxscoreNewRecord")
     private boolean isDeluxscoreNewRecord;
 
     private int comboStatus;
 
     private int syncStatus;
 
-    @JsonProperty("Clear")
+    @JsonProperty("isClear")
     private boolean isClear;
 
     private int beforeRating;
@@ -235,18 +235,18 @@ public class UserPlaylog implements Serializable {
 
     private int afterDeluxRating;
 
-    @JsonProperty("PlayTutorial")
+    @JsonProperty("isPlayTutorial")
     private boolean isPlayTutorial;
 
-    @JsonProperty("EventMode")
+    @JsonProperty("isEventMode")
     private boolean isEventMode;
 
-    @JsonProperty("FreedomMode")
+    @JsonProperty("isFreedomMode")
     private boolean isFreedomMode;
 
     private int playMode;
 
-    @JsonProperty("NewFree")
+    @JsonProperty("isNewFree")
     private boolean isNewFree;
 
     private int extNum1;
