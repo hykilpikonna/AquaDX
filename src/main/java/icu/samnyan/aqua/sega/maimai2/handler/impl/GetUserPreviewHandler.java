@@ -60,13 +60,13 @@ public class GetUserPreviewHandler implements BaseHandler {
             resp.setTrophyId(0);
             resp.setPartnerId(user.getPartnerId());
             resp.setFrameId(user.getFrameId());
-            resp.setDispRate(user.getPlayerRating());
             resp.setTotalAwake(user.getTotalAwake());
             resp.setIsNetMember(user.getIsNetMember());
             resp.setDailyBonusDate(user.getDailyBonusDate());
             if (userOptionOptional.isPresent()) {
                 UserOption option = userOptionOptional.get();
                 resp.setHeadPhoneVolume(option.getHeadPhoneVolume());
+                resp.setDispRate(option.getDispRate());
             }
             resp.setInherit(false);
 
