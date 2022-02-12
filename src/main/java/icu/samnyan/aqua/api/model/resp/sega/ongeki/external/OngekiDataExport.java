@@ -32,4 +32,8 @@ public class OngekiDataExport {
     private List<UserPlaylog> userPlaylogList;
     private List<UserStory> userStoryList;
     private List<UserTrainingRoom> userTrainingRoomList;
+    private List<UserTradeItem> userTradeItemList;
+    private List<UserEventMusic> userEventMusicList;
+    private List<UserTechEvent> userTechEventList;
+    private List<UserKop> userKopList;
 }

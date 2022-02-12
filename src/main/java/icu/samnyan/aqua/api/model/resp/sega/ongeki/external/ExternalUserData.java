@@ -40,11 +40,17 @@ public class ExternalUserData implements Serializable {
 
     private int totalJewelCount;
 
+    private int medalCount;
+
     private int playerRating;
 
     private int highestRating;
 
     private int battlePoint;
+
+    private int bestBattlePoint;
+
+    private int overDamageBattlePoint;
 
     private int nameplateId;
 
@@ -61,6 +67,8 @@ public class ExternalUserData implements Serializable {
     private int cardCategorySetting;
 
     private int cardSortSetting;
+
+    private int rivalScoreCategorySetting;
 
     private int playedTutorialBit;
 
@@ -92,6 +100,8 @@ public class ExternalUserData implements Serializable {
 
     private String eventWatchedDate;
 
+    private String cmEventWatchedDate;
+
     private String firstGameId;
 
     private String firstRomVersion;
@@ -105,7 +115,6 @@ public class ExternalUserData implements Serializable {
     private String lastRomVersion;
 
     private String lastDataVersion;
-
 
     private String compatibleCmVersion;
 
@@ -126,5 +135,7 @@ public class ExternalUserData implements Serializable {
     private int lastUsedDeckId;
 
     private int lastPlayMusicLevel;
+
+    private int lastEmoneyBrand;
 
 }
