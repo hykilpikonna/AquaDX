@@ -59,6 +59,8 @@ public class AutoChecker {
                 "╚═╝  ╚═╝ ╚══▀▀═╝  ╚═════╝ ╚═╝  ╚═╝\n" +
                 "                                  ");
 
+        System.out.println("Aqua viewer at http://localhost/web/\n");
+
         System.out.println("======= Self test running =======");
         // Check aimedb
         System.out.print("        AimeDB    :  ");

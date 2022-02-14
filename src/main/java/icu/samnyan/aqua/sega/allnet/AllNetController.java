@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import static icu.samnyan.aqua.sega.util.AquaConst.DEFAULT_KEYCHIP_ID;
 
@@ -41,8 +42,8 @@ public class AllNetController {
     }
 
     @GetMapping("/")
-    public String root() {
-        return "Server running";
+    public void root(HttpServletResponse response) throws IOException {
+        response.sendRedirect("web");
     }
 
     @GetMapping("/sys/test")
