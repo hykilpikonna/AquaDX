@@ -112,5 +112,7 @@ public class UserDetail implements Serializable {
     private long totalExpertAchievement;
     private long totalMasterAchievement;
     private long totalReMasterAchievement;
+    private long playerOldRating;
+    private long playerNewRating;
     private long dateTime;
 }

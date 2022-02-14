@@ -45,6 +45,8 @@ public class Maimai2ServletController {
     private final GetUserCourseHandler getUserCourseHandler;
     private final UploadUserPhotoHandler uploadUserPhotoHandler;
     private final UploadUserPlaylogHandler uploadUserPlaylogHandler;
+    private final GetGameNgMusicIdHandler getGameNgMusicIdHandler;
+    private final GetUserFriendSeasonRankingHandler getUserFriendSeasonRankingHandler;
 
     public Maimai2ServletController(GetGameSettingHandler getGameSettingHandler, GetGameEventHandler getGameEventHandler, GetGameRankingHandler getGameRankingHandler, GetGameTournamentInfoHandler getGameTournamentInfoHandler,
     GetTransferFriendHandler getTransferFriendHandler, GetUserActivityHandler getUserActivityHandler, UserLoginHandler userLoginHandler, UserLogoutHandler userLogoutHandler,
@@ -53,7 +55,7 @@ public class Maimai2ServletController {
     GetUserLoginBonusHandler getUserLoginBonusHandler, GetUserMapHandler getUserMapHandler, GetUserFavoriteHandler getUserFavoriteHandler,
     GetUserCardHandler getUserCardHandler, GetUserMusicHandler getUserMusicHandler, GetUserRatingHandler getUserRatingHandler, GetUserRegionHandler getUserRegionHandler,
     GetGameChargeHandler getGameChargeHandler, GetUserChargeHandler getUserChargeHandler, GetUserCourseHandler getUserCourseHandler, UploadUserPhotoHandler uploadUserPhotoHandler,
-    UploadUserPlaylogHandler uploadUserPlaylogHandler) {
+    UploadUserPlaylogHandler uploadUserPlaylogHandler, GetGameNgMusicIdHandler getGameNgMusicIdHandler, GetUserFriendSeasonRankingHandler getUserFriendSeasonRankingHandler) {
         this.getGameSettingHandler = getGameSettingHandler;
         this.getGameEventHandler = getGameEventHandler;
         this.getGameRankingHandler = getGameRankingHandler;
@@ -82,6 +84,8 @@ public class Maimai2ServletController {
         this.getUserCourseHandler = getUserCourseHandler;
         this.uploadUserPhotoHandler = uploadUserPhotoHandler;
         this.uploadUserPlaylogHandler = uploadUserPlaylogHandler;
+        this.getGameNgMusicIdHandler = getGameNgMusicIdHandler;
+        this.getUserFriendSeasonRankingHandler = getUserFriendSeasonRankingHandler;
     }
 
     // Mandatory for boot
@@ -272,6 +276,17 @@ public class Maimai2ServletController {
     @PostMapping("GetUserCourseApi")
     public String getUserCourseHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserCourseHandler.handle(request);
+    }
+
+    // Universe APIs
+    @PostMapping("GetGameNgMusicIdApi")
+    public String getGameNgMusicIdHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getGameNgMusicIdHandler.handle(request);
+    }
+
+    @PostMapping("GetUserFriendSeasonRankingApi")
+    public String getUserFriendSeasonRankingHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserFriendSeasonRankingHandler.handle(request);
     }
 
 }

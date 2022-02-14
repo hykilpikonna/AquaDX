@@ -29,6 +29,7 @@ public class UserAll implements Serializable {
 	private List<UserItem> userItemList;
 	private List<UserMusicDetail> userMusicDetailList;
 	private List<UserCourse> userCourseList;
+	private List<UserFriendSeasonRanking> userFriendSeasonRankingList;
 	private List<UserCharge> userChargeList;
 	private List<UserFavorite> userFavoriteList;
 	private List<UserActivity> userActivityList;
@@ -40,4 +41,5 @@ public class UserAll implements Serializable {
 	private String isNewMusicDetailList;
 	private String isNewCourseList;
 	private String isNewFavoriteList;
+	private String isNewFriendSeasonRankingList;
 }
