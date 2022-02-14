@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.27 - 2022-02-14
+- **This will do database update**
+- Add support for Maimai DX Universe!
+- Add new music and event data for O.N.G.E.K.I bright.
+- Disable O.N.G.E.K.I bright login announcements.
+- Add automatic host and port assignment. Now Aqua works out-of-box without first configuration. Still, previous config entries still works if it needed for some reason. Thanks akiroz!
+- Fix rating display in Maimai DX user entry. It now respects ingame rating showing preference as expected.
+- Fix Maimai DX user playlog saving. Previously it lost some of data.
+- Update O.N.G.E.K.I Aqua API endpoints for user data export and import.
+
 ## 0.0.26b - 2021-12-27
 - Add new music and event data for O.N.G.E.K.I bright.
 - Switch to typical bean name. Previously it was generated dynamically with classpath. No user-side difference.
@@ -15,12 +25,12 @@ All notable changes to this project will be documented in this file.
 
 - **This will do database update**
 - Add support for O.N.G.E.K.I bright!
-- Disabled O.N.G.E.K.I Red Plus login announcements. You can now create new account without numerous event popups.
+- Disable O.N.G.E.K.I Red Plus login announcements. You can now create new account without numerous event popups.
 - Delete some non-user-obtainable cards. This was available in card gacha if you were lucky, and made game crash if you did. Special thanks to htk030 for this.
 - Improve some documentations. Like what you seeing right now.
 - Fix typo in AimeDB lookup handler.
 - Change some mismatches, and delete previous backup tables in Sqlite DB.
-- Update dependencies, which includes fixed version for log4j and logback vulnerbilities.
+- Update dependencies, which includes fixed version for log4j and logback vulnerabilities.
 
 ## 0.0.25 - 2021-11-30
 
