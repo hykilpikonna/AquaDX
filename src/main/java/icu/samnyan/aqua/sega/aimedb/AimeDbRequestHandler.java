@@ -31,9 +31,11 @@ public class AimeDbRequestHandler extends ChannelInboundHandlerAdapter {
     private final LookupHandler lookupHandler;
     private final Lookup2Handler lookup2Handler;
     private final RegisterHandler registerHandler;
+    private final Unknown19Handler unknown19Handler;
+    private final Unknown13Handler unknown13Handler;
 
     @Autowired
-    public AimeDbRequestHandler(CampaignHandler campaignHandler, FeliCaLookupHandler feliCaLookupHandler, FeliCaLookup2Handler feliCaLookup2Handler, GoodbyeHandler goodbyeHandler, HelloHandler helloHandler, LogHandler logHandler, LookupHandler lookupHandler, Lookup2Handler lookup2Handler, RegisterHandler registerHandler) {
+    public AimeDbRequestHandler(CampaignHandler campaignHandler, FeliCaLookupHandler feliCaLookupHandler, FeliCaLookup2Handler feliCaLookup2Handler, GoodbyeHandler goodbyeHandler, HelloHandler helloHandler, LogHandler logHandler, LookupHandler lookupHandler, Lookup2Handler lookup2Handler, RegisterHandler registerHandler, Unknown19Handler unknown19Handler, Unknown13Handler unknown13Handler) {
         this.campaignHandler = campaignHandler;
         this.feliCaLookupHandler = feliCaLookupHandler;
         this.feliCaLookup2Handler = feliCaLookup2Handler;
@@ -43,6 +45,8 @@ public class AimeDbRequestHandler extends ChannelInboundHandlerAdapter {
         this.lookupHandler = lookupHandler;
         this.lookup2Handler = lookup2Handler;
         this.registerHandler = registerHandler;
+        this.unknown19Handler = unknown19Handler;
+        this.unknown13Handler = unknown13Handler;
     }
 
 
@@ -68,13 +72,16 @@ public class AimeDbRequestHandler extends ChannelInboundHandlerAdapter {
                     campaignHandler.handle(ctx, data);
                     break;
                 case 0x000d:
-                    registerHandler.handle(ctx, data);
+                    unknown13Handler.handle(ctx, data);
                     break;
                 case 0x000f:
                     lookup2Handler.handle(ctx, data);
                     break;
                 case 0x0011:
                     feliCaLookup2Handler.handle(ctx, data);
+                    break;
+                case 0x0013:
+                    unknown19Handler.handle(ctx, data);
                     break;
                 case 0x0064:
                     helloHandler.handle(ctx, data);
