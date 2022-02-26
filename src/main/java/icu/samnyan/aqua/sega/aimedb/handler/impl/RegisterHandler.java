@@ -53,15 +53,9 @@ public class RegisterHandler implements BaseHandler {
             resultMap.put("status", 1);
             resultMap.put("aimeId", card.getExtId().longValue());
         } else {
-            /* Ongeki workaround: if the card is already registered, it will just return existing aimeId associated with luid.
-            I have strong feeling that we should investigate about register code (13) instead of this hack,
-            but it seems enough for mitigate "ongeki bright" error popup during login process. */
             logger.warn("Duplicated Aime Card Register detected, access code: {}", requestMap.get("luid"));
-
-            Card card = cardService.getCardByAccessCode((String) requestMap.get("luid")).get();
-
-            resultMap.put("status", 1);
-            resultMap.put("aimeId", card.getExtId().longValue());
+            resultMap.put("status", 0);
+            resultMap.put("aimeId", 0L);
         }
 
         logger.info("Response: " + logMapper.write(resultMap));
