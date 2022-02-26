@@ -50,6 +50,14 @@ public class AllNetController {
         return "Server running";
     }
 
+    @PostMapping(value = "/sys/servlet/DownloadOrder", produces = "text/plain")
+    public String downloadOrder(InputStream dataStream, HttpServletRequest req) throws IOException {
+        logger.info("Request: DownloadOrder");
+        String resp = "stat=1&uri=null";
+        logger.info("Response: " + resp);
+        return resp + "\n";
+    }
+
     @PostMapping(value = "/sys/servlet/PowerOn", produces = "text/plain")
     public String powerOn(InputStream dataStream, HttpServletRequest req) throws IOException {
 
