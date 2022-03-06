@@ -112,6 +112,10 @@ public class UpsertUserAllHandler implements BaseHandler {
         newUserData.setId(userData.getId());
         newUserData.setCard(userData.getCard());
 
+        // Set eventWatchedDate with lastPlayDate, because client doesn't update it
+        newUserData.setEventWatchedDate(userData.getLastPlayDate());
+        newUserData.setCmEventWatchedDate(userData.getLastPlayDate());
+
         userDataRepository.save(newUserData);
 
 
@@ -139,7 +143,7 @@ public class UpsertUserAllHandler implements BaseHandler {
         userPlaylogRepository.saveAll(newUserPlaylogList);
 
 
-        // UserSessionlogList, UserJewelboostlogLost doesn't need to save for a private server
+        // UserSessionlogList, UserJewelboostlogLost doesn't need to be saved for a private server
 
 
         // UserActivityList
