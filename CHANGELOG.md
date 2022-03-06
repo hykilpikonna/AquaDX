@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.28 - 2022-03-06
+- Add handler for new AimeDB commands (0x0d, 0x13). This fixes aime or network instability for some games.
+- For O.N.G.E.K.I, use last login date for event watched date. Previously it saved as a date from the year 2005 or 0000.
+- Update dependencies.
+
 ## 0.0.27 - 2022-02-14
 - **This will do database update**
 - Add support for Maimai DX Universe!
