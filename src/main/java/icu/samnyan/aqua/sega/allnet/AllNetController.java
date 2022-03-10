@@ -141,7 +141,7 @@ public class AllNetController {
             case "SDEY":
                 return "http://" + addr + ":" + port + "/MaimaiServlet/";
             case "SDEZ":
-                return "http://" + addr + ":" + port + "/";
+                return "http://" + addr + ":" + port + "/Maimai2Servlet/";
             default:
                 return "http://" + addr + ":" + port + "/";
         }

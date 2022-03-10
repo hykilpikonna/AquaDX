@@ -45,7 +45,7 @@ Only JP variant is supported.
 * Tournament mode
 
 ### Additional notes
-* From version 0.0.25, Aqua reports endpoint as `http://ALLNET_HOST/`. The final endpoint that game connects must be `http://ALLNET_HOST/Maimai2Servlet/`.
+* Previous versions of Aqua reported different endpoint URI for Maimai DX thus required compatible patches. Currently, it doesn't matter and both will work.
 
 ## O.N.G.E.K.I
 
