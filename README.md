@@ -1,5 +1,5 @@
 # Aqua Server
-An multipurpose game server power by Spring Boot.
+Multipurpose game server powered by Spring Boot.
 
 ### Supported Game:
 * CHUNITHM Paradise Lost (and below)
@@ -7,9 +7,11 @@ An multipurpose game server power by Spring Boot.
 * Project DIVA Arcade Future Tone
 * O.N.G.E.K.I. bright (and below)
 
+For more information, please see [game specific notes](docs/game_specific_notes.md).
+
 ### Notes:
 * Some game may require additional patches and these will not provided in this project and repository. You already found this, so you know where to find related resources too.
-* This repository may contain untested, experimental support for few game which I can't test properly. If you couldn't find your wanted game in the above list, do not expect worthwhile support.
+* This repository may contain untested, experimental implementation for few games which I can't test properly. If you couldn't find your wanted game in the above list, do not expect support.
 
 ### Usage:
 Requirements:
@@ -18,7 +20,7 @@ Requirements:
 
 Run `java -jar aqua.jar` or use the `start.bat` if you are using windows.
 
-By default, aqua will use sqlite and save user data in data/db.sqlite.
+By default, Aqua will use sqlite and save user data in data/db.sqlite.
 
 If you want to MySQL (or MariaDB), edit configuration then it will auto create the table and import some initial data.
 
