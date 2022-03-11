@@ -43,6 +43,7 @@ public class UpsertUserAllHandler implements BaseHandler {
     private final UserDeckRepository userDeckRepository;
     private final UserStoryRepository userStoryRepository;
     private final UserChapterRepository userChapterRepository;
+    private final UserMemoryChapterRepository userMemoryChapterRepository;
     private final UserItemRepository userItemRepository;
     private final UserMusicItemRepository userMusicItemRepository;
     private final UserLoginBonusRepository userLoginBonusRepository;
@@ -60,7 +61,7 @@ public class UpsertUserAllHandler implements BaseHandler {
 
     @Autowired
     public UpsertUserAllHandler(BasicMapper mapper,
-                                CardService cardService, UserDataRepository userDataRepository, UserOptionRepository userOptionRepository, UserPlaylogRepository userPlaylogRepository, UserActivityRepository userActivityRepository, UserMusicDetailRepository userMusicDetailRepository, UserCharacterRepository userCharacterRepository, UserCardRepository userCardRepository, UserDeckRepository userDeckRepository, UserStoryRepository userStoryRepository, UserChapterRepository userChapterRepository, UserItemRepository userItemRepository, UserMusicItemRepository userMusicItemRepository, UserLoginBonusRepository userLoginBonusRepository, UserEventPointRepository userEventPointRepository, UserMissionPointRepository userMissionPointRepository, UserTrainingRoomRepository userTrainingRoomRepository, UserGeneralDataRepository userGeneralDataRepository, UserBossRepository userBossRepository, UserScenarioRepository userScenarioRepository, UserTechCountRepository userTechCountRepository, UserTradeItemRepository userTradeItemRepository, UserEventMusicRepository userEventMusicRepository, UserTechEventRepository userTechEventRepository, UserKopRepository userKopRepository) {
+                                CardService cardService, UserDataRepository userDataRepository, UserOptionRepository userOptionRepository, UserPlaylogRepository userPlaylogRepository, UserActivityRepository userActivityRepository, UserMusicDetailRepository userMusicDetailRepository, UserCharacterRepository userCharacterRepository, UserCardRepository userCardRepository, UserDeckRepository userDeckRepository, UserStoryRepository userStoryRepository, UserChapterRepository userChapterRepository, UserItemRepository userItemRepository, UserMusicItemRepository userMusicItemRepository, UserLoginBonusRepository userLoginBonusRepository, UserEventPointRepository userEventPointRepository, UserMissionPointRepository userMissionPointRepository, UserTrainingRoomRepository userTrainingRoomRepository, UserGeneralDataRepository userGeneralDataRepository, UserBossRepository userBossRepository, UserScenarioRepository userScenarioRepository, UserTechCountRepository userTechCountRepository, UserTradeItemRepository userTradeItemRepository, UserEventMusicRepository userEventMusicRepository, UserTechEventRepository userTechEventRepository, UserKopRepository userKopRepository, UserMemoryChapterRepository userMemoryChapterRepository) {
         this.mapper = mapper;
         this.cardService = cardService;
         this.userDataRepository = userDataRepository;
@@ -73,6 +74,7 @@ public class UpsertUserAllHandler implements BaseHandler {
         this.userDeckRepository = userDeckRepository;
         this.userStoryRepository = userStoryRepository;
         this.userChapterRepository = userChapterRepository;
+        this.userMemoryChapterRepository = userMemoryChapterRepository;
         this.userItemRepository = userItemRepository;
         this.userMusicItemRepository = userMusicItemRepository;
         this.userLoginBonusRepository = userLoginBonusRepository;
@@ -324,6 +326,25 @@ public class UpsertUserAllHandler implements BaseHandler {
         }
         userChapterRepository.saveAll(newUserChapterList);
 
+
+        // UserMemoryChapterList
+        List<UserMemoryChapter> userMemoryChapterList = upsertUserAll.getUserMemoryChapterList();
+        
+        if (userMemoryChapterList != null) {
+            List<UserMemoryChapter> newUserMemoryChapterList = new ArrayList<>();
+
+            for (UserMemoryChapter newUserMemoryChapter : userMemoryChapterList) {
+                int chapterId = newUserMemoryChapter.getChapterId();
+    
+                Optional<UserMemoryChapter> chapterOptional = userMemoryChapterRepository.findByUserAndChapterId(newUserData, chapterId);
+                UserMemoryChapter userChapter = chapterOptional.orElseGet(() -> new UserMemoryChapter(newUserData));
+    
+                newUserMemoryChapter.setId(userChapter.getId());
+                newUserMemoryChapter.setUser(newUserData);
+                newUserMemoryChapterList.add(newUserMemoryChapter);
+            }
+            userMemoryChapterRepository.saveAll(newUserMemoryChapterList);
+        }
 
         // UserItemList
         List<UserItem> userItemList = upsertUserAll.getUserItemList();
