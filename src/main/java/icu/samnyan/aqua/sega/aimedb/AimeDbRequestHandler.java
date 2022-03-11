@@ -32,10 +32,10 @@ public class AimeDbRequestHandler extends ChannelInboundHandlerAdapter {
     private final Lookup2Handler lookup2Handler;
     private final RegisterHandler registerHandler;
     private final Unknown19Handler unknown19Handler;
-    private final Unknown13Handler unknown13Handler;
+    private final TouchHandler touchHandler;
 
     @Autowired
-    public AimeDbRequestHandler(CampaignHandler campaignHandler, FeliCaLookupHandler feliCaLookupHandler, FeliCaLookup2Handler feliCaLookup2Handler, GoodbyeHandler goodbyeHandler, HelloHandler helloHandler, LogHandler logHandler, LookupHandler lookupHandler, Lookup2Handler lookup2Handler, RegisterHandler registerHandler, Unknown19Handler unknown19Handler, Unknown13Handler unknown13Handler) {
+    public AimeDbRequestHandler(CampaignHandler campaignHandler, FeliCaLookupHandler feliCaLookupHandler, FeliCaLookup2Handler feliCaLookup2Handler, GoodbyeHandler goodbyeHandler, HelloHandler helloHandler, LogHandler logHandler, LookupHandler lookupHandler, Lookup2Handler lookup2Handler, RegisterHandler registerHandler, Unknown19Handler unknown19Handler, TouchHandler touchHandler) {
         this.campaignHandler = campaignHandler;
         this.feliCaLookupHandler = feliCaLookupHandler;
         this.feliCaLookup2Handler = feliCaLookup2Handler;
@@ -46,7 +46,7 @@ public class AimeDbRequestHandler extends ChannelInboundHandlerAdapter {
         this.lookup2Handler = lookup2Handler;
         this.registerHandler = registerHandler;
         this.unknown19Handler = unknown19Handler;
-        this.unknown13Handler = unknown13Handler;
+        this.touchHandler = touchHandler;
     }
 
 
@@ -72,7 +72,7 @@ public class AimeDbRequestHandler extends ChannelInboundHandlerAdapter {
                     campaignHandler.handle(ctx, data);
                     break;
                 case 0x000d:
-                    unknown13Handler.handle(ctx, data);
+                    touchHandler.handle(ctx, data);
                     break;
                 case 0x000f:
                     lookup2Handler.handle(ctx, data);
