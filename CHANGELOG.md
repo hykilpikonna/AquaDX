@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.29a - 2022-03-12
+- Fix typo which prevented O.N.G.E.K.I bright memory entry.
+
 ## 0.0.29 - 2022-03-11
 - **This will do database update**
 - Add support for Chunithm New! Thanks to anonymous for this.
