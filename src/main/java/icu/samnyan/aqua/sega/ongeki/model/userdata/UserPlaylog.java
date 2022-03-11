@@ -105,6 +105,8 @@ public class UserPlaylog implements Serializable {
 
     private int battleScoreRank;
 
+    private int platinumScore;
+
     private int maxCombo;
 
     private int judgeMiss;

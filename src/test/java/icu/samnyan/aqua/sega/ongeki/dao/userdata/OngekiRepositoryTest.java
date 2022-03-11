@@ -338,7 +338,7 @@ class OngekiRepositoryTest {
     }
 
     private UserData getUser(Card c) {
-        return new UserData(-1, c, "Hello", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "2020", "2020", "SDDT", "1.00.00", "1.00.00", "2020", "SDDT", "1.00.00", "1.00.00", "", "2020", 0, "0", 0, "123", 0, "A000000", 0, 0, 0);
+        return new UserData(-1, c, "Hello", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "2020", "2020", "SDDT", "1.00.00", "1.00.00", "2020", "SDDT", "1.00.00", "1.00.00", "", "2020", 0, "0", 0, "123", 0, "A000000", 0, 0, 0);
     }
 
     private UserActivity getActivity(UserData u, Integer activityId) {
@@ -398,7 +398,7 @@ class OngekiRepositoryTest {
     }
 
     private UserPlaylog getPlaylog(UserData u, Integer musicId) {
-        return new UserPlaylog(-1, u, 0, 0, "", "", "", musicId, 1, 1, 1, "", 1, 1, 1, 1, "", "", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, true, true, true, true, true, true, 0, 0);
+        return new UserPlaylog(-1, u, 0, 0, "", "", "", musicId, 1, 1, 1, "", 1, 1, 1, 1, "", "", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, true, true, true, true, true, true, 0, 0);
     }
 
     private UserScenario getScenario(UserData u, Integer scenarioId) {

@@ -61,6 +61,8 @@ public class UpsertUserAll implements Serializable {
 
     private List<UserChapter> userChapterList;
 
+    private List<UserMemoryChapter> userMemoryChapterList;
+
     private List<UserItem> userItemList;
 
     private List<UserMusicItem> userMusicItemList;
@@ -109,6 +111,9 @@ public class UpsertUserAll implements Serializable {
 
     @JsonProperty("isNewChapterList")
     private String isNewChapterList;
+
+    @JsonProperty("isNewMemoryChapterList")
+    private String isNewMemoryChapterList;
 
     @JsonProperty("isNewItemList")
     private String isNewItemList;
