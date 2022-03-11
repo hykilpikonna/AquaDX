@@ -55,7 +55,7 @@ public class UserMemoryChapter implements Serializable {
 
     private int gaugeId;
 
-    private int gauseNum;
+    private int gaugeNum;
 
     public UserMemoryChapter(UserData userData) {
         this.user = userData;
