@@ -1,5 +1,4 @@
-﻿INSERT INTO ongeki_game_chara (id, name, cv, model_id) VALUES (1, 'あかニャン', '',1);
-INSERT INTO ongeki_game_chara (id, name, cv, model_id) VALUES (6, 'こんじきニャン', '',6);
+﻿INSERT INTO ongeki_game_chara (id, name, cv, model_id) VALUES (6, 'こんじきニャン', '',6);
 INSERT INTO ongeki_game_chara (id, name, cv, model_id) VALUES (2024, '風見 幽香', '',2024);
 INSERT INTO ongeki_game_chara (id, name, cv, model_id) VALUES (46020, '山手響子', '',46020);
 INSERT INTO ongeki_game_chara (id, name, cv, model_id) VALUES (46021, '犬寄しのぶ', '',46021);
