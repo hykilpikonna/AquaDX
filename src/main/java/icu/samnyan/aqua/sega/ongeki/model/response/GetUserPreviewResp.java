@@ -35,7 +35,7 @@ public class GetUserPreviewResp {
     private int headphone = 0;
     private int banStatus = 0;
     @JsonProperty("isWarningConfirmed")
-    private boolean isWarningConfirmed = true;
+    private boolean isWarningConfirmed = false;
     private int lastEmoneyBrand = 0;
     private int lastEmoneyCredit = 0;
 }

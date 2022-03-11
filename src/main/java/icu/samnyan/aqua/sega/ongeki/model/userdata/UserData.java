@@ -66,6 +66,9 @@ public class UserData implements Serializable {
 
     private int overDamageBattlePoint;
 
+    @JsonProperty("isDialogWatchedSuggestMemory")
+    private boolean isDialogWatchedSuggestMemory;
+
     private int nameplateId;
 
     private int trophyId;
@@ -73,6 +76,8 @@ public class UserData implements Serializable {
     private int cardId;
 
     private int characterId;
+
+    private int characterVoiceNo;
 
     private int tabSetting;
 

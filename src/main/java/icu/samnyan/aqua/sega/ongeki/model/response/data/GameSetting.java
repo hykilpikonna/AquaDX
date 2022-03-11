@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GameSetting {
     private String dataVersion;
+    private String onlineDataVersion;
     @JsonProperty("isMaintenance")
     private boolean isMaintenance;
     private int requestInterval;

@@ -43,6 +43,7 @@ public class GetGameSettingHandler implements BaseHandler {
 
         GameSetting gameSetting = new GameSetting(
                 "1.05.00",
+                "", //TODO dynamic
                 false,
                 10,
                 start.getPropertyValue(),
