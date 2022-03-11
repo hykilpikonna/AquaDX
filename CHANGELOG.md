@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.29 - 2022-03-11
+- **This will do database update**
+- Add support for Chunithm New! Thanks to anonymous for this.
+- Add experimental support for O.N.G.E.K.I bright memory.
+- Improve documentations. This includes game specific notes which has game requirements, informations so please read before use.
+- Improve handler for 0x13 Aime command. Special thanks to Treeskin.
+- Fix server incompatibility with Maimai DX Splash. It now works with both old and new URI.
+- Add version override config entry for O.N.G.E.K.I bright memory and up.
+
 ## 0.0.28 - 2022-03-06
 - Add handler for new AimeDB commands (0x0d, 0x13). This fixes aime or network instability for some games.
 - For O.N.G.E.K.I, use last login date for event watched date. Previously it saved as a date from the year 2005 or 0000.
