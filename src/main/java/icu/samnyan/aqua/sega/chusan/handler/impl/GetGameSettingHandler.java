@@ -66,7 +66,7 @@ public class GetGameSettingHandler implements BaseHandler {
         String port = ALLNET_PORT.equals("") ? SERVER_PORT : ALLNET_PORT;
 
         GameSetting gameSetting = new GameSetting(
-                "2.00.01",
+                GAME_VERSION,
                 GAME_VERSION, // Chusan checks server version and disables some game modes if it not same
                 false,
                 0,

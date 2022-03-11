@@ -10,6 +10,7 @@ import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -26,10 +27,13 @@ public class GetGameSettingHandler implements BaseHandler {
 
     private final PropertyEntryRepository propertyEntryRepository;
 
+    private final String GAME_VERSION;
+
     @Autowired
-    public GetGameSettingHandler(BasicMapper mapper, PropertyEntryRepository propertyEntryRepository) {
+    public GetGameSettingHandler(BasicMapper mapper, PropertyEntryRepository propertyEntryRepository, @Value("${game.ongeki.version:1.05.00}") String GAME_VERSION) {
         this.mapper = mapper;
         this.propertyEntryRepository = propertyEntryRepository;
+        this.GAME_VERSION = GAME_VERSION;
     }
 
 
@@ -42,8 +46,8 @@ public class GetGameSettingHandler implements BaseHandler {
                 .orElseGet(() -> new PropertyEntry("reboot_end_time", "2020-01-01 23:59:00.0"));
 
         GameSetting gameSetting = new GameSetting(
-                "1.05.00",
-                "", //TODO dynamic
+                GAME_VERSION,
+                GAME_VERSION,
                 false,
                 10,
                 start.getPropertyValue(),
