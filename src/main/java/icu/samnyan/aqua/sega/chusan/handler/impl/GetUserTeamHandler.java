@@ -21,7 +21,7 @@ public class GetUserTeamHandler implements BaseHandler {
     private final String teamName;
 
 
-    public GetUserTeamHandler(StringMapper mapper, @Value("${game.chunithm.team-name:#{null}}") String teamName) {
+    public GetUserTeamHandler(StringMapper mapper, @Value("${game.chusan.team-name:#{null}}") String teamName) {
         this.mapper = mapper;
         this.teamName = teamName;
     }
