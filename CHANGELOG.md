@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.30 - 2022-03-13
+- Add billing endpoint.
+- Add rom version override config entry for Chunithm New. It turns out game checks this too when enable specific gamemodes.
+
 ## 0.0.29a - 2022-03-12
 - Fix typo which prevented O.N.G.E.K.I bright memory entry.
 
