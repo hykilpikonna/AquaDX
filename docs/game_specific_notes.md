@@ -30,7 +30,7 @@ Only JP variant is supported.
 * Profile migration from Chunithm
 
 ### Additional notes
-* Match `game.chusan.version` key in `application.properties` same as your client version. If not, class mode is disabled due to version mismatch.
+* Match `game.chusan.version` and `game.chusan.rom-version` key in `application.properties` same as your client. If not, class mode is disabled due to version mismatch.
 * Team function can be enabled by changing `game.chusan.team-name` value. Leave this blank to disable team function.
 * Chusan and Chunithm uses different endpoints and tables. Your progress from Chunithm won't carry over to Chusan.
 * User box customization requires Web UI, which is not added yet. The only option to do now is editing database.

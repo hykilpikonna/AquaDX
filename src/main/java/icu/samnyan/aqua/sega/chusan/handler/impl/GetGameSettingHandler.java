@@ -30,15 +30,17 @@ public class GetGameSettingHandler implements BaseHandler {
     private final String ALLNET_HOST;
     private final String ALLNET_PORT;
     private final String SERVER_PORT;
+    private final String ROM_VERSION;
     private final String GAME_VERSION;
 
     @Autowired
-    public GetGameSettingHandler(StringMapper mapper, @Value("${allnet.server.host:}") String ALLNET_HOST, @Value("${allnet.server.port:}") String ALLNET_PORT, @Value("${server.port:}") String SERVER_PORT, @Value("${game.chusan.version:2.00.00}") String GAME_VERSION) {
+    public GetGameSettingHandler(StringMapper mapper, @Value("${allnet.server.host:}") String ALLNET_HOST, @Value("${allnet.server.port:}") String ALLNET_PORT, @Value("${server.port:}") String SERVER_PORT, @Value("${game.chusan.version:2.00.00}") String GAME_VERSION, @Value("${game.chusan.rom-version:2.00.01}") String ROM_VERSION) {
         this.mapper = mapper;
         this.ALLNET_HOST = ALLNET_HOST;
         this.ALLNET_PORT = ALLNET_PORT;
         this.SERVER_PORT = SERVER_PORT;
         this.GAME_VERSION = GAME_VERSION;
+        this.ROM_VERSION = ROM_VERSION;
     }
 
 
@@ -66,8 +68,8 @@ public class GetGameSettingHandler implements BaseHandler {
         String port = ALLNET_PORT.equals("") ? SERVER_PORT : ALLNET_PORT;
 
         GameSetting gameSetting = new GameSetting(
-                GAME_VERSION,
-                GAME_VERSION, // Chusan checks server version and disables some game modes if it not same
+                ROM_VERSION, // Chusan checks these two versions to determine if it can enable game modes
+                GAME_VERSION, 
                 false,
                 0,
                 rebootStartTime.format(formatter),
