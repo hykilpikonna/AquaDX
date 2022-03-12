@@ -27,19 +27,26 @@ public class AutoChecker {
     private final String AIMEDB_BIND;
     private final int AIMEDB_PORT;
     private final boolean AIMEDB_ENABLED;
+    private final boolean BILLING_ENABLED;
+    private final int BILLING_PORT;
+
     public AutoChecker(
             @Value("${server.host:}") String SERVER_PORT,
             @Value("${allnet.server.host:}") String ALLNET_HOST,
             @Value("${allnet.server.port:}") String ALLNET_PORT,
             @Value("${aimedb.server.address}") String AIMEDB_BIND,
             @Value("${aimedb.server.port}") int AIMEDB_PORT,
-            @Value("${aimedb.server.enable}") boolean AIMEDB_ENABLED) {
+            @Value("${aimedb.server.enable}") boolean AIMEDB_ENABLED,
+            @Value("${billing.server.port}") int BILLING_PORT,
+            @Value("${billing.server.enable}") boolean BILLING_ENABLED) {
         this.SERVER_PORT = SERVER_PORT;
         this.ALLNET_HOST_OVERRIDE = ALLNET_HOST;
         this.ALLNET_PORT_OVERRIDE = ALLNET_PORT;
         this.AIMEDB_BIND = AIMEDB_BIND;
         this.AIMEDB_PORT = AIMEDB_PORT;
         this.AIMEDB_ENABLED = AIMEDB_ENABLED;
+        this.BILLING_PORT = BILLING_PORT;
+        this.BILLING_ENABLED = BILLING_ENABLED;
     }
 
     public void check() {
@@ -70,6 +77,19 @@ public class AutoChecker {
             }
         }
 
+        // Check billing
+        System.out.print("        Billing   :  ");
+        if(!BILLING_ENABLED) {
+            System.out.println("DISABLED, SKIP");
+        } else {
+            String host = ALLNET_HOST_OVERRIDE.equals("") ? "127.0.0.1" : ALLNET_HOST_OVERRIDE;
+            try (Socket test = new Socket(host, BILLING_PORT)){
+                System.out.println("OK");
+            } catch (Exception e) {
+                System.out.println("ERROR!!");
+                System.out.println(e.getMessage());
+            }
+        }
 
         // Check http part
         System.out.print("        AllNet    :  ");
