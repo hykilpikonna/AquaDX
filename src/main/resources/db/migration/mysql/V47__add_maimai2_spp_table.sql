@@ -57,4 +57,4 @@ ALTER TABLE `maimai2_user_option`
 
 ALTER TABLE `maimai2_user_udemae`
     ADD COLUMN `class_value` int DEFAULT 0,
-    ADD COLUMN `mac_class_value` int DEFAULT 0;
+    ADD COLUMN `max_class_value` int DEFAULT 0;
