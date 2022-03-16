@@ -42,12 +42,13 @@ public class ChusanServletController {
     private final GetUserRivalDataHandler getUserRivalDataHandler;
     private final GetUserRivalMusicHandler getUserRivalMusicHandler;
     private final GetUserSymbolChatSettingHandler getUserSymbolChatSettingHandler;
+    private final GetUserNetBattleDataHandler getUserNetBattleDataHandler;
     private final GetUserTeamHandler getUserTeamHandler;
     private final UpsertUserAllHandler upsertUserAllHandler;
     private final UpsertUserChargelogHandler upsertUserChargelogHandler;
 
     @Autowired
-    public ChusanServletController(GameLoginHandler gameLoginHandler, GameLogoutHandler gameLogoutHandler, GetGameChargeHandler getGameChargeHandler, GetGameEventHandler getGameEventHandler, GetGameIdlistHandler getGameIdlistHandler, GetGameRankingHandler getGameRankingHandler, GetGameSettingHandler getGameSettingHandler, GetTeamCourseRuleHandler getTeamCourseRuleHandler, GetTeamCourseSettingHandler getTeamCourseSettingHandler, GetUserActivityHandler getUserActivityHandler, GetUserCharacterHandler getUserCharacterHandler, GetUserChargeHandler getUserChargeHandler, GetUserCourseHandler getUserCourseHandler, GetUserDataHandler getUserDataHandler, GetUserDuelHandler getUserDuelHandler, GetUserFavoriteItemHandler getUserFavoriteItemHandler, GetUserItemHandler getUserItemHandler, GetUserLoginBonusHandler getUserLoginBonusHandler, GetUserMapAreaHandler getUserMapAreaHandler, GetUserMusicHandler getUserMusicHandler, GetUserOptionHandler getUserOptionHandler, GetUserPreviewHandler getUserPreviewHandler, GetUserRecentRatingHandler getUserRecentRatingHandler, GetUserRegionHandler getUserRegionHandler, GetUserRivalDataHandler getUserRivalDataHandler, GetUserRivalMusicHandler getUserRivalMusicHandler, GetUserTeamHandler getUserTeamHandler, UpsertUserAllHandler upsertUserAllHandler, UpsertUserChargelogHandler upsertUserChargelogHandler, GetUserSymbolChatSettingHandler getUserSymbolChatSettingHandler) {
+    public ChusanServletController(GameLoginHandler gameLoginHandler, GameLogoutHandler gameLogoutHandler, GetGameChargeHandler getGameChargeHandler, GetGameEventHandler getGameEventHandler, GetGameIdlistHandler getGameIdlistHandler, GetGameRankingHandler getGameRankingHandler, GetGameSettingHandler getGameSettingHandler, GetTeamCourseRuleHandler getTeamCourseRuleHandler, GetTeamCourseSettingHandler getTeamCourseSettingHandler, GetUserActivityHandler getUserActivityHandler, GetUserCharacterHandler getUserCharacterHandler, GetUserChargeHandler getUserChargeHandler, GetUserCourseHandler getUserCourseHandler, GetUserDataHandler getUserDataHandler, GetUserDuelHandler getUserDuelHandler, GetUserFavoriteItemHandler getUserFavoriteItemHandler, GetUserItemHandler getUserItemHandler, GetUserLoginBonusHandler getUserLoginBonusHandler, GetUserMapAreaHandler getUserMapAreaHandler, GetUserMusicHandler getUserMusicHandler, GetUserOptionHandler getUserOptionHandler, GetUserPreviewHandler getUserPreviewHandler, GetUserRecentRatingHandler getUserRecentRatingHandler, GetUserRegionHandler getUserRegionHandler, GetUserRivalDataHandler getUserRivalDataHandler, GetUserRivalMusicHandler getUserRivalMusicHandler, GetUserTeamHandler getUserTeamHandler, UpsertUserAllHandler upsertUserAllHandler, UpsertUserChargelogHandler upsertUserChargelogHandler, GetUserSymbolChatSettingHandler getUserSymbolChatSettingHandler, GetUserNetBattleDataHandler getUserNetBattleDataHandler) {
         this.gameLoginHandler = gameLoginHandler;
         this.gameLogoutHandler = gameLogoutHandler;
         this.getGameChargeHandler = getGameChargeHandler;
@@ -78,6 +79,7 @@ public class ChusanServletController {
         this.upsertUserAllHandler = upsertUserAllHandler;
         this.upsertUserChargelogHandler = upsertUserChargelogHandler;
         this.getUserSymbolChatSettingHandler = getUserSymbolChatSettingHandler;
+        this.getUserNetBattleDataHandler = getUserNetBattleDataHandler;
     }
 
     @PostMapping("GameLoginApi")
@@ -218,6 +220,11 @@ public class ChusanServletController {
     @PostMapping("GetUserSymbolChatSettingApi")
     String getUserSymbolChatSetting(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserSymbolChatSettingHandler.handle(request);
+    }
+
+    @PostMapping("GetUserNetBattleDataApi")
+    String getUserNetBattleData(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserNetBattleDataHandler.handle(request);
     }
 
     @PostMapping("UpsertClientBookkeepingApi")
