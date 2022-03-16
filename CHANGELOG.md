@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.31 - 2022-03-16
+- Add experimental support for Chunithm New Plus.
+
 ## 0.0.30 - 2022-03-13
 - Add billing endpoint.
 - Add rom version override config entry for Chunithm New. It turns out game checks this too when enable specific gamemodes.
