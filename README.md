@@ -8,7 +8,7 @@ Multipurpose game server powered by Spring Boot.
 * Project DIVA Arcade Future Tone
 * O.N.G.E.K.I. bright (and below)
 
-Read [game specific notes](docs/game_specific_notes.md) for more information.
+Read [game specific notes](config/game_specific_notes.md) for more information.
 
 ### Notes:
 * Some game may require additional patches and these will not provided in this project and repository. You already found this, so you know where to find related resources too.
@@ -17,10 +17,10 @@ Read [game specific notes](docs/game_specific_notes.md) for more information.
 
 ### Usage:
 Requirements:
-* Java 11 or above
+* Java 11 or above (for running JAR)
 * Optional: MariaDB (preferred) or MySQL (<8.0)
 
-Run `java -jar aqua.jar` or use the `start.bat` if you are using windows.
+Run `java -jar aqua-x.x.xx-RELEASE.jar` or `aqua-x.x.xx-RELEASE.exe` (on Windows)
 
 By default, Aqua will use sqlite and save user data in data/db.sqlite.
 
@@ -29,7 +29,7 @@ If you want to MariaDB (or MySQL <8.0), edit configuration then it will auto cre
 Please go to the database migration tool's website to check if your database version is being supported https://flywaydb.org/documentation/database/mariadb
 
 ### Configuration:
-Configuration is save in `application.properties`
+Configuration is saved in `config/application.properties`, spring loads this file automatically.
 
 * The host and port of game title servers can be overritten in `allnet.server.host` and `allnet.server.port`. By default it will send the same host and port the client used the request this information.
 This will be send to the game at booting and being used by following request.
@@ -41,9 +41,7 @@ You need to install JDK on your system. However, you don't need to care about Ma
 ```
 mvnw package
 ```
-The output jar will be in `target` folder.
-
-Currently, there is no script for making distribution package automatically.
+The `target` folder will contain an uberjar and standalone distribution package with JRE included.
 
 ### Credit:
 * **samnyan**

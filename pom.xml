@@ -121,6 +121,35 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>io.github.fvarrui</groupId>
+                <artifactId>javapackager</artifactId>
+                <version>1.6.5</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                        <configuration>
+                            <name>${artifactId}-${version}</name>
+                            <mainClass>icu.samnyan.aqua.AquaServerApplication</mainClass>
+                            <bundleJre>true</bundleJre>
+                            <customizedJre>false</customizedJre>
+                            <generateInstaller>false</generateInstaller>
+                            <administratorRequired>false</administratorRequired>
+                            <platform>auto</platform>
+                            <additionalResources>
+                                <additionalResource>config</additionalResource>
+                                <additionalResource>data</additionalResource>
+                            </additionalResources>
+                            <winConfig>
+                                <headerType>console</headerType>
+                            </winConfig>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
