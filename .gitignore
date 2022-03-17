@@ -32,5 +32,5 @@ build/
 
 ### Dev env ###
 /application.properties
-/aqua.jar
+/aqua*.jar
 /data/

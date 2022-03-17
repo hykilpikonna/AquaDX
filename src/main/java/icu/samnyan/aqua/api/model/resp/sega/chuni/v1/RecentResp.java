@@ -1,4 +1,4 @@
-package icu.samnyan.aqua.api.model.resp.sega.chuni.amazon;
+package icu.samnyan.aqua.api.model.resp.sega.chuni.v1;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
