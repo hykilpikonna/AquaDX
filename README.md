@@ -18,13 +18,13 @@ Read [game specific notes](docs/game_specific_notes.md) for more information.
 ### Usage:
 Requirements:
 * Java 11 or above
-* Optional: MariaDB or MySQL (<8.0)
+* Optional: MariaDB (preferred) or MySQL (<8.0)
 
 Run `java -jar aqua.jar` or use the `start.bat` if you are using windows.
 
 By default, Aqua will use sqlite and save user data in data/db.sqlite.
 
-If you want to MySQL (or MariaDB), edit configuration then it will auto create the table and import some initial data.
+If you want to MariaDB (or MySQL <8.0), edit configuration then it will auto create the table and import some initial data.
 
 Please go to the database migration tool's website to check if your database version is being supported https://flywaydb.org/documentation/database/mariadb
 

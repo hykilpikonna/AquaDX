@@ -268,8 +268,8 @@ CREATE TABLE chusan_user_game_option (
 
 CREATE TABLE chusan_user_general_data (
     id             BIGINT auto_increment PRIMARY KEY,
-    property_key   VARCHAR NOT NULL,
-    property_value VARCHAR NOT NULL,
+    property_key   VARCHAR (255) NOT NULL,
+    property_value TEXT NOT NULL,
     user_id        BIGINT,
     constraint FKm4k7mAMRbn6TRj3N
         foreign key (user_id) references chusan_user_data (id)

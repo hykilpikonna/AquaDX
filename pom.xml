@@ -79,6 +79,13 @@
             <artifactId>flyway-core</artifactId>
             <version>8.3.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-mysql</artifactId>
+            <version>8.3.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
