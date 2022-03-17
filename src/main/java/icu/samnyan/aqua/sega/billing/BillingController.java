@@ -73,7 +73,7 @@ public class BillingController {
         ByteBuffer sigbytes = ByteBuffer.allocate(15);
         sigbytes.order(ByteOrder.LITTLE_ENDIAN);
         sigbytes.putInt(0, val);
-        sigbytes.put(4, keychipId.getBytes());
+        sigbytes.put(4, keychipId.getBytes(), 0, keychipId.getBytes().length);
 
         Signature sig;
         try {
