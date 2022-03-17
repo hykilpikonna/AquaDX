@@ -23,10 +23,10 @@ import java.util.Optional;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @RestController
-@RequestMapping("api/manage/chuni/amazon")
-public class ApiAmazonManageController {
+@RequestMapping("api/manage/chuni/v1")
+public class ApiChuniV1ManageController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ApiAmazonManageController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ApiChuniV1ManageController.class);
 
     private final UserDataService userDataService;
 
@@ -34,7 +34,7 @@ public class ApiAmazonManageController {
 
     private final GameMusicService gameMusicService;
 
-    public ApiAmazonManageController(UserDataService userDataService, UserMusicDetailService userMusicDetailService, GameMusicService gameMusicService) {
+    public ApiChuniV1ManageController(UserDataService userDataService, UserMusicDetailService userMusicDetailService, GameMusicService gameMusicService) {
         this.userDataService = userDataService;
         this.userMusicDetailService = userMusicDetailService;
         this.gameMusicService = gameMusicService;

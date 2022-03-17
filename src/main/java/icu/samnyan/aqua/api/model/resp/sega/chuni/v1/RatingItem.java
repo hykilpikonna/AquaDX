@@ -1,4 +1,4 @@
-package icu.samnyan.aqua.api.model.resp.sega.chuni.amazon;
+package icu.samnyan.aqua.api.model.resp.sega.chuni.v1;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package icu.samnyan.aqua.api.controller.sega.game.chuni.amazon;
+package icu.samnyan.aqua.api.controller.sega.game.chuni.v1;
 
 import icu.samnyan.aqua.sega.chunithm.dao.gamedata.GameCharacterRepository;
 import icu.samnyan.aqua.sega.chunithm.dao.gamedata.GameCharacterSkillRepository;
@@ -14,14 +14,14 @@ import java.util.List;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @RestController
-@RequestMapping("api/game/chuni/amazon/data")
-public class ApiAmazonGameDataController {
+@RequestMapping("api/game/chuni/v1/data")
+public class ApiChuniV1GameDataController {
 
     private final GameMusicService gameMusicService;
     private final GameCharacterRepository gameCharacterRepository;
     private final GameCharacterSkillRepository gameCharacterSkillRepository;
 
-    public ApiAmazonGameDataController(GameMusicService gameMusicService, GameCharacterRepository gameCharacterRepository, GameCharacterSkillRepository gameCharacterSkillRepository) {
+    public ApiChuniV1GameDataController(GameMusicService gameMusicService, GameCharacterRepository gameCharacterRepository, GameCharacterSkillRepository gameCharacterSkillRepository) {
         this.gameMusicService = gameMusicService;
         this.gameCharacterRepository = gameCharacterRepository;
         this.gameCharacterSkillRepository = gameCharacterSkillRepository;

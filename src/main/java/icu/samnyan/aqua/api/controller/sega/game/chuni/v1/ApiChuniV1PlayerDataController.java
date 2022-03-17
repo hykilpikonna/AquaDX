@@ -1,14 +1,14 @@
-package icu.samnyan.aqua.api.controller.sega.game.chuni.amazon;
+package icu.samnyan.aqua.api.controller.sega.game.chuni.v1;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import icu.samnyan.aqua.api.model.MessageResponse;
 import icu.samnyan.aqua.api.model.ReducedPageResponse;
-import icu.samnyan.aqua.api.model.resp.sega.chuni.amazon.ProfileResp;
-import icu.samnyan.aqua.api.model.resp.sega.chuni.amazon.RatingItem;
-import icu.samnyan.aqua.api.model.resp.sega.chuni.amazon.RecentResp;
-import icu.samnyan.aqua.api.model.resp.sega.chuni.amazon.external.ChuniDataExport;
-import icu.samnyan.aqua.api.model.resp.sega.chuni.amazon.external.ChuniDataImport;
-import icu.samnyan.aqua.api.model.resp.sega.chuni.amazon.external.ExternalUserData;
+import icu.samnyan.aqua.api.model.resp.sega.chuni.v1.ProfileResp;
+import icu.samnyan.aqua.api.model.resp.sega.chuni.v1.RatingItem;
+import icu.samnyan.aqua.api.model.resp.sega.chuni.v1.RecentResp;
+import icu.samnyan.aqua.api.model.resp.sega.chuni.v1.external.ChuniDataExport;
+import icu.samnyan.aqua.api.model.resp.sega.chuni.v1.external.ChuniDataImport;
+import icu.samnyan.aqua.api.model.resp.sega.chuni.v1.external.ExternalUserData;
 import icu.samnyan.aqua.api.util.ApiMapper;
 import icu.samnyan.aqua.sega.chunithm.model.gamedata.Level;
 import icu.samnyan.aqua.sega.chunithm.model.gamedata.Music;
@@ -38,10 +38,10 @@ import java.util.stream.Collectors;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @RestController
-@RequestMapping("api/game/chuni/amazon")
-public class ApiAmazonPlayerDataController {
+@RequestMapping("api/game/chuni/v1")
+public class ApiChuniV1PlayerDataController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ApiAmazonPlayerDataController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ApiChuniV1PlayerDataController.class);
 
     private final ApiMapper mapper;
 
@@ -65,7 +65,7 @@ public class ApiAmazonPlayerDataController {
     private final GameMusicService gameMusicService;
 
     @Autowired
-    public ApiAmazonPlayerDataController(ApiMapper mapper, CardService cardService, UserActivityService userActivityService, UserCharacterService userCharacterService, UserChargeService userChargeService, UserDataService userDataService, UserDataExService userDataExService, UserGameOptionExService userGameOptionExService, UserMapService userMapService, UserPlaylogService userPlaylogService, UserMusicDetailService userMusicDetailService, UserCourseService userCourseService, UserDuelService userDuelService, UserGameOptionService userGameOptionService, UserItemService userItemService, UserGeneralDataService userGeneralDataService, GameMusicService gameMusicService) {
+    public ApiChuniV1PlayerDataController(ApiMapper mapper, CardService cardService, UserActivityService userActivityService, UserCharacterService userCharacterService, UserChargeService userChargeService, UserDataService userDataService, UserDataExService userDataExService, UserGameOptionExService userGameOptionExService, UserMapService userMapService, UserPlaylogService userPlaylogService, UserMusicDetailService userMusicDetailService, UserCourseService userCourseService, UserDuelService userDuelService, UserGameOptionService userGameOptionService, UserItemService userItemService, UserGeneralDataService userGeneralDataService, GameMusicService gameMusicService) {
         this.mapper = mapper;
         this.cardService = cardService;
         this.userActivityService = userActivityService;
