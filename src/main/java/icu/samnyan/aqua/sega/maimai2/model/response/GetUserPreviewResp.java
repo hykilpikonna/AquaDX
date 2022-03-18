@@ -36,4 +36,5 @@ public class GetUserPreviewResp {
     private int headPhoneVolume;
     @JsonProperty("isInherit")
     private boolean isInherit;
+    private int banState;
 }

@@ -89,6 +89,8 @@ public class UserDetail implements Serializable {
     private String compatibleCmVersion;
     private String dailyBonusDate;
     private String dailyCourseBonusDate;
+    private String lastPairLoginDate;
+    private String lastTrialPlayDate;
     private int playVsCount;
     private int playSyncCount;
     private int winCount;
@@ -114,5 +116,6 @@ public class UserDetail implements Serializable {
     private long totalReMasterAchievement;
     private long playerOldRating;
     private long playerNewRating;
+    private int banState;
     private long dateTime;
 }

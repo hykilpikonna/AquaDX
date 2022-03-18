@@ -38,6 +38,7 @@ public class GetUserDataHandler implements BaseHandler {
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userId);
         resultMap.put("userData", userData);
+        resultMap.put("banState", userData.getBanState());
 
         String json = mapper.write(resultMap);
         logger.info("Response: " + json);

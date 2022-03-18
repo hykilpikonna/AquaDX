@@ -69,6 +69,7 @@ public class GetUserPreviewHandler implements BaseHandler {
                 resp.setDispRate(option.getDispRate());
             }
             resp.setInherit(false);
+            resp.setBanState(user.getBanState());
 
             json = mapper.write(resp);
         } else {

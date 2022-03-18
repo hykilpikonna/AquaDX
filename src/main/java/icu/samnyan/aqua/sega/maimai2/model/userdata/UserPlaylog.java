@@ -249,6 +249,8 @@ public class UserPlaylog implements Serializable {
     @JsonProperty("isNewFree")
     private boolean isNewFree;
 
+    private int trialPlayAchievement;
+
     private int extNum1;
 
     private int extNum2;
