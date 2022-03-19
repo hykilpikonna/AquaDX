@@ -22,5 +22,7 @@ public interface UserItemRepository extends JpaRepository<UserItem, Long> {
 
     List<UserItem> findAllByUser_Card_ExtId(Long extId);
 
+    List<UserItem> findAllByUser_Card_ExtIdAndItemKind(Long extId, int itemKind);
+
     Page<UserItem> findByUser_Card_ExtId(Long extId, Pageable pageable);
 }
