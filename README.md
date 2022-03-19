@@ -8,7 +8,7 @@ Multipurpose game server powered by Spring Boot.
 * Project DIVA Arcade Future Tone
 * O.N.G.E.K.I. bright (and below)
 
-Read [game specific notes](config/game_specific_notes.md) for more information.
+Read [game specific notes](docs/game_specific_notes.md) for more information.
 
 ### Notes:
 * Some game may require additional patches and these will not provided in this project and repository. You already found this, so you know where to find related resources too.
