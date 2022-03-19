@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.32 - 2022-03-19
+- **This will do database update**
+- Add static Web UI serving (for aquaviewer). Copy Aqua viewer files to `web` folder to use.
+- Add Web API for Chunithm New
+- Fix MariaDB/MySQL migration
+
 ## 0.0.31 - 2022-03-16
 - Add experimental support for Chunithm New Plus.
 
