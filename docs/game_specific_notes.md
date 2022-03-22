@@ -13,7 +13,6 @@ This document is for detailed game specific notes, if any.
 |O.N.G.E.K.I      |SDDT     |Bright                    |A016                     |Yes                 |Yes             |
 |Maimai           |SDEY     |Finale                    |?                        |No                  |?               |
 |Project DIVA AFT |SBZV     |?                         |?                        |No                  |?               |
-|Initial D Zero   |SDDF     |?                         |?                        |No                  |?               |
 
 * Actively supported: if yes, it will likely receive future bug fixes and new version support.
 * Requires patch: if yes, game needs to be patched in order to work with Aqua server.
