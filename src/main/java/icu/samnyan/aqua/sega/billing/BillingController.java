@@ -73,7 +73,11 @@ public class BillingController {
         ByteBuffer sigbytes = ByteBuffer.allocate(15);
         sigbytes.order(ByteOrder.LITTLE_ENDIAN);
         sigbytes.putInt(0, val);
-        sigbytes.put(4, keychipId.getBytes(), 0, keychipId.getBytes().length);
+
+        // JDK 11 compatible version of put(int, byte[])
+        for (int i = 0, j = 4; i < keychipId.getBytes().length; i++, j++) {
+            sigbytes.put(j, keychipId.getBytes()[i]);
+        }
 
         Signature sig;
         try {
