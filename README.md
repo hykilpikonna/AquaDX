@@ -1,7 +1,9 @@
 # Aqua Server
-Multipurpose game server powered by Spring Boot.
+Multipurpose game server powered by Spring Boot, for ALL.Net based games
 
-### Supported Game:
+This is a forked maintaining attempt of the [original Aqua server](https://dev.s-ul.net/NeumPhis/aqua)
+
+### Supported Games
 * CHUNITHM New
 * CHUNITHM Paradise Lost (and below)
 * Maimai DX Universe (and below)
@@ -10,42 +12,42 @@ Multipurpose game server powered by Spring Boot.
 
 Read [game specific notes](docs/game_specific_notes.md) for more information.
 
-### Notes:
+### Notes
 * Some game may require additional patches and these will not provided in this project and repository. You already found this, so you know where to find related resources too.
 * This repository may contain untested, experimental implementation for few games which I can't test properly. If you couldn't find your wanted game in the above list, do not expect support.
 * This server also provides a simple API for viewing play records and edit settings for some games.
 
-### Usage:
+### Usage
 Requirements:
 * Java 11 or above (for running JAR)
-* Optional: MariaDB (preferred) or MySQL (<8.0)
+* Optional: MariaDB (preferred) or MySQL
 
 Run `java -jar aqua-x.x.xx-RELEASE.jar` or `aqua-x.x.xx-RELEASE.exe` (on Windows)
 
 By default, Aqua will use sqlite and save user data in data/db.sqlite.
 
-If you want to MariaDB (or MySQL <8.0), edit configuration then it will auto create the table and import some initial data.
+If you want to MariaDB (or MySQL), edit configuration then it will auto create the table and import some initial data.
 
 Please go to the database migration tool's website to check if your database version is being supported https://flywaydb.org/documentation/database/mariadb
 
-### Configuration:
+### Configuration
 Configuration is saved in `config/application.properties`, spring loads this file automatically.
 
 * The host and port of game title servers can be overritten in `allnet.server.host` and `allnet.server.port`. By default it will send the same host and port the client used the request this information.
 This will be send to the game at booting and being used by following request.
-* You can switch to MySQL (or MariaDB) database by commenting the Sqlite part.
+* You can switch to MariaDB (or MySQL) database by commenting the Sqlite part.
 * For some game, you might need to change some game specific config entries.
 
-### Building:
+### Building
 You need to install JDK on your system. However, you don't need to care about Maven, as wrapper script is included.
 ```
 mvnw package
 ```
 The `target` folder will contain an uberjar and standalone distribution package with JRE included.
 
-### Credit:
-* **samnyan**
+### Credit
+* **samnyan**: The creator and developer of the original Aqua server
 * **Akasaka Ryuunosuke** : providing all the DIVA protocol information
-* Dom Eori : from v0.0.17 and up
-* All devs who contribute to the MiniMe server
-* All contributors by merge request, issues and other channels..
+* Dom Eori : Developer of forked Aqua server, from v0.0.17 and up
+* All devs who contribute to the [MiniMe server](https://dev.s-ul.net/djhackers/minime)
+* All contributors by merge request, issues and other channels
