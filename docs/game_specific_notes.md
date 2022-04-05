@@ -7,9 +7,9 @@ This document is for detailed game specific notes, if any.
 
 |       Name      | Game ID | Latest supported version | Latest supported option | Actively supported | Requires patch |
 | ---             | ---     | ---                      | ---                     | ---                | ---            |
-|Chunithm (Chusan)|SDHD     |New                       |A141                     |Yes                 |Yes             |
+|Chunithm (Chusan)|SDHD     |New Plus                  |-                        |Yes                 |Yes             |
 |Chunithm         |SDBT     |Paradise Lost             |A032                     |Yes                 |Yes (Paradise)  |
-|Maimai DX        |SDEZ     |Universe                  |D051                     |Yes                 |Yes             |
+|Maimai DX        |SDEZ     |Universe                  |D061                     |Yes                 |Yes             |
 |O.N.G.E.K.I      |SDDT     |Bright                    |A016                     |Yes                 |Yes             |
 |Maimai           |SDEY     |Finale                    |?                        |No                  |?               |
 |Project DIVA AFT |SBZV     |?                         |?                        |No                  |?               |
@@ -33,7 +33,7 @@ Only JP variant is supported.
 * Team function can be enabled by changing `game.chusan.team-name` value. Leave this blank to disable team function.
 * Chusan and Chunithm uses different endpoints and tables. Your progress from Chunithm won't carry over to Chusan.
 * For user box customization, use Web UI.
-* (For New plus or up) Class mode disabled when game set to free play. This not server restriction.
+* (For New plus or up) Class mode disabled when game set to free play. This is not a server restriction.
 
 ## Chunithm
 Only JP variant is supported.

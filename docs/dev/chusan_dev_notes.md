@@ -26,7 +26,7 @@
 |       6       |    Front  |
 |       7       |    Back   |
 
-## National matching
+## Global matching
 - Can be disabled dynamically on GetGameSettingHandler
 - NAT hole punching, direct connection between cab to cab?
 - Session management required
