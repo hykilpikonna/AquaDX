@@ -225,7 +225,7 @@ public class ApiChuniV2PlayerDataController {
         }
 
         return result.stream()
-                .filter(detail -> detail.getLevel() != 4)
+                .filter(detail -> detail.getLevel() != 5)
                 .sorted(Comparator.comparingInt(RatingItem::getRating).reversed())
                 .limit(30)
                 .collect(Collectors.toList());
@@ -279,7 +279,7 @@ public class ApiChuniV2PlayerDataController {
         }
 
         return result.stream()
-                .filter(detail -> detail.getLevel() != 4)
+                .filter(detail -> detail.getLevel() != 5)
                 .sorted(Comparator.comparingInt(RatingItem::getRating).reversed())
                 .limit(10)
                 .collect(Collectors.toList());
