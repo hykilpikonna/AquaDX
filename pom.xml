@@ -132,7 +132,7 @@
                             <goal>package</goal>
                         </goals>
                         <configuration>
-                            <name>${artifactId}-${version}</name>
+                            <name>${project.artifactId}-${project.version}</name>
                             <mainClass>icu.samnyan.aqua.AquaServerApplication</mainClass>
                             <bundleJre>true</bundleJre>
                             <customizedJre>false</customizedJre>
