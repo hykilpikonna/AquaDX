@@ -4,7 +4,7 @@ Multipurpose game server powered by Spring Boot, for ALL.Net based games
 This is a forked maintaining attempt of the [original Aqua server](https://dev.s-ul.net/NeumPhis/aqua)
 
 ### Supported Games
-* CHUNITHM New
+* CHUNITHM NEW Plus (and below)
 * CHUNITHM Paradise Lost (and below)
 * Maimai DX Universe (and below)
 * Project DIVA Arcade Future Tone
@@ -20,15 +20,13 @@ Read [game specific notes](docs/game_specific_notes.md) for more information.
 ### Usage
 Requirements:
 * Java 11 or above (for running JAR)
-* Optional: MariaDB (preferred) or MySQL
+* Optional databases: MariaDB 10.6.x (recommended) or MySQL 8.0.x
 
 Run `java -jar aqua-x.x.xx-RELEASE.jar` or `aqua-x.x.xx-RELEASE.exe` (on Windows)
 
 By default, Aqua will use sqlite and save user data in data/db.sqlite.
 
-If you want to MariaDB (or MySQL), edit configuration then it will auto create the table and import some initial data.
-
-Please go to the database migration tool's website to check if your database version is being supported https://flywaydb.org/documentation/database/mariadb
+If you want to use optional databases, edit configuration file then it will auto create the table and import some initial data.
 
 ### Configuration
 Configuration is saved in `config/application.properties`, spring loads this file automatically.
