@@ -364,7 +364,7 @@ CREATE TABLE chusan_user_playlog (
     played_user_name2   VARCHAR (255),
     played_user_name3   VARCHAR (255),
     player_rating       INTEGER       NOT NULL,
-    rank                INTEGER       NOT NULL,
+    `rank`              INTEGER       NOT NULL,
     rate_air            INTEGER       NOT NULL,
     rate_flick          INTEGER       NOT NULL,
     rate_hold           INTEGER       NOT NULL,
