@@ -474,15 +474,14 @@ public class ApiChuniV2PlayerDataController {
     }
 
     private int calculateRating(int levelBase, int score, VersionInfo version) {
-        if (score >= 1007500) return levelBase + 200;
-        if (score >= 1005000) return levelBase + 150 + (score - 1005000) * 10 / 500;
-        if (score >= 1000000) return levelBase + 100 + (score - 1000000) * 5 / 500;
-        if (score >= 975000) return levelBase + (score - 975000) * 2 / 500;
-        if (score >= 950000 && version.getMinorVersion() < 35) return levelBase - 150 + (score - 950000) * 3 / 500;
-        if (score >= 925000) return levelBase - 300 + (score - 925000) * 3 / 500;
-        if (score >= 900000) return levelBase - 500 + (score - 900000) * 4 / 500;
-        if (score >= 800000)
-            return ((levelBase - 500) / 2 + (score - 800000) * ((levelBase - 500) / 2) / (100000));
-        return 0;
+        if (score >= 1009000) return levelBase + 215; //SSS+
+        if (score >= 1007500) return levelBase + 200 + (score - 1007500) / 100; //SSS
+        if (score >= 1005000) return levelBase + 150 + (score - 1005000) / 50; //SS+
+        if (score >= 1000000) return levelBase + 100 + (score - 1000000) / 100; //SS
+        if (score >= 975000) return levelBase + (score - 975000) / 250; //S+, S
+        if (score >= 925000) return levelBase - 300 + (score - 925000) * 3 / 500; //AA
+        if (score >= 900000) return levelBase - 500 + (score - 900000) * 4 / 500; //A
+        if (score >= 800000) return ((levelBase - 500) / 2 + (score - 800000) * ((levelBase - 500) / 2) / (100000)); //BBB
+        return 0; //C
     }
 }
