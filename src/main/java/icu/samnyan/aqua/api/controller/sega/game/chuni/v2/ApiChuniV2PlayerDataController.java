@@ -110,7 +110,6 @@ public class ApiChuniV2PlayerDataController {
     public UserData updateName(@RequestBody Map<String, Object> request) {
         UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
         profile.setUserName((String) request.get("userName"));
-        profile.setUserNameEx((String) request.get("userName"));
         return userDataService.saveUserData(profile);
     }
 

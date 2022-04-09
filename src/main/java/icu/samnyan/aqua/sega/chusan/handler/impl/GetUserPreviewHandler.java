@@ -90,7 +90,7 @@ public class GetUserPreviewHandler implements BaseHandler {
         });
 
         resp.setChargeState(1);
-        resp.setUserNameEx(user.getUserName());
+        resp.setUserNameEx("");
         resp.setBanState(0);
         resp.setClassEmblemMedal(user.getClassEmblemMedal());
         resp.setClassEmblemBase(user.getClassEmblemBase());

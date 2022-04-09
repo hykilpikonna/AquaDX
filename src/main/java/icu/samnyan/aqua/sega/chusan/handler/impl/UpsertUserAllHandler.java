@@ -92,13 +92,12 @@ public class UpsertUserAllHandler implements BaseHandler {
             newUserData.setId(userData.getId());
             newUserData.setCard(userData.getCard());
 
-
             // Decode Username
             String userName = new String(newUserData.getUserName()
                     .getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
 
-
             newUserData.setUserName(userName);
+            newUserData.setUserNameEx("");
             userDataService.saveAndFlushUserData(newUserData);
         }
 
