@@ -6,7 +6,7 @@ CREATE TABLE maimai2_user_friend_season_ranking (
     id          BIGINT auto_increment PRIMARY KEY,
     season_id   INTEGER,
     point       INTEGER,
-    rank        INTEGER,
+    `rank`        INTEGER,
     reward_get  BOOLEAN,
     user_name   VARCHAR (255),
     record_date VARCHAR (255),
