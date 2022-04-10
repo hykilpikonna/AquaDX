@@ -10,7 +10,7 @@
     </parent>
     <groupId>icu.samnya</groupId>
     <artifactId>aqua</artifactId>
-    <version>0.0.32-RELEASE</version>
+    <version>0.0.33-SNAPSHOT</version>
     <name>Aqua Server</name>
     <description>A multipurpose game server</description>
 
@@ -117,24 +117,26 @@
                 <groupId>io.github.fvarrui</groupId>
                 <artifactId>javapackager</artifactId>
                 <version>1.6.6</version>
+                    <configuration>
+                        <name>${project.artifactId}</name>
+                        <mainClass>icu.samnyan.aqua.AquaServerApplication</mainClass>
+                        <bundleJre>true</bundleJre>
+                        <customizedJre>false</customizedJre>
+                        <generateInstaller>false</generateInstaller>
+                        <additionalResources>
+                            <additionalResource>config</additionalResource>
+                        </additionalResources>
+                </configuration>
                 <executions>
                     <execution>
+                        <id>windows-bundle</id>
                         <phase>package</phase>
                         <goals>
                             <goal>package</goal>
                         </goals>
                         <configuration>
-                            <name>${project.artifactId}-${project.version}</name>
-                            <mainClass>icu.samnyan.aqua.AquaServerApplication</mainClass>
-                            <bundleJre>true</bundleJre>
-                            <customizedJre>false</customizedJre>
-                            <generateInstaller>false</generateInstaller>
-                            <administratorRequired>false</administratorRequired>
-                            <platform>auto</platform>
-                            <additionalResources>
-                                <additionalResource>config</additionalResource>
-                                <additionalResource>data</additionalResource>
-                            </additionalResources>
+                            <platform>windows</platform>
+                            <createZipball>true</createZipball>
                             <winConfig>
                                 <headerType>console</headerType>
                             </winConfig>
