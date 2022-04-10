@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.33 - 2022-04-11
+- **This will do database update**
+- Breaking change for previous MariaDB users: Flyway migration will fail because of checksum mismatch. Change checksum accordingly in `flyway_schema_history` table
+- Fix MySQL and MariaDB migration failure. Aqua now supports following databases: MySQL 8.0.x and MariaDB 10.6.x
+- Fix Chunithm NEW profile saving when using MariaDB/MySQL as database
+- Fix Chunithm NEW APIs: rating display, calculation and user name change
+- Fix issue that might lead user name corruption on Chunithm NEW
+- Update music level (a.k.a chart constant) data for more correct rating calculation on Chunithm and O.N.G.E.K.I
+- Fix Maimai DX version incompatiblity and add an option for old network patch for Splash
+- Fix Java 11 incompability with billing
+- Update Spring boot to 2.6.6 and other dependencies
+
 ## 0.0.32 - 2022-03-19
 - **This will do database update**
 - Add static Web UI serving (for aquaviewer). Copy Aqua viewer files to `web` folder to use.
