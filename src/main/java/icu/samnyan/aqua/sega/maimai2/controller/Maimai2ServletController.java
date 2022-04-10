@@ -14,7 +14,7 @@ import java.util.Map;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @RestController
-@RequestMapping({"/Maimai2Servlet", "/Maimai2Servlet/Maimai2Servlet"}) // Workaround for endpoint mismatch, let's just accept both
+@RequestMapping({"/Maimai2Servlet/Maimai2Servlet", "/Maimai2Servlet"}) // Workaround for endpoint mismatch, let's just accept both
 public class Maimai2ServletController {
 
     private final GetGameSettingHandler getGameSettingHandler;

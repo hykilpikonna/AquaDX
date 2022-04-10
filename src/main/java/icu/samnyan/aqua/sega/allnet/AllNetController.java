@@ -34,11 +34,14 @@ public class AllNetController {
     private final ObjectMapper mapper = new ObjectMapper();
     private final String HOST_OVERRIDE;
     private final String PORT_OVERRIDE;
+    private final boolean MAIMAI2_NO_HTTP;
 
     public AllNetController(@Value("${allnet.server.host:}") String HOST,
-                            @Value("${allnet.server.port:}") String PORT) {
+                            @Value("${allnet.server.port:}") String PORT,
+                            @Value("${game.maimai2.splash-old-patch:false}") boolean MAIMAI2_NO_HTTP) {
         this.HOST_OVERRIDE = HOST;
         this.PORT_OVERRIDE = PORT;
+        this.MAIMAI2_NO_HTTP = MAIMAI2_NO_HTTP;
     }
 
     @GetMapping("/")
@@ -142,7 +145,12 @@ public class AllNetController {
             case "SDEY":
                 return "http://" + addr + ":" + port + "/MaimaiServlet/";
             case "SDEZ":
-                return "http://" + addr + ":" + port + "/Maimai2Servlet/";
+                // Workaround for old splash patch
+                if (MAIMAI2_NO_HTTP) {
+                    return addr + ":" + port + "/Maimai2Servlet/";
+                } else {
+                    return "http://" + addr + ":" + port + "/Maimai2Servlet/";
+                }
             case "SDHD":
                 return "http://" + addr + ":" + port + "/ChusanServlet/";
             default:
