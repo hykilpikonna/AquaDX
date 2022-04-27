@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.33a - 2022-04-27
+- O.N.G.E.K.I bright memory support is no longer considered as experimental.
+- Add new music and event data for O.N.G.E.K.I bright memory.
+- Update music level data for O.N.G.E.K.I bright memory.
+
 ## 0.0.33 - 2022-04-11
 - **This will do database update**
 - Breaking change for previous MariaDB users: Flyway migration will fail because of checksum mismatch. Change checksum accordingly in `flyway_schema_history` table

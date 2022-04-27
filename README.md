@@ -8,7 +8,7 @@ This is a forked maintaining attempt of the [original Aqua server](https://dev.s
 * CHUNITHM Paradise Lost (and below)
 * Maimai DX Universe (and below)
 * Project DIVA Arcade Future Tone
-* O.N.G.E.K.I. bright (and below)
+* O.N.G.E.K.I. bright memory (and below)
 
 Read [game specific notes](docs/game_specific_notes.md) for more information.
 
