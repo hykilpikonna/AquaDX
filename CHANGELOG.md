@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.34 - 2022-05-08
+- **This will do database update**
+- Fix platinum score saving on O.N.G.E.K.I bright memory.
+- Add missing item type entries on O.N.G.E.K.I.
+
 ## 0.0.33a - 2022-04-27
 - O.N.G.E.K.I bright memory support is no longer considered as experimental.
 - Add new music and event data for O.N.G.E.K.I bright memory.
