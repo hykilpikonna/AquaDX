@@ -18,6 +18,15 @@ public enum ItemType {
     Present,
     ChapterJewel,
     GachaTicket,
+    KaikaItem,
+    ExpUpItem,
+    IntimateUpItem,
+    BookItem,
+    SystemVoice,
+    Costume,
+    Medal,
+    Attachment,
+    UnlockItem,
     Max;
 
     @JsonValue
