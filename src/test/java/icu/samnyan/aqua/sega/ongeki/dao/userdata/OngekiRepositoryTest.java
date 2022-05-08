@@ -386,7 +386,7 @@ class OngekiRepositoryTest {
     }
 
     private UserMusicDetail getMusicDetail(UserData u, Integer musicId) {
-        return new UserMusicDetail(-1, u, musicId, 1, 1, 100, 1, 100, 1, 100, 100, 100, true, true, true, false, 1, true);
+        return new UserMusicDetail(-1, u, musicId, 1, 1, 100, 1, 100, 1, 100, 100, 100, 0, true, true, true, false, 1, true);
     }
 
     private UserMusicItem getMusicItem(UserData u, Integer musicId) {

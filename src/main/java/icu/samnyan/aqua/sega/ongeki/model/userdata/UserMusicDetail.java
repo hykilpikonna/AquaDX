@@ -45,6 +45,8 @@ public class UserMusicDetail implements Serializable {
 
     private int battleScoreRank;
 
+    private int platinumScoreMax;
+
     private int maxComboCount;
 
     private int maxOverKill;
