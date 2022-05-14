@@ -44,9 +44,5 @@ public class GameCharge implements Serializable {
     private LocalDateTime saleStartDate;
 
     private LocalDateTime saleEndDate;
-
-    @JsonInclude
-    @Transient
-    private String remarks = null;
-
+    
 }
