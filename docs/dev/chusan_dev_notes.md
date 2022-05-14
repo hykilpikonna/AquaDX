@@ -30,5 +30,13 @@
 - Can be disabled dynamically on GetGameSettingHandler
 - NAT hole punching, direct connection between cab to cab?
 - Session management required
-- Fallback to CPU competitors if conditions met
+- Fill player slots with CPU competitors if at least two player exist in a room
 - ReflectorUri, Related?
+
+## User favorite kind types
+| Kind |    Name     |           Notes            |
+|------|-------------|----------------------------|
+|  1   |  Music      |                            |
+|  2   |  Rival      | Query ID to Rival Handlers |
+|  3   |  Character  |                            |
+|  4   |  Unknown    |                            |
