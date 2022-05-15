@@ -1,6 +1,8 @@
 package icu.samnyan.aqua.sega.allnet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import icu.samnyan.aqua.sega.allnet.model.response.DownloadOrderResponse;
 import icu.samnyan.aqua.sega.allnet.model.response.PowerOnResponse;
 import icu.samnyan.aqua.sega.allnet.model.response.PowerOnResponseV2;
 import icu.samnyan.aqua.sega.allnet.model.response.PowerOnResponseV3;
@@ -56,10 +58,18 @@ public class AllNetController {
 
     @PostMapping(value = "/sys/servlet/DownloadOrder", produces = "text/plain")
     public String downloadOrder(InputStream dataStream, HttpServletRequest req) throws IOException {
-        logger.info("Request: DownloadOrder");
-        String resp = "stat=1&uri=null";
-        logger.info("Response: " + resp);
-        return resp + "\n";
+
+        byte[] bytes = dataStream.readAllBytes();
+        Map<String, String> reqMap = Decoder.decode(bytes);
+
+        logger.info("Request: DownloadOrder, " + mapper.writeValueAsString(reqMap));
+
+        String serial = reqMap.getOrDefault("serial", DEFAULT_KEYCHIP_ID);
+        
+        DownloadOrderResponse resp = new DownloadOrderResponse(1, serial);
+
+        logger.info("Response: " + mapper.writeValueAsString(resp));
+        return resp.toString().concat("\n");
     }
 
     @PostMapping(value = "/sys/servlet/PowerOn", produces = "text/plain")
