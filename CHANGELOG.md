@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.35 - 2022-05-16
+- Add new event, music and card data for O.N.G.E.K.I bright memory
+- Add user favorite support for Chunithm New Plus. Related API will be provided in later release
+- Change log output of DownloadOrder to be more detailed
+- Update game charge item entries for Chunithm New Plus
+- Update Spring boot to 2.6.7
+
 ## 0.0.34 - 2022-05-08
 - **This will do database update**
 - Fix platinum score saving on O.N.G.E.K.I bright memory.
