@@ -38,7 +38,7 @@ public class UserPlaylogService {
 
     public List<UserPlaylog> getRecent30Plays(String userId) {
         Pageable page = PageRequest.of(0, 30, Sort.by(Sort.Direction.DESC, "userPlayDate"));
-        return userPlaylogRepository.findByUser_Card_ExtIdAndLevelNot(Long.parseLong(userId), 4, page);
+        return userPlaylogRepository.findByUser_Card_ExtIdAndLevelNot(Long.parseLong(userId), 5, page);
     }
 
     public List<UserPlaylog> getByUserId(String userId) {
