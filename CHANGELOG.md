@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.36 - 2022-06-01
+- Add new event and music data for O.N.G.E.K.I bright memory
+- Fix rating drop under some conditions on Chunithn New Plus
+
 ## 0.0.35 - 2022-05-16
 - Add new event, music and card data for O.N.G.E.K.I bright memory
 - Add user favorite support for Chunithm New Plus. Related API will be provided in later release
