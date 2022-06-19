@@ -29,6 +29,7 @@ public class AutoChecker {
     private final boolean AIMEDB_ENABLED;
     private final boolean BILLING_ENABLED;
     private final int BILLING_PORT;
+    private final boolean AQUAVIEWER_ENABLED;
 
     public AutoChecker(
             @Value("${server.host:}") String SERVER_PORT,
@@ -38,7 +39,8 @@ public class AutoChecker {
             @Value("${aimedb.server.port}") int AIMEDB_PORT,
             @Value("${aimedb.server.enable}") boolean AIMEDB_ENABLED,
             @Value("${billing.server.port}") int BILLING_PORT,
-            @Value("${billing.server.enable}") boolean BILLING_ENABLED) {
+            @Value("${billing.server.enable}") boolean BILLING_ENABLED,
+            @Value("${aquaviewer.server.enable:true}") boolean AQUAVIEWER_ENABLED) {
         this.SERVER_PORT = SERVER_PORT;
         this.ALLNET_HOST_OVERRIDE = ALLNET_HOST;
         this.ALLNET_PORT_OVERRIDE = ALLNET_PORT;
@@ -47,6 +49,7 @@ public class AutoChecker {
         this.AIMEDB_ENABLED = AIMEDB_ENABLED;
         this.BILLING_PORT = BILLING_PORT;
         this.BILLING_ENABLED = BILLING_ENABLED;
+        this.AQUAVIEWER_ENABLED = AQUAVIEWER_ENABLED;
     }
 
     public void check() {
@@ -59,7 +62,9 @@ public class AutoChecker {
                 "╚═╝  ╚═╝ ╚══▀▀═╝  ╚═════╝ ╚═╝  ╚═╝\n" +
                 "                                  ");
 
-        System.out.println("Aqua viewer at http://localhost/web/\n");
+        if (AQUAVIEWER_ENABLED) {
+            System.out.println("Aqua viewer at http://localhost/web/\n");
+        } 
 
         System.out.println("======= Self test running =======");
         // Check aimedb
