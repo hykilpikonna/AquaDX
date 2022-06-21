@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.37 - 2022-06-21
+- Add new event and music data for O.N.G.E.K.I bright memory
+- Add an option to disable static Web UI serving
+
 ## 0.0.36 - 2022-06-01
 - Add new event and music data for O.N.G.E.K.I bright memory
 - Fix rating drop under some conditions on Chunithn New Plus
