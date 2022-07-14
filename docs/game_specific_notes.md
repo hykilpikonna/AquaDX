@@ -10,7 +10,7 @@ This document is for detailed game specific notes, if any.
 |Chunithm (Chusan)|SDHD     |New Plus                  |-                        |Yes                 |Yes             |
 |Chunithm         |SDBT     |Paradise Lost             |A032                     |Yes                 |Yes (Paradise)  |
 |Maimai DX        |SDEZ     |Universe                  |D061                     |Yes                 |Yes             |
-|O.N.G.E.K.I      |SDDT     |Bright memory             |A036                     |Yes                 |Yes             |
+|O.N.G.E.K.I      |SDDT     |Bright memory             |A037                     |Yes                 |Yes             |
 |Maimai           |SDEY     |Finale                    |?                        |No                  |?               |
 |Project DIVA AFT |SBZV     |?                         |?                        |No                  |?               |
 
