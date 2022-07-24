@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.37b - 2022-07-24
+- Add new event and music data for O.N.G.E.K.I bright memory
+
 ## 0.0.37a - 2022-07-06
 - Add new event and music data for O.N.G.E.K.I bright memory
 
