@@ -30,6 +30,7 @@ public class CompressionFilter extends OncePerRequestFilter {
         filterList.add("/MaimaiServlet");
         filterList.add("/Maimai2Servlet");
         filterList.add("/ChusanServlet");
+        filterList.add("/CardMakerServlet");
     }
 
     @Override

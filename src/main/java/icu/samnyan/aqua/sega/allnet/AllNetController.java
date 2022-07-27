@@ -163,6 +163,8 @@ public class AllNetController {
                 }
             case "SDHD":
                 return "http://" + addr + ":" + port + "/ChusanServlet/";
+            case "SDED":
+                return "http://" + addr + ":" + port + "/CardMakerServlet/";
             default:
                 return "http://" + addr + ":" + port + "/";
         }

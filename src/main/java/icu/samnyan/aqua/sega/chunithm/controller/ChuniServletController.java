@@ -305,4 +305,9 @@ public class ChuniServletController {
         return upsertUserChargelogHandler.handle(request);
     }
 
+    @PostMapping("Ping")
+    String ping(@ModelAttribute Map<String, Object> request) {
+        return "{\"returnCode\":\"1\"}";
+    }
+
 }

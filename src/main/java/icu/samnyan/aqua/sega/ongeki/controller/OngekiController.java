@@ -395,4 +395,9 @@ public class OngekiController {
         return upsertUserAllHandler.handle(request);
     }
 
+    @PostMapping("Ping")
+    String ping(@ModelAttribute Map<String, Object> request) {
+        return "{\"returnCode\":\"1\"}";
+    }
+
 }

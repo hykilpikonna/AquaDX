@@ -1,9 +1,12 @@
 package icu.samnyan.aqua.sega.chusan.model.userdata;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import icu.samnyan.aqua.sega.chusan.model.response.data.UserEmoney;
 import icu.samnyan.aqua.sega.general.model.Card;
 import icu.samnyan.aqua.sega.util.jackson.AccessCodeSerializer;
 import lombok.AllArgsConstructor;
@@ -13,6 +16,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -328,11 +332,17 @@ public class UserData implements Serializable {
 
     private long extLong2;
 
-    private String rankUpChallengeResults;
+    @JsonInclude
+    @Transient
+    private List<Object> rankUpChallengeResults;
 
     @JsonProperty("isNetBattleHost")
     private boolean isNetBattleHost;
 
     private int netBattleEndState;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Transient
+    private UserEmoney userEmoney;
 
 }

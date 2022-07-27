@@ -288,5 +288,10 @@ public class Maimai2ServletController {
     public String getUserFriendSeasonRankingHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserFriendSeasonRankingHandler.handle(request);
     }
+    
+    @PostMapping("Ping")
+    String ping(@ModelAttribute Map<String, Object> request) {
+        return "{\"returnCode\":\"1\"}";
+    }
 
 }

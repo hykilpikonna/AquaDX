@@ -46,9 +46,43 @@ public class ChusanServletController {
     private final GetUserTeamHandler getUserTeamHandler;
     private final UpsertUserAllHandler upsertUserAllHandler;
     private final UpsertUserChargelogHandler upsertUserChargelogHandler;
+    private final GetGameGachaHandler getGameGachaHandler;
+    private final GetGameGachaCardByIdHandler getGameGachaCardByIdHandler;
+    private final GetUserCardPrintErrorHandler getUserCardPrintErrorHandler;
+    private final CMGetUserPreviewHandler cmGetUserPreviewHandler;
+    private final CMGetUserDataHandler cmGetUserDataHandler;
+    private final CMGetUserCharacterHandler cmGetUserCharacterHandler;
+    private final GetUserGachaHandler getUserGachaHandler;
+    private final GetUserPrintedCardHandler getUserPrintedCardHandler;
+    private final CMGetUserItemHandler cmGetUserItemHandler;
+    private final RollGachaHandler rollGachaHandler;
+    private final CMUpsertUserGachaHandler cmUpsertUserGachaHandler;
+    private final CMUpsertUserPrintSubtractHandler cmUpsertUserPrintSubtractHandler;
+    private final CMUpsertUserPrintCancelHandler cmUpsertUserPrintCancelHandler;
 
     @Autowired
-    public ChusanServletController(GameLoginHandler gameLoginHandler, GameLogoutHandler gameLogoutHandler, GetGameChargeHandler getGameChargeHandler, GetGameEventHandler getGameEventHandler, GetGameIdlistHandler getGameIdlistHandler, GetGameRankingHandler getGameRankingHandler, GetGameSettingHandler getGameSettingHandler, GetTeamCourseRuleHandler getTeamCourseRuleHandler, GetTeamCourseSettingHandler getTeamCourseSettingHandler, GetUserActivityHandler getUserActivityHandler, GetUserCharacterHandler getUserCharacterHandler, GetUserChargeHandler getUserChargeHandler, GetUserCourseHandler getUserCourseHandler, GetUserDataHandler getUserDataHandler, GetUserDuelHandler getUserDuelHandler, GetUserFavoriteItemHandler getUserFavoriteItemHandler, GetUserItemHandler getUserItemHandler, GetUserLoginBonusHandler getUserLoginBonusHandler, GetUserMapAreaHandler getUserMapAreaHandler, GetUserMusicHandler getUserMusicHandler, GetUserOptionHandler getUserOptionHandler, GetUserPreviewHandler getUserPreviewHandler, GetUserRecentRatingHandler getUserRecentRatingHandler, GetUserRegionHandler getUserRegionHandler, GetUserRivalDataHandler getUserRivalDataHandler, GetUserRivalMusicHandler getUserRivalMusicHandler, GetUserTeamHandler getUserTeamHandler, UpsertUserAllHandler upsertUserAllHandler, UpsertUserChargelogHandler upsertUserChargelogHandler, GetUserSymbolChatSettingHandler getUserSymbolChatSettingHandler, GetUserNetBattleDataHandler getUserNetBattleDataHandler) {
+    public ChusanServletController(GameLoginHandler gameLoginHandler, GameLogoutHandler gameLogoutHandler,
+    GetGameChargeHandler getGameChargeHandler, GetGameEventHandler getGameEventHandler,
+    GetGameIdlistHandler getGameIdlistHandler, GetGameRankingHandler getGameRankingHandler,
+    GetGameSettingHandler getGameSettingHandler, GetTeamCourseRuleHandler getTeamCourseRuleHandler,
+    GetTeamCourseSettingHandler getTeamCourseSettingHandler, GetUserActivityHandler getUserActivityHandler,
+    GetUserCharacterHandler getUserCharacterHandler, GetUserChargeHandler getUserChargeHandler,
+    GetUserCourseHandler getUserCourseHandler, GetUserDataHandler getUserDataHandler,
+    GetUserDuelHandler getUserDuelHandler, GetUserFavoriteItemHandler getUserFavoriteItemHandler,
+    GetUserItemHandler getUserItemHandler, GetUserLoginBonusHandler getUserLoginBonusHandler,
+    GetUserMapAreaHandler getUserMapAreaHandler, GetUserMusicHandler getUserMusicHandler,
+    GetUserOptionHandler getUserOptionHandler, GetUserPreviewHandler getUserPreviewHandler,
+    GetUserRecentRatingHandler getUserRecentRatingHandler, GetUserRegionHandler getUserRegionHandler,
+    GetUserRivalDataHandler getUserRivalDataHandler, GetUserRivalMusicHandler getUserRivalMusicHandler,
+    GetUserTeamHandler getUserTeamHandler, UpsertUserAllHandler upsertUserAllHandler,
+    UpsertUserChargelogHandler upsertUserChargelogHandler, GetUserSymbolChatSettingHandler getUserSymbolChatSettingHandler,
+    GetUserNetBattleDataHandler getUserNetBattleDataHandler, GetGameGachaHandler getGameGachaHandler,
+    GetGameGachaCardByIdHandler getGameGachaCardByIdHandler, GetUserCardPrintErrorHandler getUserCardPrintErrorHandler,
+    CMGetUserPreviewHandler cmGetUserPreviewHandler, CMGetUserDataHandler cmGetUserDataHandler,
+    CMGetUserCharacterHandler cmGetUserCharacterHandler, GetUserGachaHandler getUserGachaHandler,
+    GetUserPrintedCardHandler getUserPrintedCardHandler, CMGetUserItemHandler cmGetUserItemHandler,
+    RollGachaHandler rollGachaHandler, CMUpsertUserGachaHandler cmUpsertUserGachaHandler,
+    CMUpsertUserPrintSubtractHandler cmUpsertUserPrintSubtractHandler, CMUpsertUserPrintCancelHandler cmUpsertUserPrintCancelHandler) {
         this.gameLoginHandler = gameLoginHandler;
         this.gameLogoutHandler = gameLogoutHandler;
         this.getGameChargeHandler = getGameChargeHandler;
@@ -80,6 +114,19 @@ public class ChusanServletController {
         this.upsertUserChargelogHandler = upsertUserChargelogHandler;
         this.getUserSymbolChatSettingHandler = getUserSymbolChatSettingHandler;
         this.getUserNetBattleDataHandler = getUserNetBattleDataHandler;
+        this.getGameGachaHandler = getGameGachaHandler;
+        this.getGameGachaCardByIdHandler = getGameGachaCardByIdHandler;
+        this.getUserCardPrintErrorHandler = getUserCardPrintErrorHandler;
+        this.cmGetUserPreviewHandler = cmGetUserPreviewHandler;
+        this.cmGetUserDataHandler = cmGetUserDataHandler;
+        this.cmGetUserCharacterHandler = cmGetUserCharacterHandler;
+        this.getUserGachaHandler = getUserGachaHandler;
+        this.getUserPrintedCardHandler = getUserPrintedCardHandler;
+        this.cmGetUserItemHandler = cmGetUserItemHandler;
+        this.rollGachaHandler = rollGachaHandler;
+        this.cmUpsertUserGachaHandler = cmUpsertUserGachaHandler;
+        this.cmUpsertUserPrintSubtractHandler = cmUpsertUserPrintSubtractHandler;
+        this.cmUpsertUserPrintCancelHandler = cmUpsertUserPrintCancelHandler;
     }
 
     @PostMapping("GameLoginApi")
@@ -277,7 +324,7 @@ public class ChusanServletController {
         return "{\"returnCode\":\"1\"}";
     }
 
-    @PostMapping("MatchingServer/Ping")
+    @PostMapping({"MatchingServer/Ping", "Ping"})
     String ping(@ModelAttribute Map<String, Object> request) {
         return "{\"returnCode\":\"1\"}";
     }
@@ -295,5 +342,92 @@ public class ChusanServletController {
     @PostMapping("GetMatchingStateApi")
 
     */
+
+    // Cardmaker endpoints
+
+    @PostMapping("GetGameGachaApi")
+    String getGameGacha(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getGameGachaHandler.handle(request);
+    }
+
+    @PostMapping("GetGameGachaCardByIdApi")
+    String getGameGachaCardById(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getGameGachaCardByIdHandler.handle(request);
+    }
+
+    @PostMapping("GetUserCardPrintErrorApi")
+    String getUserCardPrintError(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserCardPrintErrorHandler.handle(request);
+    }
+
+    @PostMapping("CMGetUserCharacterApi")
+    String cmGetUserCharacter(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return cmGetUserCharacterHandler.handle(request);
+    }
+
+    @PostMapping("CMGetUserDataApi")
+    String cmGetUserData(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return cmGetUserDataHandler.handle(request);
+    }
+
+    @PostMapping("GetUserGachaApi")
+    String GetUserGacha(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserGachaHandler.handle(request);
+    }
+
+    @PostMapping("CMGetUserItemApi")
+    String cmGetUserItem(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return cmGetUserItemHandler.handle(request);
+    }
+
+    @PostMapping("CMGetUserPreviewApi")
+    String cmGetUserPreview(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return cmGetUserPreviewHandler.handle(request);
+    }
+
+    @PostMapping("GetUserPrintedCardApi")
+    String getUserPrintedCard(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserPrintedCardHandler.handle(request);
+    }
+
+    @PostMapping("PrinterLoginApi")
+    String printerLogin(@ModelAttribute Map<String, Object> request) {
+        return "{\"returnCode\":\"1\"}";
+    }
+
+    @PostMapping("PrinterLogoutApi")
+    String printerLogout(@ModelAttribute Map<String, Object> request) {
+        return "{\"returnCode\":\"1\"}";
+    }
+
+    @PostMapping("RollGachaApi")
+    String rollGacha(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return rollGachaHandler.handle(request);
+    }
+
+    @PostMapping("CMUpsertUserGachaApi")
+    String cmUpsertUserGacha(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return cmUpsertUserGachaHandler.handle(request);
+    }
+
+    @PostMapping("CMUpsertUserPrintApi")
+    String cmUpsertUserPrint(@ModelAttribute Map<String, Object> request) {
+        return "{\"returnCode\":\"1\", \"orderId\":\"0\", \"serialId\":\"FAKECARDIMAG12345678\", \"apiName\":\"CMUpsertUserPrintApi\"}";
+    }
+
+    @PostMapping("CMUpsertUserPrintCancelApi")
+    String cmUpsertUserPrintCancel(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return cmUpsertUserPrintCancelHandler.handle(request);
+    }
+
+    @PostMapping("CMUpsertUserPrintlogApi")
+    String cmUpsertUserPrintlog(@ModelAttribute Map<String, Object> request) {
+        return "{\"returnCode\":\"1\", \"orderId\":\"0\", \"serialId\":\"FAKECARDIMAG12345678\", \"apiName\":\"CMUpsertUserPrintlogApi\"}";
+    }
+
+    @PostMapping("CMUpsertUserPrintSubtractApi")
+    String cmUpsertUserPrintSubtract(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return cmUpsertUserPrintSubtractHandler.handle(request);
+    }
 
 }
