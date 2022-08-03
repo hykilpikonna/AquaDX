@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.maimai2.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
-import icu.samnyan.aqua.sega.util.jackson.StringMapper;
+import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -22,9 +22,9 @@ public class GetGameTournamentInfoHandler implements BaseHandler {
 
     //private final GameEventRepository gameEventRepository;
 
-    private final StringMapper mapper;
+    private final BasicMapper mapper;
 
-    public GetGameTournamentInfoHandler(StringMapper mapper) {
+    public GetGameTournamentInfoHandler(BasicMapper mapper) {
         this.mapper = mapper;
     }
 

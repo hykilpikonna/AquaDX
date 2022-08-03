@@ -6,7 +6,7 @@ import icu.samnyan.aqua.sega.maimai2.model.response.GetGameSettingResp;
 import icu.samnyan.aqua.sega.maimai2.model.response.data.GameSetting;
 import icu.samnyan.aqua.sega.general.dao.PropertyEntryRepository;
 import icu.samnyan.aqua.sega.general.model.PropertyEntry;
-import icu.samnyan.aqua.sega.util.jackson.StringMapper;
+import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +22,12 @@ public class GetGameSettingHandler implements BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GetGameSettingHandler.class);
 
-    private final StringMapper mapper;
+    private final BasicMapper mapper;
 
     private final PropertyEntryRepository propertyEntryRepository;
 
     @Autowired
-    public GetGameSettingHandler(StringMapper mapper, PropertyEntryRepository propertyEntryRepository) {
+    public GetGameSettingHandler(BasicMapper mapper, PropertyEntryRepository propertyEntryRepository) {
         this.mapper = mapper;
         this.propertyEntryRepository = propertyEntryRepository;
     }
