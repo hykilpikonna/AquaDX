@@ -45,12 +45,12 @@ public class CardMakerController {
 
     @PostMapping("UpsertClientBookkeepingApi")
     public String upsertClientBookkeeping(@ModelAttribute Map<String, Object> request) {
-        return "{\"returnCode\":1},\"apiName\":\"upsertClientBookkeeping\"";
+        return "{\"returnCode\":1,\"apiName\":\"UpsertClientBookkeepingApi\"}";
     }
 
     @PostMapping("UpsertClientSettingApi")
     public String upsertClientSetting(@ModelAttribute Map<String, Object> request) {
-        return "{\"returnCode\":1,\"apiName\":\"upsertClientSetting\"}";
+        return "{\"returnCode\":1,\"apiName\":\"UpsertClientSettingApi\"}";
     }
 
 }
