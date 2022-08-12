@@ -9,8 +9,9 @@ This document is for detailed game specific notes, if any.
 | ---             | ---     | ---                      | ---                     | ---                | ---            |
 |Chunithm (Chusan)|SDHD     |New Plus                  |-                        |Yes                 |Yes             |
 |Chunithm         |SDBT     |Paradise Lost             |A032                     |Yes                 |Yes (Paradise)  |
-|Maimai DX        |SDEZ     |Universe                  |D061                     |Yes                 |Yes             |
+|Maimai DX        |SDEZ     |Universe Plus             |E041                     |Yes                 |Yes             |
 |O.N.G.E.K.I      |SDDT     |Bright memory             |A044                     |Yes                 |Yes             |
+|Card Maker       |SDED     |1.34                      |A030                     |Yes                 |Yes             |
 |Maimai           |SDEY     |Finale                    |?                        |No                  |?               |
 |Project DIVA AFT |SBZV     |?                         |?                        |No                  |?               |
 
@@ -80,3 +81,19 @@ Only JP variant is supported.
 
 ### Additional notes
 * Match `game.ongeki.version` key in `application.properties` same as your client version. This applies to Bright Memory version and up.
+
+## Card Maker
+
+### Required patches
+* No TLS
+* No encryption
+
+### Non-working features
+* Maimai DX
+* O.N.G.E.K.I
+
+### Additional notes
+* Currently, It only supports Chusan character gacha. More support will be added later.
+* Server does not consider gacha rarity and probability weight during card draw.
+* Server returns same hard-coded serial for each cards. This is intentional behavior.
+* Due to its high correlation with every game endpoints, this may cease to work after major game version up.

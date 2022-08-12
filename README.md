@@ -6,7 +6,8 @@ This is a forked maintaining attempt of the [original Aqua server](https://dev.s
 ### Supported Games
 * CHUNITHM NEW Plus (and below)
 * CHUNITHM Paradise Lost (and below)
-* Maimai DX Universe (and below)
+* Maimai DX Universe Plus (and below)
+* Card Maker (1.34)
 * Project DIVA Arcade Future Tone
 * O.N.G.E.K.I. bright memory (and below)
 
