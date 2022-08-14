@@ -15,7 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     private final boolean AQUAVIEWER_ENABLED;
 
-    public WebConfig(@Value("${aquaviewer.server.enable:true}") boolean AQUAVIEWER_ENABLED) {
+    public WebConfig(@Value("${aquaviewer.server.enable}") boolean AQUAVIEWER_ENABLED) {
         this.AQUAVIEWER_ENABLED = AQUAVIEWER_ENABLED;
     }
 
