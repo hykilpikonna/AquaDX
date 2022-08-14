@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.7</version>
+        <version>2.7.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>icu.samnya</groupId>
@@ -67,7 +67,7 @@
         <dependency>
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
-            <version>3.36.0.3</version>
+            <version>3.39.2.0</version>
         </dependency>
         <dependency>
             <groupId>com.github.gwenn</groupId>
@@ -118,7 +118,7 @@
             <plugin>
                 <groupId>io.github.fvarrui</groupId>
                 <artifactId>javapackager</artifactId>
-                <version>1.6.6</version>
+                <version>1.6.7</version>
                     <configuration>
                         <name>${project.artifactId}</name>
                         <mainClass>icu.samnyan.aqua.AquaServerApplication</mainClass>
