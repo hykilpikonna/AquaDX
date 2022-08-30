@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.38 - 2022-08-30
+- Add partial support for Card Maker (1.34, Chunithm New only)
+- Add new event and music data for O.N.G.E.K.I bright memory
+- Fix issue that might lead some bugs on Maimai DX
+- Change startup splash to include version and built time information
+- Update Spring boot to 2.7.2 and other dependencies
+
 ## 0.0.37c - 2022-08-02
 - Add new event, music and music level data for O.N.G.E.K.I bright memory
 

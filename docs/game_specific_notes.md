@@ -10,7 +10,7 @@ This document is for detailed game specific notes, if any.
 |Chunithm (Chusan)|SDHD     |New Plus                  |-                        |Yes                 |Yes             |
 |Chunithm         |SDBT     |Paradise Lost             |A032                     |Yes                 |Yes (Paradise)  |
 |Maimai DX        |SDEZ     |Universe Plus             |E041                     |Yes                 |Yes             |
-|O.N.G.E.K.I      |SDDT     |Bright memory             |A044                     |Yes                 |Yes             |
+|O.N.G.E.K.I      |SDDT     |Bright memory             |A048                     |Yes                 |Yes             |
 |Card Maker       |SDED     |1.34                      |A030                     |Yes                 |Yes             |
 |Maimai           |SDEY     |Finale                    |?                        |No                  |?               |
 |Project DIVA AFT |SBZV     |?                         |?                        |No                  |?               |
