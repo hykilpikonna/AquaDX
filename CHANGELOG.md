@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.38a - 2022-09-01
+- Fix an error that prevented from boot when MySQL or MariaDB is used as database
+
 ## 0.0.38 - 2022-08-30
 - Add partial support for Card Maker (1.34, Chunithm New only)
 - Add new event and music data for O.N.G.E.K.I bright memory
