@@ -59,6 +59,8 @@ public class RecentResp {
 
     private int judgeCritical;
 
+    private int judgeHeaven;
+
     private int playerRating;
 
     @JsonProperty("isNewRecord")
