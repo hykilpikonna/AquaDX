@@ -7,7 +7,7 @@ This document is for detailed game specific notes, if any.
 
 |       Name      | Game ID | Latest supported version | Latest supported option | Actively supported | Requires patch |
 | ---             | ---     | ---                      | ---                     | ---                | ---            |
-|Chunithm (Chusan)|SDHD     |New Plus                  |-                        |Yes                 |Yes             |
+|Chunithm (Chusan)|SDHD     |New Plus                  |A001                     |Yes                 |Yes             |
 |Chunithm         |SDBT     |Paradise Lost             |A032                     |Yes                 |Yes (Paradise)  |
 |Maimai DX        |SDEZ     |Universe Plus             |E041                     |Yes                 |Yes             |
 |O.N.G.E.K.I      |SDDT     |Bright memory             |A052                     |Yes                 |Yes             |
