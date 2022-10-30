@@ -24,10 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -65,9 +62,17 @@ public class ApiOngekiPlayerDataController {
     private final UserTechEventRepository userTechEventRepository;
     private final UserKopRepository userKopRepository;
 
+    private final UserMemoryChapterRepository userMemoryChapterRepository;
+
+    private final UserScenarioRepository userScenarioRepository;
+
+    private final UserBossRepository userBossRepository;
+
+    private final UserTechCountRepository userTechCountRepository;
+
     private final GameCardRepository gameCardRepository;
 
-    public ApiOngekiPlayerDataController(ApiMapper mapper, CardService cardService, UserActivityRepository userActivityRepository, UserCardRepository userCardRepository, UserChapterRepository userChapterRepository, UserCharacterRepository userCharacterRepository, UserDataRepository userDataRepository, UserDeckRepository userDeckRepository, UserEventPointRepository userEventPointRepository, UserItemRepository userItemRepository, UserLoginBonusRepository userLoginBonusRepository, UserMissionPointRepository userMissionPointRepository, UserMusicDetailRepository userMusicDetailRepository, UserMusicItemRepository userMusicItemRepository, UserOptionRepository userOptionRepository, UserPlaylogRepository userPlaylogRepository, UserStoryRepository userStoryRepository, UserTrainingRoomRepository userTrainingRoomRepository, UserGeneralDataRepository userGeneralDataRepository, GameCardRepository gameCardRepository, UserTradeItemRepository userTradeItemRepository, UserEventMusicRepository userEventMusicRepository, UserTechEventRepository userTechEventRepository, UserKopRepository userKopRepository) {
+    public ApiOngekiPlayerDataController(ApiMapper mapper, CardService cardService, UserActivityRepository userActivityRepository, UserCardRepository userCardRepository, UserChapterRepository userChapterRepository, UserCharacterRepository userCharacterRepository, UserDataRepository userDataRepository, UserDeckRepository userDeckRepository, UserEventPointRepository userEventPointRepository, UserItemRepository userItemRepository, UserLoginBonusRepository userLoginBonusRepository, UserMissionPointRepository userMissionPointRepository, UserMusicDetailRepository userMusicDetailRepository, UserMusicItemRepository userMusicItemRepository, UserOptionRepository userOptionRepository, UserPlaylogRepository userPlaylogRepository, UserStoryRepository userStoryRepository, UserTrainingRoomRepository userTrainingRoomRepository, UserGeneralDataRepository userGeneralDataRepository, GameCardRepository gameCardRepository, UserTradeItemRepository userTradeItemRepository, UserEventMusicRepository userEventMusicRepository, UserTechEventRepository userTechEventRepository, UserKopRepository userKopRepository, UserMemoryChapterRepository userMemoryChapterRepository, UserScenarioRepository userScenarioRepository, UserBossRepository userBossRepository, UserTechCountRepository userTechCountRepository) {
         this.mapper = mapper;
         this.cardService = cardService;
         this.userActivityRepository = userActivityRepository;
@@ -92,6 +97,10 @@ public class ApiOngekiPlayerDataController {
         this.userEventMusicRepository = userEventMusicRepository;
         this.userTechEventRepository = userTechEventRepository;
         this.userKopRepository = userKopRepository;
+        this.userMemoryChapterRepository = userMemoryChapterRepository;
+        this.userScenarioRepository = userScenarioRepository;
+        this.userBossRepository = userBossRepository;
+        this.userTechCountRepository = userTechCountRepository;
     }
 
     @GetMapping("profile")
@@ -363,6 +372,10 @@ public class ApiOngekiPlayerDataController {
             data.setUserEventMusicList(userEventMusicRepository.findByUser_Card_ExtId(aimeId));
             data.setUserTechEventList(userTechEventRepository.findByUser_Card_ExtId(aimeId));
             data.setUserKopList(userKopRepository.findByUser_Card_ExtId(aimeId));
+            data.setUserMemoryChapterList(userMemoryChapterRepository.findByUser_Card_ExtId(aimeId));
+            data.setUserScenarioList(userScenarioRepository.findByUser_Card_ExtId(aimeId));
+            data.setUserBossList(userBossRepository.findByUser_Card_ExtId(aimeId));
+            data.setUserTechCountList(userTechCountRepository.findByUser_Card_ExtId(aimeId));
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new MessageResponse("User not found"));
@@ -433,6 +446,14 @@ public class ApiOngekiPlayerDataController {
                 userTechEventRepository.flush();
                 userKopRepository.deleteByUser(existUserData.get());
                 userKopRepository.flush();
+                userMemoryChapterRepository.deleteByUser(existUserData.get());
+                userMemoryChapterRepository.flush();
+                userScenarioRepository.deleteByUser(existUserData.get());
+                userScenarioRepository.flush();
+                userBossRepository.deleteByUser(existUserData.get());
+                userBossRepository.flush();
+                userTechCountRepository.deleteByUser(existUserData.get());
+                userTechCountRepository.flush();
 
                 userDataRepository.deleteByCard(card);
                 userDataRepository.flush();
@@ -504,6 +525,18 @@ public class ApiOngekiPlayerDataController {
                 .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
 
         userKopRepository.saveAll(data.getUserKopList().stream()
+                .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
+
+        userMemoryChapterRepository.saveAll(Optional.ofNullable(data.getUserMemoryChapterList()).orElse(Collections.emptyList()).stream()
+                .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
+
+        userScenarioRepository.saveAll(Optional.ofNullable(data.getUserScenarioList()).orElse(Collections.emptyList()).stream()
+                .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
+
+        userBossRepository.saveAll(Optional.ofNullable(data.getUserBossList()).orElse(Collections.emptyList()).stream()
+                .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
+
+        userTechCountRepository.saveAll(Optional.ofNullable(data.getUserTechCountList()).orElse(Collections.emptyList()).stream()
                 .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
 
         return ResponseEntity.ok(new MessageResponse("Import successfully, aimeId: " + card.getExtId()));

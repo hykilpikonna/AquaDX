@@ -36,4 +36,8 @@ public class OngekiDataImport {
     private List<UserEventMusic> userEventMusicList;
     private List<UserTechEvent> userTechEventList;
     private List<UserKop> userKopList;
+    private List<UserMemoryChapter> userMemoryChapterList;
+    private List<UserScenario> userScenarioList;
+    private List<UserBoss> userBossList;
+    private List<UserTechCount> userTechCountList;
 }
