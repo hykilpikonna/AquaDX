@@ -56,6 +56,11 @@ public class AllNetController {
         return "Server running";
     }
 
+    @GetMapping("/naomitest.html")
+    public String naomiTest() {
+        return "naomi ok";
+    }
+
     @PostMapping(value = "/sys/servlet/DownloadOrder", produces = "text/plain")
     public String downloadOrder(InputStream dataStream, HttpServletRequest req) throws IOException {
 
