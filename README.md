@@ -11,7 +11,9 @@ This is a forked maintaining attempt of the [original Aqua server](https://dev.s
 * Project DIVA Arcade Future Tone
 * O.N.G.E.K.I. bright memory (and below)
 
-Read [game specific notes](docs/game_specific_notes.md) for more information.
+Check out these docs for more information.
+* [Game specific notes](docs/game_specific_notes.md)
+* [Frequently asked questions](docs/frequently_asked_questions.md)
 
 ### Notes
 * Some game may require additional patches and these will not provided in this project and repository. You already found this, so you know where to find related resources too.
