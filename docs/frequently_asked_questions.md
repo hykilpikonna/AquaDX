@@ -38,7 +38,7 @@ You can add database entry by hand or your handmade tools. Currently Aqua doesn'
 No. This is due to hardened security measures which SEGA made.
 
 ### Will you add [your wanted game name] support?
-It'll be case by case basis. Open a issue if you want to suggest something.
+It'll be case by case basis. Open an issue if you want to suggest something.
 
 ### Will you add support for intl version?
 I won't work on it myself, but merge request is welcome.
