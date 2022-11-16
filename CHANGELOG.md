@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.40 - 2022-11-16
+- Add final game data for Chunithm New Plus
+- Fix database migration for MariaDB and Mysql. Please update your configuration accordingly!
+
 ## 0.0.39 - 2022-11-08
 - Add new event data for Chunithm New Plus
 - Add new event and music data for O.N.G.E.K.I bright memory
