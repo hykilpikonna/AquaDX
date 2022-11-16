@@ -113,6 +113,20 @@ public class ApiChuniV2PlayerDataController {
         return userDataService.saveUserData(profile);
     }
 
+    @PutMapping("profile/romversion")
+    public UserData updateRomVersion(@RequestBody Map<String, Object> request) {
+        UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
+        profile.setLastRomVersion((String) request.get("romVersion"));
+        return userDataService.saveUserData(profile);
+    }
+
+    @PutMapping("profile/dataversion")
+    public UserData updateDataVersion(@RequestBody Map<String, Object> request) {
+        UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
+        profile.setLastDataVersion((String) request.get("dataVersion"));
+        return userDataService.saveUserData(profile);
+    }
+
     @PutMapping("profile/plate")
     public UserData updatePlate(@RequestBody Map<String, Object> request) {
         UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();

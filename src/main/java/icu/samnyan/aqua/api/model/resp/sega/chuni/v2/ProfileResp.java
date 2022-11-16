@@ -58,6 +58,10 @@ public class ProfileResp {
 
     private LocalDateTime lastPlayDate;
 
+    private String lastRomVersion;
+
+    private String lastDataVersion;
+
     private int courseClass;
 
     private int overPowerPoint;
