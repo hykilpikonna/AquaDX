@@ -33,6 +33,11 @@ Delete exclamation mark character(`!`) in your directory name.
 ### I want to add custom content data in Aqua database
 You can add database entry by hand or your handmade tools. Currently Aqua doesn't have a way to do this automatically. I don't have timeframe for this either.
 
+### How can I update to a newer version?
+Read the [changelog](/CHANGELOG.md) to check breaking changes before updating. Then follow **one** of these options:
+* Take jar file (`aqua.jar`) from newer release and replace it
+* Copy your current DB file (`data/db.sqlite`) and config file (`application.properties`) to newer release folder
+
 ## Game
 ### Can I use unmodified cabinets or games with this server?
 No. This is due to hardened security measures which SEGA made.
@@ -61,6 +66,9 @@ No.
 
 ### Where I can find game patches or get one?
 I won't give any help on this repository.
+
+### Why the file size of compiled jar is so huge?
+It is because Aqua is using Spring Boot as a base. It's a upstream issue, not something that can be fixed on this project side.
 
 ### I have a problem with the *online* aqua server
 I, the fork maintainer, am not affiliated with any public hosted instance. Contact to your server maintainer instead.
