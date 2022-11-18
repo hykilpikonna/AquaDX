@@ -4,6 +4,7 @@ import icu.samnyan.aqua.sega.maimai2.model.userdata.UserDetail;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserOption;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -16,4 +17,7 @@ public interface UserOptionRepository extends JpaRepository<UserOption, Long> {
     Optional<UserOption> findByUser(UserDetail user);
 
     Optional<UserOption> findByUser_Card_ExtId(Long extId);
+
+    @Transactional
+    void deleteByUser(UserDetail user);
 }
