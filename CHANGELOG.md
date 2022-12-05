@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.41a - 2022-12-05
+- Add new event and music data for O.N.G.E.K.I bright memory
+
 ## 0.0.41 - 2022-11-18
 - Add new event and music data for O.N.G.E.K.I bright memory
 - Add Maimai DX API endpoints
