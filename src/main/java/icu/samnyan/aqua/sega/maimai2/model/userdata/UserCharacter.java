@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
 
@@ -31,7 +32,22 @@ public class UserCharacter implements Serializable {
     private UserDetail user;
 
     private int characterId;
+    @JsonInclude
+    @Transient
+    private int point = 0;
+    @JsonInclude
+    @Transient
+    private int count = 0;
     private int level;
+    @JsonInclude
+    @Transient
+    private int nextAwake = 0;
+    @JsonInclude
+    @Transient
+    private int nextAwakePercent = 0;
+    @JsonInclude
+    @Transient
+    private boolean favorite = false;
     private int awakening;
     private int useCount;
 

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -39,8 +40,17 @@ public class UserDetail implements Serializable {
     private Card card;
 
     private String userName;
+    @JsonInclude
+    @Transient
+    private String friendCode = "";
     private int isNetMember;
+    @JsonInclude
+    @Transient
+    private int nameplateId = 0;
     private int iconId;
+    @JsonInclude
+    @Transient
+    private int trophyId = 0;
     private int plateId;
     private int titleId;
     private int partnerId;
@@ -102,6 +112,24 @@ public class UserDetail implements Serializable {
     private long totalExpertDeluxscore;
     private long totalMasterDeluxscore;
     private long totalReMasterDeluxscore;
+    @JsonInclude
+    @Transient
+    private long totalHiscore = 0;
+    @JsonInclude
+    @Transient
+    private long totalBasicHighscore = 0;
+    @JsonInclude
+    @Transient
+    private long totalAdvancedHighscore = 0;
+    @JsonInclude
+    @Transient
+    private long totalExpertHighscore = 0;
+    @JsonInclude
+    @Transient
+    private long totalMasterHighscore = 0;
+    @JsonInclude
+    @Transient
+    private long totalReMasterHighscore = 0;
     private int totalSync;
     private int totalBasicSync;
     private int totalAdvancedSync;
@@ -118,4 +146,10 @@ public class UserDetail implements Serializable {
     private long playerNewRating;
     private int banState;
     private long dateTime;
+    @JsonInclude
+    @Transient
+    private int cmLastEmoneyBrand = 2;
+    @JsonInclude
+    @Transient
+    private int cmLastEmoneyCredit = 69;
 }

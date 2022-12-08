@@ -47,6 +47,11 @@ public class Maimai2ServletController {
     private final UploadUserPlaylogHandler uploadUserPlaylogHandler;
     private final GetGameNgMusicIdHandler getGameNgMusicIdHandler;
     private final GetUserFriendSeasonRankingHandler getUserFriendSeasonRankingHandler;
+    private final CMGetUserPreviewHandler cmGetUserPreviewHandler;
+    private final CMGetSellingCardHandler cmGetSellingCardHandler;
+    private final GetUserCardPrintErrorHandler getUserCardPrintErrorHandler;
+    private final CMGetUserCharacterHandler cmGetUserCharacterHandler;
+    private final UpsertUserPrintHandler upsertUserPrintHandler;
 
     public Maimai2ServletController(GetGameSettingHandler getGameSettingHandler, GetGameEventHandler getGameEventHandler, GetGameRankingHandler getGameRankingHandler, GetGameTournamentInfoHandler getGameTournamentInfoHandler,
     GetTransferFriendHandler getTransferFriendHandler, GetUserActivityHandler getUserActivityHandler, UserLoginHandler userLoginHandler, UserLogoutHandler userLogoutHandler,
@@ -55,7 +60,9 @@ public class Maimai2ServletController {
     GetUserLoginBonusHandler getUserLoginBonusHandler, GetUserMapHandler getUserMapHandler, GetUserFavoriteHandler getUserFavoriteHandler,
     GetUserCardHandler getUserCardHandler, GetUserMusicHandler getUserMusicHandler, GetUserRatingHandler getUserRatingHandler, GetUserRegionHandler getUserRegionHandler,
     GetGameChargeHandler getGameChargeHandler, GetUserChargeHandler getUserChargeHandler, GetUserCourseHandler getUserCourseHandler, UploadUserPhotoHandler uploadUserPhotoHandler,
-    UploadUserPlaylogHandler uploadUserPlaylogHandler, GetGameNgMusicIdHandler getGameNgMusicIdHandler, GetUserFriendSeasonRankingHandler getUserFriendSeasonRankingHandler) {
+    UploadUserPlaylogHandler uploadUserPlaylogHandler, GetGameNgMusicIdHandler getGameNgMusicIdHandler, GetUserFriendSeasonRankingHandler getUserFriendSeasonRankingHandler,
+    CMGetUserPreviewHandler cmGetUserPreviewHandler, CMGetSellingCardHandler cmGetSellingCardHandler, GetUserCardPrintErrorHandler getUserCardPrintErrorHandler, CMGetUserCharacterHandler cmGetUserCharacterHandler,
+    UpsertUserPrintHandler upsertUserPrintHandler) {
         this.getGameSettingHandler = getGameSettingHandler;
         this.getGameEventHandler = getGameEventHandler;
         this.getGameRankingHandler = getGameRankingHandler;
@@ -86,6 +93,11 @@ public class Maimai2ServletController {
         this.uploadUserPlaylogHandler = uploadUserPlaylogHandler;
         this.getGameNgMusicIdHandler = getGameNgMusicIdHandler;
         this.getUserFriendSeasonRankingHandler = getUserFriendSeasonRankingHandler;
+        this.cmGetUserPreviewHandler = cmGetUserPreviewHandler;
+        this.cmGetSellingCardHandler = cmGetSellingCardHandler;
+        this.getUserCardPrintErrorHandler = getUserCardPrintErrorHandler;
+        this.cmGetUserCharacterHandler = cmGetUserCharacterHandler;
+        this.upsertUserPrintHandler = upsertUserPrintHandler;
     }
 
     // Mandatory for boot
@@ -120,7 +132,6 @@ public class Maimai2ServletController {
         return getUserActivityHandler.handle(request);
     }
 
-    // maybe releated DX Pass? return empty
     @PostMapping("GetUserCardApi")
     public String getUserCardHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserCardHandler.handle(request);
@@ -292,6 +303,67 @@ public class Maimai2ServletController {
     @PostMapping("Ping")
     String ping(@ModelAttribute Map<String, Object> request) {
         return "{\"returnCode\":\"1\"}";
+    }
+
+    // CardMaker APIs
+    @PostMapping("CMGetSellingCardApi")
+    String cmGetSellingCard(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return cmGetSellingCardHandler.handle(request);
+    }
+
+    @PostMapping("CMGetUserCardApi")
+    String cmGetUserCard(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserCardHandler.handle(request);
+    }
+
+    @PostMapping("CMGetUserCardPrintErrorApi")
+    String cmGetUserCardPrintError(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserCardPrintErrorHandler.handle(request);
+    }
+
+    @PostMapping("CMGetUserCharacterApi")
+    String cmGetUserCharacter(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return cmGetUserCharacterHandler.handle(request);
+    }
+
+    @PostMapping("CMGetUserDataApi")
+    String cmGetUserData(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserDataHandler.handle(request);
+    }
+
+    @PostMapping("CMGetUserItemApi")
+    String cmGetUserItem(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserItemHandler.handle(request);
+    }
+
+    @PostMapping("CMGetUserPreviewApi")
+    String cmGetUserPreview(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return cmGetUserPreviewHandler.handle(request);
+    }
+
+    @PostMapping("CMLoginApi")
+    String cmLoginApi(@ModelAttribute Map<String, Object> request) {
+        return "{\"returnCode\":\"1\"}";
+    }
+
+    @PostMapping("CMLogoutApi")
+    String cmLogoutApi(@ModelAttribute Map<String, Object> request) {
+        return "{\"returnCode\":\"1\"}";
+    }
+
+    @PostMapping("CMUpsertBuyCardApi")
+    String cmUpsertBuyCard(@ModelAttribute Map<String, Object> request) {
+        return "{\"returnCode\":\"1\"}";
+    }
+
+    @PostMapping("CMUpsertUserPrintApi")
+    String cmUpsertUserPrint(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return upsertUserPrintHandler.handle(request);
+    }
+
+    @PostMapping("CMUpsertUserPrintlogApi")
+    String cmUpsertUserPrintlog(@ModelAttribute Map<String, Object> request) {
+        return "{\"returnCode\":\"1\", \"orderId\":\"0\", \"serialId\":\"FAKECARDIMAG12345678\"}";
     }
 
 }

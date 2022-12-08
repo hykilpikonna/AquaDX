@@ -1,15 +1,18 @@
 package icu.samnyan.aqua.sega.maimai2.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserCardRepository;
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.UserCard;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,20 +25,29 @@ public class GetUserCardHandler implements BaseHandler {
 
     private final BasicMapper mapper;
 
-    public GetUserCardHandler(BasicMapper mapper) {
+    private final UserCardRepository userCardRepository;
+
+    public GetUserCardHandler(UserCardRepository userCardRepository, BasicMapper mapper) {
         this.mapper = mapper;
+        this.userCardRepository = userCardRepository;
     }
 
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         long userId = ((Number) request.get("userId")).longValue();
+        int nextIndex = ((Number) request.get("nextIndex")).intValue();
+        int maxCount = ((Number) request.get("maxCount")).intValue();
 
-        List<Object> userCardList = new ArrayList<>();
+        int pageNum = nextIndex / maxCount;
+
+        Page<UserCard> dbPage = userCardRepository.findByUser_Card_ExtId(userId, PageRequest.of(pageNum, maxCount));
+
+        int currentIndex = maxCount * pageNum + dbPage.getNumberOfElements();
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userId);
-        resultMap.put("nextIndex", 0);
-        resultMap.put("userCardList", userCardList);
+        resultMap.put("nextIndex", dbPage.getNumberOfElements() < maxCount ? 0 : currentIndex);
+        resultMap.put("userCardList", dbPage.getContent());
 
         String json = mapper.write(resultMap);
         logger.info("Response: " + json);
