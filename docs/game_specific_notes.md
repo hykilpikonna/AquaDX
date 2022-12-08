@@ -60,7 +60,6 @@ Only JP variant is supported.
 ### Non-working features
 * KOP related
 * User portrait
-* DX Pass
 * Tournament mode
 
 ### Additional notes
@@ -89,11 +88,10 @@ Only JP variant is supported.
 * No encryption
 
 ### Non-working features
-* Maimai DX
 * O.N.G.E.K.I
 
 ### Additional notes
-* Currently, It only supports Chusan character gacha. More support will be added later.
+* Currently, It only supports Chusan and Maimai DX gacha. Ongeki support will be added later.
 * Server does not consider gacha rarity and probability weight during card draw.
 * Server returns same hard-coded serial for each cards. This is intentional behavior.
 * Due to its high correlation with every game endpoints, this may cease to work after major game version up.
