@@ -36,14 +36,17 @@ public class AllNetController {
     private final ObjectMapper mapper = new ObjectMapper();
     private final String HOST_OVERRIDE;
     private final String PORT_OVERRIDE;
+    private final String PLACE_NAME;
     private final boolean MAIMAI2_NO_HTTP;
 
     public AllNetController(@Value("${allnet.server.host:}") String HOST,
                             @Value("${allnet.server.port:}") String PORT,
+                            @Value("${allnet.server.place-name:}") String PLACE_NAME,
                             @Value("${game.maimai2.splash-old-patch:false}") boolean MAIMAI2_NO_HTTP) {
         this.HOST_OVERRIDE = HOST;
         this.PORT_OVERRIDE = PORT;
         this.MAIMAI2_NO_HTTP = MAIMAI2_NO_HTTP;
+        this.PLACE_NAME = PLACE_NAME;
     }
 
     @GetMapping("/")
@@ -104,7 +107,7 @@ public class AllNetController {
                     switchHost(localAddr, localPort, gameId),
                     "123",
                     "",
-                    "",
+                    PLACE_NAME,
                     "1",
                     "W",
                     "X",
@@ -128,7 +131,7 @@ public class AllNetController {
                     switchHost(localAddr, localPort, gameId),
                     "123",
                     "",
-                    "",
+                    PLACE_NAME,
                     "1",
                     "W",
                     "X",
