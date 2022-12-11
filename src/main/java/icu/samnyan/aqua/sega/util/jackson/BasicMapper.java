@@ -38,6 +38,14 @@ public class BasicMapper {
 
     }
 
+    public <T> T read(String jsonStr, Class<T> toClass) throws JsonProcessingException {
+        return mapper.readValue(jsonStr, toClass);
+    }
+
+    public <T> T read(String jsonStr, TypeReference<T> toValueTypeRef) throws JsonProcessingException {
+        return mapper.readValue(jsonStr, toValueTypeRef);
+    }
+
     public <T> T convert(Object map, Class<T> toClass) {
         return mapper.convertValue(map, toClass);
     }
