@@ -32,7 +32,9 @@ public class GetUserPortraitHandler implements BaseHandler {
     private final String picSavePath;
     private final boolean enable;
 
-    public GetUserPortraitHandler(BasicMapper mapper, @Value("${game.maimai2.userPhoto.enable:}") boolean enable, @Value("${game.maimai2.userPhoto.picSavePath:}") String picSavePath) {
+    public GetUserPortraitHandler(BasicMapper mapper,
+    @Value("${game.maimai2.userPhoto.enable:true}") boolean enable,
+    @Value("${game.maimai2.userPhoto.picSavePath:data/userPhoto}") String picSavePath) {
         this.mapper = mapper;
         this.picSavePath = picSavePath;
         this.enable = enable;
@@ -54,12 +56,12 @@ public class GetUserPortraitHandler implements BaseHandler {
             try {
                 var filePath = Paths.get(picSavePath, userId + "-up.jpg");
 
-                var templateJsonStr = Files.readString(Paths.get(picSavePath, userId + "-up.json"));
-                var templateUserPortrait = mapper.read(templateJsonStr, UserPortrait.class);
-
-                var buffer = new byte[10240];
-
                 if (Files.exists(filePath)) {
+                    var templateJsonStr = Files.readString(Paths.get(picSavePath, userId + "-up.json"));
+                    var templateUserPortrait = mapper.read(templateJsonStr, UserPortrait.class);
+
+                    var buffer = new byte[10240];
+
                     var stream = new FileInputStream(filePath.toFile());
                     while (stream.available() > 0) {
                         var read = stream.read(buffer, 0, 10240);

@@ -28,7 +28,9 @@ public class UploadUserPortraitHandler implements BaseHandler {
     private final String picSavePath;
     private final boolean enable;
 
-    public UploadUserPortraitHandler(BasicMapper mapper, @Value("${game.maimai2.userPhoto.enable:}") boolean enable, @Value("${game.maimai2.userPhoto.picSavePath:}") String picSavePath) {
+    public UploadUserPortraitHandler(BasicMapper mapper,
+    @Value("${game.maimai2.userPhoto.enable:true}") boolean enable,
+    @Value("${game.maimai2.userPhoto.picSavePath:data/userPhoto}") String picSavePath) {
         this.mapper = mapper;
         this.picSavePath = picSavePath;
         this.enable = enable;
