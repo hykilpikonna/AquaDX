@@ -59,7 +59,6 @@ Only JP variant is supported.
 
 ### Non-working features
 * KOP related
-* User portrait
 * Tournament mode
 
 ### Additional notes

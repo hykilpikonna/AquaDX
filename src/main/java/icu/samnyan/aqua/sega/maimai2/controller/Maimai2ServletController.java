@@ -47,6 +47,8 @@ public class Maimai2ServletController {
     private final UploadUserPlaylogHandler uploadUserPlaylogHandler;
     private final GetGameNgMusicIdHandler getGameNgMusicIdHandler;
     private final GetUserFriendSeasonRankingHandler getUserFriendSeasonRankingHandler;
+    private final GetUserPortraitHandler getUserPortraitHandler;
+    private final UploadUserPortraitHandler uploadUserPortraitHandler;
     private final CMGetUserPreviewHandler cmGetUserPreviewHandler;
     private final CMGetSellingCardHandler cmGetSellingCardHandler;
     private final GetUserCardPrintErrorHandler getUserCardPrintErrorHandler;
@@ -60,7 +62,7 @@ public class Maimai2ServletController {
     GetUserLoginBonusHandler getUserLoginBonusHandler, GetUserMapHandler getUserMapHandler, GetUserFavoriteHandler getUserFavoriteHandler,
     GetUserCardHandler getUserCardHandler, GetUserMusicHandler getUserMusicHandler, GetUserRatingHandler getUserRatingHandler, GetUserRegionHandler getUserRegionHandler,
     GetGameChargeHandler getGameChargeHandler, GetUserChargeHandler getUserChargeHandler, GetUserCourseHandler getUserCourseHandler, UploadUserPhotoHandler uploadUserPhotoHandler,
-    UploadUserPlaylogHandler uploadUserPlaylogHandler, GetGameNgMusicIdHandler getGameNgMusicIdHandler, GetUserFriendSeasonRankingHandler getUserFriendSeasonRankingHandler,
+    UploadUserPlaylogHandler uploadUserPlaylogHandler, UploadUserPortraitHandler uploadUserPortraitHandler, GetGameNgMusicIdHandler getGameNgMusicIdHandler,GetUserPortraitHandler getUserPortraitHandler, GetUserFriendSeasonRankingHandler getUserFriendSeasonRankingHandler,
     CMGetUserPreviewHandler cmGetUserPreviewHandler, CMGetSellingCardHandler cmGetSellingCardHandler, GetUserCardPrintErrorHandler getUserCardPrintErrorHandler, CMGetUserCharacterHandler cmGetUserCharacterHandler,
     UpsertUserPrintHandler upsertUserPrintHandler) {
         this.getGameSettingHandler = getGameSettingHandler;
@@ -93,6 +95,8 @@ public class Maimai2ServletController {
         this.uploadUserPlaylogHandler = uploadUserPlaylogHandler;
         this.getGameNgMusicIdHandler = getGameNgMusicIdHandler;
         this.getUserFriendSeasonRankingHandler = getUserFriendSeasonRankingHandler;
+        this.getUserPortraitHandler = getUserPortraitHandler;
+        this.uploadUserPortraitHandler = uploadUserPortraitHandler;
         this.cmGetUserPreviewHandler = cmGetUserPreviewHandler;
         this.cmGetSellingCardHandler = cmGetSellingCardHandler;
         this.getUserCardPrintErrorHandler = getUserCardPrintErrorHandler;
@@ -188,10 +192,9 @@ public class Maimai2ServletController {
         return getUserOptionHandler.handle(request);
     }
 
-    // No support
     @PostMapping("GetUserPortraitApi")
     public String getUserPortraitHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
-        return "{\"length\":0,\"userPortraitList\":[]}";
+        return getUserPortraitHandler.handle(request);
     }
 
     @PostMapping("GetUserPreviewApi")
@@ -226,10 +229,9 @@ public class Maimai2ServletController {
         return uploadUserPlaylogHandler.handle(request);
     }
 
-    // No support, return error code
     @PostMapping("UploadUserPortraitApi")
     public String uploadUserPortraitHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
-        return "{\"returnCode\":-1,\"apiName\":\"com.sega.maimai2servlet.api.UploadUserPortraitApi\"}";
+        return uploadUserPortraitHandler.handle(request);
     }
 
     @PostMapping("UserLoginApi")
@@ -299,7 +301,7 @@ public class Maimai2ServletController {
     public String getUserFriendSeasonRankingHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserFriendSeasonRankingHandler.handle(request);
     }
-    
+
     @PostMapping("Ping")
     String ping(@ModelAttribute Map<String, Object> request) {
         return "{\"returnCode\":\"1\"}";
