@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -46,7 +47,10 @@ public class AllNetController {
         this.HOST_OVERRIDE = HOST;
         this.PORT_OVERRIDE = PORT;
         this.MAIMAI2_NO_HTTP = MAIMAI2_NO_HTTP;
-        this.PLACE_NAME = PLACE_NAME;
+        // Java assumes every application.properties as ISO-8859-1 (wtf), so we need to "correctly" convert it to UTF-8
+        // More better way to this is to use XML or yaml format as these treated as UTF-8
+        // but I rather use hack than breaking backward compatibility.. for now
+        this.PLACE_NAME = new String(PLACE_NAME.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
     }
 
     @GetMapping("/")
