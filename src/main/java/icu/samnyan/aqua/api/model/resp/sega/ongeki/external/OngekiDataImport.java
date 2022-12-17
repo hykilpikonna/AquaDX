@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -40,4 +41,5 @@ public class OngekiDataImport {
     private List<UserScenario> userScenarioList;
     private List<UserBoss> userBossList;
     private List<UserTechCount> userTechCountList;
+    private List<UserRival> userRivalList;
 }
