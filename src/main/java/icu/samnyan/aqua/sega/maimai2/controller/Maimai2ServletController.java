@@ -3,10 +3,7 @@ package icu.samnyan.aqua.sega.maimai2.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import icu.samnyan.aqua.sega.maimai2.handler.impl.*;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -14,7 +11,7 @@ import java.util.Map;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @RestController
-@RequestMapping({"/Maimai2Servlet/Maimai2Servlet", "/Maimai2Servlet"}) // Workaround for endpoint mismatch, let's just accept both
+@RequestMapping({"/Maimai2Servlet/Maimai2Servlet", "/Maimai2Servlet"})
 public class Maimai2ServletController {
 
     private final GetGameSettingHandler getGameSettingHandler;
@@ -229,6 +226,7 @@ public class Maimai2ServletController {
         return uploadUserPlaylogHandler.handle(request);
     }
 
+    @CrossOrigin//enable cors because aqua-viewer also use it.
     @PostMapping("UploadUserPortraitApi")
     public String uploadUserPortraitHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return uploadUserPortraitHandler.handle(request);
