@@ -12,6 +12,7 @@ import icu.samnyan.aqua.sega.general.model.Card;
 import icu.samnyan.aqua.sega.general.service.CardService;
 import icu.samnyan.aqua.sega.maimai2.dao.userdata.*;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -81,6 +82,11 @@ public class ApiMaimai2PlayerDataController {
         this.userFriendSeasonRankingRepository = userFriendSeasonRankingRepository;
         this.userMapRepository = userMapRepository;
         this.userUdemaeRepository = userUdemaeRepository;
+    }
+
+    @GetMapping("config/userPhoto/divMaxLength")
+    public long getConfigUserPhotoDivMaxLength(@Value("${game.maimai2.userPhoto.divMaxLength:16}") long divMaxLength) {
+        return divMaxLength;
     }
 
     @GetMapping("profile")
