@@ -2,6 +2,7 @@ package icu.samnyan.aqua.api.controller.sega.game.ongeki;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import icu.samnyan.aqua.api.model.MessageResponse;
+import icu.samnyan.aqua.api.model.ObjectMessageResponse;
 import icu.samnyan.aqua.api.model.ReducedPageResponse;
 import icu.samnyan.aqua.api.model.resp.sega.ongeki.ProfileResp;
 import icu.samnyan.aqua.api.model.resp.sega.ongeki.external.ExternalUserData;
@@ -13,7 +14,9 @@ import icu.samnyan.aqua.sega.general.service.CardService;
 import icu.samnyan.aqua.sega.ongeki.dao.gamedata.GameCardRepository;
 import icu.samnyan.aqua.sega.ongeki.dao.userdata.*;
 import icu.samnyan.aqua.sega.ongeki.model.gamedata.GameCard;
+import icu.samnyan.aqua.sega.ongeki.model.response.data.UserRivalData;
 import icu.samnyan.aqua.sega.ongeki.model.userdata.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -61,6 +64,7 @@ public class ApiOngekiPlayerDataController {
     private final UserEventMusicRepository userEventMusicRepository;
     private final UserTechEventRepository userTechEventRepository;
     private final UserKopRepository userKopRepository;
+    private final UserRivalDataRepository userRivalDataRepository;
 
     private final UserMemoryChapterRepository userMemoryChapterRepository;
 
@@ -72,7 +76,7 @@ public class ApiOngekiPlayerDataController {
 
     private final GameCardRepository gameCardRepository;
 
-    public ApiOngekiPlayerDataController(ApiMapper mapper, CardService cardService, UserActivityRepository userActivityRepository, UserCardRepository userCardRepository, UserChapterRepository userChapterRepository, UserCharacterRepository userCharacterRepository, UserDataRepository userDataRepository, UserDeckRepository userDeckRepository, UserEventPointRepository userEventPointRepository, UserItemRepository userItemRepository, UserLoginBonusRepository userLoginBonusRepository, UserMissionPointRepository userMissionPointRepository, UserMusicDetailRepository userMusicDetailRepository, UserMusicItemRepository userMusicItemRepository, UserOptionRepository userOptionRepository, UserPlaylogRepository userPlaylogRepository, UserStoryRepository userStoryRepository, UserTrainingRoomRepository userTrainingRoomRepository, UserGeneralDataRepository userGeneralDataRepository, GameCardRepository gameCardRepository, UserTradeItemRepository userTradeItemRepository, UserEventMusicRepository userEventMusicRepository, UserTechEventRepository userTechEventRepository, UserKopRepository userKopRepository, UserMemoryChapterRepository userMemoryChapterRepository, UserScenarioRepository userScenarioRepository, UserBossRepository userBossRepository, UserTechCountRepository userTechCountRepository) {
+    public ApiOngekiPlayerDataController(ApiMapper mapper, CardService cardService, UserRivalDataRepository userRivalDataRepository, UserActivityRepository userActivityRepository, UserCardRepository userCardRepository, UserChapterRepository userChapterRepository, UserCharacterRepository userCharacterRepository, UserDataRepository userDataRepository, UserDeckRepository userDeckRepository, UserEventPointRepository userEventPointRepository, UserItemRepository userItemRepository, UserLoginBonusRepository userLoginBonusRepository, UserMissionPointRepository userMissionPointRepository, UserMusicDetailRepository userMusicDetailRepository, UserMusicItemRepository userMusicItemRepository, UserOptionRepository userOptionRepository, UserPlaylogRepository userPlaylogRepository, UserStoryRepository userStoryRepository, UserTrainingRoomRepository userTrainingRoomRepository, UserGeneralDataRepository userGeneralDataRepository, GameCardRepository gameCardRepository, UserTradeItemRepository userTradeItemRepository, UserEventMusicRepository userEventMusicRepository, UserTechEventRepository userTechEventRepository, UserKopRepository userKopRepository, UserMemoryChapterRepository userMemoryChapterRepository, UserScenarioRepository userScenarioRepository, UserBossRepository userBossRepository, UserTechCountRepository userTechCountRepository) {
         this.mapper = mapper;
         this.cardService = cardService;
         this.userActivityRepository = userActivityRepository;
@@ -101,6 +105,7 @@ public class ApiOngekiPlayerDataController {
         this.userScenarioRepository = userScenarioRepository;
         this.userBossRepository = userBossRepository;
         this.userTechCountRepository = userTechCountRepository;
+        this.userRivalDataRepository = userRivalDataRepository;
     }
 
     @GetMapping("profile")
@@ -334,6 +339,51 @@ public class ApiOngekiPlayerDataController {
         return userPlaylogRepository.findByUser_Card_ExtIdAndMusicIdAndLevel(aimeId, id, level);
     }
 
+    @GetMapping("rival")
+    public List<UserRivalData> getRival(@RequestParam long aimeId) {
+        var rivalUserIds = userRivalDataRepository.findByUser_Card_ExtId(aimeId)
+                .stream()
+                .map(x -> x.getRivalUserId())
+                .collect(Collectors.toList());
+
+        var rivalDataList = userDataRepository.findByCard_ExtIdIn(rivalUserIds)
+                .stream()
+                .map(x -> new UserRivalData(x.getCard().getExtId().longValue(), x.getUserName()))
+                .collect(Collectors.toList());
+
+        return rivalDataList;
+    }
+
+    @DeleteMapping("rival")
+    public MessageResponse deleteRival(@RequestParam long aimeId, @RequestParam long rivalAimeId) {
+        userRivalDataRepository.removeByUser_Card_ExtIdAndRivalUserId(aimeId, rivalAimeId);
+        return new MessageResponse();
+    }
+
+    @PostMapping("rival")
+    public ObjectMessageResponse<UserRivalData> addRival(@RequestParam long aimeId, @RequestParam long rivalAimeId, @Value("${game.ongeki.rival.rivals-max-count:10}") long addMaxCount) {
+        //check limit
+        if (addMaxCount >= 0 && userRivalDataRepository.findByUser_Card_ExtId(aimeId).size() >= addMaxCount) {
+            return new ObjectMessageResponse<>(String.format("Size of rival list is limited in %d", addMaxCount));
+        }
+
+        var userOpt = userDataRepository.findByCard_ExtId(aimeId);
+        if (userOpt.isEmpty())
+            return new ObjectMessageResponse<>("Current user isn't ongeki player.");
+        var user = userOpt.get();
+        var rivalUserOpt = userDataRepository.findByCard_ExtId(rivalAimeId);
+        if (rivalUserOpt.isEmpty())
+            return new ObjectMessageResponse<>("Rival user isn't ongeki player.");
+        var rivalUser = rivalUserOpt.get();
+
+        var rival = new UserRival();
+        rival.setUser(user);
+        rival.setRivalUserId(rivalUser.getCard().getExtId());
+
+        userRivalDataRepository.save(rival);
+        return new ObjectMessageResponse<>(new UserRivalData(rivalUser.getCard().getExtId(), rivalUser.getUserName()));
+    }
+
     @GetMapping("options")
     public UserOption getOptions(@RequestParam long aimeId) {
         return userOptionRepository.findByUser_Card_ExtId(aimeId).orElseThrow();
@@ -376,6 +426,7 @@ public class ApiOngekiPlayerDataController {
             data.setUserScenarioList(userScenarioRepository.findByUser_Card_ExtId(aimeId));
             data.setUserBossList(userBossRepository.findByUser_Card_ExtId(aimeId));
             data.setUserTechCountList(userTechCountRepository.findByUser_Card_ExtId(aimeId));
+            data.setUserRivalList(userRivalDataRepository.findByUser_Card_ExtId(aimeId));
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new MessageResponse("User not found"));
@@ -454,6 +505,8 @@ public class ApiOngekiPlayerDataController {
                 userBossRepository.flush();
                 userTechCountRepository.deleteByUser(existUserData.get());
                 userTechCountRepository.flush();
+                userRivalDataRepository.deleteByUser(existUserData.get());
+                userRivalDataRepository.flush();
 
                 userDataRepository.deleteByCard(card);
                 userDataRepository.flush();
@@ -537,6 +590,9 @@ public class ApiOngekiPlayerDataController {
                 .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
 
         userTechCountRepository.saveAll(Optional.ofNullable(data.getUserTechCountList()).orElse(Collections.emptyList()).stream()
+                .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
+
+        userRivalDataRepository.saveAll(Optional.ofNullable(data.getUserRivalList()).orElse(Collections.emptyList()).stream()
                 .peek(x -> x.setUser(userData)).collect(Collectors.toList()));
 
         return ResponseEntity.ok(new MessageResponse("Import successfully, aimeId: " + card.getExtId()));

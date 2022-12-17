@@ -3,6 +3,7 @@ package icu.samnyan.aqua.sega.ongeki.dao.userdata;
 import icu.samnyan.aqua.sega.general.dao.CardRepository;
 import icu.samnyan.aqua.sega.general.model.Card;
 import icu.samnyan.aqua.sega.ongeki.model.userdata.*;
+import icu.samnyan.aqua.util.CardHelper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -63,6 +64,8 @@ class OngekiRepositoryTest {
     private UserTechCountRepository userTechCountRepository;
     @Autowired
     private UserTrainingRoomRepository userTrainingRoomRepository;
+    @Autowired
+    private UserRivalDataRepository userRivalDataRepository;
 
     @Test
     void userData_SaveLoad() {
@@ -337,8 +340,33 @@ class OngekiRepositoryTest {
         assertThat(aL).hasSize(2);
     }
 
+    @Test
+    void userRivalData_SaveLoad() {
+        var u = getNewRandomValidUser();
+        var r1 = getNewRandomValidUser();
+        var r2 = getNewRandomValidUser();
+        var r3 = getNewRandomValidUser();
+
+        userRivalDataRepository.saveAll(List.of(
+                getUserRival(u, r1),
+                getUserRival(u, r2),
+                getUserRival(r1, r2),
+                getUserRival(r2, u)
+        ));
+
+        var all = userRivalDataRepository.findAll();
+        assertThat(all).hasSize(4);
+
+        var find = userRivalDataRepository.findByUser_Card_ExtId(u.getCard().getExtId());
+        assertThat(find).hasSize(2);
+    }
+
     private UserData getUser(Card c) {
         return new UserData(-1, c, "Hello", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "2020", "2020", "SDDT", "1.00.00", "1.00.00", "2020", "SDDT", "1.00.00", "1.00.00", "", "2020", 0, "0", 0, "123", 0, "A000000", 0, 0, 0);
+    }
+
+    private UserData getNewRandomValidUser() {
+        return userDataRepository.save(getUser(cardRepository.save(CardHelper.getRandomCard())));
     }
 
     private UserActivity getActivity(UserData u, Integer activityId) {
@@ -415,5 +443,9 @@ class OngekiRepositoryTest {
 
     private UserTrainingRoom getTrainingRoom(UserData u, Integer roomId) {
         return new UserTrainingRoom(-1, u, "", roomId, 1, "");
+    }
+
+    private UserRival getUserRival(UserData user, UserData rival) {
+        return new UserRival(0, user, rival.getCard().getExtId());
     }
 }

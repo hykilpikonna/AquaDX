@@ -27,5 +27,5 @@ public class GameSetting {
     private int maxCountItem;
     private int maxCountMusic;
     private int maxCountMusicItem;
-    private int macCountRivalMusic;
+    private int maxCountRivalMusic;
 }

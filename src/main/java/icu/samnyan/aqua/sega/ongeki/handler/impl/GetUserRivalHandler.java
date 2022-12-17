@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.sega.ongeki.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import icu.samnyan.aqua.sega.ongeki.dao.userdata.UserRivalDataRepository;
 import icu.samnyan.aqua.sega.ongeki.handler.BaseHandler;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
@@ -20,10 +21,12 @@ public class GetUserRivalHandler implements BaseHandler {
     private static final Logger logger = LoggerFactory.getLogger(GetUserRivalHandler.class);
 
     private final BasicMapper mapper;
+    private final UserRivalDataRepository userRivalDataRepository;
 
     @Autowired
-    public GetUserRivalHandler(BasicMapper mapper) {
+    public GetUserRivalHandler(BasicMapper mapper, UserRivalDataRepository userRivalDataRepository) {
         this.mapper = mapper;
+        this.userRivalDataRepository = userRivalDataRepository;
     }
 
     @Override
@@ -32,8 +35,10 @@ public class GetUserRivalHandler implements BaseHandler {
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userRivalId);
-        resultMap.put("length", 0);
-        resultMap.put("userRivalList", new List[]{});
+
+        var result = userRivalDataRepository.findByUser_Card_ExtId(userRivalId);//.stream().map(x->x.getUser().getCard().getExtId()).toArray();
+        resultMap.put("length", result.size());
+        resultMap.put("userRivalList", result);
 
         String json = mapper.write(resultMap);
 
