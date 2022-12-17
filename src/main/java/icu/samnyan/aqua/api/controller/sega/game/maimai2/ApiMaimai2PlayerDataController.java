@@ -85,7 +85,7 @@ public class ApiMaimai2PlayerDataController {
     }
 
     @GetMapping("config/userPhoto/divMaxLength")
-    public long getConfigUserPhotoDivMaxLength(@Value("${game.maimai2.userPhoto.divMaxLength:16}") long divMaxLength) {
+    public long getConfigUserPhotoDivMaxLength(@Value("${game.maimai2.userPhoto.divMaxLength:32}") long divMaxLength) {
         return divMaxLength;
     }
 
