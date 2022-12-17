@@ -27,13 +27,16 @@ public class UploadUserPortraitHandler implements BaseHandler {
 
     private final String picSavePath;
     private final boolean enable;
+    private final long divMaxLength;
 
     public UploadUserPortraitHandler(BasicMapper mapper,
-    @Value("${game.maimai2.userPhoto.enable:true}") boolean enable,
-    @Value("${game.maimai2.userPhoto.picSavePath:data/userPhoto}") String picSavePath) {
+                                     @Value("${game.maimai2.userPhoto.enable:true}") boolean enable,
+                                     @Value("${game.maimai2.userPhoto.picSavePath:data/userPhoto}") String picSavePath,
+                                     @Value("${game.maimai2.userPhoto.divMaxLength:32}") long divMaxLength) {
         this.mapper = mapper;
         this.picSavePath = picSavePath;
         this.enable = enable;
+        this.divMaxLength = divMaxLength;
 
         if (enable) {
             try {
@@ -59,6 +62,11 @@ public class UploadUserPortraitHandler implements BaseHandler {
             int divNumber = userPhoto.getDivNumber();
             int divLength = userPhoto.getDivLength();
             String divData = userPhoto.getDivData();
+
+            if (divLength > divMaxLength) {
+                logger.warn(String.format("stop user %d uploading photo data because divLength(%d) > divMaxLength(%d)", userId, divLength, divMaxLength));
+                return "{\"returnCode\":-1,\"apiName\":\"com.sega.maimai2servlet.api.UploadUserPortraitApi\"}";
+            }
 
             try {
                 var tmp_filename = Paths.get(picSavePath, userId + "-up.tmp");
