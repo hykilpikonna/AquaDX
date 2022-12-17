@@ -31,6 +31,7 @@ public class UserFriendSeasonRanking implements Serializable {
 
     private int seasonId;
     private int point;
+    @Column(name = "\"rank\"")
     private int rank;
     private boolean rewardGet;
     private String userName;

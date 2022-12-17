@@ -76,6 +76,7 @@ public class UserPlaylog implements Serializable {
 
     private int score;
 
+    @Column(name = "\"rank\"")
     private int rank;
 
     private int maxCombo;
