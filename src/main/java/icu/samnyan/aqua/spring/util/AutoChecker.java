@@ -1,12 +1,21 @@
 package icu.samnyan.aqua.spring.util;
 
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.ssl.TrustStrategy;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.Socket;
+import java.security.cert.X509Certificate;
 import java.util.Objects;
+
+import javax.net.ssl.SSLContext;
 
 /**
  * A simple boot check to warn user if there is some wrong config
@@ -85,7 +94,7 @@ public class AutoChecker {
          * Aime DB: try open socket to Aime DB port (default 22345)
          * TODO: Sending hello request would be more reliable than testing if port is open
          */
-        System.out.print("Aime DB : ");
+        System.out.print("Aime DB : Port " + AIMEDB_PORT + ", ");
         if(!AIMEDB_ENABLED) {
             System.out.println("SKIP (DISABLED)");
         } else {
@@ -98,29 +107,55 @@ public class AutoChecker {
             } catch (Exception e) {
                 System.out.println("ERROR");
                 failDetail.append("Aime DB self-test raised an exception during testing").append(LINEBREAK);
-                failDetail.append("Exception: ").append(e.getCause().getMessage()).append(LINEBREAK);
+                failDetail.append("Exception: ").append(e.toString()).append(LINEBREAK);
             }
         }
 
-        /*
-         * Billing: try open socket to Billing port (default 8443)
-         * TODO: Try access /sys/test endpoint for more reliable testing (without cert verification)
-         */
-        System.out.print("Billing : ");
+        // Billing: try open socket to Billing port (default 8443)
+        System.out.print("Billing : Port " + BILLING_PORT + ", ");
         if(!BILLING_ENABLED) {
             System.out.println("SKIP (DISABLED)");
         } else {
-            try (Socket test = new Socket(host, BILLING_PORT)){
-                System.out.println("OK");
+            try {
+                // Do not validate SSL certificate (self-signed ib cert)
+                TrustStrategy acceptingTrustStrategy = (X509Certificate[] chain, String authType) -> true;
+
+                SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom()
+                                .loadTrustMaterial(null, acceptingTrustStrategy)
+                                .build();
+
+                SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext, new NoopHostnameVerifier());
+
+                CloseableHttpClient httpClient = HttpClients.custom()
+                                .setSSLSocketFactory(csf)
+                                .build();
+
+                HttpComponentsClientHttpRequestFactory requestFactory =
+                                new HttpComponentsClientHttpRequestFactory();
+
+                requestFactory.setHttpClient(httpClient);
+                RestTemplate insecureRestTemplate = new RestTemplate(requestFactory);
+
+                String url = "https://" + host + ":" + BILLING_PORT + "/sys/test";
+
+                ResponseEntity<String> resp = insecureRestTemplate.getForEntity(url, String.class);
+                if (resp.getStatusCode().is2xxSuccessful() && Objects.equals(resp.getBody(), "Server running")) {
+                    System.out.println("OK");
+                } else {
+                    System.out.println("ERROR");
+                    failDetail.append("Billing self-test failed").append(url).append(LINEBREAK);
+                    failDetail.append("Check if billing port being used by other application.").append(LINEBREAK);
+                }
+
             } catch (Exception e) {
                 System.out.println("ERROR");
                 failDetail.append("Billing self-test raised an exception during testing").append(LINEBREAK);
-                failDetail.append("Exception: ").append(e.getCause().getMessage()).append(LINEBREAK);
+                failDetail.append("Exception: ").append(e.toString()).append(LINEBREAK);
             }
         }
 
         // ALL.Net: try access /sys/test endpoint (default 80)
-        System.out.print("ALL.Net : ");
+        System.out.print("ALL.Net : Port " + port + ", ");
         
         if(ALLNET_HOST_OVERRIDE.equals("localhost")||ALLNET_HOST_OVERRIDE.startsWith("127.")) {
             System.out.print("WARN, ");
@@ -142,7 +177,7 @@ public class AutoChecker {
         } catch (Exception e) {
             System.out.println("ERROR");
             failDetail.append("ALL.Net self-test raised an exception during testing").append(url).append(LINEBREAK);
-            failDetail.append("Exception: ").append(e.getCause().getMessage()).append(LINEBREAK);
+            failDetail.append("Exception: ").append(e.toString()).append(LINEBREAK);
         }
 
         System.out.println();
