@@ -10,6 +10,7 @@ import icu.samnyan.aqua.api.model.resp.sega.chuni.v2.external.ChuniDataExport;
 import icu.samnyan.aqua.api.model.resp.sega.chuni.v2.external.ChuniDataImport;
 import icu.samnyan.aqua.api.model.resp.sega.chuni.v2.external.ExternalUserData;
 import icu.samnyan.aqua.api.util.ApiMapper;
+import icu.samnyan.aqua.sega.chunithm.handler.impl.GetUserFavoriteMusicHandler;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.Level;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.Music;
 import icu.samnyan.aqua.sega.chusan.model.userdata.*;
@@ -306,6 +307,43 @@ public class ApiChuniV2PlayerDataController {
     @GetMapping("song/{id}/{level}")
     public List<UserPlaylog> getLevelPlaylog(@RequestParam String aimeId, @PathVariable int id, @PathVariable int level) {
         return userPlaylogService.getByUserIdAndMusicIdAndLevel(aimeId, id, level);
+    }
+
+    @GetMapping("song/{id}/isfavorite")
+    public boolean getSongFavorite(@RequestParam String aimeId, @PathVariable String id) {
+        Optional<UserGeneralData> favOptional;
+        favOptional = userGeneralDataService.getByUserIdAndKey(aimeId, "favorite_music");
+        if(favOptional.isPresent()) {
+            String val = favOptional.get().getPropertyValue();
+            if(StringUtils.isNotBlank(val) && val.contains(",")) {
+                String[] records = val.split(",");
+                for (String record : records) {
+                    if (record.equals(id)) return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @PutMapping("song/{id}/favorite")
+    public void updateSongFavorite(@RequestParam String aimeId, @PathVariable String id) {
+        UserData profile = userDataService.getUserByExtId(aimeId).orElseThrow();
+        UserGeneralData userGeneralData = userGeneralDataService.getByUserAndKey(profile, "favorite_music")
+                    .orElseGet(() -> new UserGeneralData(profile, "favorite_music"));
+        List<String> favoriteSongs = new LinkedList<String>(Arrays.asList(userGeneralData.getPropertyValue().split(",")));
+        
+        if(!favoriteSongs.remove(id))
+        {
+            favoriteSongs.add(id);
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        favoriteSongs.forEach(favSong -> {
+            if(!favSong.isEmpty()) sb.append(favSong).append(",");
+        });
+
+        userGeneralData.setPropertyValue(sb.toString());
+        userGeneralDataService.save(userGeneralData);
     }
 
     @GetMapping("character")
