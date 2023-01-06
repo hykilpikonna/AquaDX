@@ -32,7 +32,7 @@ public class UserRival implements Serializable {
     @JoinColumn(name = "user_id")
     private UserData user;
 
-    @JoinColumn(name = "rival_user_id")
+    @JoinColumn(name = "rival_user_ext_id")
     @JsonProperty("rivalUserId")
-    private long rivalUserId;
+    private long rivalUserExtId;
 }

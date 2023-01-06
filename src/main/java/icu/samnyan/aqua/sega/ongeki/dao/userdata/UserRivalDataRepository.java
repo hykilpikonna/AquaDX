@@ -17,7 +17,7 @@ public interface UserRivalDataRepository extends JpaRepository<UserRival, Long> 
     List<UserRival> findByUser_Card_ExtId(long userId);
 
     @Transactional
-    void removeByUser_Card_ExtIdAndRivalUserId(long userId,long rivalUserId);
+    void removeByUser_Card_ExtIdAndRivalUserExtId(long userId,long rivalUserId);
 
     @Transactional
     void deleteByUser(UserData user);

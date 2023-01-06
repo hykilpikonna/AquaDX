@@ -345,7 +345,6 @@ class OngekiRepositoryTest {
         var u = getNewRandomValidUser();
         var r1 = getNewRandomValidUser();
         var r2 = getNewRandomValidUser();
-        var r3 = getNewRandomValidUser();
 
         userRivalDataRepository.saveAll(List.of(
                 getUserRival(u, r1),
@@ -359,6 +358,15 @@ class OngekiRepositoryTest {
 
         var find = userRivalDataRepository.findByUser_Card_ExtId(u.getCard().getExtId());
         assertThat(find).hasSize(2);
+
+        var find2 = userRivalDataRepository.findByUser_Card_ExtId(r1.getCard().getExtId());
+        assertThat(find2).hasSize(1);
+
+        //remove r1's rival
+        userRivalDataRepository.removeByUser_Card_ExtIdAndRivalUserExtId(r1.getCard().getExtId(), r2.getCard().getExtId());
+
+        var find3 = userRivalDataRepository.findByUser_Card_ExtId(r1.getCard().getExtId());
+        assertThat(find3).hasSize(0);
     }
 
     private UserData getUser(Card c) {

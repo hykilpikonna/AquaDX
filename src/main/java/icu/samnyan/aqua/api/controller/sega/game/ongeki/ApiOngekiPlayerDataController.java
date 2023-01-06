@@ -343,7 +343,7 @@ public class ApiOngekiPlayerDataController {
     public List<UserRivalData> getRival(@RequestParam long aimeId) {
         var rivalUserIds = userRivalDataRepository.findByUser_Card_ExtId(aimeId)
                 .stream()
-                .map(x -> x.getRivalUserId())
+                .map(x -> x.getRivalUserExtId())
                 .collect(Collectors.toList());
 
         var rivalDataList = userDataRepository.findByCard_ExtIdIn(rivalUserIds)
@@ -356,7 +356,7 @@ public class ApiOngekiPlayerDataController {
 
     @DeleteMapping("rival")
     public MessageResponse deleteRival(@RequestParam long aimeId, @RequestParam long rivalAimeId) {
-        userRivalDataRepository.removeByUser_Card_ExtIdAndRivalUserId(aimeId, rivalAimeId);
+        userRivalDataRepository.removeByUser_Card_ExtIdAndRivalUserExtId(aimeId, rivalAimeId);
         return new MessageResponse();
     }
 
@@ -376,9 +376,12 @@ public class ApiOngekiPlayerDataController {
             return new ObjectMessageResponse<>("Rival user isn't ongeki player.");
         var rivalUser = rivalUserOpt.get();
 
+        if(user == rivalUser)
+            return new ObjectMessageResponse<>("Can't add yourself as an rival.");
+
         var rival = new UserRival();
         rival.setUser(user);
-        rival.setRivalUserId(rivalUser.getCard().getExtId());
+        rival.setRivalUserExtId(rivalUser.getCard().getExtId());
 
         userRivalDataRepository.save(rival);
         return new ObjectMessageResponse<>(new UserRivalData(rivalUser.getCard().getExtId(), rivalUser.getUserName()));
