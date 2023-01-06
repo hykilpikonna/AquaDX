@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.42 - 2022-01-06
+- Add support for Maimai DX user profile picture. Thanks to Mikira Sora!
+- Add support for O.N.G.E.K.I rival feature. Thanks to Mikira Sora!
+- Add support for Chunithm New user song favorite feature. Thanks Jordo!
+- Add new event and music data for O.N.G.E.K.I bright memory
+- Add Maimai DX support for Card Maker 1.34. This includes DX Pass support for Maimai DX.
+- Add an option to change ALL.Net shop name
+- Fix startup check failure in some conditions
+- Fix database migration for MySQL 8.0+
+
 ## 0.0.41a - 2022-12-05
 - Add new event and music data for O.N.G.E.K.I bright memory
 
