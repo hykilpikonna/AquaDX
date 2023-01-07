@@ -22,10 +22,10 @@ Check out these docs for more information.
 
 ### Usage
 Requirements:
-* Java 11 or above (for running JAR)
+* Java 17 or above (for running JAR)
 * Optional databases: MariaDB 10.6.x (recommended) or MySQL 8.0.x
 
-Run `java -jar aqua-x.x.xx-RELEASE.jar` or `aqua-x.x.xx-RELEASE.exe` (on Windows)
+Run `java -jar aqua-x.x.xx-RELEASE.jar`
 
 By default, Aqua will use sqlite and save user data in data/db.sqlite.
 
@@ -40,11 +40,11 @@ This will be send to the game at booting and being used by following request.
 * For some game, you might need to change some game specific config entries.
 
 ### Building
-You need to install JDK on your system. However, you don't need to care about Maven, as wrapper script is included.
+You need to install JDK on your system. However, you don't need to care about Gradle, as wrapper script is included.
 ```
-mvnw package
+gradlew clean build
 ```
-The `target` folder will contain an uberjar and standalone distribution package with JRE included.
+The `build/libs` folder will contain an jar file.
 
 ### Credit
 * **samnyan**: The creator and developer of the original Aqua server
