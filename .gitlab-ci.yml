@@ -1,25 +1,13 @@
-variables:
-  MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
-  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+image: gradle:alpine
 
-cache:
-  paths:
-    - .m2/repository
-    - target/
+before_script:
+  - GRADLE_USER_HOME="$(pwd)/.gradle"
+  - export GRADLE_USER_HOME
 
 build:
   stage: build
-  script:
-    - mvn $MAVEN_CLI_OPTS compile
-  artifacts:
-    paths:
-      - target/
-    when: on_success
-    expire_in: 1 days
+  script: gradle assemble
 
 test:
   stage: test
-  script:
-    - mvn $MAVEN_CLI_OPTS test
-
-
+  script: gradle check
