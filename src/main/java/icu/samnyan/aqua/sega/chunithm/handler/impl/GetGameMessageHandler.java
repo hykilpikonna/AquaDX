@@ -40,7 +40,7 @@ public class GetGameMessageHandler implements BaseHandler {
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("type", type);
-        resultMap.put("length", 0);
+        resultMap.put("length", gameMessageList.size());
         resultMap.put("gameMessageList", gameMessageList);
 
         String json = mapper.write(resultMap);
