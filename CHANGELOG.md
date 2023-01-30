@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.42a - 2022-01-30
+- Add new event and music data for O.N.G.E.K.I bright memory
+- Fix GetGameMessage response for Chunithm
+
 ## 0.0.42 - 2022-01-06
 - Add support for Maimai DX user profile picture. Thanks to Mikira Sora!
 - Add support for O.N.G.E.K.I rival feature. Thanks to Mikira Sora!
