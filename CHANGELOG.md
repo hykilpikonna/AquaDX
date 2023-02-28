@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.43 - 2022-02-28
+- **From this version, a minimum Java version of 17 is required.**
+- Add new event, music, chara and card data for O.N.G.E.K.I bright memory
+- Change build system to Gradle
+
 ## 0.0.42a - 2022-01-30
 - Add new event and music data for O.N.G.E.K.I bright memory
 - Fix GetGameMessage response for Chunithm

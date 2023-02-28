@@ -48,7 +48,7 @@ dependencies {
 }
 
 group = "icu.samnya"
-version = "0.0.42-RELEASE"
+version = "0.0.43-RELEASE"
 description = "Aqua Server"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
