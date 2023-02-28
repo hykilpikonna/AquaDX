@@ -22,9 +22,9 @@ goto error
 :init
 SET JAVA_EXE="%JAVA_HOME%\bin\java.exe"
 for /f tokens^=2-5^ delims^=.-_^" %%j in ('%JAVA_EXE% -fullversion 2^>^&1') do set "JAVA_VER=%%j%%k"
-if not %JAVA_VER% LSS 110 goto run
+if not %JAVA_VER% LSS 170 goto run
 echo.
-echo Error: Java version is lower than 11, please update your Java version. >&2
+echo Error: Java version is lower than 17, please update your Java version. >&2
 echo.
 goto error
 
