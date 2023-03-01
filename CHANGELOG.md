@@ -2,16 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
-## 0.0.43 - 2022-02-28
+## 0.0.43 - 2023-02-28
 - **From this version, a minimum Java version of 17 is required.**
 - Add new event, music, chara and card data for O.N.G.E.K.I bright memory
 - Change build system to Gradle
 
-## 0.0.42a - 2022-01-30
+## 0.0.42a - 2023-01-30
 - Add new event and music data for O.N.G.E.K.I bright memory
 - Fix GetGameMessage response for Chunithm
 
-## 0.0.42 - 2022-01-06
+## 0.0.42 - 2023-01-06
 - Add support for Maimai DX user profile picture. Thanks to Mikira Sora!
 - Add support for O.N.G.E.K.I rival feature. Thanks to Mikira Sora!
 - Add support for Chunithm New user song favorite feature. Thanks Jordo!
