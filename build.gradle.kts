@@ -4,7 +4,8 @@ import java.time.ZoneId
 
 plugins {
     java
-    id("org.springframework.boot") version "2.7.2"
+    id("io.freefair.lombok") version "6.6.3"
+    id("org.springframework.boot") version "2.7.9"
 }
 
 apply(plugin = "io.spring.dependency-management")
@@ -33,16 +34,14 @@ dependencies {
     testImplementation("org.springframework.security:spring-security-test")
     
     // Database
-    runtimeOnly("com.mysql:mysql-connector-j:8.0.31")
-    runtimeOnly("org.mariadb.jdbc:mariadb-java-client:3.0.6")
-    runtimeOnly("org.xerial:sqlite-jdbc:3.39.2.0")
+    runtimeOnly("com.mysql:mysql-connector-j:8.0.32")
+    runtimeOnly("org.mariadb.jdbc:mariadb-java-client:3.1.2")
+    runtimeOnly("org.xerial:sqlite-jdbc:3.41.0.0")
     implementation("com.github.gwenn:sqlite-dialect:0.1.2")
     
-    // Lombok
+    // JSR305 for nullable
     implementation("com.google.code.findbugs:jsr305:3.0.2")
-    implementation("org.projectlombok:lombok:1.18.24")
-    annotationProcessor("org.projectlombok:lombok:1.18.24")
-    
+
     // Others
     implementation("commons-fileupload:commons-fileupload:1.4")
 }
