@@ -40,17 +40,15 @@ public class GetUserEventRankingHandler implements BaseHandler {
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         long userId = ((Number) request.get("userId")).longValue();
-
         String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.0"));
 
-        // TODO: query ranking from database
         List<UserEventPoint> eventPointList = userEventPointRepository.findByUser_Card_ExtId(userId);
         List<UserEventRankingItem> rankingItemList = new LinkedList<>();
         eventPointList.forEach(x -> rankingItemList.add(new UserEventRankingItem(
                 x.getEventId(),
                 1, // Type 1 is latest ranking
                 time,
-                1,
+                userEventPointRepository.calculateRankByUserAndEventId(x.getUser().getId(), x.getEventId()),
                 x.getPoint()
         )));
 
