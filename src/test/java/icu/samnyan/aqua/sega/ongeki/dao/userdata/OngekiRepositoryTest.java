@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.util.List;
 
 import static icu.samnyan.aqua.util.CardHelper.getCard;
+import static icu.samnyan.aqua.util.CardHelper.getRandomCard;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -173,6 +174,26 @@ class OngekiRepositoryTest {
         var aL = userEventPointRepository.findByUser_Card_ExtId(c.getExtId());
 
         assertThat(aL).hasSize(2);
+    }
+
+    @Test
+    void userEventPoint_Rank() {
+        var u1 = getNewRandomValidUser();
+        var u2 = getNewRandomValidUser();
+        var u3 = getNewRandomValidUser();
+
+        final var eventId = 2857;
+
+        userEventPointRepository.saveAll(List.of(
+                getEventPoint(u1, eventId, 500),
+                getEventPoint(u2, eventId, 600),
+                getEventPoint(u3, eventId, 2857)
+        ));
+
+        var eventPointData = userEventPointRepository.findByUser_Card_ExtId(u1.getCard().getExtId()).get(0);
+
+        var rank = userEventPointRepository.calculateRankByUserAndEventId(eventPointData.getUser().getId(), eventPointData.getEventId());
+        assertThat(rank).isEqualTo(3);
     }
 
     @Test
@@ -402,7 +423,11 @@ class OngekiRepositoryTest {
     }
 
     private UserEventPoint getEventPoint(UserData u, Integer eventId) {
-        return new UserEventPoint(-1, u, eventId, 1, false);
+        return getEventPoint(u, eventId, 1);
+    }
+
+    private UserEventPoint getEventPoint(UserData u, Integer eventId, Integer point) {
+        return new UserEventPoint(-1, u, eventId, point, false);
     }
 
     private UserGeneralData getGeneralData(UserData u, String key, String value) {
