@@ -81,6 +81,9 @@ public class UpsertUserAll implements Serializable {
     private List<Map<String, Object>> userEmoneyList;
 
     @Nullable
+    private List<Map<String, Object>> userNetBattleData;
+
+    @Nullable
     @JsonProperty("isNewCharacterList")
     private String isNewCharacterList;
 

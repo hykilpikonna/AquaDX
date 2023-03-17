@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -55,6 +56,9 @@ public class GetGameSettingHandler implements BaseHandler {
         LocalDateTime rebootStartTime = LocalDateTime.now().minusHours(3);
         LocalDateTime rebootEndTime = LocalDateTime.now().minusHours(2);
 
+        LocalDateTime matchingStartTime = LocalDateTime.now().minusHours(1);
+        LocalDateTime matchingEndTime = LocalDateTime.now().plusHours(1);
+
         // Unless ip and port is explicitly overridden, use the guessed ip and port as same as AllNet Controller does.
         String localAddr;
         try {
@@ -78,10 +82,10 @@ public class GetGameSettingHandler implements BaseHandler {
                 300,
                 300,
                 300,
-                rebootStartTime.format(formatter),
-                rebootEndTime.format(formatter),
+                matchingStartTime.format(formatter),
+                matchingEndTime.format(formatter),
                 10,
-                1,
+                10,
                 "http://" + addr + ":" + port + "/ChusanServlet/",
                 "http://" + addr + ":" + port + "/ChusanServlet/",
                 "http://" + addr + ":" + port + "/ChusanServlet/"

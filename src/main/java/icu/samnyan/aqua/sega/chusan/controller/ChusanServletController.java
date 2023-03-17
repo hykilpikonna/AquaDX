@@ -59,6 +59,10 @@ public class ChusanServletController {
     private final CMUpsertUserGachaHandler cmUpsertUserGachaHandler;
     private final CMUpsertUserPrintSubtractHandler cmUpsertUserPrintSubtractHandler;
     private final CMUpsertUserPrintCancelHandler cmUpsertUserPrintCancelHandler;
+    private final BeginMatchingHandler beginMatchingHandler;
+    private final EndMatchingHandler endMatchingHandler;
+    private final GetMatchingStateHandler getMatchingStateHandler;
+    private final RemoveMatchingMemberHandler removeMatchingMemberHandler;
 
     @Autowired
     public ChusanServletController(GameLoginHandler gameLoginHandler, GameLogoutHandler gameLogoutHandler,
@@ -82,7 +86,9 @@ public class ChusanServletController {
     CMGetUserCharacterHandler cmGetUserCharacterHandler, GetUserGachaHandler getUserGachaHandler,
     GetUserPrintedCardHandler getUserPrintedCardHandler, CMGetUserItemHandler cmGetUserItemHandler,
     RollGachaHandler rollGachaHandler, CMUpsertUserGachaHandler cmUpsertUserGachaHandler,
-    CMUpsertUserPrintSubtractHandler cmUpsertUserPrintSubtractHandler, CMUpsertUserPrintCancelHandler cmUpsertUserPrintCancelHandler) {
+    CMUpsertUserPrintSubtractHandler cmUpsertUserPrintSubtractHandler, CMUpsertUserPrintCancelHandler cmUpsertUserPrintCancelHandler,
+    BeginMatchingHandler beginMatchingHandler, EndMatchingHandler endMatchingHandler,
+    GetMatchingStateHandler getMatchingStateHandler, RemoveMatchingMemberHandler removeMatchingMemberHandler) {
         this.gameLoginHandler = gameLoginHandler;
         this.gameLogoutHandler = gameLogoutHandler;
         this.getGameChargeHandler = getGameChargeHandler;
@@ -127,6 +133,10 @@ public class ChusanServletController {
         this.cmUpsertUserGachaHandler = cmUpsertUserGachaHandler;
         this.cmUpsertUserPrintSubtractHandler = cmUpsertUserPrintSubtractHandler;
         this.cmUpsertUserPrintCancelHandler = cmUpsertUserPrintCancelHandler;
+        this.beginMatchingHandler = beginMatchingHandler;
+        this.endMatchingHandler = endMatchingHandler;
+        this.getMatchingStateHandler = getMatchingStateHandler;
+        this.removeMatchingMemberHandler = removeMatchingMemberHandler;
     }
 
     @PostMapping("GameLoginApi")
@@ -254,6 +264,7 @@ public class ChusanServletController {
     String getUserRivalData(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserRivalDataHandler.handle(request);
     }
+
     @PostMapping("GetUserRivalMusicApi")
     String getUserRivalMusic(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserRivalMusicHandler.handle(request);
@@ -324,24 +335,32 @@ public class ChusanServletController {
         return "{\"returnCode\":\"1\"}";
     }
 
-    @PostMapping({"MatchingServer/Ping", "Ping"})
+    // Matching endpoints
+
+    @PostMapping("MatchingServer/Ping")
     String ping(@ModelAttribute Map<String, Object> request) {
         return "{\"returnCode\":\"1\"}";
     }
 
-    /* TBD matching endpoints
-
     @PostMapping("MatchingServer/BeginMatchingApi")
+    String beginMatching(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return beginMatchingHandler.handle(request);
+    }
 
     @PostMapping("MatchingServer/EndMatchingApi")
-
-    @PostMapping("MatchingServer/BeginMatchingApi")
+    String endMatching(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return endMatchingHandler.handle(request);
+    }
 
     @PostMapping("MatchingServer/RemoveMatchingMemberApi")
+    String removeMatchingMember(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return removeMatchingMemberHandler.handle(request);
+    }
 
-    @PostMapping("GetMatchingStateApi")
-
-    */
+    @PostMapping("MatchingServer/GetMatchingStateApi")
+    String getMatchingState(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getMatchingStateHandler.handle(request);
+    }
 
     // Cardmaker endpoints
 
