@@ -7,9 +7,9 @@ This document is for detailed game specific notes, if any.
 
 |       Name      | Game ID | Latest supported version | Latest supported option | Actively supported | Requires patch |
 | ---             | ---     | ---                      | ---                     | ---                | ---            |
-|Chunithm (Chusan)|SDHD     |New Plus                  |A093                     |Yes                 |Yes             |
+|Chunithm (Chusan)|SDHD     |Sun                       |A111                     |Yes                 |Yes             |
 |Chunithm         |SDBT     |Paradise Lost             |A032                     |Yes                 |Yes (Paradise)  |
-|Maimai DX        |SDEZ     |Universe Plus             |E061                     |Yes                 |Yes             |
+|Maimai DX        |SDEZ     |Festival                  |F051                     |Yes                 |Yes             |
 |O.N.G.E.K.I      |SDDT     |Bright memory             |A072                     |Yes                 |Yes             |
 |Card Maker       |SDED     |1.34                      |A030                     |Yes                 |Yes             |
 |Maimai           |SDEY     |Finale                    |?                        |No                  |?               |
@@ -30,11 +30,12 @@ Only JP variant is supported.
 * Profile migration from Chunithm
 
 ### Additional notes
-* Match `game.chusan.version` and `game.chusan.rom-version` key in `application.properties` same as your client. If not, class mode is disabled due to version mismatch.
+* Match `game.chusan.version` and `game.chusan.rom-version` key in `application.properties` same as your client. If not, online connectivity kill switch will be triggered or some game modes will not work.
 * Team function can be enabled by changing `game.chusan.team-name` value. Leave this blank to disable team function.
 * Chusan and Chunithm uses different endpoints and tables. Your progress from Chunithm won't carry over to Chusan.
 * For user box customization, use Web UI.
 * (For New plus or up) Class mode disabled when game set to free play. This is not a server restriction.
+* While you can enter global matching mode, actual multiplayer won't work.
 
 ## Chunithm
 Only JP variant is supported.
@@ -60,6 +61,7 @@ Only JP variant is supported.
 ### Non-working features
 * KOP related
 * Tournament mode
+* Chart recommendation (Festival)
 
 ### Additional notes
 * Previous versions of Aqua reported different endpoint URI for Maimai DX thus required compatible patches. Currently, it doesn't matter and both will work.

@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.44 - 2023-03-21
+- Add support for Maimai DX Festival. Thanks to anonymous for the help and testing.
+- Add support for Chunithm SUN. Thanks to anonymous for the help and testing.
+    - Note: change the game config accordingly. Otherwise, it may trigger connectivity kill switch!
+- Add global matching lobby stub for Chunithm New and up. **Multiplayer still does NOT work!**
+- Add support for actual ingame event ranking for O.N.G.E.K.I. Thanks to Mikira Sora!
+- Add new event for O.N.G.E.K.I bright memory
+- Update Spring boot to 2.7.9 and other dependencies
+
 ## 0.0.43 - 2023-02-28
 - **From this version, a minimum Java version of 17 is required.**
 - Add new event, music, chara and card data for O.N.G.E.K.I bright memory
