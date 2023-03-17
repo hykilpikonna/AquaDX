@@ -62,6 +62,7 @@ public class UserOption implements Serializable {
     private int ansVolume;
     private int tapHoldVolume;
     private int criticalSe;
+    private int tapSe;
     private int breakSe;
     private int breakVolume;
     private int exSe;

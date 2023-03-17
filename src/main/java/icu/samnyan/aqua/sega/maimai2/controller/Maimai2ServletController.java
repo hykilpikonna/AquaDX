@@ -51,6 +51,8 @@ public class Maimai2ServletController {
     private final GetUserCardPrintErrorHandler getUserCardPrintErrorHandler;
     private final CMGetUserCharacterHandler cmGetUserCharacterHandler;
     private final UpsertUserPrintHandler upsertUserPrintHandler;
+    private final GetUserRecommendRateMusicHandler getUserRecommendRateMusicHandler;
+    private final GetUserRecommendSelectMusicHandler getUserRecommendSelectMusicHandler;
 
     public Maimai2ServletController(GetGameSettingHandler getGameSettingHandler, GetGameEventHandler getGameEventHandler, GetGameRankingHandler getGameRankingHandler, GetGameTournamentInfoHandler getGameTournamentInfoHandler,
     GetTransferFriendHandler getTransferFriendHandler, GetUserActivityHandler getUserActivityHandler, UserLoginHandler userLoginHandler, UserLogoutHandler userLogoutHandler,
@@ -61,7 +63,7 @@ public class Maimai2ServletController {
     GetGameChargeHandler getGameChargeHandler, GetUserChargeHandler getUserChargeHandler, GetUserCourseHandler getUserCourseHandler, UploadUserPhotoHandler uploadUserPhotoHandler,
     UploadUserPlaylogHandler uploadUserPlaylogHandler, UploadUserPortraitHandler uploadUserPortraitHandler, GetGameNgMusicIdHandler getGameNgMusicIdHandler,GetUserPortraitHandler getUserPortraitHandler, GetUserFriendSeasonRankingHandler getUserFriendSeasonRankingHandler,
     CMGetUserPreviewHandler cmGetUserPreviewHandler, CMGetSellingCardHandler cmGetSellingCardHandler, GetUserCardPrintErrorHandler getUserCardPrintErrorHandler, CMGetUserCharacterHandler cmGetUserCharacterHandler,
-    UpsertUserPrintHandler upsertUserPrintHandler) {
+    UpsertUserPrintHandler upsertUserPrintHandler, GetUserRecommendRateMusicHandler getUserRecommendRateMusicHandler, GetUserRecommendSelectMusicHandler getUserRecommendSelectMusicHandler) {
         this.getGameSettingHandler = getGameSettingHandler;
         this.getGameEventHandler = getGameEventHandler;
         this.getGameRankingHandler = getGameRankingHandler;
@@ -99,6 +101,8 @@ public class Maimai2ServletController {
         this.getUserCardPrintErrorHandler = getUserCardPrintErrorHandler;
         this.cmGetUserCharacterHandler = cmGetUserCharacterHandler;
         this.upsertUserPrintHandler = upsertUserPrintHandler;
+        this.getUserRecommendRateMusicHandler = getUserRecommendRateMusicHandler;
+        this.getUserRecommendSelectMusicHandler = getUserRecommendSelectMusicHandler;
     }
 
     // Mandatory for boot
@@ -279,9 +283,9 @@ public class Maimai2ServletController {
         return getUserChargeHandler.handle(request);
     }
 
-    @PostMapping("UploadUserChargelogApi")
-    public String uploadUserChargelog(@ModelAttribute Map<String, Object> request) {
-        return "{\"returnCode\":1,\"apiName\":\"com.sega.maimai2servlet.api.UploadUserChargelogApi\"}";
+    @PostMapping("UpsertUserChargelogApi")
+    public String upsertUserChargelog(@ModelAttribute Map<String, Object> request) {
+        return "{\"returnCode\":1,\"apiName\":\"com.sega.maimai2servlet.api.UpsertUserChargelogApi\"}";
     }
 
     @PostMapping("GetUserCourseApi")
@@ -303,6 +307,27 @@ public class Maimai2ServletController {
     @PostMapping("Ping")
     String ping(@ModelAttribute Map<String, Object> request) {
         return "{\"returnCode\":\"1\"}";
+    }
+
+    // Festival APIs
+    @PostMapping("CreateTokenApi")
+    String createTokenHandler(@ModelAttribute Map<String, Object> request) {
+        return "{\"Bearer\":\"AQUATOKEN\"}";
+    }
+
+    @PostMapping("RemoveTokenApi")
+    String removeTokenHandler(@ModelAttribute Map<String, Object> request) {
+        return "{\"returnCode\":\"1\"}";
+    }
+
+    @PostMapping("GetUserRecommendRateMusicApi")
+    public String getUserRecommendRateMusicHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserRecommendRateMusicHandler.handle(request);
+    }
+
+    @PostMapping("GetUserRecommendSelectMusicApi")
+    public String getUserRecommendSelectMusicHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserRecommendSelectMusicHandler.handle(request);
     }
 
     // CardMaker APIs

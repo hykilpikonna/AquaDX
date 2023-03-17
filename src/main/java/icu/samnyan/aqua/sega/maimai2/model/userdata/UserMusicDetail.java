@@ -38,6 +38,7 @@ public class UserMusicDetail implements Serializable {
     private int syncStatus;
     private int deluxscoreMax;
     private int scoreRank;
+    private int extNum1;
 
     public UserMusicDetail(UserDetail user) {
         this.user = user;

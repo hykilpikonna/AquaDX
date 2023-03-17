@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonPropertyOrder({"selectMusicId", "selectDifficultyId", "categoryIndex", "musicIndex",
 "extraFlag", "selectScoreType", "extendContentBit", "isPhotoAgree", "isGotoCodeRead",
-"selectResultDetails", "sortCategorySetting", "sortMusicSetting", "selectedCardList", "encountMapNpcList"})
+"selectResultDetails", "sortCategorySetting", "sortMusicSetting", "playStatusSetting", "selectedCardList", "encountMapNpcList"})
 public class UserExtend implements Serializable {
 
     @Id
@@ -52,6 +52,7 @@ public class UserExtend implements Serializable {
     private boolean selectResultDetails;
     private int sortCategorySetting; //enum SortTabID
     private int sortMusicSetting; //enum SortMusicID
+    private int playStatusSetting; //enum PlaystatusTabID
     
     @Convert(converter = IntegerListConverter.class)
     private List<Integer> selectedCardList;

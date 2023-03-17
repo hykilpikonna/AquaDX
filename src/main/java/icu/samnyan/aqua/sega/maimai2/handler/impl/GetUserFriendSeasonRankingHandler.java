@@ -35,8 +35,7 @@ public class GetUserFriendSeasonRankingHandler implements BaseHandler {
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         long userId = ((Number) request.get("userId")).longValue();
         int nextIndexVal = ((Number) request.get("nextIndex")).intValue();
-
-        int maxCount = 20;
+        int maxCount = ((Number) request.get("maxCount")).intValue();
 
         int pageNum = nextIndexVal / maxCount;
 

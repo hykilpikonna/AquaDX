@@ -16,4 +16,5 @@ public class UserLoginResp {
     public int loginCount = 1;
     public int consecutiveLoginCount = 0;
     public int loginId = 1; // What is this?
+    public String Bearer = "AQUATOKEN";
 }
