@@ -55,7 +55,7 @@ No, games will still work. However, new content *probably* not appear in game wi
 Probably not without update, but who knows?
 
 ## Misc
-### Can I use latest version of Java instead of 11?
+### Can I use latest version of Java instead of 17?
 Yes.
 
 ### Can I use OpenJ9 JVM?
