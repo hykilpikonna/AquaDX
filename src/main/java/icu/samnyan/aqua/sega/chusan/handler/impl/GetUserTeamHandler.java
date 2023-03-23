@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -23,7 +24,8 @@ public class GetUserTeamHandler implements BaseHandler {
 
     public GetUserTeamHandler(StringMapper mapper, @Value("${game.chusan.team-name:#{null}}") String teamName) {
         this.mapper = mapper;
-        this.teamName = teamName;
+        // Decode team name because Java assumes application.properties as ISO-8859-1
+        this.teamName = new String(teamName.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
     }
 
     @Override
