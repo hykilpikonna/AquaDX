@@ -38,6 +38,9 @@ Read the [changelog](/CHANGELOG.md) to check breaking changes before updating. T
 * Take jar file (`aqua.jar`) from newer release and replace it
 * Copy your current DB file (`data/db.sqlite`) and config file (`application.properties`) to newer release folder
 
+### `Port 80 was already in use` occurs when I try to start a server!
+Identity which process is using 80 port then terminate it. Game won't connect to Aqua server if port is different then 80 port, so it is necessary.
+
 ## Game
 ### Can I use unmodified cabinets or games with this server?
 No. This is due to hardened security measures which SEGA made.
@@ -53,6 +56,12 @@ No, games will still work. However, new content *probably* not appear in game wi
 
 ### Will this server work with newer version of supported games?
 Probably not without update, but who knows?
+
+### Game passes connection test but networking is not working
+Some game have kill switch for prevent early run before release date (a.k.a "Flying Get"). In this case, **BOTH** client and server need to handle networking enable flag for avoid this problem. For client part, consult with your source. For server, wait for future Aqua update with new version support.
+
+### Team or/and place name showed as garbled characters in game when using non-latin text
+Convert `application.properties` text encoding to UTF-8 without BOM.
 
 ## Misc
 ### Can I use latest version of Java instead of 17?
