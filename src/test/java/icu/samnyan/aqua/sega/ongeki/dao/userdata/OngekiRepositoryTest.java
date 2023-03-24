@@ -181,19 +181,28 @@ class OngekiRepositoryTest {
         var u1 = getNewRandomValidUser();
         var u2 = getNewRandomValidUser();
         var u3 = getNewRandomValidUser();
+        var u4 = getNewRandomValidUser();
 
         final var eventId = 2857;
+        final var eventId2 = 2858;
 
         userEventPointRepository.saveAll(List.of(
-                getEventPoint(u1, eventId, 500),
+                getEventPoint(u3, eventId, 2857),
                 getEventPoint(u2, eventId, 600),
-                getEventPoint(u3, eventId, 2857)
+                getEventPoint(u4, eventId, 600),
+                getEventPoint(u1, eventId, 500),
+
+                getEventPoint(u3, eventId2, 2857),
+                getEventPoint(u4, eventId2, 600),
+                getEventPoint(u2, eventId2, 25)
         ));
 
-        var eventPointData = userEventPointRepository.findByUser_Card_ExtId(u1.getCard().getExtId()).get(0);
+        assertThat(calculateEventPointRank(u1, eventId)).isEqualTo(4);
+        assertThat(calculateEventPointRank(u4, eventId)).isEqualTo(2);
+        assertThat(calculateEventPointRank(u3, eventId)).isEqualTo(1);
 
-        var rank = userEventPointRepository.calculateRankByUserAndEventId(eventPointData.getUser().getId(), eventPointData.getEventId());
-        assertThat(rank).isEqualTo(3);
+        assertThat(calculateEventPointRank(u4, eventId2)).isEqualTo(2);
+        assertThat(calculateEventPointRank(u2, eventId2)).isEqualTo(3);
     }
 
     @Test
@@ -416,6 +425,12 @@ class OngekiRepositoryTest {
 
     private UserCharacter getCharacter(UserData u, Integer characterId) {
         return new UserCharacter(-1, u, characterId, 0, 0, 10, 1, 1, 1, "2020", false);
+    }
+
+    private int calculateEventPointRank(UserData user, int eventId) {
+        var eventPointData = userEventPointRepository.findByUserAndEventId(user, eventId).get();
+        var rank = userEventPointRepository.calculateRankByUserAndEventId(eventPointData.getUser().getId(), eventPointData.getEventId());
+        return rank;
     }
 
     private UserDeck getDeck(UserData u, Integer deckId) {
