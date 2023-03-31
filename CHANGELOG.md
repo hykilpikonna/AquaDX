@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.45 - 2023-03-31
+- Fix O.N.G.E.K.I event ranking on MySQL and MariaDB. Thanks to Mikira Sora!
+- Fix unreadable text when using non-latin character for Chunithm New team name. Thanks to Caxerx!
+- Add partial game data for Chunithm SUN. Thanks to dot nya!
+- Add new event and music data for O.N.G.E.K.I bright memory
+
 ## 0.0.44 - 2023-03-21
 - Add support for Maimai DX Festival. Thanks to anonymous for the help and testing.
 - Add support for Chunithm SUN. Thanks to anonymous for the help and testing.
