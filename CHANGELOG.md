@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.45a - 2023-04-06
+- Add final game data for Chunithm Sun
+
 ## 0.0.45 - 2023-03-31
 - Fix O.N.G.E.K.I event ranking on MySQL and MariaDB. Thanks to Mikira Sora!
 - Fix unreadable text when using non-latin character for Chunithm New team name. Thanks to Caxerx!
