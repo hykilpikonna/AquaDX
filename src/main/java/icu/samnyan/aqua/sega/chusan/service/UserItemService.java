@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +35,9 @@ public class UserItemService {
     }
 
     public List<UserItem> getByUserId(String userId) {
-        return userItemRepository.findAllByUser_Card_ExtId(Long.parseLong(userId));
+        List<UserItem> userItemList = userItemRepository.findAllByUser_Card_ExtId(Long.parseLong(userId));
+        userItemList.sort(Comparator.comparingInt(UserItem::getItemId));
+        return userItemList;
     }
 
     public Optional<UserItem> getByUserAndItemIdAndKind(UserData user, int itemId, int itemKind) {
@@ -46,7 +50,9 @@ public class UserItemService {
     }
     
     public List<UserItem> getByUserAndItemKind(String userId, int kind) {
-        return userItemRepository.findAllByUser_Card_ExtIdAndItemKind(Long.parseLong(userId), kind);
+        List<UserItem> userItemList = userItemRepository.findAllByUser_Card_ExtIdAndItemKind(Long.parseLong(userId), kind);
+        userItemList.sort(Comparator.comparingInt(UserItem::getItemId));
+        return userItemList;
     }
 
     public Page<UserItem> getByUserId(String userId, int page, int size) {
