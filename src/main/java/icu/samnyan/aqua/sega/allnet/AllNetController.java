@@ -7,6 +7,8 @@ import icu.samnyan.aqua.sega.allnet.model.response.PowerOnResponse;
 import icu.samnyan.aqua.sega.allnet.model.response.PowerOnResponseV2;
 import icu.samnyan.aqua.sega.allnet.model.response.PowerOnResponseV3;
 import icu.samnyan.aqua.sega.allnet.util.Decoder;
+import icu.samnyan.aqua.sega.allnet.util.KeychipChecker;
+import icu.samnyan.aqua.sega.allnet.dao.keychip.KeyChipRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,10 +42,15 @@ public class AllNetController {
     private final String PLACE_NAME;
     private final boolean MAIMAI2_NO_HTTP;
 
+    private final boolean ALLNET_CHECK_KEYCHIP;
+    private final KeyChipRepository keychipRepository;
+
     public AllNetController(@Value("${allnet.server.host:}") String HOST,
                             @Value("${allnet.server.port:}") String PORT,
                             @Value("${allnet.server.place-name:}") String PLACE_NAME,
-                            @Value("${game.maimai2.splash-old-patch:false}") boolean MAIMAI2_NO_HTTP) {
+                            @Value("${game.maimai2.splash-old-patch:false}") boolean MAIMAI2_NO_HTTP,
+                            @Value("${allnet.server.check-keychip:false}") boolean ALLNET_CHECK_KEYCHIP,
+                            KeyChipRepository keychipRepository) {
         this.HOST_OVERRIDE = HOST;
         this.PORT_OVERRIDE = PORT;
         this.MAIMAI2_NO_HTTP = MAIMAI2_NO_HTTP;
@@ -51,6 +58,8 @@ public class AllNetController {
         // More better way to this is to use XML or yaml format as these treated as UTF-8
         // but I rather use hack than breaking backward compatibility.. for now
         this.PLACE_NAME = new String(PLACE_NAME.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+        this.ALLNET_CHECK_KEYCHIP = ALLNET_CHECK_KEYCHIP;
+        this.keychipRepository = keychipRepository;
     }
 
     @GetMapping("/")
@@ -91,16 +100,21 @@ public class AllNetController {
         String localPort = Integer.toString(req.getLocalPort());
         byte[] bytes = dataStream.readAllBytes();
         Map<String, String> reqMap = Decoder.decode(bytes);
-
+        String serial = reqMap.getOrDefault("serial", "");
         logger.info("Request: PowerOn, " + mapper.writeValueAsString(reqMap));
-        // TODO: Verify KeyChip id
-
+        // TODO: Verify KeyChip id ?
+        // Seems verified now
+        if (this.ALLNET_CHECK_KEYCHIP){
+            KeychipChecker keychipChecker = new KeychipChecker(this.keychipRepository);
+            if (!keychipChecker.checkKeychip(serial)){
+                return "{}";
+                // This will cause an allnet auth bad on client side
+                // Which is just what we want
+            }
+        }
         String gameId = reqMap.getOrDefault("game_id", "");
         String ver = reqMap.getOrDefault("ver", "1.0");
-        String serial = reqMap.getOrDefault("serial", DEFAULT_KEYCHIP_ID);
-        if (serial.equals(DEFAULT_KEYCHIP_ID)) {
-            serial = UUID.randomUUID().toString();
-        }
+        serial = UUID.randomUUID().toString();
         String format_ver = reqMap.getOrDefault("format_ver", "");
         PowerOnResponse resp;
         if (format_ver.startsWith("2")) {
