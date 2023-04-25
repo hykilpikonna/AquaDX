@@ -5,7 +5,7 @@ import java.time.ZoneId
 plugins {
     java
     id("io.freefair.lombok") version "6.6.3"
-    id("org.springframework.boot") version "2.7.9"
+    id("org.springframework.boot") version "2.7.11"
 }
 
 apply(plugin = "io.spring.dependency-management")
@@ -34,20 +34,20 @@ dependencies {
     testImplementation("org.springframework.security:spring-security-test")
     
     // Database
-    runtimeOnly("com.mysql:mysql-connector-j:8.0.32")
-    runtimeOnly("org.mariadb.jdbc:mariadb-java-client:3.1.2")
-    runtimeOnly("org.xerial:sqlite-jdbc:3.41.0.0")
-    implementation("com.github.gwenn:sqlite-dialect:0.1.2")
+    runtimeOnly("com.mysql:mysql-connector-j:8.0.33")
+    runtimeOnly("org.mariadb.jdbc:mariadb-java-client:3.1.3")
+    runtimeOnly("org.xerial:sqlite-jdbc:3.41.2.1")
+    implementation("com.github.gwenn:sqlite-dialect:0.1.4")
     
     // JSR305 for nullable
     implementation("com.google.code.findbugs:jsr305:3.0.2")
 
     // Others
-    implementation("commons-fileupload:commons-fileupload:1.4")
+    implementation("commons-fileupload:commons-fileupload:1.5")
 }
 
 group = "icu.samnya"
-version = "0.0.45a-RELEASE"
+version = "0.0.46-RELEASE"
 description = "Aqua Server"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
