@@ -1,8 +1,5 @@
-create table allnet_keychips
+CREATE TABLE allnet_keychips
 (
-    id         int(20)      primary key AUTOINCREMENT not null,
-    keychip_id varchar(255) not null
-)
-    ENGINE = InnoDB
-    DEFAULT CHARSET = utf8mb4
-    collate = utf8mb4_unicode_ci;
+    id         BIGINT auto_increment PRIMARY KEY,
+    keychip_id VARCHAR(255) NOT NULL
+);
