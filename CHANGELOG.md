@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.46 - 2023-04-25
+- Add client serial validation option for All.Net PowerOn request. Thanks to Fleming Karlzett!
+- Change Chunithm New userbox API to return sorted list. Thanks to Fleming Karlzett!
+- Add new card, event and music data for O.N.G.E.K.I bright memory
+- Add new event for Maimai DX Festival
+- Update Spring boot to 2.7.11 and other dependencies
+
 ## 0.0.45a - 2023-04-06
 - Add game data for Chunithm Sun
 
