@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -44,9 +45,24 @@ public class UpsertUserAllHandler implements BaseHandler {
     private final UserCourseService userCourseService;
     private final UserDuelService userDuelService;
     private final UserGeneralDataService userGeneralDataService;
+    private final UserLoginBonusService userLoginBonusService;
 
     @Autowired
-    public UpsertUserAllHandler(StringMapper mapper, CardService cardService, UserDataService userDataService, UserCharacterService userCharacterService, UserGameOptionService userGameOptionService, UserMapAreaService userMapService, UserItemService userItemService, UserMusicDetailService userMusicDetailService, UserActivityService userActivityService, UserPlaylogService userPlaylogService, UserChargeService userChargeService, UserCourseService userCourseService, UserDuelService userDuelService, UserGeneralDataService userGeneralDataService) {
+    public UpsertUserAllHandler(StringMapper mapper,
+                                CardService cardService,
+                                UserDataService userDataService,
+                                UserCharacterService userCharacterService,
+                                UserGameOptionService userGameOptionService,
+                                UserMapAreaService userMapService,
+                                UserItemService userItemService,
+                                UserMusicDetailService userMusicDetailService,
+                                UserActivityService userActivityService,
+                                UserPlaylogService userPlaylogService,
+                                UserChargeService userChargeService,
+                                UserCourseService userCourseService,
+                                UserDuelService userDuelService,
+                                UserGeneralDataService userGeneralDataService,
+                                UserLoginBonusService userLoginBonusService) {
         this.mapper = mapper;
         this.cardService = cardService;
         this.userDataService = userDataService;
@@ -61,6 +77,7 @@ public class UpsertUserAllHandler implements BaseHandler {
         this.userCourseService = userCourseService;
         this.userDuelService = userDuelService;
         this.userGeneralDataService = userGeneralDataService;
+        this.userLoginBonusService = userLoginBonusService;
     }
 
 
@@ -302,6 +319,21 @@ public class UpsertUserAllHandler implements BaseHandler {
                 newUserDuelMap.put(duelId, newUserDuel);
             });
             userDuelService.saveAll(newUserDuelMap.values());
+        }
+
+        if (upsertUserAll.getUserLoginBonusList() != null){
+            List<Map<String, Object>> userLoginBonusList = upsertUserAll.getUserLoginBonusList();
+            Map<Integer, UserLoginBonus> newUserLoginBonusMap = new HashMap<>();
+
+            userLoginBonusList.forEach(newUserLoginBonus -> {
+                int loginBonusPresetId = Integer.parseInt((String) newUserLoginBonus.get("presetId"));
+                Optional<UserLoginBonus> userLoginBonusOptional = userLoginBonusService.getUserLoginBonus(Integer.parseInt(userId), loginBonusPresetId);
+                UserLoginBonus userLoginBonus = userLoginBonusOptional.orElseGet(UserLoginBonus::new);
+                userLoginBonus.setLastUpdateDate(LocalDateTime.now());
+                userLoginBonus.setWatched(true);
+                newUserLoginBonusMap.put(loginBonusPresetId, userLoginBonus);
+            });
+            userLoginBonusService.saveAll(newUserLoginBonusMap.values());
         }
 
         String json = mapper.write(new CodeResp(1));
