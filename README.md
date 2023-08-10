@@ -1,54 +1,21 @@
 # Aqua Server
-Multipurpose game server powered by Spring Boot, for ALL.Net based games
+TLDR: this fork will not be updated.
 
-This is a forked maintaining attempt of the [original Aqua server](https://dev.s-ul.net/NeumPhis/aqua)
+You can still read old readme [here](README_project.md).
 
-### Supported Games
-* CHUNITHM SUN (and below)
-* CHUNITHM Paradise Lost (and below)
-* Maimai DX Festival (and below)
-* Card Maker (1.34)
-* Project DIVA Arcade Future Tone
-* O.N.G.E.K.I. bright memory (and below)
+## Important notice
+It was a great opportunity for hardening my skills and learning how production system works, but recently I lost my motivation toward maintaining this code. I thought it will be better to make official statement now for the good.
 
-Check out these docs for more information.
-* [Game specific notes](docs/game_specific_notes.md)
-* [Frequently asked questions](docs/frequently_asked_questions.md)
+I'd like to thank everyone for supporting my development and use their time for trying this little project.
 
-### Notes
-* Some game may require additional patches and these will not provided in this project and repository. You already found this, so you know where to find related resources too.
-* This repository may contain untested, experimental implementation for few games which I can't test properly. If you couldn't find your wanted game in the above list, do not expect support.
-* This server also provides a simple API for viewing play records and edit settings for some games.
+## What will happen after this?
+Server (that you are running) will still function and its source code will preserved here even after this notice. However, issues and pull requests will not be closed and resolved. Future version of (supported) game might not work.
 
-### Usage
-Requirements:
-* Java 17 or above (for running JAR)
-* Optional databases: MariaDB 10.6.x (recommended) or MySQL 8.0.x
+## Will this impact other Aqua forks or "online Aqua"?
+No.
 
-Run `java -jar aqua-x.x.xx-RELEASE.jar`
+## What are my other options?
+I'd like to recommend using [ARTEMiS](https://gitea.tendokyu.moe/Hay1tsme/artemis). It's more robust and easily expandable using power of Python language. Also, maintainers are active and nice ;)
 
-By default, Aqua will use sqlite and save user data in data/db.sqlite.
-
-If you want to use optional databases, edit configuration file then it will auto create the table and import some initial data.
-
-### Configuration
-Configuration is saved in `config/application.properties`, spring loads this file automatically.
-
-* The host and port of game title servers can be overritten in `allnet.server.host` and `allnet.server.port`. By default it will send the same host and port the client used the request this information.
-This will be send to the game at booting and being used by following request.
-* You can switch to MariaDB (or MySQL) database by commenting the Sqlite part.
-* For some game, you might need to change some game specific config entries.
-
-### Building
-You need to install JDK on your system. However, you don't need to care about Gradle, as wrapper script is included.
-```
-gradlew clean build
-```
-The `build/libs` folder will contain an jar file.
-
-### Credit
-* **samnyan**: The creator and developer of the original Aqua server
-* **Akasaka Ryuunosuke** : providing all the DIVA protocol information
-* Dom Eori : Developer of forked Aqua server, from v0.0.17 and up
-* All devs who contribute to the [MiniMe server](https://dev.s-ul.net/djhackers/minime)
-* All contributors by merge request, issues and other channels
+### Can I migrate to ARTEMiS?
+There is [AQUA-to-ARTEMiS](https://gitea.tendokyu.moe/Dniel97/AQUA-to-ARTEMiS) project. However, I can't test if it still works with latest version.
