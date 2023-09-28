@@ -3,6 +3,8 @@ package icu.samnyan.aqua.sega.chusan.model.userdata;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import icu.samnyan.aqua.sega.chusan.util.BooleanStringIntDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -67,6 +69,7 @@ public class UserMusicDetail implements Serializable {
     @JsonProperty("isAllJustice")
     private boolean isAllJustice;
 
+    @JsonDeserialize(using = BooleanStringIntDeserializer.class)
     @JsonProperty("isSuccess")
     private boolean isSuccess;
 
