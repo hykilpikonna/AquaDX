@@ -41,7 +41,7 @@ public class GetUserCharacterHandler implements BaseHandler {
         resultMap.put("userCharacterList", userCharacterList);
 
         String json = mapper.write(resultMap);
-        logger.info("Response: " + json);
+        logger.info("Response: length " + json.length());
         return json;
     }
 }

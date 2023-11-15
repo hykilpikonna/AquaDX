@@ -152,4 +152,5 @@ public class UserDetail implements Serializable {
     @JsonInclude
     @Transient
     private int cmLastEmoneyCredit = 69;
+    private int mapStock;
 }

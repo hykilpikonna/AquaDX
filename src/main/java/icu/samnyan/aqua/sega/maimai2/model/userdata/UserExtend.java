@@ -53,10 +53,11 @@ public class UserExtend implements Serializable {
     private int sortCategorySetting; //enum SortTabID
     private int sortMusicSetting; //enum SortMusicID
     private int playStatusSetting; //enum PlaystatusTabID
-    
+    private int selectResultScoreViewType;
+
     @Convert(converter = IntegerListConverter.class)
     private List<Integer> selectedCardList;
-    
+
     @OneToMany(mappedBy = "userExtend")
     private List<MapEncountNpc> encountMapNpcList = new ArrayList<>();
 

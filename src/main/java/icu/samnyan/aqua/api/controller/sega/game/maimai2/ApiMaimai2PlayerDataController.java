@@ -214,6 +214,25 @@ public class ApiMaimai2PlayerDataController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("User or value not found.")));
     }
 
+    @PostMapping("general")
+    public ResponseEntity<Object> setGeneralData(@RequestBody Map<String, Object> request) {
+        UserDetail profile = userDataRepository.findByCard_ExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
+        String key = (String) request.get("key");
+        String value = (String) request.get("value");
+
+        Optional<UserGeneralData> userGeneralDataOptional = userGeneralDataRepository.findByUserAndPropertyKey(profile, key);
+        UserGeneralData userGeneralData;
+        if (userGeneralDataOptional.isPresent()) {
+            userGeneralData = userGeneralDataOptional.get();
+        }
+        else {
+            userGeneralData = new UserGeneralData(profile, key);
+        }
+        userGeneralData.setPropertyValue(value);
+
+        return ResponseEntity.ok(userGeneralDataRepository.save(userGeneralData));
+    }
+
     @GetMapping("export")
     public ResponseEntity<Object> exportAllUserData(@RequestParam long aimeId) {
         Maimai2DataExport data = new Maimai2DataExport();
