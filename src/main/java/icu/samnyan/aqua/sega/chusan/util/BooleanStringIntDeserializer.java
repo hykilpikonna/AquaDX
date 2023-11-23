@@ -11,7 +11,7 @@ public class BooleanStringIntDeserializer extends JsonDeserializer<Boolean> {
     @Override
     public Boolean deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
         return switch (p.getCurrentToken()) {
-            case VALUE_STRING -> p.getText().trim().equals("1");
+            case VALUE_STRING -> p.getText().trim().equals("1") || p.getText().trim().equalsIgnoreCase("true");
             case VALUE_NUMBER_INT -> p.getIntValue() == 1;
             case VALUE_TRUE -> true;
             case VALUE_FALSE -> false;
