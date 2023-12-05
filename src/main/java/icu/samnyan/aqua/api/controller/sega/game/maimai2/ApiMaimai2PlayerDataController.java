@@ -153,8 +153,15 @@ public class ApiMaimai2PlayerDataController {
     @GetMapping("item")
     public ReducedPageResponse<UserItem> getItem(@RequestParam long aimeId,
                                                  @RequestParam(required = false, defaultValue = "0") int page,
-                                                 @RequestParam(required = false, defaultValue = "10") int size) {
-        Page<UserItem> items = userItemRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page, size));
+                                                 @RequestParam(required = false, defaultValue = "10") int size,
+                                                 @RequestParam(required = false, defaultValue = "0") int ItemKind) {
+        Page<UserItem> items;
+        if(ItemKind == 0){
+            items = userItemRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page, size));
+        }
+        else{
+            items = userItemRepository.findByUser_Card_ExtIdAndItemKind(aimeId, ItemKind, PageRequest.of(page, size));
+        }
         return new ReducedPageResponse<>(items.getContent(), items.getPageable().getPageNumber(), items.getTotalPages(), items.getTotalElements());
     }
 
