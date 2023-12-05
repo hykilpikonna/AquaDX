@@ -207,6 +207,17 @@ public class ApiMaimai2PlayerDataController {
         return userOptionRepository.findByUser_Card_ExtId(aimeId).orElseThrow();
     }
 
+    @PostMapping("options")
+    public ResponseEntity<Object> updateOptions(@RequestBody Map<String, Object> request) {
+		UserDetail profile = userDataRepository.findByCard_ExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
+		ObjectMapper objectMapper = new ObjectMapper();
+		UserOption userOption = objectMapper.convertValue(request.get("options"), UserOption.class);
+		userOption.setUser(profile);
+		userOptionRepository.deleteByUser(profile);
+		userOptionRepository.flush();
+		return ResponseEntity.ok(userOptionRepository.save(userOption));
+    }
+
     @GetMapping("general")
     public ResponseEntity<Object> getGeneralData(@RequestParam long aimeId, @RequestParam String key) {
         Optional<UserGeneralData> userGeneralDataOptional = userGeneralDataRepository.findByUser_Card_ExtIdAndPropertyKey(aimeId, key);
