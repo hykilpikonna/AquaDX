@@ -119,6 +119,7 @@ public class ApiMaimai2PlayerDataController {
                 byte[] targetImageContent = Files.readAllBytes(Paths.get("data/" + matchedFiles.get(imageIndex)));
                 String divData = Base64.getEncoder().encodeToString(targetImageContent);
                 Photo.setDivData(divData);
+                Photo.setFileName(matchedFiles.get(imageIndex));
             }
         }
         catch (Exception e) {
