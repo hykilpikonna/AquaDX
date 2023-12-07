@@ -1,8 +1,6 @@
 package icu.samnyan.aqua.api.controller.sega.game.maimai2;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import icu.samnyan.aqua.api.model.MessageResponse;
 import icu.samnyan.aqua.api.model.ReducedPageResponse;
 import icu.samnyan.aqua.api.model.resp.sega.maimai2.ProfileResp;
@@ -23,12 +21,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.nio.file.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -92,28 +87,6 @@ public class ApiMaimai2PlayerDataController {
     @GetMapping("config/userPhoto/divMaxLength")
     public long getConfigUserPhotoDivMaxLength(@Value("${game.maimai2.userPhoto.divMaxLength:32}") long divMaxLength) {
         return divMaxLength;
-    }
-
-    @GetMapping("userPhoto")
-    public List<String> getUserPhoto(@RequestParam long aimeId) {
-        List<String> matchedFiles = new ArrayList<>();
-        try (Stream<Path> paths = Files.walk(Paths.get("data"))) {
-            matchedFiles = paths
-            .filter(Files::isRegularFile)
-            .filter(path -> path.getFileName().toString().endsWith(".jpg"))
-            .filter(path -> {
-                String fileName = path.getFileName().toString();
-                String[] parts = fileName.split("-");
-                return parts.length > 0 && parts[0].equals(String.valueOf(aimeId));
-            })
-            .map(Path::getFileName)
-            .map(Path::toString)
-            .sorted()
-            .collect(Collectors.toList());
-            matchedFiles.forEach(System.out::println);
-        } catch (IOException e) {
-        }
-        return matchedFiles;
     }
 
     @GetMapping("profile")
