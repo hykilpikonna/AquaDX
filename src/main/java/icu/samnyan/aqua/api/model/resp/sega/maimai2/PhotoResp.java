@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 public class PhotoResp {
     private int imageIndex;
     private int totalImage;
+    private String fileName;
     private String divData;
 }
