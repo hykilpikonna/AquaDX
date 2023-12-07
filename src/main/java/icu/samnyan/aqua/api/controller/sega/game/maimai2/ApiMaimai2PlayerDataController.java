@@ -121,7 +121,7 @@ public class ApiMaimai2PlayerDataController {
                 Photo.setDivData(divData);
             }
         }
-        catch (IOException e) {
+        catch (Exception e) {
         }
         return Photo;
     }
