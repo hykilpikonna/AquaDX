@@ -1,22 +1,13 @@
-package icu.samnyan.aqua.sega.chusan.model.userdata;
+package icu.samnyan.aqua.sega.chusan.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import icu.samnyan.aqua.sega.chusan.util.BooleanToIntegerDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
-/**
- * @author samnyan (privateamusement@protonmail.com)
- */
-@Entity(name = "ChusanUserMusicDetail")
-@Table(name = "chusan_user_music_detail", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "music_id", "level"})})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -36,21 +27,9 @@ import java.io.Serializable;
         "theoryCount",
         "ext1"
 })
-public class UserMusicDetail implements Serializable {
-
+public class UserMusicDetailForAncientChusan implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
-    private long id;
-
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserData user;
-
-    @Column(name = "music_id")
     private int musicId;
 
     private int level;
@@ -69,9 +48,8 @@ public class UserMusicDetail implements Serializable {
     @JsonProperty("isAllJustice")
     private boolean isAllJustice;
 
-    @JsonDeserialize(using = BooleanToIntegerDeserializer.class)
     @JsonProperty("isSuccess")
-    private int isSuccess;
+    private boolean isSuccess;
 
     private int fullChain;
 
@@ -86,11 +64,7 @@ public class UserMusicDetail implements Serializable {
 
     private int ext1;
 
-    public UserMusicDetail(UserData userData) {
-        user = userData;
-    }
-
-    public UserMusicDetail(int musicId, int level, int playCount, int scoreMax, int missCount, int maxComboCount, boolean isFullCombo, boolean isAllJustice, int isSuccess, int fullChain, int maxChain, int scoreRank, boolean isLock, int theoryCount, int ext1) {
+    public UserMusicDetailForAncientChusan(int musicId, int level, int playCount, int scoreMax, int missCount, int maxComboCount, boolean isFullCombo, boolean isAllJustice, int isSuccess, int fullChain, int maxChain, int scoreRank, boolean isLock, int theoryCount, int ext1) {
         this.musicId = musicId;
         this.level = level;
         this.playCount = playCount;
@@ -99,7 +73,7 @@ public class UserMusicDetail implements Serializable {
         this.maxComboCount = maxComboCount;
         this.isFullCombo = isFullCombo;
         this.isAllJustice = isAllJustice;
-        this.isSuccess = isSuccess;
+        this.isSuccess = isSuccess > 0;
         this.fullChain = fullChain;
         this.maxChain = maxChain;
         this.scoreRank = scoreRank;
