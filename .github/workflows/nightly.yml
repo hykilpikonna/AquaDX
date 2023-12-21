@@ -1,0 +1,68 @@
+# Build script credit to https://github.com/OpenIntelWireless/itlwm/blob/master/.github/workflows/main.yml
+name: Nightly Build
+
+on:
+  push:
+    branches: main
+
+jobs:
+  build:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '10'
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          server-id: github
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Manage Version
+        run: |
+          git fetch --prune --unshallow --tags
+          GIT_SHA="$(git rev-parse --short HEAD)"
+          CUR_TAG="$(git tag -l | grep 'nightly' | tail -1)"
+          VER="$(yarn --silent app:version)"
+          echo "SHORT_SHA=$GIT_SHA" >> $GITHUB_ENV
+          echo "VER=$VER" >> $GITHUB_ENV
+          if [[ -z $CUR_TAG ]]; then
+            echo "OLD_PRE_TAG=NULL" >> $GITHUB_ENV
+          else
+            echo "OLD_PRE_TAG=$CUR_TAG" >> $GITHUB_ENV
+          fi
+
+      - name: Build Artifact
+        run: |
+          ./gradlew build
+          rm -rf build/libs/*-plain.jar
+          cp build/libs/*.jar "build/libs/aqua-nightly.jar"
+
+      - name: Generate Prerelease Release Notes
+        run: |
+          echo '### Nightly Release' >> ReleaseNotes.md
+          echo 'This nightly release is automatically built by github actions.' >> ReleaseNotes.md
+          echo '### The latest five updates are:' >> ReleaseNotes.md
+          git log -"5" --format="- %H %s" | sed '/^$/d' >> ReleaseNotes.md
+
+      - name: Delete Old Prerelease
+        if: env.OLD_PRE_TAG != 'NULL'
+        uses: dev-drprasad/delete-tag-and-release@v1.0
+        with:
+          tag_name: ${{ env.OLD_PRE_TAG }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          bodyFile: ReleaseNotes.md
+          artifacts: "build/libs/aqua-nightly.jar"
+          tag: "${{ env.VER }}-nightly"
+          token: ${{ secrets.GITHUB_TOKEN }}
