@@ -1,0 +1,13 @@
+[Unit]
+Description=Aqua Server
+After=network.target
+
+[Service]
+WorkingDirectory=/apps/aqua
+ExecStart=/usr/bin/java -jar aqua.jar
+User=nobody
+Type=simple
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
