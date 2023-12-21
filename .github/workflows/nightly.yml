@@ -29,7 +29,7 @@ jobs:
           git fetch --prune --unshallow --tags
           GIT_SHA="$(git rev-parse --short HEAD)"
           CUR_TAG="$(git tag -l | grep 'nightly' | tail -1)"
-          VER="$(yarn --silent app:version)"
+          VER="$(sed -n 's/version = "\(.*\)"/\1/p' build.gradle.kts)"
           echo "SHORT_SHA=$GIT_SHA" >> $GITHUB_ENV
           echo "VER=$VER" >> $GITHUB_ENV
           if [[ -z $CUR_TAG ]]; then
