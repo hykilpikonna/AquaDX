@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 import argparse
-import os
+import shlex
 from subprocess import check_call, check_output
 
 import openai
+# Readline is used to fix left/right arrow keys in input(), do not remove as unused
+import readline
 
 my_base = 'master'
-openai_token = os.environ['OPENAI_TOKEN']
 
 
 def gen_merge_msg(commits: str):
@@ -22,26 +23,25 @@ def gen_merge_msg(commits: str):
         e7848cb9 - Add API - Get user photos (mai)
         """
     openai_example_response = "Add user photos feature for maimai2"
+    openai_prompt = ("I just merged the following branch, what commit message can best summarize the changes below? "
+                     "Please make sure it is less than 100 characters long.\n\n")
 
-    complete = openai.Completion.create(
-        model="gpt-3.5-turbo",
+    complete = openai.ChatCompletion.create(
+        model="gpt-4",
         messages=[
             {"role": "system",
              "content": "You are a senior software engineer helping with maintaining a game server repository."},
             {"role": "user",
-             "content": f"I just merged the following commits. "
-                        f"What commit message can best describe and summarize the changes below?\n\n"
-                        f"{openai_example_commits}"},
+             "content": f"{openai_prompt}{openai_example_commits}"},
             {"role": "assistant",
              "content": f'"{openai_example_response}"'},
             {"role": "user",
-             "content": f"I just merged the following commits. "
-                        f"What commit message can best describe and summarize the changes below?\n\n"
-                        f"{commits}"}
+             "content": f"{openai_prompt}{commits}"},
         ]
     )
 
-    return complete.choices[0].text
+    m = complete.choices[0].message.content
+    return m.strip().strip('"')
 
 
 if __name__ == '__main__':
@@ -82,28 +82,23 @@ if __name__ == '__main__':
     repo = url.split('/')[-1].split('.')[0]
 
     # If there isn't a merge message, create one by asking ChatGPT to summarize the commits
-    if not args.msg:
+    msg = args.msg
+    if not msg:
         while True:
-            args.msg = input('\nPlease enter a merge message (or leave blank to generate one): ').strip()
-            if args.msg:
+            msg = input('\nPlease enter a merge message (or leave blank to generate one): ').strip()
+            if msg:
                 break
 
-            args.msg = gen_merge_msg(commits)
-            print(f'Generated message: {args.msg}')
-            if input('Is this okay? [Y/n] ') == 'Y':
+            msg = gen_merge_msg(commits)
+            print(f'Generated message: {msg}')
+            if input('Is this okay? [y/N] ').lower() == 'y':
                 break
-
-    msg = f"""Merge {owner}/{repo} : {args.msg}
-
-{commits}
-
-{authors}
-    """
-    print(msg)
 
     # Merge head branch
     print('\nMerging fetch_head...')
-    check_call(f'git merge FETCH_HEAD --no-ff --no-edit', shell=True)
+    check_call([*shlex.split('git merge FETCH_HEAD --no-ff --no-edit'),
+                '-m', f"Merge {owner}/{repo} : {msg}",
+                '-m', f"{commits}\n\n{authors}"])
 
     # Push
     assert input('\nPush? [Enter/N]') == ""
