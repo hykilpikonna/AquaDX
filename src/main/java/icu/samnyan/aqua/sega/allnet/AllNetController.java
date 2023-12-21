@@ -188,7 +188,7 @@ public class AllNetController {
                     return "http://" + addr + ":" + port + "/Maimai2Servlet/";
                 }
             case "SDHD":
-                return "http://" + addr + ":" + port + "/ChusanServlet/";
+                return "http://" + addr + ":" + port + "/ChusanServlet/" + ver + "/";
             case "SDED":
                 return "http://" + addr + ":" + port + "/CardMakerServlet/";
             default:

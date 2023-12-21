@@ -12,7 +12,7 @@ import java.util.Map;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @RestController
-@RequestMapping({"/ChusanServlet/ChuniServlet", "/ChusanServlet"})
+@RequestMapping({"/ChusanServlet/{version}/ChuniServlet", "/ChusanServlet/{version}"})
 public class ChusanServletController {
 
     private final GameLoginHandler gameLoginHandler;
@@ -235,7 +235,8 @@ public class ChusanServletController {
     }
 
     @PostMapping("GetUserMusicApi")
-    String getUserMusic(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+    String getUserMusic(@ModelAttribute Map<String, Object> request, @PathVariable String version) throws JsonProcessingException {
+        request.put("version", version);
         return getUserMusicHandler.handle(request);
     }
 

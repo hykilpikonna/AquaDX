@@ -1,6 +1,8 @@
 package icu.samnyan.aqua.sega.chusan.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import icu.samnyan.aqua.sega.chusan.dto.UserMusicDetailForAncientChusan;
+import icu.samnyan.aqua.sega.chusan.dto.UserMusicListItemForAncientChusan;
 import icu.samnyan.aqua.sega.chusan.handler.BaseHandler;
 import icu.samnyan.aqua.sega.chusan.model.response.data.UserMusicListItem;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserMusicDetail;
@@ -78,13 +80,51 @@ public class GetUserMusicHandler implements BaseHandler {
             userMusicMap.remove(lastMusicId);
         }
 
+        String version = (String) request.get("version");
+        Map<Integer, UserMusicListItemForAncientChusan> userMusicMapForAncientChusan = new LinkedHashMap<>();
+        boolean isAncient = false;
+        try {
+            if (Double.parseDouble(version) < 2.15){
+                userMusicMap.forEach((k, v) -> {
+                    UserMusicListItemForAncientChusan list = new UserMusicListItemForAncientChusan();
+                    list.setLength(v.getLength());
+                    List<UserMusicDetailForAncientChusan> userMusicDetailForAncientChusanList = new ArrayList<>();
+                    v.getUserMusicDetailList().forEach(userMusicDetail -> {
+                        UserMusicDetailForAncientChusan userMusicDetailForAncientChusan = new UserMusicDetailForAncientChusan(
+                                userMusicDetail.getMusicId(),
+                                userMusicDetail.getLevel(),
+                                userMusicDetail.getPlayCount(),
+                                userMusicDetail.getScoreMax(),
+                                userMusicDetail.getMissCount(),
+                                userMusicDetail.getMaxComboCount(),
+                                userMusicDetail.isFullCombo(),
+                                userMusicDetail.isAllJustice(),
+                                userMusicDetail.getIsSuccess(),
+                                userMusicDetail.getFullChain(),
+                                userMusicDetail.getMaxChain(),
+                                userMusicDetail.getScoreRank(),
+                                userMusicDetail.isLock(),
+                                userMusicDetail.getTheoryCount(),
+                                userMusicDetail.getExt1()
+                        );
+                        userMusicDetailForAncientChusanList.add(userMusicDetailForAncientChusan);
+                    });
+                    list.setUserMusicDetailList(userMusicDetailForAncientChusanList);
+                    userMusicMapForAncientChusan.put(k, list);
+                });
+                isAncient = true;
+            }
+        } catch (Exception e) {
+            logger.error("Error when handling ancient version of chusan", e);
+        }
+
         long nextIndex = currentIndex + dbPage.getNumberOfElements() - lastListSize;
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userId);
         resultMap.put("length", userMusicMap.size());
         resultMap.put("nextIndex", dbPage.getNumberOfElements() < maxCount ? -1 : nextIndex);
-        resultMap.put("userMusicList", userMusicMap.values());
+        resultMap.put("userMusicList", isAncient ? userMusicMapForAncientChusan.values() : userMusicMap.values());
 
         String json = mapper.write(resultMap);
         logger.info("Response: " + json);
