@@ -66,3 +66,4 @@ jobs:
           artifacts: "build/libs/aqua-nightly.jar"
           tag: "${{ env.VER }}-nightly"
           token: ${{ secrets.GITHUB_TOKEN }}
+          draft: false
