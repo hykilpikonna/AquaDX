@@ -5,15 +5,15 @@ This document is for detailed game specific notes, if any.
 
 ## Overview
 
-|       Name      | Game ID | Latest supported version | Latest supported option | Actively supported | Requires patch |
-| ---             | ---     | ---                      | ---                     | ---                | ---            |
-|Chunithm (Chusan)|SDHD     |Sun                       |A152                     |Yes                 |Yes             |
-|Chunithm         |SDBT     |Paradise Lost             |A032                     |Yes                 |Yes (Paradise)  |
-|Maimai DX        |SDEZ     |Festival                  |F061                     |Yes                 |Yes             |
-|O.N.G.E.K.I      |SDDT     |Bright memory             |A082                     |Yes                 |Yes             |
-|Card Maker       |SDED     |1.34                      |A030                     |Yes                 |Yes             |
-|Maimai           |SDEY     |Finale                    |?                        |No                  |?               |
-|Project DIVA AFT |SBZV     |?                         |?                        |No                  |?               |
+| Name              | Game ID | Latest supported version | Latest supported option | Actively supported | Requires patch |
+|-------------------|---------|--------------------------|-------------------------|--------------------|----------------|
+| Chunithm (Chusan) | SDHD    | Sun                      | A152                    | Yes                | Yes            |
+| Chunithm          | SDBT    | Paradise Lost            | A032                    | Yes                | Yes (Paradise) |
+| Maimai DX         | SDEZ    | Festival                 | F061                    | Yes                | Yes            |
+| O.N.G.E.K.I       | SDDT    | Bright memory            | A082                    | Yes                | Yes            |
+| Card Maker        | SDED    | 1.34                     | A030                    | Yes                | Yes            |
+| Maimai            | SDEY    | Finale                   | ?                       | No                 | ?              |
+| Project DIVA AFT  | SBZV    | ?                        | ?                       | No                 | ?              |
 
 * Actively supported: if yes, it will likely receive future bug fixes and new version support.
 * Requires patch: if yes, game needs to be patched in order to work with Aqua server.
@@ -24,6 +24,7 @@ Only JP variant is supported.
 
 ### Required patches
 * No encryption
+* For SUN Plus: Please edit `A001/event/event00000015/Event.xml` and change `<alwaysOpen>false</alwaysOpen>` to `true`.
 
 ### Non-working features
 * Global matching
