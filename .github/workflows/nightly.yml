@@ -3,7 +3,7 @@ name: Nightly Build
 
 on:
   push:
-    branches: master
+    branches: [master]
 
 jobs:
   build:
@@ -67,3 +67,9 @@ jobs:
           tag: "${{ env.VER }}-nightly"
           token: ${{ secrets.GITHUB_TOKEN }}
           draft: false
+
+      - name: Mark release undraft
+        run: |
+          gh release edit "${{ env.VER }}-nightly" --draft=false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
