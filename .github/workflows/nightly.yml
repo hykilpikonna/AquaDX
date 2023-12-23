@@ -39,7 +39,7 @@ jobs:
 
       - name: Delete previous nightly release
         run: |
-          gh release delete --cleanup-tag --yes --repo $GITHUB_REPOSITORY nightly
+          gh release delete --cleanup-tag --yes --repo $GITHUB_REPOSITORY nightly || true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
