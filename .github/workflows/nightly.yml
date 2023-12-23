@@ -24,20 +24,6 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
-      - name: Manage Version
-        run: |
-          git fetch --prune --unshallow --tags
-          GIT_SHA="$(git rev-parse --short HEAD)"
-          CUR_TAG="$(git tag -l | grep 'nightly' | tail -1)"
-          VER="$(sed -n 's/version = "\(.*\)"/\1/p' build.gradle.kts)"
-          echo "SHORT_SHA=$GIT_SHA" >> $GITHUB_ENV
-          echo "VER=$VER" >> $GITHUB_ENV
-          if [[ -z $CUR_TAG ]]; then
-            echo "OLD_PRE_TAG=NULL" >> $GITHUB_ENV
-          else
-            echo "OLD_PRE_TAG=$CUR_TAG" >> $GITHUB_ENV
-          fi
-
       - name: Build Artifact
         run: |
           ./gradlew build
@@ -51,11 +37,9 @@ jobs:
           echo '### The latest five updates are:' >> ReleaseNotes.md
           git log -"5" --format="- %H %s" | sed '/^$/d' >> ReleaseNotes.md
 
-      - name: Delete Old Prerelease
-        if: env.OLD_PRE_TAG != 'NULL'
-        uses: dev-drprasad/delete-tag-and-release@v1.0
-        with:
-          tag_name: ${{ env.OLD_PRE_TAG }}
+      - name: Delete previous nightly release
+        run: |
+          gh release delete --cleanup-tag --yes --repo $GITHUB_REPOSITORY nightly
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -64,12 +48,12 @@ jobs:
         with:
           bodyFile: ReleaseNotes.md
           artifacts: "build/libs/aqua-nightly.jar"
-          tag: "${{ env.VER }}-nightly"
+          tag: "nightly"
           token: ${{ secrets.GITHUB_TOKEN }}
           draft: false
 
       - name: Mark release undraft
         run: |
-          gh release edit "${{ env.VER }}-nightly" --draft=false
+          gh release edit nightly --draft=false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
