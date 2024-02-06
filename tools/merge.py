@@ -3,7 +3,9 @@ import argparse
 import shlex
 from subprocess import check_call, check_output
 
-import openai
+from openai import OpenAI
+
+client = OpenAI()
 # Readline is used to fix left/right arrow keys in input(), do not remove as unused
 import readline
 
@@ -26,8 +28,7 @@ def gen_merge_msg(commits: str):
     openai_prompt = ("I just merged the following branch, what commit message can best summarize the changes below? "
                      "Please make sure it is less than 100 characters long.\n\n")
 
-    complete = openai.ChatCompletion.create(
-        model="gpt-4",
+    complete = client.chat.completions.create(model="gpt-4",
         messages=[
             {"role": "system",
              "content": "You are a senior software engineer helping with maintaining a game server repository."},
@@ -37,8 +38,7 @@ def gen_merge_msg(commits: str):
              "content": f'"{openai_example_response}"'},
             {"role": "user",
              "content": f"{openai_prompt}{commits}"},
-        ]
-    )
+        ])
 
     m = complete.choices[0].message.content
     return m.strip().strip('"')
