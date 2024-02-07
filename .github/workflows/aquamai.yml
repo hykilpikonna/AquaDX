@@ -19,7 +19,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
 
     - name: Decrypt DLL
-      run: gpg -d --passphrase ${{ secrets.DLL_PASSPHRASE }} -o .\Libs\Assembly-CSharp.dll ..\.github\workflows\DATA
+      run: gpg -d --passphrase "${{ secrets.DLL_PASSPHRASE }}"" -o .\Libs\Assembly-CSharp.dll ..\.github\workflows\DATA
       
 
     - name: Build with MSBuild
