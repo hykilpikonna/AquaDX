@@ -1,5 +1,11 @@
 
 # ===================================
+# Cheat: You control the buttons you press
+[Cheat]
+# Unlock normally event-only tickets
+TicketUnlock=true
+
+# ===================================
 # UX: User Experience Improvements
 [UX]
 # Skip the warning screen and logo shown after the POST sequence

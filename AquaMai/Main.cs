@@ -1,4 +1,7 @@
-﻿using AquaMai.UX;
+﻿using System;
+using AquaMai.Cheat;
+using AquaMai.Fix;
+using AquaMai.UX;
 using MelonLoader;
 using Tomlet;
 
@@ -18,6 +21,12 @@ namespace AquaMai
     {
         public static Config AppConfig { get; private set; }
         
+        private void Patch(Type type)
+        {
+            MelonLogger.Msg($"> Patching {type}");
+            HarmonyLib.Harmony.CreateAndPatchAll(type);
+        }
+        
         public override void OnInitializeMelon() 
         {
             MelonLogger.Msg("Loading mod settings...");
@@ -33,16 +42,17 @@ namespace AquaMai
             AppConfig = TomletMain.To<Config>(System.IO.File.ReadAllText("AquaMai.toml"));
             
             if (AppConfig.UX.SkipWarningScreen)
-            {
-                MelonLogger.Msg("> Patching SkipWarningScreen");
-                HarmonyLib.Harmony.CreateAndPatchAll(typeof(SkipWarningScreen));
-            }
+                Patch(typeof(SkipWarningScreen));
             
             if (AppConfig.UX.SinglePlayer)
-            {
-                MelonLogger.Msg("> Patching SinglePlayer");
-                HarmonyLib.Harmony.CreateAndPatchAll(typeof(SinglePlayer));
-            }
+                Patch(typeof(SinglePlayer));
+
+            if (AppConfig.Cheat.TicketUnlock)
+                Patch(typeof(TicketUnlock));
+            
+            // Fixes that does not have side effects
+            // These don't need to be configurable
+            Patch(typeof(FixCharaCrash));
             
             MelonLogger.Msg("Loaded!");
         }

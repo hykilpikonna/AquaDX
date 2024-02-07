@@ -6,6 +6,12 @@ namespace AquaMai
     public class Config
     {
         public UXConfig UX { get; set; }
+        public CheatConfig Cheat { get; set; }
+        
+        public class CheatConfig
+        {
+            public bool TicketUnlock { get; set; }
+        }
         
         public class UXConfig
         {
