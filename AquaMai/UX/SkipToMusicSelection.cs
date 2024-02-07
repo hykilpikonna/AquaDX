@@ -18,7 +18,7 @@ namespace AquaMai.UX
         public static bool OnUpdate(InformationProcess __instance, ProcessDataContainer ___container)
         {
             GameManager.SetMaxTrack();
-            ___container.processManager.AddProcess(new MusicSelectProcess(___container), 50);
+            ___container.processManager.AddProcess(new MusicSelectProcess(___container));
             ___container.processManager.ReleaseProcess(__instance);
             return false;
         }

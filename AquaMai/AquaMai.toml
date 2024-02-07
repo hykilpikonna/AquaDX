@@ -12,3 +12,5 @@ TicketUnlock=true
 SkipWarningScreen=true
 # Single player: Show 1P only, at the center of the screen
 SinglePlayer=true
+# !!EXPERIMENTAL!! Skip from the card-scanning screen directly to music selection screen
+SkipToMusicSelection=false
