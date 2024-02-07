@@ -5,7 +5,7 @@ set -e
 set -x
 
 # Build jar
-#./gradlew build --parallel -x test
+./gradlew build --parallel -x test
 rm -rf build/libs/aqua-nightly.jar
 rm -rf build/libs/*-plain.jar
 cp build/libs/*.jar "build/libs/aqua-nightly.jar"
