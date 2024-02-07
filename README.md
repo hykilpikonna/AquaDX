@@ -26,11 +26,11 @@ Check out these docs for more information.
 * This server also provides a simple API for viewing play records and edit settings for some games.
 
 ### Usage
-Requirements:
-* Java 17 or above (for running JAR)
-* Optional databases: MariaDB 10.6.x (recommended) or MySQL 8.0.x
 
-Run `java -jar aqua-x.x.xx-RELEASE.jar`
+1. Install [Java 17 JDK](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+2. Download the latest `aqua-nightly.zip` from [Releases](https://github.com/hykilpikonna/AquaDX/releases).
+3. Extract the zip file to a folder.
+4. Run `java -jar aqua.jar` in the folder.
 
 By default, Aqua will use sqlite and save user data in data/db.sqlite.
 
