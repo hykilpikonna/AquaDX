@@ -4,4 +4,5 @@
 UX:
   # Skip the warning screen and logo shown after the POST sequence
   SkipWarningScreen: true
-
+  # Single player: Show 1P only, at the center of the screen
+  SinglePlayer: true

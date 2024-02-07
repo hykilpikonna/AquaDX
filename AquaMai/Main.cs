@@ -19,7 +19,7 @@ namespace AquaMai
         
         public override void OnInitializeMelon() 
         {
-            MelonLogger.Msg("OnApplicationStart");
+            MelonLogger.Msg("Loading mod settings...");
             
             // Read AquaMai.yaml to load settings
             var yaml = new YamlDotNet.Serialization.Deserializer();
@@ -27,9 +27,17 @@ namespace AquaMai
             
             if (AppConfig.UX.SkipWarningScreen)
             {
-                MelonLogger.Msg("Patching CutsceneSkipping");
+                MelonLogger.Msg("> Patching CutsceneSkipping");
                 HarmonyLib.Harmony.CreateAndPatchAll(typeof(SkipWarningScreen));
             }
+            
+            if (AppConfig.UX.SinglePlayer)
+            {
+                MelonLogger.Msg("> Patching SinglePlayer");
+                HarmonyLib.Harmony.CreateAndPatchAll(typeof(SinglePlayer));
+            }
+            
+            MelonLogger.Msg("Loaded!");
         }
     }
 }
