@@ -17,33 +17,39 @@ namespace AquaMai
     public class AquaMai : MelonMod
     {
         public static Config AppConfig { get; private set; }
-        
-        public override void OnInitializeMelon() 
+
+        public override void OnInitializeMelon()
         {
             MelonLogger.Msg("Loading mod settings...");
-            
+
             // Check if AquaMai.toml exists
             if (!System.IO.File.Exists("AquaMai.toml"))
             {
                 MelonLogger.Error("AquaMai.toml not found! Please create it.");
                 return;
             }
-            
+
             // Read AquaMai.toml to load settings
             AppConfig = TomletMain.To<Config>(System.IO.File.ReadAllText("AquaMai.toml"));
-            
+
             if (AppConfig.UX.SkipWarningScreen)
             {
                 MelonLogger.Msg("> Patching SkipWarningScreen");
                 HarmonyLib.Harmony.CreateAndPatchAll(typeof(SkipWarningScreen));
             }
-            
+
             if (AppConfig.UX.SinglePlayer)
             {
                 MelonLogger.Msg("> Patching SinglePlayer");
                 HarmonyLib.Harmony.CreateAndPatchAll(typeof(SinglePlayer));
             }
-            
+
+            if (AppConfig.UX.SkipToMusicSelection)
+            {
+                MelonLogger.Msg($"> Patching {nameof(SkipToMusicSelection)}");
+                HarmonyLib.Harmony.CreateAndPatchAll(typeof(SkipToMusicSelection));
+            }
+
             MelonLogger.Msg("Loaded!");
         }
     }
