@@ -18,5 +18,13 @@ jobs:
     - name: Setup MSBuild Path
       uses: microsoft/setup-msbuild@v1.0.2
 
+    - name: Install GPG
+      uses: crazy-max/ghaction-chocolatey@v3
+      with:
+        args: install gnupg -y
+
+    - name: Decrypt DLL
+      run: gpg -d --passphrase ${{ secrets.DLL_PASSPHRASE }} -o .\Libs\Assembly-CSharp.dll ..\.github\workflows\DATA
+
     - name: Build with MSBuild
       run: msbuild.exe .\AquaMai.csproj
