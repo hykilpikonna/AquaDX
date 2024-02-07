@@ -1,5 +1,6 @@
 ﻿using AquaMai.UX;
 using MelonLoader;
+using Tomlet;
 
 namespace AquaMai
 {
@@ -21,9 +22,15 @@ namespace AquaMai
         {
             MelonLogger.Msg("Loading mod settings...");
             
-            // Read AquaMai.yaml to load settings
-            var yaml = new YamlDotNet.Serialization.Deserializer();
-            AppConfig = yaml.Deserialize<Config>(System.IO.File.ReadAllText("AquaMai.yaml"));
+            // Check if AquaMai.toml exists
+            if (!System.IO.File.Exists("AquaMai.toml"))
+            {
+                MelonLogger.Error("AquaMai.toml not found! Please create it.");
+                return;
+            }
+            
+            // Read AquaMai.toml to load settings
+            AppConfig = TomletMain.To<Config>(System.IO.File.ReadAllText("AquaMai.toml"));
             
             if (AppConfig.UX.SkipWarningScreen)
             {
