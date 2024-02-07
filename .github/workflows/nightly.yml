@@ -26,17 +26,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Build Artifact
-        run: |
-          ./gradlew build
-          rm -rf build/libs/*-plain.jar
-          cp build/libs/*.jar "build/libs/aqua-nightly.jar"
-
-      - name: Generate Prerelease Release Notes
-        run: |
-          echo '### Nightly Release' >> ReleaseNotes.md
-          echo 'This nightly release is automatically built by github actions.' >> ReleaseNotes.md
-          echo '### The latest five updates are:' >> ReleaseNotes.md
-          git log -"5" --format="- %H %s" | sed '/^$/d' >> ReleaseNotes.md
+        run: bash ./tools/build.sh
 
       - name: Delete previous nightly release
         run: |
@@ -47,8 +37,8 @@ jobs:
       - name: Publish GitHub Release
         uses: ncipollo/release-action@v1
         with:
-          bodyFile: ReleaseNotes.md
-          artifacts: "build/libs/aqua-nightly.jar"
+          bodyFile: "build/release/ReleaseNotes.md"
+          artifacts: "build/libs/aqua-nightly.jar,build/aqua-nightly.zip"
           tag: "nightly"
           token: ${{ secrets.GITHUB_TOKEN }}
           draft: false
