@@ -19,6 +19,7 @@ namespace AquaMai
         {
             MelonLogger.Msg("OnApplicationStart");
             HarmonyLib.Harmony.CreateAndPatchAll(typeof(CutsceneSkipping));
+            HarmonyLib.Harmony.CreateAndPatchAll(typeof(SinglePlayer));
         }
     }
 }
