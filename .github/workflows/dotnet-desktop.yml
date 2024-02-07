@@ -1,0 +1,22 @@
+name: AquaMai Build
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    defaults:
+      run:
+        working-directory: ./AquaMai
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup MSBuild Path
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Build with MSBuild
+      run: msbuild.exe .\AquaMai.csproj
