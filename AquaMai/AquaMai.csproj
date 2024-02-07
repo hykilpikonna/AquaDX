@@ -60,9 +60,6 @@
     <Reference Include="System.Xml">
       <HintPath>Libs\System.Xml.dll</HintPath>
     </Reference>
-    <Reference Include="Tomlyn, Version=0.17.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Tomlyn.0.17.0\lib\netstandard2.0\Tomlyn.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
       <HintPath>Libs\Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
@@ -261,6 +258,9 @@
     <Reference Include="UnityEngine.XRModule">
       <HintPath>Libs\UnityEngine.XRModule.dll</HintPath>
     </Reference>
+    <Reference Include="YamlDotNet, Version=15.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
+      <HintPath>packages\YamlDotNet.15.1.1\lib\net47\YamlDotNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
@@ -273,7 +273,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AquaMai.toml" />
+    <Content Include="AquaMai.yaml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

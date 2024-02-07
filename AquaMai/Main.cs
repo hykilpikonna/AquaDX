@@ -1,6 +1,5 @@
 ﻿using AquaMai.UX;
 using MelonLoader;
-using Tomlyn;
 
 namespace AquaMai
 {
@@ -22,8 +21,9 @@ namespace AquaMai
         {
             MelonLogger.Msg("OnApplicationStart");
             
-            // Read AquaMai.toml to load settings
-            AppConfig = Toml.ToModel<Config>("AquaMai.toml");
+            // Read AquaMai.yaml to load settings
+            var yaml = new YamlDotNet.Serialization.Deserializer();
+            AppConfig = yaml.Deserialize<Config>(System.IO.File.ReadAllText("AquaMai.yaml"));
             
             if (AppConfig.UX.SkipWarningScreen)
             {
