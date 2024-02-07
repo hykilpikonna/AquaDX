@@ -60,6 +60,9 @@
     <Reference Include="System.Xml">
       <HintPath>Libs\System.Xml.dll</HintPath>
     </Reference>
+    <Reference Include="Tomlyn, Version=0.17.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Tomlyn.0.17.0\lib\netstandard2.0\Tomlyn.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
       <HintPath>Libs\Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
@@ -260,9 +263,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CutsceneSkipping.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="UX\SkipWarningScreen.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AquaMai.toml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

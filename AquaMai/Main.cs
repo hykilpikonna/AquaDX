@@ -1,5 +1,6 @@
-﻿using MelonLoader;
-using HarmonyLib;
+﻿using AquaMai.UX;
+using MelonLoader;
+using Tomlyn;
 
 namespace AquaMai
 {
@@ -15,10 +16,20 @@ namespace AquaMai
 
     public class AquaMai : MelonMod
     {
+        public static Config AppConfig { get; private set; }
+        
         public override void OnInitializeMelon() 
         {
             MelonLogger.Msg("OnApplicationStart");
-            HarmonyLib.Harmony.CreateAndPatchAll(typeof(CutsceneSkipping));
+            
+            // Read AquaMai.toml to load settings
+            AppConfig = Toml.ToModel<Config>("AquaMai.toml");
+            
+            if (AppConfig.UX.SkipWarningScreen)
+            {
+                MelonLogger.Msg("Patching CutsceneSkipping");
+                HarmonyLib.Harmony.CreateAndPatchAll(typeof(SkipWarningScreen));
+            }
         }
     }
 }

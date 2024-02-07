@@ -1,0 +1,7 @@
+
+# ===================================
+# UX: User Experience Improvements
+[UX]
+# Skip the warning screen and logo shown after the POST sequence
+SkipWarningScreen=1
+

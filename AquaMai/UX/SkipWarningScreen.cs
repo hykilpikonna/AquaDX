@@ -1,9 +1,9 @@
 using HarmonyLib;
 using Monitor;
 
-namespace AquaMai
+namespace AquaMai.UX
 {
-    public class CutsceneSkipping
+    public class SkipWarningScreen
     {
         /*
          * Patch PlayLogo to disable the warning screen
