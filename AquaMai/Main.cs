@@ -50,7 +50,6 @@ namespace AquaMai
             if (AppConfig.Cheat.TicketUnlock)
                 Patch(typeof(TicketUnlock));
 
-
             if (AppConfig.UX.SkipToMusicSelection)
             {
                 Patch(typeof(SkipToMusicSelection));
