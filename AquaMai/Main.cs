@@ -27,7 +27,7 @@ namespace AquaMai
             
             if (AppConfig.UX.SkipWarningScreen)
             {
-                MelonLogger.Msg("> Patching CutsceneSkipping");
+                MelonLogger.Msg("> Patching SkipWarningScreen");
                 HarmonyLib.Harmony.CreateAndPatchAll(typeof(SkipWarningScreen));
             }
             
