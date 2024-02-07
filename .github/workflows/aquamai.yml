@@ -2,7 +2,7 @@ name: AquaMai Build
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   build:
