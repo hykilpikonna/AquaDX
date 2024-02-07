@@ -267,6 +267,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="UX\SkipWarningScreen.cs" />
+    <Compile Include="SinglePlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
