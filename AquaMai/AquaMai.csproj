@@ -270,6 +270,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="UX\SinglePlayer.cs" />
     <Compile Include="UX\SkipWarningScreen.cs" />
+    <Compile Include="UX\SkipToMusicSelection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
