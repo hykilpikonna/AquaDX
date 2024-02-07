@@ -4,8 +4,18 @@ This mod is heavily WIP. More details will be added as the development progresse
 
 ### Features
 
+**Cheats**
+
+* Unlock all tickets
+
 **UX Optimization**
-* Remove the starting logo and warning cutscene.
+
+* Remove the starting logo and warning cutscene
+* Single Player (1P) mode
+
+**Bug Fixes**
+
+* Fix crash in the character selection screen
 
 ### Development
 
