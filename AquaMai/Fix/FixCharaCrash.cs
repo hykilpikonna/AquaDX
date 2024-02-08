@@ -26,10 +26,12 @@ namespace AquaMai.Fix
             __result = MapMaster.GetSlotData(1);
         }
 
+        // This is called when loading the music selection screen, to display characters on the top screen
         [HarmonyPrefix]
         [HarmonyPatch(typeof(Monitor.CommonMonitor), "SetCharacterSlot", new Type[] { typeof(MessageCharactorInfomationData) })]
         public static bool SetCharacterSlot(ref MessageCharactorInfomationData data, Dictionary<int, CharacterSlotData> ____characterSlotData)
         {
+            // Some characters are not found in this dictionary. We simply skip loading those characters
             if (!____characterSlotData.ContainsKey(data.MapKey))
             {
                 Console.Log($"Could not get CharacterSlotData for character [Index={data.Index}, MapKey={data.MapKey}], ignoring...");
