@@ -90,41 +90,43 @@
   })
 </script>
 
-<!-- Svelte template -->
-<div>
-  <!-- Display all parsed ratings -->
-  {#if parsedRatings}
-    {#each [{title: "Old", data: parsedRatings.old}, {title: "New", data: parsedRatings.new}] as section}
-      <h2>{section.title}</h2>
-      <div class="rating-cards">
-        {#each section.data as rating}
-          <div class="level-{rating.difficulty}">
-            <img class="cover" src={`${data_host}/maimai/assetbundle/jacket_s/00${rating.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="">
+<!-- Display all parsed ratings -->
+{#if parsedRatings}
+  {#each [{title: "Old", data: parsedRatings.old}, {title: "New", data: parsedRatings.new}] as section}
+    <h2>{section.title}</h2>
+    <div class="rating-cards">
+      {#each section.data as rating}
+        <div class="level-{rating.difficulty}">
+          <img class="cover" src={`${data_host}/maimai/assetbundle/jacket_s/00${rating.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="">
 
-            <div class="detail">
-              <span class="name">{rating.music.name}</span>
-              <span class="rating">
-                <span>{(rating.achievement / 10000).toFixed(2)}%</span>
-                <img class="rank" src={`${data_host}/maimai/sprites/rankimage/UI_GAM_Rank_${rating.rank}.png`} alt="">
-              </span>
-              <span>{rating.calc.toFixed(1)}</span>
-            </div>
-            <img class="ver" src={`${data_host}/maimai/sprites/tab/title/UI_CMN_TabTitle_MaimaiTitle_Ver${rating.music.ver.toString().substring(0, 3)}.png`} alt="">
-            <div class="lv">{rating.music.note.lv}</div>
+          <div class="detail">
+            <span class="name">{rating.music.name}</span>
+            <span class="rating">
+              <span>{(rating.achievement / 10000).toFixed(2)}%</span>
+              <img class="rank" src={`${data_host}/maimai/sprites/rankimage/UI_GAM_Rank_${rating.rank}.png`} alt="">
+            </span>
+            <span>{rating.calc.toFixed(1)}</span>
           </div>
-        {/each}
-      </div>
-    {/each}
-  {/if}
-</div>
+          <img class="ver" src={`${data_host}/maimai/sprites/tab/title/UI_CMN_TabTitle_MaimaiTitle_Ver${rating.music.ver.toString().substring(0, 3)}.png`} alt="">
+          <div class="lv">{rating.music.note.lv}</div>
+        </div>
+      {/each}
+    </div>
+  {/each}
+{/if}
 
 <style lang="sass">
 .rating-cards
   display: grid
   gap: 2rem
+  width: 100%
 
-  // 5 columns
-  grid-template-columns: repeat(5, 1fr)
+  // Fill as many columns as possible
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr))
+
+  // Center the cards
+  justify-items: center
+  align-items: center
 
   // Style each card
   > div
@@ -160,13 +162,6 @@
       left: -30px
       height: 50px
 
-    //img.rank
-    //  position: absolute
-    //  bottom: 20px
-    //  right: 45px
-    //  z-index: 5
-    //  height: 30px
-
     // Information
     .detail
       position: absolute
@@ -188,12 +183,10 @@
         // Disable text wrapping, max 2 lines
         overflow: hidden
         text-overflow: ellipsis
-        //max-height: 2.4em
-        //line-height: 1.2em
         white-space: nowrap
 
       .name
-        font-size: 1.2rem
+        font-size: 1.2em
         font-weight: bold
 
       .rating
@@ -210,9 +203,24 @@
       // Top left border radius
       border-radius: 10px 0
 
-      font-size: 1.3rem
+      font-size: 1.3em
 
       &:before
         content: "Lv"
-        font-size: 0.8rem
+        font-size: 0.8em
+
+  // Mobile
+  @media (max-width: 500px)
+    margin-left: -1rem
+    margin-right: -1rem
+    width: calc(100% + 2rem)
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr))
+    font-size: 0.8em
+    > div
+      width: 150px
+      height: 150px
+
+      img.ver
+        height: 45px
+        left: -20px
 </style>
