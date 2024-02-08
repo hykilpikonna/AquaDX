@@ -8,25 +8,25 @@
   }
 
   const multTable = [
-      [100.5, 22.4],
-      [100, 21.6],
-      [99.5, 21.1],
-      [99, 20.8],
-      [98, 20.3],
-      [97, 20],
-      [94, 16.8],
-      [90, 15.2],
-      [80, 13.6]
+      [100.5, 22.4, "SSSp"],
+      [100, 21.6, "SSS"],
+      [99.5, 21.1, "SSp"],
+      [99, 20.8, "SS"],
+      [98, 20.3, "Sp"],
+      [97, 20, "S"],
+      [94, 16.8, "AAA"],
+      [90, 15.2, "AA"],
+      [80, 13.6, "A"]
   ]
 
   function getMult(achievement: number) {
     achievement /= 10000
     for (let i = 0; i < multTable.length; i++) {
-      if (achievement >= multTable[i][0]) {
-        return multTable[i][1]
+      if (achievement >= (multTable[i][0] as number)) {
+        return multTable[i]
       }
     }
-    return 0
+    return [0, 0, 0]
   }
 
   // Parse rating
@@ -41,15 +41,17 @@
       }
 
       music.note = music.notes[x[1]]
+      const mult = getMult(x[3])
       return {
         music: music,
         musicId: x[0],
         difficulty: x[1],
         todo: x[2],  // TODO: Figure out what this is
         achievement: x[3],
-        calc: getMult(x[3]) * music.note.lv
+        calc: (mult[1] as number) * music.note.lv,
+        rank: mult[2]
       }
-    })
+    }).filter(x => x)
   }
 
   interface ParsedRating {
@@ -68,7 +70,8 @@
     musicId: number,
     difficulty: number,
     achievement: number,
-    calc: number
+    calc: number,
+    rank: string
   }
 
   let parsedRatings: {
@@ -82,6 +85,8 @@
       old: parseRatings(data.rating, musicInfo),
       new: parseRatings(data.ratingNew, musicInfo)
     }
+
+    console.log(parsedRatings)
   })
 </script>
 
@@ -89,34 +94,27 @@
 <div>
   <!-- Display all parsed ratings -->
   {#if parsedRatings}
-    <div>
-      <h2>Old</h2>
+    {#each [{title: "Old", data: parsedRatings.old}, {title: "New", data: parsedRatings.new}] as section}
+      <h2>{section.title}</h2>
       <div class="rating-cards">
-        {#each parsedRatings.old as rating}
+        {#each section.data as rating}
           <div class="level-{rating.difficulty}">
             <img class="cover" src={`${data_host}/maimai/assetbundle/jacket_s/00${rating.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="">
 
             <div class="detail">
               <span class="name">{rating.music.name}</span>
-              <span>{(rating.achievement / 10000).toFixed(2)}%</span>
+              <span class="rating">
+                <span>{(rating.achievement / 10000).toFixed(2)}%</span>
+                <img class="rank" src={`${data_host}/maimai/sprites/rankimage/UI_GAM_Rank_${rating.rank}.png`} alt="">
+              </span>
               <span>{rating.calc.toFixed(1)}</span>
             </div>
             <img class="ver" src={`${data_host}/maimai/sprites/tab/title/UI_CMN_TabTitle_MaimaiTitle_Ver${rating.music.ver.toString().substring(0, 3)}.png`} alt="">
-
             <div class="lv">{rating.music.note.lv}</div>
           </div>
         {/each}
       </div>
-    </div>
-    <div>
-      <h2>New</h2>
-      <div>
-        {#each parsedRatings.new as rating}
-          <div>
-          </div>
-        {/each}
-      </div>
-    </div>
+    {/each}
   {/if}
 </div>
 
@@ -147,20 +145,27 @@
     &.level-3
       --lv-color: #e881ff
 
+    img
+      object-fit: cover
+      pointer-events: none
+
     img.cover
       width: 100%
       height: 100%
-      object-fit: cover
       border-radius: calc($border-radius - 3px)
-      pointer-events: none
 
     img.ver
       position: absolute
       top: -20px
       left: -30px
       height: 50px
-      object-fit: cover
-      pointer-events: none
+
+    //img.rank
+    //  position: absolute
+    //  bottom: 20px
+    //  right: 45px
+    //  z-index: 5
+    //  height: 30px
 
     // Information
     .detail
@@ -191,6 +196,11 @@
         font-size: 1.2rem
         font-weight: bold
 
+      .rating
+        display: flex
+        img
+          height: 1.5em
+
     .lv
       position: absolute
       bottom: 0
@@ -203,10 +213,6 @@
       font-size: 1.3rem
 
       &:before
-        content: "Lv "
+        content: "Lv"
         font-size: 0.8rem
-
-
-
-
 </style>
