@@ -40,7 +40,7 @@ If you want to use optional databases, edit configuration file then it will auto
 Configuration is saved in `config/application.properties`, spring loads this file automatically.
 
 * The host and port of game title servers can be overritten in `allnet.server.host` and `allnet.server.port`. By default it will send the same host and port the client used the request this information.
-This will be send to the game at booting and being used by following request.
+This will be sent to the game at booting and being used by following request.
 * You can switch to MariaDB (or MySQL) database by commenting the Sqlite part.
 * For some game, you might need to change some game specific config entries.
 
