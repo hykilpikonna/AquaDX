@@ -29,6 +29,8 @@
     flex-direction: column
     justify-content: center
 
+    margin-top: -$nav-height
+
     > h1
       font-family: Quicksand, $font
       user-select: none
