@@ -169,6 +169,11 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@kurkle/color@^0.3.0":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@kurkle/color/-/color-0.3.2.tgz#5acd38242e8bde4f9986e7913c8fdf49d3aa199f"
+  integrity sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -351,6 +356,18 @@ callsites@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/callsites/-/callsites-3.1.0.tgz#b3630abd8943432f54b3f0519238e33cd7df2f73"
   integrity sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==
+
+chart.js@^4.4.1:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-4.4.1.tgz#ac5dc0e69a7758909158a96fe80ce43b3bb96a9f"
+  integrity sha512-C74QN1bxwV1v2PEujhmKjOZ7iUM4w6BWs23Md/6aOZZSlwMzeCIDGuZay++rBgChYru7/+QFeoQW0fQoP534Dg==
+  dependencies:
+    "@kurkle/color" "^0.3.0"
+
+chartjs-adapter-moment@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/chartjs-adapter-moment/-/chartjs-adapter-moment-1.0.1.tgz#0f04c30d330b207c14bfb57dfaae9ce332f09102"
+  integrity sha512-Uz+nTX/GxocuqXpGylxK19YG4R3OSVf8326D+HwSTsNw1LgzyIGRo+Qujwro1wy6X+soNSnfj5t2vZ+r6EaDmA==
 
 "chokidar@>=3.0.0 <4.0.0", chokidar@^3.4.1:
   version "3.6.0"
@@ -629,6 +646,11 @@ mkdirp@^0.5.1:
   dependencies:
     minimist "^1.2.6"
 
+moment@^2.30.1:
+  version "2.30.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.30.1.tgz#f8c91c07b7a786e30c59926df530b4eac96974ae"
+  integrity sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==
+
 mri@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/mri/-/mri-1.2.0.tgz#6721480fec2a11a4889861115a48b6cbe7cc8f0b"
@@ -802,6 +824,11 @@ strip-indent@^3.0.0:
   dependencies:
     min-indent "^1.0.0"
 
+svelte-chartjs@^3.1.5:
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/svelte-chartjs/-/svelte-chartjs-3.1.5.tgz#7e43a57d077037ff8edaa00e2f7854f1be07dff6"
+  integrity sha512-ka2zh7v5FiwfAX1oMflZ0HkNkgjHjFqANgRyC+vNYXfxtx2ku68Zo+2KgbKeBH2nS1ThDqkIACPzGxy4T0UaoA==
+
 svelte-check@^3.6.2:
   version "3.6.3"
   resolved "https://registry.yarnpkg.com/svelte-check/-/svelte-check-3.6.3.tgz#416c9a83deb7c2030046824ebee10ab93bbcd394"
@@ -815,6 +842,11 @@ svelte-check@^3.6.2:
     sade "^1.7.4"
     svelte-preprocess "^5.1.0"
     typescript "^5.0.3"
+
+svelte-heatmap@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/svelte-heatmap/-/svelte-heatmap-1.0.2.tgz#435fbadd409e8308a3f39070b67870f554acac14"
+  integrity sha512-qVsJj/Y/FQCjYJ2A7QU/v87FjGFjWqrTIb+qPumrudzH5w6D5WoubHF7Q2g38naJry4ADO1I0K29UuC86t5lJw==
 
 svelte-hmr@^0.15.3:
   version "0.15.3"
@@ -837,7 +869,7 @@ svelte-routing@^2.11.0:
   resolved "https://registry.yarnpkg.com/svelte-routing/-/svelte-routing-2.11.0.tgz#0fddfbd329c4217bb79c864cd9c84e60264c0839"
   integrity sha512-oNJz2A8g5ZqBDuxUWMJLpU9XXGZ40Fz5uRvrGlpENs5C2QWK5m7YKiGINssN9yI/22f9wi4F5oTTkDaTyryolw==
 
-svelte@^4.2.8:
+svelte@^4.2.10:
   version "4.2.10"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-4.2.10.tgz#3bef8d79ca75eb53cc4d03f9fac1546e60393f77"
   integrity sha512-Ep06yCaCdgG1Mafb/Rx8sJ1QS3RW2I2BxGp2Ui9LBHSZ2/tO/aGLc5WqPjgiAP6KAnLJGaIr/zzwQlOo1b8MxA==
