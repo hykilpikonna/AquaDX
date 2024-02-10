@@ -3,6 +3,22 @@
   import {getMaimai, getMult} from "../libs/maimai";
   import type {ParsedRating, Rating} from "../libs/maimaiTypes";
 
+  export let userId: any
+  userId = +userId
+
+  if (!userId) console.error("No user ID provided")
+  else {
+    getMaimai("GetUserRatingApi", {userId}).then(it => {
+      data = it
+      parseRatings()
+    })
+
+    fetch(`${data_host}/maimai/meta/00/all-music.json`).then(it => it.json()).then(it => {
+      musicInfo = it
+      parseRatings()
+    })
+  }
+
   function parseRatings() {
     if (!data || !musicInfo) return
     parsedRatings = {
@@ -44,16 +60,6 @@
   } | null = null
 
   let musicInfo: any = null
-
-  getMaimai("GetUserRatingApi", {userId: 61702139}).then(it => {
-    data = it
-    parseRatings()
-  })
-
-  fetch(`${data_host}/maimai/meta/00/all-music.json`).then(it => it.json()).then(it => {
-    musicInfo = it
-    parseRatings()
-  })
 </script>
 
 <!-- Display all parsed ratings -->

@@ -10,6 +10,6 @@
 <Router {url}>
   <div>
     <Route path="/"><Home /></Route>
-    <Route path="/mai/rating"><MaimaiRating /></Route>
+    <Route path="/u/:userId/mai/rating" component={MaimaiRating}></Route>
   </div>
 </Router>
