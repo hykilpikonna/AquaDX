@@ -1,5 +1,6 @@
 
 import argparse
+import os
 import shutil
 from pathlib import Path
 
@@ -45,6 +46,32 @@ def convert_one(file: Path):
     write(target, orjson.dumps(xml))
 
 
+def combine_music():
+    # Read all music json files
+    music_files = list(dst.rglob('music/*.json'))
+    print(f'> Found {len(music_files)} music files')
+    jsons = [orjson.loads(f.read_text()) for f in music_files]
+
+    # Combine all music
+    combined = {d['name']['id']: {
+        'name': d['name']['str'],
+        'ver': int(d['version']),
+        'composer': d['artistName']['str'],
+        'genre': d['genreName']['str'],
+        'bpm': int(d['bpm']),
+        'lock': f"{d['lockType']} {d['subLockType']}",
+        'notes': [{
+            'lv': int(n['level']) + (int(n['levelDecimal']) / 10),
+            'designer': n['notesDesigner']['str'],
+            'lv_id': n['musicLevelID'],
+            'notes': int(n['maxNotes']),
+        } for n in d['notesData']['Notes'] if n['isEnable'] != 'false']
+    } for d in jsons}
+
+    # Write combined music
+    write(dst / '00/all-music.json', orjson.dumps(combined))
+
+
 if __name__ == '__main__':
     agupa = argparse.ArgumentParser()
     agupa.add_argument('source', type=str, help='Package/Sinmai_Data/StreamingAssets directory')
@@ -53,6 +80,24 @@ if __name__ == '__main__':
 
     src = Path(args.source)
     dst = Path(args.destination)
+
+    # Special post-convert command to relocate stuff
+    if args.source == 'post-convert':
+        ori = dst
+        dst = dst.parent
+
+        # In assetbundle/dir, move each XXX_{id}_XXX.png to assetbundle/dir/{id}.png
+        for d in os.listdir(dst / 'assetbundle'):
+            d = dst / 'assetbundle' / d
+            if not d.is_dir():
+                continue
+
+            print(f'Relocating {d}')
+            for file in d.rglob('*.png'):
+                id = ''.join(filter(str.isdigit, file.stem))
+                shutil.move(file, d / f'{id}.png')
+
+        exit(0)
 
     # Assert that A000 exists in the source directory
     assert (src / 'A000').exists(), f'{src}/A000 does not exist'
@@ -69,5 +114,10 @@ if __name__ == '__main__':
 
     # Multithreaded map
     pmap(convert_one, files, desc='Converting', unit='file', chunksize=50)
+    print('> Finished converting')
+
+    # Convert all music
+    print('Combining music')
+    combine_music()
 
 
