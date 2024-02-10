@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.sega.general.filter;
 
 import icu.samnyan.aqua.sega.util.Compression;
+import org.eclipse.jetty.io.EofException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -64,8 +65,11 @@ public class CompressionFilter extends OncePerRequestFilter {
         response.setContentType("application/json; charset=utf-8");
         response.addHeader("Content-Encoding", "deflate");
 
-        response.getOutputStream().write(respResult);
-
+        try {
+            response.getOutputStream().write(respResult);
+        } catch (EofException e) {
+            logger.warn("Client closed connection");
+        }
     }
 
     @Override
