@@ -4,8 +4,9 @@ import java.time.ZoneId
 
 plugins {
     java
-    kotlin("jvm") version "1.6.10"
-    id("io.freefair.lombok") version "6.6.3"
+    kotlin("plugin.lombok") version "1.9.22"
+    kotlin("jvm") version "1.9.22"
+    id("io.freefair.lombok") version "8.1.0"
     id("org.springframework.boot") version "2.7.11"
 }
 
