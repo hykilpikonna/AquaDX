@@ -12,7 +12,7 @@
   <div>home</div>
   <div>maps</div>
   <div>rankings</div>
-  <Icon icon="tabler:search" />
+  <div><Icon icon="tabler:search" /></div>
 </nav>
 
 <Router {url}>
@@ -41,6 +41,9 @@
       transition: all 0.2s ease
       text-decoration: underline 1px solid transparent
       text-underline-offset: 0.1em
+
+      display: flex
+      align-items: center
 
       &:hover
         color: $c-main
