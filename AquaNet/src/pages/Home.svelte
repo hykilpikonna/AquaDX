@@ -75,4 +75,7 @@
         $color: rgb(230, 110, 156)
         background: radial-gradient(50% 50% at 50% 50%, rgba($color, 0.28) 0%, rgba($color, 0) 100%)
 
+    @media (max-width: 500px)
+      align-items: center
+      padding-left: 0
 </style>
