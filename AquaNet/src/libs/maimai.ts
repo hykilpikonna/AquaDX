@@ -1,4 +1,5 @@
 import {aqua_host} from "./config";
+import type {TrendEntry} from "./generalTypes";
 
 
 const multTable = [
@@ -28,4 +29,14 @@ export async function getMaimai(endpoint: string, params: any) {
         method: "POST",
         body: JSON.stringify(params)
     }).then(res => res.json())
+}
+
+export async function getMaimaiApi(endpoint: string, params: any) {
+    let url = new URL(`${aqua_host}/api/game/maimai2new/${endpoint}`)
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+    return await fetch(url).then(res => res.json())
+}
+
+export async function getMaimaiTrend(userId: number): Promise<TrendEntry[]> {
+    return await getMaimaiApi("trend", {userId})
 }
