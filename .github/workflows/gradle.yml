@@ -3,6 +3,7 @@ name: Gradle Build
 on:
   pull_request:
     branches: [ master ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -21,4 +22,6 @@ jobs:
       uses: gradle/gradle-build-action@v2
 
     - name: Build with Gradle
-      run: ./gradlew build
+      run: |
+        mkdir data
+        ./gradlew build
