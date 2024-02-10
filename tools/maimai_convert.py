@@ -66,6 +66,38 @@ def add_migration(f_name: str, mysql: str):
     (migration_path / 'sqlite' / f_name).write_text(';\n'.join(sqlite) + ';\n')
 
 
+class Character(NamedTuple):
+    id: int  # CharaData.name.id
+    name: str  # CharaData.name.str
+    color_id: int  # CharaData.color.id
+    color_name: str  # CharaData.color.str
+    genre_id: int  # CharaData.genre.id
+    genre_name: str  # CharaData.genre.str
+    is_copyright: bool  # CharaData.isCopyright
+    disable: bool  # CharaData.disable
+
+
+def parse_bool(s: str) -> bool:
+    if s == 'true' or s == '1':
+        return True
+    if s == 'false' or s == '0':
+        return False
+    raise ValueError(f'Invalid boolean value: {s}')
+
+
+def parse_character(d: dict) -> Character:
+    return Character(
+        id=int(d['CharaData']['name']['id']),
+        name=d['CharaData']['name']['str'],
+        color_id=int(d['CharaData']['color']['id']),
+        color_name=d['CharaData']['color']['str'],
+        genre_id=int(d['CharaData']['genre']['id']),
+        genre_name=d['CharaData']['genre']['str'],
+        is_copyright=parse_bool(d['CharaData']['isCopyright']),
+        disable=parse_bool(d['CharaData']['disable'])
+    )
+
+
 if __name__ == '__main__':
     agupa = argparse.ArgumentParser(description='Convert maimai data to csv')
     agupa.add_argument('path', type=Path, help='Path to A000 data folder')
@@ -76,6 +108,8 @@ if __name__ == '__main__':
     tickets = read_list('ticket', '*/Ticket.xml', parse_ticket)
 
     events = read_list('event', '*/Event.xml', parse_event)
+
+    characters = read_list('chara', '*/Chara.xml', parse_character)
 
     # Write incremental sql
     # ids = [int(v.split(",")[0]) for v in (Path(__file__).parent / 'maimai2_game_event.csv').read_text().splitlines()]
@@ -107,5 +141,4 @@ CREATE TABLE `maimai2_game_ticket` (
         ",\n".join([f"({t.id}, '{t.name}', {t.credits}, '{t.kind}', {t.max}, '{t.detail}', {t.eventId}, '{t.eventName}')" for t in tickets])
     sql += ";\n"
     add_migration(f"V{last_sql_version + 1}__maimai2_tickets.sql", sql)
-
 
