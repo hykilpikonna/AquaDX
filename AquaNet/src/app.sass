@@ -13,7 +13,7 @@ body
   margin: 0
   overflow-x: hidden
 
-  color-scheme: light dark
+  color-scheme: dark
   color: rgba(255, 255, 255, 0.87)
   background-color: $c-bg
 
@@ -61,10 +61,13 @@ button
   background-color: #1a1a1a
   opacity: 0.9
   cursor: pointer
-  transition: border-color 0.25s
+  transition: all 0.25s
+
 
 button:hover
-  border-color: $c-main
+  border: 1px solid $c-main
+
 
 button:focus, button:focus-visible
-  outline: 4px auto -webkit-focus-ring-color
+  color: $c-main
+  outline: none
