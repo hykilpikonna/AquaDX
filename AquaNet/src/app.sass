@@ -1,10 +1,17 @@
 @import "vars"
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap')
 
+html
+  height: 100%
+
 body
   font-family: $font
   line-height: 1.5
   font-weight: 400
+  width: 100%
+  height: 100%
+  margin: 0
+  overflow-x: hidden
 
   color-scheme: light dark
   color: rgba(255, 255, 255, 0.87)
@@ -23,15 +30,6 @@ a
 a:hover
   color: $c-main
 
-
-body
-  margin: 0
-  display: flex
-  place-items: center
-  min-width: 320px
-  min-height: 100vh
-
-
 h1
   font-size: 3.2em
   line-height: 1.1
@@ -42,10 +40,15 @@ h1
 
 
 #app
+  width: 100%
+  height: 100%
+
+
+main:not(.no-margin)
   max-width: 1280px
   margin: 0 auto
-  padding: 2rem
   width: 100%
+  height: 100%
 
 
 button
@@ -56,6 +59,7 @@ button
   font-weight: 500
   font-family: inherit
   background-color: #1a1a1a
+  opacity: 0.9
   cursor: pointer
   transition: border-color 0.25s
 

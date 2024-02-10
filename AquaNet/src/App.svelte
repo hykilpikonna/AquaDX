@@ -9,9 +9,7 @@
 </script>
 
 <Router {url}>
-  <div>
-    <Route path="/"><Home /></Route>
-    <Route path="/u/:userId" component={UserHome}></Route>
-    <Route path="/u/:userId/mai/rating" component={MaimaiRating}></Route>
-  </div>
+  <Route path="/"><Home /></Route>
+  <Route path="/u/:userId" component={UserHome}></Route>
+  <Route path="/u/:userId/mai/rating" component={MaimaiRating}></Route>
 </Router>
