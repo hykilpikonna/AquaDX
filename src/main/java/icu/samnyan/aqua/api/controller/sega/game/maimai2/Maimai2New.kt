@@ -14,17 +14,19 @@ class Maimai2New(
     private val userPlaylogRepository: UserPlaylogRepository
 )
 {
-    data class TrendOut(val date: String, val rating: Int)
+    data class TrendOut(val date: String, val rating: Int, val plays: Int)
 
     @GetMapping("trend")
     fun trend(@RequestParam userId: Long): List<TrendOut> {
-        // O(n log n) sort TODO: It might be possible to optimize this
+        // O(n log n) sort
         val d = userPlaylogRepository.findByUser_Card_ExtId(userId).sortedBy { it.playDate }.toList()
 
-        // Assume it's sorted by date, map the values O(n)
-        val map = d.associate { it.playDate to it.afterRating }
+        // Precompute the play counts for each date in O(n)
+        val playCounts = d.groupingBy { it.playDate }.eachCount()
 
-        // Is sorting here necessary?
-        return map.map { TrendOut(it.key, it.value) }.sortedBy { it.date }
+        // Use the precomputed play counts
+        return d.distinctBy { it.playDate }
+            .map { TrendOut(it.playDate, it.afterRating, playCounts[it.playDate] ?: 0) }
+            .sortedBy { it.date }
     }
 }
