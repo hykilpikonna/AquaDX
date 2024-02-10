@@ -62,30 +62,32 @@
   let musicInfo: any = null
 </script>
 
-<!-- Display all parsed ratings -->
-{#if parsedRatings}
-  {#each [{title: "Old", data: parsedRatings.old}, {title: "New", data: parsedRatings.new}] as section}
-    <h2>{section.title}</h2>
-    <div class="rating-cards">
-      {#each section.data as rating}
-        <div class="level-{rating.level}">
-          <img class="cover" src={`${data_host}/maimai/assetbundle/jacket_s/00${rating.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="">
+<main>
+  <!-- Display all parsed ratings -->
+  {#if parsedRatings}
+    {#each [{title: "Old", data: parsedRatings.old}, {title: "New", data: parsedRatings.new}] as section}
+      <h2>{section.title}</h2>
+      <div class="rating-cards">
+        {#each section.data as rating}
+          <div class="level-{rating.level}">
+            <img class="cover" src={`${data_host}/maimai/assetbundle/jacket_s/00${rating.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="">
 
-          <div class="detail">
-            <span class="name">{rating.music.name}</span>
-            <span class="rating">
+            <div class="detail">
+              <span class="name">{rating.music.name}</span>
+              <span class="rating">
               <span>{(rating.achievement / 10000).toFixed(2)}%</span>
               <img class="rank" src={`${data_host}/maimai/sprites/rankimage/UI_GAM_Rank_${rating.rank}.png`} alt="">
             </span>
-            <span>{rating.calc.toFixed(1)}</span>
+              <span>{rating.calc.toFixed(1)}</span>
+            </div>
+            <img class="ver" src={`${data_host}/maimai/sprites/tab/title/UI_CMN_TabTitle_MaimaiTitle_Ver${rating.music.ver.toString().substring(0, 3)}.png`} alt="">
+            <div class="lv">{rating.music.note.lv}</div>
           </div>
-          <img class="ver" src={`${data_host}/maimai/sprites/tab/title/UI_CMN_TabTitle_MaimaiTitle_Ver${rating.music.ver.toString().substring(0, 3)}.png`} alt="">
-          <div class="lv">{rating.music.note.lv}</div>
-        </div>
-      {/each}
-    </div>
-  {/each}
-{/if}
+        {/each}
+      </div>
+    {/each}
+  {/if}
+</main>
 
 <style lang="sass">
 .rating-cards
