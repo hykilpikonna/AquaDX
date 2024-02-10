@@ -1,5 +1,5 @@
 
-const aqua_host = 'https://aqua-data.example.com/Maimai2Servlet'
-const data_host = 'https://aqua-data.example.com'
+const aqua_host = 'https://aquanet.example.com/Maimai2Servlet'
+const data_host = 'https://aquanet.example.com'
 
 export { aqua_host, data_host }
