@@ -64,7 +64,9 @@
           </div>
 
           <div class="trend">
-            <Line data={{
+            <!-- ChartJS cannot be fully responsive unless there is a parent div that's independent from its size and helps it determine its size -->
+            <div class="chartjs-box-reference">
+              <Line data={{
               datasets: [
                 {
                   label: 'Rating',
@@ -76,6 +78,7 @@
                 }
               ]
             }} options={CHARTJS_OPT} />
+            </div>
           </div>
 
           <div class="info-bottom">
@@ -258,6 +261,12 @@ $gap: 20px
       height: 300px
       width: 100%
       max-width: 790px
+
+      position: relative
+
+      > .chartjs-box-reference
+        position: absolute
+        inset: 0
 
     @media (max-width: $w-mobile)
       flex-direction: column
