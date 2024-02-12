@@ -60,7 +60,7 @@ class Maimai2New(
         }
 
         return mapOf(
-            "name" to user,
+            "name" to user.userName,
             "iconId" to user.iconId,
 
             "serverRank" to userDataRepository.getRanking(user.playerRating),

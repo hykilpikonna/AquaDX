@@ -6,13 +6,14 @@ import {
     LineElement,
     LinearScale,
     PointElement,
-    CategoryScale, TimeScale,
+    CategoryScale, TimeScale, type ChartOptions, type LineOptions,
 } from 'chart.js';
 import moment from "moment/moment";
 // @ts-ignore
 import CalHeatmap from "cal-heatmap";
 // @ts-ignore
 import CalTooltip from 'cal-heatmap/plugins/Tooltip';
+import type {Line} from "svelte-chartjs";
 
 export function title(t: string) {
     document.title = `AquaNet - ${t}`
@@ -60,3 +61,32 @@ export function renderCal(el: HTMLElement, d: {date: any, value: any}[]) {
     ]);
 }
 
+
+export const CHARTJS_OPT: ChartOptions<"line"> = {
+    responsive: true,
+    maintainAspectRatio: false,
+    // TODO: Show point on hover
+    elements: {
+        point: {
+            radius: 0
+        }
+    },
+    scales: {
+        xAxis: {
+            type: 'time',
+            display: false
+        },
+        y: {
+            display: false,
+        }
+    },
+    plugins: {
+        legend: {
+            display: false
+        },
+        tooltip: {
+            mode: "index",
+            intersect: false
+        }
+    },
+}
