@@ -292,4 +292,62 @@ $gap: 20px
           flex-direction: row
           justify-content: space-between
 
+  .recent
+    .scores
+      display: flex
+      flex-direction: column
+      flex-wrap: wrap
+      gap: $gap
+
+      > div.alt
+        background-color: rgba(white, 0.03)
+        border-radius: 10px
+
+      // Image and song info
+      > div
+        display: flex
+        align-items: center
+        gap: $gap
+        padding-right: 16px
+
+        img
+          width: 50px
+          height: 50px
+          border-radius: 10px
+          object-fit: cover
+
+        // Song info and score
+        > div
+          flex: 1
+          display: flex
+          justify-content: space-between
+
+        .rank-S
+          // Gold green gradient on text
+          background: linear-gradient(90deg, #ffee94, #ffb798, #ffa3e5, #ebff94)
+          -webkit-background-clip: text
+          color: transparent
+
+        .rank-A
+          color: #ff8a8a
+
+        .rank-B
+          color: #6ba6ff
+
+        span
+          display: inline-block
+          text-align: right
+
+        // Vertical table-like alignment
+        span.rank-text
+          min-width: 30px
+        span.rank-num
+          min-width: 60px
+        span.dx-change
+          min-width: 30px
+
+      span.increased
+        &:before
+          content: "+"
+        color: $c-good
 </style>
