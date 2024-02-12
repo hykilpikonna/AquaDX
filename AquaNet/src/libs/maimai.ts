@@ -1,4 +1,4 @@
-import {aqua_host} from "./config";
+import {aqua_host, data_host} from "./config";
 import type {TrendEntry} from "./generalTypes";
 import type {MaimaiUserSummaryEntry} from "./maimaiTypes";
 
@@ -30,6 +30,10 @@ export async function getMaimai(endpoint: string, params: any) {
         method: "POST",
         body: JSON.stringify(params)
     }).then(res => res.json())
+}
+
+export async function getMaimaiAllMusic(): Promise<{ [key: string]: any }> {
+    return fetch(`${data_host}/maimai/meta/00/all-music.json`).then(it => it.json())
 }
 
 export async function getMaimaiApi(endpoint: string, params: any) {

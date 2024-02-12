@@ -1,31 +1,30 @@
 <script lang="ts">
   import {data_host} from "../libs/config";
-  import {getMaimai, getMult} from "../libs/maimai";
+  import {getMaimaiAllMusic, getMaimai, getMult} from "../libs/maimai";
   import type {ParsedRating, Rating} from "../libs/maimaiTypes";
 
   export let userId: any
   userId = +userId
 
   if (!userId) console.error("No user ID provided")
-  else {
-    getMaimai("GetUserRatingApi", {userId}).then(it => {
-      data = it
-      parseRatings()
-    })
 
-    fetch(`${data_host}/maimai/meta/00/all-music.json`).then(it => it.json()).then(it => {
-      musicInfo = it
-      parseRatings()
-    })
-  }
+  Promise.all([
+    getMaimai("GetUserRatingApi", {userId}),
+    getMaimaiAllMusic().then(it => it.json())
+  ]).then(([rating, music]) => {
+    data = rating
+    musicInfo = music
 
-  function parseRatings() {
-    if (!data || !musicInfo) return
+    if (!data || !musicInfo) {
+      console.error("Failed to fetch data")
+      return
+    }
+
     parsedRatings = {
       old: parseRating(data.userRating.ratingList),
       new: parseRating(data.userRating.newRatingList)
     }
-  }
+  })
 
   function parseRating(arr: Rating[]) {
     return arr.map(x => {
