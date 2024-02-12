@@ -158,7 +158,7 @@
           <div class={clazz({alt: i % 2 === 0})}>
             <img src={`${data_host}/maimai/assetbundle/jacket_s/00${r.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="">
             <div class="info">
-              <div>{r.name}</div>
+              <div class="name">{r.name}</div>
               <div>
                 <span class={"rank-" + ("" + getMult(r.achievement)[2])[0]}>
                   <span class="rank-text">{("" + getMult(r.achievement)[2]).replace("p", "+")}</span>
@@ -310,6 +310,12 @@ $gap: 20px
         gap: $gap
         padding-right: 16px
 
+        // Limit song name to one line
+        .name
+          white-space: nowrap
+          overflow: hidden
+          text-overflow: ellipsis
+
         img
           width: 50px
           height: 50px
@@ -321,6 +327,13 @@ $gap: 20px
           flex: 1
           display: flex
           justify-content: space-between
+
+          @media (max-width: $w-mobile)
+            flex-direction: column
+            gap: 0
+
+            span
+              text-align: left
 
         .rank-S
           // Gold green gradient on text
