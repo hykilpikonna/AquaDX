@@ -2,7 +2,12 @@
 
 Multipurpose game server powered by Spring Boot, for ALL.Net based games
 
-This is a forked maintaining attempt of the [original Aqua server](https://dev.s-ul.net/NeumPhis/aqua)
+This is an attempt to rebuild the [original Aqua server](https://dev.s-ul.net/NeumPhis/aqua)
+
+## Related Projects
+
+* [AquaMai](./AquaMai): A maimai DX mod that adds many features to the game.
+* [AquaNet](./AquaNet): A new web frontend for the modern age.
 
 ### Supported Games
 
