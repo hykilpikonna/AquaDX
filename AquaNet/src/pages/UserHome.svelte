@@ -1,7 +1,7 @@
 <script lang="ts">
-  import {CHARTJS_OPT, registerChart, renderCal, title} from "../libs/ui";
-  import {getMaimaiTrend, getMaimaiUser} from "../libs/maimai";
-  import type {MaimaiUserSummaryEntry} from "../libs/maimaiTypes";
+  import {CHARTJS_OPT, clazz, registerChart, renderCal, title} from "../libs/ui";
+  import {getMaimaiAllMusic, getMaimaiTrend, getMaimaiUser, getMult} from "../libs/maimai";
+  import type {MaimaiMusic, MaimaiUserPlaylog, MaimaiUserSummaryEntry} from "../libs/maimaiTypes";
   import type {TrendEntry} from "../libs/generalTypes";
   import {data_host} from "../libs/config";
   import 'cal-heatmap/cal-heatmap.css';
@@ -17,19 +17,24 @@
 
   title(`User ${userId}`)
 
+  interface MusicAndPlay extends MaimaiMusic, MaimaiUserPlaylog {}
+
   let d: {
     user: MaimaiUserSummaryEntry,
     trend: TrendEntry[]
+    recent: MusicAndPlay[]
   } | null = null
 
   Promise.all([
     getMaimaiUser(userId),
-    getMaimaiTrend(userId)
-  ]).then(([user, trend]) => {
+    getMaimaiTrend(userId),
+    getMaimaiAllMusic()
+  ]).then(([user, trend, music]) => {
     console.log(user)
     console.log(trend)
+    console.log(music)
 
-    d = {user, trend}
+    d = {user, trend, recent: user.recent.map(it => {return {...music[it.musicId], ...it}})}
     localStorage.setItem("tmp-user-details", JSON.stringify(d))
     renderCal(calElement, trend.map(it => {return {date: it.date, value: it.plays}}))
   })
@@ -143,6 +148,29 @@
             <span>{d.user.lastVersion}</span>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="recent">
+      <h2>Recent Scores</h2>
+      <div class="scores">
+        {#each d.recent as r, i}
+          <div class={clazz({alt: i % 2 === 0})}>
+            <img src={`${data_host}/maimai/assetbundle/jacket_s/00${r.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="">
+            <div class="info">
+              <div>{r.name}</div>
+              <div>
+                <span class={"rank-" + ("" + getMult(r.achievement)[2])[0]}>
+                  <span class="rank-text">{("" + getMult(r.achievement)[2]).replace("p", "+")}</span>
+                  <span class="rank-num">{(r.achievement / 10000).toFixed(2)}%</span>
+                </span>
+                <span class={"dx-change " + clazz({increased: r.afterDeluxRating - r.beforeDeluxRating > 0})}>
+                  {r.afterDeluxRating - r.beforeDeluxRating}
+                </span>
+              </div>
+            </div>
+          </div>
+        {/each}
       </div>
     </div>
   {:else}
