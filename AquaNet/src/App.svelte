@@ -15,24 +15,14 @@
   <div><Icon icon="tabler:search" /></div>
 </nav>
 
-<div id="wrapper">
-  <Router {url}>
-    <Route path="/"><Home /></Route>
-    <Route path="/u/:userId" component={UserHome}></Route>
-    <Route path="/u/:userId/mai/rating" component={MaimaiRating}></Route>
-  </Router>
-</div>
+<Router {url}>
+  <Route path="/"><Home /></Route>
+  <Route path="/u/:userId" component={UserHome}></Route>
+  <Route path="/u/:userId/mai/rating" component={MaimaiRating}></Route>
+</Router>
 
 <style lang="sass">
   @import "vars"
-
-  #wrapper
-    display: flex
-    flex-direction: column
-    align-items: center
-
-    height: 100%
-    min-height: 100%
 
   nav
     display: flex
