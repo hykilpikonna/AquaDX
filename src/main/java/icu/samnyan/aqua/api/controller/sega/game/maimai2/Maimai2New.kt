@@ -57,6 +57,7 @@ class Maimai2New(
 
         return mapOf(
             "name" to user,
+            "iconId" to user.iconId,
             "plays" to plays.size,
             "serverRank" to userDataRepository.getRanking(user.playerRating),
             "accuracy" to plays.sumOf { it.achievement } / plays.size,
@@ -65,7 +66,9 @@ class Maimai2New(
             "ranks" to ranks,
             "maxCombo" to plays.maxOf { it.maxCombo },
             "fullCombo" to plays.count { it.totalCombo == it.maxCombo },
-            "allPerfect" to plays.count { it.achievement == 1010000 }
+            "allPerfect" to plays.count { it.achievement == 1010000 },
+            "totalDxScore" to user.totalDeluxscore,
+            "totalPlayTime" to plays.count() * 3 // TODO: Make a more accurate estimate
         )
     }
 }
