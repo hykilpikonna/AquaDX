@@ -1,5 +1,5 @@
 export interface TrendEntry {
-    date: string
-    rating: number
-    plays: number
+  date: string
+  rating: number
+  plays: number
 }

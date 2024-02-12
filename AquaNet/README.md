@@ -1,6 +1,6 @@
 # AquaNet
 
-This is the codebase for the new frontend of AquaDX. 
+This is the codebase for the new frontend of AquaDX.
 This project is also heavily WIP, so more details will be added later on.
 
 ## Development
@@ -19,4 +19,3 @@ Finally, run:
 yarn install
 yarn dev
 ```
-

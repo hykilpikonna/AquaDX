@@ -1,17 +1,26 @@
 <script lang="ts">
-  import {CHARTJS_OPT, clazz, registerChart, renderCal, title} from "../libs/ui";
-  import {getMaimaiAllMusic, getMaimaiTrend, getMaimaiUser, getMult} from "../libs/maimai";
-  import type {MaimaiMusic, MaimaiUserPlaylog, MaimaiUserSummaryEntry} from "../libs/maimaiTypes";
-  import type {TrendEntry} from "../libs/generalTypes";
-  import {data_host} from "../libs/config";
-  import 'cal-heatmap/cal-heatmap.css';
-  import { Line } from 'svelte-chartjs';
-  import moment from "moment";
-  import 'chartjs-adapter-moment';
+  import {CHARTJS_OPT, clazz, registerChart, renderCal, title} from '../libs/ui'
+  import {
+    getMaimaiAllMusic,
+    getMaimaiTrend,
+    getMaimaiUser,
+    getMult,
+  } from '../libs/maimai'
+  import type {
+    MaimaiMusic,
+    MaimaiUserPlaylog,
+    MaimaiUserSummaryEntry,
+  } from '../libs/maimaiTypes'
+  import type {TrendEntry} from '../libs/generalTypes'
+  import {data_host} from '../libs/config'
+  import 'cal-heatmap/cal-heatmap.css'
+  import {Line} from 'svelte-chartjs'
+  import moment from 'moment'
+  import 'chartjs-adapter-moment'
 
   registerChart()
 
-  export let userId: any;
+  export let userId: any
   userId = +userId
   let calElement: HTMLElement
 
@@ -20,7 +29,7 @@
   interface MusicAndPlay extends MaimaiMusic, MaimaiUserPlaylog {}
 
   let d: {
-    user: MaimaiUserSummaryEntry,
+    user: MaimaiUserSummaryEntry
     trend: TrendEntry[]
     recent: MusicAndPlay[]
   } | null = null
@@ -28,22 +37,37 @@
   Promise.all([
     getMaimaiUser(userId),
     getMaimaiTrend(userId),
-    getMaimaiAllMusic()
+    getMaimaiAllMusic(),
   ]).then(([user, trend, music]) => {
     console.log(user)
     console.log(trend)
     console.log(music)
 
-    d = {user, trend, recent: user.recent.map(it => {return {...music[it.musicId], ...it}})}
-    localStorage.setItem("tmp-user-details", JSON.stringify(d))
-    renderCal(calElement, trend.map(it => {return {date: it.date, value: it.plays}}))
+    d = {
+      user,
+      trend,
+      recent: user.recent.map((it) => {
+        return {...music[it.musicId], ...it}
+      }),
+    }
+    localStorage.setItem('tmp-user-details', JSON.stringify(d))
+    renderCal(
+      calElement,
+      trend.map((it) => {
+        return {date: it.date, value: it.plays}
+      })
+    )
   })
 </script>
 
 <main id="user-home">
   {#if d !== null}
     <div class="user-pfp">
-      <img src={`${data_host}/maimai/assetbundle/icon/${d.user.iconId.toString().padStart(6, "0")}.png`} alt="" class="pfp">
+      <img
+        src={`${data_host}/maimai/assetbundle/icon/${d.user.iconId.toString().padStart(6, '0')}.png`}
+        alt=""
+        class="pfp"
+      />
       <h2>{d.user.name}</h2>
     </div>
 
@@ -66,18 +90,23 @@
           <div class="trend">
             <!-- ChartJS cannot be fully responsive unless there is a parent div that's independent from its size and helps it determine its size -->
             <div class="chartjs-box-reference">
-              <Line data={{
-              datasets: [
-                {
-                  label: 'Rating',
-                  data: d.trend.map(it => {return {x: Date.parse(it.date), y: it.rating}}),
-                  borderColor: '#646cff',
-                  tension: 0.1,
+              <Line
+                data={{
+                  datasets: [
+                    {
+                      label: 'Rating',
+                      data: d.trend.map((it) => {
+                        return {x: Date.parse(it.date), y: it.rating}
+                      }),
+                      borderColor: '#646cff',
+                      tension: 0.1,
 
-                  // TODO: Set X axis span to 3 months
-                }
-              ]
-            }} options={CHARTJS_OPT} />
+                      // TODO: Set X axis span to 3 months
+                    },
+                  ],
+                }}
+                options={CHARTJS_OPT}
+              />
             </div>
           </div>
 
@@ -138,12 +167,12 @@
 
           <div class="first-play">
             <span>First Seen</span>
-            <span>{moment(d.user.joined).format("YYYY-MM-DD")}</span>
+            <span>{moment(d.user.joined).format('YYYY-MM-DD')}</span>
           </div>
 
           <div class="last-play">
             <span>Last Seen</span>
-            <span>{moment(d.user.lastSeen).format("YYYY-MM-DD")}</span>
+            <span>{moment(d.user.lastSeen).format('YYYY-MM-DD')}</span>
           </div>
 
           <div class="last-version">
@@ -159,15 +188,27 @@
       <div class="scores">
         {#each d.recent as r, i}
           <div class={clazz({alt: i % 2 === 0})}>
-            <img src={`${data_host}/maimai/assetbundle/jacket_s/00${r.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="">
+            <img
+              src={`${data_host}/maimai/assetbundle/jacket_s/00${r.musicId.toString().padStart(6, '0').substring(2)}.png`}
+              alt=""
+            />
             <div class="info">
               <span class="name">{r.name}</span>
               <div>
-                <span class={"rank-" + ("" + getMult(r.achievement)[2])[0]}>
-                  <span class="rank-text">{("" + getMult(r.achievement)[2]).replace("p", "+")}</span>
-                  <span class="rank-num">{(r.achievement / 10000).toFixed(2)}%</span>
+                <span class={'rank-' + ('' + getMult(r.achievement)[2])[0]}>
+                  <span class="rank-text"
+                    >{('' + getMult(r.achievement)[2]).replace('p', '+')}</span
+                  >
+                  <span class="rank-num"
+                    >{(r.achievement / 10000).toFixed(2)}%</span
+                  >
                 </span>
-                <span class={"dx-change " + clazz({increased: r.afterDeluxRating - r.beforeDeluxRating > 0})}>
+                <span
+                  class={'dx-change ' +
+                    clazz({
+                      increased: r.afterDeluxRating - r.beforeDeluxRating > 0,
+                    })}
+                >
                   {r.afterDeluxRating - r.beforeDeluxRating}
                 </span>
               </div>

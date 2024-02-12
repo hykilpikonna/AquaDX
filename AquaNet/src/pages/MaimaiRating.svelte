@@ -1,59 +1,62 @@
 <script lang="ts">
-  import {data_host} from "../libs/config";
-  import {getMaimaiAllMusic, getMaimai, getMult} from "../libs/maimai";
-  import type {ParsedRating, Rating} from "../libs/maimaiTypes";
+  import {data_host} from '../libs/config'
+  import {getMaimaiAllMusic, getMaimai, getMult} from '../libs/maimai'
+  import type {ParsedRating, Rating} from '../libs/maimaiTypes'
 
   export let userId: any
   userId = +userId
 
-  if (!userId) console.error("No user ID provided")
+  if (!userId) console.error('No user ID provided')
 
   Promise.all([
-    getMaimai("GetUserRatingApi", {userId}),
-    getMaimaiAllMusic().then(it => it.json())
+    getMaimai('GetUserRatingApi', {userId}),
+    getMaimaiAllMusic(),
   ]).then(([rating, music]) => {
     data = rating
     musicInfo = music
 
     if (!data || !musicInfo) {
-      console.error("Failed to fetch data")
+      console.error('Failed to fetch data')
       return
     }
 
     parsedRatings = {
       old: parseRating(data.userRating.ratingList),
-      new: parseRating(data.userRating.newRatingList)
+      new: parseRating(data.userRating.newRatingList),
     }
   })
 
   function parseRating(arr: Rating[]) {
-    return arr.map(x => {
-      const music = musicInfo[x.musicId]
+    return arr
+      .map((x) => {
+        const music = musicInfo[x.musicId]
 
-      if (!music) {
-        console.error(`Music not found: ${x.musicId}`)
-        return null
-      }
+        if (!music) {
+          console.error(`Music not found: ${x.musicId}`)
+          return null
+        }
 
-      music.note = music.notes[x.level]
-      const mult = getMult(x.achievement)
-      return {...x,
-        music: music,
-        calc: (mult[1] as number) * music.note.lv,
-        rank: mult[2]
-      }
-    }).filter(x => x != null) as ParsedRating[]
+        music.note = music.notes[x.level]
+        const mult = getMult(x.achievement)
+        return {
+          ...x,
+          music: music,
+          calc: (mult[1] as number) * music.note.lv,
+          rank: mult[2],
+        }
+      })
+      .filter((x) => x != null) as ParsedRating[]
   }
 
   let parsedRatings: {
-    old: ParsedRating[],
+    old: ParsedRating[]
     new: ParsedRating[]
   } | null = null
 
   let data: {
     userRating: {
-      rating: number,
-      ratingList: Rating[],
+      rating: number
+      ratingList: Rating[]
       newRatingList: Rating[]
     }
   } | null = null
@@ -64,22 +67,39 @@
 <main>
   <!-- Display all parsed ratings -->
   {#if parsedRatings}
-    {#each [{title: "Old", data: parsedRatings.old}, {title: "New", data: parsedRatings.new}] as section}
+    {#each [{title: 'Old', data: parsedRatings.old}, {title: 'New', data: parsedRatings.new}] as section}
       <h2>{section.title}</h2>
       <div class="rating-cards">
         {#each section.data as rating}
           <div class="level-{rating.level}">
-            <img class="cover" src={`${data_host}/maimai/assetbundle/jacket_s/00${rating.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="">
+            <img
+              class="cover"
+              src={`${data_host}/maimai/assetbundle/jacket_s/00${rating.musicId
+                .toString()
+                .padStart(6, '0')
+                .substring(2)}.png`}
+              alt=""
+            />
 
             <div class="detail">
               <span class="name">{rating.music.name}</span>
               <span class="rating">
-              <span>{(rating.achievement / 10000).toFixed(2)}%</span>
-              <img class="rank" src={`${data_host}/maimai/sprites/rankimage/UI_GAM_Rank_${rating.rank}.png`} alt="">
-            </span>
+                <span>{(rating.achievement / 10000).toFixed(2)}%</span>
+                <img
+                  class="rank"
+                  src={`${data_host}/maimai/sprites/rankimage/UI_GAM_Rank_${rating.rank}.png`}
+                  alt=""
+                />
+              </span>
               <span>{rating.calc.toFixed(1)}</span>
             </div>
-            <img class="ver" src={`${data_host}/maimai/sprites/tab/title/UI_CMN_TabTitle_MaimaiTitle_Ver${rating.music.ver.toString().substring(0, 3)}.png`} alt="">
+            <img
+              class="ver"
+              src={`${data_host}/maimai/sprites/tab/title/UI_CMN_TabTitle_MaimaiTitle_Ver${rating.music.ver
+                .toString()
+                .substring(0, 3)}.png`}
+              alt=""
+            />
             <div class="lv">{rating.music.note.lv}</div>
           </div>
         {/each}

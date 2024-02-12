@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { Router, Route } from "svelte-routing";
-  import Home from "./pages/Home.svelte";
-  import MaimaiRating from "./pages/MaimaiRating.svelte";
-  import UserHome from "./pages/UserHome.svelte";
-  import Icon from '@iconify/svelte';
+  import {Router, Route} from 'svelte-routing'
+  import Home from './pages/Home.svelte'
+  import MaimaiRating from './pages/MaimaiRating.svelte'
+  import UserHome from './pages/UserHome.svelte'
+  import Icon from '@iconify/svelte'
 
-  export let url = "";
+  export let url = ''
 </script>
 
 <nav>
