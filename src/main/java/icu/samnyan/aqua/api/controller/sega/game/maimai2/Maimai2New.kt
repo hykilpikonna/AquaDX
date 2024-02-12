@@ -1,17 +1,20 @@
 package icu.samnyan.aqua.api.controller.sega.game.maimai2
 
+import ext.*
+import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserDataRepository
 import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserPlaylogRepository
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserPlaylog
+import org.springframework.http.HttpStatus.*
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import java.util.*
+import kotlin.jvm.optionals.getOrNull
 
 @RestController
 @RequestMapping("api/game/maimai2new")
 class Maimai2New(
-    private val userPlaylogRepository: UserPlaylogRepository
+    private val userPlaylogRepository: UserPlaylogRepository,
+    private val userDataRepository: UserDataRepository
 )
 {
     data class TrendOut(val date: String, val rating: Int, val plays: Int)
@@ -28,5 +31,42 @@ class Maimai2New(
         return d.distinctBy { it.playDate }
             .map { TrendOut(it.playDate, it.afterRating, playCounts[it.playDate] ?: 0) }
             .sortedBy { it.date }
+    }
+
+    private val shownRanks = listOf(
+        100.5 to "SSS+",
+        100.0 to "SSS",
+        99.5  to "SS+",
+        99.0  to "SS",
+        98.0  to "S+",
+        97.0  to "S").map { (k, v) -> (k * 10000).toInt() to v }
+
+    @GetMapping("user-summary")
+    fun userSummary(@RequestParam userId: Long): Map<String, Any> {
+        // Summary values: total plays, player rating, server-wide ranking
+        // number of each rank, max combo, number of full combo, number of all perfect
+        val user = userDataRepository.findByCard_ExtId(userId).getOrNull() ?: NOT_FOUND()
+        val plays = userPlaylogRepository.findByUser_Card_ExtId(userId)
+
+        // O(6n) ranks algorithm: Loop through the entire list of plays,
+        // count the number of each rank
+        val ranks = shownRanks.associate { (_, v) -> v to 0 }.toMutableMap()
+        plays.forEach {
+            shownRanks.find { (s, _) -> it.achievement > s }?.let { (_, v) -> ranks[v] = ranks[v]!! + 1 }
+        }
+
+        return mapOf(
+            "name" to user,
+            "plays" to plays.size,
+            "serverRank" to userDataRepository.findPlayerRatingByOrderByPlayerRating()
+                .binarySearch(user.playerRating) + 1,
+            "accuracy" to plays.sumOf { it.achievement } / plays.size,
+            "rating" to user.playerRating,
+            "ratingHighest" to user.highestRating,
+            "ranks" to ranks,
+            "maxCombo" to plays.maxOf { it.maxCombo },
+            "fullCombo" to plays.count { it.totalCombo == it.maxCombo },
+            "allPerfect" to plays.count { it.achievement == 1010000 }
+        )
     }
 }
