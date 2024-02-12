@@ -54,9 +54,19 @@
           }
         ]
       }} options={{
+        // TODO: Show point on hover
+        elements: {
+          point: {
+            radius: 0
+          }
+        },
         scales: {
           xAxis: {
-            type: 'time'
+            type: 'time',
+            display: false
+          },
+          y: {
+            display: false,
           }
         },
         plugins: {
