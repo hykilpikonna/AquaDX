@@ -12,11 +12,11 @@ Please check out [SVELTE.md](SVELTE.md) for more details on the technical aspect
 ### Running locally
 
 First, you would need to install Node.js and yarn.
-Then, you would need to start your testing AquaDX server and configure the `src/libs/config.ts` to use your URL.
+Then, you would need to start your testing AquaDX server and configure the `aqua_host` in `src/libs/config.ts` to use your URL. 
+Please leave `data_host` unchanged if you're not sure what it is. 
 Finally, run:
 
 ```shell
 yarn install
 yarn dev
 ```
-
