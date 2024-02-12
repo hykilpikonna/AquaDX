@@ -2,6 +2,7 @@ package icu.samnyan.aqua.api.controller.sega.game.maimai2
 
 import ext.*
 import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserDataRepository
+import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserGeneralDataRepository
 import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserPlaylogRepository
 import org.springframework.http.HttpStatus.*
 import org.springframework.web.bind.annotation.GetMapping
@@ -14,7 +15,8 @@ import kotlin.jvm.optionals.getOrNull
 @RequestMapping("api/game/maimai2new")
 class Maimai2New(
     private val userPlaylogRepository: UserPlaylogRepository,
-    private val userDataRepository: UserDataRepository
+    private val userDataRepository: UserDataRepository,
+    private val userGeneralDataRepository: UserGeneralDataRepository
 )
 {
     data class TrendOut(val date: String, val rating: Int, val plays: Int)
@@ -47,6 +49,8 @@ class Maimai2New(
         // number of each rank, max combo, number of full combo, number of all perfect
         val user = userDataRepository.findByCard_ExtId(userId).getOrNull() ?: NOT_FOUND()
         val plays = userPlaylogRepository.findByUser_Card_ExtId(userId)
+        val extra = userGeneralDataRepository.findByUser_Card_ExtId(userId)
+            .associate { it.propertyKey to it.propertyValue }
 
         // O(6n) ranks algorithm: Loop through the entire list of plays,
         // count the number of each rank
@@ -58,7 +62,7 @@ class Maimai2New(
         return mapOf(
             "name" to user,
             "iconId" to user.iconId,
-            "plays" to plays.size,
+
             "serverRank" to userDataRepository.getRanking(user.playerRating),
             "accuracy" to plays.sumOf { it.achievement } / plays.size,
             "rating" to user.playerRating,
@@ -68,7 +72,17 @@ class Maimai2New(
             "fullCombo" to plays.count { it.totalCombo == it.maxCombo },
             "allPerfect" to plays.count { it.achievement == 1010000 },
             "totalDxScore" to user.totalDeluxscore,
-            "totalPlayTime" to plays.count() * 3 // TODO: Make a more accurate estimate
+
+            "plays" to plays.size,
+            "totalPlayTime" to plays.count() * 3, // TODO: Make a more accurate estimate
+            "joined" to user.firstPlayDate,
+            "lastSeen" to user.lastPlayDate,
+            "lastVersion" to user.lastRomVersion,
+
+            "best35" to (extra["recent_rating"] ?: ""),
+            "best15" to (extra["recent_rating_new"] ?: ""),
+
+            "recent" to plays.sortedBy { it.playDate }.takeLast(10)
         )
     }
 }
