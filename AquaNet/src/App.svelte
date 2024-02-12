@@ -31,6 +31,8 @@
     flex-direction: column
     align-items: center
 
+    min-height: 100%
+
   nav
     display: flex
     justify-content: flex-end
