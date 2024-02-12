@@ -48,7 +48,7 @@
     </div>
 
     <div>
-      <h2>Scoring Statistics</h2>
+      <h2>Rating Statistics</h2>
       <div class="scoring-info">
         <div class="chart">
           <div class="info-top">
@@ -158,7 +158,7 @@
           <div class={clazz({alt: i % 2 === 0})}>
             <img src={`${data_host}/maimai/assetbundle/jacket_s/00${r.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="">
             <div class="info">
-              <div class="name">{r.name}</div>
+              <span class="name">{r.name}</span>
               <div>
                 <span class={"rank-" + ("" + getMult(r.achievement)[2])[0]}>
                   <span class="rank-text">{("" + getMult(r.achievement)[2]).replace("p", "+")}</span>
@@ -292,6 +292,7 @@ $gap: 20px
           flex-direction: row
           justify-content: space-between
 
+  // Recent Scores section
   .recent
     .scores
       display: flex
@@ -309,12 +310,8 @@ $gap: 20px
         align-items: center
         gap: $gap
         padding-right: 16px
-
-        // Limit song name to one line
-        .name
-          white-space: nowrap
-          overflow: hidden
-          text-overflow: ellipsis
+        max-width: 100%
+        box-sizing: border-box
 
         img
           width: 50px
@@ -327,6 +324,14 @@ $gap: 20px
           flex: 1
           display: flex
           justify-content: space-between
+
+          // Limit song name to one line
+          overflow: hidden
+          .name
+            overflow: hidden
+            overflow-wrap: anywhere
+            white-space: nowrap
+            text-overflow: ellipsis
 
           @media (max-width: $w-mobile)
             flex-direction: column
