@@ -189,10 +189,14 @@ $gap: 20px
   gap: $gap
   margin: 100px 32px 0
   padding: 0 32px 32px
-  height: 100%
+  min-height: 100%
 
   background-color: rgba(black, 0.2)
-  border-radius: 16px
+  border-radius: 16px 16px 0 0
+
+  @media (max-width: $w-mobile)
+    margin: 100px 0 0
+    padding: 0 32px 16px
 
   .user-pfp
     display: flex
@@ -250,10 +254,42 @@ $gap: 20px
       width: 100%
       max-width: 790px
 
+    @media (max-width: $w-mobile)
+      flex-direction: column
+      max-height: unset
+
+      .chart
+        flex: 0
+
+        .trend
+          max-height: 130px
+
+      .other-info
+        > div
+          flex-direction: row
+          justify-content: space-between
+
+      .info-bottom
+        justify-content: space-between
+
   .activity-info
     display: flex
     flex-direction: column
     gap: $gap
 
+    #cal-heatmap
+      overflow-x: auto
+
+    @media (max-width: $w-mobile)
+      #cal-heatmap
+        width: 100%
+
+      .info-bottom
+        flex-direction: column
+        gap: 0
+
+        > div
+          flex-direction: row
+          justify-content: space-between
 
 </style>
