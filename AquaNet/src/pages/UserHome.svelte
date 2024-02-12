@@ -190,6 +190,7 @@ $gap: 20px
   margin: 100px 32px 0
   padding: 0 32px 32px
   min-height: 100%
+  max-width: $w-max
 
   background-color: rgba(black, 0.2)
   border-radius: 16px 16px 0 0
