@@ -90,3 +90,12 @@ export const CHARTJS_OPT: ChartOptions<"line"> = {
         }
     },
 }
+
+/**
+ * Usage: clazz({a: false, b: true}) -> "b"
+ *
+ * @param obj HashMap<string, boolean>
+ */
+export function clazz(obj: { [key: string]: boolean }) {
+    return Object.keys(obj).filter(k => obj[k]).join(" ")
+}
