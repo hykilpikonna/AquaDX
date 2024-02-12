@@ -58,8 +58,7 @@ class Maimai2New(
         return mapOf(
             "name" to user,
             "plays" to plays.size,
-            "serverRank" to userDataRepository.findPlayerRatingByOrderByPlayerRating()
-                .binarySearch(user.playerRating) + 1,
+            "serverRank" to userDataRepository.getRanking(user.playerRating),
             "accuracy" to plays.sumOf { it.achievement } / plays.size,
             "rating" to user.playerRating,
             "ratingHighest" to user.highestRating,
