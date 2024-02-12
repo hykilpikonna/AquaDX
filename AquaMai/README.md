@@ -25,6 +25,7 @@ This mod is heavily WIP. More details will be added as the development progresse
 3. Open `AquaMai.sln` in JetBrains Rider.
 4. Build the solution.
 5. Copy `Output/AquaMai.dll` to `Mods` folder.
+6. Configure and copy `AquaMai.toml` to the same folder as your game executable: `Sinmai.exe`
 
 ### Relevant Links
 
