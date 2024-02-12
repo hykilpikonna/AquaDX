@@ -5,7 +5,10 @@
   import type {TrendEntry} from "../libs/generalTypes";
   import {data_host} from "../libs/config";
   // @ts-ignore
-  import SvelteHeatmap from "svelte-heatmap";
+  import CalHeatmap from 'cal-heatmap';
+  // @ts-ignore
+  import Tooltip from 'cal-heatmap/plugins/Tooltip';
+  import 'cal-heatmap/cal-heatmap.css';
   import { Line } from 'svelte-chartjs';
   import moment from "moment";
   import 'chartjs-adapter-moment';
@@ -14,6 +17,7 @@
 
   export let userId: any;
   userId = +userId
+  let calElement: HTMLElement
 
   title(`User ${userId}`)
 
@@ -22,7 +26,6 @@
     trend: TrendEntry[]
   } | null = null
 
-  // Get user details
   Promise.all([
     getMaimai('GetUserPreviewApi', {userId}),
     getMaimaiTrend(userId)
@@ -31,11 +34,39 @@
     console.log(trend)
 
     d = {user, trend}
+    localStorage.setItem("tmp-user-details", JSON.stringify(d))
+    const cal = new CalHeatmap();
+    cal.paint({
+      itemSelector: calElement,
+      domain: {
+        type: 'month',
+        label: { text: 'MMM', textAlign: 'start', position: 'top' },
+      },
+      subDomain: {
+        type: 'ghDay',
+        radius: 2, width: 11, height: 11, gutter: 4
+      },
+      range: 12,
+      data: {source: d.trend, x: 'date', y: 'plays'},
+      scale: {
+        color: {
+          type: 'linear',
+          range: ['#14432a', '#4dd05a'],
+          domain: [0, d.trend.reduce((a, b) => Math.max(a, b.plays), 0)]
+        },
+      },
+      date: {start: moment().subtract(1, 'year').add(1, 'month').toDate()},
+      theme: "dark",
+    }, [
+      [Tooltip, {text: (_: Date, v: number, d: any) =>
+        `${v ?? "No"} songs played on ${d.format('MMMM D, YYYY')}`
+      }]
+    ]);
   })
 </script>
 
 <main>
-  {#if d}
+  {#if d !== null}
     <img src={`${data_host}/maimai/assetbundle/icon/${d.user.iconId.toString().padStart(6, "0")}.png`} alt="" class="pfp">
     <h1>{d.user.userName}</h1>
 
@@ -58,15 +89,7 @@
       }}} />
     </div>
 
-    <div class="heatmap">
-      <SvelteHeatmap data={d.trend.map(it => {return {date: it.date, value: it.plays}})}
-                     startDate={moment().subtract(1, 'year').toDate()}
-                     endDate={moment().toDate()}
-                     fontColor="#b3c6ff"
-                     emptyColor="#2d333b"
-                     colors={['#0e4429', '#006d32', '#26a641', '#39d353']}
-      />
-    </div>
+    <div id="cal-heatmap" bind:this={calElement} />
   {:else}
     <p>Loading...</p>
   {/if}
