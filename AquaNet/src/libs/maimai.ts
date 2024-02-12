@@ -1,5 +1,6 @@
 import {aqua_host} from "./config";
 import type {TrendEntry} from "./generalTypes";
+import type {MaimaiUserSummaryEntry} from "./maimaiTypes";
 
 
 const multTable = [
@@ -39,4 +40,8 @@ export async function getMaimaiApi(endpoint: string, params: any) {
 
 export async function getMaimaiTrend(userId: number): Promise<TrendEntry[]> {
     return await getMaimaiApi("trend", {userId})
+}
+
+export async function getMaimaiUser(userId: number): Promise<MaimaiUserSummaryEntry> {
+    return await getMaimaiApi("user-summary", {userId})
 }

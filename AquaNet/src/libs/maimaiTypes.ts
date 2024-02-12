@@ -39,3 +39,25 @@ export interface MaiUserPreviewData {
     iconId: number
     frameId: number
 }
+
+export interface MaimaiUserSummaryEntry {
+    name: string
+    iconId: number
+    serverRank: number
+    accuracy: number
+    rating: number
+    ratingHighest: number
+    ranks: { name: string, count: number }[]
+    maxCombo: number
+    fullCombo: number
+    allPerfect: number
+    totalDxScore: number
+    plays: number
+    totalPlayTime: number
+    joined: string
+    lastSeen: string
+    lastVersion: string
+    best35: string
+    best15: string
+    recent: Rating[]
+}

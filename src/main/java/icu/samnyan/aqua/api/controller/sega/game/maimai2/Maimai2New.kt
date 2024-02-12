@@ -67,7 +67,7 @@ class Maimai2New(
             "accuracy" to plays.sumOf { it.achievement } / plays.size,
             "rating" to user.playerRating,
             "ratingHighest" to user.highestRating,
-            "ranks" to ranks,
+            "ranks" to ranks.map { (k, v) -> mapOf("name" to k, "count" to v) },
             "maxCombo" to plays.maxOf { it.maxCombo },
             "fullCombo" to plays.count { it.totalCombo == it.maxCombo },
             "allPerfect" to plays.count { it.achievement == 1010000 },
