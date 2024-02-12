@@ -39,107 +39,112 @@
   {#if d !== null}
     <div class="user-pfp">
       <img src={`${data_host}/maimai/assetbundle/icon/${d.user.iconId.toString().padStart(6, "0")}.png`} alt="" class="pfp">
-      <h1>{d.user.name}</h1>
+      <h2>{d.user.name}</h2>
     </div>
 
-    <div class="scoring-info">
-      <div class="chart">
-        <div class="info-top">
-          <div class="rating">
-            <span>DX Rating</span>
-            <span>{d.user.rating.toLocaleString()}</span>
+    <div>
+      <h2>Scoring Statistics</h2>
+      <div class="scoring-info">
+        <div class="chart">
+          <div class="info-top">
+            <div class="rating">
+              <span>DX Rating</span>
+              <span>{d.user.rating.toLocaleString()}</span>
+            </div>
+
+            <div class="rank">
+              <span>Server Rank</span>
+              <span>#{d.user.serverRank.toLocaleString()}</span>
+            </div>
           </div>
 
-          <div class="rank">
-            <span>Server Rank</span>
-            <span>#{d.user.serverRank.toLocaleString()}</span>
+          <div class="trend">
+            <Line data={{
+              datasets: [
+                {
+                  label: 'Rating',
+                  data: d.trend.map(it => {return {x: Date.parse(it.date), y: it.rating}}),
+                  borderColor: '#646cff',
+                  tension: 0.1,
+
+                  // TODO: Set X axis span to 3 months
+                }
+              ]
+            }} options={CHARTJS_OPT} />
+          </div>
+
+          <div class="info-bottom">
+            {#each d.user.ranks as r}
+              <div>
+                <span>{r.name}</span>
+                <span>{r.count}</span>
+              </div>
+            {/each}
           </div>
         </div>
 
-        <div class="trend">
-          <Line data={{
-            datasets: [
-              {
-                label: 'Rating',
-                data: d.trend.map(it => {return {x: Date.parse(it.date), y: it.rating}}),
-                borderColor: '#646cff',
-                tension: 0.1,
+        <div class="other-info">
+          <div class="accuracy">
+            <span>Accuracy</span>
+            <span>{(d.user.accuracy / 10000).toFixed(2)}%</span>
+          </div>
 
-                // TODO: Set X axis span to 3 months
-              }
-            ]
-          }} options={CHARTJS_OPT} />
+          <div class="max-combo">
+            <span>Max Combo</span>
+            <span>{d.user.maxCombo}</span>
+          </div>
+
+          <div class="full-combo">
+            <span>Full Combo</span>
+            <span>{d.user.fullCombo}</span>
+          </div>
+
+          <div class="all-perfect">
+            <span>All Perfect</span>
+            <span>{d.user.allPerfect}</span>
+          </div>
+
+          <div class="total-dx-score">
+            <span>DX Score</span>
+            <span>{d.user.totalDxScore.toLocaleString()}</span>
+          </div>
         </div>
+      </div>
+    </div>
+
+    <div>
+      <h2>Play Activity</h2>
+      <div class="activity-info">
+        <div id="cal-heatmap" bind:this={calElement} />
 
         <div class="info-bottom">
-          {#each d.user.ranks as r}
-            <div>
-              <span>{r.name}</span>
-              <span>{r.count}</span>
-            </div>
-          {/each}
-        </div>
-      </div>
+          <div class="plays">
+            <span>Plays</span>
+            <span>{d.user.plays}</span>
+          </div>
 
-      <div class="other-info">
-        <div class="accuracy">
-          <span>Accuracy</span>
-          <span>{(d.user.accuracy / 10000).toFixed(2)}%</span>
-        </div>
+          <div class="time">
+            <span>Play Time</span>
+            <span>{(d.user.totalPlayTime / 60 / 60).toFixed(1)} hr</span>
+          </div>
 
-        <div class="max-combo">
-          <span>Max Combo</span>
-          <span>{d.user.maxCombo}</span>
-        </div>
+          <div class="first-play">
+            <span>First Seen</span>
+            <span>{moment(d.user.joined).format("YYYY-MM-DD")}</span>
+          </div>
 
-        <div class="full-combo">
-          <span>Full Combo</span>
-          <span>{d.user.fullCombo}</span>
-        </div>
+          <div class="last-play">
+            <span>Last Seen</span>
+            <span>{moment(d.user.lastSeen).format("YYYY-MM-DD")}</span>
+          </div>
 
-        <div class="all-perfect">
-          <span>All Perfect</span>
-          <span>{d.user.allPerfect}</span>
-        </div>
-
-        <div class="total-dx-score">
-          <span>DX Score</span>
-          <span>{d.user.totalDxScore.toLocaleString()}</span>
+          <div class="last-version">
+            <span>Last Version</span>
+            <span>{d.user.lastVersion}</span>
+          </div>
         </div>
       </div>
     </div>
-
-    <div class="activity-info">
-      <div id="cal-heatmap" bind:this={calElement} />
-
-      <div class="info-bottom">
-        <div class="plays">
-          <span>Plays</span>
-          <span>{d.user.plays}</span>
-        </div>
-
-        <div class="time">
-          <span>Play Time</span>
-          <span>{d.user.totalPlayTime}</span>
-        </div>
-
-        <div class="first-play">
-          <span>Joined</span>
-          <span>{moment(d.user.joined).format("YYYY-MM-DD HH:mm:ss")}</span>
-        </div>
-
-        <div class="last-play">
-          <span>Last Seen</span>
-          <span>{moment(d.user.lastSeen).format("YYYY-MM-DD HH:mm:ss")}</span>
-        </div>
-
-        <div class="last-version">
-          <span>Last Version</span>
-          <span>{d.user.lastVersion}</span>
-        </div>
-      </div>
-    </div>
-
   {:else}
     <p>Loading...</p>
   {/if}
@@ -148,11 +153,28 @@
 <style lang="sass">
 @import "../vars"
 
+$gap: 20px
+
 #user-home
   display: flex
   flex-direction: column
-  gap: 20px
-  padding: 0 32px
+  gap: $gap
+  margin: 100px 32px 0
+  padding: 0 32px 32px
+  height: 100%
+
+  background-color: rgba(black, 0.2)
+  border-radius: 16px
+
+  .user-pfp
+    display: flex
+    align-items: flex-end
+    gap: $gap
+    margin-top: -40px
+
+    h2
+      font-size: 2rem
+      margin: 0
 
   .pfp
     width: 100px
@@ -162,7 +184,7 @@
 
   .info-bottom, .info-top, .other-info
     display: flex
-    gap: 20px
+    gap: $gap
 
     > div
       display: flex
@@ -181,25 +203,29 @@
 
   .scoring-info
     display: flex
-    gap: 20px
+    gap: $gap
     max-height: 250px
 
     .chart
-      flex: 1
+      flex: 0 1 790px
       display: flex
       flex-direction: column
 
     .other-info
-      flex: 0 0 100px
+      flex: 1 0 100px
       flex-direction: column
       gap: 0
       justify-content: space-between
 
-
     .trend
       height: 300px
       width: 100%
+      max-width: 790px
 
+  .activity-info
+    display: flex
+    flex-direction: column
+    gap: $gap
 
 
 </style>
