@@ -58,7 +58,17 @@
           xAxis: {
             type: 'time'
           }
-      }}} />
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            mode: "index",
+            intersect: false
+          }
+        },
+      }} />
     </div>
 
     <div id="cal-heatmap" bind:this={calElement} />
