@@ -6,8 +6,10 @@ plugins {
     java
     kotlin("plugin.lombok") version "1.9.22"
     kotlin("jvm") version "1.9.22"
-    id("io.freefair.lombok") version "8.1.0"
-    id("org.springframework.boot") version "2.7.11"
+    kotlin("plugin.spring") version "1.9.22"
+    id("io.freefair.lombok") version "8.6"
+    id("org.springframework.boot") version "3.2.2"
+    id("com.github.ben-manes.versions") version "0.51.0"
 }
 
 apply(plugin = "io.spring.dependency-management")
@@ -26,26 +28,27 @@ dependencies {
     }
     implementation("org.springframework.boot:spring-boot-starter-jetty")
     implementation("io.netty:netty-all")
-    implementation("org.apache.commons:commons-lang3")
-    implementation("org.apache.httpcomponents:httpclient")
-    implementation("org.flywaydb:flyway-core")
-    implementation("org.flywaydb:flyway-mysql")
+    implementation("org.apache.commons:commons-lang3:3.14.0")
+    implementation("org.apache.httpcomponents.client5:httpclient5")
+    implementation("org.flywaydb:flyway-core:10.8.1")
+    implementation("org.flywaydb:flyway-mysql:10.8.1")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
     testImplementation("org.springframework.security:spring-security-test")
-    
+
     // Database
     runtimeOnly("com.mysql:mysql-connector-j:8.3.0")
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client:3.3.2")
     runtimeOnly("org.xerial:sqlite-jdbc:3.45.1.0")
-    implementation("com.github.gwenn:sqlite-dialect:0.1.4")
-    
+
+    // https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core
+    implementation("org.hibernate.orm:hibernate-core:6.4.4.Final")
+    // https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-community-dialects
+    implementation("org.hibernate.orm:hibernate-community-dialects:6.4.4.Final")
+
     // JSR305 for nullable
     implementation("com.google.code.findbugs:jsr305:3.0.2")
-
-    // Others
-    implementation("commons-fileupload:commons-fileupload:1.5")
 }
 
 group = "icu.samnya"
