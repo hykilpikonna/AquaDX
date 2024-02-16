@@ -39,7 +39,7 @@
       letter-spacing: 0.2em
       margin-top: 0
       opacity: 0.9
-    
+
     .btn-group
       display: flex
       gap: 8px

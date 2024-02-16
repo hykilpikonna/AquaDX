@@ -49,6 +49,7 @@ export interface MaimaiUserPlaylog {
     id: number;
     musicId: number;
     level: number;
+    userPlayDate: string;
     trackNo: number;
     vsRank: number;
     achievement: number;

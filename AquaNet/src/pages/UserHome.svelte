@@ -34,6 +34,9 @@
     console.log(trend)
     console.log(music)
 
+    // Sort recent by date
+    user.recent.sort((a, b) => b.userPlayDate < a.userPlayDate ? -1 : 1)
+
     d = {user, trend, recent: user.recent.map(it => {return {...music[it.musicId], ...it}})}
     localStorage.setItem("tmp-user-details", JSON.stringify(d))
     renderCal(calElement, trend.map(it => {return {date: it.date, value: it.plays}}))
@@ -161,8 +164,11 @@
           <div class={clazz({alt: i % 2 === 0})}>
             <img src={`${data_host}/maimai/assetbundle/jacket_s/00${r.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="">
             <div class="info">
-              <span class="name">{r.name}</span>
               <div>
+                <span class="name">{r.name}</span>
+              </div>
+              <div>
+                <span class={`lv level-${r.level}`}>{r.notes[r.level].lv}</span>
                 <span class={"rank-" + ("" + getMult(r.achievement)[2])[0]}>
                   <span class="rank-text">{("" + getMult(r.achievement)[2]).replace("p", "+")}</span>
                   <span class="rank-num">{(r.achievement / 10000).toFixed(2)}%</span>
@@ -351,7 +357,7 @@ $gap: 20px
             flex-direction: column
             gap: 0
 
-            span
+            .rank-text
               text-align: left
 
         .rank-S
@@ -365,6 +371,13 @@ $gap: 20px
 
         .rank-B
           color: #6ba6ff
+
+        .lv
+          background: var(--lv-color)
+          padding: 0 6px
+          border-radius: 10px
+          opacity: 0.8
+          margin-right: 10px
 
         span
           display: inline-block
