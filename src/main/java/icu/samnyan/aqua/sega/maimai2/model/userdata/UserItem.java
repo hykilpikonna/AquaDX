@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)

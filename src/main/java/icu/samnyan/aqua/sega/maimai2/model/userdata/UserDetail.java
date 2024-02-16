@@ -3,7 +3,7 @@ package icu.samnyan.aqua.sega.maimai2.model.userdata;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;

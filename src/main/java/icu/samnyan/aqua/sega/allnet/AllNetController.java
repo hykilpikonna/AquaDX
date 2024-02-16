@@ -23,8 +23,8 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import static icu.samnyan.aqua.sega.util.AquaConst.DEFAULT_KEYCHIP_ID;
 
