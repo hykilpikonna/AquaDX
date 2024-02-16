@@ -32,12 +32,10 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        http
-                .headers().disable()
-                .cors().and()
-                .csrf().disable()
-                .authorizeRequests()
-                .anyRequest().permitAll();
+        http.headers(headers -> headers.disable())
+                .cors(cors -> cors.disable())
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll());
 
         return http.build();
     }
