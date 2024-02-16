@@ -2,7 +2,6 @@ package icu.samnyan.aqua.sega.chusan.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-
 import icu.samnyan.aqua.sega.chusan.dao.userdata.UserCardPrintStateRepository;
 import icu.samnyan.aqua.sega.chusan.handler.BaseHandler;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCardPrintState;

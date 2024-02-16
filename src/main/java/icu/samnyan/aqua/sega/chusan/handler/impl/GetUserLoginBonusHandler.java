@@ -3,7 +3,6 @@ package icu.samnyan.aqua.sega.chusan.handler.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.chusan.handler.BaseHandler;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserLoginBonus;
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
 import icu.samnyan.aqua.sega.chusan.service.UserDataService;
 import icu.samnyan.aqua.sega.chusan.service.UserLoginBonusService;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
@@ -13,12 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 @Component("ChusanGetUserLoginBonusHandler")
 public class GetUserLoginBonusHandler  implements BaseHandler {

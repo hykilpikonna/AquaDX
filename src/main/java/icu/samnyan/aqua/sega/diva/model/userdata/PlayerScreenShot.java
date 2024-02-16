@@ -1,10 +1,9 @@
 package icu.samnyan.aqua.sega.diva.model.userdata;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import jakarta.persistence.*;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)

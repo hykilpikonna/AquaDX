@@ -6,18 +6,13 @@ import icu.samnyan.aqua.sega.chusan.model.response.data.UserFavorite;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserGeneralData;
 import icu.samnyan.aqua.sega.chusan.service.UserGeneralDataService;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Component("ChusanGetUserFavoriteItemHandler")
 public class GetUserFavoriteItemHandler implements BaseHandler {

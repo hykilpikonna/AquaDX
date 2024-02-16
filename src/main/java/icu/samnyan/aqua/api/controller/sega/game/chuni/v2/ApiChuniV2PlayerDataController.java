@@ -10,7 +10,6 @@ import icu.samnyan.aqua.api.model.resp.sega.chuni.v2.external.ChuniDataExport;
 import icu.samnyan.aqua.api.model.resp.sega.chuni.v2.external.ChuniDataImport;
 import icu.samnyan.aqua.api.model.resp.sega.chuni.v2.external.ExternalUserData;
 import icu.samnyan.aqua.api.util.ApiMapper;
-import icu.samnyan.aqua.sega.chunithm.handler.impl.GetUserFavoriteMusicHandler;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.Level;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.Music;
 import icu.samnyan.aqua.sega.chusan.model.userdata.*;

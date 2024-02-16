@@ -6,15 +6,10 @@ import icu.samnyan.aqua.sega.diva.dao.gamedata.DivaPvRepository;
 import icu.samnyan.aqua.sega.diva.model.gamedata.DivaCustomize;
 import icu.samnyan.aqua.sega.diva.model.gamedata.DivaModule;
 import icu.samnyan.aqua.sega.diva.model.gamedata.Pv;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.List;
 
 /**

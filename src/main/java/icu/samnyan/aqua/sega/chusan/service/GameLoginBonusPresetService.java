@@ -1,7 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
 import icu.samnyan.aqua.sega.chusan.dao.gamedata.GameLoginBonusPresetsRepository;
-import icu.samnyan.aqua.sega.chusan.dao.gamedata.GameLoginBonusRepository;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.GameLoginBonusPreset;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

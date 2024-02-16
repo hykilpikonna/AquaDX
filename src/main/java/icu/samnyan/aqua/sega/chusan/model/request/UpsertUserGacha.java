@@ -1,9 +1,10 @@
 package icu.samnyan.aqua.sega.chusan.model.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import icu.samnyan.aqua.sega.chusan.model.gamedata.GameGachaCard;
-import icu.samnyan.aqua.sega.chusan.model.userdata.*;
+import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
+import icu.samnyan.aqua.sega.chusan.model.userdata.UserGacha;
+import icu.samnyan.aqua.sega.chusan.model.userdata.UserItem;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -4,8 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.chusan.handler.BaseHandler;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
 import icu.samnyan.aqua.sega.chusan.service.UserDataService;
-import icu.samnyan.aqua.sega.general.service.ClientSettingService;
-import icu.samnyan.aqua.sega.util.VersionUtil;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

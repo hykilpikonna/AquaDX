@@ -1,11 +1,10 @@
 package icu.samnyan.aqua.sega.chusan.dao.gamedata;
 
 import icu.samnyan.aqua.sega.chusan.model.gamedata.GameGachaCard;
-
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)

@@ -3,15 +3,15 @@ package icu.samnyan.aqua.sega.diva.filter;
 import icu.samnyan.aqua.sega.general.filter.CompressRequestWrapper;
 import icu.samnyan.aqua.sega.general.filter.CompressResponseWrapper;
 import icu.samnyan.aqua.sega.util.Compression;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Base64;
 

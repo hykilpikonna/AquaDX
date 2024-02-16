@@ -1,7 +1,5 @@
 package icu.samnyan.aqua.api.model;
 
-import icu.samnyan.aqua.api.model.MessageResponse;
-
 public class ObjectMessageResponse<T> extends MessageResponse {
     private T data;
 

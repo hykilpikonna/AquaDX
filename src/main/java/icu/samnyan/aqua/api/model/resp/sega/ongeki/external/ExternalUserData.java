@@ -1,15 +1,9 @@
 package icu.samnyan.aqua.api.model.resp.sega.ongeki.external;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import icu.samnyan.aqua.sega.general.model.Card;
-import icu.samnyan.aqua.sega.util.jackson.AccessCodeSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import jakarta.persistence.*;
 import java.io.Serializable;
 
 /**

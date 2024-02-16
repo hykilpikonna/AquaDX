@@ -1,14 +1,15 @@
 package icu.samnyan.aqua.sega.allnet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import icu.samnyan.aqua.sega.allnet.dao.keychip.KeyChipRepository;
 import icu.samnyan.aqua.sega.allnet.model.response.DownloadOrderResponse;
 import icu.samnyan.aqua.sega.allnet.model.response.PowerOnResponse;
 import icu.samnyan.aqua.sega.allnet.model.response.PowerOnResponseV2;
 import icu.samnyan.aqua.sega.allnet.model.response.PowerOnResponseV3;
 import icu.samnyan.aqua.sega.allnet.util.Decoder;
 import icu.samnyan.aqua.sega.allnet.util.KeychipChecker;
-import icu.samnyan.aqua.sega.allnet.dao.keychip.KeyChipRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,8 +24,6 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 import static icu.samnyan.aqua.sega.util.AquaConst.DEFAULT_KEYCHIP_ID;
 

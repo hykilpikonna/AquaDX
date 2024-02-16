@@ -1,10 +1,10 @@
 package icu.samnyan.aqua.api.model.resp.sega.maimai2;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)

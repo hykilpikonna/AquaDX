@@ -2,7 +2,6 @@ package icu.samnyan.aqua.sega.chusan.dao.userdata;
 
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserGacha;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

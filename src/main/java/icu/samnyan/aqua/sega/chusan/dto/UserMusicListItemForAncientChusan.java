@@ -1,6 +1,5 @@
 package icu.samnyan.aqua.sega.chusan.dto;
 
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserMusicDetail;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

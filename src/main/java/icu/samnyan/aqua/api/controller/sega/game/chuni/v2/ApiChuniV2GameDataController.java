@@ -1,22 +1,11 @@
 package icu.samnyan.aqua.api.controller.sega.game.chuni.v2;
-import icu.samnyan.aqua.sega.chusan.dao.gamedata.GameAvatarAccRepository;
-import icu.samnyan.aqua.sega.chusan.dao.gamedata.GameCharacterRepository;
-import icu.samnyan.aqua.sega.chusan.dao.gamedata.GameFrameRepository;
-import icu.samnyan.aqua.sega.chusan.dao.gamedata.GameMapIconRepository;
-import icu.samnyan.aqua.sega.chusan.dao.gamedata.GameMusicRepository;
-import icu.samnyan.aqua.sega.chusan.dao.gamedata.GameTrophyRepository;
-import icu.samnyan.aqua.sega.chusan.dao.gamedata.GameNamePlateRepository;
-import icu.samnyan.aqua.sega.chusan.dao.gamedata.GameSystemVoiceRepository;
-import icu.samnyan.aqua.sega.chusan.model.gamedata.AvatarAcc;
-import icu.samnyan.aqua.sega.chusan.model.gamedata.Character;
-import icu.samnyan.aqua.sega.chusan.model.gamedata.Frame;
-import icu.samnyan.aqua.sega.chusan.model.gamedata.MapIcon;
-import icu.samnyan.aqua.sega.chusan.model.gamedata.Music;
-import icu.samnyan.aqua.sega.chusan.model.gamedata.NamePlate;
-import icu.samnyan.aqua.sega.chusan.model.gamedata.SystemVoice;
-import icu.samnyan.aqua.sega.chusan.model.gamedata.Trophy;
 
-import org.springframework.web.bind.annotation.*;
+import icu.samnyan.aqua.sega.chusan.dao.gamedata.*;
+import icu.samnyan.aqua.sega.chusan.model.gamedata.Character;
+import icu.samnyan.aqua.sega.chusan.model.gamedata.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 

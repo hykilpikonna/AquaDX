@@ -21,6 +21,7 @@ import icu.samnyan.aqua.sega.diva.model.request.user.PreStartRequest;
 import icu.samnyan.aqua.sega.diva.model.request.user.SpendCreditRequest;
 import icu.samnyan.aqua.sega.diva.model.request.user.StartRequest;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -30,8 +31,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
