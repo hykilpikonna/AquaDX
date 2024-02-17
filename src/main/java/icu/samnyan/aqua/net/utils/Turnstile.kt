@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.stereotype.Service
 
 @Configuration
-@ConfigurationProperties(prefix = "turnstile")
+@ConfigurationProperties(prefix = "aqua-net.turnstile")
 class TurnstileProperties {
     var enable: Bool = false
 
