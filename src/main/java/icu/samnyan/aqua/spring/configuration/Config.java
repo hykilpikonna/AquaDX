@@ -11,6 +11,8 @@ import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -31,6 +33,11 @@ public class Config {
         this.SERVER_PORT = SERVER_PORT;
         this.BILLING_PORT = BILLING_PORT;
         this.ENABLE_BILLING = ENABLE_BILLING;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
