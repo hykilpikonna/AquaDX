@@ -56,6 +56,10 @@ dependencies {
     implementation("io.ktor:ktor-client-content-negotiation:2.3.8")
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.8")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.22")
+
+    // Email
+    implementation("org.simplejavamail:simple-java-mail:8.6.3")
+    implementation("org.simplejavamail:spring-module:8.6.3")
 }
 
 group = "icu.samnya"
