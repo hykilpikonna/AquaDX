@@ -46,7 +46,7 @@ Configuration is saved in `config/application.properties`, spring loads this fil
 
 * The host and port of game title servers can be overritten in `allnet.server.host` and `allnet.server.port`. By default it will send the same host and port the client used the request this information.
 This will be sent to the game at booting and being used by following request.
-* You can switch to MariaDB (or MySQL) database by commenting the Sqlite part.
+* You can switch to MariaDB database by commenting the Sqlite part.
 * For some game, you might need to change some game specific config entries.
 
 ### Building

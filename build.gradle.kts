@@ -39,7 +39,6 @@ dependencies {
     testImplementation("org.springframework.security:spring-security-test")
 
     // Database
-    runtimeOnly("com.mysql:mysql-connector-j:8.3.0")
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client:3.3.2")
     runtimeOnly("org.xerial:sqlite-jdbc:3.45.1.0")
 
