@@ -3,7 +3,7 @@
   import {getMaimaiAllMusic, getMaimaiTrend, getMaimaiUser, getMult} from "../libs/maimai";
   import type {MaimaiMusic, MaimaiUserPlaylog, MaimaiUserSummaryEntry} from "../libs/maimaiTypes";
   import type {TrendEntry} from "../libs/generalTypes";
-  import {data_host} from "../libs/config";
+  import {DATA_HOST} from "../libs/config";
   import 'cal-heatmap/cal-heatmap.css';
   import { Line } from 'svelte-chartjs';
   import moment from "moment";
@@ -46,7 +46,7 @@
 <main id="user-home">
   {#if d !== null}
     <div class="user-pfp">
-      <img src={`${data_host}/maimai/assetbundle/icon/${d.user.iconId.toString().padStart(6, "0")}.png`} alt="" class="pfp">
+      <img src={`${DATA_HOST}/maimai/assetbundle/icon/${d.user.iconId.toString().padStart(6, "0")}.png`} alt="" class="pfp">
       <h2>{d.user.name}</h2>
     </div>
 
@@ -162,7 +162,7 @@
       <div class="scores">
         {#each d.recent as r, i}
           <div class={clazz({alt: i % 2 === 0})}>
-            <img src={`${data_host}/maimai/assetbundle/jacket_s/00${r.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="">
+            <img src={`${DATA_HOST}/maimai/assetbundle/jacket_s/00${r.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="">
             <div class="info">
               <div>
                 <span class="name">{r.name}</span>

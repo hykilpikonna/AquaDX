@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {data_host} from "../libs/config";
+  import {DATA_HOST} from "../libs/config";
   import {getMaimaiAllMusic, getMaimai, getMult} from "../libs/maimai";
   import type {ParsedRating, Rating} from "../libs/maimaiTypes";
 
@@ -71,19 +71,19 @@
         {#each section.data as rating}
           <div class="level-{rating.level}">
             <img class="cover"
-                 src={`${data_host}/maimai/assetbundle/jacket_s/00${rating.musicId.toString().padStart(6, '0').substring(2)}.png`}
+                 src={`${DATA_HOST}/maimai/assetbundle/jacket_s/00${rating.musicId.toString().padStart(6, '0').substring(2)}.png`}
                  alt="">
 
             <div class="detail">
               <span class="name">{rating.music.name}</span>
               <span class="rating">
               <span>{(rating.achievement / 10000).toFixed(2)}%</span>
-              <img class="rank" src={`${data_host}/maimai/sprites/rankimage/UI_GAM_Rank_${rating.rank}.png`} alt="">
+              <img class="rank" src={`${DATA_HOST}/maimai/sprites/rankimage/UI_GAM_Rank_${rating.rank}.png`} alt="">
             </span>
               <span>{rating.calc.toFixed(1)}</span>
             </div>
             <img class="ver"
-                 src={`${data_host}/maimai/sprites/tab/title/UI_CMN_TabTitle_MaimaiTitle_Ver${rating.music.ver.toString().substring(0, 3)}.png`}
+                 src={`${DATA_HOST}/maimai/sprites/tab/title/UI_CMN_TabTitle_MaimaiTitle_Ver${rating.music.ver.toString().substring(0, 3)}.png`}
                  alt="">
             <div class="lv">{rating.music.note.lv}</div>
           </div>
