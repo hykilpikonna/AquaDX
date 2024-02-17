@@ -32,7 +32,7 @@ class AquaNetUser(
     var profileBio: String = "",
 
     // One user can have multiple cards
-    @OneToMany(mappedBy = "aquaNetUser", cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "aquaUser", cascade = [CascadeType.ALL])
     var cards: MutableList<Card> = mutableListOf()
 ) : Serializable
 

@@ -55,6 +55,7 @@ dependencies {
     implementation("io.ktor:ktor-client-cio:2.3.8")
     implementation("io.ktor:ktor-client-content-negotiation:2.3.8")
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.8")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.22")
 }
 
 group = "icu.samnya"
