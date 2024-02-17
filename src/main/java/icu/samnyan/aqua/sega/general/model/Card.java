@@ -1,10 +1,12 @@
 package icu.samnyan.aqua.sega.general.model;
 
+import icu.samnyan.aqua.net.db.AquaNetUser;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import jakarta.persistence.*;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -18,6 +20,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Card implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -38,4 +41,8 @@ public class Card implements Serializable {
     @Column(name = "access_time")
     private LocalDateTime accessTime;
 
+    // Defines the AquaNet user that this card is bound to
+    @ManyToOne
+    @JoinColumn(name = "net_user_id")
+    private AquaNetUser aquaUser;
 }
