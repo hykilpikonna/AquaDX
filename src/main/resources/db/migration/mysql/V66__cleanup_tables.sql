@@ -1,1 +1,0 @@
--- Mysql variant doesn't affected
