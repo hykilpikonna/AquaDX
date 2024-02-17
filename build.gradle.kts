@@ -7,6 +7,7 @@ plugins {
     kotlin("plugin.lombok") version "1.9.22"
     kotlin("jvm") version "1.9.22"
     kotlin("plugin.spring") version "1.9.22"
+    kotlin("plugin.serialization") version "1.9.22"
     id("io.freefair.lombok") version "8.6"
     id("org.springframework.boot") version "3.2.2"
     id("com.github.ben-manes.versions") version "0.51.0"
@@ -49,6 +50,12 @@ dependencies {
 
     // JSR305 for nullable
     implementation("com.google.code.findbugs:jsr305:3.0.2")
+
+    // AquaNet Specific Dependencies
+    implementation("io.ktor:ktor-client-core:2.3.8")
+    implementation("io.ktor:ktor-client-cio:2.3.8")
+    implementation("io.ktor:ktor-client-content-negotiation:2.3.8")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.8")
 }
 
 group = "icu.samnya"
