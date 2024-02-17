@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.api.controller.sega.game.maimai2
 
+import ext.RP
 import ext.invoke
 import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserDataRepository
 import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserGeneralDataRepository
@@ -22,7 +23,7 @@ class Maimai2New(
     data class TrendOut(val date: String, val rating: Int, val plays: Int)
 
     @GetMapping("trend")
-    fun trend(@RequestParam userId: Long): List<TrendOut> {
+    fun trend(@RP userId: Long): List<TrendOut> {
         // O(n log n) sort
         val d = userPlaylogRepository.findByUser_Card_ExtId(userId).sortedBy { it.playDate }.toList()
 
@@ -44,7 +45,7 @@ class Maimai2New(
         97.0  to "S").map { (k, v) -> (k * 10000).toInt() to v }
 
     @GetMapping("user-summary")
-    fun userSummary(@RequestParam userId: Long): Map<String, Any> {
+    fun userSummary(@RP userId: Long): Map<String, Any> {
         // Summary values: total plays, player rating, server-wide ranking
         // number of each rank, max combo, number of full combo, number of all perfect
         val user = userDataRepository.findByCard_ExtId(userId).getOrNull() ?: NOT_FOUND()
