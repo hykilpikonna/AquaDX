@@ -1,14 +1,12 @@
 package icu.samnyan.aqua.api.controller.sega.game.maimai2
 
 import ext.RP
-import ext.invoke
+import ext.minus
 import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserDataRepository
 import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserGeneralDataRepository
 import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserPlaylogRepository
-import org.springframework.http.HttpStatus.NOT_FOUND
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import kotlin.jvm.optionals.getOrNull
 
@@ -52,7 +50,7 @@ class Maimai2New(
     fun userSummary(@RP userId: Long): Map<String, Any> {
         // Summary values: total plays, player rating, server-wide ranking
         // number of each rank, max combo, number of full combo, number of all perfect
-        val user = userDataRepository.findByCard_ExtId(userId).getOrNull() ?: NOT_FOUND()
+        val user = userDataRepository.findByCard_ExtId(userId).getOrNull() ?: (404 - "User not found")
         val plays = userPlaylogRepository.findByUser_Card_ExtId(userId)
         val extra = userGeneralDataRepository.findByUser_Card_ExtId(userId)
             .associate { it.propertyKey to it.propertyValue }

@@ -21,7 +21,7 @@ typealias Bool = Boolean
 
 // Make it easier to throw a ResponseStatusException
 operator fun HttpStatus.invoke(message: String? = null): Nothing = throw ApiException(value(), message ?: this.reasonPhrase)
-operator fun Int.compareTo(message: String): Int = throw ApiException(this, message)
+operator fun Int.minus(message: String): Nothing = throw ApiException(this, message)
 
 // Email validation
 // https://www.baeldung.com/java-email-validation-regex
