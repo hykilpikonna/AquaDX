@@ -50,7 +50,11 @@ dependencies {
     // JSR305 for nullable
     implementation("com.google.code.findbugs:jsr305:3.0.2")
 
+    // =============================
     // AquaNet Specific Dependencies
+    // =============================
+
+    // Network
     implementation("io.ktor:ktor-client-core:2.3.8")
     implementation("io.ktor:ktor-client-cio:2.3.8")
     implementation("io.ktor:ktor-client-content-negotiation:2.3.8")
@@ -60,6 +64,9 @@ dependencies {
     // Email
     implementation("org.simplejavamail:simple-java-mail:8.6.3")
     implementation("org.simplejavamail:spring-module:8.6.3")
+
+    // GeoIP
+    implementation("com.maxmind.geoip2:geoip2:4.2.0")
 }
 
 group = "icu.samnya"
