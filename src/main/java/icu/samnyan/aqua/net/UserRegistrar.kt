@@ -34,7 +34,7 @@ class UserRegistrar(
         if (!email.isValidEmail()) 400 > "Invalid email"
 
         // Check if user with the same email exists
-        if (async { userRepo.existsByEmail(email) }) 400 > "User already exists"
+        if (async { userRepo.existsByEmail(email) }) 400 > "User with email `$email` already exists"
 
         // Check if username is valid
         if (username.length < 2) 400 > "Username must be at least 2 letters"
@@ -46,6 +46,9 @@ class UserRegistrar(
             400 > "Username cannot contain `$it`. Please only use letters (A-Z), numbers (0-9), and `_-~.` characters. " +
                 "You can set a display name later."
         }
+
+        // Check if user with the same username exists
+        if (async { userRepo.existsByUsername(username) }) 400 > "User with username `$username` already exists"
 
         // Validate password
         if (password.length < 8) 400 > "Password must be at least 8 characters"

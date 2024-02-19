@@ -45,4 +45,5 @@ class AquaNetUser(
 @Repository("AquaNetUserRepository")
 interface AquaNetUserRepo : JpaRepository<AquaNetUser, Int> {
     fun existsByEmail(email: String): Boolean
+    fun existsByUsername(username: String): Boolean
 }
