@@ -2,7 +2,9 @@ package icu.samnyan.aqua.net.utils
 
 import com.maxmind.geoip2.DatabaseReader
 import ext.Bool
+import ext.Str
 import jakarta.annotation.PostConstruct
+import jakarta.servlet.http.HttpServletRequest
 import org.slf4j.LoggerFactory
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration
@@ -16,9 +18,8 @@ import java.nio.file.Files
 @Configuration
 @ConfigurationProperties(prefix = "aqua-net.geoip")
 class GeoIPProperties {
-    var enable: Bool = false
-
-    lateinit var geoLitePath: String
+    var geoLitePath: Str = "data/GeoLite2-Country.mmdb"
+    var ipHeader: Str = ""
 }
 
 @Service
@@ -30,8 +31,6 @@ class GeoIP(
 
     @PostConstruct
     fun onLoad() {
-        if (!props.enable) return
-
         // Check path exists
         if (!File(props.geoLitePath).exists()) {
             log.error("GeoIP Service is enabled but GeoLite2 database is not found, trying to download from GitHub.")
@@ -47,25 +46,33 @@ class GeoIP(
         }
 
         geoLite = DatabaseReader.Builder(File(props.geoLitePath)).build()
+        selfTest()
+        log.info("GeoIP Service Enabled")
+    }
 
-        // Self test
+    /**
+     * Test the connection of the GeoIP service on startup
+     */
+    fun selfTest() {
         try {
             getCountry("1.1.1.1")
         } catch (e: Exception) {
             log.error("GeoIP Service Self Test Failed", e)
             throw e
         }
-
-        log.info("GeoIP Service Enabled")
     }
+
+    /**
+     * Get the IP address from a request
+     */
+    fun getIP(request: HttpServletRequest): Str =
+        if (props.ipHeader.isEmpty()) request.remoteAddr else request.getHeader(props.ipHeader) ?: request.remoteAddr
 
     /**
      * Get the country code from an IP address
      */
-    fun getCountry(ip: String): String
+    fun getCountry(ip: Str): Str
     {
-        if (!props.enable) return ""
-
         return try {
             geoLite.country(InetAddress.getByName(ip)).country.isoCode
         } catch (e: Exception) {
