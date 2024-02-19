@@ -10,7 +10,7 @@ import java.io.Serializable
 @Table(name = "aqua_net_user")
 class AquaNetUser(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var auId: Int = 0,
+    var auId: Long = 0,
 
     @Column(nullable = false, unique = true, length = 32)
     var username: String = "",
@@ -43,7 +43,8 @@ class AquaNetUser(
 ) : Serializable
 
 @Repository("AquaNetUserRepository")
-interface AquaNetUserRepo : JpaRepository<AquaNetUser, Int> {
-    fun existsByEmail(email: String): Boolean
-    fun existsByUsername(username: String): Boolean
+interface AquaNetUserRepo : JpaRepository<AquaNetUser, Long> {
+    fun findByAuId(auId: Long): AquaNetUser?
+    fun findByEmailIgnoreCase(email: String): AquaNetUser?
+    fun findByUsernameIgnoreCase(username: String): AquaNetUser?
 }

@@ -24,7 +24,7 @@ class UserRegistrar(
      */
     @PostMapping("/register")
     suspend fun register(@RP username: Str, @RP email: Str, @RP password: Str,
-                         @RP turnstile: Str?, request: HttpServletRequest) {
+                         @RP turnstile: Str, request: HttpServletRequest) {
         val ip = geoIP.getIP(request)
 
         // Check captcha
@@ -34,7 +34,8 @@ class UserRegistrar(
         if (!email.isValidEmail()) 400 > "Invalid email"
 
         // Check if user with the same email exists
-        if (async { userRepo.existsByEmail(email) }) 400 > "User with email `$email` already exists"
+        if (async { userRepo.findByEmailIgnoreCase(email) != null })
+            400 > "User with email `$email` already exists"
 
         // Check if username is valid
         if (username.length < 2) 400 > "Username must be at least 2 letters"
@@ -48,7 +49,8 @@ class UserRegistrar(
         }
 
         // Check if user with the same username exists
-        if (async { userRepo.existsByUsername(username) }) 400 > "User with username `$username` already exists"
+        if (async { userRepo.findByUsernameIgnoreCase(username) != null })
+            400 > "User with username `$username` already exists"
 
         // Validate password
         if (password.length < 8) 400 > "Password must be at least 8 characters"
