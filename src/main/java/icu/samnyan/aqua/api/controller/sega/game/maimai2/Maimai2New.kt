@@ -30,9 +30,13 @@ class Maimai2New(
         // Precompute the play counts for each date in O(n)
         val playCounts = d.groupingBy { it.playDate }.eachCount()
 
+        // Find the max afterRating on each date
+        val maxRating = d.groupingBy { it.playDate }.fold(0) { acc, e -> maxOf(acc, e.afterRating) }
+
         // Use the precomputed play counts
         return d.distinctBy { it.playDate }
-            .map { TrendOut(it.playDate, it.afterRating, playCounts[it.playDate] ?: 0) }
+            .map { TrendOut(it.playDate, maxRating[it.playDate] ?: 0,
+                playCounts[it.playDate] ?: 0) }
             .sortedBy { it.date }
     }
 
