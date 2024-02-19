@@ -27,8 +27,4 @@ fun main(args: Array<String>) {
     // Start the AutoChecker
     val checker = ctx.getBean(AutoChecker::class.java)
     checker.check()
-
-    // Test the email service
-    val emailService = ctx.getBean(EmailService::class.java)
-    emailService.testConnection()
 }
