@@ -1,6 +1,6 @@
 package icu.samnyan.aqua
 
-import icu.samnyan.aqua.net.utils.EmailService
+import icu.samnyan.aqua.net.components.EmailService
 import icu.samnyan.aqua.sega.aimedb.AimeDbServer
 import icu.samnyan.aqua.spring.util.AutoChecker
 import org.springframework.boot.SpringApplication

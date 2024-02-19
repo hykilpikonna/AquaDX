@@ -1,4 +1,4 @@
-package icu.samnyan.aqua.net.utils
+package icu.samnyan.aqua.net.components
 
 import ext.Str
 import icu.samnyan.aqua.net.db.AquaNetUser

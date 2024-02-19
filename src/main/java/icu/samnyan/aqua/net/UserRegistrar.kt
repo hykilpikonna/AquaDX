@@ -3,8 +3,8 @@ package icu.samnyan.aqua.net
 import ext.*
 import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.db.AquaNetUserRepo
-import icu.samnyan.aqua.net.utils.GeoIP
-import icu.samnyan.aqua.net.utils.TurnstileService
+import icu.samnyan.aqua.net.components.GeoIP
+import icu.samnyan.aqua.net.components.TurnstileService
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.PostMapping

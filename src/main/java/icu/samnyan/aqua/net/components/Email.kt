@@ -1,4 +1,4 @@
-package icu.samnyan.aqua.net.utils
+package icu.samnyan.aqua.net.components
 
 import ext.Bool
 import ext.Str

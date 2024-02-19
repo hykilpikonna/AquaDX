@@ -1,8 +1,7 @@
-package icu.samnyan.aqua.net.utils
+package icu.samnyan.aqua.net.components
 
 import com.maxmind.geoip2.DatabaseReader
 import com.maxmind.geoip2.exception.AddressNotFoundException
-import ext.Bool
 import ext.Str
 import jakarta.annotation.PostConstruct
 import jakarta.servlet.http.HttpServletRequest

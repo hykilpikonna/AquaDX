@@ -1,4 +1,4 @@
-package icu.samnyan.aqua.net.utils
+package icu.samnyan.aqua.net.components
 
 import ext.Bool
 import ext.HTTP
@@ -7,7 +7,6 @@ import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.http.*
-import jakarta.servlet.http.HttpServletRequest
 import kotlinx.serialization.Serializable
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration
