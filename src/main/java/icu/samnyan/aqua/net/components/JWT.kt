@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.net.components
 
 import ext.Str
+import ext.minus
 import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.db.AquaNetUserRepo
 import io.jsonwebtoken.JwtParser
@@ -63,6 +64,12 @@ class JWT(
         .signWith(key)
         .compact()
 
-    fun parse(token: Str): AquaNetUser? =
+    fun parse(token: Str): AquaNetUser? = try {
         userRepo.findByAuId(parser.parseSignedClaims(token).payload.subject.toLong())
+    } catch (e: Exception) {
+        log.debug("Failed to parse JWT", e)
+        null
+    }
+
+    fun auth(token: Str) = parse(token) ?: (400 - "Invalid token")
 }
