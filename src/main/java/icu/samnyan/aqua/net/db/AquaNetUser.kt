@@ -18,6 +18,7 @@ class AquaNetUser(
     // Login credentials
     @Column(nullable = false, unique = true)
     var email: String = "",
+    @Column(nullable = false)
     var pwHash: String = "",
 
     @Column(nullable = true, length = 32)
@@ -36,6 +37,9 @@ class AquaNetUser(
     // Profile fields
     var profileLocation: String = "",
     var profileBio: String = "",
+
+    // Email confirmation
+    var emailConfirmed: Boolean = false,
 
     // One user can have multiple cards
     @OneToMany(mappedBy = "aquaUser", cascade = [CascadeType.ALL])
