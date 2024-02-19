@@ -44,7 +44,9 @@ class AquaNetUser(
     // One user can have multiple cards
     @OneToMany(mappedBy = "aquaUser", cascade = [CascadeType.ALL])
     var cards: MutableList<Card> = mutableListOf()
-) : Serializable
+) : Serializable {
+    val computedName get() = displayName.ifEmpty { username }
+}
 
 @Repository("AquaNetUserRepository")
 interface AquaNetUserRepo : JpaRepository<AquaNetUser, Long> {
