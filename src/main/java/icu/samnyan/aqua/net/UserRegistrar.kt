@@ -26,9 +26,10 @@ class UserRegistrar(
      */
     @PostMapping("/register")
     suspend fun register(
-        @RP username: Str, @RP email: Str, @RP password: Str,
-        @RP turnstile: Str, request: HttpServletRequest
-    ) {
+        @RP username: Str, @RP email: Str, @RP password: Str, @RP turnstile: Str,
+        request: HttpServletRequest
+    ): Any {
+
         val ip = geoIP.getIP(request)
 
         // Check captcha
@@ -69,6 +70,27 @@ class UserRegistrar(
 
         // TODO: Send confirmation email
 
-        200 - "User created"
+        return mapOf("success" to true)
+    }
+
+    @PostMapping("/login")
+    suspend fun login(
+        @RP email: Str, @RP password: Str, @RP turnstile: Str,
+        request: HttpServletRequest
+    ): Any {
+
+        // Check captcha
+        val ip = geoIP.getIP(request)
+        if (!turnstileService.validate(turnstile, ip)) 400 - "Invalid captcha"
+
+        // Treat email as email / username
+        val user = async { userRepo.findByEmailIgnoreCase(email) ?: userRepo.findByUsernameIgnoreCase(email) }
+            ?: (400 - "User not found")
+        if (!hasher.matches(password, user.pwHash)) 400 - "Invalid password"
+
+        // Generate JWT token
+        val token = jwt.gen(user)
+
+        return mapOf("token" to token)
     }
 }
