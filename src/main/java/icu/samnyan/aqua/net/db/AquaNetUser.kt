@@ -12,14 +12,20 @@ class AquaNetUser(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var auId: Int = 0,
 
+    @Column(nullable = false, unique = true, length = 32)
+    var username: String = "",
+
     // Login credentials
-    @Column(nullable = false, unique = true) var email: String = "",
+    @Column(nullable = false, unique = true)
+    var email: String = "",
     var pwHash: String = "",
 
+    @Column(nullable = true, length = 32)
     var displayName: String = "",
 
     // Country code at most 3 characters
-    @Column(length = 3) var country: String = "",
+    @Column(length = 3)
+    var country: String = "",
 
     // Last login time
     var lastLogin: Long = 0L,
