@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.net
 
 import ext.*
+import icu.samnyan.aqua.net.components.EmailService
 import icu.samnyan.aqua.net.components.GeoIP
 import icu.samnyan.aqua.net.components.JWT
 import icu.samnyan.aqua.net.components.TurnstileService
@@ -8,7 +9,6 @@ import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.db.AquaNetUserRepo
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -19,6 +19,7 @@ class UserRegistrar(
     val userRepo: AquaNetUserRepo,
     val hasher: PasswordEncoder,
     val turnstileService: TurnstileService,
+    val emailService: EmailService,
     val geoIP: GeoIP,
     val jwt: JWT
 ) {
@@ -69,7 +70,8 @@ class UserRegistrar(
         )
         async { userRepo.save(u) }
 
-        // TODO: Send confirmation email
+        // Send confirmation email
+        emailService.sendConfirmation(u)
 
         return mapOf("success" to true)
     }
