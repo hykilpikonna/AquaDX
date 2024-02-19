@@ -37,8 +37,8 @@ class UserRegistrar(
         if (async { userRepo.existsByEmail(email) }) 400 > "User already exists"
 
         // Check if username is valid
-        if (username.length < 2) 400 > "Username too short (min 2 letters)"
-        if (username.length > 48) 400 > "Username too long (max 48 letters)"
+        if (username.length < 2) 400 > "Username must be at least 2 letters"
+        if (username.length > 32) 400 > "Username too long (max 32 letters)"
         if (username.contains(" ")) 400 > "Username cannot contain spaces"
 
         // Check if username is within A-Za-z0-9_-~.
@@ -48,7 +48,7 @@ class UserRegistrar(
         }
 
         // Validate password
-        if (password.length < 8) 400 > "Password too short"
+        if (password.length < 8) 400 > "Password must be at least 8 characters"
 
         // GeoIP check to infer country
         val country = geoIP.getCountry(ip)
