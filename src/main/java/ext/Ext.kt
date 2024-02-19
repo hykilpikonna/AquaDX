@@ -1,5 +1,6 @@
 package ext
 
+import icu.samnyan.aqua.net.utils.ApiException
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -19,8 +20,8 @@ typealias Str = String
 typealias Bool = Boolean
 
 // Make it easier to throw a ResponseStatusException
-operator fun HttpStatus.invoke(message: String? = null): Nothing = throw ResponseStatusException(this, message ?: this.reasonPhrase)
-operator fun Int.compareTo(message: String): Int = throw ResponseStatusException(HttpStatus.valueOf(this), message)
+operator fun HttpStatus.invoke(message: String? = null): Nothing = throw ApiException(value(), message ?: this.reasonPhrase)
+operator fun Int.compareTo(message: String): Int = throw ApiException(this, message)
 
 // Email validation
 // https://www.baeldung.com/java-email-validation-regex
