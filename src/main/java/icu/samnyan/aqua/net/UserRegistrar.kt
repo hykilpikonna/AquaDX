@@ -8,6 +8,7 @@ import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.db.AquaNetUserRepo
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -93,4 +94,7 @@ class UserRegistrar(
 
         return mapOf("token" to token)
     }
+
+    @PostMapping("/me")
+    suspend fun getUser(@RP token: Str) = jwt.auth(token)
 }
