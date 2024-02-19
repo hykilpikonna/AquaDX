@@ -21,9 +21,10 @@ class UserRegistrar(
      * Register a new user
      */
     @PostMapping("/register")
-    suspend fun register(@RP email: Str, @RP pass: Str, @RP captcha: Str?, request: HttpServletRequest) {
+    suspend fun register(@RP username: Str, @RP email: Str, @RP password: Str,
+                         @RP turnstile: Str?, request: HttpServletRequest) {
         // Check captcha
-        if (!turnstileService.validate(captcha, request)) 400 > "Invalid captcha"
+        if (!turnstileService.validate(turnstile, request)) 400 > "Invalid captcha"
 
         // Check if email is valid
         if (!email.isValidEmail()) 400 > "Invalid email"
@@ -31,10 +32,25 @@ class UserRegistrar(
         // Check if user with the same email exists
         if (async { userRepo.existsByEmail(email) }) 400 > "User already exists"
 
-        // Validate password
-        if (pass.length < 8) 400 > "Password too short"
+        // Check if username is valid
+        if (username.length < 2) 400 > "Username too short (min 2 letters)"
+        if (username.length > 48) 400 > "Username too long (max 48 letters)"
+        if (username.contains(" ")) 400 > "Username cannot contain spaces"
 
-        val u = AquaNetUser(email = email, pwHash = hasher.encode(pass), regTime = millis(), lastLogin = millis())
+        // Check if username is within A-Za-z0-9_-~.
+        username.find { !it.isLetterOrDigit() && it != '_' && it != '-' && it != '~' && it != '.' }?.let {
+            400 > "Username cannot contain `$it`. Please only use letters (A-Z), numbers (0-9), and `_-~.` characters. " +
+                "You can set a display name later."
+        }
+
+        // Validate password
+        if (password.length < 8) 400 > "Password too short"
+
+        // GeoIP check to infer country
+
+
+        val u = AquaNetUser(username = username, email = email, pwHash = hasher.encode(password),
+            regTime = millis(), lastLogin = millis())
         async { userRepo.save(u) }
 
         200 > "User created"
