@@ -168,7 +168,7 @@
                 <span class="name">{r.name}</span>
               </div>
               <div>
-                <span class={`lv level-${r.level}`}>{r.notes[r.level].lv}</span>
+                <span class={`lv level-${r.level}`}>{r.notes ? r.notes[r.level]?.lv : ""}</span>
                 <span class={"rank-" + ("" + getMult(r.achievement)[2])[0]}>
                   <span class="rank-text">{("" + getMult(r.achievement)[2]).replace("p", "+")}</span>
                   <span class="rank-num">{(r.achievement / 10000).toFixed(2)}%</span>
