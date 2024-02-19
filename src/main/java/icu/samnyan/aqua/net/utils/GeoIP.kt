@@ -37,6 +37,7 @@ class GeoIP(
 
             // Download from GitHub
             try {
+                log.info("Downloading GeoLite2 database to ${props.geoLitePath}")
                 URL("https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb").openStream()
                     .use { Files.copy(it, File(props.geoLitePath).toPath()) }
             } catch (e: Exception) {
@@ -55,7 +56,8 @@ class GeoIP(
      */
     fun selfTest() {
         try {
-            getCountry("1.1.1.1")
+            // Test with Google's IP
+            getCountry("172.217.165.14")
         } catch (e: Exception) {
             log.error("GeoIP Service Self Test Failed", e)
             throw e
@@ -74,7 +76,8 @@ class GeoIP(
     fun getCountry(ip: Str): Str
     {
         return try {
-            geoLite.country(InetAddress.getByName(ip)).country.isoCode
+            val ipa = InetAddress.getByName(ip)
+            geoLite.country(ipa)?.country?.isoCode ?: ""
         } catch (e: Exception) {
             log.error("Failed to get country from IP $ip", e)
             ""
