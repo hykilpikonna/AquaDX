@@ -3,6 +3,8 @@ package icu.samnyan.aqua.net.components
 import ext.Bool
 import ext.Str
 import icu.samnyan.aqua.net.db.AquaNetUser
+import icu.samnyan.aqua.net.db.EmailConfirmation
+import icu.samnyan.aqua.net.db.EmailConfirmationRepo
 import jakarta.annotation.PostConstruct
 import org.simplejavamail.api.mailer.Mailer
 import org.simplejavamail.email.EmailBuilder
@@ -13,15 +15,15 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Configuration
 @ConfigurationProperties(prefix = "aqua-net.email")
 class EmailProperties {
     var enable: Bool = false
-
-    lateinit var senderName: Str
-
-    lateinit var senderAddr: Str
+    var senderName: Str = "AquaDX"
+    var senderAddr: Str = "aquadx@example.com"
+    var webHost: Str = "aquadx.net"
 }
 
 /**
@@ -34,14 +36,16 @@ class EmailProperties {
 class EmailService(
     val mailer: Mailer,
     val props: EmailProperties,
+    val confirmationRepo: EmailConfirmationRepo,
 ) {
     val log: Logger = LoggerFactory.getLogger(EmailService::class.java)
+    lateinit var confirmTemplate: Str
 
     /**
      * Test the connection of the email service on startup
      */
     @PostConstruct
-    fun testConnection() {
+    fun init() {
         if (!props.enable) return
 
         try {
@@ -49,14 +53,35 @@ class EmailService(
             log.info("Email Service Connected")
         } catch (e: Exception) {
             log.error("Email Service Connection Failed", e)
+            throw e
         }
+
+        // Load confirm email template
+        confirmTemplate = this::class.java.getResource("/email/confirm.html")?.readText() ?:
+            throw Exception("Email Template Not Found")
     }
 
     /**
      * Send a confirmation email to the user
      */
-    fun confirmationEmail(user: AquaNetUser) {
+    fun sendConfirmation(user: AquaNetUser) {
+        if (!props.enable) return
 
+        // Generate token (UUID4)
+        val token = UUID.randomUUID().toString()
+        val confirmation = EmailConfirmation(token = token, aquaNetUser = user, createdAt = Date().toInstant())
+        confirmationRepo.save(confirmation)
+
+        // Send email
+        log.info("Sending confirmation email to ${user.email}")
+        mailer.sendMail(EmailBuilder.startingBlank()
+            .from(props.senderName, props.senderAddr)
+            .to(user.computedName, user.email)
+            .withSubject("Confirm Your Email Address for AquaNet")
+            .withHTMLText(confirmTemplate
+                .replace("{{name}}", user.computedName)
+                .replace("{{url}}", "https://${props.webHost}?confirm-email=$token"))
+            .buildEmail()).thenRun { log.info("Confirmation email sent to ${user.email}") }
     }
 
     fun testEmail(addr: Str, name: Str) {
