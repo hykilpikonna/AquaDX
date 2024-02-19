@@ -36,8 +36,15 @@ class JWT(
             log.warn("USING DEFAULT JWT SECRET, PLEASE SET aqua-net.jwt IN CONFIGURATION")
         }
 
+        // Pad byte array to 256 bits
+        var ba = props.secret.toByteArray()
+        if (ba.size < 32) {
+            log.warn("JWT Secret is less than 256 bits, padding with 0. PLEASE USE A STRONGER SECRET!")
+            ba = ByteArray(32).also { ba.copyInto(it) }
+        }
+
         // Initialize key
-        key = Keys.hmacShaKeyFor(props.secret.toByteArray())
+        key = Keys.hmacShaKeyFor(ba)
 
         // Create parser
         parser = Jwts.parser()
