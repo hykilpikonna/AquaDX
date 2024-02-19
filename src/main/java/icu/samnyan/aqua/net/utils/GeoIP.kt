@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.net.utils
 
 import com.maxmind.geoip2.DatabaseReader
+import com.maxmind.geoip2.exception.AddressNotFoundException
 import ext.Bool
 import ext.Str
 import jakarta.annotation.PostConstruct
@@ -78,7 +79,9 @@ class GeoIP(
         return try {
             val ipa = InetAddress.getByName(ip)
             geoLite.country(ipa)?.country?.isoCode ?: ""
-        } catch (e: Exception) {
+        }
+        catch (e: AddressNotFoundException) { "" }
+        catch (e: Exception) {
             log.error("Failed to get country from IP $ip", e)
             ""
         }
