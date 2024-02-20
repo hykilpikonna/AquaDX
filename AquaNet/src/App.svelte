@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Router, Route } from "svelte-routing";
-  import Home from "./pages/Home.svelte";
+  import Welcome from "./pages/Welcome.svelte";
   import MaimaiRating from "./pages/MaimaiRating.svelte";
   import UserHome from "./pages/UserHome.svelte";
   import Icon from '@iconify/svelte';
@@ -16,9 +16,9 @@
 </nav>
 
 <Router {url}>
-  <Route path="/"><Home /></Route>
-  <Route path="/u/:userId" component={UserHome}></Route>
-  <Route path="/u/:userId/mai/rating" component={MaimaiRating}></Route>
+  <Route path="/" component={Welcome} />
+  <Route path="/u/:userId" component={UserHome} />
+  <Route path="/u/:userId/mai/rating" component={MaimaiRating} />
 </Router>
 
 <style lang="sass">
