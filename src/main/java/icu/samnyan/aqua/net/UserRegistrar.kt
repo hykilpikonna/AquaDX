@@ -133,7 +133,19 @@ class UserRegistrar(
     }
 
     @API("/me")
-    suspend fun getUser(@RP token: Str) = jwt.auth(token)
+    suspend fun getUser(@RP token: Str) = jwt.auth(token) { u ->
+        mapOf(
+            "username" to u.username,
+            "email" to u.email,
+            "lastLogin" to u.lastLogin,
+            "regTime" to u.regTime,
+            "profileLocation" to u.profileLocation,
+            "profileBio" to u.profileBio,
+            "emailConfirmed" to u.emailConfirmed,
+            "ghostCard" to u.ghostCard.luid,
+            "cards" to u.cards.map { it.luid },
+        )
+    }
 
     @API("/setting")
     suspend fun setting(@RP token: Str, @RP key: Str, @RP value: Str) = jwt.auth(token) { u ->
