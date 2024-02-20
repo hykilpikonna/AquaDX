@@ -21,6 +21,7 @@
     "svelte": "^4.2.10",
     "svelte-check": "^3.6.4",
     "svelte-routing": "^2.12.0",
+    "svelte-turnstile": "^0.5.0",
     "tslib": "^2.6.2",
     "typescript": "^5.2.2",
     "typescript-eslint": "^7.0.1",
@@ -29,6 +30,7 @@
   "dependencies": {
     "cal-heatmap": "^4.2.4",
     "chart.js": "^4.4.1",
+    "modern-normalize": "^2.0.0",
     "moment": "^2.30.1",
     "svelte-chartjs": "^3.1.5"
   }
