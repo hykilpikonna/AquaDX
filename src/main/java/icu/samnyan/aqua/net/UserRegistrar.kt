@@ -39,9 +39,9 @@ class UserRegistrar(
     val validator: AquaUserValidator,
 ) {
     companion object {
-        // Random long with length 19 (10^19 possibilities)
-        const val cardExtIdStart = 10e18.toLong()
-        const val cardExtIdEnd = 10e19.toLong()
+        // Random long with length 17 (10^18 possibilities)
+        const val cardExtIdStart = 1e17.toLong()
+        const val cardExtIdEnd = 1e18.toLong() - 1
     }
 
     /**
