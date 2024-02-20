@@ -39,19 +39,12 @@ class CardService(val cardRepo: CardRepository) {
      * @param accessCode String represent of an access code
      * @return a new registered Card
      */
-    fun registerByAccessCode(accessCode: String?): Card {
-        var eid = ThreadLocalRandom.current().nextLong(99999999)
-        while (cardRepo.findByExtId(eid).isPresent) {
-            eid = ThreadLocalRandom.current().nextLong(99999999)
-        }
-
-        return cardRepo.save(Card().apply {
-            luid = accessCode
-            extId = eid
-            registerTime = LocalDateTime.now()
-            accessTime = registerTime
-        })
-    }
+    fun registerByAccessCode(accessCode: String?): Card = cardRepo.save(Card().apply {
+        luid = accessCode
+        extId = randExtID()
+        registerTime = LocalDateTime.now()
+        accessTime = registerTime
+    })
 
     fun randExtID(lower: Long = 0, upper: Long = 99999999): Long {
         var eid = ThreadLocalRandom.current().nextLong(lower, upper)
