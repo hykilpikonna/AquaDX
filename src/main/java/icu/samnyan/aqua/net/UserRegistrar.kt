@@ -131,4 +131,20 @@ class UserRegistrar(
 
     @API("/me")
     suspend fun getUser(@RP token: Str) = jwt.auth(token)
+
+    @API("/setting")
+    suspend fun setting(@RP token: Str, @RP key: Str, @RP value: Str) = jwt.auth(token) { u ->
+        // Check if the key is a settable field
+        val field = SETTING_FIELDS.find { it.name == key } ?: (400 - "Invalid setting")
+
+        async {
+            // Set the validated field
+            field.setter.call(u, field.checker.call(validator, value))
+
+            // Save the user
+            userRepo.save(u)
+        }
+
+        SUCCESS
+    }
 }
