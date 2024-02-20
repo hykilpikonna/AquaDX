@@ -1,8 +1,102 @@
+<script lang="ts">
+  import { Turnstile } from "svelte-turnstile";
+  import { TURNSTILE_SITE_KEY } from "../libs/config";
+  import Icon from "@iconify/svelte";
+  import { login, register } from "../libs/sdk";
+
+  let showLogin = false
+  let isSignup = false
+  let submitting = false
+
+  let email = ""
+  let password = ""
+  let username = ""
+  let turnstile = ""
+
+  let error = ""
+
+  async function submit() {
+    submitting = true
+
+    // Check if username and password are valid
+    if (email === "" || password === "") {
+      error = "Please fill in all fields."
+      return submitting = false
+    }
+
+    if (turnstile === "") {
+      // Sleep for 100ms to allow Turnstile to finish
+      error = "Waiting for Turnstile to verify your network environment..."
+      return setTimeout(submit, 100)
+    }
+
+    // Signup
+    if (isSignup) {
+      if (username === "") {
+        error = "Please fill in all fields."
+        return submitting = false
+      }
+
+      // Send request to server
+      await register({ username, email, password, turnstile })
+        .catch(e => {
+          error = e.message
+          submitting = false
+        })
+
+      // TODO: Show verify email message
+    }
+    else {
+      // Send request to server
+      await login({ email, password, turnstile })
+        .catch(e => {
+          error = e.message
+          submitting = false
+        })
+    }
+
+    submitting = false
+  }
+
+</script>
+
 <main id="home" class="no-margin">
-  <h1>AquaNet</h1>
-  <div class="btn-group">
-    <button>Login</button>
-    <button>Sign Up</button>
+  <div>
+    <h1 id="title">AquaNet</h1>
+    {#if !showLogin}
+      <div class="btn-group">
+        <button on:click={() => showLogin = true}>Log in</button>
+        <button on:click={() => showLogin = isSignup = true}>Sign up</button>
+      </div>
+    {:else}
+      <div class="login-form">
+        {#if error}
+          <span class="error">{error}</span>
+        {/if}
+        <div on:click={() => showLogin = isSignup = false} on:keypress={() => showLogin = isSignup = false}
+             role="button" tabindex="0" class="clickable">
+          <Icon icon="line-md:chevron-small-left" />
+          <span>Back</span>
+        </div>
+        {#if isSignup}
+          <input type="text" placeholder="Username" bind:value={username}>
+        {/if}
+        <input type="email" placeholder="Email" bind:value={email}>
+        <input type="password" placeholder="Password" bind:value={password}>
+        <button on:click={submit}>
+          {#if submitting}
+            <Icon icon="line-md:loading-twotone-loop"/>
+          {:else}
+            {isSignup ? "Sign up" : "Log in"}
+          {/if}
+        </button>
+        <Turnstile siteKey={TURNSTILE_SITE_KEY}
+                   on:turnstile-callback={e => console.log(turnstile = e.detail.token)}
+                   on:turnstile-error={_ => console.log(error = "Error verifying your network environment. Please turn off your VPN and try again.")}
+                   on:turnstile-expired={_ => window.location.reload()}
+                   on:turnstile-timeout={_ => console.log(error = "Network verification timed out. Please try again.")} />
+      </div>
+    {/if}
   </div>
 
   <div class="light-pollution">
@@ -15,6 +109,17 @@
 <style lang="sass">
   @import "../vars"
 
+  .login-form
+    display: flex
+    flex-direction: column
+    gap: 8px
+    width: calc(100% - 12px)
+    max-width: 300px
+
+    div.clickable
+      display: flex
+      align-items: center
+
   #home
     color: $c-main
     position: relative
@@ -22,6 +127,7 @@
     height: 100%
     padding-left: 100px
     overflow: hidden
+    background-color: black
 
     box-sizing: border-box
 
@@ -31,13 +137,21 @@
 
     margin-top: -$nav-height
 
-    > h1
+    > div
+      display: flex
+      flex-direction: column
+      align-items: flex-start
+      gap: 16px
+      width: max-content
+
+    #title
       font-family: Quicksand, $font
       user-select: none
 
       // Gap between text characters
-      letter-spacing: 0.2em
+      letter-spacing: 12px
       margin-top: 0
+      margin-bottom: 16px
       opacity: 0.9
 
     .btn-group
@@ -46,11 +160,11 @@
 
     .light-pollution
       pointer-events: none
-      opacity: 0.6
+      opacity: 0.8
 
       > div
         position: absolute
-        z-index: -1
+        z-index: 1
 
       .l1
         left: -560px
@@ -58,7 +172,7 @@
         height: 1130px
         width: 1500px
         $color: rgb(158, 110, 230)
-        background: radial-gradient(50% 50% at 50% 50%, rgba($color, 0.28) 0%, rgba($color, 0) 100%)
+        background: radial-gradient(50% 50% at 50% 50%, rgba($color, 0.28) 0%, rgba(0,0,0,0) 100%)
 
       .l2
         left: -200px
@@ -66,7 +180,7 @@
         height: 1200px
         width: 1500px
         $color: rgb(92, 195, 250)
-        background: radial-gradient(50% 50% at 50% 50%, rgba($color, 0.28) 0%, rgba($color, 0) 100%)
+        background: radial-gradient(50% 50% at 50% 50%, rgba($color, 0.28) 0%, rgba(0,0,0,0) 100%)
 
       .l3
         left: -600px
@@ -75,7 +189,7 @@
         width: 1500px
         height: 1000px
         $color: rgb(230, 110, 156)
-        background: radial-gradient(50% 50% at 50% 50%, rgba($color, 0.28) 0%, rgba($color, 0) 100%)
+        background: radial-gradient(50% 50% at 50% 50%, rgba($color, 0.28) 0%, rgba(0,0,0,0) 100%)
 
     @media (max-width: 500px)
       align-items: center
