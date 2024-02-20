@@ -3,6 +3,7 @@ package icu.samnyan.aqua.sega.maimai2.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import icu.samnyan.aqua.sega.maimai2.handler.impl.*;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -10,6 +11,7 @@ import java.util.Map;
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
+@AllArgsConstructor
 @RestController
 @RequestMapping({ "/Maimai2Servlet/Maimai2Servlet", "/Maimai2Servlet" })
 public class Maimai2ServletController {
@@ -56,93 +58,6 @@ public class Maimai2ServletController {
     private final GetUserFavoriteItemHandler getUserFavoriteItemHandler;
     private final GetUserRivalDataHandler getUserRivalDataHandler;
     private final GetUserRivalMusicHandler getUserRivalMusicHandler;
-
-    public Maimai2ServletController(
-            GetGameSettingHandler getGameSettingHandler,
-            GetGameEventHandler getGameEventHandler,
-            GetGameRankingHandler getGameRankingHandler,
-            GetGameTournamentInfoHandler getGameTournamentInfoHandler,
-            GetTransferFriendHandler getTransferFriendHandler,
-            GetUserActivityHandler getUserActivityHandler,
-            UserLoginHandler userLoginHandler,
-            UserLogoutHandler userLogoutHandler,
-            GetUserDataHandler getUserDataHandler,
-            UpsertUserAllHandler upsertUserAllHandler,
-            GetUserPreviewHandler getUserPreviewHandler,
-            GetUserCharacterHandler getUserCharacterHandler,
-            GetUserOptionHandler getUserOptionHandler,
-            GetUserItemHandler getUserItemHandler,
-            GetUserExtendHandler getUserExtendHandler,
-            GetUserGhostHandler getUserGhostHandler,
-            GetUserLoginBonusHandler getUserLoginBonusHandler,
-            GetUserMapHandler getUserMapHandler,
-            GetUserFavoriteHandler getUserFavoriteHandler,
-            GetUserCardHandler getUserCardHandler,
-            GetUserMusicHandler getUserMusicHandler,
-            GetUserRatingHandler getUserRatingHandler,
-            GetUserRegionHandler getUserRegionHandler,
-            GetGameChargeHandler getGameChargeHandler,
-            GetUserChargeHandler getUserChargeHandler,
-            GetUserCourseHandler getUserCourseHandler,
-            UploadUserPhotoHandler uploadUserPhotoHandler,
-            UploadUserPlaylogHandler uploadUserPlaylogHandler,
-            UploadUserPortraitHandler uploadUserPortraitHandler,
-            GetGameNgMusicIdHandler getGameNgMusicIdHandler,
-            GetUserPortraitHandler getUserPortraitHandler,
-            GetUserFriendSeasonRankingHandler getUserFriendSeasonRankingHandler,
-            CMGetUserPreviewHandler cmGetUserPreviewHandler,
-            CMGetSellingCardHandler cmGetSellingCardHandler,
-            GetUserCardPrintErrorHandler getUserCardPrintErrorHandler,
-            CMGetUserCharacterHandler cmGetUserCharacterHandler,
-            UpsertUserPrintHandler upsertUserPrintHandler,
-            GetUserRecommendRateMusicHandler getUserRecommendRateMusicHandler,
-            GetUserRecommendSelectMusicHandler getUserRecommendSelectMusicHandler,
-            GetUserFavoriteItemHandler getUserFavoriteItemHandler,
-            GetUserRivalDataHandler getUserRivalDataHandler,
-            GetUserRivalMusicHandler getUserRivalMusicHandler) {
-        this.getGameSettingHandler = getGameSettingHandler;
-        this.getGameEventHandler = getGameEventHandler;
-        this.getGameRankingHandler = getGameRankingHandler;
-        this.getGameTournamentInfoHandler = getGameTournamentInfoHandler;
-        this.getTransferFriendHandler = getTransferFriendHandler;
-        this.getUserActivityHandler = getUserActivityHandler;
-        this.userLoginHandler = userLoginHandler;
-        this.userLogoutHandler = userLogoutHandler;
-        this.getUserDataHandler = getUserDataHandler;
-        this.upsertUserAllHandler = upsertUserAllHandler;
-        this.getUserPreviewHandler = getUserPreviewHandler;
-        this.getUserCharacterHandler = getUserCharacterHandler;
-        this.getUserOptionHandler = getUserOptionHandler;
-        this.getUserItemHandler = getUserItemHandler;
-        this.getUserExtendHandler = getUserExtendHandler;
-        this.getUserGhostHandler = getUserGhostHandler;
-        this.getUserLoginBonusHandler = getUserLoginBonusHandler;
-        this.getUserMapHandler = getUserMapHandler;
-        this.getUserFavoriteHandler = getUserFavoriteHandler;
-        this.getUserCardHandler = getUserCardHandler;
-        this.getUserMusicHandler = getUserMusicHandler;
-        this.getUserRatingHandler = getUserRatingHandler;
-        this.getUserRegionHandler = getUserRegionHandler;
-        this.getGameChargeHandler = getGameChargeHandler;
-        this.getUserChargeHandler = getUserChargeHandler;
-        this.getUserCourseHandler = getUserCourseHandler;
-        this.uploadUserPhotoHandler = uploadUserPhotoHandler;
-        this.uploadUserPlaylogHandler = uploadUserPlaylogHandler;
-        this.getGameNgMusicIdHandler = getGameNgMusicIdHandler;
-        this.getUserFriendSeasonRankingHandler = getUserFriendSeasonRankingHandler;
-        this.getUserPortraitHandler = getUserPortraitHandler;
-        this.uploadUserPortraitHandler = uploadUserPortraitHandler;
-        this.cmGetUserPreviewHandler = cmGetUserPreviewHandler;
-        this.cmGetSellingCardHandler = cmGetSellingCardHandler;
-        this.getUserCardPrintErrorHandler = getUserCardPrintErrorHandler;
-        this.cmGetUserCharacterHandler = cmGetUserCharacterHandler;
-        this.upsertUserPrintHandler = upsertUserPrintHandler;
-        this.getUserRecommendRateMusicHandler = getUserRecommendRateMusicHandler;
-        this.getUserRecommendSelectMusicHandler = getUserRecommendSelectMusicHandler;
-        this.getUserFavoriteItemHandler = getUserFavoriteItemHandler;
-        this.getUserRivalDataHandler = getUserRivalDataHandler;
-        this.getUserRivalMusicHandler = getUserRivalMusicHandler;
-    }
 
     // Mandatory for boot
     @PostMapping("GetGameEventApi")
