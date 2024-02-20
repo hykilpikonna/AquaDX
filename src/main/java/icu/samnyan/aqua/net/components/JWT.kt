@@ -72,4 +72,6 @@ class JWT(
     }
 
     fun auth(token: Str) = parse(token) ?: (400 - "Invalid token")
+
+    final inline fun auth(token: Str, block: (AquaNetUser) -> Any) = block(auth(token))
 }
