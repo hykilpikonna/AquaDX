@@ -41,6 +41,10 @@ class AquaNetUser(
     // Email confirmation
     var emailConfirmed: Boolean = false,
 
+    @OneToOne(cascade = [CascadeType.ALL])
+    @Column(nullable = false)
+    var ghostCard: Card = Card(),
+
     // One user can have multiple cards
     @OneToMany(mappedBy = "aquaUser", cascade = [CascadeType.ALL])
     var cards: MutableList<Card> = mutableListOf()
