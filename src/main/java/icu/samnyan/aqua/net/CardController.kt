@@ -2,8 +2,6 @@ package icu.samnyan.aqua.net
 
 import ext.*
 import icu.samnyan.aqua.net.components.JWT
-import icu.samnyan.aqua.net.db.AquaNetUser
-import icu.samnyan.aqua.net.db.AquaNetUserRepo
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
@@ -15,7 +13,6 @@ import kotlin.jvm.optionals.getOrNull
 @RestController
 @API("/api/v2/card")
 class CardController(
-    val userRepo: AquaNetUserRepo,
     val jwt: JWT,
     val cardService: CardService,
     val cardGameService: CardGameService,
@@ -69,25 +66,25 @@ class CardGameService(
     val ongeki: icu.samnyan.aqua.sega.ongeki.dao.userdata.UserDataRepository,
     val diva: icu.samnyan.aqua.sega.diva.dao.userdata.PlayerProfileRepository,
 ) {
-    suspend fun migrate(card: Card, games: List<String>) = async {
+    suspend fun migrate(crd: Card, games: List<String>) = async {
         // Migrate data from the card to the user's ghost card
         // An easy migration is to change the UserData card field to the user's ghost card
         games.forEach { game ->
             when (game) {
-                "maimai" -> maimai.findByCard_ExtId(card.extId).getOrNull()?.let {
-                    it.card = card.aquaUser!!.ghostCard
+                "maimai" -> maimai.findByCard_ExtId(crd.extId).getOrNull()?.let {
+                    maimai.save(it.apply { card = crd.aquaUser!!.ghostCard })
                 }
-                "maimai2" -> maimai2.findByCard_ExtId(card.extId).getOrNull()?.let {
-                    it.card = card.aquaUser!!.ghostCard
+                "maimai2" -> maimai2.findByCard_ExtId(crd.extId).getOrNull()?.let {
+                    maimai2.save(it.apply { card = crd.aquaUser!!.ghostCard })
                 }
-                "chusan" -> chusan.findByCard_ExtId(card.extId).getOrNull()?.let {
-                    it.card = card.aquaUser!!.ghostCard
+                "chusan" -> chusan.findByCard_ExtId(crd.extId).getOrNull()?.let {
+                    chusan.save(it.apply { card = crd.aquaUser!!.ghostCard })
                 }
-                "chunithm" -> chunithm.findByCard_ExtId(card.extId).getOrNull()?.let {
-                    it.card = card.aquaUser!!.ghostCard
+                "chunithm" -> chunithm.findByCard_ExtId(crd.extId).getOrNull()?.let {
+                    chunithm.save(it.apply { card = crd.aquaUser!!.ghostCard })
                 }
-                "ongeki" -> ongeki.findByCard_ExtId(card.extId).getOrNull()?.let {
-                    it.card = card.aquaUser!!.ghostCard
+                "ongeki" -> ongeki.findByCard_ExtId(crd.extId).getOrNull()?.let {
+                    ongeki.save(it.apply { card = crd.aquaUser!!.ghostCard })
                 }
                 // TODO: diva
 //                "diva" -> diva.findByPdId(card.extId.toInt()).getOrNull()?.let {

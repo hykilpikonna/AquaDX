@@ -16,13 +16,9 @@ import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.general.service.CardService
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.time.Instant
 import java.time.LocalDateTime
-import java.util.Random
-import kotlin.reflect.KMutableProperty
 
 @RestController
 @API("/api/v2/user")
