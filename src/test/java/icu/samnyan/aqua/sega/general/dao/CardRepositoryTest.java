@@ -21,7 +21,7 @@ class CardRepositoryTest {
 
     @Test
     void findByExtId_Exists() {
-        cardRepository.save(new Card(1, 114514L, "01145141919810000000", LocalDateTime.now(), LocalDateTime.now()));
+        cardRepository.save(new Card(1, 114514L, "01145141919810000000", LocalDateTime.now(), LocalDateTime.now(), null));
 
         var c = cardRepository.findByExtId(114514L);
 

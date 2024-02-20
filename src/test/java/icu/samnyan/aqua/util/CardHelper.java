@@ -13,7 +13,7 @@ public class CardHelper {
 
     public static Card getCard() {
         var now = LocalDateTime.now();
-        return new Card(1L, 114514L, "01145141919810000000", now, now);
+        return new Card(1L, 114514L, "01145141919810000000", now, now, null);
     }
 
     public static Card getRandomCard() {
@@ -27,6 +27,6 @@ public class CardHelper {
         for (int i = 0; i < "114514".length(); i++)
             extId = extId * 10 + rand.nextInt(10);
 
-        return new Card(0, extId, luid, now, now);
+        return new Card(0, extId, luid, now, now, null);
     }
 }
