@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.sega.general.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import icu.samnyan.aqua.net.db.AquaNetUser;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class Card implements Serializable {
 
     // A external id
     @Column(name = "ext_id", unique = true)
+    @JsonIgnore // Sensitive information
     private Long extId;
 
     // Access Code
@@ -44,5 +46,6 @@ public class Card implements Serializable {
     // Defines the AquaNet user that this card is bound to
     @ManyToOne
     @JoinColumn(name = "net_user_id")
+    @JsonIgnore
     private AquaNetUser aquaUser;
 }

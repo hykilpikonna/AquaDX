@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.net.db
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import ext.Str
 import ext.isValidEmail
 import ext.minus
@@ -17,6 +18,7 @@ import kotlin.reflect.full.functions
 @Entity(name = "AquaNetUser")
 @Table(name = "aqua_net_user")
 class AquaNetUser(
+    @JsonIgnore
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var auId: Long = 0,
 
@@ -26,6 +28,8 @@ class AquaNetUser(
     // Login credentials
     @Column(nullable = false, unique = true)
     var email: String = "",
+
+    @JsonIgnore
     @Column(nullable = false)
     var pwHash: String = "",
 
