@@ -7,11 +7,17 @@ import icu.samnyan.aqua.net.components.JWT
 import icu.samnyan.aqua.net.components.TurnstileService
 import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.db.AquaNetUserRepo
+import icu.samnyan.aqua.net.db.EmailConfirmationRepo
+import icu.samnyan.aqua.sega.general.dao.CardRepository
+import icu.samnyan.aqua.sega.general.model.Card
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.time.Instant
+import java.time.LocalDateTime
+import java.util.Random
 
 @RestController
 @RequestMapping("/api/v2/user")
@@ -21,8 +27,16 @@ class UserRegistrar(
     val turnstileService: TurnstileService,
     val emailService: EmailService,
     val geoIP: GeoIP,
-    val jwt: JWT
+    val jwt: JWT,
+    val confirmationRepo: EmailConfirmationRepo,
+    val cardRepo: CardRepository
 ) {
+    companion object {
+        // Random long with length 19 (10^19 possibilities)
+        const val cardExtIdStart = 10e18.toLong()
+        const val cardExtIdEnd = 10e19.toLong()
+    }
+
     /**
      * Register a new user
      */
@@ -64,11 +78,25 @@ class UserRegistrar(
         // GeoIP check to infer country
         val country = geoIP.getCountry(ip)
 
+        // Create a ghost card
+        val card = Card().apply {
+            extId = Random().nextLong(cardExtIdStart, cardExtIdEnd)
+            luid = extId.toString()
+            registerTime = LocalDateTime.now()
+            accessTime = registerTime
+        }
         val u = AquaNetUser(
             username = username, email = email, pwHash = hasher.encode(password),
-            regTime = millis(), lastLogin = millis(), country = country
+            regTime = millis(), lastLogin = millis(), country = country,
+            ghostCard = card
         )
-        async { userRepo.save(u) }
+        card.aquaUser = u
+
+        // Save the user
+        async {
+            userRepo.save(u)
+            cardRepo.save(card)
+        }
 
         // Send confirmation email
         emailService.sendConfirmation(u)
