@@ -10,6 +10,7 @@ import icu.samnyan.aqua.net.db.AquaNetUserRepo
 import icu.samnyan.aqua.net.db.EmailConfirmationRepo
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
+import icu.samnyan.aqua.sega.general.service.CardService
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.PostMapping
@@ -29,7 +30,8 @@ class UserRegistrar(
     val geoIP: GeoIP,
     val jwt: JWT,
     val confirmationRepo: EmailConfirmationRepo,
-    val cardRepo: CardRepository
+    val cardRepo: CardRepository,
+    val cardService: CardService
 ) {
     companion object {
         // Random long with length 19 (10^19 possibilities)
@@ -80,7 +82,7 @@ class UserRegistrar(
 
         // Create a ghost card
         val card = Card().apply {
-            extId = Random().nextLong(cardExtIdStart, cardExtIdEnd)
+            extId = cardService.randExtID(cardExtIdStart, cardExtIdEnd)
             luid = extId.toString()
             registerTime = LocalDateTime.now()
             accessTime = registerTime

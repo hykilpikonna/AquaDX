@@ -52,4 +52,12 @@ class CardService(val cardRepo: CardRepository) {
             accessTime = registerTime
         })
     }
+
+    fun randExtID(lower: Long = 0, upper: Long = 99999999): Long {
+        var eid = ThreadLocalRandom.current().nextLong(lower, upper)
+        while (cardRepo.findByExtId(eid).isPresent) {
+            eid = ThreadLocalRandom.current().nextLong(lower, upper)
+        }
+        return eid
+    }
 }
