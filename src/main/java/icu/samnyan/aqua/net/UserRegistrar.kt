@@ -109,6 +109,9 @@ class UserRegistrar(
         // Generate JWT token
         val token = jwt.gen(user)
 
+        // Set last login time
+        async { userRepo.save(user.apply { lastLogin = millis() }) }
+
         return mapOf("token" to token)
     }
 
