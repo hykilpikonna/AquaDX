@@ -7,7 +7,10 @@ import icu.samnyan.aqua.net.components.JWT
 import icu.samnyan.aqua.net.components.TurnstileService
 import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.db.AquaNetUserRepo
+import icu.samnyan.aqua.net.db.AquaUserValidator
+import icu.samnyan.aqua.net.db.AquaUserValidator.Companion.SETTING_FIELDS
 import icu.samnyan.aqua.net.db.EmailConfirmationRepo
+import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.general.service.CardService
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController
 import java.time.Instant
 import java.time.LocalDateTime
 import java.util.Random
+import kotlin.reflect.KMutableProperty
 
 @RestController
 @API("/api/v2/user")
@@ -31,7 +35,8 @@ class UserRegistrar(
     val jwt: JWT,
     val confirmationRepo: EmailConfirmationRepo,
     val cardRepo: CardRepository,
-    val cardService: CardService
+    val cardService: CardService,
+    val validator: AquaUserValidator,
 ) {
     companion object {
         // Random long with length 19 (10^19 possibilities)
@@ -53,32 +58,16 @@ class UserRegistrar(
         // Check captcha
         if (!turnstileService.validate(turnstile, ip)) 400 - "Invalid captcha"
 
-        // Check if email is valid
-        if (!email.isValidEmail()) 400 - "Invalid email"
-
-        // Check if user with the same email exists
-        if (async { userRepo.findByEmailIgnoreCase(email) != null })
-            400 - "User with email `$email` already exists"
-
-        // Check if username is valid
-        if (username.length < 2) 400 - "Username must be at least 2 letters"
-        if (username.length > 32) 400 - "Username too long (max 32 letters)"
-        if (username.contains(" ")) 400 - "Username cannot contain spaces"
-
-        // Check if username is within A-Za-z0-9_-~.
-        username.find { !it.isLetterOrDigit() && it != '_' && it != '-' && it != '~' && it != '.' }?.let {
-            400 - "Username cannot contain `$it`. Please only use letters (A-Z), numbers (0-9), and `_-~.` characters. You can set a display name later."
-        }
-
-        // Check if user with the same username exists
-        if (async { userRepo.findByUsernameIgnoreCase(username) != null })
-            400 - "User with username `$username` already exists"
-
-        // Validate password
-        if (password.length < 8) 400 - "Password must be at least 8 characters"
-
         // GeoIP check to infer country
         val country = geoIP.getCountry(ip)
+
+        // Create user
+        val u = async { AquaNetUser(
+            username = validator.checkUsername(username),
+            email = validator.checkEmail(email),
+            pwHash = validator.checkPwHash(password),
+            regTime = millis(), lastLogin = millis(), country = country,
+        ) }
 
         // Create a ghost card
         val card = Card().apply {
@@ -86,13 +75,9 @@ class UserRegistrar(
             luid = extId.toString()
             registerTime = LocalDateTime.now()
             accessTime = registerTime
+            aquaUser = u
         }
-        val u = AquaNetUser(
-            username = username, email = email, pwHash = hasher.encode(password),
-            regTime = millis(), lastLogin = millis(), country = country,
-            ghostCard = card
-        )
-        card.aquaUser = u
+        u.ghostCard = card
 
         // Save the user
         async {
