@@ -42,7 +42,7 @@ class AquaNetUser(
     var emailConfirmed: Boolean = false,
 
     @OneToOne(cascade = [CascadeType.ALL])
-    @Column(nullable = false)
+    @JoinColumn(name = "ghostCard", unique = true, nullable = false)
     var ghostCard: Card = Card(),
 
     // One user can have multiple cards
