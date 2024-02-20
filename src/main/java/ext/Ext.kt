@@ -11,12 +11,14 @@ import kotlinx.serialization.json.Json
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.server.ResponseStatusException
 
 typealias RP = RequestParam
 typealias RB = RequestBody
 typealias RH = RequestHeader
+typealias API = RequestMapping
 typealias Str = String
 typealias Bool = Boolean
 

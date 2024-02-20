@@ -21,7 +21,7 @@ import java.time.LocalDateTime
 import java.util.Random
 
 @RestController
-@RequestMapping("/api/v2/user")
+@API("/api/v2/user")
 class UserRegistrar(
     val userRepo: AquaNetUserRepo,
     val hasher: PasswordEncoder,
@@ -42,7 +42,7 @@ class UserRegistrar(
     /**
      * Register a new user
      */
-    @PostMapping("/register")
+    @API("/register")
     suspend fun register(
         @RP username: Str, @RP email: Str, @RP password: Str, @RP turnstile: Str,
         request: HttpServletRequest
@@ -106,7 +106,7 @@ class UserRegistrar(
         return mapOf("success" to true)
     }
 
-    @PostMapping("/login")
+    @API("/login")
     suspend fun login(
         @RP email: Str, @RP password: Str, @RP turnstile: Str,
         request: HttpServletRequest
@@ -127,7 +127,7 @@ class UserRegistrar(
         return mapOf("token" to token)
     }
 
-    @PostMapping("/confirm-email")
+    @API("/confirm-email")
     suspend fun confirmEmail(@RP token: Str): Any {
         // Find the confirmation
         val confirmation = async { confirmationRepo.findByToken(token) }
@@ -141,9 +141,9 @@ class UserRegistrar(
         // Confirm the email
         async { userRepo.save(confirmation.aquaNetUser.apply { emailConfirmed = true }) }
 
-        return mapOf("success" to true)
+        return SUCCESS
     }
 
-    @PostMapping("/me")
+    @API("/me")
     suspend fun getUser(@RP token: Str) = jwt.auth(token)
 }

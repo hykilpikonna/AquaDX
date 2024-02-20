@@ -5,6 +5,9 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 
+
+val SUCCESS = ResponseEntity.ok().body(mapOf("status" to "ok"))
+
 class ApiException(val code: Int, message: Str) : RuntimeException(message)
 
 @ControllerAdvice

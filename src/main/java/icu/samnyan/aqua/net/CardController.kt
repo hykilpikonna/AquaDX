@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController
 import kotlin.jvm.optionals.getOrNull
 
 @RestController
-@RequestMapping("/api/v2/card")
+@API("/api/v2/card")
 class CardController(
     val userRepo: AquaNetUserRepo,
     val jwt: JWT,
     val cardService: CardService,
     val cardSummary: CardSummary,
 ) {
-    @RequestMapping("/summary")
+    @API("/summary")
     suspend fun summary(@RP cardId: Str): Any
     {
         val card = cardService.tryLookup(cardId) ?: (404 - "Card not found")

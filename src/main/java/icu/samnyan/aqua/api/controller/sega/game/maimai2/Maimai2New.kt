@@ -1,17 +1,17 @@
 package icu.samnyan.aqua.api.controller.sega.game.maimai2
 
+import ext.API
 import ext.RP
 import ext.minus
 import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserDataRepository
 import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserGeneralDataRepository
 import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserPlaylogRepository
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import kotlin.jvm.optionals.getOrNull
 
 @RestController
-@RequestMapping("api/game/maimai2new")
+@API("api/game/maimai2new")
 class Maimai2New(
     private val userPlaylogRepository: UserPlaylogRepository,
     private val userDataRepository: UserDataRepository,
@@ -20,7 +20,7 @@ class Maimai2New(
 {
     data class TrendOut(val date: String, val rating: Int, val plays: Int)
 
-    @GetMapping("trend")
+    @API("trend")
     fun trend(@RP userId: Long): List<TrendOut> {
         // O(n log n) sort
         val d = userPlaylogRepository.findByUser_Card_ExtId(userId).sortedBy { it.playDate }.toList()
@@ -46,7 +46,7 @@ class Maimai2New(
         98.0  to "S+",
         97.0  to "S").map { (k, v) -> (k * 10000).toInt() to v }
 
-    @GetMapping("user-summary")
+    @API("user-summary")
     fun userSummary(@RP userId: Long): Map<String, Any> {
         // Summary values: total plays, player rating, server-wide ranking
         // number of each rank, max combo, number of full combo, number of all perfect
