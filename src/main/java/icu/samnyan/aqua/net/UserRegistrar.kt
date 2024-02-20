@@ -125,6 +125,23 @@ class UserRegistrar(
         return mapOf("token" to token)
     }
 
+    @PostMapping("/confirm-email")
+    suspend fun confirmEmail(@RP token: Str): Any {
+        // Find the confirmation
+        val confirmation = async { confirmationRepo.findByToken(token) }
+
+        // Check if the token is valid
+        if (confirmation == null) 400 - "Invalid token"
+
+        // Check if the token is expired
+        if (confirmation.createdAt.plusSeconds(60 * 60 * 24).isBefore(Instant.now())) 400 - "Token expired"
+
+        // Confirm the email
+        async { userRepo.save(confirmation.aquaNetUser.apply { emailConfirmed = true }) }
+
+        return mapOf("success" to true)
+    }
+
     @PostMapping("/me")
     suspend fun getUser(@RP token: Str) = jwt.auth(token)
 }
