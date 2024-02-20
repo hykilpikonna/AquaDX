@@ -28,9 +28,7 @@ class CardController(
 
         // Lookup data for each game
         return mapOf(
-            "accessCode" to card.luid,
-            "registerTime" to card.registerTime,
-            "accessTime" to card.accessTime,
+            "card" to card,
             "summary" to cardGameService.getSummary(card),
         )
     }
