@@ -4,6 +4,7 @@
   import MaimaiRating from "./pages/MaimaiRating.svelte";
   import UserHome from "./pages/UserHome.svelte";
   import Icon from '@iconify/svelte';
+  import Home from "./pages/Home.svelte";
 
   export let url = "";
 </script>
@@ -17,6 +18,7 @@
 
 <Router {url}>
   <Route path="/" component={Welcome} />
+  <Route path="/home" component={Home} />
   <Route path="/u/:userId" component={UserHome} />
   <Route path="/u/:userId/mai/rating" component={MaimaiRating} />
 </Router>

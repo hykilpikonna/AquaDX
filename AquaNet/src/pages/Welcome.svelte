@@ -91,7 +91,8 @@
           }
         })
 
-      // TODO: Redirect to portal page
+      // Redirect to portal page /home
+      window.location.href = "/home"
     }
 
     submitting = false
