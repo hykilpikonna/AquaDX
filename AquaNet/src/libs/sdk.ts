@@ -45,6 +45,15 @@ export async function post(endpoint: string, params: any, init?: RequestInitWith
     ...init
   }).catch(e => {
     console.error(e)
+
+    // If 400 invalid token is caught, should invalidate the token and redirect to signin
+    if (e.message === 'Invalid token') {
+      // Invalidate token
+      localStorage.removeItem('token')
+      // Redirect to signin
+      window.location.href = '/'
+    }
+
     throw new Error('Network error')
   })
 
