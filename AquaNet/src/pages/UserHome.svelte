@@ -43,7 +43,7 @@
   })
 </script>
 
-<main id="user-home">
+<main id="user-home" class="content">
   {#if d !== null}
     <div class="user-pfp">
       <img src={`${DATA_HOST}/maimai/assetbundle/icon/${d.user.iconId.toString().padStart(6, "0")}.png`} alt="" class="pfp">
@@ -193,25 +193,6 @@
 $gap: 20px
 
 #user-home
-  display: flex
-  flex-direction: column
-  gap: $gap
-  margin: 100px auto 0
-  padding: 0 32px 32px
-  min-height: 100%
-  max-width: $w-max
-
-  background-color: rgba(black, 0.2)
-  border-radius: 16px 16px 0 0
-
-  @media (max-width: #{$w-max + (64px) * 2})
-    margin: 100px 32px 0
-    padding: 0 32px 16px
-
-  @media (max-width: $w-mobile)
-    margin: 100px 0 0
-    padding: 0 32px 16px
-
   .user-pfp
     display: flex
     align-items: flex-end
