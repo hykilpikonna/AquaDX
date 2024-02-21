@@ -3,7 +3,7 @@
   import { slide } from 'svelte/transition';
   import { TURNSTILE_SITE_KEY } from "../libs/config";
   import Icon from "@iconify/svelte";
-  import { login, register, USER } from "../libs/sdk";
+  import { USER } from "../libs/sdk";
 
   let params = new URLSearchParams(window.location.search)
 
@@ -29,6 +29,9 @@
       .then(() => {
         verifyMsg = "Your email has been verified! You can now log in now."
         submitting = false
+
+        // Clear the query param
+        window.history.replaceState({}, document.title, window.location.pathname)
       })
       .catch(e => verifyMsg = `Email verification failed: ${e.message}`)
   }
@@ -88,7 +91,7 @@
           }
         })
 
-      // TODO: Redirect to home page
+      // TODO: Redirect to portal page
     }
 
     submitting = false
