@@ -7,14 +7,25 @@
   const inputACRegex = /^(\d{4} ){0,4}\d{0,4}$/
   const inputACRegexFull = /^(\d{4} ){4}\d{4}$/
   let inputAC = ""
-  let inputSN = ""
 
   function inputACChange(e: any) {
     e = e as InputEvent
     // Add spaces to the input
-    if (e.inputType === "insertText" && inputAC.length % 5 === 4 && inputAC.length < 20) {
+    if (e.inputType === "insertText" && inputAC.length % 5 === 4 && inputAC.length < 24)
       inputAC += " "
-    }
+    inputAC = inputAC.slice(0, 24)
+  }
+
+  const inputSNRegex = /^([0-9A-Fa-f]{0,2}:){0,7}[0-9A-Fa-f]{0,2}$/
+  const inputSNRegexFull = /^([0-9A-Fa-f]{2}:){7}[0-9A-Fa-f]{2}$/
+  let inputSN = ""
+
+  function inputSNChange(e: any) {
+    e = e as InputEvent
+    // Add colons to the input
+    if (e.inputType === "insertText" && inputSN.length % 3 === 2 && inputSN.length < 23)
+      inputSN += ":"
+    inputSN = inputSN.toUpperCase().slice(0, 23)
   }
 </script>
 
@@ -36,7 +47,15 @@
     (<a href="https://play.google.com/store/apps/details?id=com.wakdev.wdnfc">Android</a> /
     <a href="https://apps.apple.com/us/app/nfc-tools/id1252962749">Apple</a>) and scan your card. Then, enter the Serial Number.
   </p>
-  <input placeholder="e.g. 01:2E:XX:XX:XX:XX:XX:XX" bind:value={inputSN}>
+  <label>
+    <input placeholder="e.g. 01:2E:1A:2B:3C:4D:5E:6F"
+           bind:value={inputSN}
+           on:input={inputSNChange}
+           class={clz({error: (inputSN && !inputSNRegex.test(inputSN))})}>
+    {#if inputSN.length > 0}
+      <button transition:slide={{axis: 'x'}}>Bind</button>
+    {/if}
+  </label>
 </div>
 
 <style lang="sass">
