@@ -11,7 +11,10 @@
   let me: UserMe | null = null
 
   // Fetch data for current user
-  USER.me().then(m => me = m).catch(e => error = e.message)
+  USER.me().then(m => {
+    me = m
+    m.cards.sort((a, b) => a.registerTime < b.registerTime ? 1 : -1)
+  }).catch(e => error = e.message)
 
   // Access code input
   const inputACRegex = /^(\d{4} ){0,4}\d{0,4}$/
@@ -54,22 +57,23 @@
   }
 
   function formatLUID(luid: string) {
-    // Check if LUID is Felica SN
-    if (luid.startsWith("00")) {
-      return (+luid).toString(16).toUpperCase().padStart(16, "0").match(/.{1,2}/g)!.join(":")
+    switch (cardType(luid)) {
+      case "Felica SN":
+        return (+luid).toString(16).toUpperCase().padStart(16, "0").match(/.{1,2}/g)!.join(":")
+      case "Access Code":
+        return luid.match(/.{4}/g)!.join(" ")
+      case "Account Card":
+        return luid.slice(0, 6) + " " + luid.slice(6).match(/.{4}/g)!.join(" ")
+      default:
+        return luid
     }
-
-    // Check if LUID is a 20-digit access code
-    if (luid.length === 20) {
-      return luid.match(/.{4}/g)!.join(" ")
-    }
-
-    // Ghost card
-    return luid
   }
 
-  function isGhostCard(luid: string) {
-    return luid.length === 18
+  function cardType(luid: string) {
+    if (luid.startsWith("00")) return "Felica SN"
+    if (luid.length === 20) return "Access Code"
+    if (luid.length === 18) return "Account Card"
+    return "Unknown"
   }
 </script>
 
@@ -80,10 +84,12 @@
   {#if me}
     <div class="existing-cards">
       {#each me.cards as card}
-        <div class={clz({ghost: isGhostCard(card.luid)}, 'existing-card')}>
+        <div class={clz({ghost: cardType(card.luid) === 'Account Card'}, 'existing-card')}>
+          <span class="type">{cardType(card.luid)}</span>
           <span class="register">Registered: {moment(card.registerTime).format("YYYY MMM DD")}</span>
           <span class="last">Last used: {moment(card.accessTime).format("YYYY MMM DD")}</span>
-          <span class="id">ID: {formatLUID(card.luid)}</span>
+          <div/>
+          <span class="id">{formatLUID(card.luid)}</span>
         </div>
       {/each}
     </div>
@@ -147,20 +153,29 @@
 
     .existing-cards
       display: grid
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr))
       gap: 1rem
 
       .existing-card
         display: flex
         flex-direction: column
+        min-height: 90px
 
         border-radius: 5px
         padding: 12px 16px
         background: $ov-light
 
-        .id
+        &.ghost
+          background: rgba($c-darker, 0.8)
+
+        .register, .last
+          opacity: 0.7
+
+        span:not(.type)
           font-size: 0.8rem
-          opacity: 0.5
+
+        > div
+          flex: 1
 
 
 </style>
