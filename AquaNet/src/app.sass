@@ -25,7 +25,7 @@ body
 
 a
   font-weight: 500
-  color: $c-darker
+  color: $c-main
   text-decoration: inherit
 
 a:hover
@@ -59,7 +59,7 @@ button
   font-size: 1em
   font-weight: 500
   font-family: inherit
-  background-color: #1a1a1a
+  background-color: rgba(white, 0.08)
   opacity: 0.9
   cursor: pointer
   transition: all 0.25s
@@ -95,13 +95,17 @@ input
   font-size: 1em
   font-weight: 500
   font-family: inherit
-  background-color: #1a1a1a
+  background-color: rgba(white, 0.08)
   transition: all 0.25s
+  box-sizing: border-box
 
 
 input:focus, input:focus-visible
   border: 1px solid $c-main
   outline: none
+
+input.error
+  border: 1px solid $c-error
 
 .flex-center
   display: flex
