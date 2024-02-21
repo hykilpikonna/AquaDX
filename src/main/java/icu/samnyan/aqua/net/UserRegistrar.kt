@@ -1,15 +1,9 @@
 package icu.samnyan.aqua.net
 
 import ext.*
-import icu.samnyan.aqua.net.components.EmailService
-import icu.samnyan.aqua.net.components.GeoIP
-import icu.samnyan.aqua.net.components.JWT
-import icu.samnyan.aqua.net.components.TurnstileService
-import icu.samnyan.aqua.net.db.AquaNetUser
-import icu.samnyan.aqua.net.db.AquaNetUserRepo
-import icu.samnyan.aqua.net.db.AquaUserValidator
+import icu.samnyan.aqua.net.components.*
+import icu.samnyan.aqua.net.db.*
 import icu.samnyan.aqua.net.db.AquaUserValidator.Companion.SETTING_FIELDS
-import icu.samnyan.aqua.net.db.EmailConfirmationRepo
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
@@ -33,6 +27,7 @@ class UserRegistrar(
     val cardRepo: CardRepository,
     val cardService: CardService,
     val validator: AquaUserValidator,
+    val emailProps: EmailProperties
 ) {
     companion object {
         // Random long with length 17 (10^18 possibilities)
@@ -103,7 +98,7 @@ class UserRegistrar(
         if (!hasher.matches(password, user.pwHash)) 400 - "Invalid password"
 
         // Check if email is verified
-        if (!user.emailConfirmed) {
+        if (!user.emailConfirmed && emailProps.enable) {
             // Check if last confirmation email was sent within a minute
             val confirmations = async { confirmationRepo.findByAquaNetUserAuId(user.auId) }
             val lastConfirmation = confirmations.maxByOrNull { it.createdAt }
