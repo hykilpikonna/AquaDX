@@ -56,13 +56,14 @@ class CardService(val cardRepo: CardRepository) {
      * 4. Any of (2) or (3) converted to a decimal string, which is honestly the same as (1) so ignore this case
      */
     fun tryLookup(id: String): Card? {
+        // First remove the colons and spaces
+        val idm = id.replace(":", "").replace(" ", "")
+
         // Check case (1) and (4)
-        cardRepo.findByLuid(id)?.getOrNull()?.let { return it }
-        cardRepo.findByLuid(id.padStart(20, '0'))?.getOrNull()?.let { return it }
+        cardRepo.findByLuid(idm)?.getOrNull()?.let { return it }
+        cardRepo.findByLuid(idm.padStart(20, '0'))?.getOrNull()?.let { return it }
 
         // Check case (2)
-        // First remove the colons
-        val idm = id.replace(":", "")
         // Then convert to long, left pad zeros to make 20 digits, and look up
         idm.toLongOrNull(16)?.let { idmLong ->
             cardRepo.findByLuid("%020d".format(idmLong))?.getOrNull()?.let { return it }
