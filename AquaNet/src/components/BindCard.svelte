@@ -67,6 +67,10 @@
     // Ghost card
     return luid
   }
+
+  function isGhostCard(luid: string) {
+    return luid.length === 18
+  }
 </script>
 
 <div class="bind-card">
@@ -74,13 +78,15 @@
   <p>Here are the cards you have linked to your account:</p>
 
   {#if me}
-    {#each me.cards as card}
-      <div>
-        <span class="register">Registered: {moment(card.registerTime).format("YYYY MMM DD")}</span>
-        <span class="last">Last used: {moment(card.accessTime).format("YYYY MMM DD")}</span>
-        <span class="id">ID: {formatLUID(card.luid)}</span>
-      </div>
-    {/each}
+    <div class="existing-cards">
+      {#each me.cards as card}
+        <div class={clz({ghost: isGhostCard(card.luid)}, 'existing-card')}>
+          <span class="register">Registered: {moment(card.registerTime).format("YYYY MMM DD")}</span>
+          <span class="last">Last used: {moment(card.accessTime).format("YYYY MMM DD")}</span>
+          <span class="id">ID: {formatLUID(card.luid)}</span>
+        </div>
+      {/each}
+    </div>
   {:else if error}
     <p>{error}</p>
   {:else}
@@ -127,6 +133,8 @@
 </div>
 
 <style lang="sass">
+  @import "../vars"
+
   .bind-card
     input
       width: 100%
@@ -136,4 +144,23 @@
 
       button
         margin-left: 1rem
+
+    .existing-cards
+      display: grid
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))
+      gap: 1rem
+
+      .existing-card
+        display: flex
+        flex-direction: column
+
+        border-radius: 5px
+        padding: 12px 16px
+        background: $ov-light
+
+        .id
+          font-size: 0.8rem
+          opacity: 0.5
+
+
 </style>
