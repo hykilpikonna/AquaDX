@@ -1,4 +1,5 @@
 import { AQUA_HOST } from "./config";
+import type { UserMe } from "./generalTypes";
 
 interface RequestInitWithParams extends RequestInit {
   params?: { [index: string]: string }
@@ -75,9 +76,14 @@ async function confirmEmail(token: string) {
   return await post('/api/v2/user/confirm-email', { token })
 }
 
+async function me(): Promise<UserMe> {
+  return await post('/api/v2/user/me', {})
+}
+
 export const USER = {
   register,
   login,
   confirmEmail,
+  me,
   isLoggedIn: () => !!localStorage.getItem('token')
 }
