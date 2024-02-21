@@ -5,12 +5,21 @@
   import UserHome from "./pages/UserHome.svelte";
   import Icon from '@iconify/svelte';
   import Home from "./pages/Home.svelte";
+  import { USER } from "./libs/sdk";
 
   export let url = "";
+
+  let path = window.location.pathname;
 </script>
 
 <nav>
-  <div>home</div>
+  {#if path !== "/"}
+    <a class="logo" href={USER.isLoggedIn() ? "/home" : "/"}>
+      <img src="/assets/icons/android-chrome-192x192.png" alt="AquaDX"/>
+      <span>AquaNet</span>
+    </a>
+  {/if}
+  <a href="/home">home</a>
   <div>maps</div>
   <div>rankings</div>
   <div><Icon icon="tabler:search" /></div>
@@ -38,7 +47,21 @@
     z-index: 10
     position: relative
 
-    > div
+    .logo
+      display: flex
+      align-items: center
+      gap: 8px
+      font-weight: bold
+      color: $c-main
+      letter-spacing: 0.2em
+      flex: 1
+
+      img
+        width: 1.5rem
+        height: 1.5rem
+        border-radius: 50%
+
+    > div, > a
       cursor: pointer
       transition: all 0.2s ease
       text-decoration: underline 1px solid transparent
@@ -46,6 +69,8 @@
 
       display: flex
       align-items: center
+      color: unset
+      font-weight: unset
 
       &:hover
         color: $c-main

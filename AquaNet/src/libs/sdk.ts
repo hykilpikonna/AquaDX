@@ -78,5 +78,6 @@ async function confirmEmail(token: string) {
 export const USER = {
   register,
   login,
-  confirmEmail
+  confirmEmail,
+  isLoggedIn: () => !!localStorage.getItem('token')
 }
