@@ -43,7 +43,4 @@ CREATE TABLE aqua_net_email_confirmation
 );
 
 ALTER TABLE aqua_net_email_confirmation
-    ADD CONSTRAINT uc_email_confirmation_aqua_user UNIQUE (au_id);
-
-ALTER TABLE aqua_net_email_confirmation
     ADD CONSTRAINT FK_EMAIL_CONFIRMATION_ON_AQUA_USER FOREIGN KEY (au_id) REFERENCES aqua_net_user (au_id);

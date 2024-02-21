@@ -21,7 +21,7 @@ class EmailConfirmation(
     var createdAt: Instant = Instant.now(),
 
     // Linking to the AquaNetUser
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "auId", referencedColumnName = "auId")
     var aquaNetUser: AquaNetUser = AquaNetUser()
 ) : Serializable
@@ -29,4 +29,5 @@ class EmailConfirmation(
 @Repository
 interface EmailConfirmationRepo : JpaRepository<EmailConfirmation, Long> {
     fun findByToken(token: String): EmailConfirmation?
+    fun findByAquaNetUserAuId(auId: Long): List<EmailConfirmation>
 }
