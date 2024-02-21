@@ -3,7 +3,17 @@
 <script lang="ts">
   import { slide } from "svelte/transition"
   import { clz } from "../libs/ui";
+  import type { UserMe } from "../libs/generalTypes";
+  import { USER } from "../libs/sdk";
+  import moment from "moment"
 
+  let error: string = ""
+  let me: UserMe | null = null
+
+  // Fetch data for current user
+  USER.me().then(m => me = m).catch(e => error = e.message)
+
+  // Access code input
   const inputACRegex = /^(\d{4} ){0,4}\d{0,4}$/
   const inputACRegexFull = /^(\d{4} ){4}\d{4}$/
   let inputAC = ""
@@ -23,6 +33,7 @@
     }
   }
 
+  // Serial number input
   const inputSNRegex = /^([0-9A-Fa-f]{0,2}:){0,7}[0-9A-Fa-f]{0,2}$/
   const inputSNRegexFull = /^([0-9A-Fa-f]{2}:){4,7}[0-9A-Fa-f]{2}$/
   let inputSN = ""
@@ -41,9 +52,41 @@
       inputSN = ""
     }
   }
+
+  function formatLUID(luid: string) {
+    // Check if LUID is Felica SN
+    if (luid.startsWith("00")) {
+      return (+luid).toString(16).toUpperCase().padStart(16, "0").match(/.{1,2}/g)!.join(":")
+    }
+
+    // Check if LUID is a 20-digit access code
+    if (luid.length === 20) {
+      return luid.match(/.{4}/g)!.join(" ")
+    }
+
+    // Ghost card
+    return luid
+  }
 </script>
 
 <div class="bind-card">
+  <h2>Your Cards</h2>
+  <p>Here are the cards you have linked to your account:</p>
+
+  {#if me}
+    {#each me.cards as card}
+      <div>
+        <span class="register">Registered: {moment(card.registerTime).format("YYYY MMM DD")}</span>
+        <span class="last">Last used: {moment(card.accessTime).format("YYYY MMM DD")}</span>
+        <span class="id">ID: {formatLUID(card.luid)}</span>
+      </div>
+    {/each}
+  {:else if error}
+    <p>{error}</p>
+  {:else}
+    <p>Loading...</p>
+  {/if}
+
   <h2>Link Card</h2>
   <p>Please enter the following information:</p>
   <p>1. The 20-digit access code on the back of your card. </p>
