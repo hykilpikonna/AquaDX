@@ -1,11 +1,12 @@
 <script lang="ts">
   import { Turnstile } from "svelte-turnstile";
+  import { slide } from 'svelte/transition';
   import { TURNSTILE_SITE_KEY } from "../libs/config";
   import Icon from "@iconify/svelte";
   import { login, register } from "../libs/sdk";
 
-  let showLogin = false
-  let isSignup = false
+  let state = "verify"
+  $: isSignup = state === "signup"
   let submitting = false
 
   let email = ""
@@ -44,7 +45,8 @@
           submitting = false
         })
 
-      // TODO: Show verify email message
+      // Show verify email message
+      state = 'verify'
     }
     else {
       // Send request to server
@@ -53,6 +55,8 @@
           error = e.message
           submitting = false
         })
+
+      // TODO: Redirect to home page
     }
 
     submitting = false
@@ -63,17 +67,17 @@
 <main id="home" class="no-margin">
   <div>
     <h1 id="title">AquaNet</h1>
-    {#if !showLogin}
-      <div class="btn-group">
-        <button on:click={() => showLogin = true}>Log in</button>
-        <button on:click={() => showLogin = isSignup = true}>Sign up</button>
+    {#if state === "home"}
+      <div class="btn-group" transition:slide>
+        <button on:click={() => state = 'login'}>Log in</button>
+        <button on:click={() => state = 'signup'}>Sign up</button>
       </div>
-    {:else}
-      <div class="login-form">
+    {:else if state === "login" || state === "signup"}
+      <div class="login-form" transition:slide>
         {#if error}
           <span class="error">{error}</span>
         {/if}
-        <div on:click={() => showLogin = isSignup = false} on:keypress={() => showLogin = isSignup = false}
+        <div on:click={() => state = 'home'} on:keypress={() => state = 'home'}
              role="button" tabindex="0" class="clickable">
           <Icon icon="line-md:chevron-small-left" />
           <span>Back</span>
@@ -95,6 +99,11 @@
                    on:turnstile-error={_ => console.log(error = "Error verifying your network environment. Please turn off your VPN and try again.")}
                    on:turnstile-expired={_ => window.location.reload()}
                    on:turnstile-timeout={_ => console.log(error = "Network verification timed out. Please try again.")} />
+      </div>
+    {:else if state === "verify"}
+      <div class="login-form" transition:slide>
+        <span>A verification email has been sent to {email}. Please check your inbox!</span>
+        <button on:click={() => state = 'home'}>Back</button>
       </div>
     {/if}
   </div>
@@ -137,12 +146,16 @@
 
     margin-top: -$nav-height
 
+    // Content container
     > div
       display: flex
       flex-direction: column
       align-items: flex-start
-      gap: 16px
       width: max-content
+
+      // Switching state container
+      > div
+        transition: opacity 0.3s
 
     #title
       font-family: Quicksand, $font
@@ -151,7 +164,7 @@
       // Gap between text characters
       letter-spacing: 12px
       margin-top: 0
-      margin-bottom: 16px
+      margin-bottom: 32px
       opacity: 0.9
 
     .btn-group
