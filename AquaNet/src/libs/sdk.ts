@@ -33,7 +33,7 @@ export function fetchWithParams(input: URL | RequestInfo, init?: RequestInitWith
 export async function post(endpoint: string, params: any, init?: RequestInitWithParams): Promise<any> {
   // Add token if exists
   const token = localStorage.getItem('token')
-  if (token) params = { ...(params ?? {}), token }
+  if (token && !('token' in params)) params = { ...(params ?? {}), token }
 
   let res = await fetchWithParams(AQUA_HOST + endpoint, {
     method: 'POST',
@@ -61,12 +61,22 @@ export async function post(endpoint: string, params: any, init?: RequestInitWith
  *
  * @param user
  */
-export async function register(user: { username: string, email: string, password: string, turnstile: string }) {
+async function register(user: { username: string, email: string, password: string, turnstile: string }) {
   return await post('/api/v2/user/register', user)
 }
-export async function login(user: { email: string, password: string, turnstile: string }) {
+async function login(user: { email: string, password: string, turnstile: string }) {
   const data = await post('/api/v2/user/login', user)
 
   // Put token into local storage
   localStorage.setItem('token', data.token)
+}
+
+async function confirmEmail(token: string) {
+  return await post('/api/v2/user/confirm-email', { token })
+}
+
+export const USER = {
+  register,
+  login,
+  confirmEmail
 }
