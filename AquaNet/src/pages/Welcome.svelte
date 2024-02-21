@@ -3,9 +3,11 @@
   import { slide } from 'svelte/transition';
   import { TURNSTILE_SITE_KEY } from "../libs/config";
   import Icon from "@iconify/svelte";
-  import { login, register } from "../libs/sdk";
+  import { login, register, USER } from "../libs/sdk";
 
-  let state = "verify"
+  let params = new URLSearchParams(window.location.search)
+
+  let state = "home"
   $: isSignup = state === "signup"
   let submitting = false
 
@@ -15,6 +17,21 @@
   let turnstile = ""
 
   let error = ""
+  let verifyMsg = ""
+
+  if (params.get('confirm-email')) {
+    state = 'verify'
+    verifyMsg = "Verifying your email... please wait."
+    submitting = true
+
+    // Send request to server
+    USER.confirmEmail(params.get('confirm-email')!)
+      .then(() => {
+        verifyMsg = "Your email has been verified! You can now log in now."
+        submitting = false
+      })
+      .catch(e => verifyMsg = `Email verification failed: ${e.message}`)
+  }
 
   async function submit() {
     submitting = true
@@ -39,7 +56,7 @@
       }
 
       // Send request to server
-      await register({ username, email, password, turnstile })
+      await USER.register({ username, email, password, turnstile })
         .catch(e => {
           error = e.message
           submitting = false
@@ -47,13 +64,28 @@
 
       // Show verify email message
       state = 'verify'
+      verifyMsg = `A verification email has been sent to ${email}. Please check your inbox!`
     }
     else {
       // Send request to server
-      await login({ email, password, turnstile })
+      await USER.login({ email, password, turnstile })
         .catch(e => {
-          error = e.message
-          submitting = false
+          if (e.message === 'Email not verified - STATE_0') {
+            state = 'verify'
+            verifyMsg = "You haven't verified your email. A verification email had been sent to your inbox less than a minute ago. Please check your inbox!"
+          }
+          else if (e.message === 'Email not verified - STATE_1') {
+            state = 'verify'
+            verifyMsg = "You haven't verified your email. We've already sent 3 emails over the last 24 hours so we'll not send another one. Please check your inbox!"
+          }
+          else if (e.message === 'Email not verified - STATE_2') {
+            state = 'verify'
+            verifyMsg = "You haven't verified your email. We just sent you another verification email. Please check your inbox!"
+          }
+          else {
+            error = e.message
+            submitting = false
+          }
         })
 
       // TODO: Redirect to home page
@@ -102,8 +134,10 @@
       </div>
     {:else if state === "verify"}
       <div class="login-form" transition:slide>
-        <span>A verification email has been sent to {email}. Please check your inbox!</span>
-        <button on:click={() => state = 'home'}>Back</button>
+        <span>{verifyMsg}</span>
+        {#if !submitting}
+          <button on:click={() => state = 'home'} transition:slide>Back</button>
+        {/if}
       </div>
     {/if}
   </div>
