@@ -1,5 +1,5 @@
 import { AQUA_HOST } from "./config";
-import type { UserMe } from "./generalTypes";
+import type { Card, CardSummary, UserMe } from "./generalTypes";
 
 interface RequestInitWithParams extends RequestInit {
   params?: { [index: string]: string }
@@ -72,18 +72,19 @@ async function login(user: { email: string, password: string, turnstile: string 
   localStorage.setItem('token', data.token)
 }
 
-async function confirmEmail(token: string) {
-  return await post('/api/v2/user/confirm-email', { token })
-}
-
-async function me(): Promise<UserMe> {
-  return await post('/api/v2/user/me', {})
-}
-
 export const USER = {
   register,
   login,
-  confirmEmail,
-  me,
+  confirmEmail: (token: string) =>
+    post('/api/v2/user/confirm-email', { token }),
+  me: (): Promise<UserMe> =>
+    post('/api/v2/user/me', {}),
   isLoggedIn: () => !!localStorage.getItem('token')
+}
+
+export const CARD = {
+  summary: (cardId: string): Promise<{card: Card, summary: CardSummary}> =>
+    post('/api/v2/card/summary', { cardId }),
+  bind: (props: { cardId: string, migrate: string }) =>
+    post('/api/v2/card/bind', props),
 }

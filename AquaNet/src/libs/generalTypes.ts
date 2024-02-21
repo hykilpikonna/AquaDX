@@ -24,3 +24,18 @@ export interface UserMe {
   cards: Card[]
   computedName: string
 }
+
+export interface CardSummaryGame {
+  name: string
+  rating: number
+  lastLogin: string
+}
+
+export interface CardSummary {
+  maimai: CardSummaryGame | null
+  maimai2: CardSummaryGame | null
+  chusan: CardSummaryGame | null
+  chunithm: CardSummaryGame | null
+  ongeki: CardSummaryGame | null
+  diva: CardSummaryGame | null
+}
