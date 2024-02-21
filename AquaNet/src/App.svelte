@@ -61,6 +61,10 @@
         height: 1.5rem
         border-radius: 50%
 
+      @media (max-width: $w-mobile)
+        > span
+          display: none
+
     > div, > a
       cursor: pointer
       transition: all 0.2s ease
