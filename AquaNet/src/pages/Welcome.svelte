@@ -200,7 +200,7 @@
       user-select: none
 
       // Gap between text characters
-      letter-spacing: 12px
+      letter-spacing: 0.2em
       margin-top: 0
       margin-bottom: 32px
       opacity: 0.9
