@@ -41,10 +41,7 @@ dependencies {
     // Database
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client:3.3.2")
     runtimeOnly("org.xerial:sqlite-jdbc:3.45.1.0")
-
-    // https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core
     implementation("org.hibernate.orm:hibernate-core:6.4.4.Final")
-    // https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-community-dialects
     implementation("org.hibernate.orm:hibernate-community-dialects:6.4.4.Final")
 
     // JSR305 for nullable
