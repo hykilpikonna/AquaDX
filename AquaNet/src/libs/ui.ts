@@ -91,10 +91,13 @@ export const CHARTJS_OPT: ChartOptions<'line'> = {
 }
 
 /**
- * Usage: clazz({a: false, b: true}) -> "b"
+ * Convert object keys to classes depending on their values
  *
- * @param obj HashMap<string, boolean>
+ * @param obj Dictionary object {classname: truthy}
+ * @param others Other classes to add
  */
-export function clazz(obj: { [key: string]: boolean }) {
-  return Object.keys(obj).filter(k => obj[k]).join(' ')
+export function clz(obj: any, others?: string) {
+  let cls = Object.keys(obj).filter(key => obj[key]).join(' ')
+  if (others) cls += ' ' + others
+  return cls
 }

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {CHARTJS_OPT, clazz, registerChart, renderCal, title} from "../libs/ui";
+  import {CHARTJS_OPT, clz, registerChart, renderCal, title} from "../libs/ui";
   import {getMaimaiAllMusic, getMaimaiTrend, getMaimaiUser, getMult} from "../libs/maimai";
   import type {MaimaiMusic, MaimaiUserPlaylog, MaimaiUserSummaryEntry} from "../libs/maimaiTypes";
   import type {TrendEntry} from "../libs/generalTypes";
@@ -161,7 +161,7 @@
       <h2>Recent Scores</h2>
       <div class="scores">
         {#each d.recent as r, i}
-          <div class={clazz({alt: i % 2 === 0})}>
+          <div class={clz({alt: i % 2 === 0})}>
             <img src={`${DATA_HOST}/maimai/assetbundle/jacket_s/00${r.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="">
             <div class="info">
               <div>
@@ -173,7 +173,7 @@
                   <span class="rank-text">{("" + getMult(r.achievement)[2]).replace("p", "+")}</span>
                   <span class="rank-num">{(r.achievement / 10000).toFixed(2)}%</span>
                 </span>
-                <span class={"dx-change " + clazz({increased: r.afterDeluxRating - r.beforeDeluxRating > 0})}>
+                <span class={"dx-change " + clz({increased: r.afterDeluxRating - r.beforeDeluxRating > 0})}>
                   {r.afterDeluxRating - r.beforeDeluxRating}
                 </span>
               </div>
@@ -202,6 +202,7 @@ $gap: 20px
     h2
       font-size: 2rem
       margin: 0
+      white-space: nowrap
 
   .pfp
     width: 100px
