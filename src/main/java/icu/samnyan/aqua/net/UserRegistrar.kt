@@ -102,6 +102,26 @@ class UserRegistrar(
             ?: (400 - "User not found")
         if (!hasher.matches(password, user.pwHash)) 400 - "Invalid password"
 
+        // Check if email is verified
+        if (!user.emailConfirmed) {
+            // Check if last confirmation email was sent within a minute
+            val confirmations = async { confirmationRepo.findByAquaNetUserAuId(user.auId) }
+            val lastConfirmation = confirmations.maxByOrNull { it.createdAt }
+
+            if (lastConfirmation?.createdAt?.plusSeconds(60)?.isAfter(Instant.now()) == true) {
+                400 - "Email not verified - STATE_0"
+            }
+
+            // Check if we have sent more than 3 confirmation emails in the last 24 hours
+            if (confirmations.count { it.createdAt.plusSeconds(60 * 60 * 24).isAfter(Instant.now()) } > 3) {
+                400 - "Email not verified - STATE_1"
+            }
+
+            // Send another confirmation email
+            emailService.sendConfirmation(user)
+            400 - "Email not verified - STATE_2"
+        }
+
         // Generate JWT token
         val token = jwt.gen(user)
 
