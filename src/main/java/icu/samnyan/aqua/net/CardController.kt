@@ -47,15 +47,21 @@ class CardController(
         // Check if the user's card limit is reached
         if (u.cards.size >= props.linkCardLimit) 400 - "Card limit reached"
 
-        // Check if the card is already bound
+        // Try to look up the card
         val card = cardService.tryLookup(cardId)
+
+        // If no card is found, create a new card
         if (card == null) {
+            // Ensure the format of the card ID is correct
+            val id = cardService.sanitizeCardId(cardId)
+
             // Create a new card
-            val newCard = cardService.registerByAccessCode(cardId)
-            cardRepository.save(newCard)
+            cardService.registerByAccessCode(id, u)
 
             return SUCCESS
         }
+
+        // If card is already bound
         if (card.aquaUser != null) 400 - "Card already bound to another user"
 
         // Bind the card

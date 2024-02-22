@@ -1,5 +1,7 @@
 package icu.samnyan.aqua.sega.general.service
 
+import ext.minus
+import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
 import org.springframework.stereotype.Service
@@ -12,7 +14,9 @@ import kotlin.jvm.optionals.getOrNull
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Service
-class CardService(val cardRepo: CardRepository) {
+class CardService {
+    lateinit var cardRepo: CardRepository
+
     /**
      * Find a card by External ID
      * @param extId External ID
@@ -40,11 +44,13 @@ class CardService(val cardRepo: CardRepository) {
      * @param accessCode String represent of an access code
      * @return a new registered Card
      */
-    fun registerByAccessCode(accessCode: String): Card = cardRepo.save(Card().apply {
+    @JvmOverloads
+    fun registerByAccessCode(accessCode: String, user: AquaNetUser? = null): Card = cardRepo.save(Card().apply {
         luid = accessCode
         extId = randExtID()
         registerTime = LocalDateTime.now()
         accessTime = registerTime
+        aquaUser = user
     })
 
     /**
@@ -80,7 +86,28 @@ class CardService(val cardRepo: CardRepository) {
         return null
     }
 
-    fun randExtID(lower: Long = 0, upper: Long = 99999999): Long {
+    /**
+     * Sanitize user input for card ID
+     *
+     * This is strictly stricter than the `tryLookup` method, as it only accepts valid Felica IDm and AIME access code.
+     *
+     * @param id String represent of a card ID (e.g. Felica IDm, AIME access code)
+     */
+    fun sanitizeCardId(id: String): String {
+        // Felica
+        if (":" in id)
+            return id.replace(":", "").lowercase().toLongOrNull(16)?.toString()?.padStart(20, '0')
+                ?: (400 - "Invalid card ID")
+
+        // Access Code
+        else if (" " in id && id.length == 24)
+            return id.replace(" ", "")
+                .also { if (it.any { c -> !c.isDigit() }) 400 - "Invalid card ID" }
+
+        else 400 - "Invalid card ID"
+    }
+
+    fun randExtID(lower: Long = 0, upper: Long = 1e9.toLong() - 1): Long {
         var eid = ThreadLocalRandom.current().nextLong(lower, upper)
         while (cardRepo.findByExtId(eid).isPresent) {
             eid = ThreadLocalRandom.current().nextLong(lower, upper)
