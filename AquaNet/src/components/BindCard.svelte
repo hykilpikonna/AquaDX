@@ -19,6 +19,9 @@
     me = m
     m.cards.sort((a, b) => a.registerTime < b.registerTime ? 1 : -1)
     CARD.summary(m.ghostCard.luid).then(s => accountCardSummary = s.summary)
+
+    // Always put the ghost card at the top
+    m.cards.sort((a, b) => a.luid === m.ghostCard.luid ? -1 : 1)
   }).catch(e => error = e.message)
   updateMe()
 
