@@ -94,6 +94,6 @@ export const USER = {
 export const CARD = {
   summary: (cardId: string): Promise<{card: Card, summary: CardSummary}> =>
     post('/api/v2/card/summary', { cardId }),
-  bind: (props: { cardId: string, migrate: string }) =>
+  link: (props: { cardId: string, migrate: string }) =>
     post('/api/v2/card/bind', props),
 }
