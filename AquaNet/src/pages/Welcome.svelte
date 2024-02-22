@@ -193,7 +193,7 @@
 
       // Switching state container
       > div
-        transition: opacity 0.3s
+        transition: $transition
 
     #title
       font-family: Quicksand, $font
