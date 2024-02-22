@@ -41,6 +41,13 @@
 
     console.log("linking card", id)
 
+    // Check if this card is already linked in the account
+    if (me?.cards?.some(c => formatLUID(c.luid).toLowerCase() === id.toLowerCase())) {
+      setError("This card is already linked to your account", type)
+      state = "ready"
+      return
+    }
+
     // First, lookup the card summary
     const card = (await CARD.summary(id).catch(e => {
       // If card is not found,
