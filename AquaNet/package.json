@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@iconify/svelte": "^3.1.6",
+    "@iconify/tools": "^4.0.2",
     "@sveltejs/vite-plugin-svelte": "^3.0.1",
     "@tsconfig/svelte": "^5.0.2",
     "chartjs-adapter-moment": "^1.0.1",
