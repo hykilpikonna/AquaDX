@@ -67,16 +67,20 @@ button
   background-color: $ov-lighter
   opacity: 0.9
   cursor: pointer
-  transition: all 0.25s
-
+  transition: $transition
 
 button:hover
-  border: 1px solid $c-main
-
+  border-color: $c-main
 
 button:focus, button:focus-visible
   color: $c-main
   outline: none
+
+button.error
+  color: unset
+  &:hover
+    background: $c-error
+    border-color: transparent
 
 .level-0
   --lv-color: $c-lv0
@@ -101,7 +105,7 @@ input
   font-weight: 500
   font-family: inherit
   background-color: $ov-lighter
-  transition: all 0.25s
+  transition: $transition
   box-sizing: border-box
 
 

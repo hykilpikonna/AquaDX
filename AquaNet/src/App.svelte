@@ -67,7 +67,7 @@
 
     > div, > a
       cursor: pointer
-      transition: all 0.2s ease
+      transition: $transition
       text-decoration: underline 1px solid transparent
       text-underline-offset: 0.1em
 

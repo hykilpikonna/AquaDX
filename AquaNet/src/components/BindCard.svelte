@@ -58,12 +58,23 @@
     else {
       conflictSummary = summary
       conflictCardID = id
-      await linkConflictContinue()
+      await linkConflictContinue(null)
     }
   }
 
-  async function linkConflictContinue() {
+  async function linkConflictContinue(choose: "old" | "new" | null) {
     console.log("linking card with migration")
+
+    if (choose) {
+      // If old is chosen, nothing needs to be migrated
+      // If new is chosen, we need to migrate the data
+      if (choose === "new") {
+        conflictToMigrate.push(conflictGame)
+      }
+      // Continue to the next card
+      // @ts-ignore
+      conflictSummary[conflictGame] = null
+    }
 
     let isConflict = false
     for (const k in conflictSummary) {
@@ -82,16 +93,20 @@
     if (!isConflict) {
       await CARD.link({cardId: conflictCardID, migrate: conflictToMigrate.join(",")})
       await updateMe()
-      state = ""
-
-      // Reset conflict data
-      conflictSummary = null
-      conflictCardID = ""
-      conflictGame = ""
-      conflictNew = null
-      conflictOld = null
-      conflictToMigrate = []
+      
+      // Reset the conflict state
+      linkConflictCancel()
     }
+  }
+  
+  function linkConflictCancel() {
+    state = ""
+    conflictSummary = null
+    conflictCardID = ""
+    conflictGame = ""
+    conflictNew = null
+    conflictOld = null
+    conflictToMigrate = []
   }
 
   // Access code input
@@ -214,14 +229,16 @@
         <p>The card contains data for {conflictGame}, which is already present on your account.
           Please choose the data you would like to keep</p>
         <div class="conflict-cards">
-          <div class="old card clickable">
+          <div class="old card clickable" on:click={() => linkConflictContinue('old')}
+               role="button" tabindex="0" on:keydown={e => e.key === "Enter" && linkConflictContinue('old')}>
             <span class="type">Account Card</span>
             <span>Name: {conflictOld.name}</span>
             <span>Rating: {conflictOld.rating}</span>
             <span>Last Login: {moment(conflictOld.lastLogin).format("YYYY MMM DD")}</span>
             <span class="id">{formatLUID(me.ghostCard.luid)}</span>
           </div>
-          <div class="new card clickable">
+          <div class="new card clickable" on:click={() => linkConflictContinue('new')}
+               role="button" tabindex="0" on:keydown={e => e.key === "Enter" && linkConflictContinue('new')}>
             <span class="type">{cardType(conflictCardID)}</span>
             <span>Name: {conflictNew.name}</span>
             <span>Rating: {conflictNew.rating}</span>
@@ -229,6 +246,7 @@
             <span class="id">{conflictCardID}</span>
           </div>
         </div>
+        <button class="error" on:click={linkConflictCancel}>Cancel</button>
       </div>
     </div>
   {/if}
@@ -269,7 +287,7 @@
 
     .conflict-cards
       .card
-        transition: background 0.2s
+        transition: $transition
 
       .card:hover
         background: $c-darker
