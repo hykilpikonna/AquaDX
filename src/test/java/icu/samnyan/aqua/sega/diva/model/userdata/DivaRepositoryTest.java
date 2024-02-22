@@ -54,9 +54,9 @@ class DivaRepositoryTest {
         var c = cardRepository.save(getCard());
         playerProfileRepository.save(getProfile(c));
 
-        var p = playerProfileRepository.findByPdId(c.getExtId().intValue());
+        var p = playerProfileRepository.findByPdId((int) c.getExtId());
 
-        assertThat(p).isPresent().hasValueSatisfying(v -> assertThat(v.getPdId()).isEqualTo(c.getExtId().intValue()));
+        assertThat(p).isPresent().hasValueSatisfying(v -> assertThat(v.getPdId()).isEqualTo(c.getExtId()));
     }
 
     @Test
@@ -200,7 +200,7 @@ class DivaRepositoryTest {
 
     private PlayerProfile getProfile(Card c) {
         var p = new PlayerProfile();
-        p.setPdId(c.getExtId().intValue());
+        p.setPdId((int) c.getExtId());
         return p;
     }
 

@@ -30,9 +30,11 @@ class UserRegistrar(
     val emailProps: EmailProperties
 ) {
     companion object {
-        // Random long with length 17 (10^18 possibilities)
-        const val cardExtIdStart = 1e17.toLong()
-        const val cardExtIdEnd = 1e18.toLong() - 1
+        // Random long with length 9 (10^10 possibilities)
+        // This is because DIVA is using int for card ID, which is at max 10 digits (2147483647)
+        // TODO: Figure out if DIVA can handle int64
+        const val cardExtIdStart = 1e9.toLong()
+        const val cardExtIdEnd = 1e10.toLong() - 1
     }
 
     /**
