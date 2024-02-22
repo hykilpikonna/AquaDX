@@ -1,5 +1,5 @@
 <script>
-  import BindCard from "../components/BindCard.svelte";
+  import BindCard from "./Home/LinkCard.svelte";
 </script>
 
 <main class="content">

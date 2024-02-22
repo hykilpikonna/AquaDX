@@ -2,9 +2,9 @@
 
 <script lang="ts">
   import { slide, fade } from "svelte/transition"
-  import { clz } from "../libs/ui";
-  import type { CardSummary, CardSummaryGame, UserMe } from "../libs/generalTypes";
-  import { CARD, USER } from "../libs/sdk";
+  import { clz } from "../../libs/ui";
+  import type { CardSummary, CardSummaryGame, UserMe } from "../../libs/generalTypes";
+  import { CARD, USER } from "../../libs/sdk";
   import moment from "moment"
 
   // State
@@ -294,7 +294,7 @@
 </div>
 
 <style lang="sass">
-  @import "../vars"
+  @import "../../vars"
 
   .link-card
     input
