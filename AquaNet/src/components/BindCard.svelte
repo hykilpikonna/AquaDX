@@ -8,7 +8,7 @@
   import moment from "moment"
 
   // State
-  let state = "ready"
+  let state: 'ready' | 'linking-AC' | 'linking-SN' = "ready"
 
   let error: string = ""
   let me: UserMe | null = null
@@ -30,15 +30,32 @@
   let conflictOld: CardSummaryGame | null = null
   let conflictToMigrate: string[] = []
 
+  function setError(msg: string, type: 'AC' | 'SN') {
+    type === 'AC' ? errorAC = msg : errorSN = msg
+  }
+
   async function link(type: 'AC' | 'SN') {
     if (state !== 'ready') return
-    state = "linking-AC"
+    state = "linking-" + type
     const id = type === 'AC' ? inputAC : inputSN
 
     console.log("linking card", id)
 
     // First, lookup the card summary
-    const summary = (await CARD.summary(id)).summary
+    const card = (await CARD.summary(id).catch(e => {
+      // If card is not found,
+      setError(e.message, type)
+      state = "ready"
+      return null
+    }))!
+    const summary = card.summary
+
+    // Check if it's already linked
+    if (card.card.bound) {
+      setError("This card is already linked to another account", type)
+      state = "ready"
+      return
+    }
 
     // If all games in summary are null or doesn't conflict with the ghost card,
     // we can link the card directly
@@ -51,7 +68,7 @@
       // Refresh the user data
       await updateMe()
 
-      state = ""
+      state = "ready"
     }
 
     // For each conflicting game, ask the user if they want to migrate the data
@@ -100,7 +117,7 @@
   }
   
   function linkConflictCancel() {
-    state = ""
+    state = "ready"
     conflictSummary = null
     conflictCardID = ""
     conflictGame = ""
@@ -111,28 +128,32 @@
 
   // Access code input
   const inputACRegex = /^(\d{4} ){0,4}\d{0,4}$/
-  const inputACRegexFull = /^(\d{4} ){4}\d{4}$/
   let inputAC = ""
+  let errorAC = ""
 
   function inputACChange(e: any) {
     e = e as InputEvent
     // Add spaces to the input
+    const old = inputAC
     if (e.inputType === "insertText" && inputAC.length % 5 === 4 && inputAC.length < 24)
       inputAC += " "
     inputAC = inputAC.slice(0, 24)
+    if (inputAC !== old) errorAC = ""
   }
 
   // Serial number input
   const inputSNRegex = /^([0-9A-Fa-f]{0,2}:){0,7}[0-9A-Fa-f]{0,2}$/
-  const inputSNRegexFull = /^([0-9A-Fa-f]{2}:){4,7}[0-9A-Fa-f]{2}$/
   let inputSN = ""
+  let errorSN = ""
 
   function inputSNChange(e: any) {
     e = e as InputEvent
     // Add colons to the input
+    const old = inputSN
     if (e.inputType === "insertText" && inputSN.length % 3 === 2 && inputSN.length < 23)
       inputSN += ":"
     inputSN = inputSN.toUpperCase().slice(0, 23)
+    if (inputSN !== old) errorSN = ""
   }
 
   function formatLUID(luid: string) {
@@ -179,7 +200,7 @@
       {/each}
     </div>
   {:else if error}
-    <span class="error">{error}</span>
+    <span class="error" transition:slide>{error}</span>
   {:else}
     <span>Loading...</span>
   {/if}
@@ -197,11 +218,15 @@
            }}
            bind:value={inputAC}
            on:input={inputACChange}
-           class={clz({error: (inputAC && !inputACRegex.test(inputAC))})}>
+           class={clz({error: (inputAC && (!inputACRegex.test(inputAC) || errorAC))})}>
     {#if inputAC.length > 0}
       <button transition:slide={{axis: 'x'}} on:click={() => link('AC')}>Link</button>
     {/if}
   </label>
+  {#if errorAC}
+    <p class="error" transition:slide>{errorAC}</p>
+  {/if}
+
   <p>2. Download the NFC Tools app on your phone
     (<a href="https://play.google.com/store/apps/details?id=com.wakdev.wdnfc">Android</a> /
     <a href="https://apps.apple.com/us/app/nfc-tools/id1252962749">Apple</a>) and scan your card.
@@ -216,11 +241,14 @@
            }}
            bind:value={inputSN}
            on:input={inputSNChange}
-           class={clz({error: (inputSN && !inputSNRegex.test(inputSN))})}>
+           class={clz({error: (inputSN && (!inputSNRegex.test(inputSN) || errorSN))})}>
     {#if inputSN.length > 0}
       <button transition:slide={{axis: 'x'}} on:click={() => link('SN')}>Link</button>
     {/if}
   </label>
+  {#if errorSN}
+    <p class="error" transition:slide>{errorSN}</p>
+  {/if}
 
   {#if conflictOld && conflictNew && me}
     <div class="overlay" transition:fade>

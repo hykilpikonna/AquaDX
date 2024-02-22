@@ -8,6 +8,7 @@ export interface Card {
   luid: string
   registerTime: string
   accessTime: string
+  bound: boolean
 }
 
 export interface UserMe {
