@@ -14,9 +14,8 @@ import kotlin.jvm.optionals.getOrNull
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Service
-class CardService {
-    lateinit var cardRepo: CardRepository
-
+class CardService(val cardRepo: CardRepository)
+{
     /**
      * Find a card by External ID
      * @param extId External ID
