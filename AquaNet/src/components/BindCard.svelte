@@ -34,6 +34,12 @@
     type === 'AC' ? errorAC = msg : errorSN = msg
   }
 
+  async function doLink(id: string, migrate: string) {
+    await CARD.link({cardId: id, migrate})
+    await updateMe()
+    state = "ready"
+  }
+
   async function link(type: 'AC' | 'SN') {
     if (state !== 'ready') return
     state = "linking-" + type
@@ -50,10 +56,15 @@
 
     // First, lookup the card summary
     const card = (await CARD.summary(id).catch(e => {
-      // If card is not found,
+      // If card is not found, create a card and link it
+      if (e.message === "Card not found") {
+        doLink(id, "")
+        return
+      }
+
       setError(e.message, type)
       state = "ready"
-      return null
+      return
     }))!
     const summary = card.summary
 
@@ -70,12 +81,7 @@
     if (Object.keys(summary).every(k => summary[k] === null || accountCardSummary[k] === null)) {
       console.log("linking card directly")
       // @ts-ignore
-      await CARD.link({cardId: id, migrate: Object.keys(summary).filter(k => summary[k] !== null).join(",")})
-
-      // Refresh the user data
-      await updateMe()
-
-      state = "ready"
+      await doLink(id, Object.keys(summary).filter(k => summary[k] !== null).join(","))
     }
 
     // For each conflicting game, ask the user if they want to migrate the data
@@ -115,8 +121,7 @@
 
     // If there are no longer conflicts, we can link the card
     if (!isConflict) {
-      await CARD.link({cardId: conflictCardID, migrate: conflictToMigrate.join(",")})
-      await updateMe()
+      await doLink(conflictCardID, conflictToMigrate.join(","))
       
       // Reset the conflict state
       linkConflictCancel()
