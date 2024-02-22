@@ -51,7 +51,7 @@ public class RegisterHandler implements BaseHandler {
             Card card = cardService.registerByAccessCode((String) requestMap.get("luid"));
 
             resultMap.put("status", 1);
-            resultMap.put("aimeId", card.getExtId().longValue());
+            resultMap.put("aimeId", card.getExtId());
         } else {
             logger.warn("Duplicated Aime Card Register detected, access code: {}", requestMap.get("luid"));
             resultMap.put("status", 0);

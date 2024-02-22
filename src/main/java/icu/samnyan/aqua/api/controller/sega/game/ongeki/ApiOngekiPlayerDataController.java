@@ -348,7 +348,7 @@ public class ApiOngekiPlayerDataController {
 
         var rivalDataList = userDataRepository.findByCard_ExtIdIn(rivalUserIds)
                 .stream()
-                .map(x -> new UserRivalData(x.getCard().getExtId().longValue(), x.getUserName()))
+                .map(x -> new UserRivalData(x.getCard().getExtId(), x.getUserName()))
                 .collect(Collectors.toList());
 
         return rivalDataList;

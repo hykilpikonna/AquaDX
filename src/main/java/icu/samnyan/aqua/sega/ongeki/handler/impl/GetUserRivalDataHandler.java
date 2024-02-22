@@ -38,7 +38,7 @@ public class GetUserRivalDataHandler implements BaseHandler {
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         var userRivalId = ((Number) request.get("userId")).longValue();
-        var userRivalList = ((Collection<HashMap<String,Object>>)request.get("userRivalList"))
+        var userRivalList = ((Collection<HashMap<String,Object>>) request.get("userRivalList"))
                 .stream()
                 .map(x->((Number)x.get("rivalUserId")).longValue())
                 .collect(Collectors.toList());
@@ -49,7 +49,7 @@ public class GetUserRivalDataHandler implements BaseHandler {
         var userInfos = userDataRepository
                 .findByCard_ExtIdIn(userRivalList)
                 .stream()
-                .map(x -> new UserRivalData(x.getCard().getExtId().longValue(), x.getUserName()))
+                .map(x -> new UserRivalData(x.getCard().getExtId(), x.getUserName()))
                 .toArray();
 
         resultMap.put("length", userInfos.length);

@@ -40,7 +40,7 @@ class CardService(val cardRepo: CardRepository) {
      * @param accessCode String represent of an access code
      * @return a new registered Card
      */
-    fun registerByAccessCode(accessCode: String?): Card = cardRepo.save(Card().apply {
+    fun registerByAccessCode(accessCode: String): Card = cardRepo.save(Card().apply {
         luid = accessCode
         extId = randExtID()
         registerTime = LocalDateTime.now()

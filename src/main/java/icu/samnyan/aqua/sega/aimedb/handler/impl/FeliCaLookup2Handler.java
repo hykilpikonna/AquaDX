@@ -61,7 +61,7 @@ public class FeliCaLookup2Handler implements BaseHandler {
         long aimeId = -1;
         Optional<Card> card = cardRepository.findByLuid(accessCode.toString());
         if (card.isPresent()) {
-            aimeId = card.get().getExtId().longValue();
+            aimeId = card.get().getExtId();
         }
 
         Map<String, Object> resultMap = new HashMap<>();
