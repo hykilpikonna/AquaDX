@@ -171,7 +171,7 @@
   function formatLUID(luid: string) {
     switch (cardType(luid)) {
       case "Felica SN":
-        return (+luid).toString(16).toUpperCase().padStart(16, "0").match(/.{1,2}/g)!.join(":")
+        return BigInt(luid).toString(16).toUpperCase().padStart(16, "0").match(/.{1,2}/g)!.join(":")
       case "Access Code":
         return luid.match(/.{4}/g)!.join(" ")
       case "Account Card":
