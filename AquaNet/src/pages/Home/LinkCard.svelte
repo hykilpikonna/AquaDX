@@ -3,9 +3,10 @@
 <script lang="ts">
   import { slide, fade } from "svelte/transition"
   import { clz } from "../../libs/ui";
-  import type { CardSummary, CardSummaryGame, UserMe } from "../../libs/generalTypes";
+  import type { Card, CardSummary, CardSummaryGame, UserMe } from "../../libs/generalTypes";
   import { CARD, USER } from "../../libs/sdk";
   import moment from "moment"
+  import Icon from "@iconify/svelte";
 
   // State
   let state: 'ready' | 'linking-AC' | 'linking-SN' = "ready"
@@ -141,6 +142,11 @@
     conflictToMigrate = []
   }
 
+  async function unlink(card: Card) {
+    await CARD.unlink(card.luid)
+    await updateMe()
+  }
+
   // Access code input
   const inputACRegex = /^(\d{4} ){0,4}\d{0,4}$/
   let inputAC = ""
@@ -209,6 +215,9 @@
           <span class="last">Last used: {moment(card.accessTime).format("YYYY MMM DD")}</span>
           <div/>
           <span class="id">{formatLUID(card.luid, card.ghost)}</span>
+          {#if !card.ghost}
+            <button class="icon error" on:click={() => unlink(card)}><Icon icon="tabler:trash-x-filled"/></button>
+          {/if}
         </div>
       {/each}
     </div>
@@ -313,6 +322,7 @@
 
       .existing.card
         min-height: 90px
+        position: relative
 
         &.ghost
           background: rgba($c-darker, 0.8)
@@ -325,6 +335,11 @@
 
         > div
           flex: 1
+
+        button
+          position: absolute
+          right: 10px
+          bottom: 10px
 
     .conflict-cards
       .card

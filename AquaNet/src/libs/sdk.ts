@@ -96,4 +96,6 @@ export const CARD = {
     post('/api/v2/card/summary', { cardId }),
   link: (props: { cardId: string, migrate: string }) =>
     post('/api/v2/card/link', props),
+  unlink: (cardId: string) =>
+    post('/api/v2/card/unlink', { cardId }),
 }
