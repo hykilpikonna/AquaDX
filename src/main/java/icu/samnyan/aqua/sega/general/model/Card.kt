@@ -48,5 +48,5 @@ class Card(
         private val serialVersionUID = 1L
     }
 
-    val isBound get() = aquaUser != null
+    val isLinked get() = aquaUser != null
 }

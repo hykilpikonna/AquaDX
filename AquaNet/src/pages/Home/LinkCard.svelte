@@ -72,7 +72,7 @@
     const summary = card.summary
 
     // Check if it's already linked
-    if (card.card.bound) {
+    if (card.card.linked) {
       setError("This card is already linked to another account", type)
       state = "ready"
       return

@@ -8,7 +8,7 @@ export interface Card {
   luid: string
   registerTime: string
   accessTime: string
-  bound: boolean
+  linked: boolean
   ghost: boolean
 }
 
