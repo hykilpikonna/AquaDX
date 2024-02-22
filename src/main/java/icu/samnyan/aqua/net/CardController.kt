@@ -74,6 +74,21 @@ class CardController(
 
         SUCCESS
     }
+
+    @API("/unlink")
+    suspend fun unlink(@RP token: Str, @RP cardId: Str) = jwt.auth(token) { u ->
+        // Try to look up the card
+        val card = cardService.tryLookup(cardId) ?: (404 - "Card not found")
+
+        // If the card is not bound to the user
+        if (card.aquaUser != u) 400 - "Card not bound to user"
+
+        // Unbind the card
+        card.aquaUser = null
+        async { cardRepository.save(card) }
+
+        SUCCESS
+    }
 }
 
 @Service
