@@ -38,6 +38,10 @@ class Card(
     @JoinColumn(name = "net_user_id")
     @JsonIgnore
     var aquaUser: AquaNetUser? = null,
+
+    // Whether the card is a ghost card
+    @Column(name = "is_ghost")
+    var isGhost: Boolean = false,
 ): Serializable {
     companion object {
         @Serial

@@ -67,6 +67,7 @@ class UserRegistrar(
             registerTime = LocalDateTime.now()
             accessTime = registerTime
             aquaUser = u
+            isGhost = true
         }
         u.ghostCard = card
 

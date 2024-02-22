@@ -18,6 +18,9 @@ CREATE TABLE aqua_net_user
 ALTER TABLE sega_card
     ADD net_user_id BIGINT NULL;
 
+ALTER TABLE sega_card
+    ADD is_ghost BOOLEAN NOT NULL DEFAULT FALSE;
+
 ALTER TABLE aqua_net_user
     ADD CONSTRAINT uc_aqua_net_user_email UNIQUE (email);
 
