@@ -9,6 +9,7 @@ export interface Card {
   registerTime: string
   accessTime: string
   bound: boolean
+  ghost: boolean
 }
 
 export interface UserMe {

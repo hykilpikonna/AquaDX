@@ -21,7 +21,7 @@
     CARD.summary(m.ghostCard.luid).then(s => accountCardSummary = s.summary)
 
     // Always put the ghost card at the top
-    m.cards.sort((a, b) => a.luid === m.ghostCard.luid ? -1 : 1)
+    m.cards.sort((a, b) => a.ghost ? -1 : 1)
   }).catch(e => error = e.message)
   updateMe()
 
@@ -51,7 +51,7 @@
     console.log("linking card", id)
 
     // Check if this card is already linked in the account
-    if (me?.cards?.some(c => formatLUID(c.luid).toLowerCase() === id.toLowerCase())) {
+    if (me?.cards?.some(c => formatLUID(c.luid, c.ghost).toLowerCase() === id.toLowerCase())) {
       setError("This card is already linked to your account", type)
       state = "ready"
       return
@@ -171,14 +171,13 @@
     if (inputSN !== old) errorSN = ""
   }
 
-  function formatLUID(luid: string) {
+  function formatLUID(luid: string, ghost: boolean = false) {
+    if (ghost) return luid.slice(0, 6) + " " + luid.slice(6).match(/.{4}/g)!.join(" ")
     switch (cardType(luid)) {
       case "Felica SN":
         return BigInt(luid).toString(16).toUpperCase().padStart(16, "0").match(/.{1,2}/g)!.join(":")
       case "Access Code":
         return luid.match(/.{4}/g)!.join(" ")
-      case "Account Card":
-        return luid.slice(0, 6) + " " + luid.slice(6).match(/.{4}/g)!.join(" ")
       default:
         return luid
     }
@@ -187,7 +186,6 @@
   function cardType(luid: string) {
     if (luid.startsWith("00")) return "Felica SN"
     if (luid.length === 20) return "Access Code"
-    if (luid.length === 18) return "Account Card"
     if (luid.includes(":")) return "Felica SN"
     if (luid.includes(" ")) return "Access Code"
     return "Unknown"
@@ -205,12 +203,12 @@
   {#if me}
     <div class="existing-cards" transition:slide>
       {#each me.cards as card}
-        <div class={clz({ghost: cardType(card.luid) === 'Account Card'}, 'existing card')}>
+        <div class={clz({ghost: card.ghost}, 'existing card')}>
           <span class="type">{cardType(card.luid)}</span>
           <span class="register">Registered: {moment(card.registerTime).format("YYYY MMM DD")}</span>
           <span class="last">Last used: {moment(card.accessTime).format("YYYY MMM DD")}</span>
           <div/>
-          <span class="id">{formatLUID(card.luid)}</span>
+          <span class="id">{formatLUID(card.luid, card.ghost)}</span>
         </div>
       {/each}
     </div>
@@ -278,7 +276,7 @@
             <span>Name: {conflictOld.name}</span>
             <span>Rating: {conflictOld.rating}</span>
             <span>Last Login: {moment(conflictOld.lastLogin).format("YYYY MMM DD")}</span>
-            <span class="id">{formatLUID(me.ghostCard.luid)}</span>
+            <span class="id">{formatLUID(me.ghostCard.luid, true)}</span>
           </div>
           <div class="new card clickable" on:click={() => linkConflictContinue('new')}
                role="button" tabindex="0" on:keydown={e => e.key === "Enter" && linkConflictContinue('new')}>
