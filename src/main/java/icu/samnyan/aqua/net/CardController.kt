@@ -2,6 +2,7 @@ package icu.samnyan.aqua.net
 
 import ext.*
 import icu.samnyan.aqua.net.components.JWT
+import icu.samnyan.aqua.net.utils.AquaNetProps
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
@@ -17,10 +18,12 @@ class CardController(
     val cardService: CardService,
     val cardGameService: CardGameService,
     val cardRepository: CardRepository,
+    val props: AquaNetProps
 ) {
     @API("/summary")
     suspend fun summary(@RP cardId: Str): Any
     {
+        // DO NOT CHANGE THIS ERROR MESSAGE - The frontend uses it to detect if the card is not found
         val card = cardService.tryLookup(cardId) ?: (404 - "Card not found")
 
         // Lookup data for each game
@@ -41,6 +44,9 @@ class CardController(
      */
     @API("/bind")
     suspend fun bind(@RP token: Str, @RP cardId: Str, @RP migrate: Str) = jwt.auth(token) { u ->
+        // Check if the user's card limit is reached
+        if (u.cards.size >= props.linkCardLimit) 400 - "Card limit reached"
+
         // Check if the card is already bound
         val card = cardService.tryLookup(cardId) ?: (404 - "Card not found")
         if (card.aquaUser != null) 400 - "Card already bound to another user (@${card.aquaUser?.username})"
