@@ -56,7 +56,7 @@ class CardController(
 
             return SUCCESS
         }
-        if (card.aquaUser != null) 400 - "Card already bound to another user (@${card.aquaUser?.username})"
+        if (card.aquaUser != null) 400 - "Card already bound to another user"
 
         // Bind the card
         card.aquaUser = u
