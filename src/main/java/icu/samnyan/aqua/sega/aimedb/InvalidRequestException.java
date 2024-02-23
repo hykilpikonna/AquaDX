@@ -1,4 +1,4 @@
-package icu.samnyan.aqua.sega.aimedb.exception;
+package icu.samnyan.aqua.sega.aimedb;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)

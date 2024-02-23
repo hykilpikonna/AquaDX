@@ -1,6 +1,5 @@
 package icu.samnyan.aqua.sega.aimedb
 
-import icu.samnyan.aqua.sega.aimedb.exception.InvalidRequestException
 import icu.samnyan.aqua.sega.aimedb.util.Encryption
 import io.netty.buffer.ByteBuf
 import io.netty.channel.ChannelHandlerContext
@@ -25,7 +24,7 @@ class AimeDbDecoder : ByteToMessageDecoder() {
      * @param ctx ChannelHandlerContext
      * @param input ByteBuf in
      * @param out List<Object>
-    </Object> */
+     */
     @Throws(Exception::class)
     override fun decode(ctx: ChannelHandlerContext, input: ByteBuf, out: MutableList<Any>) {
         if (input.readableBytes() < 16) return
