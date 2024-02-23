@@ -1,6 +1,5 @@
 package icu.samnyan.aqua.sega.aimedb
 
-import icu.samnyan.aqua.sega.aimedb.util.Encryption
 import io.netty.buffer.ByteBuf
 import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.ByteToMessageDecoder
@@ -25,24 +24,23 @@ class AimeDbDecoder : ByteToMessageDecoder() {
      * @param input ByteBuf in
      * @param out List<Object>
      */
-    @Throws(Exception::class)
     override fun decode(ctx: ChannelHandlerContext, input: ByteBuf, out: MutableList<Any>) {
         if (input.readableBytes() < 16) return
         if (length == 0) {
             length = getLength(input)
-            logger.info("Aime Server Request Length: $length")
+            logger.info("AimeDB Request Length: $length")
         }
 
         if (input.readableBytes() < length) return
 
         // Create a byte array to store the encrypted data
-        val result = Encryption.decrypt(input.readBytes(length))
+        val result = AimeDbEncryption.decrypt(input.readBytes(length))
 
         val resultMap: MutableMap<String, Any> = HashMap()
         resultMap["type"] = result.getShortLE(0x04).toInt()
         resultMap["data"] = result
 
-        logger.debug("Aime Server Request Type: " + resultMap["type"])
+        logger.debug("AimeDB Request Type: " + resultMap["type"])
 
         out.add(resultMap)
     }
@@ -55,12 +53,11 @@ class AimeDbDecoder : ByteToMessageDecoder() {
      */
     private fun getLength(input: ByteBuf): Int {
         val currentPos = input.readerIndex()
-        val result = Encryption.decrypt(input)
+        val result = AimeDbEncryption.decrypt(input)
 
         // Check the header
-        if (result.getByte(0).toInt() != 0x3e) {
-            throw InvalidRequestException()
-        }
+        val header = result.getByte(0).toInt()
+        assert(header == 0x3e) { "AimeDB: Invalid header $header" }
 
         // Read the length from offset 6
         return result.getShortLE(currentPos + 6).toInt()

@@ -27,22 +27,22 @@ class AimeDbRequestHandler(
     data class AimeBaseInfo(val gameId: String, val keychipId: String)
 
     fun getBaseInfo(input: ByteBuf) = AimeBaseInfo(
-        gameId = input.toString(0x000a, 0x000e - 0x000a, StandardCharsets.US_ASCII),
-        keychipId = input.toString(0x0014, 0x001f - 0x0014, StandardCharsets.US_ASCII)
+        gameId = input.toString(0x0a, 0x0e - 0x0a, StandardCharsets.US_ASCII),
+        keychipId = input.toString(0x14, 0x1f - 0x14, StandardCharsets.US_ASCII)
     )
 
     final val handlers = mapOf<Int, (ByteBuf) -> ByteBuf?>(
-        0x0001 to ::doFelicaLookup,
-        0x0004 to ::doLookup,
-        0x0005 to ::doRegister,
-        0x0009 to ::doLog,
-        0x000b to ::doCampaign,
-        0x000d to ::doTouch,
-        0x000f to ::doLookup2,
-        0x0011 to ::doFelicaLookup2,
-        0x0013 to ::doUnknown19,
-        0x0064 to ::doHello,
-        0x0066 to ::doGoodbye
+        0x01 to ::doFelicaLookup,
+        0x04 to ::doLookup,
+        0x05 to ::doRegister,
+        0x09 to ::doLog,
+        0x0b to ::doCampaign,
+        0x0d to ::doTouch,
+        0x0f to ::doLookup2,
+        0x11 to ::doFelicaLookup2,
+        0x13 to ::doUnknown19,
+        0x64 to ::doHello,
+        0x66 to ::doGoodbye
     )
 
     /**
@@ -82,18 +82,18 @@ class AimeDbRequestHandler(
      * Felica Lookup v1: Return the Felica IDm as-is
      */
     fun doFelicaLookup(msg: ByteBuf): ByteBuf {
-        val idm = msg.slice(0x0020, 0x0028 - 0x0020).getLong(0)
-        val pmm = msg.slice(0x0028, 0x0030 - 0x0028).getLong(0)
+        val idm = msg.slice(0x20, 0x28 - 0x20).getLong(0)
+        val pmm = msg.slice(0x28, 0x30 - 0x28).getLong(0)
         logger.info("> Felica Lookup v1 ($idm, $pmm)")
 
         // Get the decimal represent of the hex value, same from minime
         val accessCode = idm.toString().replace("-", "").padStart(20, '0')
 
         logger.info("> Response: $accessCode")
-        return Unpooled.copiedBuffer(ByteArray(0x0030)).apply {
-            setShortLE(0x0004, 0x0003)
-            setShortLE(0x0008, 1)
-            setBytes(0x0024, ByteBufUtil.decodeHexDump(accessCode))
+        return Unpooled.copiedBuffer(ByteArray(0x30)).apply {
+            setShortLE(0x04, 0x03)
+            setShortLE(0x08, 1)
+            setBytes(0x24, ByteBufUtil.decodeHexDump(accessCode))
         }
     }
 
@@ -101,8 +101,8 @@ class AimeDbRequestHandler(
      * Felica Lookup v2: Look up the card in the card repository, return the External ID
      */
     fun doFelicaLookup2(msg: ByteBuf): ByteBuf {
-        val idm = msg.slice(0x0020, 0x0028 - 0x0020).getLong(0)
-        val pmm = msg.slice(0x0028, 0x0030 - 0x0028).getLong(0)
+        val idm = msg.slice(0x20, 0x28 - 0x20).getLong(0)
+        val pmm = msg.slice(0x28, 0x30 - 0x28).getLong(0)
         logger.info("> Felica Lookup v2 ($idm, $pmm)")
 
         // Get the decimal represent of the hex value, same from minime
@@ -111,13 +111,13 @@ class AimeDbRequestHandler(
 
         logger.info("Response: $accessCode, $aimeId")
         return Unpooled.copiedBuffer(ByteArray(0x0140)).apply {
-            setShortLE(0x0004, 0x0012)
-            setShortLE(0x0008, 1)
-            setLongLE(0x0020, aimeId)
-            setIntLE(0x0024, -0x1) // 0xFFFFFFFF
-            setIntLE(0x0028, -0x1) // 0xFFFFFFFF
-            setBytes(0x002c, ByteBufUtil.decodeHexDump(accessCode))
-            setShortLE(0x0037, 0x0001)
+            setShortLE(0x04, 0x12)
+            setShortLE(0x08, 1)
+            setLongLE(0x20, aimeId)
+            setIntLE(0x24, -0x1) // 0xFFFFFFFF
+            setIntLE(0x28, -0x1) // 0xFFFFFFFF
+            setBytes(0x2c, ByteBufUtil.decodeHexDump(accessCode))
+            setShortLE(0x37, 0x01)
         }
     }
 
@@ -125,32 +125,32 @@ class AimeDbRequestHandler(
      * Lookup v1: Find the LUID in the database and return the External ID
      */
     fun doLookup(msg: ByteBuf): ByteBuf {
-        val luid = ByteBufUtil.hexDump(msg.slice(0x0020, 0x002a - 0x0020))
+        val luid = ByteBufUtil.hexDump(msg.slice(0x20, 0x2a - 0x20))
         logger.info("> Lookup v1 ($luid)")
 
         val aimeId = cardService.getCardByAccessCode(luid).getOrNull()?.extId ?: -1
 
         logger.info("> Response: $aimeId")
         return Unpooled.copiedBuffer(ByteArray(0x0130)).apply {
-            setShortLE(0x0004, 0x0006)
-            setShortLE(0x0008, 1)
-            setLongLE(0x0020, aimeId)
-            setByte(0x0024, 0)
+            setShortLE(0x04, 0x06)
+            setShortLE(0x08, 1)
+            setLongLE(0x20, aimeId)
+            setByte(0x24, 0)
         }
     }
 
     fun doLookup2(msg: ByteBuf): ByteBuf {
-        val luid = ByteBufUtil.hexDump(msg.slice(0x0020, 0x002a - 0x0020))
+        val luid = ByteBufUtil.hexDump(msg.slice(0x20, 0x2a - 0x20))
         logger.info("> Lookup v2 ($luid)")
 
         val aimeId = cardService.getCardByAccessCode(luid).getOrNull()?.extId ?: -1
 
         logger.info("Response: $aimeId")
         return Unpooled.copiedBuffer(ByteArray(0x0130)).apply {
-            setShortLE(0x0004, 0x0010)
-            setShortLE(0x0008, 1)
-            setLongLE(0x0020, aimeId)
-            setByte(0x0024, 0)
+            setShortLE(0x04, 0x10)
+            setShortLE(0x08, 1)
+            setLongLE(0x20, aimeId)
+            setByte(0x24, 0)
         }
     }
 
@@ -158,7 +158,7 @@ class AimeDbRequestHandler(
      * Register: Register a new card by access code
      */
     fun doRegister(msg: ByteBuf): ByteBuf {
-        val luid = ByteBufUtil.hexDump(msg.slice(0x0020, 0x002a - 0x0020))
+        val luid = ByteBufUtil.hexDump(msg.slice(0x20, 0x2a - 0x20))
         logger.info("> Register ($luid)")
 
         var status = 0
@@ -173,58 +173,58 @@ class AimeDbRequestHandler(
         else logger.warn("> Duplicated Aime Card Register detected, access code: $luid")
 
         logger.info("> Response: $status, $aimeId")
-        return Unpooled.copiedBuffer(ByteArray(0x0030)).apply {
-            setShortLE(0x0004, 0x0006)
-            setShortLE(0x0008, status)
-            setLongLE(0x0020, aimeId)
+        return Unpooled.copiedBuffer(ByteArray(0x30)).apply {
+            setShortLE(0x04, 0x06)
+            setShortLE(0x08, status)
+            setLongLE(0x20, aimeId)
         }
     }
 
     /**
      * Log: Just log the request and return a status 1
      */
-    fun doLog(msg: ByteBuf) = Unpooled.copiedBuffer(ByteArray(0x0020)).apply {
-        setShortLE(0x0004, 0x000a)
-        setShortLE(0x0008, 1)
+    fun doLog(msg: ByteBuf) = Unpooled.copiedBuffer(ByteArray(0x20)).apply {
+        setShortLE(0x04, 0x0a)
+        setShortLE(0x08, 1)
     }
 
     /**
      * Campaign: Just return a status 1
      */
     fun doCampaign(msg: ByteBuf) = Unpooled.copiedBuffer(ByteArray(0x0200)).apply {
-        setShortLE(0x0004, 0x000c)
-        setShortLE(0x0008, 1)
+        setShortLE(0x04, 0x0c)
+        setShortLE(0x08, 1)
     }
 
     /**
      * Touch: Just return a status 1
      */
     fun doTouch(msg: ByteBuf): ByteBuf {
-        val aimeId = msg.getUnsignedIntLE(0x0020)
+        val aimeId = msg.getUnsignedIntLE(0x20)
         logger.info("> Touch ($aimeId)")
 
-        return Unpooled.copiedBuffer(ByteArray(0x0050)).apply {
-            setShortLE(0x0004, 0x000e)
-            setShortLE(0x0008, 1)
-            setShortLE(0x0020, 0x006f)
-            setShortLE(0x0024, 0x0001)
+        return Unpooled.copiedBuffer(ByteArray(0x50)).apply {
+            setShortLE(0x04, 0x0e)
+            setShortLE(0x08, 1)
+            setShortLE(0x20, 0x6f)
+            setShortLE(0x24, 0x01)
         }
     }
 
     /**
      * We don't know what this is, just return a status 1
      */
-    fun doUnknown19(msg: ByteBuf) = Unpooled.copiedBuffer(ByteArray(0x0040)).apply {
-        setShortLE(0x0004, 0x0014)
-        setShortLE(0x0008, 1)
+    fun doUnknown19(msg: ByteBuf) = Unpooled.copiedBuffer(ByteArray(0x40)).apply {
+        setShortLE(0x04, 0x14)
+        setShortLE(0x08, 1)
     }
 
     /**
      * Ping: Just return a status 1
      */
-    fun doHello(msg: ByteBuf) = Unpooled.copiedBuffer(ByteArray(0x0020)).apply {
-        setShortLE(0x0004, 0x0065)
-        setShortLE(0x0008, 1)
+    fun doHello(msg: ByteBuf) = Unpooled.copiedBuffer(ByteArray(0x20)).apply {
+        setShortLE(0x04, 0x65)
+        setShortLE(0x08, 1)
     }
     
     fun doGoodbye(msg: ByteBuf) = null
