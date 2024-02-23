@@ -12,9 +12,10 @@ import javax.crypto.spec.SecretKeySpec
  */
 object AimeDbEncryption {
     val KEY = SecretKeySpec("Copyright(C)SEGA".toByteArray(StandardCharsets.UTF_8), "AES")
-    val cipher = Cipher.getInstance("AES/ECB/NoPadding").apply { init(Cipher.ENCRYPT_MODE, KEY) }
+    val enc = Cipher.getInstance("AES/ECB/NoPadding").apply { init(Cipher.ENCRYPT_MODE, KEY) }
+    val dec = Cipher.getInstance("AES/ECB/NoPadding").apply { init(Cipher.DECRYPT_MODE, KEY) }
 
-    fun decrypt(src: ByteBuf) = copiedBuffer(cipher.doFinal(ByteBufUtil.toBytes(src)))
+    fun decrypt(src: ByteBuf) = copiedBuffer(dec.doFinal(ByteBufUtil.toBytes(src)))
 
-    fun encrypt(src: ByteBuf) = copiedBuffer(cipher.doFinal(ByteBufUtil.toAllBytes(src)))
+    fun encrypt(src: ByteBuf) = copiedBuffer(enc.doFinal(ByteBufUtil.toAllBytes(src)))
 }

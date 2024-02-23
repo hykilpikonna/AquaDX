@@ -10,13 +10,17 @@ import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
 
 /**
- * @author samnyan (privateamusement@protonmail.com)
+ * A new decoder object will be created each time a new request comes in
  */
 @Component
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 class AimeDbDecoder : ByteToMessageDecoder() {
-    var length = 0
+    var length: Int = 0
     val logger: Logger = LoggerFactory.getLogger(AimeDbDecoder::class.java)
+
+    init {
+        logger.info("AimeDB Decoder Created")
+    }
 
     /**
      * Decrypt the incoming request including frame management
