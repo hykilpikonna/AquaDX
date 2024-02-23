@@ -20,10 +20,10 @@ import kotlin.jvm.optionals.getOrNull
  */
 @Component
 @ChannelHandler.Sharable
-class AimeDbRequestHandler(
+class AimeDB(
     val cardService: CardService
 ): ChannelInboundHandlerAdapter() {
-    val logger: Logger = LoggerFactory.getLogger(AimeDbRequestHandler::class.java)
+    val logger: Logger = LoggerFactory.getLogger(AimeDB::class.java)
 
     data class AimeBaseInfo(val gameId: String, val keychipId: String)
 

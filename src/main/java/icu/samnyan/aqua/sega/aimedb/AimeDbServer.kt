@@ -63,7 +63,7 @@ class AimeDbServer(
 
 @Component
 class AimeDbServerInitializer(
-    val aimeDbRequestHandler: AimeDbRequestHandler
+    val aimeDbRequestHandler: AimeDB
 ) : ChannelInitializer<SocketChannel>() {
     override fun initChannel(ch: SocketChannel) {
         ch.pipeline().apply {
