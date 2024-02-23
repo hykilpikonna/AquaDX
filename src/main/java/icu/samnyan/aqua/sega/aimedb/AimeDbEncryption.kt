@@ -3,8 +3,6 @@ package icu.samnyan.aqua.sega.aimedb
 import icu.samnyan.aqua.sega.util.ByteBufUtil
 import io.netty.buffer.ByteBuf
 import io.netty.buffer.Unpooled.copiedBuffer
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import java.nio.charset.StandardCharsets
 import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
@@ -21,5 +19,3 @@ object AimeDbEncryption {
 
     fun encrypt(src: ByteBuf) = copiedBuffer(enc.doFinal(ByteBufUtil.toAllBytes(src)))
 }
-
-val logger: Logger = LoggerFactory.getLogger(AimeDbEncryption::class.java)
