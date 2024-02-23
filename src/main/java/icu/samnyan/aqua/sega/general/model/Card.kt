@@ -18,7 +18,8 @@ class Card(
     @JsonIgnore
     val id: Long = 0,
 
-    // A external id
+    // An external id (THIS IS UINT32!!!!)
+    // IDK why samnyan used Long, Games cannot parse the full int64 value and will cast it to uint32
     @Column(name = "ext_id", unique = true, nullable = false)
     @JsonIgnore // Sensitive information
     var extId: Long = 0,
@@ -48,5 +49,6 @@ class Card(
         private val serialVersionUID = 1L
     }
 
+    @Suppress("unused") // Used by serialization
     val isLinked get() = aquaUser != null
 }
