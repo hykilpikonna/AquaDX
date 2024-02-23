@@ -56,12 +56,12 @@ class AimeDbRequestHandler(
             val data = msg["data"] as ByteBuf
             val base = getBaseInfo(data)
             val handler = handlers[type] ?: let {
-                logger.error("AimeDB: Unknown request type: ${type.toString(16)}")
+                logger.error("AimeDB: Unknown request type 0x${type.toString(16)}")
                 ctx.flush()
                 return
             }
 
-            logger.info("AimeDB: Request ${handler.name} for game ${base.gameId}, from keychip ${base.keychipId}")
+            logger.info("AimeDB /${handler.name} : (game ${base.gameId}, keychip ${base.keychipId})")
 
             handler.fn(data)?.let { ctx.write(it) }
             ctx.flush()
