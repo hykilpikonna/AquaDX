@@ -5,15 +5,17 @@ import ext.Str
 import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.db.EmailConfirmation
 import icu.samnyan.aqua.net.db.EmailConfirmationRepo
-import jakarta.annotation.PostConstruct
 import org.simplejavamail.api.mailer.Mailer
 import org.simplejavamail.email.EmailBuilder
 import org.simplejavamail.springsupport.SimpleJavaMailSpringSupport
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.boot.context.event.ApplicationStartedEvent
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
+import org.springframework.context.event.EventListener
+import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -39,13 +41,12 @@ class EmailService(
     val confirmationRepo: EmailConfirmationRepo,
 ) {
     val log: Logger = LoggerFactory.getLogger(EmailService::class.java)
-    lateinit var confirmTemplate: Str
+    val confirmTemplate: Str = this::class.java.getResource("/email/confirm.html")?.readText()
+        ?: throw Exception("Email Template Not Found")
 
-    /**
-     * Test the connection of the email service on startup
-     */
-    @PostConstruct
-    fun init() {
+    @Async
+    @EventListener(ApplicationStartedEvent::class)
+    fun test() {
         if (!props.enable) return
 
         try {
@@ -55,10 +56,6 @@ class EmailService(
             log.error("Email Service Connection Failed", e)
             throw e
         }
-
-        // Load confirm email template
-        confirmTemplate = this::class.java.getResource("/email/confirm.html")?.readText() ?:
-            throw Exception("Email Template Not Found")
     }
 
     /**
