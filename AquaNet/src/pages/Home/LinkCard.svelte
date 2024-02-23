@@ -3,13 +3,15 @@
 <script lang="ts">
   import { slide, fade } from "svelte/transition"
   import { clz } from "../../libs/ui";
-  import type { Card, CardSummary, CardSummaryGame, UserMe } from "../../libs/generalTypes";
+  import type { Card, CardSummary, CardSummaryGame, ConfirmProps, UserMe } from "../../libs/generalTypes";
   import { CARD, USER } from "../../libs/sdk";
   import moment from "moment"
   import Icon from "@iconify/svelte";
+  import Confirm from "../../components/Confirm.svelte";
 
   // State
   let state: 'ready' | 'linking-AC' | 'linking-SN' | 'loading' = "loading"
+  let showConfirm: ConfirmProps | null = null
 
   let error: string = ""
   let me: UserMe | null = null
@@ -141,8 +143,17 @@
   }
 
   async function unlink(card: Card) {
-    await CARD.unlink(card.luid)
-    await updateMe()
+    showConfirm = {
+      title: "Unlink Card",
+      message: "Are you sure you want to unlink this card?",
+      confirm: async () => {
+        await CARD.unlink(card.luid)
+        await updateMe()
+        showConfirm = null
+      },
+      cancel: () => showConfirm = null,
+      dangerous: true
+    }
   }
 
   // Access code input
@@ -298,6 +309,8 @@
       </div>
     </div>
   {/if}
+
+  <Confirm show={showConfirm} />
 </div>
 
 <style lang="sass">

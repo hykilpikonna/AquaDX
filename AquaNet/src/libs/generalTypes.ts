@@ -41,3 +41,12 @@ export interface CardSummary {
   ongeki: CardSummaryGame | null
   diva: CardSummaryGame | null
 }
+
+
+export interface ConfirmProps {
+  title: string
+  message: string
+  confirm: () => void
+  cancel?: () => void
+  dangerous?: boolean
+}

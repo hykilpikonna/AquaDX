@@ -2,13 +2,8 @@
 
 <script lang="ts">
   import { fade } from 'svelte/transition'
-
-  interface ConfirmProps {
-    title: string
-    message: string
-    confirm: () => void
-    cancel?: () => void
-  }
+  import { clz } from "../libs/ui";
+  import type { ConfirmProps } from "../libs/generalTypes";
 
   // Props
   export let show: ConfirmProps
@@ -16,19 +11,26 @@
 
 {#if show}
   <div class="overlay" transition:fade>
-    <h1>{show.title}</h1>
-    <span>{show.message}</span>
+    <div>
+      <h2>{show.title}</h2>
+      <span>{show.message}</span>
 
-    <div class="actions">
-      {#if show.cancel}
-        <!-- Svelte LSP is very annoying here -->
-        <button on:click={() => show.cancel && show.cancel()}>Cancel</button>
-      {/if}
-      <button on:click={() => show.confirm()}>Confirm</button>
+      <div class="actions">
+        {#if show.cancel}
+          <!-- Svelte LSP is very annoying here -->
+          <button on:click={() => show.cancel && show.cancel()}>Cancel</button>
+        {/if}
+        <button on:click={() => show.confirm()} class={clz({error: show.dangerous})}>Confirm</button>
+      </div>
     </div>
   </div>
 {/if}
 
 <style lang="sass">
+  .actions
+    display: flex
+    gap: 16px
 
+    button
+      width: 100%
 </style>
