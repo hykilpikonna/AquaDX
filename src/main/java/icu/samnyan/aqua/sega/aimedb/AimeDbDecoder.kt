@@ -3,24 +3,12 @@ package icu.samnyan.aqua.sega.aimedb
 import io.netty.buffer.ByteBuf
 import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.ByteToMessageDecoder
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.config.BeanDefinition
-import org.springframework.context.annotation.Scope
-import org.springframework.stereotype.Component
 
 /**
  * A new decoder object will be created each time a new request comes in
  */
-@Component
-@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 class AimeDbDecoder : ByteToMessageDecoder() {
-    var length: Int = 0
-    val logger: Logger = LoggerFactory.getLogger(AimeDbDecoder::class.java)
-
-    init {
-        logger.info("AimeDB Decoder Created")
-    }
+    var length = 0
 
     /**
      * Decrypt the incoming request including frame management
@@ -30,10 +18,7 @@ class AimeDbDecoder : ByteToMessageDecoder() {
      */
     override fun decode(ctx: ChannelHandlerContext, input: ByteBuf, out: MutableList<Any>) {
         if (input.readableBytes() < 16) return
-        if (length == 0) {
-            length = getLength(input)
-            logger.info("AimeDB Request Length: $length")
-        }
+        if (length == 0) length = getLength(input)
 
         if (input.readableBytes() < length) return
 

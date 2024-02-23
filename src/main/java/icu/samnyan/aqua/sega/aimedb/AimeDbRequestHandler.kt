@@ -10,7 +10,6 @@ import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.ChannelInboundHandlerAdapter
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
 import java.nio.charset.StandardCharsets
 import kotlin.jvm.optionals.getOrNull
@@ -19,7 +18,6 @@ import kotlin.jvm.optionals.getOrNull
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-@Scope("prototype")
 @ChannelHandler.Sharable
 class AimeDbRequestHandler(
     val cardService: CardService
