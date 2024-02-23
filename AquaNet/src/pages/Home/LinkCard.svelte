@@ -9,7 +9,7 @@
   import Icon from "@iconify/svelte";
 
   // State
-  let state: 'ready' | 'linking-AC' | 'linking-SN' = "ready"
+  let state: 'ready' | 'linking-AC' | 'linking-SN' | 'loading' = "loading"
 
   let error: string = ""
   let me: UserMe | null = null
@@ -23,6 +23,7 @@
 
     // Always put the ghost card at the top
     m.cards.sort((a, b) => a.ghost ? -1 : 1)
+    state = "ready"
   }).catch(e => error = e.message)
   updateMe()
 
@@ -45,7 +46,7 @@
   }
 
   async function link(type: 'AC' | 'SN') {
-    if (state !== 'ready') return
+    if (state !== 'ready' || accountCardSummary === null) return
     state = "linking-" + type
     const id = type === 'AC' ? inputAC : inputSN
 
@@ -81,11 +82,10 @@
 
     // If all games in summary are null or doesn't conflict with the ghost card,
     // we can link the card directly
-    // @ts-ignore - TS doesn't understand that k is a key of CardSummary, so it says k cannot be used as index
-    if (Object.keys(summary).every(k => summary[k] === null || accountCardSummary[k] === null)) {
+    if (Object.keys(summary).every(k => summary[k as keyof CardSummary] === null
+        || accountCardSummary!![k as keyof CardSummary] === null)) {
       console.log("linking card directly")
-      // @ts-ignore
-      await doLink(id, Object.keys(summary).filter(k => summary[k] !== null).join(","))
+      await doLink(id, Object.keys(summary).filter(k => summary[k as keyof CardSummary] !== null).join(","))
     }
 
     // For each conflicting game, ask the user if they want to migrate the data
@@ -97,6 +97,7 @@
   }
 
   async function linkConflictContinue(choose: "old" | "new" | null) {
+    if (accountCardSummary === null || conflictSummary === null) return
     console.log("linking card with migration")
 
     if (choose) {
@@ -106,16 +107,13 @@
         conflictToMigrate.push(conflictGame)
       }
       // Continue to the next card
-      // @ts-ignore
-      conflictSummary[conflictGame] = null
+      conflictSummary[conflictGame as keyof CardSummary] = null
     }
 
     let isConflict = false
     for (const k in conflictSummary) {
-      // @ts-ignore
-      conflictNew = conflictSummary[k]
-      // @ts-ignore
-      conflictOld = accountCardSummary[k]
+      conflictNew = conflictSummary[k as keyof CardSummary]
+      conflictOld = accountCardSummary[k as keyof CardSummary]
       conflictGame = k
       if (!conflictNew || !conflictOld) continue
 
@@ -208,9 +206,9 @@
 
   {#if me}
     <div class="existing-cards" transition:slide>
-      {#each me.cards as card}
-        <div class={clz({ghost: card.ghost}, 'existing card')}>
-          <span class="type">{cardType(card.luid)}</span>
+      {#each me.cards as card (card.luid)}
+        <div class={clz({ghost: card.ghost}, 'existing card')} transition:fade|global>
+          <span class="type">{card.ghost ? "Account Card" : cardType(card.luid)}</span>
           <span class="register">Registered: {moment(card.registerTime).format("YYYY MMM DD")}</span>
           <span class="last">Last used: {moment(card.accessTime).format("YYYY MMM DD")}</span>
           <div/>
@@ -323,6 +321,10 @@
       .existing.card
         min-height: 90px
         position: relative
+        overflow: hidden
+
+        *
+          white-space: nowrap
 
         &.ghost
           background: rgba($c-darker, 0.8)
