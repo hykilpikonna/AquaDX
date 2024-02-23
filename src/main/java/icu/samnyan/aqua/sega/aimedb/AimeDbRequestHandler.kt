@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.sega.aimedb
 
+import ext.toHex
 import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.general.service.CardService
 import io.netty.buffer.ByteBuf
@@ -40,8 +41,8 @@ class AimeDbRequestHandler(
         0x09 to ::doLog,
         0x0b to ::doCampaign,
         0x0d to ::doTouch,
-        0x0f to ::doLookup2,
-        0x11 to ::doFelicaLookup2,
+        0x0f to ::doLookupV2,
+        0x11 to ::doFelicaLookupV2,
         0x13 to ::doUnknown19,
         0x64 to ::doHello,
         0x66 to ::doGoodbye
@@ -85,7 +86,7 @@ class AimeDbRequestHandler(
     fun doFelicaLookup(msg: ByteBuf): ByteBuf {
         val idm = msg.slice(0x20, 0x28 - 0x20).getLong(0)
         val pmm = msg.slice(0x28, 0x30 - 0x28).getLong(0)
-        logger.info("> Felica Lookup v1 ($idm, $pmm)")
+        logger.info("> Felica Lookup v1 (idm ${idm.toHex()}, pmm ${pmm.toHex()})")
 
         // Get the decimal represent of the hex value, same from minime
         val accessCode = idm.toString().replace("-", "").padStart(20, '0')
@@ -101,16 +102,16 @@ class AimeDbRequestHandler(
     /**
      * Felica Lookup v2: Look up the card in the card repository, return the External ID
      */
-    fun doFelicaLookup2(msg: ByteBuf): ByteBuf {
+    fun doFelicaLookupV2(msg: ByteBuf): ByteBuf {
         val idm = msg.slice(0x20, 0x28 - 0x20).getLong(0)
         val pmm = msg.slice(0x28, 0x30 - 0x28).getLong(0)
-        logger.info("> Felica Lookup v2 ($idm, $pmm)")
+        logger.info("> Felica Lookup v2 (idm $idm, pmm $pmm)")
 
         // Get the decimal represent of the hex value, same from minime
         val accessCode = idm.toString().replace("-", "").padStart(20, '0')
         val aimeId = cardService.getCardByAccessCode(accessCode).getOrNull()?.extId ?: -1
 
-        logger.info("Response: $accessCode, $aimeId")
+        logger.info("> Response: $accessCode, $aimeId")
         return Unpooled.copiedBuffer(ByteArray(0x0140)).apply {
             setShortLE(0x04, 0x12)
             setShortLE(0x08, 1)
@@ -127,7 +128,7 @@ class AimeDbRequestHandler(
      */
     fun doLookup(msg: ByteBuf): ByteBuf {
         val luid = ByteBufUtil.hexDump(msg.slice(0x20, 0x2a - 0x20))
-        logger.info("> Lookup v1 ($luid)")
+        logger.info("> Lookup v1 (luid $luid)")
 
         val aimeId = cardService.getCardByAccessCode(luid).getOrNull()?.extId ?: -1
 
@@ -140,13 +141,13 @@ class AimeDbRequestHandler(
         }
     }
 
-    fun doLookup2(msg: ByteBuf): ByteBuf {
+    fun doLookupV2(msg: ByteBuf): ByteBuf {
         val luid = ByteBufUtil.hexDump(msg.slice(0x20, 0x2a - 0x20))
-        logger.info("> Lookup v2 ($luid)")
+        logger.info("> Lookup v2 (luid $luid)")
 
         val aimeId = cardService.getCardByAccessCode(luid).getOrNull()?.extId ?: -1
 
-        logger.info("Response: $aimeId")
+        logger.info("> Response: $aimeId")
         return Unpooled.copiedBuffer(ByteArray(0x0130)).apply {
             setShortLE(0x04, 0x10)
             setShortLE(0x08, 1)
@@ -160,7 +161,7 @@ class AimeDbRequestHandler(
      */
     fun doRegister(msg: ByteBuf): ByteBuf {
         val luid = ByteBufUtil.hexDump(msg.slice(0x20, 0x2a - 0x20))
-        logger.info("> Register ($luid)")
+        logger.info("> Register (luid $luid)")
 
         var status = 0
         var aimeId = 0L
@@ -201,8 +202,8 @@ class AimeDbRequestHandler(
      * Touch: Just return a status 1
      */
     fun doTouch(msg: ByteBuf): ByteBuf {
-        val aimeId = msg.getUnsignedIntLE(0x20)
-        logger.info("> Touch ($aimeId)")
+        val luid = msg.getUnsignedIntLE(0x20)
+        logger.info("> Touch (luid $luid)")
 
         return Unpooled.copiedBuffer(ByteArray(0x50)).apply {
             setShortLE(0x04, 0x0e)

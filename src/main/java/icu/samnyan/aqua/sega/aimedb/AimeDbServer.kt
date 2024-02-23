@@ -51,7 +51,7 @@ class AimeDbServer(
             val socket = InetSocketAddress(InetAddress.getByName(props.address), props.port)
 
             val f = bootstrap.bind(socket).sync()
-            logger.info("Aime DB start up on  $socket")
+            logger.info("Aime DB start up on $socket")
             f.channel().closeFuture()
         }
         catch (e: UnknownHostException) {
