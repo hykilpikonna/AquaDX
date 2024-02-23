@@ -20,9 +20,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class Encryption {
 
-    private static final Logger logger = LoggerFactory.getLogger(Encryption.class);
-
-    private static SecretKeySpec KEY = new SecretKeySpec("Copyright(C)SEGA".getBytes(StandardCharsets.UTF_8), "AES");
+    private static final SecretKeySpec KEY = new SecretKeySpec("Copyright(C)SEGA".getBytes(StandardCharsets.UTF_8), "AES");
 
     public static ByteBuf decrypt(ByteBuf src) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
         Cipher cipher = Cipher.getInstance("AES/ECB/NoPadding");
@@ -37,5 +35,4 @@ public class Encryption {
         byte[] bytes = cipher.doFinal(ByteBufUtil.toAllBytes(src));
         return Unpooled.copiedBuffer(bytes);
     }
-
 }

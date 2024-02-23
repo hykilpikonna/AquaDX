@@ -41,31 +41,34 @@ public class AimeDbServer {
     }
 
     public void start() throws Exception {
-        if (enableAimeDb) {
-            ServerBootstrap bootstrap = new ServerBootstrap();
-            EventLoopGroup boss = new NioEventLoopGroup();
-            EventLoopGroup work = new NioEventLoopGroup();
+        if (!enableAimeDb) {
+            logger.info("Aime DB is disabled.");
+            return;
+        }
 
-            bootstrap.group(boss, work)
-                    .handler(new LoggingHandler(LogLevel.DEBUG))
-                    .channel(NioServerSocketChannel.class)
-                    .childHandler(aimeDbServerInitializer)
-                    .option(ChannelOption.SO_BACKLOG, 128);
+        ServerBootstrap bootstrap = new ServerBootstrap();
+        EventLoopGroup boss = new NioEventLoopGroup();
+        EventLoopGroup work = new NioEventLoopGroup();
 
-            InetSocketAddress socket;
-            if(StringUtils.isNotBlank(this.address)) {
-                try {
-                    socket = new InetSocketAddress(InetAddress.getByName(this.address), this.port);
-                } catch (UnknownHostException e) {
-                    logger.error("UnknownHostException, please check you have set a correct aimedb.server.address.");
-                    socket = new InetSocketAddress(this.port);
-                }
-            } else {
+        bootstrap.group(boss, work)
+            .handler(new LoggingHandler(LogLevel.DEBUG))
+            .channel(NioServerSocketChannel.class)
+            .childHandler(aimeDbServerInitializer)
+            .option(ChannelOption.SO_BACKLOG, 128);
+
+        InetSocketAddress socket;
+        if(StringUtils.isNotBlank(this.address)) {
+            try {
+                socket = new InetSocketAddress(InetAddress.getByName(this.address), this.port);
+            } catch (UnknownHostException e) {
+                logger.error("UnknownHostException, please check you have set a correct aimedb.server.address.");
                 socket = new InetSocketAddress(this.port);
             }
-            ChannelFuture f = bootstrap.bind(socket).sync();
-            logger.info("Aime DB start up on  " + socket.toString());
-            f.channel().closeFuture();
+        } else {
+            socket = new InetSocketAddress(this.port);
         }
+        ChannelFuture f = bootstrap.bind(socket).sync();
+        logger.info("Aime DB start up on  " + socket);
+        f.channel().closeFuture();
     }
 }

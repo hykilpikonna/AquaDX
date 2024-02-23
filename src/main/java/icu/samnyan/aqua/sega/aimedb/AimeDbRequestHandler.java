@@ -4,6 +4,8 @@ import icu.samnyan.aqua.sega.aimedb.handler.impl.*;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import lombok.AllArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import java.util.Map;
 
 @Component
 @Scope("prototype")
+@AllArgsConstructor
 public class AimeDbRequestHandler extends ChannelInboundHandlerAdapter {
 
     private static final Logger logger = LoggerFactory.getLogger(AimeDbRequestHandler.class);
@@ -34,27 +37,12 @@ public class AimeDbRequestHandler extends ChannelInboundHandlerAdapter {
     private final Unknown19Handler unknown19Handler;
     private final TouchHandler touchHandler;
 
-    @Autowired
-    public AimeDbRequestHandler(CampaignHandler campaignHandler, FeliCaLookupHandler feliCaLookupHandler, FeliCaLookup2Handler feliCaLookup2Handler, GoodbyeHandler goodbyeHandler, HelloHandler helloHandler, LogHandler logHandler, LookupHandler lookupHandler, Lookup2Handler lookup2Handler, RegisterHandler registerHandler, Unknown19Handler unknown19Handler, TouchHandler touchHandler) {
-        this.campaignHandler = campaignHandler;
-        this.feliCaLookupHandler = feliCaLookupHandler;
-        this.feliCaLookup2Handler = feliCaLookup2Handler;
-        this.goodbyeHandler = goodbyeHandler;
-        this.helloHandler = helloHandler;
-        this.logHandler = logHandler;
-        this.lookupHandler = lookupHandler;
-        this.lookup2Handler = lookup2Handler;
-        this.registerHandler = registerHandler;
-        this.unknown19Handler = unknown19Handler;
-        this.touchHandler = touchHandler;
-    }
-
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+    public void channelRead(@NotNull ChannelHandlerContext ctx, @NotNull Object msg) throws Exception {
         if (msg instanceof Map) {
-            int type = ((int) ((Map) msg).get("type"));
-            ByteBuf data = (ByteBuf) ((Map) msg).get("data");
+            int type = ((int) ((Map<?, ?>) msg).get("type"));
+            ByteBuf data = (ByteBuf) ((Map<?, ?>) msg).get("data");
             switch (type) {
                 case 0x0001:
                     feliCaLookupHandler.handle(ctx, data);
@@ -96,12 +84,12 @@ public class AimeDbRequestHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-        cause.printStackTrace();
+        logger.error("Error in AimeDB", cause);
         ctx.close();
     }
 
     @Override
-    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+    public void channelInactive(@NotNull ChannelHandlerContext ctx) throws Exception {
         super.channelInactive(ctx);
         logger.debug("Connection closed");
     }
