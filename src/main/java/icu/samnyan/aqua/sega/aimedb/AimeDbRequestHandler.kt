@@ -5,6 +5,7 @@ import icu.samnyan.aqua.sega.general.service.CardService
 import io.netty.buffer.ByteBuf
 import io.netty.buffer.ByteBufUtil
 import io.netty.buffer.Unpooled
+import io.netty.channel.ChannelHandler
 import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.ChannelInboundHandlerAdapter
 import org.slf4j.Logger
@@ -19,6 +20,7 @@ import kotlin.jvm.optionals.getOrNull
  */
 @Component
 @Scope("prototype")
+@ChannelHandler.Sharable
 class AimeDbRequestHandler(
     val cardService: CardService
 ): ChannelInboundHandlerAdapter() {
@@ -31,7 +33,9 @@ class AimeDbRequestHandler(
         keychipId = input.toString(0x14, 0x1f - 0x14, StandardCharsets.US_ASCII)
     )
 
-    final val handlers = mapOf<Int, (ByteBuf) -> ByteBuf?>(
+    data class Handler(val name: String, val fn: (ByteBuf) -> ByteBuf?)
+
+    final val handlers = mapOf(
         0x01 to ::doFelicaLookup,
         0x04 to ::doLookup,
         0x05 to ::doRegister,
@@ -43,7 +47,7 @@ class AimeDbRequestHandler(
         0x13 to ::doUnknown19,
         0x64 to ::doHello,
         0x66 to ::doGoodbye
-    )
+    ).map { (k, v) -> k to Handler(v.toString().substringBefore('(').substringAfterLast('.').substring(2), v) }.toMap()
 
     /**
      * Handle the incoming request
@@ -59,11 +63,10 @@ class AimeDbRequestHandler(
                 return
             }
 
-            logger.info("AimeDB: Request $handler for game ${base.gameId}, from keychip ${base.keychipId}")
+            logger.info("AimeDB: Request ${handler.name} for game ${base.gameId}, from keychip ${base.keychipId}")
 
-            val result = handler(data)
-            if (result != null) ctx.writeAndFlush(result)
-            else ctx.flush()
+            handler.fn(data)?.let { ctx.write(it) }
+            ctx.flush()
         }
     }
 
