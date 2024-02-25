@@ -12,10 +12,10 @@ import java.util.zip.Inflater;
  */
 public class Compression {
 
-    public static byte[] decompress(byte[] src) {
+    public static byte[] decompress(byte[] src, boolean nowrap) {
         ByteBuf result = Unpooled.buffer();
         byte[] buffer = new byte[100];
-        Inflater decompressor = new Inflater();
+        Inflater decompressor = new Inflater(nowrap);
         decompressor.setInput(src);
 
         try {
@@ -34,6 +34,10 @@ public class Compression {
             return new byte[0];
         }
 
+    }
+
+    public static byte[] decompress(byte[] src) {
+        return decompress(src, false);
     }
 
     public static byte[] compress(byte[] src) {

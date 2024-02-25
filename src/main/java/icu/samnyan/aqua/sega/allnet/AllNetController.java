@@ -6,7 +6,7 @@ import icu.samnyan.aqua.sega.allnet.model.response.DownloadOrderResponse;
 import icu.samnyan.aqua.sega.allnet.model.response.PowerOnResponse;
 import icu.samnyan.aqua.sega.allnet.model.response.PowerOnResponseV2;
 import icu.samnyan.aqua.sega.allnet.model.response.PowerOnResponseV3;
-import icu.samnyan.aqua.sega.allnet.util.Decoder;
+import icu.samnyan.aqua.sega.util.Decoder;
 import icu.samnyan.aqua.sega.allnet.util.KeychipChecker;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -80,7 +80,7 @@ public class AllNetController {
     public String downloadOrder(InputStream dataStream, HttpServletRequest req) throws IOException {
 
         byte[] bytes = dataStream.readAllBytes();
-        Map<String, String> reqMap = Decoder.decode(bytes);
+        Map<String, String> reqMap = Decoder.decodeAllNet(bytes);
 
         logger.info("Request: DownloadOrder, " + mapper.writeValueAsString(reqMap));
 
@@ -98,7 +98,7 @@ public class AllNetController {
         String localAddr = req.getLocalAddr();
         String localPort = Integer.toString(req.getLocalPort());
         byte[] bytes = dataStream.readAllBytes();
-        Map<String, String> reqMap = Decoder.decode(bytes);
+        Map<String, String> reqMap = Decoder.decodeAllNet(bytes);
         String serial = reqMap.getOrDefault("serial", "");
         logger.info("Request: PowerOn, " + mapper.writeValueAsString(reqMap));
         // TODO: Verify KeyChip id ?

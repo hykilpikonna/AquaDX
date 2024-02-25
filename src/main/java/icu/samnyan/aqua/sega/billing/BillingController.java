@@ -2,9 +2,7 @@ package icu.samnyan.aqua.sega.billing;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import icu.samnyan.aqua.sega.billing.model.response.BillingResponse;
-import icu.samnyan.aqua.sega.billing.util.Decoder;
-
+import icu.samnyan.aqua.sega.util.Decoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
@@ -44,7 +42,7 @@ public class BillingController {
         RSAPrivateKey key = loadBillingKey();
 
         byte[] bytes = dataStream.readAllBytes();
-        Map<String, String> reqMap = Decoder.decode(bytes);
+        Map<String, String> reqMap = Decoder.decodeBilling(bytes);
 
         logger.info("Request: Billing, " + mapper.writeValueAsString(reqMap));
 

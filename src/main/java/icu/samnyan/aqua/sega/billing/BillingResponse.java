@@ -1,4 +1,4 @@
-package icu.samnyan.aqua.sega.billing.model.response;
+package icu.samnyan.aqua.sega.billing;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
