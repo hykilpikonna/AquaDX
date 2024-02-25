@@ -34,7 +34,7 @@ public class GetUserRivalDataHandler {
         long userId = ((Number) request.get("userId")).longValue();
         long rivalId = ((Number) request.get("rivalId")).intValue();
 
-        Optional<UserDetail> detailOptional = userDataRepository.findByCard_ExtId(rivalId);
+        Optional<UserDetail> detailOptional = userDataRepository.findByCardExtId(rivalId);
         UserRivalData rivalData;
         if (detailOptional.isPresent()) {
             rivalData = new UserRivalData(rivalId, detailOptional.get().getUserName());

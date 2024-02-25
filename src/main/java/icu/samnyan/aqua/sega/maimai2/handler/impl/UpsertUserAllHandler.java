@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -86,7 +85,7 @@ public class UpsertUserAllHandler implements BaseHandler {
             return null;
         } else {
             newUserData = userAll.getUserData().get(0);
-            Optional<UserDetail> userOptional = userDataRepository.findByCard_ExtId(userId);
+            Optional<UserDetail> userOptional = userDataRepository.findByCardExtId(userId);
 
             if (userOptional.isPresent()) {
                 userData = userOptional.get();

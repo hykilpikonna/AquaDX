@@ -38,7 +38,7 @@ public class UploadUserPlaylogHandler implements BaseHandler {
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         UploadUserPlaylog uploadUserPlaylog = mapper.convert(request, UploadUserPlaylog.class);
 
-        Optional<UserDetail> userOptional = userDataRepository.findByCard_ExtId(uploadUserPlaylog.getUserId());
+        Optional<UserDetail> userOptional = userDataRepository.findByCardExtId(uploadUserPlaylog.getUserId());
 
         /*
         Due to how we handle userId, first user playlog can't be saved.

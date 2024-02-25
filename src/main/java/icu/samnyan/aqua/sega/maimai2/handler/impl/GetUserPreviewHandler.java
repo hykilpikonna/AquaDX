@@ -39,7 +39,7 @@ public class GetUserPreviewHandler implements BaseHandler {
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         long userId = ((Number) request.get("userId")).longValue();
 
-        Optional<UserDetail> userDataOptional = userDataRepository.findByCard_ExtId(userId);
+        Optional<UserDetail> userDataOptional = userDataRepository.findByCardExtId(userId);
 
         GetUserPreviewResp resp = new GetUserPreviewResp();
         resp.setUserId(userId);

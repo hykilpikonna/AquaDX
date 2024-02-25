@@ -108,7 +108,7 @@ class CardGameService(
                 "maimai" -> maimai.findByCard_ExtId(crd.extId).getOrNull()?.let {
                     maimai.save(it.apply { card = crd.aquaUser!!.ghostCard })
                 }
-                "maimai2" -> maimai2.findByCard_ExtId(crd.extId).getOrNull()?.let {
+                "maimai2" -> maimai2.findByCardExtId(crd.extId).getOrNull()?.let {
                     maimai2.save(it.apply { card = crd.aquaUser!!.ghostCard })
                 }
                 "chusan" -> chusan.findByCard_ExtId(crd.extId).getOrNull()?.let {
@@ -136,7 +136,7 @@ class CardGameService(
                 "lastLogin" to it.lastPlayDate,
             )
         },
-        "maimai2" to maimai2.findByCard_ExtId(card.extId).getOrNull()?.let {
+        "maimai2" to maimai2.findByCardExtId(card.extId).getOrNull()?.let {
             mapOf(
                 "name" to it.userName,
                 "rating" to it.playerRating,

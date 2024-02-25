@@ -129,48 +129,48 @@ public class ApiMaimai2PlayerDataController {
 
     @GetMapping("profile")
     public ProfileResp getProfile(@RequestParam long aimeId) {
-        return mapper.convert(userDataRepository.findByCard_ExtId(aimeId).orElseThrow(), new TypeReference<>() {
+        return mapper.convert(userDataRepository.findByCardExtId(aimeId).orElseThrow(), new TypeReference<>() {
         });
     }
 
     @PostMapping("profile/username")
     public UserDetail updateName(@RequestBody Map<String, Object> request) {
-        UserDetail profile = userDataRepository.findByCard_ExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
+        UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         profile.setUserName((String) request.get("userName"));
         return userDataRepository.save(profile);
     }
 
     @PostMapping("profile/icon")
     public UserDetail updateIcon(@RequestBody Map<String, Object> request) {
-        UserDetail profile = userDataRepository.findByCard_ExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
+        UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         profile.setIconId((Integer) request.get("iconId"));
         return userDataRepository.save(profile);
     }
 
     @PostMapping("profile/plate")
     public UserDetail updatePlate(@RequestBody Map<String, Object> request) {
-        UserDetail profile = userDataRepository.findByCard_ExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
+        UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         profile.setPlateId((Integer) request.get("plateId"));
         return userDataRepository.save(profile);
     }
 
     @PostMapping("profile/frame")
     public UserDetail updateFrame(@RequestBody Map<String, Object> request) {
-        UserDetail profile = userDataRepository.findByCard_ExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
+        UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         profile.setFrameId((Integer) request.get("frameId"));
         return userDataRepository.save(profile);
     }
 
     @PostMapping("profile/title")
     public UserDetail updateTrophy(@RequestBody Map<String, Object> request) {
-        UserDetail profile = userDataRepository.findByCard_ExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
+        UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         profile.setTitleId((Integer) request.get("titleId"));
         return userDataRepository.save(profile);
     }
 
     @PostMapping("profile/partner")
     public UserDetail updatePartner(@RequestBody Map<String, Object> request) {
-        UserDetail profile = userDataRepository.findByCard_ExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
+        UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         profile.setPartnerId((Integer) request.get("partnerId"));
         return userDataRepository.save(profile);
     }
@@ -205,7 +205,7 @@ public class ApiMaimai2PlayerDataController {
 
     @PostMapping("item")
     public ResponseEntity<Object> updateItem(@RequestBody Map<String, Object> request) {
-        UserDetail profile = userDataRepository.findByCard_ExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
+        UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         Integer itemKind = (Integer) request.get("itemKind");
         Integer itemId = (Integer) request.get("itemId");
         int stock = 1;
@@ -254,7 +254,7 @@ public class ApiMaimai2PlayerDataController {
 
     @PostMapping("options")
     public ResponseEntity<Object> updateOptions(@RequestBody Map<String, Object> request) {
-		UserDetail profile = userDataRepository.findByCard_ExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
+		UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
 		ObjectMapper objectMapper = new ObjectMapper();
 		UserOption userOption = objectMapper.convertValue(request.get("options"), UserOption.class);
 		userOption.setUser(profile);
@@ -272,7 +272,7 @@ public class ApiMaimai2PlayerDataController {
 
     @PostMapping("general")
     public ResponseEntity<Object> setGeneralData(@RequestBody Map<String, Object> request) {
-        UserDetail profile = userDataRepository.findByCard_ExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
+        UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         String key = (String) request.get("key");
         String value = (String) request.get("value");
 
@@ -294,7 +294,7 @@ public class ApiMaimai2PlayerDataController {
         Maimai2DataExport data = new Maimai2DataExport();
         try {
             data.setGameId("SDEZ");
-            data.setUserData(userDataRepository.findByCard_ExtId(aimeId).orElseThrow());
+            data.setUserData(userDataRepository.findByCardExtId(aimeId).orElseThrow());
             data.setUserExtend(userExtendRepository.findByUser_Card_ExtId(aimeId).orElseThrow());
             data.setUserOption(userOptionRepository.findByUser_Card_ExtId(aimeId).orElseThrow());
             data.setUserUdemae(userUdemaeRepository.findByUser_Card_ExtId(aimeId).orElseThrow());
@@ -336,7 +336,7 @@ public class ApiMaimai2PlayerDataController {
         Card card;
         if (cardOptional.isPresent()) {
             card = cardOptional.get();
-            Optional<UserDetail> existUserData = userDataRepository.findByCard(cardOptional.get());
+            Optional<UserDetail> existUserData = Optional.ofNullable(userDataRepository.findByCard(cardOptional.get()));
             if (existUserData.isPresent()) {
 //                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 //                        .body(new MessageResponse("This card already has a maimai2 profile."));

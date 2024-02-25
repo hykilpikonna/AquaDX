@@ -38,7 +38,7 @@ public class CMGetUserPreviewHandler implements BaseHandler {
         Long userId = ((Number) request.get("userId")).longValue();
         String segaIdAuthKey = String.valueOf(request.get("segaIdAuthKey"));
 
-        Optional<UserDetail> userDataOptional = userDataRepository.findByCard_ExtId(userId);
+        Optional<UserDetail> userDataOptional = userDataRepository.findByCardExtId(userId);
 
         if (userDataOptional.isPresent()) {
             Map<String, Object> resultMap = new LinkedHashMap<>();

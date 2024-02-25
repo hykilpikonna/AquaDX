@@ -52,7 +52,7 @@ public class GetUserRatingHandler implements BaseHandler {
 
         UserRating userRating = new UserRating();
 
-        Optional<UserDetail> userDataOptional = userDataRepository.findByCard_ExtId(userId);
+        Optional<UserDetail> userDataOptional = userDataRepository.findByCardExtId(userId);
         if (userDataOptional.isPresent() && userDataOptional.get().getUserName() != null) {
             UserDetail user = userDataOptional.get();
             userRating.setRating(user.getPlayerRating());

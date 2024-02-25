@@ -33,7 +33,7 @@ public class GetUserDataHandler implements BaseHandler {
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         long userId = ((Number) request.get("userId")).longValue();
 
-        UserDetail userData = userDataRepository.findByCard_ExtId(userId).orElseThrow();
+        UserDetail userData = userDataRepository.findByCardExtId(userId).orElseThrow();
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userId);

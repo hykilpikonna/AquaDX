@@ -47,7 +47,7 @@ public class UpsertUserPrintHandler implements BaseHandler {
 
         UserDetail userData;
 
-        Optional<UserDetail> userOptional = userDataRepository.findByCard_ExtId(userId);
+        Optional<UserDetail> userOptional = userDataRepository.findByCardExtId(userId);
         if (userOptional.isPresent()) {
             userData = userOptional.get();
         } else {
