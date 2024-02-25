@@ -69,6 +69,9 @@ interface AquaNetUserRepo : JpaRepository<AquaNetUser, Long> {
     fun findByAuId(auId: Long): AquaNetUser?
     fun findByEmailIgnoreCase(email: String): AquaNetUser?
     fun findByUsernameIgnoreCase(username: String): AquaNetUser?
+
+    fun <T> byName(username: Str, callback: (AquaNetUser) -> T) =
+        findByUsernameIgnoreCase(username)?.let(callback) ?: (404 - "User not found")
 }
 
 data class SettingField(
