@@ -2,10 +2,12 @@ package icu.samnyan.aqua.sega.chusan.model.userdata;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import icu.samnyan.aqua.net.utils.IGenericGamePlaylog;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -18,7 +20,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserPlaylog implements Serializable {
+public class UserPlaylog implements Serializable, IGenericGamePlaylog {
 
     private static final long serialVersionUID = 1L;
 
@@ -147,5 +149,26 @@ public class UserPlaylog implements Serializable {
 
     public UserPlaylog(UserData userData) {
         user = userData;
+    }
+
+    @Override
+    public int getAchievement() {
+        return score;
+    }
+
+    @Override
+    public int getTotalCombo() {
+        return maxCombo;
+    }
+
+    @Override
+    public int getAfterRating() {
+        return playerRating;
+    }
+
+    @NotNull
+    @Override
+    public String getDate() {
+        return playDate.toString();
     }
 }

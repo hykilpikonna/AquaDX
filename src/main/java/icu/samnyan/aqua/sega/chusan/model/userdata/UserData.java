@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import icu.samnyan.aqua.net.utils.IGenericUserData;
 import icu.samnyan.aqua.sega.chusan.model.response.data.UserEmoney;
 import icu.samnyan.aqua.sega.general.model.Card;
 import icu.samnyan.aqua.sega.util.jackson.AccessCodeSerializer;
@@ -124,7 +125,7 @@ import java.util.List;
         "rankUpChallengeResults",
         "isNetBattleHost",
         "netBattleEndState" })
-public class UserData implements Serializable {
+public class UserData implements Serializable, IGenericUserData {
 
     private static final long serialVersionUID = 1L;
 
@@ -344,4 +345,13 @@ public class UserData implements Serializable {
     @Transient
     private UserEmoney userEmoney;
 
+    @Override
+    public int getIconId() {
+        return characterId;
+    }
+
+    @Override
+    public long getTotalScore() {
+        return totalHiScore;
+    }
 }

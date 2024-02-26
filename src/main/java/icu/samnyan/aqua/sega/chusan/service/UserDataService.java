@@ -35,7 +35,7 @@ public class UserDataService {
     }
 
     public Optional<UserData> getUserByCard(Card card) {
-        return userDataRepository.findByCard(card);
+        return Optional.ofNullable(userDataRepository.findByCard(card));
     }
 
     public void updateLoginTime(UserData userData) {
