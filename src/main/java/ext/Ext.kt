@@ -42,5 +42,9 @@ val HTTP = HttpClient(CIO) {
 }
 
 fun Long.toHex(len: Int = 16): Str = "0x${this.toString(len).padStart(len, '0').uppercase()}"
+fun Map<String, Any>.toUrl() = entries.joinToString("&") { (k, v) -> "$k=$v" }
+operator fun <K, V> Map<K, V>.plus(map: Map<K, V>) =
+    (if (this is MutableMap) this else toMutableMap()).apply { putAll(map) }
+operator fun <K, V> MutableMap<K, V>.plusAssign(map: Map<K, V>) { putAll(map) }
 
 suspend fun <T> async(block: suspend kotlinx.coroutines.CoroutineScope.() -> T): T = withContext(Dispatchers.IO) { block() }
