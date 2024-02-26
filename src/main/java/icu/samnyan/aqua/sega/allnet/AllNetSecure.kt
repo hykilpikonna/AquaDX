@@ -23,7 +23,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 @Component
 @ConditionalOnBean(AllNetSecureInit::class)
 class TokenChecker(
-    val keyChipRepo: KeyChipRepo
+    val keyChipRepo: KeyChipRepo,
+    val keychipSessionService: KeychipSessionService,
 ) : HandlerInterceptor {
     val log = LoggerFactory.getLogger(TokenChecker::class.java)
 
@@ -40,7 +41,8 @@ class TokenChecker(
 
         // Check whether the token exists in the database
         // The token can either be a keychip id (old method) or a session id (new method)
-        if (token.isNotBlank() && keyChipRepo.existsByKeychipId(token))
+        val session = keychipSessionService.find(token)
+        if (token.isNotBlank() && (keyChipRepo.existsByKeychipId(token) || session != null))
         {
             // Forward the request
             val w = RewriteWrapper(req, token).apply { setAttribute("token", token) }

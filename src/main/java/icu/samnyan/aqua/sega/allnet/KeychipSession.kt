@@ -26,7 +26,7 @@ class KeychipSession(
     val token: String = genUrlSafeToken(32),
 
     @Column(nullable = false)
-    val lastUse: Long = System.currentTimeMillis()
+    var lastUse: Long = System.currentTimeMillis()
 )
 
 
@@ -45,9 +45,6 @@ interface KeychipSessionRepo : JpaRepository<KeychipSession, String> {
     fun deleteAllByLastUseBefore(expire: Long)
 }
 
-/**
- * Service to regularly delete unused keychip sessions.
- */
 @Service
 class KeychipSessionService(
     val keychipSessionRepo: KeychipSessionRepo,
@@ -55,6 +52,9 @@ class KeychipSessionService(
 ) {
     val logger = LoggerFactory.getLogger(KeychipSessionService::class.java)
 
+    /**
+     * Delete sessions that are older than the expire time.
+     */
     @Scheduled(fixedDelayString = "\${allnet.server.keychip-ses-clean-interval}")
     fun cleanup() {
         logger.info("!!! Keychip session cleanup !!!")
@@ -62,8 +62,19 @@ class KeychipSessionService(
         keychipSessionRepo.deleteAllByLastUseBefore(expire)
     }
 
+    /**
+     * Create a new session.
+     */
     fun new(user: AquaNetUser): KeychipSession {
         val session = KeychipSession(user = user)
         return keychipSessionRepo.save(session)
+    }
+
+    /**
+     * Find a session. If found, renew the last use time.
+     */
+    fun find(token: String) = keychipSessionRepo.findByToken(token)?.apply {
+        lastUse = System.currentTimeMillis()
+        keychipSessionRepo.save(this)
     }
 }
