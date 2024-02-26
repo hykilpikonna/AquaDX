@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @RestController
-@RequestMapping("/diva")
+@RequestMapping("/g/diva")
 public class DivaController {
 
     private static final Logger logger = LoggerFactory.getLogger(DivaController.class);

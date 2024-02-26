@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @RestController
-@RequestMapping("MaimaiServlet")
+@RequestMapping("/g/mai")
 public class MaimaiServletController {
 
     private final GetGameEventHandler getGameEventHandler;

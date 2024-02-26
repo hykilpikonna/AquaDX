@@ -155,13 +155,13 @@ class AllNet(
         val port = props.port?.toString() ?: localPort
 
         return when (gameId) {
-            "SDBT" -> "http://$addr:$port/ChuniServlet/$ver/$serial/"
-            "SBZV" -> "http://$addr:$port/diva/"
-            "SDDT" -> "http://$addr:$port/OngekiServlet/"
-            "SDEY" -> "http://$addr:$port/MaimaiServlet/"
-            "SDEZ" -> "http://$addr:$port/Maimai2Servlet/"
-            "SDHD" -> "http://$addr:$port/ChusanServlet/$ver/"
-            "SDED" -> "http://$addr:$port/CardMakerServlet/"
+            "SDBT" -> "http://$addr:$port/g/chu2/$ver/$serial/"
+            "SDHD" -> "http://$addr:$port/g/chu3/$ver/"
+            "SBZV" -> "http://$addr:$port/g/diva/"
+            "SDDT" -> "http://$addr:$port/g/ongeki/"
+            "SDEY" -> "http://$addr:$port/g/mai/"
+            "SDEZ" -> "http://$addr:$port/g/mai2/"
+            "SDED" -> "http://$addr:$port/g/card/"
             else -> "http://$addr:$port/"
         }
     }

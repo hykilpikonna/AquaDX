@@ -12,7 +12,7 @@ import java.util.Map;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @RestController
-@RequestMapping({"/ChusanServlet/{version}/ChuniServlet", "/ChusanServlet/{version}"})
+@RequestMapping({"/g/chu3/{version}/ChuniServlet", "/g/chu3/{version}"})
 public class ChusanServletController {
 
     private final GameLoginHandler gameLoginHandler;

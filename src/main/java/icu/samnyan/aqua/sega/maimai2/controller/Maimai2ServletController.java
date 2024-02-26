@@ -13,7 +13,7 @@ import java.util.Map;
  */
 @AllArgsConstructor
 @RestController
-@RequestMapping({ "/Maimai2Servlet/Maimai2Servlet", "/Maimai2Servlet" })
+@RequestMapping({ "/g/mai2/Maimai2Servlet", "/g/mai2" })
 public class Maimai2ServletController {
 
     private final GetGameSettingHandler getGameSettingHandler;

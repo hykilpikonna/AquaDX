@@ -15,7 +15,7 @@ class Keychip(
     val id: Long = 0,
 
     @Column(unique = true, nullable = false)
-    val keychipId: String = ""
+    val keychipId: String = "",
 ) : Serializable {
     companion object {
         const val serialVersionUID = 1L

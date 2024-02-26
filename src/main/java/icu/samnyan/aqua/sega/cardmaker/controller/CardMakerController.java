@@ -15,7 +15,7 @@ import java.util.Map;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @RestController
-@RequestMapping("CardMakerServlet")
+@RequestMapping("/g/card")
 public class CardMakerController {
     private final GetGameSettingHandler getGameSettingHandler;
     private final GetClientBookkeepingHandler getClientBookkeepingHandler;
