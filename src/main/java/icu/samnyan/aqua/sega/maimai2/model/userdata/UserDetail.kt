@@ -154,6 +154,8 @@ class UserDetail(
     @Transient
     var cmLastEmoneyCredit: Int = 69,
     var mapStock: Int = 0,
+    var currentPlayCount: Int = 0,
+    var renameCredit: Int = 0
 ) : Serializable, IGenericUserData {
     override val totalScore: Long
         get() = totalDeluxscore
