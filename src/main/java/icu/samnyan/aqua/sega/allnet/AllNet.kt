@@ -164,16 +164,16 @@ class AllNet(
         val port = props.port?.toString() ?: localPort
 
         // If keychip authentication is enabled, the game URLs will be set to /gs/{token}/{game}/...
-        val base = if (props.checkKeychip) "/gs/$serial" else "/g"
+        val base = if (props.checkKeychip) "gs/$serial" else "g"
 
-        return "http://$addr:$port/$base" + when (gameId) {
-            "SDBT" -> "/chu2/$ver/$serial/"
-            "SDHD" -> "/chu3/$ver/"
-            "SBZV" -> "/diva/"
-            "SDDT" -> "/ongeki/"
-            "SDEY" -> "/mai/"
-            "SDEZ" -> "/mai2/"
-            "SDED" -> "/card/"
+        return "http://$addr:$port/$base/" + when (gameId) {
+            "SDBT" -> "chu2/$ver/$serial/"
+            "SDHD" -> "chu3/$ver/"
+            "SBZV" -> "diva/"
+            "SDDT" -> "ongeki/"
+            "SDEY" -> "mai/"
+            "SDEZ" -> "mai2/"
+            "SDED" -> "card/"
             else -> ""
         }
     }
