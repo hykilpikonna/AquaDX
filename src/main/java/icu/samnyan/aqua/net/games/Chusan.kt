@@ -38,8 +38,10 @@ class Chusan(
         val extra = userGeneralDataRepository.findByUser_Card_ExtId(u.ghostCard.extId)
             .associate { it.propertyKey to it.propertyValue }
 
-        // TODO: Rating composition
+        val ratingComposition = mapOf(
+            "recent" to (extra["recent_rating_list"] ?: ""),
+        )
 
-        genericUserSummary(u, userDataRepository, userPlaylogRepository, shownRanks, emptyMap())
+        genericUserSummary(u, userDataRepository, userPlaylogRepository, shownRanks, ratingComposition)
     }
 }
