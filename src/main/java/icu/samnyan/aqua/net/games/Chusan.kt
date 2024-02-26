@@ -30,7 +30,7 @@ class Chusan(
     }
 
     // Only show > AAA rank
-    private val shownRanks = chu3Scores.filter { it.first >= 95 }
+    private val shownRanks = chu3Scores.filter { it.first >= 95 * 10000 }
 
     override fun userSummary(@RP username: Str) = us.byName(username) { u ->
         // Summary values: total plays, player rating, server-wide ranking

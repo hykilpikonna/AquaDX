@@ -28,7 +28,7 @@ class Maimai2(
     }
 
     // Only show > S rank
-    private val shownRanks = mai2Scores.filter { it.first >= 97 }
+    private val shownRanks = mai2Scores.filter { it.first >= 97 * 10000 }
 
     override fun userSummary(@RP username: Str) = us.byName(username) { u ->
         val extra = userGeneralDataRepository.findByUser_Card_ExtId(u.ghostCard.extId)
