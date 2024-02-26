@@ -255,4 +255,9 @@ public class UserPlaylog implements Serializable {
 
     private int extNum2;
 
+    private int extNum4;
+
+    @JsonProperty("extBool1")
+    private boolean extBool1;
+
 }

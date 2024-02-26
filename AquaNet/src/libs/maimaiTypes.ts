@@ -113,4 +113,6 @@ export interface MaimaiUserPlaylog {
     trialPlayAchievement: number;
     extNum1: number;
     extNum2: number;
+    extNum4: number;
+    extBool1: boolean;
 }
