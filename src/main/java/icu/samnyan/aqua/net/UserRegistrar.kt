@@ -3,7 +3,7 @@ package icu.samnyan.aqua.net
 import ext.*
 import icu.samnyan.aqua.net.components.*
 import icu.samnyan.aqua.net.db.*
-import icu.samnyan.aqua.net.db.AquaUserValidator.Companion.SETTING_FIELDS
+import icu.samnyan.aqua.net.db.AquaUserServices.Companion.SETTING_FIELDS
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
@@ -26,7 +26,7 @@ class UserRegistrar(
     val confirmationRepo: EmailConfirmationRepo,
     val cardRepo: CardRepository,
     val cardService: CardService,
-    val validator: AquaUserValidator,
+    val validator: AquaUserServices,
     val emailProps: EmailProperties
 ) {
     companion object {

@@ -4,7 +4,7 @@ import ext.API
 import ext.RP
 import ext.Str
 import ext.minus
-import icu.samnyan.aqua.net.db.AquaNetUserRepo
+import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserDataRepository
 import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserGeneralDataRepository
 import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserPlaylogRepository
@@ -13,14 +13,13 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @API("api/v2/game/maimai2")
 class Maimai2(
-    val user: AquaNetUserRepo,
+    val us: AquaUserServices,
     val userPlaylogRepository: UserPlaylogRepository,
     val userDataRepository: UserDataRepository,
     val userGeneralDataRepository: UserGeneralDataRepository
-)
+): GameApiController
 {
-    @API("trend")
-    fun trend(@RP username: Str): List<TrendOut> = user.byName(username) { u ->
+    override fun trend(@RP username: Str): List<TrendOut> = us.byName(username) { u ->
         // O(n log n) sort
         val d = userPlaylogRepository.findByUser_Card_ExtId(u.ghostCard.extId).sortedBy { it.playDate }.toList()
 
@@ -45,8 +44,7 @@ class Maimai2(
         98.0  to "S+",
         97.0  to "S").map { (k, v) -> (k * 10000).toInt() to v }
 
-    @API("user-summary")
-    fun userSummary(@RP username: Str) = user.byName(username) { u ->
+    override fun userSummary(@RP username: Str) = us.byName(username) { u ->
         // Summary values: total plays, player rating, server-wide ranking
         // number of each rank, max combo, number of full combo, number of all perfect
         val user = userDataRepository.findByCard(u.ghostCard) ?: (404 - "User not found")

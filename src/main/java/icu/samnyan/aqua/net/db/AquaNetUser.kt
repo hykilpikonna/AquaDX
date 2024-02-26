@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import ext.Str
 import ext.isValidEmail
 import ext.minus
+import icu.samnyan.aqua.sega.allnet.KeychipSession
 import icu.samnyan.aqua.sega.general.model.Card
 import jakarta.persistence.*
 import org.springframework.data.jpa.repository.JpaRepository
@@ -59,7 +60,17 @@ class AquaNetUser(
 
     // One user can have multiple cards
     @OneToMany(mappedBy = "aquaUser", cascade = [CascadeType.ALL])
-    var cards: MutableList<Card> = mutableListOf()
+    var cards: MutableList<Card> = mutableListOf(),
+
+    // Each user can have one keychip (if the user owns a cabinet)
+    @JsonIgnore
+    @Column(nullable = true, length = 32, unique = true)
+    var keychip: Str? = null,
+
+    // Each user's keychip can have multiple sessions
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
+    var keychipSessions: MutableList<KeychipSession> = mutableListOf(),
 ) : Serializable {
     val computedName get() = displayName.ifEmpty { username }
 }
@@ -69,9 +80,7 @@ interface AquaNetUserRepo : JpaRepository<AquaNetUser, Long> {
     fun findByAuId(auId: Long): AquaNetUser?
     fun findByEmailIgnoreCase(email: String): AquaNetUser?
     fun findByUsernameIgnoreCase(username: String): AquaNetUser?
-
-    fun <T> byName(username: Str, callback: (AquaNetUser) -> T) =
-        findByUsernameIgnoreCase(username)?.let(callback) ?: (404 - "User not found")
+    fun findByKeychip(keychip: String): AquaNetUser?
 }
 
 data class SettingField(
@@ -85,12 +94,12 @@ data class SettingField(
  * throw an ApiException if the field is invalid.
  */
 @Service
-class AquaUserValidator(
+class AquaUserServices(
     val userRepo: AquaNetUserRepo,
     val hasher: PasswordEncoder,
 ) {
     companion object {
-        val SETTING_FIELDS = AquaUserValidator::class.functions
+        val SETTING_FIELDS = AquaUserServices::class.functions
             .filter { it.name.startsWith("check") }
             .map {
                 val name = it.name.removePrefix("check").replaceFirstChar { c -> c.lowercase() }
@@ -98,6 +107,9 @@ class AquaUserValidator(
                 SettingField(name, it, prop.setter)
             }
     }
+
+    fun <T> byName(username: Str, callback: (AquaNetUser) -> T) =
+        userRepo.findByUsernameIgnoreCase(username)?.let(callback) ?: (404 - "User not found")
 
     fun checkUsername(username: Str) = username.apply {
         // Check if username is valid

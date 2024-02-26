@@ -1,5 +1,7 @@
 package icu.samnyan.aqua.net.games
 
+import ext.API
+
 data class TrendOut(val date: String, val rating: Int, val plays: Int)
 
 data class GenericGamePlaylog(
@@ -35,3 +37,10 @@ data class GenericGameSummary(
 
     val recent: List<GenericGamePlaylog>
 )
+
+interface GameApiController {
+    @API("trend")
+    fun trend(username: String): List<TrendOut>
+    @API("user-summary")
+    fun userSummary(username: String): GenericGameSummary
+}

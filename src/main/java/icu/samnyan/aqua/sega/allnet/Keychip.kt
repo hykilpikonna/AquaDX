@@ -8,6 +8,10 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import java.io.Serializable
 
+/**
+ * This is the old method of securing requests - a keychip whitelist,
+ * it's kept here only for backwards compatibility.
+ */
 @Entity
 @Table(name = "allnet_keychips")
 class Keychip(
