@@ -20,6 +20,6 @@ public interface UserDataRepository extends JpaRepository<UserData, Long>, Gener
     Optional<UserData> findByCard_ExtId(Long extId);
 
     @Override
-    @Query("select count(*) from Maimai2UserData where playerRating > :rating")
+    @Query("select count(*) from ChusanUserData where playerRating > :rating")
     long getRanking(int rating);
 }
