@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.sega.maimai2.dao.userdata;
 
+import icu.samnyan.aqua.net.utils.GenericPlaylogRepo;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserDetail;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserPlaylog;
 
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Repository("Maimai2UserPlaylogRepository")
-public interface UserPlaylogRepository extends JpaRepository<UserPlaylog, Long> {
+public interface UserPlaylogRepository extends JpaRepository<UserPlaylog, Long>, GenericPlaylogRepo {
 
     List<UserPlaylog> findByUser_Card_ExtId(long userId);
 

@@ -8,7 +8,8 @@ data class GenericGamePlaylog(
     val playDate: String,
     val achievement: Int,
     val maxCombo: Int,
-    val totalCombo: Int
+    val totalCombo: Int,
+    val afterRating: Int
 )
 
 data class RankCount(val name: String, val count: Int)

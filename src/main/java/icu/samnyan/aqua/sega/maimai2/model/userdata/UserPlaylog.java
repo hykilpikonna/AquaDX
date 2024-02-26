@@ -2,11 +2,14 @@ package icu.samnyan.aqua.sega.maimai2.model.userdata;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import icu.samnyan.aqua.net.utils.IGenericGamePlaylog;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
 
 /**
@@ -17,7 +20,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserPlaylog implements Serializable {
+public class UserPlaylog implements Serializable, IGenericGamePlaylog {
 
     private static final long serialVersionUID = 1L;
 
@@ -255,4 +258,9 @@ public class UserPlaylog implements Serializable {
 
     private int extNum2;
 
+    @NotNull
+    @Override
+    public Object getDate() {
+        return playDate;
+    }
 }

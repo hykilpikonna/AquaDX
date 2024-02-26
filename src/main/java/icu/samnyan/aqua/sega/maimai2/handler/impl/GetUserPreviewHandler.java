@@ -61,7 +61,7 @@ public class GetUserPreviewHandler implements BaseHandler {
             resp.setPartnerId(user.getPartnerId());
             resp.setFrameId(user.getFrameId());
             resp.setTotalAwake(user.getTotalAwake());
-            resp.setIsNetMember(user.getIsNetMember());
+            resp.setIsNetMember(user.isNetMember());
             resp.setDailyBonusDate(user.getDailyBonusDate());
             if (userOptionOptional.isPresent()) {
                 UserOption option = userOptionOptional.get();
