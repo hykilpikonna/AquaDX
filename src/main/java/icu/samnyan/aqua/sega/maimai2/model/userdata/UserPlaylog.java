@@ -258,6 +258,11 @@ public class UserPlaylog implements Serializable, IGenericGamePlaylog {
 
     private int extNum2;
 
+    private int extNum4;
+
+    @JsonProperty("extBool1")
+    private boolean extBool1;
+
     @NotNull
     @Override
     public Object getDate() {
