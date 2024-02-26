@@ -1,9 +1,7 @@
 package icu.samnyan.aqua.sega.allnet
 
-import ext.API
-import ext.plus
-import ext.plusAssign
-import ext.toUrl
+import ext.*
+import icu.samnyan.aqua.net.db.AquaNetUserRepo
 import icu.samnyan.aqua.sega.util.AquaConst
 import icu.samnyan.aqua.sega.util.Decoder.decodeAllNet
 import jakarta.servlet.http.HttpServletRequest
@@ -25,6 +23,7 @@ import java.util.*
 class AllNetProps {
     var host: String = ""
     var port: Int? = null
+    val keychipSesExpire: Long = 172800000 // milliseconds
     var checkKeychip: Boolean = false
 
     var placeName: String = ""
@@ -61,6 +60,8 @@ class AllNetProps {
 @Suppress("HttpUrlsUsage")
 @RestController
 class AllNet(
+    val userRepo: AquaNetUserRepo,
+    val keychipSessionService: KeychipSessionService,
     val keychipRepo: KeyChipRepo,
     val props: AllNetProps
 ) {
@@ -100,13 +101,22 @@ class AllNet(
         // game_id SDEZ, ver 1.35, serial A0000001234, ip, firm_ver 50000, boot_ver 0000,
         // encode UTF-8, format_ver 3, hops 1， token 2010451813
         val reqMap = decodeAllNet(dataStream.readAllBytes())
-        var serial = reqMap["serial"]
+        var serial = reqMap["serial"] ?: ""
         logger.info("AllNet /PowerOn : $reqMap")
 
-        // TODO: Proper keychip authentication
+        // Proper keychip authentication
         if (props.checkKeychip) {
-            // This will cause an allnet auth bad on client side
-            if (serial == null || !keychipRepo.existsByKeychipId(serial)) {
+            // If it's a user keychip, it should be in user database
+            val u = userRepo.findByKeychip(serial)
+            if (u != null) {
+                // Create a new session for the user
+                logger.info("> Keychip authenticated: ${u.auId} ${u.computedName}")
+                serial = keychipSessionService.new(u).token
+            }
+
+            // Check if it's a whitelisted keychip
+            else if (serial.isEmpty() || !keychipRepo.existsByKeychipId(serial)) {
+                // This will cause an allnet auth bad on client side
                 return "".also { logger.warn("> Rejected: Keychip not found") }
             }
         }
@@ -114,11 +124,10 @@ class AllNet(
         val gameId = reqMap["game_id"] ?: return "".also { logger.warn("> Rejected: No game_id provided") }
         val ver = reqMap["ver"] ?: "1.0"
 
-        serial = UUID.randomUUID().toString()
         val formatVer = reqMap["format_ver"] ?: ""
         val resp = props.map.toMutableMap() + mapOf(
             "uri" to switchUri(localAddr, localPort, gameId, ver, serial),
-            "host" to switchHost(localAddr, localPort, gameId),
+            "host" to props.host.ifBlank { localAddr },
         )
 
         // Different responses for different versions
@@ -150,29 +159,22 @@ class AllNet(
         return resp.toUrl() + "\n"
     }
 
-    private fun switchUri(localAddr: String, localPort: String, gameId: String, ver: String, serial: String): String {
+    private fun switchUri(localAddr: Str, localPort: Str, gameId: Str, ver: Str, serial: Str): Str {
         val addr = props.host.ifBlank { localAddr }
         val port = props.port?.toString() ?: localPort
 
-        return "http://$addr:$port" + when (gameId) {
-            "SDBT" -> "/g/chu2/$ver/$serial/"
-            "SDHD" -> "/g/chu3/$ver/"
-            "SBZV" -> "/g/diva/"
-            "SDDT" -> "/g/ongeki/"
-            "SDEY" -> "/g/mai/"
-            "SDEZ" -> "/g/mai2/"
-            "SDED" -> "/g/card/"
+        // If keychip authentication is enabled, the game URLs will be set to /gs/{token}/{game}/...
+        val base = if (props.checkKeychip) "/gs/$serial" else "/g"
+
+        return "http://$addr:$port/$base" + when (gameId) {
+            "SDBT" -> "/chu2/$ver/$serial/"
+            "SDHD" -> "/chu3/$ver/"
+            "SBZV" -> "/diva/"
+            "SDDT" -> "/ongeki/"
+            "SDEY" -> "/mai/"
+            "SDEZ" -> "/mai2/"
+            "SDED" -> "/card/"
             else -> ""
-        }
-    }
-
-    private fun switchHost(localAddr: String, localPort: String, gameId: String): String {
-        val addr = props.host.ifBlank { localAddr }
-        val port = props.port?.toString() ?: localPort
-
-        return when (gameId) {
-            "SDDF" -> "$addr:$port/"
-            else -> addr
         }
     }
 
