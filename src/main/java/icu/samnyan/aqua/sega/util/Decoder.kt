@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.util
 
-import java.nio.charset.StandardCharsets
 import java.util.*
+import kotlin.text.Charsets.UTF_8
 
 object Decoder {
     /**
@@ -13,13 +13,10 @@ object Decoder {
         if (base64) bytes = Base64.getMimeDecoder().decode(bytes)
 
         // Decompress the decoded byte array
-        val output = Compression.decompress(bytes, nowrap)
-
-        // Convert the decompressed byte array to a UTF-8 encoded string and trim any trailing spaces
-        val str = String(output, StandardCharsets.UTF_8).trim()
+        val output = Compression.decompress(bytes, nowrap).toString(UTF_8).trim()
 
         // Split the string by '&' symbol to separate key-value pairs
-        return str.split("&").associate {
+        return output.split("&").associate {
             val (key, value) = it.split("=")
             key to value
         }
