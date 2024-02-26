@@ -58,5 +58,5 @@ class CompressionFilter : OncePerRequestFilter() {
      * Filter games that are not diva
      */
     override fun shouldNotFilter(req: HttpServletRequest) =
-        !(req.servletPath.startsWith("/g") && !req.servletPath.startsWith("/g/diva"))
+        !(req.servletPath.startsWith("/g/") && !req.servletPath.startsWith("/g/diva"))
 }
