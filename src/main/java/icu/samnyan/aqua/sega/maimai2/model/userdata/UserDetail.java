@@ -153,4 +153,6 @@ public class UserDetail implements Serializable {
     @Transient
     private int cmLastEmoneyCredit = 69;
     private int mapStock;
+    private int currentPlayCount;
+    private int renameCredit;
 }
