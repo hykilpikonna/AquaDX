@@ -31,3 +31,18 @@ val chu3Scores = listOf(
     50.0   to "C",
     0.0    to "D",
 ).map { (k, v) -> (k * 10000).toInt() to v }
+
+val ongekiScores = listOf(
+    100.75 to "SSS+",
+    100.0  to "SSS",
+    99.0   to "SS",
+    97.0   to "S",
+    94.0   to "AAA",
+    90.0   to "AA",
+    85.0   to "A",
+    80.0   to "BBB",
+    75.0   to "BB",
+    70.0   to "B",
+    50.0   to "C",
+    0.0    to "D",
+).map { (k, v) -> (k * 10000).toInt() to v }

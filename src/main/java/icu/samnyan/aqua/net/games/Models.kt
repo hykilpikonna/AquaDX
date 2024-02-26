@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.net.games
 
 import ext.API
+import ext.RP
 
 data class TrendOut(val date: String, val rating: Int, val plays: Int)
 
@@ -41,7 +42,7 @@ data class GenericGameSummary(
 
 interface GameApiController {
     @API("trend")
-    fun trend(username: String): List<TrendOut>
+    fun trend(@RP username: String): List<TrendOut>
     @API("user-summary")
-    fun userSummary(username: String): GenericGameSummary
+    fun userSummary(@RP username: String): GenericGameSummary
 }

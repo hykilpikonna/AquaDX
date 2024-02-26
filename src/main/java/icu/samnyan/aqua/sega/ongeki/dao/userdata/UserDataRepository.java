@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.sega.ongeki.dao.userdata;
 
+import icu.samnyan.aqua.net.utils.GenericUserDataRepo;
 import icu.samnyan.aqua.sega.general.model.Card;
 import icu.samnyan.aqua.sega.ongeki.model.userdata.UserData;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,10 +15,10 @@ import java.util.Optional;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Repository("OngekiUserDataRepository")
-public interface UserDataRepository extends JpaRepository<UserData, Long> {
+public interface UserDataRepository extends JpaRepository<UserData, Long>, GenericUserDataRepo {
     List<UserData> findByCard_ExtIdIn(Collection<Long> userIds);
 
-    Optional<UserData> findByCard(Card card);
+    UserData findByCard(Card card);
 
     Optional<UserData> findByCard_ExtId(long aimeId);
 

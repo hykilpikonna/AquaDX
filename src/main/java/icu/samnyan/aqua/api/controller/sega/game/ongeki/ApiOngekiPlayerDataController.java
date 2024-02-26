@@ -455,7 +455,7 @@ public class ApiOngekiPlayerDataController {
         Card card;
         if (cardOptional.isPresent()) {
             card = cardOptional.get();
-            Optional<UserData> existUserData = userDataRepository.findByCard(cardOptional.get());
+            Optional<UserData> existUserData = Optional.ofNullable(userDataRepository.findByCard(cardOptional.get()));
             if (existUserData.isPresent()) {
 //                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 //                        .body(new MessageResponse("This card already has a ongeki profile."));
