@@ -1,5 +1,6 @@
-import { AQUA_HOST } from "./config";
-import type { Card, CardSummary, UserMe } from "./generalTypes";
+import { AQUA_HOST, DATA_HOST } from "./config";
+import type { AllMusic, Card, CardSummary, GenericGameSummary, MusicMeta, TrendEntry, UserMe } from "./generalTypes";
+import type { GameName } from "./scoring";
 
 interface RequestInitWithParams extends RequestInit {
   params?: { [index: string]: string }
@@ -98,4 +99,16 @@ export const CARD = {
     post('/api/v2/card/link', props),
   unlink: (cardId: string) =>
     post('/api/v2/card/unlink', { cardId }),
+}
+
+export const GAME = {
+  trend: (username: string, game: GameName): Promise<TrendEntry[]> =>
+    post(`/api/v2/game/${game}/trend`, { username }),
+  userSummary: (username: string, game: GameName): Promise<GenericGameSummary> =>
+    post(`/api/v2/game/${game}/user-summary`, { username }),
+}
+
+export const DATA = {
+  allMusic: (game: GameName): Promise<AllMusic> =>
+    fetch(`${DATA_HOST}/d/${game}/00/all-music.json`).then(it => it.json())
 }
