@@ -1,7 +1,8 @@
 <script lang="ts">
   import {DATA_HOST} from "../libs/config";
-  import {getMaimaiAllMusic, getMaimai, getMult} from "../libs/maimai";
+  import {getMaimaiAllMusic, getMaimai} from "../libs/maimai";
   import type {ParsedRating, Rating} from "../libs/maimaiTypes";
+  import { getMult } from "../libs/scoring";
 
   export let userId: any
   userId = +userId
@@ -36,7 +37,7 @@
       }
 
       music.note = music.notes[x.level]
-      const mult = getMult(x.achievement)
+      const mult = getMult(x.achievement, 'mai2')
       return {
         ...x,
         music: music,

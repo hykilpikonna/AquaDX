@@ -1,41 +1,42 @@
 <script lang="ts">
   import {CHARTJS_OPT, clz, registerChart, renderCal, title} from "../libs/ui";
-  import {getMaimaiAllMusic, getMaimaiTrend, getMaimaiUser, getMult} from "../libs/maimai";
-  import type {MaimaiMusic, MaimaiUserPlaylog, MaimaiUserSummaryEntry} from "../libs/maimaiTypes";
-  import type {TrendEntry} from "../libs/generalTypes";
+  import type { GenericGamePlaylog, GenericGameSummary, MusicMeta, TrendEntry } from "../libs/generalTypes";
   import {DATA_HOST} from "../libs/config";
   import 'cal-heatmap/cal-heatmap.css';
   import { Line } from 'svelte-chartjs';
   import moment from "moment";
   import 'chartjs-adapter-moment';
+  import { DATA, GAME } from "../libs/sdk";
+  import { type GameName, getMult } from "../libs/scoring";
 
   registerChart()
 
-  export let userId: any;
-  userId = +userId
+  export let username: string;
+  export let game: GameName
+  game = game || "mai2"
   let calElement: HTMLElement
 
-  title(`User ${userId}`)
+  title(`User ${username}`)
 
-  interface MusicAndPlay extends MaimaiMusic, MaimaiUserPlaylog {}
+  interface MusicAndPlay extends MusicMeta, GenericGamePlaylog {}
 
   let d: {
-    user: MaimaiUserSummaryEntry,
+    user: GenericGameSummary,
     trend: TrendEntry[]
     recent: MusicAndPlay[]
   } | null = null
 
   Promise.all([
-    getMaimaiUser(userId),
-    getMaimaiTrend(userId),
-    getMaimaiAllMusic()
+    GAME.userSummary(username, game),
+    GAME.trend(username, game),
+    DATA.allMusic(game)
   ]).then(([user, trend, music]) => {
     console.log(user)
     console.log(trend)
     console.log(music)
 
     // Sort recent by date
-    user.recent.sort((a, b) => b.userPlayDate < a.userPlayDate ? -1 : 1)
+    user.recent.sort((a, b) => b.playDate < a.playDate ? -1 : 1)
 
     d = {user, trend, recent: user.recent.map(it => {return {...music[it.musicId], ...it}})}
     localStorage.setItem("tmp-user-details", JSON.stringify(d))
@@ -46,7 +47,7 @@
 <main id="user-home" class="content">
   {#if d !== null}
     <div class="user-pfp">
-      <img src={`${DATA_HOST}/maimai/assetbundle/icon/${d.user.iconId.toString().padStart(6, "0")}.png`} alt="" class="pfp">
+      <img src={`${DATA_HOST}/${game}/assetbundle/icon/${d.user.iconId.toString().padStart(6, "0")}.png`} alt="" class="pfp">
       <h2>{d.user.name}</h2>
     </div>
 
@@ -56,13 +57,13 @@
         <div class="chart">
           <div class="info-top">
             <div class="rating">
-              <span>DX Rating</span>
+              <span>{game === 'mai2' ? 'DX Rating' : 'Rating'}</span>
               <span>{d.user.rating.toLocaleString()}</span>
             </div>
 
             <div class="rank">
               <span>Server Rank</span>
-              <span>#{d.user.serverRank.toLocaleString()}</span>
+              <span>#{+d.user.serverRank.toLocaleString() + 1}</span>
             </div>
           </div>
 
@@ -116,8 +117,8 @@
           </div>
 
           <div class="total-dx-score">
-            <span>DX Score</span>
-            <span>{d.user.totalDxScore.toLocaleString()}</span>
+            <span>{game === 'mai2' ? 'DX Score' : 'Total Score'}</span>
+            <span>{d.user.totalScore.toLocaleString()}</span>
           </div>
         </div>
       </div>
@@ -162,19 +163,19 @@
       <div class="scores">
         {#each d.recent as r, i}
           <div class={clz({alt: i % 2 === 0})}>
-            <img src={`${DATA_HOST}/maimai/assetbundle/jacket_s/00${r.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="">
+            <img src={`${DATA_HOST}/${game}/music/00${r.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="">
             <div class="info">
               <div>
                 <span class="name">{r.name}</span>
               </div>
               <div>
                 <span class={`lv level-${r.level}`}>{r.notes ? r.notes[r.level]?.lv : ""}</span>
-                <span class={"rank-" + ("" + getMult(r.achievement)[2])[0]}>
-                  <span class="rank-text">{("" + getMult(r.achievement)[2]).replace("p", "+")}</span>
+                <span class={"rank-" + ("" + getMult(r.achievement, game)[2])[0]}>
+                  <span class="rank-text">{("" + getMult(r.achievement, game)[2]).replace("p", "+")}</span>
                   <span class="rank-num">{(r.achievement / 10000).toFixed(2)}%</span>
                 </span>
-                <span class={"dx-change " + clz({increased: r.afterDeluxRating - r.beforeDeluxRating > 0})}>
-                  {r.afterDeluxRating - r.beforeDeluxRating}
+                <span class={"dx-change " + clz({increased: r.afterRating - r.beforeRating > 0})}>
+                  {r.afterRating - r.beforeRating}
                 </span>
               </div>
             </div>
