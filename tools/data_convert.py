@@ -8,9 +8,10 @@ import orjson
 import xmltodict
 from hypy_utils import write
 from hypy_utils.tqdm_utils import pmap
+from wand.image import Image
 
 
-def convert_one(file: Path):
+def convert_path(file: Path):
     # Get path relative to source
     rel = file.relative_to(src)
 
@@ -18,8 +19,28 @@ def convert_one(file: Path):
     if len(rel.parts) <= 2:
         return
 
+    # Generate target file path
+    # Ignore the first segment of the relative path, and append to the destination
+    # Also collapse the single-item directory into the filename
+    # e.g. {src}/A000/music/music000001/Music.xml -> {dst}/music/000001.json
+    target = dst / '/'.join(rel.parts[1:-2])
+    file_id = ''.join(filter(str.isdigit, rel.parts[-2]))
+    target = target / f'{file_id}.json'
+
+    return target
+
+
+def convert_one(file: Path):
+    target = convert_path(file)
+    if target is None:
+        return
+
     # Read xml
-    xml = xmltodict.parse(file.read_text())
+    try:
+        xml = xmltodict.parse(file.read_text())
+    except Exception as e:
+        print(f'Error parsing {file}: {e}')
+        return
 
     # There should only be one root element, expand it
     assert len(xml) == 1, f'Expected 1 root element, got {len(xml)}'
@@ -31,22 +52,45 @@ def convert_one(file: Path):
     if '@xmlns:xsd' in xml:
         del xml['@xmlns:xsd']
 
-    # Generate target file path
-    # Ignore the first segment of the relative path, and append to the destination
-    # Also collapse the single-item directory into the filename
-    # e.g. {src}/A000/music/music000001/Music.xml -> {dst}/music/000001.json
-    target = dst / '/'.join(rel.parts[1:-2])
-    file_id = ''.join(filter(str.isdigit, rel.parts[-2]))
-    target = target / f'{file_id}.json'
-
-    # Create directories if they don't exist
-    target.parent.mkdir(parents=True, exist_ok=True)
-
     # Write json
     write(target, orjson.dumps(xml))
 
 
-def combine_music():
+def convert_dds(file: Path):
+    target = convert_path(file)
+    if target is None:
+        return
+
+    # Convert dds to jpg
+    try:
+        with Image(filename=str(file)) as img:
+            img.format = 'jpeg'
+            img.save(filename=str(target.with_suffix('.png')))
+    except Exception as e:
+        print(f'Error converting {file}: {e}')
+        return
+
+
+def get(d: dict, *keys: str):
+    """
+    Get the first key that exists in the dictionary
+
+    :param d: Dictionary
+    :param keys: Recursive key in the format of keya.keyb.keyc...
+    """
+    for k in keys:
+        ks = k.split('.')
+        cd = d
+        while len(ks) > 0:
+            cd = cd.get(ks.pop(0))
+            if cd is None:
+                break
+        if cd is not None:
+            return cd
+    return None
+
+
+def combine_music_mai2():
     # Read all music json files
     music_files = list(dst.rglob('music/*.json'))
     print(f'> Found {len(music_files)} music files')
@@ -55,9 +99,9 @@ def combine_music():
     # Combine all music
     combined = {d['name']['id']: {
         'name': d['name']['str'],
-        'ver': int(d['version']),
+        'ver': d.get('version') or d.get('releaseTagName')['str'],
         'composer': d['artistName']['str'],
-        'genre': d['genreName']['str'],
+        'genre': d['genreName']['str'] or d['genreNames'],
         'bpm': int(d['bpm']),
         'lock': f"{d['lockType']} {d['subLockType']}",
         'notes': [{
@@ -72,10 +116,38 @@ def combine_music():
     write(dst / '00/all-music.json', orjson.dumps(combined))
 
 
+def combine_music_chu3():
+    # Read all music json files
+    music_files = list(dst.rglob('music/*.json'))
+    print(f'> Found {len(music_files)} music files')
+    jsons = [orjson.loads(f.read_text()) for f in music_files]
+
+    # Combine all music
+    combined = {}
+    for d in jsons:
+        combined[d['name']['id']] = {
+            'name': d['name']['str'],
+            'ver': d['releaseTagName']['str'],
+            'composer': d['artistName']['str'],
+            'genre': get(d, 'genreName.list.StringID.str'),
+            'lock': d['firstLock'],
+            'notes': [{
+                'lv': int(n['level']) + (int(n['levelDecimal']) / 10),
+                'designer': n.get('notesDesigner'),
+                'lv_id': n['type']['id'],
+            } for n in d['fumens']['MusicFumenData'] if n['enable'] != 'false']
+        }
+
+    # Write combined music
+    write(dst / '00/all-music.json', orjson.dumps(combined))
+
+
 if __name__ == '__main__':
     agupa = argparse.ArgumentParser()
+    # Or chusan/App/data
     agupa.add_argument('source', type=str, help='Package/Sinmai_Data/StreamingAssets directory')
     agupa.add_argument('destination', type=str, help='Directory to extract to')
+    agupa.add_argument('-g', '--game', type=str, help='Game to convert', default='mai2', choices=['mai2', 'chu3'])
     args = agupa.parse_args()
 
     src = Path(args.source)
@@ -116,8 +188,20 @@ if __name__ == '__main__':
     pmap(convert_one, files, desc='Converting', unit='file', chunksize=50)
     print('> Finished converting')
 
+    # Find all .dds files in the source A000 directory
+    dds_files = list(src.rglob('*.dds'))
+    print(f'Found {len(dds_files)} dds files')
+
+    # Convert and copy dds files (CPU-intensive)
+    pmap(convert_dds, dds_files, desc='Converting DDS', unit='file', chunksize=50, max_workers=os.cpu_count() - 2)
+    print('> Finished converting DDS')
+
     # Convert all music
     print('Combining music')
-    combine_music()
+    if args.game == 'mai2':
+        combine_music_mai2()
+    if args.game == 'chu3':
+        combine_music_chu3()
+
 
 
