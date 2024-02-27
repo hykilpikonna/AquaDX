@@ -50,3 +50,55 @@ export interface ConfirmProps {
   cancel?: () => void
   dangerous?: boolean
 }
+
+export interface GenericGamePlaylog {
+  musicId: number
+  level: number
+  playDate: string
+  achievement: number
+  maxCombo: number
+  totalCombo: number
+  afterRating: number
+  beforeRating: number
+}
+
+export interface RankCount {
+  name: string
+  count: number
+}
+
+export interface GenericGameSummary {
+  name: string
+  iconId: number
+  serverRank: number
+  accuracy: number
+  rating: number
+  ratingHighest: number
+  ranks: RankCount[]
+  maxCombo: number
+  fullCombo: number
+  allPerfect: number
+  totalScore: number
+  plays: number
+  totalPlayTime: number
+  joined: string
+  lastSeen: string
+  lastVersion: string
+  ratingComposition: { [key: string]: any }
+  recent: GenericGamePlaylog[]
+}
+
+export interface MusicMeta {
+  name: string,
+  composer: string,
+  bpm: number,
+  ver: number,
+  note: {
+    lv: number
+    designer: string
+    lv_id: number
+    notes: number
+  }
+}
+
+export type AllMusic = { [key: string]: MusicMeta }
