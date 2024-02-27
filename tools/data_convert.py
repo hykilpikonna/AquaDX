@@ -25,6 +25,7 @@ def convert_path(file: Path):
     # e.g. {src}/A000/music/music000001/Music.xml -> {dst}/music/000001.json
     target = dst / '/'.join(rel.parts[1:-2])
     file_id = ''.join(filter(str.isdigit, rel.parts[-2]))
+    file_id = file_id.zfill(6)
     target = target / f'{file_id}.json'
 
     return target
@@ -105,7 +106,7 @@ def combine_music_mai2():
         'bpm': int(d['bpm']),
         'lock': f"{d['lockType']} {d['subLockType']}",
         'notes': [{
-            'lv': int(n['level']) + (int(n['levelDecimal']) / 10),
+            'lv': int(n['level']) + (int(n['levelDecimal']) / 10.0),
             'designer': n['notesDesigner']['str'],
             'lv_id': n['musicLevelID'],
             'notes': int(n['maxNotes']),
@@ -132,7 +133,7 @@ def combine_music_chu3():
             'genre': get(d, 'genreName.list.StringID.str'),
             'lock': d['firstLock'],
             'notes': [{
-                'lv': int(n['level']) + (int(n['levelDecimal']) / 10),
+                'lv': int(n['level']) + (int(n['levelDecimal']) / 100.0),
                 'designer': n.get('notesDesigner'),
                 'lv_id': n['type']['id'],
             } for n in d['fumens']['MusicFumenData'] if n['enable'] != 'false']
