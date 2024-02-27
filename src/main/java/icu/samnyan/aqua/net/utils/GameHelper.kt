@@ -6,6 +6,7 @@ import icu.samnyan.aqua.net.games.GenericGameSummary
 import icu.samnyan.aqua.net.games.RankCount
 import icu.samnyan.aqua.net.games.TrendOut
 import icu.samnyan.aqua.sega.general.model.Card
+import org.springframework.data.jpa.repository.JpaRepository
 
 data class TrendLog(val date: String, val rating: Int)
 
@@ -39,10 +40,11 @@ interface IGenericUserData {
     val lastPlayDate: Any
     val lastRomVersion: String
     val totalScore: Long
+    var card: Card?
 }
 
-interface GenericUserDataRepo {
-    fun findByCard(card: Card): IGenericUserData?
+interface GenericUserDataRepo<T : IGenericUserData, ID> : JpaRepository<T, ID> {
+    fun findByCard(card: Card): T?
     fun getRanking(rating: Int): Long
 }
 
@@ -63,7 +65,7 @@ interface GenericPlaylogRepo {
 
 fun genericUserSummary(
     u: AquaNetUser,
-    userDataRepo: GenericUserDataRepo,
+    userDataRepo: GenericUserDataRepo<*, *>,
     userPlaylogRepo: GenericPlaylogRepo,
     shownRanks: List<Pair<Int, String>>,
     ratingComposition: Map<String, String>,

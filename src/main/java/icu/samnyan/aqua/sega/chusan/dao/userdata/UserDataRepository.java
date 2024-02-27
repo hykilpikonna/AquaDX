@@ -13,7 +13,7 @@ import java.util.Optional;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Repository("ChusanUserDataRepository")
-public interface UserDataRepository extends JpaRepository<UserData, Long>, GenericUserDataRepo {
+public interface UserDataRepository extends GenericUserDataRepo<UserData, Long> {
 
     UserData findByCard(Card card);
 

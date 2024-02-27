@@ -26,8 +26,8 @@ class UserDetail(
     @JsonSerialize(using = AccessCodeSerializer::class)
     @JsonProperty(value = "accessCode", access = JsonProperty.Access.READ_ONLY)
     @OneToOne
-    @JoinColumn(name = "aime_card_id")
-    var card: Card? = null,
+    @JoinColumn(name = "aime_card_id", unique = true)
+    override var card: Card? = null,
 
     override var userName: String = "",
 

@@ -33,7 +33,7 @@ public class UserData implements Serializable, IGenericUserData {
     @JsonSerialize(using = AccessCodeSerializer.class)
     @JsonProperty(value = "accessCode", access = JsonProperty.Access.READ_ONLY)
     @OneToOne
-    @JoinColumn(name = "aime_card_id")
+    @JoinColumn(name = "aime_card_id", unique = true)
     private Card card;
     // Access code in card
 

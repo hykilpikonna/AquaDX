@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -126,7 +127,7 @@ import java.util.List;
         "isNetBattleHost",
         "netBattleEndState" })
 public class UserData implements Serializable, IGenericUserData {
-
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -137,7 +138,7 @@ public class UserData implements Serializable, IGenericUserData {
     @JsonSerialize(using = AccessCodeSerializer.class)
     @JsonProperty(value = "accessCode", access = JsonProperty.Access.READ_ONLY)
     @OneToOne
-    @JoinColumn(name = "card_id")
+    @JoinColumn(name = "card_id", unique = true)
     private Card card;
     // Access code in card
 

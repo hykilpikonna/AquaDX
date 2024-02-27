@@ -13,7 +13,7 @@ import java.util.*
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Repository("OngekiUserDataRepository")
-interface UserDataRepository : JpaRepository<UserData, Long>, GenericUserDataRepo {
+interface UserDataRepository : GenericUserDataRepo<UserData, Long> {
     fun findByCard_ExtIdIn(userIds: Collection<Long>): List<UserData>
 
     override fun findByCard(card: Card): UserData?

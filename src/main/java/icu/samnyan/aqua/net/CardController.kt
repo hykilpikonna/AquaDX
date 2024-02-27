@@ -3,6 +3,8 @@ package icu.samnyan.aqua.net
 import ext.*
 import icu.samnyan.aqua.net.components.JWT
 import icu.samnyan.aqua.net.utils.AquaNetProps
+import icu.samnyan.aqua.net.utils.GenericUserDataRepo
+import icu.samnyan.aqua.net.utils.IGenericUserData
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
@@ -91,12 +93,42 @@ class CardController(
     }
 }
 
+/**
+ * Migrate data from the card to the user's ghost card
+ *
+ * Assumption: The card is already linked to the user.
+ */
+suspend fun <T : IGenericUserData> migrateCard(repo: GenericUserDataRepo<T, *>, card: Card): Bool
+{
+    // Check if data already exists in the user's ghost card
+    async { repo.findByCard(card.aquaUser!!.ghostCard) }?.let {
+        // Unbind the data from the card
+        it.card = null
+        async { repo.save(it) }
+    }
+
+    // Migrate data from the card to the user's ghost card
+    // An easy migration is to change the UserData card field to the user's ghost card
+    val data = async { repo.findByCard(card) } ?: return false
+    data.card = card.aquaUser!!.ghostCard
+    async { repo.save(data) }
+    return true
+}
+
+suspend fun getSummaryFor(repo: GenericUserDataRepo<*, *>, card: Card): Map<Str, Any>?
+{
+    val data = async { repo.findByCard(card) } ?: return null
+    return mapOf(
+        "name" to data.userName,
+        "rating" to data.playerRating,
+        "lastLogin" to data.lastPlayDate,
+    )
+}
+
 @Service
 class CardGameService(
-    val maimai: icu.samnyan.aqua.sega.maimai.dao.userdata.UserDataRepository,
     val maimai2: icu.samnyan.aqua.sega.maimai2.dao.userdata.UserDataRepository,
     val chusan: icu.samnyan.aqua.sega.chusan.dao.userdata.UserDataRepository,
-    val chunithm: icu.samnyan.aqua.sega.chunithm.dao.userdata.UserDataRepository,
     val ongeki: icu.samnyan.aqua.sega.ongeki.dao.userdata.UserDataRepository,
     val diva: icu.samnyan.aqua.sega.diva.dao.userdata.PlayerProfileRepository,
 ) {
@@ -105,21 +137,9 @@ class CardGameService(
         // An easy migration is to change the UserData card field to the user's ghost card
         games.forEach { game ->
             when (game) {
-                "maimai" -> maimai.findByCard_ExtId(crd.extId).getOrNull()?.let {
-                    maimai.save(it.apply { card = crd.aquaUser!!.ghostCard })
-                }
-                "maimai2" -> maimai2.findByCardExtId(crd.extId).getOrNull()?.let {
-                    maimai2.save(it.apply { card = crd.aquaUser!!.ghostCard })
-                }
-                "chusan" -> chusan.findByCard_ExtId(crd.extId).getOrNull()?.let {
-                    chusan.save(it.apply { card = crd.aquaUser!!.ghostCard })
-                }
-                "chunithm" -> chunithm.findByCard_ExtId(crd.extId).getOrNull()?.let {
-                    chunithm.save(it.apply { card = crd.aquaUser!!.ghostCard })
-                }
-                "ongeki" -> ongeki.findByCard_ExtId(crd.extId).getOrNull()?.let {
-                    ongeki.save(it.apply { card = crd.aquaUser!!.ghostCard })
-                }
+                "maimai2" -> migrateCard(maimai2, crd)
+                "chusan" -> migrateCard(chusan, crd)
+                "ongeki" -> migrateCard(ongeki, crd)
                 // TODO: diva
 //                "diva" -> diva.findByPdId(card.extId.toInt()).getOrNull()?.let {
 //                    it.pdId = card.aquaUser!!.ghostCard
@@ -129,41 +149,9 @@ class CardGameService(
     }
 
     suspend fun getSummary(card: Card) = async { mapOf(
-        "maimai" to maimai.findByCard_ExtId(card.extId).getOrNull()?.let {
-            mapOf(
-                "name" to it.userName,
-                "rating" to it.playerRating,
-                "lastLogin" to it.lastPlayDate,
-            )
-        },
-        "maimai2" to maimai2.findByCardExtId(card.extId).getOrNull()?.let {
-            mapOf(
-                "name" to it.userName,
-                "rating" to it.playerRating,
-                "lastLogin" to it.lastPlayDate,
-            )
-        },
-        "chusan" to chusan.findByCard_ExtId(card.extId).getOrNull()?.let {
-            mapOf(
-                "name" to it.userName,
-                "rating" to it.playerRating,
-                "lastLogin" to it.lastPlayDate,
-            )
-        },
-        "chunithm" to chunithm.findByCard_ExtId(card.extId).getOrNull()?.let {
-            mapOf(
-                "name" to it.userName,
-                "rating" to it.playerRating,
-                "lastLogin" to it.lastPlayDate,
-            )
-        },
-        "ongeki" to ongeki.findByCard_ExtId(card.extId).getOrNull()?.let {
-            mapOf(
-                "name" to it.userName,
-                "rating" to it.playerRating,
-                "lastLogin" to it.lastPlayDate,
-            )
-        },
+        "maimai2" to getSummaryFor(maimai2, card),
+        "chusan" to getSummaryFor(chusan, card),
+        "ongeki" to getSummaryFor(ongeki, card),
         "diva" to diva.findByPdId(card.extId.toInt()).getOrNull()?.let {
             mapOf(
                 "name" to it.playerName,
