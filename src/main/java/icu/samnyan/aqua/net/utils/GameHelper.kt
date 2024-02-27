@@ -2,7 +2,6 @@ package icu.samnyan.aqua.net.utils
 
 import ext.minus
 import icu.samnyan.aqua.net.db.AquaNetUser
-import icu.samnyan.aqua.net.games.GenericGamePlaylog
 import icu.samnyan.aqua.net.games.GenericGameSummary
 import icu.samnyan.aqua.net.games.RankCount
 import icu.samnyan.aqua.net.games.TrendOut
@@ -48,10 +47,13 @@ interface GenericUserDataRepo {
 }
 
 interface IGenericGamePlaylog {
+    val musicId: Int
+    val level: Int
     val date: Any
     val achievement: Int
     val maxCombo: Int
     val totalCombo: Int
+    val beforeRating: Int
     val afterRating: Int
 }
 
@@ -96,9 +98,7 @@ fun genericUserSummary(
         lastSeen = user.lastPlayDate.toString(),
         lastVersion = user.lastRomVersion,
         ratingComposition = ratingComposition,
-        recent = plays.sortedBy { it.date.toString() }.takeLast(15).map {
-            GenericGamePlaylog(it.date.toString(), it.achievement, it.maxCombo, it.totalCombo, it.afterRating)
-        }
+        recent = plays.sortedBy { it.date.toString() }.takeLast(15)
     )
 }
 

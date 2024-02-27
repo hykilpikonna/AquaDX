@@ -2,16 +2,9 @@ package icu.samnyan.aqua.net.games
 
 import ext.API
 import ext.RP
+import icu.samnyan.aqua.net.utils.IGenericGamePlaylog
 
 data class TrendOut(val date: String, val rating: Int, val plays: Int)
-
-data class GenericGamePlaylog(
-    val playDate: String,
-    val achievement: Int,
-    val maxCombo: Int,
-    val totalCombo: Int,
-    val afterRating: Int
-)
 
 data class RankCount(val name: String, val count: Int)
 
@@ -37,7 +30,7 @@ data class GenericGameSummary(
 
     val ratingComposition: Map<String, Any>,
 
-    val recent: List<GenericGamePlaylog>
+    val recent: List<IGenericGamePlaylog>
 )
 
 interface GameApiController {

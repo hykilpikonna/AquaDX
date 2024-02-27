@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -170,5 +171,10 @@ public class UserPlaylog implements Serializable, IGenericGamePlaylog {
     @Override
     public String getDate() {
         return playDate.toString();
+    }
+
+    @Override
+    public int getBeforeRating() {
+        return playerRating; // TODO: Get before rating
     }
 }

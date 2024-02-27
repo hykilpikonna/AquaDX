@@ -12,7 +12,6 @@ import icu.samnyan.aqua.sega.chusan.dao.userdata.UserDataRepository
 import icu.samnyan.aqua.sega.chusan.dao.userdata.UserGeneralDataRepository
 import icu.samnyan.aqua.sega.chusan.dao.userdata.UserPlaylogRepository
 import org.springframework.web.bind.annotation.RestController
-import java.time.format.DateTimeFormatter
 
 @RestController
 @API("api/v2/game/chu3")
@@ -24,9 +23,8 @@ class Chusan(
 ): GameApiController
 {
     override fun trend(@RP username: Str): List<TrendOut> = us.byName(username) { u ->
-        val fmt = DateTimeFormatter.ofPattern("YYYY-MM-DD")
         findTrend(userPlaylogRepository.findByUser_Card_ExtId(u.ghostCard.extId)
-            .map { TrendLog(fmt.format(it.playDate), it.playerRating) })
+            .map { TrendLog(it.playDate.toString(), it.playerRating) })
     }
 
     // Only show > AAA rank

@@ -180,4 +180,9 @@ public class UserPlaylog implements Serializable, IGenericGamePlaylog {
     public int getAfterRating() {
         return playerRating;
     }
+
+    @Override
+    public int getBeforeRating() {
+        return playerRating; // TODO: Get before rating
+    }
 }
