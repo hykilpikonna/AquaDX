@@ -178,7 +178,7 @@
                 <span class="name">{r.name}</span>
               </div>
               <div>
-                <span class={`lv level-${r.level}`}>{r.notes ? r.notes[r.level]?.lv : ""}</span>
+                <span class={`lv level-${r.level}`}>{r.notes ? r.notes[r.level]?.lv.toFixed(1) : ""}</span>
                 <span class={"rank-" + ("" + getMult(r.achievement, game)[2])[0]}>
                   <span class="rank-text">{("" + getMult(r.achievement, game)[2]).replace("p", "+")}</span>
                   <span class="rank-num">{(r.achievement / 10000).toFixed(2)}%</span>
@@ -367,10 +367,11 @@ $gap: 20px
           color: #6ba6ff
 
         .lv
-          background: var(--lv-color)
+          min-width: 30px
+          text-align: center
+          background: rgba(var(--lv-color), 0.6)
           padding: 0 6px
           border-radius: 10px
-          opacity: 0.8
           margin-right: 10px
 
         span
@@ -379,7 +380,7 @@ $gap: 20px
 
         // Vertical table-like alignment
         span.rank-text
-          min-width: 30px
+          min-width: 40px
         span.rank-num
           min-width: 60px
         span.dx-change
