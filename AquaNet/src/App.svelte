@@ -28,8 +28,9 @@
 <Router {url}>
   <Route path="/" component={Welcome} />
   <Route path="/home" component={Home} />
-  <Route path="/u/:userId" component={UserHome} />
-  <Route path="/u/:userId/mai/rating" component={MaimaiRating} />
+  <Route path="/u/:username" component={UserHome} />
+  <Route path="/u/:username/:game" component={UserHome} />
+  <Route path="/u/:username/:game/rating" component={MaimaiRating} />
 </Router>
 
 <style lang="sass">
