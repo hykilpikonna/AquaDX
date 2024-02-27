@@ -1,3 +1,5 @@
+import type { MusicMeta } from "./generalTypes";
+
 export interface Rating {
     musicId: number
     level: number
@@ -5,22 +7,9 @@ export interface Rating {
 }
 
 export interface ParsedRating extends Rating {
-    music: MaimaiMusic,
+    music: MusicMeta,
     calc: number,
     rank: string
-}
-
-export interface MaimaiMusic {
-    name: string,
-    composer: string,
-    bpm: number,
-    ver: number,
-    note: {
-        lv: number
-        designer: string
-        lv_id: number
-        notes: number
-    }
 }
 
 export interface MaimaiUserSummaryEntry {
