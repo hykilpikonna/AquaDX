@@ -173,7 +173,7 @@
         bottom: 0
         right: 0
         padding: 5px 10px
-        background: var(--lv-color)
+        background: rgb(var(--lv-color))
         // Top left border radius
         border-radius: 10px 0
 
