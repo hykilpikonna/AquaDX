@@ -42,17 +42,25 @@
     localStorage.setItem("tmp-user-details", JSON.stringify(d))
     renderCal(calElement, trend.map(it => {return {date: it.date, value: it.plays}}))
   })
+
+  const pfpNotFound = (e: Event) => {
+    (e.target as HTMLImageElement).src = "/assets/imgs/no_profile.png"
+  }
+  const coverNotFound = (e: Event) => {
+    (e.target as HTMLImageElement).src = "/assets/imgs/no_cover.jpg"
+  }
+  const titleText = {chu3: 'Chuni', mai2: 'Mai', ongeki: 'Ongeki'}[game]
 </script>
 
 <main id="user-home" class="content">
   {#if d !== null}
     <div class="user-pfp">
-      <img src={`${DATA_HOST}/${game}/assetbundle/icon/${d.user.iconId.toString().padStart(6, "0")}.png`} alt="" class="pfp">
+      <img src={`${DATA_HOST}/d/${game}/assetbundle/icon/${d.user.iconId.toString().padStart(6, "0")}.png`} alt="" class="pfp" on:error={pfpNotFound}>
       <h2>{d.user.name}</h2>
     </div>
 
     <div>
-      <h2>Rating Statistics</h2>
+      <h2>{titleText} Statistics</h2>
       <div class="scoring-info">
         <div class="chart">
           <div class="info-top">
@@ -163,7 +171,8 @@
       <div class="scores">
         {#each d.recent as r, i}
           <div class={clz({alt: i % 2 === 0})}>
-            <img src={`${DATA_HOST}/${game}/music/00${r.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="">
+            <img src={`${DATA_HOST}/d/${game}/music/00${r.musicId.toString().padStart(6, '0').substring(2)}.png`} alt=""
+                  on:error={coverNotFound} />
             <div class="info">
               <div>
                 <span class="name">{r.name}</span>
@@ -174,9 +183,11 @@
                   <span class="rank-text">{("" + getMult(r.achievement, game)[2]).replace("p", "+")}</span>
                   <span class="rank-num">{(r.achievement / 10000).toFixed(2)}%</span>
                 </span>
-                <span class={"dx-change " + clz({increased: r.afterRating - r.beforeRating > 0})}>
-                  {r.afterRating - r.beforeRating}
-                </span>
+                {#if game === 'mai2'}
+                  <span class={"dx-change " + clz({increased: r.afterRating - r.beforeRating > 0})}>
+                    {r.afterRating - r.beforeRating}
+                  </span>
+                {/if}
               </div>
             </div>
           </div>
@@ -208,7 +219,7 @@ $gap: 20px
   .pfp
     width: 100px
     height: 100px
-    border-radius: 5px
+    border-radius: 12px
     object-fit: cover
 
   .info-bottom, .info-top, .other-info
