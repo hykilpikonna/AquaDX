@@ -22,6 +22,7 @@ import icu.samnyan.aqua.sega.diva.model.request.user.SpendCreditRequest;
 import icu.samnyan.aqua.sega.diva.model.request.user.StartRequest;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -44,6 +45,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/g/diva")
+@AllArgsConstructor
 public class DivaController {
 
     private static final Logger logger = LoggerFactory.getLogger(DivaController.class);
@@ -97,49 +99,6 @@ public class DivaController {
 
     private final DivaMapper mapper;
 
-    public DivaController(GameInitHandler gameInitHandler, AttendHandler attendHandler, CardProcedureHandler cardProcedureHandler, ChangeNameHandler changeNameHandler, ChangePasswdHandler changePasswdHandler, InitPasswdHandler initPasswdHandler, RegistrationHandler registrationHandler, BannerInfoHandler bannerInfoHandler, BannerDataHandler bannerDataHandler, CmPlyInfoHandler cmPlyInfoHandler, ContestInfoHandler contestInfoHandler, CstmzItmCtlgHandler cstmzItmCtlgHandler, CstmzItmNgMdlListHandler cstmzItmNgMdlListHandler, FestaInfoHandler festaInfoHandler, NgWordHandler ngWordHandler, NvRankingHandler nvRankingHandler, PsRankingHandler psRankingHandler, PstdHCtrlHandler pstdHCtrlHandler, PstdItemNgLstHandler pstdItemNgLstHandler, PvDefChrLstHandler pvDefChrLstHandler, PvListHandler pvListHandler, PvNgMdlLstHandler pvNgMdlLstHandler, QstInfHandler qstInfHandler, RmtWpLstHandler rmtWpLstHandler, ShopCatalogHandler shopCatalogHandler, BuyCstmzItmHandler buyCstmzItmHandler, BuyModuleHandler buyModuleHandler, GetPvPdHandler getPvPdHandler, ShopExitHandler shopExitHandler, StageResultHandler stageResultHandler, StageStartHandler stageStartHandler, StoreSsHandler storeSsHandler, PingHandler pingHandler, EndHandler endHandler, PdUnlockHandler pdUnlockHandler, PreStartHandler preStartHandler, SpendCreditHandler spendCreditHandler, StartHandler startHandler, DivaMapper mapper) {
-        this.gameInitHandler = gameInitHandler;
-        this.attendHandler = attendHandler;
-        this.cardProcedureHandler = cardProcedureHandler;
-        this.changeNameHandler = changeNameHandler;
-        this.changePasswdHandler = changePasswdHandler;
-        this.initPasswdHandler = initPasswdHandler;
-        this.registrationHandler = registrationHandler;
-        this.bannerInfoHandler = bannerInfoHandler;
-        this.bannerDataHandler = bannerDataHandler;
-        this.cmPlyInfoHandler = cmPlyInfoHandler;
-        this.contestInfoHandler = contestInfoHandler;
-        this.cstmzItmCtlgHandler = cstmzItmCtlgHandler;
-        this.cstmzItmNgMdlListHandler = cstmzItmNgMdlListHandler;
-        this.festaInfoHandler = festaInfoHandler;
-        this.ngWordHandler = ngWordHandler;
-        this.nvRankingHandler = nvRankingHandler;
-        this.psRankingHandler = psRankingHandler;
-        this.pstdHCtrlHandler = pstdHCtrlHandler;
-        this.pstdItemNgLstHandler = pstdItemNgLstHandler;
-        this.pvDefChrLstHandler = pvDefChrLstHandler;
-        this.pvListHandler = pvListHandler;
-        this.pvNgMdlLstHandler = pvNgMdlLstHandler;
-        this.qstInfHandler = qstInfHandler;
-        this.rmtWpLstHandler = rmtWpLstHandler;
-        this.shopCatalogHandler = shopCatalogHandler;
-        this.buyCstmzItmHandler = buyCstmzItmHandler;
-        this.buyModuleHandler = buyModuleHandler;
-        this.getPvPdHandler = getPvPdHandler;
-        this.shopExitHandler = shopExitHandler;
-        this.stageResultHandler = stageResultHandler;
-        this.stageStartHandler = stageStartHandler;
-        this.storeSsHandler = storeSsHandler;
-        this.pingHandler = pingHandler;
-        this.endHandler = endHandler;
-        this.pdUnlockHandler = pdUnlockHandler;
-        this.preStartHandler = preStartHandler;
-        this.spendCreditHandler = spendCreditHandler;
-        this.startHandler = startHandler;
-        this.mapper = mapper;
-    }
-
-
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String formRequest(HttpServletRequest request) throws IOException {
         String bodyStr = new String(request.getInputStream().readAllBytes());
@@ -149,120 +108,71 @@ public class DivaController {
 
         logger.info("{}: {}", command, body);
 
-        switch (command) {
+        return switch (command) {
 
             // Boot
-            case "game_init":
-                return gameInitHandler.handle(mapper.convert(body, GameInitRequest.class));
-            case "attend":
-                return attendHandler.handle(mapper.convert(body, GameInitRequest.class));
+            case "game_init" -> gameInitHandler.handle(mapper.convert(body, GameInitRequest.class));
+            case "attend" -> attendHandler.handle(mapper.convert(body, GameInitRequest.class));
 
             //
-            case "test":
-                return gameInitHandler.handle(mapper.convert(body, BaseRequest.class));
+            case "test" -> gameInitHandler.handle(mapper.convert(body, BaseRequest.class));
 
             // Databank
-            case "nv_ranking":
-                return nvRankingHandler.handle(mapper.convert(body, BaseRequest.class));
-            case "ps_ranking":
-                return psRankingHandler.handle(mapper.convert(body, PsRankingRequest.class));
-            case "pv_list":
-                return pvListHandler.handle(mapper.convert(body, BaseRequest.class));
-            case "ng_word":
-                return ngWordHandler.handle(mapper.convert(body, BaseRequest.class));
-            case "rmt_wp_list":
-                return rmtWpLstHandler.handle(mapper.convert(body, BaseRequest.class));
-            case "festa_info":
-                return festaInfoHandler.handle(mapper.convert(body, BaseRequest.class));
-            case "contest_info":
-                return contestInfoHandler.handle(mapper.convert(body, BaseRequest.class));
-            case "pv_def_chr_list":
-                return pvDefChrLstHandler.handle(mapper.convert(body, BaseRequest.class));
-            case "pv_ng_mdl_list":
-                return pvNgMdlLstHandler.handle(mapper.convert(body, BaseRequest.class));
-            case "cstmz_itm_ng_mdl_list":
-                return cstmzItmNgMdlListHandler.handle(mapper.convert(body, BaseRequest.class));
-            case "banner_info":
-                return bannerInfoHandler.handle(mapper.convert(body, BaseRequest.class));
-            case "banner_data":
-                return bannerDataHandler.handle(mapper.convert(body, BannerDataRequest.class));
-            case "cm_ply_info":
-                return cmPlyInfoHandler.handle(mapper.convert(body, BaseRequest.class));
-            case "qst_inf":
-                return qstInfHandler.handle(mapper.convert(body, BaseRequest.class));
-            case "pstd_h_ctrl":
-                return pstdHCtrlHandler.handle(mapper.convert(body, BaseRequest.class));
-            case "pstd_item_ng_lst":
-                return pstdItemNgLstHandler.handle(mapper.convert(body, BaseRequest.class));
-            case "shop_catalog":
-                return shopCatalogHandler.handle(mapper.convert(body, BaseRequest.class));
-            case "cstmz_itm_ctlg":
-                return cstmzItmCtlgHandler.handle(mapper.convert(body, BaseRequest.class));
-
-            case "card_procedure":
-                return cardProcedureHandler.handle(mapper.convert(body, CardProcedureRequest.class));
-            case "registration":
-                return registrationHandler.handle(mapper.convert(body, RegistrationRequest.class));
-            case "init_passwd":
-                return initPasswdHandler.handle(mapper.convert(body, GameInitRequest.class));
-            case "change_passwd":
-                return changePasswdHandler.handle(mapper.convert(body, ChangePasswdRequest.class));
-            case "change_name":
-                return changeNameHandler.handle(mapper.convert(body, ChangeNameRequest.class));
-
-            case "pre_start":
-                return preStartHandler.handle(mapper.convert(body, PreStartRequest.class));
-            case "start":
-                return startHandler.handle(mapper.convert(body, StartRequest.class));
-            case "pd_unlock":
-                return pdUnlockHandler.handle(mapper.convert(body, PdUnlockRequest.class));
-            case "spend_credit":
-                return spendCreditHandler.handle(mapper.convert(body, SpendCreditRequest.class));
-            case "no_card_end":
-                return gameInitHandler.handle(mapper.convert(body, GameInitRequest.class));
-            case "end":
-                return endHandler.handle(mapper.convert(body, StageResultRequest.class));
-
-            case "get_pv_pd":
-                return getPvPdHandler.handle(mapper.convert(body, GetPvPdRequest.class));
-            case "buy_module":
-                return buyModuleHandler.handle(mapper.convert(body, BuyModuleRequest.class));
-            case "buy_cstmz_itm":
-                return buyCstmzItmHandler.handle(mapper.convert(body, BuyCstmzItmRequest.class));
-            case "shop_exit":
-                return shopExitHandler.handle(mapper.convert(body, ShopExitRequest.class));
-            case "stage_start":
-                return stageStartHandler.handle(mapper.convert(body, StageStartRequest.class));
-            case "stage_result":
-                return stageResultHandler.handle(mapper.convert(body, StageResultRequest.class));
-            case "store_ss":
-                return gameInitHandler.handle(mapper.convert(body, GameInitRequest.class));
-
-            default:
-                return "stat=0";
-
-        }
+            case "nv_ranking" -> nvRankingHandler.handle(mapper.convert(body, BaseRequest.class));
+            case "ps_ranking" -> psRankingHandler.handle(mapper.convert(body, PsRankingRequest.class));
+            case "pv_list" -> pvListHandler.handle(mapper.convert(body, BaseRequest.class));
+            case "ng_word" -> ngWordHandler.handle(mapper.convert(body, BaseRequest.class));
+            case "rmt_wp_list" -> rmtWpLstHandler.handle(mapper.convert(body, BaseRequest.class));
+            case "festa_info" -> festaInfoHandler.handle(mapper.convert(body, BaseRequest.class));
+            case "contest_info" -> contestInfoHandler.handle(mapper.convert(body, BaseRequest.class));
+            case "pv_def_chr_list" -> pvDefChrLstHandler.handle(mapper.convert(body, BaseRequest.class));
+            case "pv_ng_mdl_list" -> pvNgMdlLstHandler.handle(mapper.convert(body, BaseRequest.class));
+            case "cstmz_itm_ng_mdl_list" -> cstmzItmNgMdlListHandler.handle(mapper.convert(body, BaseRequest.class));
+            case "banner_info" -> bannerInfoHandler.handle(mapper.convert(body, BaseRequest.class));
+            case "banner_data" -> bannerDataHandler.handle(mapper.convert(body, BannerDataRequest.class));
+            case "cm_ply_info" -> cmPlyInfoHandler.handle(mapper.convert(body, BaseRequest.class));
+            case "qst_inf" -> qstInfHandler.handle(mapper.convert(body, BaseRequest.class));
+            case "pstd_h_ctrl" -> pstdHCtrlHandler.handle(mapper.convert(body, BaseRequest.class));
+            case "pstd_item_ng_lst" -> pstdItemNgLstHandler.handle(mapper.convert(body, BaseRequest.class));
+            case "shop_catalog" -> shopCatalogHandler.handle(mapper.convert(body, BaseRequest.class));
+            case "cstmz_itm_ctlg" -> cstmzItmCtlgHandler.handle(mapper.convert(body, BaseRequest.class));
+            case "card_procedure" -> cardProcedureHandler.handle(mapper.convert(body, CardProcedureRequest.class));
+            case "registration" -> registrationHandler.handle(mapper.convert(body, RegistrationRequest.class));
+            case "init_passwd" -> initPasswdHandler.handle(mapper.convert(body, GameInitRequest.class));
+            case "change_passwd" -> changePasswdHandler.handle(mapper.convert(body, ChangePasswdRequest.class));
+            case "change_name" -> changeNameHandler.handle(mapper.convert(body, ChangeNameRequest.class));
+            case "pre_start" -> preStartHandler.handle(mapper.convert(body, PreStartRequest.class));
+            case "start" -> startHandler.handle(mapper.convert(body, StartRequest.class));
+            case "pd_unlock" -> pdUnlockHandler.handle(mapper.convert(body, PdUnlockRequest.class));
+            case "spend_credit" -> spendCreditHandler.handle(mapper.convert(body, SpendCreditRequest.class));
+            case "no_card_end" -> gameInitHandler.handle(mapper.convert(body, GameInitRequest.class));
+            case "end" -> endHandler.handle(mapper.convert(body, StageResultRequest.class));
+            case "get_pv_pd" -> getPvPdHandler.handle(mapper.convert(body, GetPvPdRequest.class));
+            case "buy_module" -> buyModuleHandler.handle(mapper.convert(body, BuyModuleRequest.class));
+            case "buy_cstmz_itm" -> buyCstmzItmHandler.handle(mapper.convert(body, BuyCstmzItmRequest.class));
+            case "shop_exit" -> shopExitHandler.handle(mapper.convert(body, ShopExitRequest.class));
+            case "stage_start" -> stageStartHandler.handle(mapper.convert(body, StageStartRequest.class));
+            case "stage_result" -> stageResultHandler.handle(mapper.convert(body, StageResultRequest.class));
+            case "store_ss" -> gameInitHandler.handle(mapper.convert(body, GameInitRequest.class));
+            default -> "stat=0";
+        };
     }
 
-    @PostMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String fileRequest(@RequestParam String query, @RequestParam(required = false) MultipartFile bin) {
 
         Map<String, Object> body = parse(query);
 
         String command = (String) body.getOrDefault("cmd", "");
 
-        logger.info("{}: {}", command, body.toString());
+        logger.info("{}: {}", command, body);
 
-        switch (command) {
-            case "ping":
-                return pingHandler.handle(mapper.convert(body, BaseRequest.class));
-            case "investigate":
-                return gameInitHandler.handle(mapper.convert(body, BaseRequest.class));
-            case "store_ss":
-                return storeSsHandler.handle(mapper.convert(body, StoreSsRequest.class), bin);
-            default:
-                return "stat=1";
-        }
+        return switch (command) {
+            case "ping" -> pingHandler.handle(mapper.convert(body, BaseRequest.class));
+            case "investigate" -> gameInitHandler.handle(mapper.convert(body, BaseRequest.class));
+            case "store_ss" -> storeSsHandler.handle(mapper.convert(body, StoreSsRequest.class), bin);
+            default -> "stat=1";
+        };
     }
 
     private Map<String, Object> parse(String form) {
