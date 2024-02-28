@@ -85,7 +85,7 @@ class AllNet(
 
         val serial = reqMap["serial"] ?: AquaConst.DEFAULT_KEYCHIP_ID
         val resp = mapOf(
-            "stat" to "0",
+            "stat" to "1",
             "serial" to serial
         )
 
