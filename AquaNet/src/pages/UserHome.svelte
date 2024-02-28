@@ -145,7 +145,7 @@
 
           <div class="time">
             <span>Play Time</span>
-            <span>{(d.user.totalPlayTime / 60 / 60).toFixed(1)} hr</span>
+            <span>{(d.user.totalPlayTime / 60).toFixed(1)} hr</span>
           </div>
 
           <div class="first-play">
