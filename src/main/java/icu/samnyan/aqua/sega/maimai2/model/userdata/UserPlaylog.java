@@ -128,8 +128,10 @@ public class UserPlaylog implements Serializable, IGenericGamePlaylog {
 
     private int scoreRank;
 
+    // Maximum continuous combo that the player achieved in this play.
     private int maxCombo;
 
+    // Maximum achievable combo in the song.
     private int totalCombo;
 
     private int maxSync;
@@ -267,5 +269,10 @@ public class UserPlaylog implements Serializable, IGenericGamePlaylog {
     @Override
     public Object getDate() {
         return playDate;
+    }
+
+    @Override
+    public boolean isFullCombo() {
+        return maxCombo == totalCombo;
     }
 }

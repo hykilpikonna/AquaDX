@@ -158,11 +158,6 @@ public class UserPlaylog implements Serializable, IGenericGamePlaylog {
     }
 
     @Override
-    public int getTotalCombo() {
-        return maxCombo;
-    }
-
-    @Override
     public int getAfterRating() {
         return playerRating;
     }

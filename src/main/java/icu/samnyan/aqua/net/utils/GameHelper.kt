@@ -56,7 +56,7 @@ interface IGenericGamePlaylog {
     val date: Any
     val achievement: Int
     val maxCombo: Int
-    val totalCombo: Int
+    val isFullCombo: Boolean
     val beforeRating: Int
     val afterRating: Int
 }
@@ -93,7 +93,7 @@ fun genericUserSummary(
         ratingHighest = user.highestRating,
         ranks = ranks.map { (k, v) -> RankCount(k, v) },
         maxCombo = plays.maxOf { it.maxCombo },
-        fullCombo = plays.count { it.totalCombo == it.maxCombo },
+        fullCombo = plays.count { it.isFullCombo },
         allPerfect = plays.count { it.achievement == 1010000 },
         totalScore = user.totalScore,
         plays = plays.size,
