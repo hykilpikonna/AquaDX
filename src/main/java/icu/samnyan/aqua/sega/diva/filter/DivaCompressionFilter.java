@@ -7,6 +7,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.eclipse.jetty.io.EofException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -49,7 +50,11 @@ public class DivaCompressionFilter extends OncePerRequestFilter {
         response.setContentLength(respResult.length);
         response.setHeader("pragma", "DFI");
 
-        response.getOutputStream().write(respResult);
+        try {
+            response.getOutputStream().write(respResult);
+        } catch (EofException e) {
+            logger.warn("- EOF: Client closed connection");
+        }
     }
 
     @Override
