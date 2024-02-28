@@ -50,7 +50,7 @@ class CompressionFilter : OncePerRequestFilter() {
         try {
             resp.outputStream.write(respResult)
         } catch (e: EofException) {
-            logger.warn("- EOF: Client closed connection")
+            logger.warn("- EOF: Client closed connection when writing result")
         }
     }
 
