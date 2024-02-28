@@ -140,14 +140,14 @@ public class DivaController {
     }
 
 
-    @PostMapping(value = "", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String formRequest(HttpServletRequest request) throws IOException {
         String bodyStr = new String(request.getInputStream().readAllBytes());
         Map<String, Object> body = parse(bodyStr);
 
         String command = (String) body.getOrDefault("cmd", "");
 
-        logger.info("{}: {}", command, body.toString());
+        logger.info("{}: {}", command, body);
 
         switch (command) {
 

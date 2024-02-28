@@ -19,23 +19,23 @@ import java.util.*
 @Component
 class DivaCompressionFilter : OncePerRequestFilter() {
     companion object {
-        val logger: Logger = LoggerFactory.getLogger(DivaCompressionFilter::class.java)
+        val log: Logger = LoggerFactory.getLogger(DivaCompressionFilter::class.java)
     }
 
     override fun doFilterInternal(req: HttpServletRequest, resp: HttpServletResponse, chain: FilterChain) {
-        logger.debug(">>> DIVA Incoming request: ${req.servletPath}")
-        logger.debug("> ${req.headerNames.toList().map { it to req.getHeader(it) }}")
+        log.debug(">>> DIVA Incoming request: ${req.servletPath}")
+        log.debug("> ${req.headerNames.toList().map { it to req.getHeader(it) }}")
         val encoding = req.getHeader("pragma")
         val reqSrc = req.inputStream.readAllBytes()
 
-        logger.debug("> Encoding: $encoding")
+        log.debug("> Encoding: $encoding")
 
         var reqResult: ByteArray?
         if (encoding != null && encoding == "DFI") {
-            logger.debug("> Request length (compressed): ${reqSrc.size}")
+            log.debug("> Request length (compressed): ${reqSrc.size}")
             reqResult = Base64.getMimeDecoder().decode(reqSrc)
             reqResult = Compression.decompress(reqResult)
-            logger.debug("> Request length (decompressed): ${reqResult.size}")
+            log.debug("> Request length (decompressed): ${reqResult.size}")
         } else {
             reqResult = reqSrc
         }
@@ -46,10 +46,10 @@ class DivaCompressionFilter : OncePerRequestFilter() {
         chain.doFilter(requestWrapper, responseWrapper)
 
         val respSrc = responseWrapper.toByteArray()
-        logger.debug(">>> DIVA Outgoing response: $respSrc")
-        logger.debug("> Response length (uncompressed): ${respSrc.size}")
+        log.debug(">>> DIVA Outgoing response: $respSrc")
+        log.debug("> Response length (uncompressed): ${respSrc.size}")
         var respResult = Compression.compress(respSrc)
-        logger.debug("> Response length (compressed): ${respResult.size}")
+        log.debug("> Response length (compressed): ${respResult.size}")
         respResult = Base64.getMimeEncoder().encode(respResult)
 
         resp.setContentLength(respResult.size)
@@ -58,7 +58,7 @@ class DivaCompressionFilter : OncePerRequestFilter() {
         try {
             resp.outputStream.write(respResult)
         } catch (e: EofException) {
-            Companion.logger.warn("- EOF: Client closed connection when writing result")
+            log.warn("- EOF: Client closed connection when writing result :(")
         }
     }
 
