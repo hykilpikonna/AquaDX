@@ -60,6 +60,7 @@ interface IGenericGamePlaylog {
     val isFullCombo: Boolean
     val beforeRating: Int
     val afterRating: Int
+    val isAllPerfect: Boolean
 }
 
 interface GenericPlaylogRepo {
@@ -95,7 +96,7 @@ fun genericUserSummary(
         ranks = ranks.map { (k, v) -> RankCount(k, v) },
         maxCombo = plays.maxOf { it.maxCombo },
         fullCombo = plays.count { it.isFullCombo },
-        allPerfect = plays.count { it.achievement == 1010000 },
+        allPerfect = plays.count { it.isAllPerfect },
         totalScore = user.totalScore,
         plays = plays.size,
         totalPlayTime = plays.count() * 3L, // TODO: Give a better estimate
@@ -121,7 +122,7 @@ fun genericRanking(
             name = user.userName,
             accuracy = plays.sumOf { it.achievement }.toDouble() / plays.size / 10000.0,
             rating = user.playerRating,
-            allPerfect = plays.count { it.achievement == 1010000 },
+            allPerfect = plays.count { it.isAllPerfect },
             fullCombo = plays.count { it.isFullCombo },
             lastSeen = user.lastPlayDate.toString()
         )

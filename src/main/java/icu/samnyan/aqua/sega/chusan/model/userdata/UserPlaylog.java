@@ -166,4 +166,9 @@ public class UserPlaylog implements Serializable, IGenericGamePlaylog {
     public int getBeforeRating() {
         return playerRating; // TODO: Get before rating
     }
+
+    @Override
+    public boolean isAllPerfect() {
+        return isAllJustice;
+    }
 }

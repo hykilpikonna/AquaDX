@@ -269,4 +269,13 @@ public class UserPlaylog implements Serializable, IGenericGamePlaylog {
     public boolean isFullCombo() {
         return maxCombo == totalCombo;
     }
+
+    @Override
+    public boolean isAllPerfect() {
+        return tapMiss + tapGood + tapGreat == 0
+                && holdMiss + holdGood + holdGreat == 0
+                && slideMiss + slideGood + slideGreat == 0
+                && touchMiss + touchGood + touchGreat == 0
+                && breakMiss + breakGood + breakGreat == 0;
+    }
 }
