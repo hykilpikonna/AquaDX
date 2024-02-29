@@ -13,6 +13,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import java.nio.charset.StandardCharsets
+import java.time.LocalDateTime
 import kotlin.jvm.optionals.getOrNull
 
 /**
@@ -99,6 +100,11 @@ class AimeDB(
         }
     }
 
+    fun getCard(accessCode: String) = cardService.getCardByAccessCode(accessCode).getOrNull()?.let {
+        // Update card access time
+        cardService.cardRepo.save(it.apply { accessTime = LocalDateTime.now() }).extId
+    } ?: -1
+
     /**
      * Felica Lookup v2: Look up the card in the card repository, return the External ID
      */
@@ -109,7 +115,7 @@ class AimeDB(
 
         // Get the decimal represent of the hex value, same from minime
         val accessCode = idm.toString().replace("-", "").padStart(20, '0')
-        val aimeId = cardService.getCardByAccessCode(accessCode).getOrNull()?.extId ?: -1
+        val aimeId = getCard(accessCode)
 
         logger.info("> Response: $accessCode, $aimeId")
         return Unpooled.copiedBuffer(ByteArray(0x0140)).apply {
@@ -130,7 +136,7 @@ class AimeDB(
         val luid = ByteBufUtil.hexDump(msg.slice(0x20, 0x2a - 0x20))
         logger.info("> Lookup v1 (luid $luid)")
 
-        val aimeId = cardService.getCardByAccessCode(luid).getOrNull()?.extId ?: -1
+        val aimeId = getCard(luid)
 
         logger.info("> Response: $aimeId")
         return Unpooled.copiedBuffer(ByteArray(0x0130)).apply {
@@ -145,7 +151,7 @@ class AimeDB(
         val luid = ByteBufUtil.hexDump(msg.slice(0x20, 0x2a - 0x20))
         logger.info("> Lookup v2 (luid $luid)")
 
-        val aimeId = cardService.getCardByAccessCode(luid).getOrNull()?.extId ?: -1
+        val aimeId = getCard(luid)
 
         logger.info("> Response: $aimeId")
         return Unpooled.copiedBuffer(ByteArray(0x0130)).apply {
