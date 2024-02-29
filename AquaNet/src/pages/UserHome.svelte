@@ -103,7 +103,7 @@
         <div class="other-info">
           <div class="accuracy">
             <span>Accuracy</span>
-            <span>{(d.user.accuracy / 10000).toFixed(2)}%</span>
+            <span>{(d.user.accuracy).toFixed(2)}%</span>
           </div>
 
           <div class="max-combo">
