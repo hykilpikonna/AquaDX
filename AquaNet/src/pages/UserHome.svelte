@@ -36,7 +36,7 @@
     console.log(music)
 
     // Sort recent by date
-    user.recent.sort((a, b) => b.playDate < a.playDate ? -1 : 1)
+    user.recent.sort((a, b) => b.userplayDate < a.userplayDate ? -1 : 1)
 
     d = {user, trend, recent: user.recent.map(it => {return {...music[it.musicId], ...it}})}
     localStorage.setItem("tmp-user-details", JSON.stringify(d))
