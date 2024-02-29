@@ -2,6 +2,7 @@ package icu.samnyan.aqua.sega.allnet
 
 import icu.samnyan.aqua.net.db.AquaNetUser
 import jakarta.persistence.*
+import jakarta.transaction.Transactional
 import org.slf4j.LoggerFactory
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.scheduling.annotation.Scheduled
@@ -42,6 +43,8 @@ fun genUrlSafeToken(length: Int): String {
 @Repository("KeychipSessionRepo")
 interface KeychipSessionRepo : JpaRepository<KeychipSession, String> {
     fun findByToken(token: String): KeychipSession?
+
+    @Transactional
     fun deleteAllByLastUseBefore(expire: Long)
 }
 
