@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { title } from "../libs/ui";
+  import { clz, title } from "../libs/ui";
   import { GAME } from "../libs/sdk";
   import type { GenericRanking } from "../libs/generalTypes";
 
@@ -14,21 +14,77 @@
   })
 </script>
 
-<main class="content">
+<main class="content leaderboard">
   <h2>Global Leaderboard</h2>
 
   {#if d}
-    {#each d.users as user}
-      <div class="lb-placement">
-        <p class="placement-rank">{user.rank}</p>
-        <h4 class="placement-name">{user.name}</h4>
-        <h4 class="placement-accuracy">{(+user.accuracy).toFixed(2)}%</h4>
-        <h4 class="placement-rating">{user.rating}</h4>
-        <h4 class="placement-full-combo">{user.fullCombo}</h4>
-        <h4 class="placement-all-perfect">{user.allPerfect}</h4>
+    <div class="leaderboard-container">
+      <div class="lb-user">
+        <span class="rank"></span>
+        <span class="name"></span>
+        <span class="rating">Rating</span>
+        <span class="accuracy">Accuracy</span>
+        <span class="fc">FC</span>
+        <span class="ap">AP</span>
       </div>
-    {/each}
+      {#each d.users as user, i (user.rank)}
+        <div class={clz({alternate: i % 2 === 1}, 'lb-user')}>
+          <span class="rank">#{user.rank}</span>
+          <span class="name">{user.name}</span>
+          <span class="rating">{user.rating.toLocaleString()}</span>
+          <span class="accuracy">{(+user.accuracy).toFixed(2)}%</span>
+          <span class="fc">{user.fullCombo}</span>
+          <span class="ap">{user.allPerfect}</span>
+        </div>
+      {/each}
+    </div>
   {:else}
     <p>Please Wait...</p>
   {/if}
 </main>
+
+<style lang="sass">
+  @import "../vars"
+
+  .leaderboard-container
+    display: flex
+    flex-direction: column
+
+  .lb-user
+    display: flex
+    align-items: center
+    justify-content: space-between
+    width: 100%
+    gap: 12px
+    border-radius: 12px
+    padding: 6px 12px
+    box-sizing: border-box
+
+    > *:not(.name)
+      text-align: center
+
+    .name
+      min-width: 100px
+      flex: 1
+
+    .accuracy, .rating
+      width: 15%
+      min-width: 45px
+
+    .rating
+      font-weight: bold
+      color: white
+
+    .fc, .ap
+      width: 5%
+      min-width: 20px
+
+    @media (max-width: $w-mobile)
+      font-size: 0.9rem
+
+      .accuracy
+        display: none
+
+    &.alternate
+      background-color: $ov-light
+</style>
