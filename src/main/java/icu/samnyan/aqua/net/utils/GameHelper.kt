@@ -96,7 +96,7 @@ fun genericUserSummary(
         rating = user.playerRating,
         ratingHighest = user.highestRating,
         ranks = ranks.map { (k, v) -> RankCount(k, v) },
-        maxCombo = plays.maxOf { it.maxCombo },
+        maxCombo = plays.maxOfOrNull { it.maxCombo } ?: 0,
         fullCombo = plays.count { it.isFullCombo },
         allPerfect = plays.count { it.isAllPerfect },
         totalScore = user.totalScore,
