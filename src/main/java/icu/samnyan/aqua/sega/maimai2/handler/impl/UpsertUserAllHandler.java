@@ -11,6 +11,7 @@ import icu.samnyan.aqua.sega.maimai2.model.response.data.UserActivity;
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRating;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.*;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,7 @@ import java.util.Optional;
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
+@AllArgsConstructor
 @Component("Maimai2UpsertUserAllHandler")
 public class UpsertUserAllHandler implements BaseHandler {
 
@@ -46,25 +48,7 @@ public class UpsertUserAllHandler implements BaseHandler {
     private final UserGeneralDataRepository userGeneralDataRepository;
     private final UserCourseRepository userCourseRepository;
     private final UserFriendSeasonRankingRepository userFriendSeasonRankingRepository;
-
-    public UpsertUserAllHandler(BasicMapper mapper, CardService cardService, UserDataRepository userDataRepository, UserExtendRepository userExtendRepository, UserOptionRepository userOptionRepository, UserItemRepository userItemRepository, UserMusicDetailRepository userMusicDetailRepository, UserActRepository userActRepository, UserCharacterRepository userCharacterRepository, UserMapRepository userMapRepository, UserLoginBonusRepository userLoginBonusRepository, UserFavoriteRepository userFavoriteRepository, UserUdemaeRepository userUdemaeRepository, UserGeneralDataRepository userGeneralDataRepository, UserCourseRepository userCourseRepository, UserFriendSeasonRankingRepository userFriendSeasonRankingRepository) {
-        this.mapper = mapper;
-        this.cardService = cardService;
-        this.userDataRepository = userDataRepository;
-        this.userExtendRepository = userExtendRepository;
-        this.userOptionRepository = userOptionRepository;
-        this.userItemRepository = userItemRepository;
-        this.userMusicDetailRepository = userMusicDetailRepository;
-        this.userActRepository = userActRepository;
-        this.userCharacterRepository = userCharacterRepository;
-        this.userMapRepository = userMapRepository;
-        this.userLoginBonusRepository = userLoginBonusRepository;
-        this.userFavoriteRepository = userFavoriteRepository;
-        this.userUdemaeRepository = userUdemaeRepository;
-        this.userGeneralDataRepository = userGeneralDataRepository;
-        this.userCourseRepository = userCourseRepository;
-        this.userFriendSeasonRankingRepository = userFriendSeasonRankingRepository;
-    }
+    private final UserPlaylogRepository userPlaylogRepository;
 
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
@@ -105,6 +89,11 @@ public class UpsertUserAllHandler implements BaseHandler {
             // Set isNetMember value to 1, which enables some in-game features.
             newUserData.setNetMember(1);
             userDataRepository.saveAndFlush(newUserData);
+
+            // Check playlog backlog
+            var backlog = UploadUserPlaylogHandler.getPlayBacklog();
+            if (backlog.containsKey(userId))
+                backlog.remove(userId).forEach(it -> userPlaylogRepository.save(it.getPlaylog()));
         }
 
         // UserExtend
@@ -343,7 +332,7 @@ public class UpsertUserAllHandler implements BaseHandler {
             sb.append(item.getMusicId()).append(":").append(item.getLevel()).append(":").append(item.getRomVersion()).append(":").append(item.getAchievement());
             sb.append(",");
         }
-        if (sb.length() > 0) {
+        if (!sb.isEmpty()) {
             sb.deleteCharAt(sb.length() - 1);
         }
         Optional<UserGeneralData> uOptional = userGeneralDataRepository.findByUserAndPropertyKey(newUserData, key);
