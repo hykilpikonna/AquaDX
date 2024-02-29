@@ -2,10 +2,7 @@ package icu.samnyan.aqua.net.games
 
 import ext.API
 import icu.samnyan.aqua.net.db.AquaUserServices
-import icu.samnyan.aqua.net.utils.TrendLog
-import icu.samnyan.aqua.net.utils.findTrend
-import icu.samnyan.aqua.net.utils.genericUserSummary
-import icu.samnyan.aqua.net.utils.ongekiScores
+import icu.samnyan.aqua.net.utils.*
 import icu.samnyan.aqua.sega.ongeki.dao.userdata.UserDataRepository
 import icu.samnyan.aqua.sega.ongeki.dao.userdata.UserGeneralDataRepository
 import icu.samnyan.aqua.sega.ongeki.dao.userdata.UserPlaylogRepository
@@ -34,4 +31,6 @@ class Ongeki(
 
         genericUserSummary(u, userDataRepository, userPlaylogRepository, shownRanks, mapOf())
     }
+
+    override fun ranking() = genericRanking(userDataRepository, userPlaylogRepository)
 }

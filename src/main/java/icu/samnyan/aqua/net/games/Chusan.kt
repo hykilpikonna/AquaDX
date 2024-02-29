@@ -4,10 +4,7 @@ import ext.API
 import ext.RP
 import ext.Str
 import icu.samnyan.aqua.net.db.AquaUserServices
-import icu.samnyan.aqua.net.utils.TrendLog
-import icu.samnyan.aqua.net.utils.chu3Scores
-import icu.samnyan.aqua.net.utils.findTrend
-import icu.samnyan.aqua.net.utils.genericUserSummary
+import icu.samnyan.aqua.net.utils.*
 import icu.samnyan.aqua.sega.chusan.dao.userdata.UserDataRepository
 import icu.samnyan.aqua.sega.chusan.dao.userdata.UserGeneralDataRepository
 import icu.samnyan.aqua.sega.chusan.dao.userdata.UserPlaylogRepository
@@ -42,4 +39,6 @@ class Chusan(
 
         genericUserSummary(u, userDataRepository, userPlaylogRepository, shownRanks, ratingComposition)
     }
+
+    override fun ranking() = genericRanking(userDataRepository, userPlaylogRepository)
 }

@@ -3,6 +3,7 @@ package icu.samnyan.aqua.net.utils
 import ext.minus
 import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.games.GenericGameSummary
+import icu.samnyan.aqua.net.games.GenericRankingPlayer
 import icu.samnyan.aqua.net.games.RankCount
 import icu.samnyan.aqua.net.games.TrendOut
 import icu.samnyan.aqua.sega.general.model.Card
@@ -88,7 +89,7 @@ fun genericUserSummary(
         name = user.userName,
         iconId = user.iconId,
         serverRank = userDataRepo.getRanking(user.playerRating),
-        accuracy = plays.sumOf { it.achievement }.toDouble() / plays.size,
+        accuracy = plays.sumOf { it.achievement }.toDouble() / plays.size / 10000.0,
         rating = user.playerRating,
         ratingHighest = user.highestRating,
         ranks = ranks.map { (k, v) -> RankCount(k, v) },
@@ -106,4 +107,24 @@ fun genericUserSummary(
     )
 }
 
+fun genericRanking(
+    userDataRepo: GenericUserDataRepo<*, *>,
+    userPlaylogRepo: GenericPlaylogRepo,
+): List<GenericRankingPlayer> {
+    // TODO: pagination
+    val users = userDataRepo.findAll().sortedByDescending { it.playerRating }
+    return users.filter { it.card != null }.mapIndexed { i, user ->
+        val plays = userPlaylogRepo.findByUserCardExtId(user.card!!.extId)
+
+        GenericRankingPlayer(
+            rank = i + 1,
+            name = user.userName,
+            accuracy = plays.sumOf { it.achievement }.toDouble() / plays.size / 10000.0,
+            rating = user.playerRating,
+            allPerfect = plays.count { it.achievement == 1010000 },
+            fullCombo = plays.count { it.isFullCombo },
+            lastSeen = user.lastPlayDate.toString()
+        )
+    }
+}
 

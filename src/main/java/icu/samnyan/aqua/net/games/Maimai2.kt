@@ -4,10 +4,7 @@ import ext.API
 import ext.RP
 import ext.Str
 import icu.samnyan.aqua.net.db.AquaUserServices
-import icu.samnyan.aqua.net.utils.TrendLog
-import icu.samnyan.aqua.net.utils.findTrend
-import icu.samnyan.aqua.net.utils.genericUserSummary
-import icu.samnyan.aqua.net.utils.mai2Scores
+import icu.samnyan.aqua.net.utils.*
 import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserDataRepository
 import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserGeneralDataRepository
 import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserPlaylogRepository
@@ -41,4 +38,6 @@ class Maimai2(
 
         genericUserSummary(u, userDataRepository, userPlaylogRepository, shownRanks, ratingComposition)
     }
+
+    override fun ranking() = genericRanking(userDataRepository, userPlaylogRepository)
 }

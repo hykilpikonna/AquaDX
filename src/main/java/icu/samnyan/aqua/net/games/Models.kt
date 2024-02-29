@@ -33,9 +33,22 @@ data class GenericGameSummary(
     val recent: List<IGenericGamePlaylog>
 )
 
+data class GenericRankingPlayer(
+    val rank: Int,
+    val name: String,
+    val accuracy: Double,
+    val rating: Int,
+    val allPerfect: Int,
+    val fullCombo: Int,
+    val lastSeen: String
+)
+
 interface GameApiController {
     @API("trend")
     fun trend(@RP username: String): List<TrendOut>
     @API("user-summary")
     fun userSummary(@RP username: String): GenericGameSummary
+
+    @API("ranking")
+    fun ranking(): List<GenericRankingPlayer>
 }
