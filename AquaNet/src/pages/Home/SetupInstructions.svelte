@@ -1,7 +1,7 @@
 <!-- Svelte 4.2.11 -->
 
 <script lang="ts">
-  import { slide } from "svelte/transition";
+  import { slide, fade } from "svelte/transition";
   import { USER } from "../../libs/sdk";
   import type { UserMe } from "../../libs/generalTypes";
   import { codeToHtml } from 'shiki'
@@ -54,16 +54,17 @@ id=${keychip.slice(0, 4)}-${keychip.slice(4)}1337`.trim(), {
 
   {#if user}
     <div transition:slide>
-      {#if !keychip}
-        <!-- TODO : Fix transition -->
-        <button class="emp" on:click={getStarted} transition:slide>Get started</button>
+      {#if !keychip && !keychipCode}
+        <div class="no-margin" out:fade={{ duration: 300 }}>
+          <button class="emp" on:click={getStarted}>Get started</button>
+        </div>
       {:else}
-        <div transition:slide>
+        <div class="no-margin" in:fade={{ delay: 300 }}>
           <p>
             Please edit your segatools.ini file and modify the following lines:
           </p>
 
-          <div class="code" style="overflow: auto;">
+          <div class="code">
             {@html keychipCode}
           </div>
         </div>
