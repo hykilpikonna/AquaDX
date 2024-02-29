@@ -172,7 +172,7 @@ class UserRegistrar(
     @API("/keychip")
     @Doc("Get a Keychip ID so that the user can connect to the server.", "Success message")
     suspend fun setupConnection(@RP token: Str) = jwt.auth(token) { u ->
-        if (u.keychip != null) mapOf("keychip" to u.keychip)
+        if (u.keychip != null) return mapOf("keychip" to u.keychip)
 
         // Generate a keychip id with 10 digits (e.g. A1234567890)
         var new = "A" + keychipRange.random()
