@@ -24,7 +24,7 @@ export interface UserMe {
   emailConfirmed: boolean
   ghostCard: Card
   cards: Card[]
-  computedName: string
+  computedName: string,
 }
 
 export interface CardSummaryGame {
