@@ -62,6 +62,16 @@ export interface GenericGamePlaylog {
   beforeRating: number
 }
 
+export interface GenericRanking {
+  name: string
+  rank: number
+  accuracy: number
+  rating: number
+  fullCombo: number
+  allPerfect: number
+  lastSeen: string
+}
+
 export interface RankCount {
   name: string
   count: number

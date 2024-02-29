@@ -5,6 +5,7 @@
   import UserHome from "./pages/UserHome.svelte";
   import Icon from '@iconify/svelte';
   import Home from "./pages/Home.svelte";
+  import Ranking from "./pages/Ranking.svelte";
   import { USER } from "./libs/sdk";
 
   export let url = "";
@@ -21,13 +22,14 @@
   {/if}
   <a href="/home">home</a>
   <div>maps</div>
-  <div>rankings</div>
+  <a href="/ranking">rankings</a>
   <div><Icon icon="tabler:search" /></div>
 </nav>
 
 <Router {url}>
   <Route path="/" component={Welcome} />
   <Route path="/home" component={Home} />
+  <Route path="/ranking" component={Ranking} />
   <Route path="/u/:username" component={UserHome} />
   <Route path="/u/:username/:game" component={UserHome} />
   <Route path="/u/:username/:game/rating" component={MaimaiRating} />

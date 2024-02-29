@@ -119,6 +119,9 @@ export const GAME = {
     post(`/api/v2/game/${game}/trend`, { username }),
   userSummary: (username: string, game: GameName): Promise<GenericGameSummary> =>
     post(`/api/v2/game/${game}/user-summary`, { username }),
+  ranking: (game: GameName): Promise<GenericGameSummary> =>
+      post(`/api/v2/game/${game}/ranking`, { }),
+
 }
 
 export const DATA = {
