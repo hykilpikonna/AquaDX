@@ -23,6 +23,7 @@ class CardController(
     val props: AquaNetProps
 ) {
     @API("/summary")
+    @Doc("Get a summary of the card, including the user's name, rating, and last login date.", "Summary of the card")
     suspend fun summary(@RP cardId: Str): Any
     {
         // DO NOT CHANGE THIS ERROR MESSAGE - The frontend uses it to detect if the card is not found
@@ -45,6 +46,7 @@ class CardController(
      * @param migrate Things to migrate, stored as a comma-separated list of game IDs (e.g. "maimai2,chusan")
      */
     @API("/link")
+    @Doc("Bind a card to the user. This action will migrate selected data from the card to the user's ghost card.", "Success message")
     suspend fun link(@RP token: Str, @RP cardId: Str, @RP migrate: Str) = jwt.auth(token) { u ->
         // Check if the user's card limit is reached
         if (u.cards.size >= props.linkCardLimit) 400 - "Card limit reached"
@@ -78,6 +80,7 @@ class CardController(
     }
 
     @API("/unlink")
+    @Doc("Unbind a card from the user. No data will be migrated during this action.", "Success message")
     suspend fun unlink(@RP token: Str, @RP cardId: Str) = jwt.auth(token) { u ->
         // Try to look up the card
         val card = cardService.tryLookup(cardId) ?: (404 - "Card not found")

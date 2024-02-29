@@ -21,6 +21,13 @@ typealias API = RequestMapping
 typealias Str = String
 typealias Bool = Boolean
 
+@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
+@Retention(AnnotationRetention.RUNTIME)
+annotation class Doc(
+    val desc: String,
+    val ret: String = ""
+)
+
 // Make it easier to throw a ResponseStatusException
 operator fun HttpStatus.invoke(message: String? = null): Nothing = throw ApiException(value(), message ?: this.reasonPhrase)
 operator fun Int.minus(message: String): Nothing = throw ApiException(this, message)

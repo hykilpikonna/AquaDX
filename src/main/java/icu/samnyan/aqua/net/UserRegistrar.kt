@@ -37,10 +37,8 @@ class UserRegistrar(
         const val cardExtIdEnd = 4294967295
     }
 
-    /**
-     * Register a new user
-     */
     @API("/register")
+    @Doc("Register a new user. This will also create a ghost card for the user and send a confirmation email.", "Success message")
     suspend fun register(
         @RP username: Str, @RP email: Str, @RP password: Str, @RP turnstile: Str,
         request: HttpServletRequest
@@ -86,6 +84,7 @@ class UserRegistrar(
     }
 
     @API("/login")
+    @Doc("Login with email/username and password. This will also check if the email is verified and send another confirmation", "JWT token")
     suspend fun login(
         @RP email: Str, @RP password: Str, @RP turnstile: Str,
         request: HttpServletRequest
@@ -130,6 +129,7 @@ class UserRegistrar(
     }
 
     @API("/confirm-email")
+    @Doc("Confirm email address with a token sent through email to the user.", "Success message")
     suspend fun confirmEmail(@RP token: Str): Any {
         // Find the confirmation
         val confirmation = async { confirmationRepo.findByToken(token) }
@@ -147,9 +147,11 @@ class UserRegistrar(
     }
 
     @API("/me")
+    @Doc("Get the information of the current logged-in user.", "User information")
     suspend fun getUser(@RP token: Str) = jwt.auth(token)
 
     @API("/setting")
+    @Doc("Validate and set a user setting field.", "Success message")
     suspend fun setting(@RP token: Str, @RP key: Str, @RP value: Str) = jwt.auth(token) { u ->
         // Check if the key is a settable field
         val field = SETTING_FIELDS.find { it.name == key } ?: (400 - "Invalid setting")
