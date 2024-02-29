@@ -1,3 +1,44 @@
+<!-- Svelte 4.2.11 -->
+
+<script lang="ts">
+  import { slide } from "svelte/transition";
+  import { USER } from "../../libs/sdk";
+  import type { UserMe } from "../../libs/generalTypes";
+  import { codeToHtml } from 'shiki'
+  import { AQUA_CONNECTION, AQUA_HOST } from "../../libs/config";
+
+  let user: UserMe
+  let keychip: string;
+  let keychipCode: string;
+  let getStartedRequesting = false;
+
+  USER.me().then((u) => {
+    user = u;
+  });
+
+  function getStarted() {
+    if (getStartedRequesting) return;
+
+    getStartedRequesting = true;
+    USER.keychip().then(k => {
+      getStartedRequesting = false;
+      keychip = k;
+      codeToHtml(`
+[dns]
+default=${AQUA_CONNECTION}
+
+[keychip]
+enable=1
+; This is your unique keychip, do not share it with anyone
+id=${keychip.slice(0, 4)}-${keychip.slice(4)}1337`.trim(), {
+        lang: 'ini',
+        theme: 'rose-pine',
+      }).then((html) => {
+        keychipCode = html;
+      });
+    });
+  }
+</script>
 
 <div class="setup-instructions">
   <h2>Connection Setup</h2>
@@ -11,4 +52,43 @@
     If not, please contact the seller of your device for the required files, as we will not provide them for copyright reasons.
   </blockquote>
 
+  {#if user}
+    <div transition:slide>
+      {#if !keychip}
+        <!-- TODO : Fix transition -->
+        <button class="emp" on:click={getStarted} transition:slide>Get started</button>
+      {:else}
+        <div transition:slide>
+          <p>
+            Please edit your segatools.ini file and modify the following lines:
+          </p>
+
+          <div class="code" style="overflow: auto;">
+            {@html keychipCode}
+          </div>
+        </div>
+      {/if}
+    </div>
+  {:else}
+    <p>Loading...</p>
+  {/if}
 </div>
+
+<style lang="sass">
+  :global(pre.shiki)
+    background-color: transparent !important
+
+    :global(code)
+      counter-reset: step
+      counter-increment: step 0
+
+    :global(code .line::before)
+      content: counter(step)
+      counter-increment: step
+      width: 1rem
+      margin-right: 1.5rem
+      display: inline-block
+      text-align: right
+      color: rgba(115,138,148,.4)
+
+</style>
