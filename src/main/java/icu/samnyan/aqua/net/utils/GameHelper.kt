@@ -67,6 +67,8 @@ interface GenericPlaylogRepo {
     fun findByUserCardExtId(extId: Long): List<IGenericGamePlaylog>
 }
 
+fun List<IGenericGamePlaylog>.acc() = if (isEmpty()) 0.0 else sumOf { it.achievement }.toDouble() / size / 10000.0
+
 fun genericUserSummary(
     u: AquaNetUser,
     userDataRepo: GenericUserDataRepo<*, *>,
@@ -90,7 +92,7 @@ fun genericUserSummary(
         name = user.userName,
         iconId = user.iconId,
         serverRank = userDataRepo.getRanking(user.playerRating),
-        accuracy = plays.sumOf { it.achievement }.toDouble() / plays.size / 10000.0,
+        accuracy = plays.acc(),
         rating = user.playerRating,
         ratingHighest = user.highestRating,
         ranks = ranks.map { (k, v) -> RankCount(k, v) },
@@ -120,7 +122,7 @@ fun genericRanking(
         GenericRankingPlayer(
             rank = i + 1,
             name = user.userName,
-            accuracy = plays.sumOf { it.achievement }.toDouble() / plays.size / 10000.0,
+            accuracy = plays.acc(),
             rating = user.playerRating,
             allPerfect = plays.count { it.isAllPerfect },
             fullCombo = plays.count { it.isFullCombo },
