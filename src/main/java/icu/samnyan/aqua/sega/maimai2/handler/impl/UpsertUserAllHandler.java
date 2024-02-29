@@ -93,7 +93,10 @@ public class UpsertUserAllHandler implements BaseHandler {
             // Check playlog backlog
             var backlog = UploadUserPlaylogHandler.getPlayBacklog();
             if (backlog.containsKey(userId))
-                backlog.remove(userId).forEach(it -> userPlaylogRepository.save(it.getPlaylog()));
+                backlog.remove(userId).forEach(it -> {
+                    it.getPlaylog().setUser(newUserData);
+                    userPlaylogRepository.save(it.getPlaylog());
+                });
         }
 
         // UserExtend
