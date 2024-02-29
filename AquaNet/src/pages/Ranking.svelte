@@ -23,13 +23,14 @@
 
     {#if d !== null}
     {#each d.user as user}
-    <p>{user.rank}</p>
-    <h4>{user.name}</h4>
-    <h4>{(user.accuracy / 1).toFixed(2)}%</h4>
-    <h4>{user.rating}</h4>
-    <h4>{user.fullCombo}</h4>
-    <h4>{user.allPerfect}</h4>
-    <hr style="width:70vw">
+    <div class="lb-placement">
+        <p class="placement-rank">{user.rank}</p>
+        <h4 class="placement-name">{user.name}</h4>
+        <h4 class="placement-accuracy">{(user.accuracy / 1).toFixed(2)}%</h4>
+        <h4 class="placement-rating">{user.rating}</h4>
+        <h4 class="placement-full-combo">{user.fullCombo}</h4>
+        <h4 class="placement-all-perfect">{user.allPerfect}</h4>
+    </div>
     {/each}
     {:else}
     <p>Please Wait...</p>
