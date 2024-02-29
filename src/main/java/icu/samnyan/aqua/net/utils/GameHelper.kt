@@ -126,7 +126,8 @@ fun genericRanking(
             rating = user.playerRating,
             allPerfect = plays.count { it.isAllPerfect },
             fullCombo = plays.count { it.isFullCombo },
-            lastSeen = user.lastPlayDate.toString()
+            lastSeen = user.lastPlayDate.toString(),
+            username = user.card!!.aquaUser?.username ?: ""
         )
     }
 }
