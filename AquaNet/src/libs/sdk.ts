@@ -4,6 +4,7 @@ import type { GameName } from "./scoring";
 
 interface RequestInitWithParams extends RequestInit {
   params?: { [index: string]: string }
+  localCache?: boolean
 }
 
 /**
@@ -32,10 +33,17 @@ export function fetchWithParams(input: URL | RequestInfo, init?: RequestInitWith
   }), init)
 }
 
+let cache: { [index: string]: any } = {}
+
 export async function post(endpoint: string, params: any, init?: RequestInitWithParams): Promise<any> {
   // Add token if exists
   const token = localStorage.getItem('token')
   if (token && !('token' in params)) params = { ...(params ?? {}), token }
+
+  if (init?.localCache) {
+    const cached = cache[endpoint + JSON.stringify(params) + JSON.stringify(init)]
+    if (cached) return cached
+  }
 
   let res = await fetchWithParams(AQUA_HOST + endpoint, {
     method: 'POST',
@@ -64,7 +72,10 @@ export async function post(endpoint: string, params: any, init?: RequestInitWith
     throw new Error(`${text}`)
   }
 
-  return res.json()
+  const ret = res.json()
+  cache[endpoint + JSON.stringify(params) + JSON.stringify(init)] = ret
+
+  return ret
 }
 
 /**
@@ -89,7 +100,9 @@ export const USER = {
     post('/api/v2/user/confirm-email', { token }),
   me: (): Promise<UserMe> =>
     post('/api/v2/user/me', {}),
-  isLoggedIn: () => !!localStorage.getItem('token')
+  isLoggedIn: () => !!localStorage.getItem('token'),
+  keychip: (): Promise<string> =>
+    post('/api/v2/user/keychip', {}).then(it => it.keychip),
 }
 
 export const CARD = {
