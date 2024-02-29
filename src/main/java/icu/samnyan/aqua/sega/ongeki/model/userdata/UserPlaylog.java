@@ -160,12 +160,6 @@ public class UserPlaylog implements Serializable, IGenericGamePlaylog {
 
     private int battlePoint;
 
-    @NotNull
-    @Override
-    public Object getDate() {
-        return playDate;
-    }
-
     @Override
     public int getAchievement() {
         return techScore;

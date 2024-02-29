@@ -162,12 +162,6 @@ public class UserPlaylog implements Serializable, IGenericGamePlaylog {
         return playerRating;
     }
 
-    @NotNull
-    @Override
-    public String getDate() {
-        return playDate.toString();
-    }
-
     @Override
     public int getBeforeRating() {
         return playerRating; // TODO: Get before rating

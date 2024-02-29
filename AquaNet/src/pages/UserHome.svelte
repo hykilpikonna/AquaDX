@@ -35,9 +35,6 @@
     console.log(trend)
     console.log(music)
 
-    // Sort recent by date
-    user.recent.sort((a, b) => b.playDate < a.playDate ? -1 : 1)
-
     d = {user, trend, recent: user.recent.map(it => {return {...music[it.musicId], ...it}})}
     localStorage.setItem("tmp-user-details", JSON.stringify(d))
     renderCal(calElement, trend.map(it => {return {date: it.date, value: it.plays}}))

@@ -265,12 +265,6 @@ public class UserPlaylog implements Serializable, IGenericGamePlaylog {
     @JsonProperty("extBool1")
     private boolean extBool1;
 
-    @NotNull
-    @Override
-    public Object getDate() {
-        return playDate;
-    }
-
     @Override
     public boolean isFullCombo() {
         return maxCombo == totalCombo;

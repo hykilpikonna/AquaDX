@@ -53,7 +53,7 @@ interface GenericUserDataRepo<T : IGenericUserData, ID> : JpaRepository<T, ID> {
 interface IGenericGamePlaylog {
     val musicId: Int
     val level: Int
-    val date: Any
+    val userPlayDate: Any
     val achievement: Int
     val maxCombo: Int
     val isFullCombo: Boolean
@@ -102,7 +102,7 @@ fun genericUserSummary(
         lastSeen = user.lastPlayDate.toString(),
         lastVersion = user.lastRomVersion,
         ratingComposition = ratingComposition,
-        recent = plays.sortedBy { it.date.toString() }.takeLast(15)
+        recent = plays.sortedBy { it.userPlayDate.toString() }.takeLast(15).reversed()
     )
 }
 
