@@ -1,6 +1,7 @@
+
 import java.time.Instant
-import java.time.format.DateTimeFormatter
 import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 plugins {
     java
@@ -79,6 +80,10 @@ group = "icu.samnya"
 version = "0.0.47"
 description = "Aqua Server"
 java.sourceCompatibility = JavaVersion.VERSION_17
+
+springBoot {
+    mainClass.set("icu.samnyan.aqua.AquaServerApplicationKt")
+}
 
 val buildTime: String by extra(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss z").withZone(ZoneId.of("UTC")).format(Instant.now()))
 
