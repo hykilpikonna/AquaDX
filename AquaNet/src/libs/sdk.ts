@@ -129,7 +129,7 @@ export const GAME = {
   userSummary: (username: string, game: GameName): Promise<GenericGameSummary> =>
     post(`/api/v2/game/${game}/user-summary`, { username }),
   ranking: (game: GameName): Promise<GenericRanking[]> =>
-      post(`/api/v2/game/${game}/ranking`, { }),
+    post(`/api/v2/game/${game}/ranking`, { }),
 
 }
 
