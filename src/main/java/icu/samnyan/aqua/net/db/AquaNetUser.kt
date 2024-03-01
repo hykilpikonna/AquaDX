@@ -117,6 +117,10 @@ class AquaUserServices(
         if (length > 32) 400 - "Username too long (max 32 letters)"
         if (contains(" ")) 400 - "Username cannot contain spaces"
 
+        // card{id} is a reserved format
+        if (startsWith("card") && substring(4).toLongOrNull() != null)
+            400 - "Username cannot be 'card' + a number. This format is reserved for card IDs."
+
         // Check if username is within A-Za-z0-9_-~.
         find { !it.isLetterOrDigit() && it != '_' && it != '-' && it != '~' && it != '.' }?.let {
             400 - "Username cannot contain `$it`. Please only use letters (A-Z), numbers (0-9), and `_-~.` characters. You can set a display name later."
