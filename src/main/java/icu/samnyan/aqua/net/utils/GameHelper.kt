@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.net.utils
 
+import ext.millis
 import ext.minus
 import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.games.GenericGameSummary
@@ -110,10 +111,18 @@ fun genericUserSummary(
     )
 }
 
+val rankingCache = mutableMapOf<String, Pair<Long, List<GenericRankingPlayer>>>()
+
 fun genericRanking(
     userDataRepo: GenericUserDataRepo<*, *>,
     userPlaylogRepo: GenericPlaylogRepo,
 ): List<GenericRankingPlayer> {
+    // Read from cache if we just computed it less than 2 minutes ago
+    val cacheKey = userPlaylogRepo::class.java.name
+    rankingCache[cacheKey]?.let { (t, r) ->
+        if (millis() - t < 120_000) return r
+    }
+
     // TODO: pagination
     val users = userDataRepo.findAll().sortedByDescending { it.playerRating }
     return users.filter { it.card != null }.mapIndexed { i, user ->
@@ -129,6 +138,6 @@ fun genericRanking(
             lastSeen = user.lastPlayDate.toString(),
             username = user.card!!.aquaUser?.username ?: ""
         )
-    }
+    }.also { rankingCache[cacheKey] = millis() to it }  // Update the cache
 }
 
