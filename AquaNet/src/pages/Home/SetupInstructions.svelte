@@ -5,7 +5,7 @@
   import { USER } from "../../libs/sdk";
   import type { UserMe } from "../../libs/generalTypes";
   import { codeToHtml } from 'shiki'
-  import { AQUA_CONNECTION, AQUA_HOST } from "../../libs/config";
+  import { AQUA_CONNECTION } from "../../libs/config";
 
   let user: UserMe
   let keychip: string;
@@ -67,6 +67,10 @@ id=${keychip.slice(0, 4)}-${keychip.slice(4)}1337`.trim(), {
           <div class="code">
             {@html keychipCode}
           </div>
+
+          <p>
+            Then, after you restart the game, you should be able to connect to AquaDX. Please verify that the network tests are all GOOD in the test menu.
+          </p>
         </div>
       {/if}
     </div>
@@ -76,6 +80,9 @@ id=${keychip.slice(0, 4)}-${keychip.slice(4)}1337`.trim(), {
 </div>
 
 <style lang="sass">
+  .code
+    overflow-x: auto
+
   :global(pre.shiki)
     background-color: transparent !important
 
