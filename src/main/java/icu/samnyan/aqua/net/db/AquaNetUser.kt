@@ -115,7 +115,7 @@ class AquaUserServices(
         userRepo.findByUsernameIgnoreCase(username)?.let(callback) ?: (404 - "User not found")
 
     fun <T> cardByName(username: Str, callback: (Card) -> T) =
-        if (username.startsWith("card")) username.substring(4).toLongOrNull()
+        if (username.startsWith("user")) username.substring(4).toLongOrNull()
             ?.let { cardRepo.findById(it).getOrNull() }
             ?.let(callback) ?: (404 - "Card not found")
         else byName(username) { callback(it.ghostCard) }
@@ -127,8 +127,8 @@ class AquaUserServices(
         if (contains(" ")) 400 - "Username cannot contain spaces"
 
         // card{id} is a reserved format
-        if (startsWith("card") && substring(4).toLongOrNull() != null)
-            400 - "Username cannot be 'card' + a number. This format is reserved for card IDs."
+        if (startsWith("user") && substring(4).toLongOrNull() != null)
+            400 - "Username cannot be 'user' + a number. This format is reserved for user IDs."
 
         // Check if username is within A-Za-z0-9_-~.
         find { !it.isLetterOrDigit() && it != '_' && it != '-' && it != '~' && it != '.' }?.let {
