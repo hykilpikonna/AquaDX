@@ -10,6 +10,7 @@
   let ifError = null;
   Promise.all([GAME.ranking("mai2")])
     .then(([users]) => {
+      console.log(users)
       d = { users };
     })
     .catch((error) => {
@@ -33,7 +34,11 @@
       {#each d.users as user, i (user.rank)}
         <div class={clz({ alternate: i % 2 === 1 }, "lb-user")}>
           <span class="rank">#{user.rank}</span>
-          <a class="name" href="/u/61702139">{user.name}</a>
+          {#if user.username !== ""}
+          <a class="name" href="/u/{user.username}">{user.name}</a>
+          {:else}
+          <span class="name">{user.name}</span>
+          {/if}
           <span class="rating">{user.rating.toLocaleString()}</span>
           <span class="accuracy">{(+user.accuracy).toFixed(2)}%</span>
           <span class="fc">{user.fullCombo}</span>
