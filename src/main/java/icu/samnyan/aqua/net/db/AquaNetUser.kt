@@ -116,7 +116,7 @@ class AquaUserServices(
 
     fun <T> cardByName(username: Str, callback: (Card) -> T) =
         if (username.startsWith("card")) username.substring(4).toLongOrNull()
-            ?.let { cardRepo.findByExtId(it).getOrNull() }
+            ?.let { cardRepo.findById(it).getOrNull() }
             ?.let(callback) ?: (404 - "Card not found")
         else byName(username) { callback(it.ghostCard) }
 
