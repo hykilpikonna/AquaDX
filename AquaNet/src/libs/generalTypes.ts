@@ -64,6 +64,7 @@ export interface GenericGamePlaylog {
 
 export interface GenericRanking {
   name: string
+  username: string
   rank: number
   accuracy: number
   rating: number

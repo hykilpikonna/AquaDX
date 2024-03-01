@@ -3,6 +3,7 @@
   import { GAME } from "../libs/sdk";
   import type { GenericRanking } from "../libs/generalTypes";
   import ErrorMessage from "../ErrorMessage.svelte";
+  import LoadingMessage from "../LoadingMessage.svelte";
 
   title(`Ranking`);
 
@@ -49,7 +50,7 @@
   {:else if ifError}
   <ErrorMessage {ifError}/>
   {:else}
-    <p>Please Wait...</p>
+  <LoadingMessage/>
   {/if}
 </main>
 
@@ -97,4 +98,6 @@
 
     &.alternate
       background-color: $ov-light
+
+      
 </style>

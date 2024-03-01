@@ -9,6 +9,7 @@
   import { DATA, GAME } from "../libs/sdk";
   import { type GameName, getMult } from "../libs/scoring";
   import ErrorMessage from "../ErrorMessage.svelte";
+  import LoadingMessage from "../LoadingMessage.svelte";
 
   registerChart()
 
@@ -197,7 +198,7 @@
     {:else if ifError}
     <ErrorMessage {ifError}/>
     {:else}
-    <p>Loading...</p>
+    <LoadingMessage/>
   {/if}
 </main>
 
