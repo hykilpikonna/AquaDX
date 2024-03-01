@@ -2,16 +2,19 @@
   import { clz, title } from "../libs/ui";
   import { GAME } from "../libs/sdk";
   import type { GenericRanking } from "../libs/generalTypes";
+  import ErrorMessage from "../ErrorMessage.svelte";
 
-  title(`Ranking`)
+  title(`Ranking`);
 
-  let d: { users: GenericRanking[] }
-
-  Promise.all([
-    GAME.ranking('mai2')
-  ]).then(([ users ]) => {
-    d = { users }
-  })
+  let d: { users: GenericRanking[] };
+  let ifError = null;
+  Promise.all([GAME.ranking("mai2")])
+    .then(([users]) => {
+      d = { users };
+    })
+    .catch((error) => {
+      ifError = error;
+    });
 </script>
 
 <main class="content leaderboard">
@@ -28,9 +31,9 @@
         <span class="ap">AP</span>
       </div>
       {#each d.users as user, i (user.rank)}
-        <div class={clz({alternate: i % 2 === 1}, 'lb-user')}>
+        <div class={clz({ alternate: i % 2 === 1 }, "lb-user")}>
           <span class="rank">#{user.rank}</span>
-          <span class="name">{user.name}</span>
+          <a class="name" href="/u/61702139">{user.name}</a>
           <span class="rating">{user.rating.toLocaleString()}</span>
           <span class="accuracy">{(+user.accuracy).toFixed(2)}%</span>
           <span class="fc">{user.fullCombo}</span>
@@ -38,6 +41,8 @@
         </div>
       {/each}
     </div>
+  {:else if ifError}
+  <ErrorMessage {ifError}/>
   {:else}
     <p>Please Wait...</p>
   {/if}

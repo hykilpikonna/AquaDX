@@ -3,9 +3,11 @@
   import {getMaimaiAllMusic, getMaimai} from "../libs/maimai";
   import type {ParsedRating, Rating} from "../libs/maimaiTypes";
   import { getMult } from "../libs/scoring";
+  import ErrorMessage from "../ErrorMessage.svelte";
 
   export let userId: any
   userId = +userId
+  let ifError = null;
 
   if (!userId) console.error("No user ID provided")
 
@@ -25,6 +27,8 @@
       old: parseRating(data.userRating.ratingList),
       new: parseRating(data.userRating.newRatingList)
     }
+  }).catch((error) => {
+    ifError = error
   })
 
   function parseRating(arr: Rating[]) {
@@ -91,7 +95,10 @@
         {/each}
       </div>
     {/each}
-  {/if}
+    {:else if ifError}
+    <ErrorMessage {ifError}/>
+    {/if}
+  
 </main>
 
 <style lang="sass">
