@@ -5,6 +5,7 @@ import ext.Str
 import ext.isValidEmail
 import ext.minus
 import icu.samnyan.aqua.sega.allnet.KeychipSession
+import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
 import jakarta.persistence.*
 import org.springframework.data.jpa.repository.JpaRepository
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
 import java.io.Serializable
+import kotlin.jvm.optionals.getOrNull
 import kotlin.reflect.KFunction
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.full.functions
@@ -96,6 +98,7 @@ data class SettingField(
 @Service
 class AquaUserServices(
     val userRepo: AquaNetUserRepo,
+    val cardRepo: CardRepository,
     val hasher: PasswordEncoder,
 ) {
     companion object {
@@ -110,6 +113,12 @@ class AquaUserServices(
 
     fun <T> byName(username: Str, callback: (AquaNetUser) -> T) =
         userRepo.findByUsernameIgnoreCase(username)?.let(callback) ?: (404 - "User not found")
+
+    fun <T> cardByName(username: Str, callback: (Card) -> T) =
+        if (username.startsWith("card")) username.substring(4).toLongOrNull()
+            ?.let { cardRepo.findByExtId(it).getOrNull() }
+            ?.let(callback) ?: (404 - "Card not found")
+        else byName(username) { callback(it.ghostCard) }
 
     fun checkUsername(username: Str) = username.apply {
         // Check if username is valid

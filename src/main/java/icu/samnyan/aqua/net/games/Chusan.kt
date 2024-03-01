@@ -19,25 +19,25 @@ class Chusan(
     val userGeneralDataRepository: UserGeneralDataRepository
 ): GameApiController
 {
-    override fun trend(@RP username: Str): List<TrendOut> = us.byName(username) { u ->
-        findTrend(userPlaylogRepository.findByUser_Card_ExtId(u.ghostCard.extId)
+    override fun trend(@RP username: Str): List<TrendOut> = us.cardByName(username) { card ->
+        findTrend(userPlaylogRepository.findByUser_Card_ExtId(card.extId)
             .map { TrendLog(it.playDate.toString(), it.playerRating) })
     }
 
     // Only show > AAA rank
     private val shownRanks = chu3Scores.filter { it.first >= 95 * 10000 }
 
-    override fun userSummary(@RP username: Str) = us.byName(username) { u ->
+    override fun userSummary(@RP username: Str) = us.cardByName(username) { card ->
         // Summary values: total plays, player rating, server-wide ranking
         // number of each rank, max combo, number of full combo, number of all perfect
-        val extra = userGeneralDataRepository.findByUser_Card_ExtId(u.ghostCard.extId)
+        val extra = userGeneralDataRepository.findByUser_Card_ExtId(card.extId)
             .associate { it.propertyKey to it.propertyValue }
 
         val ratingComposition = mapOf(
             "recent" to (extra["recent_rating_list"] ?: ""),
         )
 
-        genericUserSummary(u, userDataRepository, userPlaylogRepository, shownRanks, ratingComposition)
+        genericUserSummary(card, userDataRepository, userPlaylogRepository, shownRanks, ratingComposition)
     }
 
     override fun ranking() = genericRanking(userDataRepository, userPlaylogRepository)

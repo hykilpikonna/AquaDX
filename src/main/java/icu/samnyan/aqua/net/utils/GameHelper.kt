@@ -2,7 +2,6 @@ package icu.samnyan.aqua.net.utils
 
 import ext.millis
 import ext.minus
-import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.games.GenericGameSummary
 import icu.samnyan.aqua.net.games.GenericRankingPlayer
 import icu.samnyan.aqua.net.games.RankCount
@@ -71,7 +70,7 @@ interface GenericPlaylogRepo {
 fun List<IGenericGamePlaylog>.acc() = if (isEmpty()) 0.0 else sumOf { it.achievement }.toDouble() / size / 10000.0
 
 fun genericUserSummary(
-    u: AquaNetUser,
+    card: Card,
     userDataRepo: GenericUserDataRepo<*, *>,
     userPlaylogRepo: GenericPlaylogRepo,
     shownRanks: List<Pair<Int, String>>,
@@ -79,8 +78,8 @@ fun genericUserSummary(
 ): GenericGameSummary {
     // Summary values: total plays, player rating, server-wide ranking
     // number of each rank, max combo, number of full combo, number of all perfect
-    val user = userDataRepo.findByCard(u.ghostCard) ?: (404 - "User not found")
-    val plays = userPlaylogRepo.findByUserCardExtId(u.ghostCard.extId)
+    val user = userDataRepo.findByCard(card) ?: (404 - "User not found")
+    val plays = userPlaylogRepo.findByUserCardExtId(card.extId)
 
     // O(6n) ranks algorithm: Loop through the entire list of plays,
     // count the number of each rank

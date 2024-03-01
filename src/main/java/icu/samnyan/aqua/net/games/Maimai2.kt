@@ -19,16 +19,16 @@ class Maimai2(
     val userGeneralDataRepository: UserGeneralDataRepository
 ): GameApiController
 {
-    override fun trend(@RP username: Str): List<TrendOut> = us.byName(username) { u ->
-        findTrend(userPlaylogRepository.findByUser_Card_ExtId(u.ghostCard.extId)
+    override fun trend(@RP username: Str): List<TrendOut> = us.cardByName(username) { card ->
+        findTrend(userPlaylogRepository.findByUser_Card_ExtId(card.extId)
             .map { TrendLog(it.playDate, it.afterRating) })
     }
 
     // Only show > S rank
     private val shownRanks = mai2Scores.filter { it.first >= 97 * 10000 }
 
-    override fun userSummary(@RP username: Str) = us.byName(username) { u ->
-        val extra = userGeneralDataRepository.findByUser_Card_ExtId(u.ghostCard.extId)
+    override fun userSummary(@RP username: Str) = us.cardByName(username) { card ->
+        val extra = userGeneralDataRepository.findByUser_Card_ExtId(card.extId)
             .associate { it.propertyKey to it.propertyValue }
 
         val ratingComposition = mapOf(
@@ -36,7 +36,7 @@ class Maimai2(
             "best15" to (extra["recent_rating_new"] ?: "")
         )
 
-        genericUserSummary(u, userDataRepository, userPlaylogRepository, shownRanks, ratingComposition)
+        genericUserSummary(card, userDataRepository, userPlaylogRepository, shownRanks, ratingComposition)
     }
 
     override fun ranking() = genericRanking(userDataRepository, userPlaylogRepository)
