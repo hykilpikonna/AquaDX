@@ -123,8 +123,8 @@ fun genericRanking(
     }
 
     // TODO: pagination
-    val users = userDataRepo.findAll().sortedByDescending { it.playerRating }
-    return users.filter { it.card != null }.mapIndexed { i, user ->
+    val players = userDataRepo.findAll().sortedByDescending { it.playerRating }
+    return players.filter { it.card != null }.mapIndexed { i, user ->
         val plays = userPlaylogRepo.findByUserCardExtId(user.card!!.extId)
 
         GenericRankingPlayer(
@@ -135,7 +135,7 @@ fun genericRanking(
             allPerfect = plays.count { it.isAllPerfect },
             fullCombo = plays.count { it.isFullCombo },
             lastSeen = user.lastPlayDate.toString(),
-            username = user.card!!.aquaUser?.username ?: ""
+            username = user.card!!.aquaUser?.username ?: "user${user.card!!.id}"
         )
     }.also { rankingCache[cacheKey] = millis() to it }  // Update the cache
 }
