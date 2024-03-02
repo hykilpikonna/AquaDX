@@ -104,11 +104,13 @@ export interface MusicMeta {
   composer: string,
   bpm: number,
   ver: number,
-  note: {
-    lv: number
-    designer: string
-    lv_id: number
-    notes: number
+  notes: {
+    [key: number]: {
+      lv: number
+      designer: string
+      lv_id: number
+      notes: number
+    }
   }
 }
 

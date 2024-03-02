@@ -17,7 +17,7 @@
   export let game: GameName
   game = game || "mai2"
   let calElement: HTMLElement
-  let ifError = null
+  let ifError: string | null;
   title(`User ${username}`)
 
   interface MusicAndPlay extends MusicMeta, GenericGamePlaylog {}

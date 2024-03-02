@@ -8,7 +8,7 @@
 
   export let userId: any
   userId = +userId
-  let ifError = null;
+  let ifError: string | null;
 
   if (!userId) console.error("No user ID provided")
 

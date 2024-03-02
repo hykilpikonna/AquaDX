@@ -8,7 +8,7 @@
   title(`Ranking`);
 
   let d: { users: GenericRanking[] };
-  let ifError = null;
+  let ifError: string | null;
   Promise.all([GAME.ranking("mai2")])
     .then(([users]) => {
       console.log(users)
