@@ -1,12 +1,14 @@
 package icu.samnyan.aqua.net.games
 
 import ext.API
+import ext.minus
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.*
 import icu.samnyan.aqua.sega.ongeki.dao.userdata.UserDataRepository
 import icu.samnyan.aqua.sega.ongeki.dao.userdata.UserGeneralDataRepository
 import icu.samnyan.aqua.sega.ongeki.dao.userdata.UserPlaylogRepository
 import org.springframework.web.bind.annotation.RestController
+import kotlin.jvm.optionals.getOrNull
 
 @RestController
 @API("api/v2/game/ongeki")
@@ -33,4 +35,6 @@ class Ongeki(
     }
 
     override fun ranking() = genericRanking(userDataRepository, userPlaylogRepository)
+
+    override fun playlog(id: Long) = userPlaylogRepository.findById(id).getOrNull() ?: (404 - "Playlog not found")
 }

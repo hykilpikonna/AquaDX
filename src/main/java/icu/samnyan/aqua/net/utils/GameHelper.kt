@@ -139,4 +139,3 @@ fun genericRanking(
         )
     }.also { rankingCache[cacheKey] = millis() to it }  // Update the cache
 }
-

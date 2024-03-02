@@ -49,7 +49,8 @@ interface GameApiController {
     fun trend(@RP username: String): List<TrendOut>
     @API("user-summary")
     fun userSummary(@RP username: String): GenericGameSummary
-
     @API("ranking")
     fun ranking(): List<GenericRankingPlayer>
+    @API("playlog")
+    fun playlog(@RP id: Long): IGenericGamePlaylog
 }

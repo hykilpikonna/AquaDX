@@ -3,12 +3,14 @@ package icu.samnyan.aqua.net.games
 import ext.API
 import ext.RP
 import ext.Str
+import ext.minus
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.*
 import icu.samnyan.aqua.sega.chusan.dao.userdata.UserDataRepository
 import icu.samnyan.aqua.sega.chusan.dao.userdata.UserGeneralDataRepository
 import icu.samnyan.aqua.sega.chusan.dao.userdata.UserPlaylogRepository
 import org.springframework.web.bind.annotation.RestController
+import kotlin.jvm.optionals.getOrNull
 
 @RestController
 @API("api/v2/game/chu3")
@@ -41,4 +43,6 @@ class Chusan(
     }
 
     override fun ranking() = genericRanking(userDataRepository, userPlaylogRepository)
+
+    override fun playlog(@RP id: Long) = userPlaylogRepository.findById(id).getOrNull() ?: (404 - "Playlog not found")
 }
