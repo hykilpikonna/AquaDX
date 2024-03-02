@@ -4,10 +4,11 @@
   import type {ParsedRating, Rating} from "../libs/maimaiTypes";
   import { getMult } from "../libs/scoring";
   import ErrorMessage from "../ErrorMessage.svelte";
+    import LoadingMessage from "../LoadingMessage.svelte";
 
   export let userId: any
   userId = +userId
-  let ifError = null;
+  let ifError: string | null;
 
   if (!userId) console.error("No user ID provided")
 
@@ -97,6 +98,8 @@
     {/each}
     {:else if ifError}
     <ErrorMessage {ifError}/>
+    {:else}
+    <LoadingMessage/>
     {/if}
   
 </main>

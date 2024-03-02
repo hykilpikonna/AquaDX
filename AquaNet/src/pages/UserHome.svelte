@@ -9,6 +9,7 @@
   import { DATA, GAME } from "../libs/sdk";
   import { type GameName, getMult } from "../libs/scoring";
   import ErrorMessage from "../ErrorMessage.svelte";
+  import LoadingMessage from "../LoadingMessage.svelte";
 
   registerChart()
 
@@ -16,7 +17,7 @@
   export let game: GameName
   game = game || "mai2"
   let calElement: HTMLElement
-  let ifError = null
+  let ifError: string | null;
   title(`User ${username}`)
 
   interface MusicAndPlay extends MusicMeta, GenericGamePlaylog {}
@@ -197,7 +198,7 @@
     {:else if ifError}
     <ErrorMessage {ifError}/>
     {:else}
-    <p>Loading...</p>
+    <LoadingMessage/>
   {/if}
 </main>
 

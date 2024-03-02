@@ -3,11 +3,12 @@
   import { GAME } from "../libs/sdk";
   import type { GenericRanking } from "../libs/generalTypes";
   import ErrorMessage from "../ErrorMessage.svelte";
+  import LoadingMessage from "../LoadingMessage.svelte";
 
   title(`Ranking`);
 
   let d: { users: GenericRanking[] };
-  let ifError = null;
+  let ifError: string | null;
   Promise.all([GAME.ranking("mai2")])
     .then(([users]) => {
       console.log(users)
@@ -49,7 +50,7 @@
   {:else if ifError}
   <ErrorMessage {ifError}/>
   {:else}
-    <p>Please Wait...</p>
+  <LoadingMessage/>
   {/if}
 </main>
 
@@ -97,4 +98,6 @@
 
     &.alternate
       background-color: $ov-light
+
+      
 </style>
