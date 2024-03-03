@@ -1,11 +1,13 @@
 
-const AQUA_HOST = 'https://aquanet.example.com/aqua'
-const DATA_HOST = 'https://aquanet.example.com'
+export const AQUA_HOST = 'https://aquanet.example.com/aqua'
+export const DATA_HOST = 'https://aquanet.example.com'
 
 // This will be displayed for users to connect from the client
-const AQUA_CONNECTION = 'aqua.example.com'
+export const AQUA_CONNECTION = 'aqua.example.com'
 
-const TURNSTILE_SITE_KEY = '0x4AAAAAAASGA2KQEIelo9P9'
-const DISCORD_INVITE = 'https://discord.gg/FNgveqFF7s'
+export const TURNSTILE_SITE_KEY = '0x4AAAAAAASGA2KQEIelo9P9'
+export const DISCORD_INVITE = 'https://discord.gg/FNgveqFF7s'
 
-export { AQUA_HOST, DATA_HOST, TURNSTILE_SITE_KEY, AQUA_CONNECTION, DISCORD_INVITE }
+// UI
+export const FADE_OUT = { duration: 300 }
+export const FADE_IN = { delay: 300 }
