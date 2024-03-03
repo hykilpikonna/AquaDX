@@ -207,7 +207,7 @@ $gap: 20px
     display: flex
     align-items: flex-end
     gap: $gap
-    margin-top: -40px
+    margin-top: -72px
 
     h2
       font-size: 2rem
