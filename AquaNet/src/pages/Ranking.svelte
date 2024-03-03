@@ -2,21 +2,18 @@
   import { clz, title } from "../libs/ui";
   import { GAME } from "../libs/sdk";
   import type { GenericRanking } from "../libs/generalTypes";
-  import ErrorMessage from "../ErrorMessage.svelte";
-  import LoadingMessage from "../LoadingMessage.svelte";
+  import StatusOverlays from "../components/StatusOverlays.svelte";
 
   title(`Ranking`);
 
   let d: { users: GenericRanking[] };
-  let ifError: string | null;
+  let error: string | null;
   Promise.all([GAME.ranking("mai2")])
     .then(([users]) => {
       console.log(users)
       d = { users };
     })
-    .catch((error) => {
-      ifError = error;
-    });
+    .catch((e) => error = e.message);
 </script>
 
 <main class="content leaderboard">
@@ -47,11 +44,9 @@
         </div>
       {/each}
     </div>
-  {:else if ifError}
-  <ErrorMessage {ifError}/>
-  {:else}
-  <LoadingMessage/>
   {/if}
+
+  <StatusOverlays error={error} loading={!d} />
 </main>
 
 <style lang="sass">

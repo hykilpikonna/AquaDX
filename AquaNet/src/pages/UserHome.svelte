@@ -8,8 +8,7 @@
   import 'chartjs-adapter-moment';
   import { DATA, GAME } from "../libs/sdk";
   import { type GameName, getMult } from "../libs/scoring";
-  import ErrorMessage from "../ErrorMessage.svelte";
-  import LoadingMessage from "../LoadingMessage.svelte";
+  import StatusOverlays from "../components/StatusOverlays.svelte";
 
   registerChart()
 
@@ -17,7 +16,7 @@
   export let game: GameName
   game = game || "mai2"
   let calElement: HTMLElement
-  let ifError: string | null;
+  let error: string | null;
   title(`User ${username}`)
 
   interface MusicAndPlay extends MusicMeta, GenericGamePlaylog {}
@@ -40,9 +39,7 @@
     d = {user, trend, recent: user.recent.map(it => {return {...music[it.musicId], ...it}})}
     localStorage.setItem("tmp-user-details", JSON.stringify(d))
     renderCal(calElement, trend.map(it => {return {date: it.date, value: it.plays}}))
-  }).catch((error) => {
-      ifError = error;
-    });
+  }).catch((e) => error = e.message);
 
   const pfpNotFound = (e: Event) => {
     (e.target as HTMLImageElement).src = "/assets/imgs/no_profile.png"
@@ -54,7 +51,7 @@
 </script>
 
 <main id="user-home" class="content">
-  {#if d !== null}
+  {#if d}
     <div class="user-pfp">
       <img src={`${DATA_HOST}/d/${game}/assetbundle/icon/${d.user.iconId.toString().padStart(6, "0")}.png`} alt="" class="pfp" on:error={pfpNotFound}>
       <h2>{d.user.name}</h2>
@@ -195,11 +192,9 @@
         {/each}
       </div>
     </div>
-    {:else if ifError}
-    <ErrorMessage {ifError}/>
-    {:else}
-    <LoadingMessage/>
   {/if}
+
+  <StatusOverlays {error} loading={!d} />
 </main>
 
 <style lang="sass">
