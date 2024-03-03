@@ -77,8 +77,8 @@ dependencies {
 }
 
 group = "icu.samnya"
-version = "0.0.47"
-description = "Aqua Server"
+version = "1.0.0"
+description = "AquaDX Arcade Server"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 springBoot {
