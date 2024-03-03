@@ -49,7 +49,7 @@ class UploadUserPlaylogHandler(
     fun cleanBacklog() {
         // Clean all backlog entries that are older than 5 minutes
         val now = millis()
-        playBacklog.filter { (k, v) -> v.isEmpty() || v[0].time - now > 300_000 }.toList()
+        playBacklog.filter { (_, v) -> v.isEmpty() || v[0].time - now > 300_000 }.toList()
             .forEach { (k, _) -> playBacklog.remove(k) }
     }
 }
