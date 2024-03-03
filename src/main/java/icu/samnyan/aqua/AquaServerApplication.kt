@@ -1,7 +1,7 @@
 package icu.samnyan.aqua
 
 import icu.samnyan.aqua.sega.aimedb.AimeDbServer
-import icu.samnyan.aqua.spring.util.AutoChecker
+import icu.samnyan.aqua.spring.AutoChecker
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.scheduling.annotation.EnableScheduling
