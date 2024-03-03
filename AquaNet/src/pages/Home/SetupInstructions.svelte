@@ -41,7 +41,7 @@ id=${keychip.slice(0, 4)}-${keychip.slice(4)}1337`.trim(), {
 </script>
 
 <div class="setup-instructions">
-  <h2>Connection Setup</h2>
+  <h2>Setup Connection</h2>
   <p>
     Welcome! If you own an arcade cabinet or game setup,
     please follow the instructions below to set up the connection with AquaDX.
