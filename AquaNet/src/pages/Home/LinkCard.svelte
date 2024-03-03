@@ -233,7 +233,8 @@
 
   <h2>Link Card</h2>
   <p>Please enter the following information:</p>
-  <p>1. The 20-digit access code on the back of your card. </p>
+  <p>1. The 20-digit access code on the back of your card.
+    (If it doesn't work, please try scanning your card in game and enter the access code shown on screen)</p>
   <label>
     <!-- DO NOT change the order of bind:value and on:input. Their order determines the order of reactivity -->
     <input placeholder="e.g. 5200 1234 5678 9012 3456"
