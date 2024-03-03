@@ -68,22 +68,6 @@
         > span
           display: none
 
-    > div, > a
-      cursor: pointer
-      transition: $transition
-      text-decoration: underline 1px solid transparent
-      text-underline-offset: 0.1em
-
-      display: flex
-      align-items: center
-      color: unset
-      font-weight: unset
-
-      &:hover
-        color: $c-main
-        text-decoration-color: $c-main
-        text-underline-offset: 0.5em
-
     @media (max-width: $w-mobile)
       justify-content: center
 

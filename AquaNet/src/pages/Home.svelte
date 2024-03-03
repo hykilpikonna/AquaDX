@@ -5,15 +5,20 @@
   import {FADE_IN, FADE_OUT} from "../libs/config";
 
   let tab = 0;
+  let tabs = ["Portal", "Link Card", "Game Setup"];
 </script>
 
 <main class="content">
-  <h2>Welcome to AquaDX!</h2>
-
+  <h2 class="outer-title">Home</h2>
   <nav class="tabs">
-    <button class:active={tab === 0} on:click={() => tab = 0}>Welcome</button>
-    <button class:active={tab === 1} on:click={() => tab = 1}>Link Card</button>
-    <button class:active={tab === 2} on:click={() => tab = 2}>Setup Instructions</button>
+    {#each tabs as t, i}
+      <div class="clickable"
+        class:active={tab === i}
+        on:click={() => tab = i}
+        on:keydown={(e) => e.key === "Enter" && (tab = i)}
+        role="button" tabindex={i}>{t}
+      </div>
+    {/each}
   </nav>
 
   {#if tab === 0}
@@ -29,3 +34,15 @@
     </div>
   {/if}
 </main>
+
+<style lang="sass">
+  @import "../vars"
+
+  .tabs
+    display: flex
+    gap: 1rem
+
+    div
+      &.active
+        color: $c-main
+</style>

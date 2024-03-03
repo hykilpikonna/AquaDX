@@ -176,6 +176,16 @@ main.content
   @media (max-width: $w-mobile)
     margin: 100px 0 0
 
+  > h2.outer-title
+    margin-top: -3.5rem
+    //color: transparent
+    //background-color: rgba($c-main, 70%)
+    //-webkit-background-clip: text
+    //background-clip: text
+    //text-shadow: rgb(0 0 0 / 50%) 0 5px 6px
+
+    @media (max-width: $w-mobile)
+      text-align: center
 
 // Overlay
 .overlay
@@ -207,3 +217,20 @@ main.content
 
 .no-margin
   margin: 0
+
+nav
+  > div, > a
+    cursor: pointer
+    transition: $transition
+    text-decoration: underline 1px solid transparent
+    text-underline-offset: 0.1em
+
+    display: flex
+    align-items: center
+    color: unset
+    font-weight: unset
+
+    &:hover
+      color: $c-main
+      text-decoration-color: $c-main
+      text-underline-offset: 0.5em
