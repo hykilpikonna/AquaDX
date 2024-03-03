@@ -61,6 +61,10 @@
       transition: all 0.2s ease
       z-index: -1
       mask-image: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.5) 70%, white 100%)
+      opacity: 0.8
+
+      @media (max-width: $w-mobile)
+        opacity: 0.6
 
       :global(> svg)
         position: absolute
