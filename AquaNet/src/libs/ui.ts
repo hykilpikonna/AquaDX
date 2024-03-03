@@ -61,6 +61,7 @@ export function renderCal(el: HTMLElement, d: {date: any, value: any}[]) {
 }
 
 
+const now = moment()
 export const CHARTJS_OPT: ChartOptions<'line'> = {
   responsive: true,
   maintainAspectRatio: false,
@@ -85,7 +86,21 @@ export const CHARTJS_OPT: ChartOptions<'line'> = {
     },
     tooltip: {
       mode: 'index',
-      intersect: false
+      intersect: false,
+      callbacks: {
+        title: (tooltipItems) => {
+          const date = tooltipItems[0].parsed.x;
+          const diff = now.diff(date, 'days')
+          return diff ? `${diff} days ago` : 'Today'
+        }
+      }
     }
   },
+}
+
+export const pfpNotFound = (e: Event) => {
+  (e.target as HTMLImageElement).src = "/assets/imgs/no_profile.png"
+}
+export const coverNotFound = (e: Event) => {
+  (e.target as HTMLImageElement).src = "/assets/imgs/no_cover.jpg"
 }

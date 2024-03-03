@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {CHARTJS_OPT, registerChart, renderCal, title} from "../libs/ui";
+  import { CHARTJS_OPT, coverNotFound, pfpNotFound, registerChart, renderCal, title } from "../libs/ui";
   import type { GenericGamePlaylog, GenericGameSummary, MusicMeta, TrendEntry } from "../libs/generalTypes";
   import {DATA_HOST} from "../libs/config";
   import 'cal-heatmap/cal-heatmap.css';
@@ -34,19 +34,13 @@
   ]).then(([user, trend, music]) => {
     console.log(user)
     console.log(trend)
-    console.log(music)
 
     d = {user, trend, recent: user.recent.map(it => {return {...music[it.musicId], ...it}})}
     localStorage.setItem("tmp-user-details", JSON.stringify(d))
     renderCal(calElement, trend.map(it => {return {date: it.date, value: it.plays}}))
   }).catch((e) => error = e.message);
 
-  const pfpNotFound = (e: Event) => {
-    (e.target as HTMLImageElement).src = "/assets/imgs/no_profile.png"
-  }
-  const coverNotFound = (e: Event) => {
-    (e.target as HTMLImageElement).src = "/assets/imgs/no_cover.jpg"
-  }
+
   const titleText = {chu3: 'Chuni', mai2: 'Mai', ongeki: 'Ongeki'}[game]
 </script>
 
@@ -169,8 +163,7 @@
       <div class="scores">
         {#each d.recent as r, i}
           <div class:alt={i % 2 === 0}>
-            <img src={`${DATA_HOST}/d/${game}/music/00${r.musicId.toString().padStart(6, '0').substring(2)}.png`} alt=""
-                  on:error={coverNotFound} />
+            <img src={`${DATA_HOST}/d/${game}/music/00${r.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="" on:error={coverNotFound} />
             <div class="info">
               <div>
                 <span class="name">{r.name}</span>
