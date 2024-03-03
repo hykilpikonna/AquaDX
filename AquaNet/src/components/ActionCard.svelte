@@ -46,7 +46,11 @@
 
     &:hover
       box-shadow: 0 0 0.5rem 0.2rem $c-shadow
-      transform: translateY(-0.1rem)
+      transform: translateY(-3px)
+
+      // Drop shadow glow
+      filter: drop-shadow(0 0 12px rgba(var(--card-color), 0.5))
+      outline-color: rgba(var(--card-color), 0.5)
 
     span
       font-size: 1.2rem
@@ -69,9 +73,4 @@
       :global(> svg)
         position: absolute
         rotate: 20deg
-
-    &:hover
-      // Drop shadow glow
-      filter: drop-shadow(0 0 12px rgba(var(--card-color), 0.5))
-      outline-color: rgba(var(--card-color), 0.5)
 </style>
