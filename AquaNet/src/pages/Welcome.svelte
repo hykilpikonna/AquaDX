@@ -36,7 +36,7 @@
       .catch(e => verifyMsg = `Email verification failed: ${e.message}`)
   }
 
-  async function submit() {
+  async function submit(): Promise<any> {
     submitting = true
 
     // Check if username and password are valid
@@ -71,7 +71,7 @@
     }
     else {
       // Send request to server
-      await USER.login({ email, password, turnstile })
+      await USER.login({ email, password, turnstile }).then(() => window.location.href = "/home")
         .catch(e => {
           if (e.message === 'Email not verified - STATE_0') {
             state = 'verify'
@@ -90,9 +90,6 @@
             submitting = false
           }
         })
-
-      // Redirect to portal page /home
-      window.location.href = "/home"
     }
 
     submitting = false
