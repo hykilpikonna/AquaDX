@@ -2,7 +2,7 @@
   import {fade} from "svelte/transition";
   import LinkCard from "./Home/LinkCard.svelte";
   import SetupInstructions from "./Home/SetupInstructions.svelte";
-  import {FADE_IN, FADE_OUT} from "../libs/config";
+  import { DISCORD_INVITE, FADE_IN, FADE_OUT } from "../libs/config";
   import {USER} from "../libs/sdk.js";
   import type { UserMe } from "../libs/generalTypes";
   import StatusOverlays from "../components/StatusOverlays.svelte";
@@ -44,7 +44,7 @@
         {/if}
       </ActionCard>
 
-      <ActionCard color="82, 93, 233" icon="ic:baseline-discord" on:click={() => tab = 2}>
+      <ActionCard color="82, 93, 233" icon="ic:baseline-discord" on:click={() => window.location.href = DISCORD_INVITE}>
         <h3>Join Discord</h3>
         <span>Join our Discord server to chat with other players and get help.</span>
       </ActionCard>
