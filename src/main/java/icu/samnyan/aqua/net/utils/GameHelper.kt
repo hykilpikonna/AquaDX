@@ -25,6 +25,7 @@ fun findTrend(log: List<TrendLog>): List<TrendOut> {
 
     // O(n log n)
     val d = log.filter { it.date >= minDate }.sortedBy { it.date }.toList()
+    if (d.isEmpty()) return emptyList()
 
     // Precompute the play counts for each date in O(n)
     val playCounts = d.groupingBy { it.date }.eachCount()
