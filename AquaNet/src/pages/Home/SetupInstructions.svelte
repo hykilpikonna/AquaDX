@@ -5,7 +5,7 @@
   import { USER } from "../../libs/sdk";
   import type { UserMe } from "../../libs/generalTypes";
   import { codeToHtml } from 'shiki'
-  import { AQUA_CONNECTION } from "../../libs/config";
+  import { AQUA_CONNECTION, FADE_IN, FADE_OUT } from "../../libs/config";
 
   let user: UserMe
   let keychip: string;
@@ -55,11 +55,11 @@ id=${keychip.slice(0, 4)}-${keychip.slice(4)}1337`.trim(), {
   {#if user}
     <div transition:slide>
       {#if !keychip && !keychipCode}
-        <div class="no-margin" out:fade={{ duration: 300 }}>
+        <div class="no-margin" out:fade={FADE_OUT}>
           <button class="emp" on:click={getStarted}>Get started</button>
         </div>
       {:else}
-        <div class="no-margin" in:fade={{ delay: 300 }}>
+        <div class="no-margin" in:fade={FADE_IN}>
           <p>
             Please edit your segatools.ini file and modify the following lines:
           </p>
