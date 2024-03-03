@@ -15,6 +15,7 @@
   let password = ""
   let username = ""
   let turnstile = ""
+  let turnstileReset: () => void | undefined;
 
   let error = ""
   let verifyMsg = ""
@@ -63,6 +64,7 @@
         .catch(e => {
           error = e.message
           submitting = false
+          turnstileReset()
         })
 
       // Show verify email message
@@ -88,6 +90,7 @@
           else {
             error = e.message
             submitting = false
+            turnstileReset()
           }
         })
     }
@@ -127,7 +130,7 @@
             {isSignup ? "Sign up" : "Log in"}
           {/if}
         </button>
-        <Turnstile siteKey={TURNSTILE_SITE_KEY}
+        <Turnstile siteKey={TURNSTILE_SITE_KEY} bind:reset={turnstileReset}
                    on:turnstile-callback={e => console.log(turnstile = e.detail.token)}
                    on:turnstile-error={_ => console.log(error = "Error verifying your network environment. Please turn off your VPN and try again.")}
                    on:turnstile-expired={_ => window.location.reload()}

@@ -63,7 +63,6 @@ export async function post(endpoint: string, params: any, init?: RequestInitWith
     ...init
   }).catch(e => {
     console.error(e)
-
     throw new Error('Network error')
   })
 
