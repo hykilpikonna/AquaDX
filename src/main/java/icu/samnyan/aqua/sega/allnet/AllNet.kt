@@ -25,6 +25,7 @@ class AllNetProps {
     var port: Int? = null
     val keychipSesExpire: Long = 172800000 // milliseconds
     var checkKeychip: Boolean = false
+    var redirect: String = "web"
 
     var placeName: String = ""
     var placeId: String = "123"
@@ -67,7 +68,7 @@ class AllNet(
 ) {
     @API("/")
     fun root(response: HttpServletResponse) {
-        response.sendRedirect("web")
+        response.sendRedirect(props.redirect)
     }
 
     @API("/sys/test")
