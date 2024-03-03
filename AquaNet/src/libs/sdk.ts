@@ -78,7 +78,15 @@ export async function post(endpoint: string, params: any, init?: RequestInitWith
   if (!res.ok) {
     const text = await res.text()
     console.error(`${res.status}: ${text}`)
-    throw new Error(`${text}`)
+
+    // Try to parse as json
+    let json
+    try {
+      json = JSON.parse(text)
+    } catch (e) {
+      throw new Error(text)
+    }
+    if (json.error) throw new Error(json.error)
   }
 
   const ret = res.json()
@@ -102,16 +110,22 @@ async function login(user: { email: string, password: string, turnstile: string 
   localStorage.setItem('token', data.token)
 }
 
+const isLoggedIn = () => !!localStorage.getItem('token')
+const ensureLoggedIn = () => !isLoggedIn() && (window.location.href = '/')
+
 export const USER = {
   register,
   login,
   confirmEmail: (token: string) =>
     post('/api/v2/user/confirm-email', { token }),
-  me: (): Promise<UserMe> =>
-    post('/api/v2/user/me', {}),
-  isLoggedIn: () => !!localStorage.getItem('token'),
+  me: (): Promise<UserMe> => {
+    ensureLoggedIn()
+    return post('/api/v2/user/me', {})
+  },
   keychip: (): Promise<string> =>
     post('/api/v2/user/keychip', {}).then(it => it.keychip),
+  isLoggedIn,
+  ensureLoggedIn,
 }
 
 export const CARD = {
