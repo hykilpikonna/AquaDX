@@ -40,8 +40,8 @@
     renderCal(calElement, trend.map(it => {return {date: it.date, value: it.plays}}))
   }).catch((e) => error = e.message);
 
-
-  const titleText = {chu3: 'Chuni', mai2: 'Mai', ongeki: 'Ongeki'}[game]
+  const games = {chu3: 'Chuni', mai2: 'Mai', ongeki: 'Ongeki'}
+  const titleText = games[game]
 </script>
 
 <main id="user-home" class="content">
@@ -49,6 +49,11 @@
     <div class="user-pfp">
       <img src={`${DATA_HOST}/d/${game}/assetbundle/icon/${d.user.iconId.toString().padStart(6, "0")}.png`} alt="" class="pfp" on:error={pfpNotFound}>
       <h2>{d.user.name}</h2>
+      <nav>
+        {#each Object.entries(games) as [g, name]}
+          <a href={`/u/${username}/${g}`} class:active={game === g}>{name}</a>
+        {/each}
+      </nav>
     </div>
 
     <div>
@@ -201,17 +206,36 @@ $gap: 20px
     align-items: flex-end
     gap: $gap
     margin-top: -72px
+    position: relative
 
     h2
       font-size: 2rem
       margin: 0
       white-space: nowrap
 
+    nav
+      position: absolute
+      display: flex
+      flex-direction: row
+      gap: 10px
+      top: 0.5rem
+      right: 0
+
   .pfp
     width: 100px
     height: 100px
     border-radius: 12px
     object-fit: cover
+
+  @media (max-width: $w-mobile)
+    .user-pfp
+      margin-top: -68px
+      h2
+        font-size: 1.5rem
+
+    .pfp
+      width: 80px
+      height: 80px
 
   .info-bottom, .info-top, .other-info
     display: flex
