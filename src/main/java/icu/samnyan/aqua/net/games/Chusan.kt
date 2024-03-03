@@ -21,7 +21,7 @@ class Chusan(
     val userGeneralDataRepository: UserGeneralDataRepository
 ): GameApiController
 {
-    override fun trend(@RP username: Str): List<TrendOut> = us.cardByName(username) { card ->
+    override suspend fun trend(@RP username: Str): List<TrendOut> = us.cardByName(username) { card ->
         findTrend(userPlaylogRepository.findByUser_Card_ExtId(card.extId)
             .map { TrendLog(it.playDate.toString(), it.playerRating) })
     }
@@ -29,7 +29,7 @@ class Chusan(
     // Only show > AAA rank
     private val shownRanks = chu3Scores.filter { it.first >= 95 * 10000 }
 
-    override fun userSummary(@RP username: Str) = us.cardByName(username) { card ->
+    override suspend fun userSummary(@RP username: Str) = us.cardByName(username) { card ->
         // Summary values: total plays, player rating, server-wide ranking
         // number of each rank, max combo, number of full combo, number of all perfect
         val extra = userGeneralDataRepository.findByUser_Card_ExtId(card.extId)
@@ -42,7 +42,11 @@ class Chusan(
         genericUserSummary(card, userDataRepository, userPlaylogRepository, shownRanks, ratingComposition)
     }
 
-    override fun ranking() = genericRanking(userDataRepository, userPlaylogRepository)
+    override suspend fun ranking() = genericRanking(userDataRepository, userPlaylogRepository)
 
-    override fun playlog(@RP id: Long) = userPlaylogRepository.findById(id).getOrNull() ?: (404 - "Playlog not found")
+    override suspend fun playlog(@RP id: Long) = userPlaylogRepository.findById(id).getOrNull() ?: (404 - "Playlog not found")
+
+    override suspend fun recent(@RP username: Str) = us.cardByName(username) { card ->
+        userPlaylogRepository.findByUser_Card_ExtId(card.extId)
+    }
 }

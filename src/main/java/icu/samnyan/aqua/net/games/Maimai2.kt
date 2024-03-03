@@ -21,7 +21,7 @@ class Maimai2(
     val userGeneralDataRepository: UserGeneralDataRepository
 ): GameApiController
 {
-    override fun trend(@RP username: Str): List<TrendOut> = us.cardByName(username) { card ->
+    override suspend fun trend(@RP username: Str): List<TrendOut> = us.cardByName(username) { card ->
         findTrend(userPlaylogRepository.findByUser_Card_ExtId(card.extId)
             .map { TrendLog(it.playDate, it.afterRating) })
     }
@@ -29,7 +29,7 @@ class Maimai2(
     // Only show > S rank
     private val shownRanks = mai2Scores.filter { it.first >= 97 * 10000 }
 
-    override fun userSummary(@RP username: Str) = us.cardByName(username) { card ->
+    override suspend fun userSummary(@RP username: Str) = us.cardByName(username) { card ->
         val extra = userGeneralDataRepository.findByUser_Card_ExtId(card.extId)
             .associate { it.propertyKey to it.propertyValue }
 
@@ -41,7 +41,11 @@ class Maimai2(
         genericUserSummary(card, userDataRepository, userPlaylogRepository, shownRanks, ratingComposition)
     }
 
-    override fun ranking() = genericRanking(userDataRepository, userPlaylogRepository)
+    override suspend fun ranking() = genericRanking(userDataRepository, userPlaylogRepository)
 
-    override fun playlog(@RP id: Long) = userPlaylogRepository.findById(id).getOrNull() ?: (404 - "Playlog not found")
+    override suspend fun playlog(@RP id: Long) = userPlaylogRepository.findById(id).getOrNull() ?: (404 - "Playlog not found")
+
+    override suspend fun recent(@RP username: Str) = us.cardByName(username) { card ->
+        userPlaylogRepository.findByUser_Card_ExtId(card.extId)
+    }
 }

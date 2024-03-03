@@ -46,11 +46,13 @@ data class GenericRankingPlayer(
 
 interface GameApiController {
     @API("trend")
-    fun trend(@RP username: String): List<TrendOut>
+    suspend fun trend(@RP username: String): List<TrendOut>
     @API("user-summary")
-    fun userSummary(@RP username: String): GenericGameSummary
+    suspend fun userSummary(@RP username: String): GenericGameSummary
     @API("ranking")
-    fun ranking(): List<GenericRankingPlayer>
+    suspend fun ranking(): List<GenericRankingPlayer>
     @API("playlog")
-    fun playlog(@RP id: Long): IGenericGamePlaylog
+    suspend fun playlog(@RP id: Long): IGenericGamePlaylog
+    @API("recent")
+    suspend fun recent(@RP username: String): List<IGenericGamePlaylog>
 }

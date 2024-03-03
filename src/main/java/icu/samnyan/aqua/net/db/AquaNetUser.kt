@@ -2,6 +2,7 @@ package icu.samnyan.aqua.net.db
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import ext.Str
+import ext.async
 import ext.isValidEmail
 import ext.minus
 import icu.samnyan.aqua.sega.allnet.KeychipSession
@@ -111,13 +112,13 @@ class AquaUserServices(
             }
     }
 
-    fun <T> byName(username: Str, callback: (AquaNetUser) -> T) =
-        userRepo.findByUsernameIgnoreCase(username)?.let(callback) ?: (404 - "User not found")
+    suspend fun <T> byName(username: Str, callback: suspend (AquaNetUser) -> T) =
+        async { userRepo.findByUsernameIgnoreCase(username) }?.let { callback(it) } ?: (404 - "User not found")
 
-    fun <T> cardByName(username: Str, callback: (Card) -> T) =
+    suspend fun <T> cardByName(username: Str, callback: suspend (Card) -> T) =
         if (username.startsWith("user")) username.substring(4).toLongOrNull()
             ?.let { cardRepo.findById(it).getOrNull() }
-            ?.let(callback) ?: (404 - "Card not found")
+            ?.let { callback(it) } ?: (404 - "Card not found")
         else byName(username) { callback(it.ghostCard) }
 
     fun checkUsername(username: Str) = username.apply {

@@ -18,14 +18,14 @@ class Ongeki(
     val userDataRepository: UserDataRepository,
     val userGeneralDataRepository: UserGeneralDataRepository
 ): GameApiController {
-    override fun trend(username: String) = us.cardByName(username) { card ->
+    override suspend fun trend(username: String) = us.cardByName(username) { card ->
         findTrend(userPlaylogRepository.findByUser_Card_ExtId(card.extId)
             .map { TrendLog(it.playDate, it.playerRating) })
     }
 
     private val shownRanks = ongekiScores.filter { it.first >= 950000 }
 
-    override fun userSummary(username: String) = us.cardByName(username) { card ->
+    override suspend fun userSummary(username: String) = us.cardByName(username) { card ->
 //        val extra = userGeneralDataRepository.findByUser_Card_ExtId(u.ghostCard.extId)
 //            .associate { it.propertyKey to it.propertyValue }
 
@@ -34,7 +34,11 @@ class Ongeki(
         genericUserSummary(card, userDataRepository, userPlaylogRepository, shownRanks, mapOf())
     }
 
-    override fun ranking() = genericRanking(userDataRepository, userPlaylogRepository)
+    override suspend fun ranking() = genericRanking(userDataRepository, userPlaylogRepository)
 
-    override fun playlog(id: Long) = userPlaylogRepository.findById(id).getOrNull() ?: (404 - "Playlog not found")
+    override suspend fun playlog(id: Long) = userPlaylogRepository.findById(id).getOrNull() ?: (404 - "Playlog not found")
+
+    override suspend fun recent(username: String) = us.cardByName(username) { card ->
+        userPlaylogRepository.findByUser_Card_ExtId(card.extId)
+    }
 }
