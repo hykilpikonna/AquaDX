@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 typealias RP = RequestParam
 typealias RB = RequestBody
@@ -40,8 +42,6 @@ operator fun Int.minus(message: String): Nothing {
 val emailRegex = "^(?=.{1,64}@)[\\p{L}0-9_-]+(\\.[\\p{L}0-9_-]+)*@[^-][\\p{L}0-9-]+(\\.[\\p{L}0-9-]+)*(\\.[\\p{L}]{2,})$".toRegex()
 fun Str.isValidEmail(): Bool = emailRegex.matches(this)
 
-fun millis() = System.currentTimeMillis()
-
 val HTTP = HttpClient(CIO) {
     install(ContentNegotiation) {
         json(Json {
@@ -50,6 +50,11 @@ val HTTP = HttpClient(CIO) {
         })
     }
 }
+
+// Date and time
+fun millis() = System.currentTimeMillis()
+val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+fun LocalDate.isoDate() = format(DATE_FORMAT)
 
 fun Long.toHex(len: Int = 16): Str = "0x${this.toString(len).padStart(len, '0').uppercase()}"
 fun Map<String, Any>.toUrl() = entries.joinToString("&") { (k, v) -> "$k=$v" }

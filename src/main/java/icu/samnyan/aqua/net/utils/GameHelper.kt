@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.net.utils
 
+import ext.isoDate
 import ext.millis
 import ext.minus
 import icu.samnyan.aqua.net.games.GenericGameSummary
@@ -9,6 +10,7 @@ import icu.samnyan.aqua.net.games.TrendOut
 import icu.samnyan.aqua.sega.general.model.Card
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.repository.NoRepositoryBean
+import java.time.LocalDate
 
 data class TrendLog(val date: String, val rating: Int)
 
@@ -16,8 +18,13 @@ data class TrendLog(val date: String, val rating: Int)
  * Find the trend of a user's rating
  */
 fun findTrend(log: List<TrendLog>): List<TrendOut> {
+
+    // Limit to 60 days by filtering out the dates that are too old
+    val minDate = LocalDate.now().minusDays(60).isoDate()
+    val now = LocalDate.now().isoDate()
+
     // O(n log n)
-    val d = log.sortedBy { it.date }.toList()
+    val d = log.filter { it.date >= minDate }.sortedBy { it.date }.toList()
 
     // Precompute the play counts for each date in O(n)
     val playCounts = d.groupingBy { it.date }.eachCount()
@@ -26,10 +33,16 @@ fun findTrend(log: List<TrendLog>): List<TrendOut> {
     val maxRating = d.groupingBy { it.date }.fold(0) { acc, e -> maxOf(acc, e.rating) }
 
     // Use the precomputed play counts
-    return d.distinctBy { it.date }
+    val trend = d.distinctBy { it.date }
         .map { TrendOut(it.date, maxRating[it.date] ?: 0,
             playCounts[it.date] ?: 0) }
-        .sortedBy { it.date }
+        .sortedBy { it.date }.toMutableList()
+
+    // Fill in the missing dates (min date and current date)
+    trend[0].let { if (it.date != minDate) trend.add(0, TrendOut(minDate, 0, 0)) }
+    trend.last().let { if (it.date != now) trend.add(TrendOut(now, it.rating, 0)) }
+
+    return trend
 }
 
 // Here are some interfaces to generalize across multiple games
