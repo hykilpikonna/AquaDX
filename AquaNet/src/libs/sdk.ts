@@ -64,20 +64,18 @@ export async function post(endpoint: string, params: any, init?: RequestInitWith
   }).catch(e => {
     console.error(e)
 
-    // If 400 invalid token is caught, should invalidate the token and redirect to signin
-    if (e.message === 'Invalid token') {
-      // Invalidate token
-      localStorage.removeItem('token')
-      // Redirect to signin
-      window.location.href = '/'
-    }
-
     throw new Error('Network error')
   })
 
   if (!res.ok) {
     const text = await res.text()
     console.error(`${res.status}: ${text}`)
+
+    // If 400 invalid token is caught, should invalidate the token and redirect to signin
+    if (text === 'Invalid token') {
+      localStorage.removeItem('token')
+      window.location.href = '/'
+    }
 
     // Try to parse as json
     let json
