@@ -2,7 +2,6 @@
 
 <script lang="ts">
   import { fade } from 'svelte/transition'
-  import { clz } from "../libs/ui";
   import type { ConfirmProps } from "../libs/generalTypes";
   import { DISCORD_INVITE } from "../libs/config";
   import Icon from "@iconify/svelte";
@@ -29,7 +28,7 @@
             confirm = null
           }}>Cancel</button>
         {/if}
-        <button on:click={() => confirm && confirm.confirm()} class={clz({error: confirm.dangerous})}>Confirm</button>
+        <button on:click={() => confirm && confirm.confirm()} class:error={confirm.dangerous}>Confirm</button>
       </div>
     </div>
   </div>

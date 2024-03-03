@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { clz, title } from "../libs/ui";
+  import { title } from "../libs/ui";
   import { GAME } from "../libs/sdk";
   import type { GenericRanking } from "../libs/generalTypes";
   import StatusOverlays from "../components/StatusOverlays.svelte";
@@ -30,7 +30,7 @@
         <span class="ap">AP</span>
       </div>
       {#each d.users as user, i (user.rank)}
-        <div class={clz({ alternate: i % 2 === 1 }, "lb-user")}>
+        <div class="lb-user" class:alternate={i % 2 === 1}>
           <span class="rank">#{user.rank}</span>
           {#if user.username !== ""}
           <a class="name" href="/u/{user.username}">{user.name}</a>

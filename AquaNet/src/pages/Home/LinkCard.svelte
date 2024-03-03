@@ -2,7 +2,6 @@
 
 <script lang="ts">
   import { slide, fade } from "svelte/transition"
-  import { clz } from "../../libs/ui";
   import type { Card, CardSummary, CardSummaryGame, ConfirmProps, UserMe } from "../../libs/generalTypes";
   import { CARD, USER } from "../../libs/sdk";
   import moment from "moment"
@@ -218,7 +217,7 @@
   {#if me}
     <div class="existing-cards" transition:slide>
       {#each me.cards as card (card.luid)}
-        <div class={clz({ghost: card.ghost}, 'existing card')} transition:fade|global>
+        <div class:ghost={card.ghost} class='existing card' transition:fade|global>
           <span class="type">{card.ghost ? "Account Card" : cardType(card.luid)}</span>
           <span class="register">Registered: {moment(card.registerTime).format("YYYY MMM DD")}</span>
           <span class="last">Last used: {moment(card.accessTime).format("YYYY MMM DD")}</span>
@@ -245,7 +244,7 @@
            }}
            bind:value={inputAC}
            on:input={inputACChange}
-           class={clz({error: (inputAC && (!inputACRegex.test(inputAC) || errorAC))})}>
+           class:error={inputAC && (!inputACRegex.test(inputAC) || errorAC)}>
     {#if inputAC.length > 0}
       <button transition:slide={{axis: 'x'}} on:click={() => link('AC')}>Link</button>
     {/if}
@@ -268,7 +267,7 @@
            }}
            bind:value={inputSN}
            on:input={inputSNChange}
-           class={clz({error: (inputSN && (!inputSNRegex.test(inputSN) || errorSN))})}>
+           class:error={inputSN && (!inputSNRegex.test(inputSN) || errorSN)}>
     {#if inputSN.length > 0}
       <button transition:slide={{axis: 'x'}} on:click={() => link('SN')}>Link</button>
     {/if}

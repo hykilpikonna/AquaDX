@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {CHARTJS_OPT, clz, registerChart, renderCal, title} from "../libs/ui";
+  import {CHARTJS_OPT, registerChart, renderCal, title} from "../libs/ui";
   import type { GenericGamePlaylog, GenericGameSummary, MusicMeta, TrendEntry } from "../libs/generalTypes";
   import {DATA_HOST} from "../libs/config";
   import 'cal-heatmap/cal-heatmap.css';
@@ -168,7 +168,7 @@
       <h2>Recent Scores</h2>
       <div class="scores">
         {#each d.recent as r, i}
-          <div class={clz({alt: i % 2 === 0})}>
+          <div class:alt={i % 2 === 0}>
             <img src={`${DATA_HOST}/d/${game}/music/00${r.musicId.toString().padStart(6, '0').substring(2)}.png`} alt=""
                   on:error={coverNotFound} />
             <div class="info">
@@ -182,7 +182,7 @@
                   <span class="rank-num">{(r.achievement / 10000).toFixed(2)}%</span>
                 </span>
                 {#if game === 'mai2'}
-                  <span class={"dx-change " + clz({increased: r.afterRating - r.beforeRating > 0})}>
+                  <span class:increased={r.afterRating - r.beforeRating > 0} class="dx-change">
                     {r.afterRating - r.beforeRating}
                   </span>
                 {/if}
