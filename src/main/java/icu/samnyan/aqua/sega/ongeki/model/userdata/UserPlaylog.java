@@ -26,7 +26,6 @@ public class UserPlaylog implements Serializable, IGenericGamePlaylog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private long id;
 
     @JsonIgnore
