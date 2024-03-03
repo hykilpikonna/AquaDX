@@ -92,7 +92,7 @@ fun genericUserSummary(
 ): GenericGameSummary {
     // Summary values: total plays, player rating, server-wide ranking
     // number of each rank, max combo, number of full combo, number of all perfect
-    val user = userDataRepo.findByCard(card) ?: (404 - "User not found")
+    val user = userDataRepo.findByCard(card) ?: (404 - "Game data not found")
     val plays = userPlaylogRepo.findByUserCardExtId(card.extId)
 
     // O(6n) ranks algorithm: Loop through the entire list of plays,

@@ -2,6 +2,7 @@ package icu.samnyan.aqua.net
 
 import ext.*
 import icu.samnyan.aqua.net.components.JWT
+import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.AquaNetProps
 import icu.samnyan.aqua.net.utils.GenericUserDataRepo
 import icu.samnyan.aqua.net.utils.IGenericUserData
@@ -17,6 +18,7 @@ import kotlin.jvm.optionals.getOrNull
 @API("/api/v2/card")
 class CardController(
     val jwt: JWT,
+    val us: AquaUserServices,
     val cardService: CardService,
     val cardGameService: CardGameService,
     val cardRepository: CardRepository,
@@ -94,6 +96,12 @@ class CardController(
 
         SUCCESS
     }
+
+    @API("/default-game")
+    @Doc("Get the default game for the card.", "Game ID")
+    suspend fun defaultGame(@RP username: Str) = us.cardByName(username) { card ->
+        cardGameService.getSummary(card).filterValues { it != null }.keys.firstOrNull()
+    }
 }
 
 /**
@@ -140,8 +148,8 @@ class CardGameService(
         // An easy migration is to change the UserData card field to the user's ghost card
         games.forEach { game ->
             when (game) {
-                "maimai2" -> migrateCard(maimai2, crd)
-                "chusan" -> migrateCard(chusan, crd)
+                "mai2" -> migrateCard(maimai2, crd)
+                "chu3" -> migrateCard(chusan, crd)
                 "ongeki" -> migrateCard(ongeki, crd)
                 // TODO: diva
 //                "diva" -> diva.findByPdId(card.extId.toInt()).getOrNull()?.let {
@@ -152,8 +160,8 @@ class CardGameService(
     }
 
     suspend fun getSummary(card: Card) = async { mapOf(
-        "maimai2" to getSummaryFor(maimai2, card),
-        "chusan" to getSummaryFor(chusan, card),
+        "mai2" to getSummaryFor(maimai2, card),
+        "chu3" to getSummaryFor(chusan, card),
         "ongeki" to getSummaryFor(ongeki, card),
         "diva" to diva.findByPdId(card.extId.toInt()).getOrNull()?.let {
             mapOf(
