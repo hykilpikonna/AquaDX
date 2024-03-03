@@ -5,12 +5,8 @@
 
   export let color: string = '179, 198, 255'
   export let icon: string
-  // const iconPos = [
-  //     [1, 0.5],
-  //     [0.5, 3.5],
-  //     [4, 2],
-  //     [4.5, -1],
-  // ]
+
+  // Manually positioned icons
   const iconPos = [
       [1, 0.5, 2],
       [6, 2, 1.5],
@@ -21,38 +17,14 @@
       [12.5, 2.5, 0.8],
       [10, 4.4, 0.8],
   ]
-
-  // function genIconPos() {
-  //   const n = 15
-  //   const xFactor = 3.8
-  //   const yFactor = 3.9
-  //   let iconPos = []
-  //   let lastYStart = -yFactor + 2
-  //   for (let i = 0; i < n; i++) {
-  //     lastYStart += 0.5
-  //     if (lastYStart > 2) lastYStart -= yFactor
-  //     let ratio = (1 - i / n)
-  //     let y = lastYStart
-  //     let x = i * xFactor
-  //     while (y < 6) {
-  //       iconPos.push([x, y,
-  //         ratio / 2 + 0.5,
-  //         10 + Math.random() * 20
-  //       ])
-  //       y += yFactor
-  //     }
-  //   }
-  //   return iconPos
-  // }
-  // const iconPos = genIconPos()
 </script>
 
 <div class="action-card" style="--card-color: {color}" on:click role="button" tabindex="0" on:keydown>
   <slot/>
 
   <div class="icons">
-    {#each iconPos as [x, y, size, rot], i}
-      <Icon icon={icon} style={`top: ${y}rem; right: ${x}rem; font-size: ${size || 1}em; rotate: ${rot}deg`} />
+    {#each iconPos as [x, y, size], i}
+      <Icon icon={icon} style={`top: ${y}rem; right: ${x}rem; font-size: ${size || 1}em`} />
     {/each}
   </div>
 </div>
