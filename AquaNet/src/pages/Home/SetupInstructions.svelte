@@ -5,7 +5,7 @@
   import { USER } from "../../libs/sdk";
   import type { UserMe } from "../../libs/generalTypes";
   import { codeToHtml } from 'shiki'
-  import { AQUA_CONNECTION, FADE_IN, FADE_OUT } from "../../libs/config";
+  import { AQUA_CONNECTION, DISCORD_INVITE, FADE_IN, FADE_OUT } from "../../libs/config";
 
   let user: UserMe
   let keychip: string;
@@ -70,6 +70,9 @@ id=${keychip.slice(0, 4)}-${keychip.slice(4)}1337`.trim(), {
 
           <p>
             Then, after you restart the game, you should be able to connect to AquaDX. Please verify that the network tests are all GOOD in the test menu.
+          </p>
+          <p>
+            If you have any questions, please ask in our <a href={DISCORD_INVITE}>Discord server</a>.
           </p>
         </div>
       {/if}
