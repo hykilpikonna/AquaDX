@@ -7,7 +7,7 @@
   import { CARD, USER } from "../../libs/sdk";
   import moment from "moment"
   import Icon from "@iconify/svelte";
-  import Confirm from "../../components/Confirm.svelte";
+  import StatusOverlays from "../../components/StatusOverlays.svelte";
 
   // State
   let state: 'ready' | 'linking-AC' | 'linking-SN' | 'loading' = "loading"
@@ -230,10 +230,6 @@
         </div>
       {/each}
     </div>
-  {:else if error}
-    <span class="error" transition:slide>{error}</span>
-  {:else}
-    <span>Loading...</span>
   {/if}
 
   <h2>Link Card</h2>
@@ -310,7 +306,7 @@
     </div>
   {/if}
 
-  <Confirm show={showConfirm} />
+  <StatusOverlays bind:confirm={showConfirm} bind:error={error} loading={!me} />
 </div>
 
 <style lang="sass">
