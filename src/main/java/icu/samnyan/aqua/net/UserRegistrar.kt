@@ -9,6 +9,7 @@ import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.general.service.CardService
 import jakarta.servlet.http.HttpServletRequest
+import org.slf4j.LoggerFactory
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.RestController
 import java.time.Instant
@@ -35,6 +36,8 @@ class UserRegistrar(
         // This is because games can only take uint32 for card ID, which is at max 10 digits (4294967295)
         const val cardExtIdStart = 1e9.toLong()
         const val cardExtIdEnd = 4294967295
+
+        val log = LoggerFactory.getLogger(UserRegistrar::class.java)
     }
 
     @API("/register")
@@ -43,8 +46,8 @@ class UserRegistrar(
         @RP username: Str, @RP email: Str, @RP password: Str, @RP turnstile: Str,
         request: HttpServletRequest
     ): Any {
-
         val ip = geoIP.getIP(request)
+        log.info("Net: /user/register from $ip : $username")
 
         // Check captcha
         if (!turnstileService.validate(turnstile, ip)) 400 - "Invalid captcha"
@@ -89,9 +92,9 @@ class UserRegistrar(
         @RP email: Str, @RP password: Str, @RP turnstile: Str,
         request: HttpServletRequest
     ): Any {
-
         // Check captcha
         val ip = geoIP.getIP(request)
+        log.info("Net: /user/login from $ip : $email")
         if (!turnstileService.validate(turnstile, ip)) 400 - "Invalid captcha"
 
         // Treat email as email / username
@@ -124,6 +127,7 @@ class UserRegistrar(
 
         // Set last login time
         async { userRepo.save(user.apply { lastLogin = millis() }) }
+        log.info("> Login success: ${user.username} ${user.auId}")
 
         return mapOf("token" to token)
     }
@@ -131,6 +135,8 @@ class UserRegistrar(
     @API("/confirm-email")
     @Doc("Confirm email address with a token sent through email to the user.", "Success message")
     suspend fun confirmEmail(@RP token: Str): Any {
+        log.info("Net: /user/confirm-email with token $token")
+
         // Find the confirmation
         val confirmation = async { confirmationRepo.findByToken(token) }
 
@@ -173,6 +179,7 @@ class UserRegistrar(
     @Doc("Get a Keychip ID so that the user can connect to the server.", "Success message")
     suspend fun setupConnection(@RP token: Str) = jwt.auth(token) { u ->
         if (u.keychip != null) return mapOf("keychip" to u.keychip)
+        log.info("Net: /user/keychip setup: ${u.auId} for ${u.username}")
 
         // Generate a keychip id with 10 digits (e.g. A1234567890)
         var new = "A" + keychipRange.random()
