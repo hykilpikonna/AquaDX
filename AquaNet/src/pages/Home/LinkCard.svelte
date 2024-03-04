@@ -233,7 +233,9 @@
 
   <h2>Link Card</h2>
   <p>Please enter the following information:</p>
-  <p>1. The 20-digit access code on the back of your card.
+  {#if !inputSN}
+    <div out:slide={{ duration: 250 }}>
+  <p>The 20-digit access code on the back of your card.
     (If it doesn't work, please try scanning your card in game and enter the access code shown on screen)</p>
   <label>
     <!-- DO NOT change the order of bind:value and on:input. Their order determines the order of reactivity -->
@@ -253,8 +255,12 @@
   {#if errorAC}
     <p class="error" transition:slide>{errorAC}</p>
   {/if}
+    </div>
+    {/if}
 
-  <p>2. Download the NFC Tools app on your phone
+  {#if !inputAC}
+    <div out:slide={{ duration: 250 }}>
+  <p>Download the NFC Tools app on your phone
     (<a href="https://play.google.com/store/apps/details?id=com.wakdev.wdnfc">Android</a> /
     <a href="https://apps.apple.com/us/app/nfc-tools/id1252962749">Apple</a>) and scan your card.
     Then, enter the Serial Number.
@@ -276,6 +282,8 @@
   {#if errorSN}
     <p class="error" transition:slide>{errorSN}</p>
   {/if}
+    </div>
+    {/if}
 
   {#if conflictOld && conflictNew && me}
     <div class="overlay" transition:fade>
