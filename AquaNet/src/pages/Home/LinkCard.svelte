@@ -125,12 +125,12 @@
     // If there are no longer conflicts, we can link the card
     if (!isConflict) {
       await doLink(conflictCardID, conflictToMigrate.join(","))
-      
+
       // Reset the conflict state
       linkConflictCancel()
     }
   }
-  
+
   function linkConflictCancel() {
     state = "ready"
     conflictSummary = null
@@ -249,7 +249,7 @@
            on:input={inputACChange}
            class:error={inputAC && (!inputACRegex.test(inputAC) || errorAC)}>
     {#if inputAC.length > 0}
-      <button transition:slide={{axis: 'x'}} on:click={() => link('AC')}>Link</button>
+      <button transition:slide={{axis: 'x'}} on:click={() => {link('AC');inputAC=''}}>Link</button>
     {/if}
   </label>
   {#if errorAC}
@@ -276,7 +276,7 @@
            on:input={inputSNChange}
            class:error={inputSN && (!inputSNRegex.test(inputSN) || errorSN)}>
     {#if inputSN.length > 0}
-      <button transition:slide={{axis: 'x'}} on:click={() => link('SN')}>Link</button>
+      <button transition:slide={{axis: 'x'}} on:click={() => {link('SN'); inputSN = ''}}>Link</button>
     {/if}
   </label>
   {#if errorSN}
