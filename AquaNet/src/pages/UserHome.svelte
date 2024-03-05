@@ -15,6 +15,7 @@
 
   export let username: string;
   export let game: GameName
+  // 看不懂，为什么不直接 export let game: GameName = "mai2"
   game = game || "mai2"
   let calElement: HTMLElement
   let error: string | null;
@@ -41,11 +42,15 @@
       trend: trend.filter(it => it.date >= minDate),
       recent: user.recent.map(it => {return {...music[it.musicId], ...it}})
     }
+    // 建议：名称加上 uuid，例如 localStorage.setItem("tmp-user-details-0217dea0-1f04-433e-b0d3-480e35d28a50", JSON.stringify(d))
+    // 你可以通过在搜索引擎输入 uuid 来生成一个，也可以用 IDE 插件
     localStorage.setItem("tmp-user-details", JSON.stringify(d))
     renderCal(calElement, trend.map(it => {return {date: it.date, value: it.plays}}))
 
     // When the calendar is rendered, scroll horizontally to the rightmost
     const scrollCal = () => calElement.scrollLeft = calElement.scrollWidth - calElement.clientWidth
+
+    // 没看见 clearTimeout，会内存泄漏。请在组件的销毁方法里加上 clearTimeout。
     setTimeout(() => {
       if (calElement) scrollCal()
       else setTimeout(scrollCal, 300)
@@ -158,6 +163,7 @@
 
           <div class="time">
             <span>Play Time</span>
+// 建议改成这样，避免例如 69.0 的问题             <span>{Number((d.user.totalPlayTime / 60).toFixed(1))} hr</span>
             <span>{(d.user.totalPlayTime / 60).toFixed(1)} hr</span>
           </div>
 
@@ -189,8 +195,10 @@
               <div>{r.name ??"Unable find music"}</div>
               <div>
                 <span class={`lv level-${r.level === 10 ? 3 : r.level}`}>
+// 请不要这样嵌套太多层，自己会晕的，请改成自执行函数加 if 语句
                   { r.notes?.[r.level === 10 ? 0 : r.level]?.lv?.toFixed(1) ?? r.level ?? '0'}
                 </span>
+// 请将 a + b 改成 `${a}${b}`
                 <span class={"rank-" + ("" + getMult(r.achievement, game)[2])[0]}>
                   <span class="rank-text">{("" + getMult(r.achievement, game)[2]).replace("p", "+")}</span>
                   <span class="rank-num">{(r.achievement / 10000).toFixed(2)}%</span>
