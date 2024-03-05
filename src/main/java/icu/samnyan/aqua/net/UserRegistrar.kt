@@ -4,6 +4,7 @@ import ext.*
 import icu.samnyan.aqua.net.components.*
 import icu.samnyan.aqua.net.db.*
 import icu.samnyan.aqua.net.db.AquaUserServices.Companion.SETTING_FIELDS
+import icu.samnyan.aqua.net.utils.PathProps
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
@@ -12,8 +13,10 @@ import jakarta.servlet.http.HttpServletRequest
 import org.slf4j.LoggerFactory
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.multipart.MultipartFile
 import java.time.Instant
 import java.time.LocalDateTime
+import kotlin.io.path.writeBytes
 
 @RestController
 @API("/api/v2/user")
@@ -28,8 +31,11 @@ class UserRegistrar(
     val cardRepo: CardRepository,
     val cardService: CardService,
     val validator: AquaUserServices,
-    val emailProps: EmailProperties
+    val emailProps: EmailProperties,
+    paths: PathProps
 ) {
+    val portraitPath = paths.aquaNetPortrait.path()
+
     companion object {
         // Random long with length 9-10
         // We chose 1e9 as the start because normal cards took 0...1e9-1
@@ -187,5 +193,23 @@ class UserRegistrar(
         async { userRepo.save(u.apply { keychip = new }) }
 
         mapOf("keychip" to new)
+    }
+
+    @API("/upload-pfp")
+    @Doc("Upload a profile picture for the user.", "Success message")
+    suspend fun uploadPfp(@RP token: Str, @RP file: MultipartFile) = jwt.auth(token) { u ->
+        // Processing the image would lead to many open factors for attack
+        // (e.g. the JFIF Pixel Flood attack that ImageIO is vulnerable to)
+        // So we check file magic, then store the image without any processing
+        val bytes = file.bytes
+        val mime = TIKA.detect(bytes) ?: (400 - "Invalid file type")
+
+        // Check if the file is an image
+        if (!mime.startsWith("image/")) 400 - "Invalid file type"
+
+        // Save the image
+        (portraitPath / "${u.auId}.${MIMES.forName(mime)?.extension ?: "jpg"}").writeBytes(bytes)
+
+        SUCCESS
     }
 }

@@ -8,6 +8,8 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
+import org.apache.tika.Tika
+import org.apache.tika.mime.MimeTypes
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
@@ -44,6 +46,7 @@ operator fun Int.minus(message: String): Nothing {
 val emailRegex = "^(?=.{1,64}@)[\\p{L}0-9_-]+(\\.[\\p{L}0-9_-]+)*@[^-][\\p{L}0-9-]+(\\.[\\p{L}0-9-]+)*(\\.[\\p{L}]{2,})$".toRegex()
 fun Str.isValidEmail(): Bool = emailRegex.matches(this)
 
+// Global tools
 val HTTP = HttpClient(CIO) {
     install(ContentNegotiation) {
         json(Json {
@@ -52,6 +55,8 @@ val HTTP = HttpClient(CIO) {
         })
     }
 }
+val TIKA = Tika()
+val MIMES = MimeTypes.getDefaultMimeTypes()
 
 // Date and time
 fun millis() = System.currentTimeMillis()
