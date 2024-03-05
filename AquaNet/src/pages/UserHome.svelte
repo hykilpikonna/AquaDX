@@ -9,13 +9,11 @@
   import { DATA, GAME } from "../libs/sdk";
   import { type GameName, getMult } from "../libs/scoring";
   import StatusOverlays from "../components/StatusOverlays.svelte";
-  import { onMount } from "svelte";
 
   registerChart()
 
   export let username: string;
-  export let game: GameName
-  game = game || "mai2"
+  export let game: GameName = "mai2"
   let calElement: HTMLElement
   let error: string | null;
   title(`User ${username}`)
@@ -26,7 +24,7 @@
     user: GenericGameSummary,
     trend: TrendEntry[]
     recent: MusicAndPlay[]
-  } | null = null
+  } | null
 
   Promise.all([
     GAME.userSummary(username, game),
@@ -41,15 +39,10 @@
       trend: trend.filter(it => it.date >= minDate),
       recent: user.recent.map(it => {return {...music[it.musicId], ...it}})
     }
-    localStorage.setItem("tmp-user-details", JSON.stringify(d))
-    renderCal(calElement, trend.map(it => {return {date: it.date, value: it.plays}}))
-
-    // When the calendar is rendered, scroll horizontally to the rightmost
-    const scrollCal = () => calElement.scrollLeft = calElement.scrollWidth - calElement.clientWidth
-    setTimeout(() => {
-      if (calElement) scrollCal()
-      else setTimeout(scrollCal, 300)
-    }, 300)
+    renderCal(calElement, trend.map(it => {return {date: it.date, value: it.plays}})).then(() => {
+      // Scroll to the rightmost
+      calElement.scrollLeft = calElement.scrollWidth - calElement.clientWidth
+    })
   }).catch((e) => error = e.message);
 
   const games = {chu3: 'Chuni', mai2: 'Mai', ongeki: 'Ongeki'}
@@ -191,7 +184,7 @@
                 <span class={`lv level-${r.level === 10 ? 3 : r.level}`}>
                   { r.notes?.[r.level === 10 ? 0 : r.level]?.lv?.toFixed(1) ?? r.level ?? '0'}
                 </span>
-                <span class={"rank-" + ("" + getMult(r.achievement, game)[2])[0]}>
+                <span class={`rank-${getMult(r.achievement, game)[2].toString()[0]}`}>
                   <span class="rank-text">{("" + getMult(r.achievement, game)[2]).replace("p", "+")}</span>
                   <span class="rank-num">{(r.achievement / 10000).toFixed(2)}%</span>
                 </span>

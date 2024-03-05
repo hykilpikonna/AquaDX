@@ -31,7 +31,7 @@ export function registerChart() {
   )
 }
 
-export function renderCal(el: HTMLElement, d: {date: any, value: any}[]) {
+export function renderCal(el: HTMLElement, d: {date: any, value: any}[]): Promise<any> {
   const cal = new CalHeatmap()
   return cal.paint({
     itemSelector: el,
