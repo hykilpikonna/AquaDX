@@ -1,12 +1,31 @@
 <script lang="ts">
-  import { Router, Route } from "svelte-routing";
+  import {Router, Route} from "svelte-routing";
   import Welcome from "./pages/Welcome.svelte";
   import MaimaiRating from "./pages/MaimaiRating.svelte";
   import UserHome from "./pages/UserHome.svelte";
-  import Icon from '@iconify/svelte';
   import Home from "./pages/Home.svelte";
   import Ranking from "./pages/Ranking.svelte";
-  import { USER } from "./libs/sdk";
+  import {DATA, USER} from "./libs/sdk";
+  import {onMount} from "svelte";
+  import {fetchUserDetails, type UserDetails} from "./libs/FetchGameUserInfo";
+  import {DATA_HOST} from "./libs/config";
+  import {pfpNotFound} from "./libs/ui";
+  import type {GameName} from "./libs/scoring";
+
+  let userIcon: string | null;
+  let game = "mai2"
+  let username = "waitApiUpdate" //wait api update
+  let userImg:string
+  onMount(() => {
+    fetchUserDetails(username, <GameName>game).then((details) => {
+      userIcon = details?.user?.iconId?.toString().padStart(6, "0") ?? null;
+      userImg = DATA_HOST + "/d/" + game + "/assetbundle/icon/" + userIcon + ".png"
+      console.log("app", userImg)
+    }).catch();
+  });
+
+let UserUrl = "/u/"+ username
+
 
   console.log(`%c
 ┏━┓         ┳━┓━┓┏━
@@ -19,8 +38,8 @@
      -webkit-background-clip: text;
      -webkit-text-fill-color: transparent;`)
 
-  export let url = "";
 
+  export let url = "";
   let path = window.location.pathname;
 </script>
 
@@ -34,16 +53,20 @@
   <a href="/home">home</a>
   <div>maps</div>
   <a href="/ranking">rankings</a>
-  <div><Icon icon="tabler:search" /></div>
+  {#if USER.isLoggedIn()}
+  <a href={UserUrl} role="button">
+    <img src={userImg} alt="" class="pfp" on:error={pfpNotFound}>
+  </a>
+    {/if}
 </nav>
 
 <Router {url}>
-  <Route path="/" component={Welcome} />
-  <Route path="/home" component={Home} />
-  <Route path="/ranking" component={Ranking} />
-  <Route path="/u/:username" component={UserHome} />
-  <Route path="/u/:username/:game" component={UserHome} />
-  <Route path="/u/:username/:game/rating" component={MaimaiRating} />
+  <Route path="/" component={Welcome}/>
+  <Route path="/home" component={Home}/>
+  <Route path="/ranking" component={Ranking}/>
+  <Route path="/u/:username" component={UserHome}/>
+  <Route path="/u/:username/:game" component={UserHome}/>
+  <Route path="/u/:username/:game/rating" component={MaimaiRating}/>
 </Router>
 
 <style lang="sass">
@@ -60,6 +83,12 @@
 
     z-index: 10
     position: relative
+
+    .pfp
+      width: 40px
+      height: 40px
+      border-radius: 5px
+      object-fit: cover
 
     .logo
       display: flex

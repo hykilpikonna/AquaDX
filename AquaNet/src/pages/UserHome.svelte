@@ -1,52 +1,43 @@
 <script lang="ts">
-  import { CHARTJS_OPT, coverNotFound, pfpNotFound, registerChart, renderCal, title } from "../libs/ui";
-  import type { GenericGamePlaylog, GenericGameSummary, MusicMeta, TrendEntry } from "../libs/generalTypes";
+  import {CHARTJS_OPT, coverNotFound, pfpNotFound, registerChart, renderCal, title} from "../libs/ui";
   import {DATA_HOST} from "../libs/config";
   import 'cal-heatmap/cal-heatmap.css';
-  import { Line } from 'svelte-chartjs';
+  import {Line} from 'svelte-chartjs';
   import moment from "moment";
   import 'chartjs-adapter-moment';
-  import { DATA, GAME } from "../libs/sdk";
-  import { type GameName, getMult } from "../libs/scoring";
+  import {type GameName, getMult} from "../libs/scoring";
   import StatusOverlays from "../components/StatusOverlays.svelte";
+  import {fetchUserDetails, type UserDetails} from "../libs/FetchGameUserInfo";
+  import 'cal-heatmap/cal-heatmap.css';
+  import {onMount} from "svelte";
 
   registerChart()
 
   export let username: string;
-  export let game: GameName = "mai2"
-  let calElement: HTMLElement
+  export let game: GameName;
+  game = game || "mai2";
+  let calElement: HTMLElement;
   let error: string | null;
-  title(`User ${username}`)
-
-  interface MusicAndPlay extends MusicMeta, GenericGamePlaylog {}
-
-  let d: {
-    user: GenericGameSummary,
-    trend: TrendEntry[]
-    recent: MusicAndPlay[]
-  } | null
-
-  Promise.all([
-    GAME.userSummary(username, game),
-    GAME.trend(username, game),
-    DATA.allMusic(game)
-  ]).then(([user, trend, music]) => {
-    console.log(user)
-    console.log(trend)
-
-    const minDate = moment().subtract(60, 'days').format("YYYY-MM-DD")
-    d = {user,
-      trend: trend.filter(it => it.date >= minDate),
-      recent: user.recent.map(it => {return {...music[it.musicId], ...it}})
-    }
-    renderCal(calElement, trend.map(it => {return {date: it.date, value: it.plays}})).then(() => {
-      // Scroll to the rightmost
-      calElement.scrollLeft = calElement.scrollWidth - calElement.clientWidth
-    })
-  }).catch((e) => error = e.message);
-
+  let d: UserDetails | null = null;
   const games = {chu3: 'Chuni', mai2: 'Mai', ongeki: 'Ongeki'}
   const titleText = games[game]
+
+  title(`User ${username}`);
+
+  onMount(() => {
+    fetchUserDetails(username, game).then((details) => {
+      d = details;
+      console.log(d)
+      if (d) {
+        renderCal(calElement, d.trend.map(it => {
+          return {date: it.date, value: it.plays}
+        })).then(() => {
+          // Scroll to the rightmost
+          calElement.scrollLeft = calElement.scrollWidth - calElement.clientWidth
+        })
+      }}).catch(e => error = e.message);
+  });
+
 </script>
 
 <main id="user-home" class="content">
