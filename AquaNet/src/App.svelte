@@ -7,6 +7,8 @@
   import Home from "./pages/Home.svelte";
   import Ranking from "./pages/Ranking.svelte";
   import { USER } from "./libs/sdk";
+  import type { UserMe } from "./libs/generalTypes";
+  import { DEFAULT_PFP, IMG_HOST } from "./libs/config";
 
   console.log(`%c
 ┏━┓         ┳━┓━┓┏━
@@ -20,6 +22,9 @@
      -webkit-text-fill-color: transparent;`)
 
   export let url = "";
+  let me: UserMe
+
+  if (USER.isLoggedIn()) USER.me().then(m => me = m).catch(e => console.error(e))
 
   let path = window.location.pathname;
 </script>
@@ -34,7 +39,11 @@
   <a href="/home">home</a>
   <div>maps</div>
   <a href="/ranking">rankings</a>
-  <div><Icon icon="tabler:search" /></div>
+  {#if me}
+    <a href="/u/{me.username}">
+      <img src={me.profilePicture ? `${IMG_HOST}/${me.profilePicture}` : DEFAULT_PFP} alt="profile" class="pfp" />
+    </a>
+  {/if}
 </nav>
 
 <Router {url}>
@@ -61,6 +70,16 @@
     z-index: 10
     position: relative
 
+    img
+      width: 1.5rem
+      height: 1.5rem
+      border-radius: 50%
+      object-fit: cover
+
+    .pfp
+      width: 2rem
+      height: 2rem
+
     .logo
       display: flex
       align-items: center
@@ -69,11 +88,6 @@
       color: $c-main
       letter-spacing: 0.2em
       flex: 1
-
-      img
-        width: 1.5rem
-        height: 1.5rem
-        border-radius: 50%
 
       @media (max-width: $w-mobile)
         > span
