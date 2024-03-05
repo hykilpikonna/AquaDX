@@ -50,9 +50,9 @@ class AquaNetUser(
     var regTime: Long = 0L,
 
     // Profile fields
-    var profileLocation: String = "",
-    var profileBio: String = "",
-    var profilePicture: String = "",
+    var profileLocation: String? = "",
+    var profileBio: String? = "",
+    var profilePicture: String? = "",
 
     // Email confirmation
     var emailConfirmed: Boolean = false,
