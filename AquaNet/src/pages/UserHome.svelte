@@ -9,6 +9,7 @@
   import { DATA, GAME } from "../libs/sdk";
   import { type GameName, getMult } from "../libs/scoring";
   import StatusOverlays from "../components/StatusOverlays.svelte";
+  import { onMount } from "svelte";
 
   registerChart()
 
@@ -38,6 +39,13 @@
     d = {user, trend, recent: user.recent.map(it => {return {...music[it.musicId], ...it}})}
     localStorage.setItem("tmp-user-details", JSON.stringify(d))
     renderCal(calElement, trend.map(it => {return {date: it.date, value: it.plays}}))
+
+    // When the calendar is rendered, scroll horizontally to the rightmost
+    const scrollCal = () => calElement.scrollLeft = calElement.scrollWidth - calElement.clientWidth
+    setTimeout(() => {
+      if (calElement) scrollCal()
+      else setTimeout(scrollCal, 300)
+    }, 300)
   }).catch((e) => error = e.message);
 
   const games = {chu3: 'Chuni', mai2: 'Mai', ongeki: 'Ongeki'}
@@ -136,7 +144,7 @@
     <div>
       <h2>Play Activity</h2>
       <div class="activity-info">
-        <div id="cal-heatmap" bind:this={calElement} />
+        <div class="hide-scrollbar" id="cal-heatmap" bind:this={calElement} />
 
         <div class="info-bottom">
           <div class="plays">
