@@ -36,7 +36,11 @@
     console.log(user)
     console.log(trend)
 
-    d = {user, trend, recent: user.recent.map(it => {return {...music[it.musicId], ...it}})}
+    const minDate = moment().subtract(60, 'days').format("YYYY-MM-DD")
+    d = {user,
+      trend: trend.filter(it => it.date >= minDate),
+      recent: user.recent.map(it => {return {...music[it.musicId], ...it}})
+    }
     localStorage.setItem("tmp-user-details", JSON.stringify(d))
     renderCal(calElement, trend.map(it => {return {date: it.date, value: it.plays}}))
 
