@@ -170,9 +170,7 @@
           <div class:alt={i % 2 === 0}>
             <img src={`${DATA_HOST}/d/${game}/music/00${r.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="" on:error={coverNotFound} />
             <div class="info">
-              <div>
-                <span class="name">{r.name ??"Unable find music"}</span>
-              </div>
+              <div>{r.name ??"Unable find music"}</div>
               <div>
                 <span class={`lv level-${r.level}`}>{ r.notes?.[r.level]?.lv?.toFixed(1) ?? r.level ?? '0'}</span>
                 <span class={"rank-" + ("" + getMult(r.achievement, game)[2])[0]}>
@@ -218,7 +216,7 @@ $gap: 20px
       display: flex
       flex-direction: row
       gap: 10px
-      top: 0.5rem
+      top: 4px
       right: 0
 
   .pfp
@@ -349,18 +347,23 @@ $gap: 20px
           object-fit: cover
 
         // Song info and score
-        > div
+        > div.info
           flex: 1
           display: flex
           justify-content: space-between
+          overflow: hidden
 
           // Limit song name to one line
-          overflow: hidden
-          .name
+          > div:first-child
+            flex: 1
+            min-width: 0
             overflow: hidden
-            overflow-wrap: anywhere
-            white-space: nowrap
             text-overflow: ellipsis
+            white-space: nowrap
+
+          // Make song score and rank not wrap
+          > div:last-child
+            white-space: nowrap
 
           @media (max-width: $w-mobile)
             flex-direction: column

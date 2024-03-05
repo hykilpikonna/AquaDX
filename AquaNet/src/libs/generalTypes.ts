@@ -34,10 +34,8 @@ export interface CardSummaryGame {
 }
 
 export interface CardSummary {
-  maimai: CardSummaryGame | null
-  maimai2: CardSummaryGame | null
-  chusan: CardSummaryGame | null
-  chunithm: CardSummaryGame | null
+  mai2: CardSummaryGame | null
+  chu3: CardSummaryGame | null
   ongeki: CardSummaryGame | null
   diva: CardSummaryGame | null
 }
@@ -105,13 +103,11 @@ export interface MusicMeta {
   bpm: number,
   ver: number,
   notes: {
-    [key: number]: {
-      lv: number
-      designer: string
-      lv_id: number
-      notes: number
-    }
-  }
+    lv: number
+    designer: string
+    lv_id: number
+    notes: number
+  }[]
 }
 
 export type AllMusic = { [key: string]: MusicMeta }
