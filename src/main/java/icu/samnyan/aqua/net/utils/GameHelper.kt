@@ -40,7 +40,7 @@ fun findTrend(log: List<TrendLog>): List<TrendOut> {
         .sortedBy { it.date }.toMutableList()
 
     // Fill in the missing dates (min date and current date)
-    trend[0].let { if (it.date != minDate) trend.add(0, TrendOut(minDate, 0, 0)) }
+    trend[0].let { if (it.date > minDate) trend.add(0, TrendOut(minDate, 0, 0)) }
     trend.last().let { if (it.date != now) trend.add(TrendOut(now, it.rating, 0)) }
 
     return trend
