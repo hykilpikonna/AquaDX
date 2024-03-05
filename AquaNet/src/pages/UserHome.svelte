@@ -171,10 +171,10 @@
             <img src={`${DATA_HOST}/d/${game}/music/00${r.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="" on:error={coverNotFound} />
             <div class="info">
               <div>
-                <span class="name">{r.name}</span>
+                <span class="name">{r.name ??"Unable find music"}</span>
               </div>
               <div>
-                <span class={`lv level-${r.level}`}>{r.notes ? r.notes[r.level]?.lv.toFixed(1) : ""}</span>
+                <span class={`lv level-${r.level}`}>{ r.notes?.[r.level]?.lv?.toFixed(1) ?? r.level ?? '0'}</span>
                 <span class={"rank-" + ("" + getMult(r.achievement, game)[2])[0]}>
                   <span class="rank-text">{("" + getMult(r.achievement, game)[2]).replace("p", "+")}</span>
                   <span class="rank-num">{(r.achievement / 10000).toFixed(2)}%</span>
