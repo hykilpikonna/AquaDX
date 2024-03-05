@@ -1,10 +1,10 @@
 
-export const AQUA_HOST = 'https://aquanet.example.com/aqua'
-export const DATA_HOST = 'https://aquanet.example.com'
+export const AQUA_HOST = 'https://aquadx.net/aqua'
+export const DATA_HOST = 'https://aquadx.net'
 export const IMG_HOST = 'https://aquadx.net/user-uploads'
 
 // This will be displayed for users to connect from the client
-export const AQUA_CONNECTION = 'aqua.example.com'
+export const AQUA_CONNECTION = 'aquadx.hydev.org'
 
 export const TURNSTILE_SITE_KEY = '0x4AAAAAAASGA2KQEIelo9P9'
 export const DISCORD_INVITE = 'https://discord.gg/FNgveqFF7s'
