@@ -21,6 +21,7 @@ export interface UserMe {
   regTime: number
   profileLocation: string
   profileBio: string
+  profilePicture: string
   emailConfirmed: boolean
   ghostCard: Card
   cards: Card[]

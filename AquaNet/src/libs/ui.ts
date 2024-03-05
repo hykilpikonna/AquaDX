@@ -13,6 +13,7 @@ import moment from 'moment/moment'
 import CalHeatmap from 'cal-heatmap'
 // @ts-expect-error Cal-heatmap does not have proper types
 import CalTooltip from 'cal-heatmap/plugins/Tooltip'
+import { DEFAULT_PFP } from "./config";
 
 export function title(t: string) {
   document.title = `AquaNet - ${t}`
@@ -98,9 +99,5 @@ export const CHARTJS_OPT: ChartOptions<'line'> = {
   },
 }
 
-export const pfpNotFound = (e: Event) => {
-  (e.target as HTMLImageElement).src = "/assets/imgs/no_profile.png"
-}
-export const coverNotFound = (e: Event) => {
-  (e.target as HTMLImageElement).src = "/assets/imgs/no_cover.jpg"
-}
+export const pfpNotFound = (e: Event) => (e.target as HTMLImageElement).src = DEFAULT_PFP
+export const coverNotFound = (e: Event) => (e.target as HTMLImageElement).src = "/assets/imgs/no_cover.jpg"
