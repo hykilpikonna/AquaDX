@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.sega.aimedb
 
 import ext.toHex
+import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.general.service.CardService
 import io.netty.buffer.ByteBuf
@@ -22,7 +23,8 @@ import kotlin.jvm.optionals.getOrNull
 @Component
 @ChannelHandler.Sharable
 class AimeDB(
-    val cardService: CardService
+    val cardService: CardService,
+    val us: AquaUserServices,
 ): ChannelInboundHandlerAdapter() {
     val logger: Logger = LoggerFactory.getLogger(AimeDB::class.java)
 
@@ -53,20 +55,22 @@ class AimeDB(
      * Handle the incoming request
      */
     override fun channelRead(ctx: ChannelHandlerContext, msg: Any) {
-        if (msg is Map<*, *>) {
+        if (msg !is Map<*, *>) return
+        try {
             val type = msg["type"] as Int
             val data = msg["data"] as ByteBuf
             val base = getBaseInfo(data)
-            val handler = handlers[type] ?: let {
-                logger.error("AimeDB: Unknown request type 0x${type.toString(16)}")
-                ctx.flush()
-                return
-            }
+            val handler = handlers[type] ?: return logger.error("AimeDB: Unknown request type 0x${type.toString(16)}")
 
             logger.info("AimeDB /${handler.name} : (game ${base.gameId}, keychip ${base.keychipId})")
 
+            // Check keychip
+            if (!us.validKeychip(base.keychipId)) return logger.warn("> Rejected: Keychip not found")
+
             handler.fn(data)?.let { ctx.write(it) }
+        } finally {
             ctx.flush()
+            ctx.close()
         }
     }
 

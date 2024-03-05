@@ -1,10 +1,9 @@
 package icu.samnyan.aqua.net.db
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import ext.Str
-import ext.async
-import ext.isValidEmail
-import ext.minus
+import ext.*
+import icu.samnyan.aqua.sega.allnet.AllNetProps
+import icu.samnyan.aqua.sega.allnet.KeyChipRepo
 import icu.samnyan.aqua.sega.allnet.KeychipSession
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
@@ -101,6 +100,8 @@ class AquaUserServices(
     val userRepo: AquaNetUserRepo,
     val cardRepo: CardRepository,
     val hasher: PasswordEncoder,
+    val keyChipRepo: KeyChipRepo,
+    val allNetProps: AllNetProps
 ) {
     companion object {
         val SETTING_FIELDS = AquaUserServices::class.functions
@@ -120,6 +121,13 @@ class AquaUserServices(
             ?.let { cardRepo.findById(it).getOrNull() }
             ?.let { callback(it) } ?: (404 - "Card not found")
         else byName(username) { callback(it.ghostCard) }
+
+    fun validKeychip(keychipId: Str): Bool {
+        if (!allNetProps.checkKeychip) return true
+        if (keychipId.isBlank()) return false
+        if (userRepo.findByKeychip(keychipId) != null || keyChipRepo.existsByKeychipId(keychipId)) return true
+        return false
+    }
 
     fun checkUsername(username: Str) = username.apply {
         // Check if username is valid
