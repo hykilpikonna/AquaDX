@@ -103,13 +103,11 @@ export interface MusicMeta {
   bpm: number,
   ver: number,
   notes: {
-    [key: number]: {
-      lv: number
-      designer: string
-      lv_id: number
-      notes: number
-    }
-  }
+    lv: number
+    designer: string
+    lv_id: number
+    notes: number
+  }[]
 }
 
 export type AllMusic = { [key: string]: MusicMeta }
