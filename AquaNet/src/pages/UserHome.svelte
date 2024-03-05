@@ -75,18 +75,22 @@
           <div class="trend">
             <!-- ChartJS cannot be fully responsive unless there is a parent div that's independent from its size and helps it determine its size -->
             <div class="chartjs-box-reference">
-              <Line data={{
-              datasets: [
-                {
-                  label: 'Rating',
-                  data: d.trend.map(it => {return {x: Date.parse(it.date), y: it.rating}}),
-                  borderColor: '#646cff',
-                  tension: 0.1,
+              {#if d.trend.length === 0}
+                <div class="no-data">No data in the past 60 days</div>
+              {:else}
+                <Line data={{
+                  datasets: [
+                    {
+                      label: 'Rating',
+                      data: d.trend.map(it => {return {x: Date.parse(it.date), y: it.rating}}),
+                      borderColor: '#646cff',
+                      tension: 0.1,
 
-                  // TODO: Set X axis span to 3 months
-                }
-              ]
-            }} options={CHARTJS_OPT} />
+                      // TODO: Set X axis span to 3 months
+                    }
+                  ]
+                }} options={CHARTJS_OPT} />
+              {/if}
             </div>
           </div>
 
@@ -282,6 +286,13 @@ $gap: 20px
       > .chartjs-box-reference
         position: absolute
         inset: 0
+        display: flex
+        align-items: center
+        justify-content: center
+
+        .no-data
+          opacity: 0.5
+          user-select: none
 
     @media (max-width: $w-mobile)
       flex-direction: column
