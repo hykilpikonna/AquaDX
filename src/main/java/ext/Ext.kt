@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
+import java.nio.file.Path
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 typealias RP = RequestParam
@@ -55,11 +57,21 @@ val HTTP = HttpClient(CIO) {
 fun millis() = System.currentTimeMillis()
 val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 fun LocalDate.isoDate() = format(DATE_FORMAT)
+fun LocalDateTime.isoDateTime() = format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
 
+// Encodings
 fun Long.toHex(len: Int = 16): Str = "0x${this.toString(len).padStart(len, '0').uppercase()}"
 fun Map<String, Any>.toUrl() = entries.joinToString("&") { (k, v) -> "$k=$v" }
+
+// Map
 operator fun <K, V> Map<K, V>.plus(map: Map<K, V>) =
     (if (this is MutableMap) this else toMutableMap()).apply { putAll(map) }
 operator fun <K, V> MutableMap<K, V>.plusAssign(map: Map<K, V>) { putAll(map) }
 
 suspend fun <T> async(block: suspend kotlinx.coroutines.CoroutineScope.() -> T): T = withContext(Dispatchers.IO) { block() }
+
+// Paths
+fun path(part1: Str, vararg parts: Str) = Path.of(part1, *parts)
+fun Str.path() = Path.of(this)
+operator fun Path.div(part: Str) = resolve(part)
+

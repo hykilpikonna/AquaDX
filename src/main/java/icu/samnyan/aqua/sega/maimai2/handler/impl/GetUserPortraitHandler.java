@@ -34,7 +34,7 @@ public class GetUserPortraitHandler implements BaseHandler {
 
     public GetUserPortraitHandler(BasicMapper mapper,
     @Value("${game.maimai2.userPhoto.enable:true}") boolean enable,
-    @Value("${game.maimai2.userPhoto.picSavePath:data/userPhoto}") String picSavePath) {
+    @Value("${paths.mai2-portrait:data/userPhoto}") String picSavePath) {
         this.mapper = mapper;
         this.picSavePath = picSavePath;
         this.enable = enable;
