@@ -34,10 +34,8 @@ export interface CardSummaryGame {
 }
 
 export interface CardSummary {
-  maimai: CardSummaryGame | null
-  maimai2: CardSummaryGame | null
-  chusan: CardSummaryGame | null
-  chunithm: CardSummaryGame | null
+  mai2: CardSummaryGame | null
+  chu3: CardSummaryGame | null
   ongeki: CardSummaryGame | null
   diva: CardSummaryGame | null
 }
