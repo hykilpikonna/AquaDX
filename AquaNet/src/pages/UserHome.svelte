@@ -172,7 +172,9 @@
             <div class="info">
               <div>{r.name ??"Unable find music"}</div>
               <div>
-                <span class={`lv level-${r.level}`}>{ r.notes?.[r.level]?.lv?.toFixed(1) ?? r.level ?? '0'}</span>
+                <span class={`lv level-${r.level === 10 ? 3 : r.level}`}>
+                  { r.notes?.[r.level === 10 ? 0 : r.level]?.lv?.toFixed(1) ?? r.level ?? '0'}
+                </span>
                 <span class={"rank-" + ("" + getMult(r.achievement, game)[2])[0]}>
                   <span class="rank-text">{("" + getMult(r.achievement, game)[2]).replace("p", "+")}</span>
                   <span class="rank-num">{(r.achievement / 10000).toFixed(2)}%</span>
