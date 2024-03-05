@@ -1,0 +1,20 @@
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Matches multiple files: .ts, .json, .svelte .sass
+[*.{json,svelte,ts,sass}]
+indent_style = space
+indent_size = 2
+
+
+# Markdown files (e.g., README.md) often use a line length of 80 characters
+[*.md]
+max_line_length = 80
+trim_trailing_whitespace = false
