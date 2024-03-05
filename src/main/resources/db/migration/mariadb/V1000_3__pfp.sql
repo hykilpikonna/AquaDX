@@ -1,0 +1,1 @@
+ALTER TABLE aqua_net_user ADD profile_picture VARCHAR(255) NULL;

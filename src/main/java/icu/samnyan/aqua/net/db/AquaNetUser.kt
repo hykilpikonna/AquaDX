@@ -52,6 +52,7 @@ class AquaNetUser(
     // Profile fields
     var profileLocation: String = "",
     var profileBio: String = "",
+    var profilePicture: String = "",
 
     // Email confirmation
     var emailConfirmed: Boolean = false,

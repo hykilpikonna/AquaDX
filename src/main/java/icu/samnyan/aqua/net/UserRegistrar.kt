@@ -208,7 +208,11 @@ class UserRegistrar(
         if (!mime.startsWith("image/")) 400 - "Invalid file type"
 
         // Save the image
-        (portraitPath / "${u.auId}.${MIMES.forName(mime)?.extension ?: "jpg"}").writeBytes(bytes)
+        val name = "${u.auId}.${MIMES.forName(mime)?.extension ?: "jpg"}"
+        async {
+            (portraitPath / name).writeBytes(bytes)
+            userRepo.save(u.apply { profilePicture = name })
+        }
 
         SUCCESS
     }
