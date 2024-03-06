@@ -2,7 +2,7 @@ import { EN_REF_USER, type EN_REF_Welcome } from "./en_ref";
 
 const zhUser: typeof EN_REF_USER = {
   'UserHome.ServerRank': '服务器排名',
-  'UserHome.Ratting': 'DX B50分',
+  'UserHome.Rating': 'DX B50分',
   'UserHome.Statistics': '统计数据',
   'UserHome.Accuracy': '准确度',
   'UserHome.DXScore': 'DX 得分',

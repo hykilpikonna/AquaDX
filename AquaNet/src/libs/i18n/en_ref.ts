@@ -1,6 +1,6 @@
 export const EN_REF_USER = {
   'UserHome.ServerRank': 'Server Rank',
-  'UserHome.Ratting': 'DX Ratting',
+  'UserHome.Rating': 'DX Rating',
   'UserHome.Statistics': 'Statistics',
   'UserHome.Accuracy': 'Accuracy',
   'UserHome.DXScore': 'DX Score',

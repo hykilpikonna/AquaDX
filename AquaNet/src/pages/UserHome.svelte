@@ -79,7 +79,7 @@
         <div class="chart">
           <div class="info-top">
             <div class="rating">
-              <span>{game === 'mai2' ? t("UserHome.Ratting"): 'Rating'}</span>
+              <span>{game === 'mai2' ? t("UserHome.Rating"): 'Rating'}</span>
               <span>{d.user.rating.toLocaleString()}</span>
             </div>
 
