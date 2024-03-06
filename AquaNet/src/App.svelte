@@ -3,13 +3,12 @@
   import Welcome from "./pages/Welcome.svelte";
   import MaimaiRating from "./pages/MaimaiRating.svelte";
   import UserHome from "./pages/UserHome.svelte";
-  import Icon from '@iconify/svelte';
   import Home from "./pages/Home.svelte";
   import Ranking from "./pages/Ranking.svelte";
   import { USER } from "./libs/sdk";
   import type { UserMe } from "./libs/generalTypes";
-  import { DEFAULT_PFP, IMG_HOST } from "./libs/config";
   import Settings from "./pages/User/Settings.svelte";
+  import { pfp } from "./libs/ui"
 
   console.log(`%c
 ┏━┓         ┳━┓━┓┏━
@@ -42,7 +41,7 @@
   <a href="/ranking">rankings</a>
   {#if me}
     <a href="/u/{me.username}">
-      <img src={me.profilePicture ? `${IMG_HOST}/${me.profilePicture}` : DEFAULT_PFP} alt="profile" class="pfp" />
+      <img alt="profile" class="pfp" use:pfp={me}/>
     </a>
   {/if}
 </nav>

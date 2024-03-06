@@ -7,6 +7,7 @@
   import StatusOverlays from "../../components/StatusOverlays.svelte";
   import Icon from "@iconify/svelte";
   import { IMG_HOST } from "../../libs/config.js";
+  import { pfpNotFound, pfp } from "../../libs/ui";
 
   USER.ensureLoggedIn()
 
@@ -65,7 +66,10 @@
     <label for="profile-upload">Profile Picture</label>
     <div>
       {#if me && me.profilePicture}
-        <img src="{IMG_HOST}/{me?.profilePicture}" alt="Profile" />
+        <div on:click={() => pfpField.click()} on:keydown={e => e.key === 'Enter' && pfpField.click()}
+             role="button" tabindex="0" class="clickable">
+          <img use:pfp={me} alt="Profile" />
+        </div>
       {:else}
         <button on:click={() => pfpField.click()}>
           Upload New
@@ -100,6 +104,7 @@
 </main>
 
 <style lang="sass">
+  @import "../../vars"
 
   .field
     display: flex
@@ -113,5 +118,11 @@
 
       > input
         flex: 1
+
+    img
+      max-width: 100px
+      max-height: 100px
+      border-radius: $border-radius
+      object-fit: cover
 
 </style>
