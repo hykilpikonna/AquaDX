@@ -30,32 +30,34 @@ fun main() {
 
     var buf = ""
 
-    fun println(s: String) {
+    fun write(s: String) {
         buf += s + "\n"
-        kotlin.io.println(s)
+        println(s)
     }
+
+    println(classes)
 
     // Loop through all classes
     classes.filter { it.isAnnotationPresent(apiCls) }.forEach { cls ->
         val base = cls.getAnnotation(API::class.java).value.joinToString(", ")
-        println("\n\n### ${cls.simpleName} : $base\n")
-        println("Located at: [${cls.name}](${cls.name.replace('.', '/')}.kt)")
+        write("\n\n### ${cls.simpleName} : $base\n")
+        write("Located at: [${cls.name}](${cls.name.replace('.', '/')}.kt)")
 
         // Loop through all functions
         cls.kotlin.declaredFunctions.filter { it.hasAnnotation<API>() }.forEach { fn ->
             val endpoint = fn.findAnnotation<API>()!!.value.joinToString(", ")
             val doc = fn.findAnnotation<Doc>()
 
-            println("\n**${base.replace("/api/v2", "")}$endpoint** : ${doc?.desc ?: "No description"}\n")
+            write("\n**${base.replace("/api/v2", "")}$endpoint** : ${doc?.desc ?: "No description"}\n")
 
             // Parameters
             fn.parameters.filter { it.hasAnnotation<RP>() }.forEach { param ->
                 val paramName = param.name
                 val paramType = param.type.javaType.typeName.split('.').last()
-                println("* $paramName: $paramType")
+                write("* $paramName: $paramType")
             }
 
-            doc?.ret?.let { println("* **Returns**: $it") }
+            doc?.ret?.let { write("* **Returns**: $it") }
         }
     }
 
