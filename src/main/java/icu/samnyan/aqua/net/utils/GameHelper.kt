@@ -105,7 +105,7 @@ fun genericUserSummary(
     return GenericGameSummary(
         name = user.userName,
         iconId = user.iconId,
-        profilePicture = card.aquaUser?.profilePicture,
+        aquaUser = card.aquaUser,
         serverRank = userDataRepo.getRanking(user.playerRating),
         accuracy = plays.acc(),
         rating = user.playerRating,
