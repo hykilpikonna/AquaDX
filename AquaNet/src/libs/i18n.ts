@@ -40,6 +40,11 @@ const msgs: { [index: string]: typeof EN_REF } = {
 
 let lang = 'en'
 
+// Infer language from browser
+if (navigator.language.startsWith('zh')) {
+  lang = 'zh'
+}
+
 export function t(key: keyof typeof EN_REF, variables?: { [index: string]: string }) {
   if (variables) {
     return msgs[lang][key].replace(/\${(.*?)}/g, (_, v) => variables[v])
