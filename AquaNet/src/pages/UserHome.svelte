@@ -1,7 +1,7 @@
 <script lang="ts">
   import { CHARTJS_OPT, coverNotFound, pfpNotFound, registerChart, renderCal, title, tooltip } from "../libs/ui";
   import type { GenericGamePlaylog, GenericGameSummary, MusicMeta, TrendEntry, UserMe } from "../libs/generalTypes";
-  import {DATA_HOST} from "../libs/config";
+  import { DATA_HOST } from "../libs/config";
   import 'cal-heatmap/cal-heatmap.css';
   import { Line } from 'svelte-chartjs';
   import moment from "moment";

@@ -1,7 +1,7 @@
 <!-- Svelte 4.2.11 -->
 
 <script lang="ts">
-  import { slide, fade } from "svelte/transition";
+  import { fade, slide } from "svelte/transition";
   import { USER } from "../../libs/sdk";
   import type { UserMe } from "../../libs/generalTypes";
   import { codeToHtml } from 'shiki'

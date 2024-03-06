@@ -1,7 +1,7 @@
 <!-- Svelte 4.2.11 -->
 
 <script lang="ts">
-  import { slide, fade } from "svelte/transition"
+  import { fade, slide } from "svelte/transition"
   import type { Card, CardSummary, CardSummaryGame, ConfirmProps, UserMe } from "../../libs/generalTypes";
   import { CARD, USER } from "../../libs/sdk";
   import moment from "moment"

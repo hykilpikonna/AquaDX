@@ -15,7 +15,7 @@ import moment from 'moment/moment'
 import CalHeatmap from 'cal-heatmap'
 // @ts-expect-error Cal-heatmap does not have proper types
 import CalTooltip from 'cal-heatmap/plugins/Tooltip'
-import { AQUA_HOST, DEFAULT_PFP, IMG_HOST } from "./config";
+import { AQUA_HOST, DEFAULT_PFP } from "./config";
 import type { UserMe } from "./generalTypes";
 
 export function title(t: string) {

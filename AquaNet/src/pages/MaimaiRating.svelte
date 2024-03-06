@@ -1,7 +1,7 @@
 <script lang="ts">
-  import {DATA_HOST} from "../libs/config";
-  import {getMaimaiAllMusic, getMaimai} from "../libs/maimai";
-  import type {ParsedRating, Rating} from "../libs/maimaiTypes";
+  import { DATA_HOST } from "../libs/config";
+  import { getMaimai, getMaimaiAllMusic } from "../libs/maimai";
+  import type { ParsedRating, Rating } from "../libs/maimaiTypes";
   import { getMult } from "../libs/scoring";
   import StatusOverlays from "../components/StatusOverlays.svelte";
 

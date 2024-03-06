@@ -6,8 +6,7 @@
   import { USER } from "../../libs/sdk";
   import StatusOverlays from "../../components/StatusOverlays.svelte";
   import Icon from "@iconify/svelte";
-  import { IMG_HOST } from "../../libs/config.js";
-  import { pfpNotFound, pfp } from "../../libs/ui";
+  import { pfp } from "../../libs/ui";
 
   USER.ensureLoggedIn()
 

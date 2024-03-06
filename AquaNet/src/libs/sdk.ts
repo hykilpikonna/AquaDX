@@ -5,7 +5,6 @@ import type {
   CardSummary,
   GenericGameSummary,
   GenericRanking,
-  MusicMeta,
   TrendEntry,
   UserMe
 } from "./generalTypes";

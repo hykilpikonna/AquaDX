@@ -1,9 +1,4 @@
 import { AQUA_HOST, DATA_HOST } from './config'
-import type { TrendEntry } from './generalTypes'
-import type { MaimaiUserSummaryEntry } from './maimaiTypes'
-
-
-
 
 
 export async function getMaimai(endpoint: string, params: any) {

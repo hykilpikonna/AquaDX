@@ -1,9 +1,9 @@
 <script lang="ts">
-  import {fade} from "svelte/transition";
+  import { fade } from "svelte/transition";
   import LinkCard from "./Home/LinkCard.svelte";
   import SetupInstructions from "./Home/SetupInstructions.svelte";
   import { DISCORD_INVITE, FADE_IN, FADE_OUT } from "../libs/config";
-  import {USER} from "../libs/sdk.js";
+  import { USER } from "../libs/sdk.js";
   import type { UserMe } from "../libs/generalTypes";
   import StatusOverlays from "../components/StatusOverlays.svelte";
   import ActionCard from "../components/ActionCard.svelte";
