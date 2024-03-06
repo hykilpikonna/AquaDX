@@ -49,6 +49,9 @@ public class ChusanServletController {
     private final GetGameGachaHandler getGameGachaHandler;
     private final GetGameGachaCardByIdHandler getGameGachaCardByIdHandler;
     private final GetUserCardPrintErrorHandler getUserCardPrintErrorHandler;
+    private final GetUserCMissionHandler getUserCMissionHandler;
+    private final GetGameMapAreaConditionHandler getGameMapAreaConditionHandler;
+    private final GetUserNetBattleRankingInfoHandler getUserNetBattleRankingInfoHandler;
     private final CMGetUserPreviewHandler cmGetUserPreviewHandler;
     private final CMGetUserDataHandler cmGetUserDataHandler;
     private final CMGetUserCharacterHandler cmGetUserCharacterHandler;
@@ -59,6 +62,7 @@ public class ChusanServletController {
     private final CMUpsertUserGachaHandler cmUpsertUserGachaHandler;
     private final CMUpsertUserPrintSubtractHandler cmUpsertUserPrintSubtractHandler;
     private final CMUpsertUserPrintCancelHandler cmUpsertUserPrintCancelHandler;
+    private final GetUserCtoCPlayHandler getUserCtoCPlayHandler;
     private final BeginMatchingHandler beginMatchingHandler;
     private final EndMatchingHandler endMatchingHandler;
     private final GetMatchingStateHandler getMatchingStateHandler;
@@ -66,29 +70,29 @@ public class ChusanServletController {
 
     @Autowired
     public ChusanServletController(GameLoginHandler gameLoginHandler, GameLogoutHandler gameLogoutHandler,
-    GetGameChargeHandler getGameChargeHandler, GetGameEventHandler getGameEventHandler,
-    GetGameIdlistHandler getGameIdlistHandler, GetGameRankingHandler getGameRankingHandler,
-    GetGameSettingHandler getGameSettingHandler, GetTeamCourseRuleHandler getTeamCourseRuleHandler,
-    GetTeamCourseSettingHandler getTeamCourseSettingHandler, GetUserActivityHandler getUserActivityHandler,
-    GetUserCharacterHandler getUserCharacterHandler, GetUserChargeHandler getUserChargeHandler,
-    GetUserCourseHandler getUserCourseHandler, GetUserDataHandler getUserDataHandler,
-    GetUserDuelHandler getUserDuelHandler, GetUserFavoriteItemHandler getUserFavoriteItemHandler,
-    GetUserItemHandler getUserItemHandler, GetUserLoginBonusHandler getUserLoginBonusHandler,
-    GetUserMapAreaHandler getUserMapAreaHandler, GetUserMusicHandler getUserMusicHandler,
-    GetUserOptionHandler getUserOptionHandler, GetUserPreviewHandler getUserPreviewHandler,
-    GetUserRecentRatingHandler getUserRecentRatingHandler, GetUserRegionHandler getUserRegionHandler,
-    GetUserRivalDataHandler getUserRivalDataHandler, GetUserRivalMusicHandler getUserRivalMusicHandler,
-    GetUserTeamHandler getUserTeamHandler, UpsertUserAllHandler upsertUserAllHandler,
-    UpsertUserChargelogHandler upsertUserChargelogHandler, GetUserSymbolChatSettingHandler getUserSymbolChatSettingHandler,
-    GetUserNetBattleDataHandler getUserNetBattleDataHandler, GetGameGachaHandler getGameGachaHandler,
-    GetGameGachaCardByIdHandler getGameGachaCardByIdHandler, GetUserCardPrintErrorHandler getUserCardPrintErrorHandler,
-    CMGetUserPreviewHandler cmGetUserPreviewHandler, CMGetUserDataHandler cmGetUserDataHandler,
-    CMGetUserCharacterHandler cmGetUserCharacterHandler, GetUserGachaHandler getUserGachaHandler,
-    GetUserPrintedCardHandler getUserPrintedCardHandler, CMGetUserItemHandler cmGetUserItemHandler,
-    RollGachaHandler rollGachaHandler, CMUpsertUserGachaHandler cmUpsertUserGachaHandler,
-    CMUpsertUserPrintSubtractHandler cmUpsertUserPrintSubtractHandler, CMUpsertUserPrintCancelHandler cmUpsertUserPrintCancelHandler,
-    BeginMatchingHandler beginMatchingHandler, EndMatchingHandler endMatchingHandler,
-    GetMatchingStateHandler getMatchingStateHandler, RemoveMatchingMemberHandler removeMatchingMemberHandler) {
+                                   GetGameChargeHandler getGameChargeHandler, GetGameEventHandler getGameEventHandler,
+                                   GetGameIdlistHandler getGameIdlistHandler, GetGameRankingHandler getGameRankingHandler,
+                                   GetGameSettingHandler getGameSettingHandler, GetTeamCourseRuleHandler getTeamCourseRuleHandler,
+                                   GetTeamCourseSettingHandler getTeamCourseSettingHandler, GetUserActivityHandler getUserActivityHandler,
+                                   GetUserCharacterHandler getUserCharacterHandler, GetUserChargeHandler getUserChargeHandler,
+                                   GetUserCourseHandler getUserCourseHandler, GetUserDataHandler getUserDataHandler,
+                                   GetUserDuelHandler getUserDuelHandler, GetUserFavoriteItemHandler getUserFavoriteItemHandler,
+                                   GetUserItemHandler getUserItemHandler, GetUserLoginBonusHandler getUserLoginBonusHandler,
+                                   GetUserMapAreaHandler getUserMapAreaHandler, GetUserMusicHandler getUserMusicHandler,
+                                   GetUserOptionHandler getUserOptionHandler, GetUserPreviewHandler getUserPreviewHandler,
+                                   GetUserRecentRatingHandler getUserRecentRatingHandler, GetUserRegionHandler getUserRegionHandler,
+                                   GetUserRivalDataHandler getUserRivalDataHandler, GetUserRivalMusicHandler getUserRivalMusicHandler,
+                                   GetUserTeamHandler getUserTeamHandler, UpsertUserAllHandler upsertUserAllHandler,
+                                   UpsertUserChargelogHandler upsertUserChargelogHandler, GetUserSymbolChatSettingHandler getUserSymbolChatSettingHandler,
+                                   GetUserNetBattleDataHandler getUserNetBattleDataHandler, GetGameGachaHandler getGameGachaHandler,
+                                   GetGameGachaCardByIdHandler getGameGachaCardByIdHandler, GetUserCardPrintErrorHandler getUserCardPrintErrorHandler,
+                                   GetUserCMissionHandler getUserCMissionHandler, GetGameMapAreaConditionHandler getGameMapAreaConditionHandler, GetUserNetBattleRankingInfoHandler getUserNetBattleRankingInfoHandler, CMGetUserPreviewHandler cmGetUserPreviewHandler, CMGetUserDataHandler cmGetUserDataHandler,
+                                   CMGetUserCharacterHandler cmGetUserCharacterHandler, GetUserGachaHandler getUserGachaHandler,
+                                   GetUserPrintedCardHandler getUserPrintedCardHandler, CMGetUserItemHandler cmGetUserItemHandler,
+                                   RollGachaHandler rollGachaHandler, CMUpsertUserGachaHandler cmUpsertUserGachaHandler,
+                                   CMUpsertUserPrintSubtractHandler cmUpsertUserPrintSubtractHandler, CMUpsertUserPrintCancelHandler cmUpsertUserPrintCancelHandler,
+                                   BeginMatchingHandler beginMatchingHandler, EndMatchingHandler endMatchingHandler,
+                                   GetMatchingStateHandler getMatchingStateHandler, RemoveMatchingMemberHandler removeMatchingMemberHandler) {
         this.gameLoginHandler = gameLoginHandler;
         this.gameLogoutHandler = gameLogoutHandler;
         this.getGameChargeHandler = getGameChargeHandler;
@@ -123,6 +127,9 @@ public class ChusanServletController {
         this.getGameGachaHandler = getGameGachaHandler;
         this.getGameGachaCardByIdHandler = getGameGachaCardByIdHandler;
         this.getUserCardPrintErrorHandler = getUserCardPrintErrorHandler;
+        this.getUserCMissionHandler = getUserCMissionHandler;
+        this.getGameMapAreaConditionHandler = getGameMapAreaConditionHandler;
+        this.getUserNetBattleRankingInfoHandler = getUserNetBattleRankingInfoHandler;
         this.cmGetUserPreviewHandler = cmGetUserPreviewHandler;
         this.cmGetUserDataHandler = cmGetUserDataHandler;
         this.cmGetUserCharacterHandler = cmGetUserCharacterHandler;
@@ -133,212 +140,228 @@ public class ChusanServletController {
         this.cmUpsertUserGachaHandler = cmUpsertUserGachaHandler;
         this.cmUpsertUserPrintSubtractHandler = cmUpsertUserPrintSubtractHandler;
         this.cmUpsertUserPrintCancelHandler = cmUpsertUserPrintCancelHandler;
+        this.getUserCtoCPlayHandler = getUserCtoCPlayHandler;
         this.beginMatchingHandler = beginMatchingHandler;
         this.endMatchingHandler = endMatchingHandler;
         this.getMatchingStateHandler = getMatchingStateHandler;
         this.removeMatchingMemberHandler = removeMatchingMemberHandler;
     }
 
-    @PostMapping("GameLoginApi")
+    @PostMapping({"GameLoginApi", "GameLoginApiC3Exp"})
     String gameLogin(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return gameLoginHandler.handle(request);
     }
 
-    @PostMapping("GameLogoutApi")
+    @PostMapping({"GameLogoutApi", "GameLogoutApiC3Exp"})
     String gameLogout(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return gameLogoutHandler.handle(request);
     }
 
-    @PostMapping("GetGameChargeApi")
+    @PostMapping({"GetGameChargeApi", "GetGameChargeApiC3Exp"})
     String getGameCharge(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getGameChargeHandler.handle(request);
     }
 
-    @PostMapping("GetGameEventApi")
+    @PostMapping({"GetGameEventApi", "GetGameEventApiC3Exp"})
     String getGameEvent(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getGameEventHandler.handle(request);
     }
 
-    @PostMapping("GetGameIdlistApi")
+    @PostMapping({"GetGameIdlistApi", "GetGameIdlistApiC3Exp"})
     String getGameIdList(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getGameIdlistHandler.handle(request);
     }
 
-    @PostMapping("GetGameRankingApi")
+    @PostMapping({"GetGameRankingApi", "GetGameRankingApiC3Exp"})
     String getGameRanking(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getGameRankingHandler.handle(request);
     }
 
-    @PostMapping("GetGameSettingApi")
+    @PostMapping({"GetGameSettingApi", "GetGameSettingApiC3Exp"})
     String getGameSetting(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getGameSettingHandler.handle(request);
     }
 
-    @PostMapping("GetTeamCourseRuleApi")
+    @PostMapping({"GetTeamCourseRuleApi", "GetTeamCourseRuleApiC3Exp"})
     String getTeamCourseRule(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getTeamCourseRuleHandler.handle(request);
     }
 
-    @PostMapping("GetTeamCourseSettingApi")
+    @PostMapping({"GetTeamCourseSettingApi", "GetTeamCourseSettingApiC3Exp"})
     String getTeamCourseSetting(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getTeamCourseSettingHandler.handle(request);
     }
 
-    @PostMapping("GetUserActivityApi")
+    @PostMapping({"GetUserActivityApi", "GetUserActivityApiC3Exp"})
     String getUserActivity(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserActivityHandler.handle(request);
     }
 
-    @PostMapping("GetUserCharacterApi")
+    @PostMapping({"GetUserCharacterApi", "GetUserCharacterApiC3Exp"})
     String getUserCharacter(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserCharacterHandler.handle(request);
     }
 
-    @PostMapping("GetUserChargeApi")
+    @PostMapping({"GetUserChargeApi", "GetUserChargeApiC3Exp"})
     String getUserCharge(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserChargeHandler.handle(request);
     }
 
-    @PostMapping("GetUserCourseApi")
+    @PostMapping({"GetUserCourseApi", "GetUserCourseApiC3Exp"})
     String getUserCourse(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserCourseHandler.handle(request);
     }
 
-    @PostMapping("GetUserDataApi")
+    @PostMapping({"GetUserDataApi", "GetUserDataApiC3Exp"})
     String getUserData(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserDataHandler.handle(request);
     }
 
-    @PostMapping("GetUserDuelApi")
+    @PostMapping({"GetUserDuelApi", "GetUserDuelApiC3Exp"})
     String getUserDuel(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserDuelHandler.handle(request);
     }
 
-    @PostMapping("GetUserFavoriteItemApi")
+    @PostMapping({"GetUserFavoriteItemApi", "GetUserFavoriteItemApiC3Exp"})
     String getUserFavoriteItem(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserFavoriteItemHandler.handle(request);
     }
 
-    @PostMapping("GetUserItemApi")
+    @PostMapping({"GetUserItemApi", "GetUserItemApiC3Exp"})
     String getUserItem(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserItemHandler.handle(request);
     }
 
-    @PostMapping("GetUserLoginBonusApi")
+    @PostMapping({"GetUserLoginBonusApi", "GetUserLoginBonusApiC3Exp"})
     String getUserLoginBonus(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserLoginBonusHandler.handle(request);
     }
 
-    @PostMapping("GetUserMapAreaApi")
+    @PostMapping({"GetUserMapAreaApi", "GetUserMapAreaApiC3Exp"})
     String getUserMap(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserMapAreaHandler.handle(request);
     }
 
-    @PostMapping("GetUserMusicApi")
-    String getUserMusic(@ModelAttribute Map<String, Object> request, @PathVariable String version) throws JsonProcessingException {
-        request.put("version", version);
+    @PostMapping({"GetUserMusicApi", "GetUserMusicApiC3Exp"})
+    String getUserMusic(@ModelAttribute Map<String, Object> request, @PathVariable String ROM_VERSION) throws JsonProcessingException {
+        request.put("ROM_VERSION", ROM_VERSION);
         return getUserMusicHandler.handle(request);
     }
 
-    @PostMapping("GetUserOptionApi")
+    @PostMapping({"GetUserOptionApi", "GetUserOptionApiC3Exp"})
     String getUserOption(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserOptionHandler.handle(request);
     }
 
     // Call when login. Return null if no profile exist
-    @PostMapping("GetUserPreviewApi")
+    @PostMapping({"GetUserPreviewApi", "GetUserPreviewApiC3Exp"})
     String getUserPreview(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserPreviewHandler.handle(request);
     }
 
-    @PostMapping("GetUserRecentRatingApi")
+    @PostMapping({"GetUserRecentRatingApi", "GetUserRecentRatingApiC3Exp"})
     String getUserRecentRating(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserRecentRatingHandler.handle(request);
     }
 
-    @PostMapping("GetUserRegionApi")
+    @PostMapping({"GetUserRegionApi", "GetUserRegionApiC3Exp"})
     String getUserRegion(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserRegionHandler.handle(request);
     }
 
-    @PostMapping("GetUserRivalDataApi")
+    @PostMapping({"GetUserRivalDataApi", "GetUserRivalDataApiC3Exp"})
     String getUserRivalData(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserRivalDataHandler.handle(request);
     }
 
-    @PostMapping("GetUserRivalMusicApi")
+    @PostMapping({"GetUserRivalMusicApi", "GetUserRivalMusicApiC3EXP"})
     String getUserRivalMusic(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserRivalMusicHandler.handle(request);
     }
 
-    @PostMapping("GetUserTeamApi")
+    @PostMapping({"GetUserTeamApi", "GetUserTeamApiC3Exp"})
     String getUserTeam(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserTeamHandler.handle(request);
     }
 
-    @PostMapping("GetUserSymbolChatSettingApi")
+    @PostMapping({"GetUserSymbolChatSettingApi", "GetUserSymbolChatSettingApiC3Exp"})
     String getUserSymbolChatSetting(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserSymbolChatSettingHandler.handle(request);
     }
 
-    @PostMapping("GetUserNetBattleDataApi")
+    @PostMapping({"GetUserNetBattleDataApi", "GetUserNetBattleDataApiC3Exp"})
     String getUserNetBattleData(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserNetBattleDataHandler.handle(request);
     }
 
-    @PostMapping("UpsertClientBookkeepingApi")
+    @PostMapping({"UpsertClientBookkeepingApi", "UpsertClientBookkeepingApiC3Exp"})
     String upsertClientBookkeeping(@ModelAttribute Map<String, Object> request) {
         return "{\"returnCode\":\"1\"}";
     }
 
-    @PostMapping("UpsertClientDevelopApi")
+    @PostMapping({"UpsertClientDevelopApi", "UpsertClientDevelopApiC3Exp"})
     String upsertClientDevelop(@ModelAttribute Map<String, Object> request) {
         return "{\"returnCode\":\"1\"}";
     }
 
-    @PostMapping("UpsertClientErrorApi")
+    @PostMapping({"UpsertClientErrorApi", "UpsertClientErrorApiC3Exp"})
     String upsertClientError(@ModelAttribute Map<String, Object> request) {
         return "{\"returnCode\":\"1\"}";
     }
 
-    @PostMapping("UpsertClientSettingApi")
+    @PostMapping({"UpsertClientSettingApi", "UpsertClientSettingApiC3Exp"})
     String upsertClientSetting(@ModelAttribute Map<String, Object> request) {
         return "{\"returnCode\":\"1\"}";
     }
 
-    @PostMapping("UpsertClientTestmodeApi")
+    @PostMapping({"UpsertClientTestmodeApi", "UpsertClientTestmodeApiC3Exp"})
     String upsertClientTestmode(@ModelAttribute Map<String, Object> request) {
         return "{\"returnCode\":\"1\"}";
     }
 
-    @PostMapping("UpsertUserAllApi")
+    @PostMapping({"UpsertUserAllApi", "UpsertUserAllApiC3Exp"})
     String upsertUserAll(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return upsertUserAllHandler.handle(request);
     }
 
-    @PostMapping("UpsertUserChargelogApi")
+    @PostMapping({"UpsertUserChargelogApi", "UpsertUserChargelogApiC3Exp"})
     String upsertUserChargelog(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return upsertUserChargelogHandler.handle(request);
     }
 
-    @PostMapping("CreateTokenApi")
+    @PostMapping({"CreateTokenApi", "CreateTokenApiC3Exp"})
     String createToken(@ModelAttribute Map<String, Object> request) {
         return "{\"returnCode\":\"1\"}";
     }
 
-    @PostMapping("RemoveTokenApi")
+    @PostMapping({"RemoveTokenApi", "RemoveTokenApiC3Exp"})
     String removeToken(@ModelAttribute Map<String, Object> request) {
         return "{\"returnCode\":\"1\"}";
     }
 
-    @PostMapping("UpsertClientUploadApi")
+    @PostMapping({"UpsertClientUploadApi", "UpsertClientUploadApiC3Exp"})
     String upsertClientUpload(@ModelAttribute Map<String, Object> request) {
         return "{\"returnCode\":\"1\"}";
     }
 
-    // Matching endpoints
+    @PostMapping({"GetUserCMissionApi"})
+    String getUserCMission(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserCMissionHandler.handle(request);
+    }
 
-    @PostMapping("MatchingServer/Ping")
+    @PostMapping({"GetGameMapAreaConditionApi"})
+    String getUserGameMapAreaCondition(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getGameMapAreaConditionHandler.handle(request);
+    }
+
+    @PostMapping({"GetUserNetBattleRankingInfoApi"})
+    String getUserNetBattleRankingInfo(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserNetBattleRankingInfoHandler.handle(request);
+    }
+
+    //Matching endpoints
+
+    @PostMapping({"MatchingServer/Ping", "Ping"})
     String ping(@ModelAttribute Map<String, Object> request) {
         return "{\"returnCode\":\"1\"}";
     }
