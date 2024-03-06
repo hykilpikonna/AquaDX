@@ -79,4 +79,4 @@ suspend fun <T> async(block: suspend kotlinx.coroutines.CoroutineScope.() -> T):
 fun path(part1: Str, vararg parts: Str) = Path.of(part1, *parts)
 fun Str.path() = Path.of(this)
 operator fun Path.div(part: Str) = resolve(part)
-
+fun Str.ensureEndingSlash() = if (endsWith('/')) this else "$this/"

@@ -1,11 +1,13 @@
 package icu.samnyan.aqua.net.utils
 
+import ext.ensureEndingSlash
 import ext.path
 import jakarta.annotation.PostConstruct
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
+import org.springframework.web.servlet.resource.PathResourceResolver
 
 @Configuration
 @ConfigurationProperties(prefix = "paths")
@@ -25,12 +27,14 @@ class PathProps {
 @Configuration
 class UploadStatic(val paths: PathProps): WebMvcConfigurer {
     override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
+        println("Adding resource handlers")
         mapOf(
-            "/uploads/net/portrait/**" to paths.aquaNetPortrait,
-            "/uploads/mai2/portrait/**" to paths.mai2Portrait,
-            "/uploads/mai2/plays/**" to paths.mai2Plays
+            "/uploads/net/portrait/**" to paths.aquaNetPortrait.ensureEndingSlash(),
+            "/uploads/mai2/portrait/**" to paths.mai2Portrait.ensureEndingSlash(),
+            "/uploads/mai2/plays/**" to paths.mai2Plays.ensureEndingSlash()
         ).forEach { (k, v) ->
-            registry.addResourceHandler(k).addResourceLocations("file:$v").setCachePeriod(10).resourceChain(true)
+            registry.addResourceHandler(k).addResourceLocations("file:$v")
+                .setCachePeriod(10).resourceChain(true).addResolver(PathResourceResolver())
         }
     }
 }
