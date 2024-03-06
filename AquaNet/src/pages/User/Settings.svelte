@@ -6,6 +6,7 @@
   import { USER } from "../../libs/sdk";
   import StatusOverlays from "../../components/StatusOverlays.svelte";
   import Icon from "@iconify/svelte";
+  import { IMG_HOST } from "../../libs/config.js";
 
   USER.ensureLoggedIn()
 
@@ -22,13 +23,15 @@
   ]
 
   // Fetch user data
-  USER.me().then(m => {
+  const getMe = () => USER.me().then(m => {
     me = m
     values = fields.map(([field]) => me[field as keyof UserMe])
   }).catch(e => error = e.message)
+  getMe()
 
   let values = Array(fields.length).fill('')
   let changed: string[] = []
+  let pfpField: HTMLInputElement
 
   function submit(field: string, value: string) {
     if (submitting) return
@@ -39,6 +42,17 @@
     }).catch(e => error = e.message).finally(() => submitting = "")
   }
 
+  function uploadPfp(file: File) {
+    if (submitting) return
+    submitting = 'profilePicture'
+
+    USER.uploadPfp(file).then(() => {
+      me.profilePicture = file.name
+      // reload
+      getMe()
+    }).catch(e => error = e.message).finally(() => submitting = "")
+  }
+
   const passwordAction = (node: HTMLInputElement, whether: boolean) => {
     if (whether) node.type = 'password'
   }
@@ -46,6 +60,21 @@
 
 <main class="content">
   <h2>Profile Settings</h2>
+
+  <div class="field">
+    <label for="profile-upload">Profile Picture</label>
+    <div>
+      {#if me && me.profilePicture}
+        <img src="{IMG_HOST}/{me?.profilePicture}" alt="Profile" />
+      {:else}
+        <button on:click={() => pfpField.click()}>
+          Upload New
+        </button>
+      {/if}
+    </div>
+    <input id="profile-upload" type="file" accept="image/*" style="display: none" bind:this={pfpField}
+           on:change={() => pfpField.files && uploadPfp(pfpField.files[0])} />
+  </div>
 
   {#each fields as [field, name], i (field)}
     <div class="field">
