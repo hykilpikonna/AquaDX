@@ -160,10 +160,7 @@ class UserRegistrar(
 
     @API("/me")
     @Doc("Get the information of the current logged-in user.", "User information")
-    suspend fun getUser(@RP token: Str) = jwt.auth(token).apply {
-        if (!profilePicture.isNullOrBlank())
-            profilePicture = (portraitPath / profilePicture!!).toString()
-    }
+    suspend fun getUser(@RP token: Str) = jwt.auth(token)
 
     @API("/setting")
     @Doc("Validate and set a user setting field.", "Success message")
