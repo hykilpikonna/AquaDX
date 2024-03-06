@@ -4,6 +4,11 @@
 
 Located at: [icu.samnyan.aqua.net.CardController](icu/samnyan/aqua/net/CardController.kt)
 
+**/card/default-game** : Get the default game for the card.
+
+* username: String
+* **Returns**: Game ID
+
 **/card/link** : Bind a card to the user. This action will migrate selected data from the card to the user's ghost card.
 
 * token: String
@@ -21,6 +26,23 @@ Located at: [icu.samnyan.aqua.net.CardController](icu/samnyan/aqua/net/CardContr
 * token: String
 * cardId: String
 * **Returns**: Success message
+
+
+### Frontier : /api/v2/frontier
+
+Located at: [icu.samnyan.aqua.net.Frontier](icu/samnyan/aqua/net/Frontier.kt)
+
+**/frontier/lookup-card** : Lookup a card by access code
+
+* ftk: String
+* accessCode: String
+* **Returns**: Card information
+
+**/frontier/register-card** : Register a new card by access code
+
+* ftk: String
+* accessCode: String
+* **Returns**: Card information
 
 
 ### UserRegistrar : /api/v2/user
@@ -57,4 +79,15 @@ Located at: [icu.samnyan.aqua.net.UserRegistrar](icu/samnyan/aqua/net/UserRegist
 * token: String
 * key: String
 * value: String
+* **Returns**: Success message
+
+**/user/keychip** : Get a Keychip ID so that the user can connect to the server.
+
+* token: String
+* **Returns**: Success message
+
+**/user/upload-pfp** : Upload a profile picture for the user.
+
+* token: String
+* file: MultipartFile
 * **Returns**: Success message
