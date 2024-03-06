@@ -1,9 +1,6 @@
 package icu.samnyan.aqua.net
 
-import ext.API
-import ext.Doc
-import ext.RP
-import ext.minus
+import ext.*
 import icu.samnyan.aqua.sega.general.service.CardService
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.context.properties.ConfigurationProperties
@@ -24,23 +21,35 @@ class Frontier(
     val cardService: CardService,
     val props: FrontierProps
 ) {
-    fun String.checkFtk() {
+    fun Str.checkFtk() {
         if (this != props.ftk) 403 - "Invalid FTK"
     }
 
     @API("/register-card")
-    @Doc("Register a new card by access code", "Success message")
-    suspend fun registerCard(@RP ftk: String, @RP accessCode: String): Any {
+    @Doc("Register a new card by access code", "Card information")
+    suspend fun registerCard(@RP ftk: Str, @RP accessCode: Str): Any {
         ftk.checkFtk()
 
-        return cardService.registerByAccessCode(accessCode)
+        if (accessCode.length != 20) 400 - "Invalid access code"
+        if (!accessCode.startsWith("9900")) 400 - "Frontier access code must start with 9900"
+        if (async { cardService.cardRepo.findByLuid(accessCode) }.isPresent) 400 - "Card already registered"
+
+        val card = async { cardService.registerByAccessCode(accessCode) }
+        return mapOf(
+            "card" to card,
+            "id" to card.extId  // Expose hidden ID
+        )
     }
 
     @API("/lookup-card")
     @Doc("Lookup a card by access code", "Card information")
-    suspend fun lookupCard(@RP ftk: String, @RP accessCode: String): Any {
+    suspend fun lookupCard(@RP ftk: Str, @RP accessCode: Str): Any {
         ftk.checkFtk()
 
-        return cardService.tryLookup(accessCode) ?: (404 - "Card not found")
+        val card = cardService.tryLookup(accessCode) ?: (404 - "Card not found")
+        return mapOf(
+            "card" to card,
+            "id" to card.extId  // Expose hidden ID
+        )
     }
 }
