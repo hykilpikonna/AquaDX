@@ -57,7 +57,7 @@ const allI18n: { en: LocalizationMessages; zh: LocalizationMessages }  = {
 };
 
 
-const msgs: { [index: string]: LocalizationMessages}  = {
+const msgs: { [lang: string]: LocalizationMessages}  = {
   en: allI18n.en,
   zh: allI18n.zh
 }
@@ -70,7 +70,7 @@ if (navigator.language.startsWith('zh')) {
   lang = 'zh'
 }
 
-export function t(key: keyof typeof allI18n.zh |keyof typeof allI18n.en, variables?: { [index: string]: string }) {
+export function t(key: keyof LocalizationMessages, variables?: { [index: string]: string }) {
   if (variables) {
     return msgs[lang][key].replace(/\${(.*?)}/g, (_:string, v: string | number) => variables[v])
   }
