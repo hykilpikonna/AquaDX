@@ -15,7 +15,7 @@ import moment from 'moment/moment'
 import CalHeatmap from 'cal-heatmap'
 // @ts-expect-error Cal-heatmap does not have proper types
 import CalTooltip from 'cal-heatmap/plugins/Tooltip'
-import { DEFAULT_PFP, IMG_HOST } from "./config";
+import { AQUA_HOST, DEFAULT_PFP, IMG_HOST } from "./config";
 import type { UserMe } from "./generalTypes";
 
 export function title(t: string) {
@@ -155,6 +155,6 @@ export function tooltip(element: HTMLElement, params: { text: string } | string)
 }
 
 export function pfp(node: HTMLImageElement, me: UserMe) {
-  node.src = me.profilePicture ? `${IMG_HOST}/${me.profilePicture}` : DEFAULT_PFP
+  node.src = me.profilePicture ? `${AQUA_HOST}/uploads/net/portrait/${me.profilePicture}` : DEFAULT_PFP
   node.onerror = e => pfpNotFound(e as Event)
 }

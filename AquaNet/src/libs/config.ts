@@ -1,7 +1,6 @@
 
 export const AQUA_HOST = 'https://aquadx.net/aqua'
 export const DATA_HOST = 'https://aquadx.net'
-export const IMG_HOST = 'https://aquadx.net/user-uploads'
 
 // This will be displayed for users to connect from the client
 export const AQUA_CONNECTION = 'aquadx.hydev.org'
