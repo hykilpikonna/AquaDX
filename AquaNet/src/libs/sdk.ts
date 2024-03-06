@@ -56,9 +56,6 @@ export async function post(endpoint: string, params: any, init?: RequestInitWith
 
   let res = await fetchWithParams(AQUA_HOST + endpoint, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
     params,
     ...init
   }).catch(e => {
@@ -123,6 +120,11 @@ export const USER = {
     post('/api/v2/user/keychip', {}).then(it => it.keychip),
   setting: (key: string, value: string) =>
     post('/api/v2/user/setting', { key: key === 'password' ? 'pwHash' : key, value }),
+  uploadPfp: (file: File) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    return post('/api/v2/user/upload-pfp', { }, { method: 'POST', body: formData })
+  },
   isLoggedIn,
   ensureLoggedIn,
 }

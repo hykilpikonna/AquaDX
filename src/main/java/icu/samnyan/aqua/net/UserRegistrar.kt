@@ -32,7 +32,7 @@ class UserRegistrar(
     val cardService: CardService,
     val validator: AquaUserServices,
     val emailProps: EmailProperties,
-    paths: PathProps
+    final val paths: PathProps
 ) {
     val portraitPath = paths.aquaNetPortrait.path()
 
@@ -160,7 +160,10 @@ class UserRegistrar(
 
     @API("/me")
     @Doc("Get the information of the current logged-in user.", "User information")
-    suspend fun getUser(@RP token: Str) = jwt.auth(token)
+    suspend fun getUser(@RP token: Str) = jwt.auth(token).apply {
+        if (!profilePicture.isNullOrBlank())
+            profilePicture = (portraitPath / profilePicture!!).toString()
+    }
 
     @API("/setting")
     @Doc("Validate and set a user setting field.", "Success message")
@@ -195,7 +198,7 @@ class UserRegistrar(
         mapOf("keychip" to new)
     }
 
-    @API("/upload-pfp")
+    @API("/upload-pfp", consumes = ["multipart/form-data"])
     @Doc("Upload a profile picture for the user.", "Success message")
     suspend fun uploadPfp(@RP token: Str, @RP file: MultipartFile) = jwt.auth(token) { u ->
         // Processing the image would lead to many open factors for attack
