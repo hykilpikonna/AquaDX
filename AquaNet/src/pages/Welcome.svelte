@@ -120,10 +120,10 @@
           <span>{t('back')}</span>
         </div>
         {#if isSignup}
-          <input type="text" placeholder="Username" bind:value={username}>
+          <input type="text" placeholder={t('username')} bind:value={username}>
         {/if}
-        <input type="email" placeholder="Email" bind:value={email}>
-        <input type="password" placeholder="Password" bind:value={password}>
+        <input type="email" placeholder={t('email')} bind:value={email}>
+        <input type="password" placeholder={t('password')} bind:value={password}>
         <button on:click={submit}>
           {#if submitting}
             <Icon icon="line-md:loading-twotone-loop"/>

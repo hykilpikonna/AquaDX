@@ -1,6 +1,9 @@
 
 const EN_REF = {
   'back': 'Back',
+  'email': 'Email',
+  'password': 'Password',
+  'username': 'Username',
   'welcome.btn-login': 'Log in',
   'welcome.btn-signup': 'Sign up',
   'welcome.email-password-missing': 'Email and password are required',
@@ -21,6 +24,9 @@ const msgs: { [index: string]: typeof EN_REF } = {
   en: EN_REF,
   zh: {
     'back': '返回',
+    'email': '邮箱',
+    'password': '密码',
+    'username': '用户名',
     'welcome.btn-login': '登录',
     'welcome.btn-signup': '注册',
     'welcome.email-password-missing': '邮箱和密码必须填哦',
