@@ -1,5 +1,16 @@
 const EN_REF_USER = {
-  'TEST': 'TEST'
+  'UseHome.ServerRank': 'Server Rank',
+  'UseHome.Ratting':'DX Ratting',
+  'UseHome.Statistics':'Statistics',
+  'UseHome.Accuracy':'Accuracy',
+  'UseHome.DXScore':'DX Score',
+  'UseHome.PlayActivity':' Play Activity',
+  'UseHome.Plays':'Plays',
+  'UseHome.PlayTime':'Play Time',
+  'UseHome.FirstSeen':'First Seen',
+  'UseHome.LastSeen':'Last Seen',
+  'UseHome.Vesion':'Last Version',
+  'UseHome.RecentScores':'Recent Scores'
 }
 const EN_REF_Welcome = {
   'back': 'Back',
@@ -43,7 +54,18 @@ const zhWelcome ={
   'welcome.verification-failed': '验证失败：${message}。请重试',
 }
 const zhUser={
-  'test':'test'
+  'UseHome.ServerRank':'服务器排名',
+  'UseHome.Ratting':'DX B50分',
+  'UseHome.Statistics':'统计数据',
+  'UseHome.Accuracy':'准确度',
+  'UseHome.DXScore':'DX 得分',
+  'UseHome.PlayActivity':'游戏活动',
+  'UseHome.Plays':'出勤次',
+  'UseHome.PlayTime':'出勤时间',
+  'UseHome.FirstSeen':'发现新大陆',
+  'UseHome.LastSeen':'上次出勤',
+  'UseHome.Version':'最新最热否',
+  'UseHome.RecentScores':'我的战绩'
 }
 
 
