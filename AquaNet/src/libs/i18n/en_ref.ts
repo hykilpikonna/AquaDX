@@ -1,6 +1,7 @@
 export const EN_REF_USER = {
   'UserHome.ServerRank': 'Server Rank',
-  'UserHome.Rating': 'DX Rating',
+  'UserHome.DXRating': 'DX Rating',
+  'UserHome.Rating': 'Rating',
   'UserHome.Statistics': 'Statistics',
   'UserHome.Accuracy': 'Accuracy',
   'UserHome.DXScore': 'DX Score',
@@ -10,7 +11,12 @@ export const EN_REF_USER = {
   'UserHome.FirstSeen': 'First Seen',
   'UserHome.LastSeen': 'Last Seen',
   'UserHome.Version': 'Last Version',
-  'UserHome.RecentScores': 'Recent Scores'
+  'UserHome.RecentScores': 'Recent Scores',
+  'UserHome.NoData': 'No data in the past ${days} days',
+  'UserHome.Game.Mai2': "Mai",
+  'UserHome.Game.Chu3': "Chuni",
+  'UserHome.Game.Ongeki': "Ongeki",
+  'UserHome.UnknownSong': "(unknown song)",
 }
 
 export const EN_REF_Welcome = {

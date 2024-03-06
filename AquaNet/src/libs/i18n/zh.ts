@@ -2,17 +2,23 @@ import { EN_REF_USER, type EN_REF_Welcome } from "./en_ref";
 
 const zhUser: typeof EN_REF_USER = {
   'UserHome.ServerRank': '服务器排名',
-  'UserHome.Rating': 'DX B50分',
+  'UserHome.DXRating': 'DX B50',
+  'UserHome.Rating': '评分',
   'UserHome.Statistics': '统计数据',
-  'UserHome.Accuracy': '准确度',
+  'UserHome.Accuracy': '准确率',
   'UserHome.DXScore': 'DX 得分',
   'UserHome.PlayActivity': '游戏活动',
-  'UserHome.Plays': '出勤次',
-  'UserHome.PlayTime': '出勤时间',
+  'UserHome.Plays': '出勤次数',
+  'UserHome.PlayTime': '游玩时间',
   'UserHome.FirstSeen': '发现新大陆',
   'UserHome.LastSeen': '上次出勤',
   'UserHome.Version': '最新最热否',
-  'UserHome.RecentScores': '我的战绩'
+  'UserHome.RecentScores': '成绩',
+  'UserHome.NoData': '过去 ${days} 天内没有玩过',
+  'UserHome.Game.Mai2': "舞萌",
+  'UserHome.Game.Chu3': "中二",
+  'UserHome.Game.Ongeki': "音击",
+  'UserHome.UnknownSong': "(未知曲目)",
 }
 
 const zhWelcome: typeof EN_REF_Welcome = {

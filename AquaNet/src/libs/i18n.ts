@@ -16,9 +16,9 @@ if (navigator.language.startsWith('zh')) {
   lang = 'zh'
 }
 
-export function t(key: keyof LocalizedMessages, variables?: { [index: string]: string }) {
+export function t(key: keyof LocalizedMessages, variables?: { [index: string]: any }) {
   if (variables) {
-    return msgs[lang][key].replace(/\${(.*?)}/g, (_: string, v: string | number) => variables[v])
+    return msgs[lang][key].replace(/\${(.*?)}/g, (_: string, v: string | number) => variables[v] + "")
   }
   return msgs[lang][key]
 }

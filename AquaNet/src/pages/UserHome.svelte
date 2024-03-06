@@ -12,6 +12,8 @@
   import Icon from "@iconify/svelte";
   import {t} from "../libs/i18n";
 
+  const TREND_DAYS = 60
+
   registerChart()
 
   export let username: string;
@@ -39,7 +41,7 @@
     console.log(user)
     console.log(trend)
 
-    const minDate = moment().subtract(60, 'days').format("YYYY-MM-DD")
+    const minDate = moment().subtract(TREND_DAYS, 'days').format("YYYY-MM-DD")
     d = {user,
       trend: trend.filter(it => it.date >= minDate),
       recent: user.recent.map(it => {return {...music[it.musicId], ...it}})
@@ -50,7 +52,7 @@
     })
   }).catch((e) => error = e.message);
 
-  const games = {chu3: 'Chuni', mai2: 'Mai', ongeki: 'Ongeki'}
+  const games = {chu3: t("UserHome.Game.Chu3"), mai2: t("UserHome.Game.Mai2"), ongeki: t("UserHome.Game.Ongeki")}
   const titleText = games[game]
 </script>
 
@@ -79,7 +81,7 @@
         <div class="chart">
           <div class="info-top">
             <div class="rating">
-              <span>{game === 'mai2' ? t("UserHome.Rating"): 'Rating'}</span>
+              <span>{game === 'mai2' ? t("UserHome.DXRating"): t("UserHome.Rating")}</span>
               <span>{d.user.rating.toLocaleString()}</span>
             </div>
 
@@ -93,7 +95,7 @@
             <!-- ChartJS cannot be fully responsive unless there is a parent div that's independent from its size and helps it determine its size -->
             <div class="chartjs-box-reference">
               {#if d.trend.length === 0}
-                <div class="no-data">No data in the past 60 days</div>
+                <div class="no-data">{t("UserHome.NoData", { days: TREND_DAYS })}</div>
               {:else}
                 <Line data={{
                   datasets: [
@@ -191,7 +193,7 @@
           <div class:alt={i % 2 === 0}>
             <img src={`${DATA_HOST}/d/${game}/music/00${r.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="" on:error={coverNotFound} />
             <div class="info">
-              <div>{r.name ??"Unable find music"}</div>
+              <div>{r.name ?? t("UserHome.UnknownSong")}</div>
               <div>
                 <span class={`lv level-${r.level === 10 ? 3 : r.level}`}>
                   { r.notes?.[r.level === 10 ? 0 : r.level]?.lv?.toFixed(1) ?? r.level ?? '0'}
