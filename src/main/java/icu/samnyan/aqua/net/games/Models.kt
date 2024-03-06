@@ -11,6 +11,7 @@ data class RankCount(val name: String, val count: Int)
 data class GenericGameSummary(
     val name: String,
     val iconId: Int,
+    val profilePicture: String?,
 
     val serverRank: Long,
     val accuracy: Double,
