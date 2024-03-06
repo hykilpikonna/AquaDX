@@ -255,7 +255,7 @@ $gap: 20px
   .pfp
     width: 100px
     height: 100px
-    border-radius: 12px
+    border-radius: $border-radius
     object-fit: cover
 
   @media (max-width: $w-mobile)
@@ -369,7 +369,7 @@ $gap: 20px
 
       > div.alt
         background-color: rgba(white, 0.03)
-        border-radius: 10px
+        border-radius: $border-radius
 
       // Image and song info
       > div
@@ -383,7 +383,7 @@ $gap: 20px
         img
           width: 50px
           height: 50px
-          border-radius: 10px
+          border-radius: $border-radius
           object-fit: cover
 
         // Song info and score
@@ -429,7 +429,7 @@ $gap: 20px
           text-align: center
           background: rgba(var(--lv-color), 0.6)
           padding: 0 6px
-          border-radius: 10px
+          border-radius: $border-radius
           margin-right: 10px
 
         span

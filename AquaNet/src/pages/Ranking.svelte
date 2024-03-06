@@ -62,7 +62,7 @@
     justify-content: space-between
     width: 100%
     gap: 12px
-    border-radius: 12px
+    border-radius: $border-radius
     padding: 6px 12px
     box-sizing: border-box
 
@@ -94,5 +94,5 @@
     &.alternate
       background-color: $ov-light
 
-      
+
 </style>

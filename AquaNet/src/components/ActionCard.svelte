@@ -35,7 +35,7 @@
   .action-card
     overflow: hidden
     padding: 1rem
-    border-radius: 16px
+    border-radius: $border-radius
     box-shadow: 0 5px 5px 1px $c-shadow
     transition: all 0.2s ease
     cursor: pointer
