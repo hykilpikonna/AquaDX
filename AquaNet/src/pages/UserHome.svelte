@@ -9,13 +9,15 @@
   import { DATA, GAME } from "../libs/sdk";
   import { type GameName, getMult } from "../libs/scoring";
   import StatusOverlays from "../components/StatusOverlays.svelte";
+  import Icon from "@iconify/svelte";
 
   registerChart()
 
   export let username: string;
   export let game: GameName = "mai2"
   let calElement: HTMLElement
-  let error: string | null;
+  let error: string;
+  let editingProfile = false
   title(`User ${username}`)
 
   interface MusicAndPlay extends MusicMeta, GenericGamePlaylog {}
@@ -53,7 +55,13 @@
   {#if d}
     <div class="user-pfp">
       <img src={`${DATA_HOST}/d/${game}/assetbundle/icon/${d.user.iconId.toString().padStart(6, "0")}.png`} alt="" class="pfp" on:error={pfpNotFound}>
-      <h2>{d.user.name}</h2>
+      <div class="name-box">
+        <h2>{d.user.name}</h2>
+        <span class="setting-icon clickable" on:click={() => editingProfile = true}
+              on:keydown={e => e.key === "Enter" && (editingProfile = true)} tabindex="0" role="button">
+          <Icon icon="eos-icons:rotating-gear"/>
+        </span>
+      </div>
       <nav>
         {#each Object.entries(games) as [g, name]}
           <a href={`/u/${username}/${g}`} class:active={game === g}>{name}</a>
@@ -229,6 +237,20 @@ $gap: 20px
       gap: 10px
       top: 4px
       right: 0
+
+    .setting-icon
+      font-size: 1.5rem
+      color: $c-main
+      cursor: pointer
+      display: flex
+      align-items: center
+
+    .name-box
+      flex: 1
+      display: flex
+      align-items: center
+      justify-content: space-between
+      gap: 10px
 
   .pfp
     width: 100px
