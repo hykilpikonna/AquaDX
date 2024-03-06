@@ -63,7 +63,7 @@
       <div class="name-box">
         <h2>{d.user.name}</h2>
         {#if me && me.username === username}
-          <a class="setting-icon clickable" use:tooltip={"Settings"} href="/settings">
+          <a class="setting-icon clickable" use:tooltip={t("UserHome.Settings")} href="/settings">
             <Icon icon="eos-icons:rotating-gear"/>
           </a>
         {/if}

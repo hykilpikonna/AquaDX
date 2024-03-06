@@ -21,6 +21,7 @@ export const EN_REF_USER = {
   'UserHome.Game.Chu3': "Chuni",
   'UserHome.Game.Ongeki': "Ongeki",
   'UserHome.UnknownSong': "(unknown song)",
+  'UserHome.Settings': 'Settings',
 }
 
 export const EN_REF_Welcome = {

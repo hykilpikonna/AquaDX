@@ -23,6 +23,7 @@ const zhUser: typeof EN_REF_USER = {
   'UserHome.Game.Chu3': "中二",
   'UserHome.Game.Ongeki': "音击",
   'UserHome.UnknownSong': "(未知曲目)",
+  'UserHome.Settings': '设置',
 }
 
 const zhWelcome: typeof EN_REF_Welcome = {
