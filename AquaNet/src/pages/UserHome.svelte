@@ -1,15 +1,16 @@
 <script lang="ts">
   import { CHARTJS_OPT, coverNotFound, pfpNotFound, registerChart, renderCal, title, tooltip } from "../libs/ui";
-  import type { GenericGamePlaylog, GenericGameSummary, MusicMeta, TrendEntry } from "../libs/generalTypes";
+  import type { GenericGamePlaylog, GenericGameSummary, MusicMeta, TrendEntry, UserMe } from "../libs/generalTypes";
   import {DATA_HOST} from "../libs/config";
   import 'cal-heatmap/cal-heatmap.css';
   import { Line } from 'svelte-chartjs';
   import moment from "moment";
   import 'chartjs-adapter-moment';
-  import { DATA, GAME } from "../libs/sdk";
+  import { DATA, GAME, USER } from "../libs/sdk";
   import { type GameName, getMult } from "../libs/scoring";
   import StatusOverlays from "../components/StatusOverlays.svelte";
   import Icon from "@iconify/svelte";
+  import EditProfile from "./User/EditProfile.svelte";
 
   registerChart()
 
@@ -18,6 +19,7 @@
   let calElement: HTMLElement
   let error: string;
   let editingProfile = false
+  let me: UserMe
   title(`User ${username}`)
 
   interface MusicAndPlay extends MusicMeta, GenericGamePlaylog {}
@@ -27,6 +29,8 @@
     trend: TrendEntry[]
     recent: MusicAndPlay[]
   } | null
+
+  USER.isLoggedIn() && USER.me().then(u => me = u)
 
   Promise.all([
     GAME.userSummary(username, game),
@@ -57,11 +61,13 @@
       <img src={`${DATA_HOST}/d/${game}/assetbundle/icon/${d.user.iconId.toString().padStart(6, "0")}.png`} alt="" class="pfp" on:error={pfpNotFound}>
       <div class="name-box">
         <h2>{d.user.name}</h2>
-        <span class="setting-icon clickable" on:click={() => editingProfile = true}
-              on:keydown={e => e.key === "Enter" && (editingProfile = true)} tabindex="0" role="button"
-              use:tooltip={"Settings"}>
+        {#if me && me.username === username}
+          <span class="setting-icon clickable" on:click={() => editingProfile = true}
+                on:keydown={e => e.key === "Enter" && (editingProfile = true)} tabindex="0" role="button"
+                use:tooltip={"Settings"}>
           <Icon icon="eos-icons:rotating-gear"/>
         </span>
+        {/if}
       </div>
       <nav>
         {#each Object.entries(games) as [g, name]}
