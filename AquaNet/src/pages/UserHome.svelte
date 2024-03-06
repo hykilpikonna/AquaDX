@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CHARTJS_OPT, coverNotFound, pfpNotFound, registerChart, renderCal, title } from "../libs/ui";
+  import { CHARTJS_OPT, coverNotFound, pfpNotFound, registerChart, renderCal, title, tooltip } from "../libs/ui";
   import type { GenericGamePlaylog, GenericGameSummary, MusicMeta, TrendEntry } from "../libs/generalTypes";
   import {DATA_HOST} from "../libs/config";
   import 'cal-heatmap/cal-heatmap.css';
@@ -58,7 +58,8 @@
       <div class="name-box">
         <h2>{d.user.name}</h2>
         <span class="setting-icon clickable" on:click={() => editingProfile = true}
-              on:keydown={e => e.key === "Enter" && (editingProfile = true)} tabindex="0" role="button">
+              on:keydown={e => e.key === "Enter" && (editingProfile = true)} tabindex="0" role="button"
+              use:tooltip={"Settings"}>
           <Icon icon="eos-icons:rotating-gear"/>
         </span>
       </div>
