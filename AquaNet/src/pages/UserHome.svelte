@@ -43,7 +43,7 @@
 
     const minDate = moment().subtract(TREND_DAYS, 'days').format("YYYY-MM-DD")
     d = {user,
-      trend: trend.filter(it => it.date >= minDate),
+      trend: trend.filter(it => it.date >= minDate && it.plays != 0),
       recent: user.recent.map(it => {return {...music[it.musicId], ...it}})
     }
     renderCal(calElement, trend.map(it => {return {date: it.date, value: it.plays}})).then(() => {
