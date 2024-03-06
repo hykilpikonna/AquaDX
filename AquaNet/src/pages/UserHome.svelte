@@ -74,17 +74,17 @@
     </div>
 
     <div>
-      <h2>{titleText} {t('UseHome.Statistics')}</h2>
+      <h2>{titleText} {t('UserHome.Statistics')}</h2>
       <div class="scoring-info">
         <div class="chart">
           <div class="info-top">
             <div class="rating">
-              <span>{game === 'mai2' ? t("UseHome.Ratting"): 'Rating'}</span>
+              <span>{game === 'mai2' ? t("UserHome.Ratting"): 'Rating'}</span>
               <span>{d.user.rating.toLocaleString()}</span>
             </div>
 
             <div class="rank">
-              <span>{t('UseHome.ServerRank')}</span>
+              <span>{t('UserHome.ServerRank')}</span>
               <span>#{+d.user.serverRank.toLocaleString() + 1}</span>
             </div>
           </div>
@@ -123,7 +123,7 @@
 
         <div class="other-info">
           <div class="accuracy">
-            <span>{t('UseHome.Accuracy')}</span>
+            <span>{t('UserHome.Accuracy')}</span>
             <span>{(d.user.accuracy).toFixed(2)}%</span>
           </div>
 
@@ -143,7 +143,7 @@
           </div>
 
           <div class="total-dx-score">
-            <span>{game === 'mai2' ? t('UseHome.DXScore') : 'Total Score'}</span>
+            <span>{game === 'mai2' ? t('UserHome.DXScore') : 'Total Score'}</span>
             <span>{d.user.totalScore.toLocaleString()}</span>
           </div>
         </div>
@@ -151,33 +151,33 @@
     </div>
 
     <div>
-      <h2>{t('UseHome.PlayActivity')}</h2>
+      <h2>{t('UserHome.PlayActivity')}</h2>
       <div class="activity-info">
         <div class="hide-scrollbar" id="cal-heatmap" bind:this={calElement} />
 
         <div class="info-bottom">
           <div class="plays">
-            <span>{t("UseHome.Plays")}</span>
+            <span>{t("UserHome.Plays")}</span>
             <span>{d.user.plays}</span>
           </div>
 
           <div class="time">
-            <span>{t('UseHome.PlayTime')}</span>
+            <span>{t('UserHome.PlayTime')}</span>
             <span>{(d.user.totalPlayTime / 60).toFixed(1)} hr</span>
           </div>
 
           <div class="first-play">
-            <span>{t('UseHome.FirstSeen')}</span>
+            <span>{t('UserHome.FirstSeen')}</span>
             <span>{moment(d.user.joined).format("YYYY-MM-DD")}</span>
           </div>
 
           <div class="last-play">
-            <span>{t('UseHome.LastSeen')}</span>
+            <span>{t('UserHome.LastSeen')}</span>
             <span>{moment(d.user.lastSeen).format("YYYY-MM-DD")}</span>
           </div>
 
           <div class="last-version">
-            <span>{t('UseHome.Version')}</span>
+            <span>{t('UserHome.Version')}</span>
             <span>{d.user.lastVersion}</span>
           </div>
         </div>
@@ -185,7 +185,7 @@
     </div>
 
     <div class="recent">
-      <h2>{t('UseHome.RecentScores')}</h2>
+      <h2>{t('UserHome.RecentScores')}</h2>
       <div class="scores">
         {#each d.recent as r, i}
           <div class:alt={i % 2 === 0}>

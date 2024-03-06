@@ -1,16 +1,16 @@
 export const EN_REF_USER = {
-  'UseHome.ServerRank': 'Server Rank',
-  'UseHome.Ratting': 'DX Ratting',
-  'UseHome.Statistics': 'Statistics',
-  'UseHome.Accuracy': 'Accuracy',
-  'UseHome.DXScore': 'DX Score',
-  'UseHome.PlayActivity': ' Play Activity',
-  'UseHome.Plays': 'Plays',
-  'UseHome.PlayTime': 'Play Time',
-  'UseHome.FirstSeen': 'First Seen',
-  'UseHome.LastSeen': 'Last Seen',
-  'UseHome.Version': 'Last Version',
-  'UseHome.RecentScores': 'Recent Scores'
+  'UserHome.ServerRank': 'Server Rank',
+  'UserHome.Ratting': 'DX Ratting',
+  'UserHome.Statistics': 'Statistics',
+  'UserHome.Accuracy': 'Accuracy',
+  'UserHome.DXScore': 'DX Score',
+  'UserHome.PlayActivity': ' Play Activity',
+  'UserHome.Plays': 'Plays',
+  'UserHome.PlayTime': 'Play Time',
+  'UserHome.FirstSeen': 'First Seen',
+  'UserHome.LastSeen': 'Last Seen',
+  'UserHome.Version': 'Last Version',
+  'UserHome.RecentScores': 'Recent Scores'
 }
 
 export const EN_REF_Welcome = {

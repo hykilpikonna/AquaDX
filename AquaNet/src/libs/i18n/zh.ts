@@ -1,5 +1,20 @@
 import { EN_REF_USER, type EN_REF_Welcome } from "./en_ref";
 
+const zhUser: typeof EN_REF_USER = {
+  'UserHome.ServerRank': '服务器排名',
+  'UserHome.Ratting': 'DX B50分',
+  'UserHome.Statistics': '统计数据',
+  'UserHome.Accuracy': '准确度',
+  'UserHome.DXScore': 'DX 得分',
+  'UserHome.PlayActivity': '游戏活动',
+  'UserHome.Plays': '出勤次',
+  'UserHome.PlayTime': '出勤时间',
+  'UserHome.FirstSeen': '发现新大陆',
+  'UserHome.LastSeen': '上次出勤',
+  'UserHome.Version': '最新最热否',
+  'UserHome.RecentScores': '我的战绩'
+}
+
 const zhWelcome: typeof EN_REF_Welcome = {
   'back': '返回',
   'email': '邮箱',
@@ -19,21 +34,6 @@ const zhWelcome: typeof EN_REF_Welcome = {
   'welcome.verifying': '正在验证邮箱...请稍等',
   'welcome.verified': '您的邮箱已经验证成功！您现在可以登录了',
   'welcome.verification-failed': '验证失败：${message}。请重试',
-}
-
-const zhUser: typeof EN_REF_USER = {
-  'UseHome.ServerRank': '服务器排名',
-  'UseHome.Ratting': 'DX B50分',
-  'UseHome.Statistics': '统计数据',
-  'UseHome.Accuracy': '准确度',
-  'UseHome.DXScore': 'DX 得分',
-  'UseHome.PlayActivity': '游戏活动',
-  'UseHome.Plays': '出勤次',
-  'UseHome.PlayTime': '出勤时间',
-  'UseHome.FirstSeen': '发现新大陆',
-  'UseHome.LastSeen': '上次出勤',
-  'UseHome.Version': '最新最热否',
-  'UseHome.RecentScores': '我的战绩'
 }
 
 export const ZH = { ...zhUser, ...zhWelcome }
