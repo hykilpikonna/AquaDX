@@ -76,6 +76,16 @@ class AquaNetUser(
     var keychipSessions: MutableList<KeychipSession> = mutableListOf(),
 ) : Serializable {
     val computedName get() = displayName.ifEmpty { username }
+
+    val publicFields get() = mapOf(
+        "username" to username,
+        "displayName" to displayName,
+        "country" to country,
+        "regTime" to regTime,
+        "profileLocation" to profileLocation,
+        "profileBio" to profileBio,
+        "profilePicture" to profilePicture,
+    )
 }
 
 @Repository("AquaNetUserRepository")

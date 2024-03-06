@@ -2,7 +2,6 @@ package icu.samnyan.aqua.net.games
 
 import ext.API
 import ext.RP
-import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.utils.IGenericGamePlaylog
 
 data class TrendOut(val date: String, val rating: Int, val plays: Int)
@@ -13,7 +12,7 @@ data class GenericGameSummary(
     val name: String,
     val iconId: Int,
 
-    val aquaUser: AquaNetUser?,
+    val aquaUser: Map<String, Any?>?,
 
     val serverRank: Long,
     val accuracy: Double,
