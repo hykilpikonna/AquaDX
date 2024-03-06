@@ -59,7 +59,7 @@
 </script>
 
 <main class="content">
-  <h2>Profile Settings</h2>
+  <h2 class="outer-title">Profile Settings</h2>
 
   <div class="field">
     <label for="profile-upload">Profile Picture</label>
