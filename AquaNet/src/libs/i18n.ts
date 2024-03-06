@@ -51,19 +51,21 @@ type LocalizationMessages = {
   [key: string]: string;
 };
 
-const allI18n: { en: LocalizationMessages; zh: LocalizationMessages }  = {
+type Lang = 'en' | 'zh'
+
+const allI18n: Record<Lang, LocalizationMessages> = {
   en: { ...EN_REF_USER, ...EN_REF_Welcome },
   zh: { ...zhUser, ...zhWelcome }
 };
 
 
-const msgs: { [lang: string]: LocalizationMessages}  = {
+const msgs: Record<Lang, LocalizationMessages> = {
   en: allI18n.en,
   zh: allI18n.zh
 }
 
 
-let lang:string = 'en'
+let lang: Lang = 'en'
 
 // Infer language from browser
 if (navigator.language.startsWith('zh')) {
