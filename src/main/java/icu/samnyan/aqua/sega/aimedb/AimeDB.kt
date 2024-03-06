@@ -113,8 +113,8 @@ class AimeDB(
      * Felica Lookup v2: Look up the card in the card repository, return the External ID
      */
     fun doFelicaLookupV2(msg: ByteBuf): ByteBuf {
-        val idm = msg.slice(0x20, 0x28 - 0x20).getLong(0)
-        val pmm = msg.slice(0x28, 0x30 - 0x28).getLong(0)
+        val idm = msg.slice(0x30, 0x38 - 0x30).getLong(0)
+        val pmm = msg.slice(0x38, 0x40 - 0x38).getLong(0)
         logger.info("> Felica Lookup v2 (idm $idm, pmm $pmm)")
 
         // Get the decimal represent of the hex value, same from minime
