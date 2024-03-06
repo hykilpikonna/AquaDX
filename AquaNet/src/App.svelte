@@ -9,6 +9,7 @@
   import { USER } from "./libs/sdk";
   import type { UserMe } from "./libs/generalTypes";
   import { DEFAULT_PFP, IMG_HOST } from "./libs/config";
+  import Settings from "./pages/User/Settings.svelte";
 
   console.log(`%c
 ┏━┓         ┳━┓━┓┏━
@@ -53,6 +54,7 @@
   <Route path="/u/:username" component={UserHome} />
   <Route path="/u/:username/:game" component={UserHome} />
   <Route path="/u/:username/:game/rating" component={MaimaiRating} />
+  <Route path="/settings" component={Settings} />
 </Router>
 
 <style lang="sass">

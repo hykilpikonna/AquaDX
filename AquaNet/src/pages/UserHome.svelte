@@ -10,7 +10,6 @@
   import { type GameName, getMult } from "../libs/scoring";
   import StatusOverlays from "../components/StatusOverlays.svelte";
   import Icon from "@iconify/svelte";
-  import EditProfile from "./User/EditProfile.svelte";
 
   registerChart()
 
@@ -18,7 +17,6 @@
   export let game: GameName = "mai2"
   let calElement: HTMLElement
   let error: string;
-  let editingProfile = false
   let me: UserMe
   title(`User ${username}`)
 
@@ -62,11 +60,9 @@
       <div class="name-box">
         <h2>{d.user.name}</h2>
         {#if me && me.username === username}
-          <span class="setting-icon clickable" on:click={() => editingProfile = true}
-                on:keydown={e => e.key === "Enter" && (editingProfile = true)} tabindex="0" role="button"
-                use:tooltip={"Settings"}>
-          <Icon icon="eos-icons:rotating-gear"/>
-        </span>
+          <a class="setting-icon clickable" use:tooltip={"Settings"} href="/settings">
+            <Icon icon="eos-icons:rotating-gear"/>
+          </a>
         {/if}
       </div>
       <nav>

@@ -121,6 +121,8 @@ export const USER = {
   },
   keychip: (): Promise<string> =>
     post('/api/v2/user/keychip', {}).then(it => it.keychip),
+  setting: (key: string, value: string) =>
+    post('/api/v2/user/setting', { key: key === 'password' ? 'pwHash' : key, value }),
   isLoggedIn,
   ensureLoggedIn,
 }
