@@ -3,11 +3,11 @@
 <script lang="ts">
   import { fade, slide } from "svelte/transition";
   import { USER } from "../../libs/sdk";
-  import type { UserMe } from "../../libs/generalTypes";
+  import type { AquaNetUser } from "../../libs/generalTypes";
   import { codeToHtml } from 'shiki'
   import { AQUA_CONNECTION, DISCORD_INVITE, FADE_IN, FADE_OUT } from "../../libs/config";
 
-  let user: UserMe
+  let user: AquaNetUser
   let keychip: string;
   let keychipCode: string;
   let getStartedRequesting = false;

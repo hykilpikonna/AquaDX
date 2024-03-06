@@ -12,7 +12,7 @@ export interface Card {
   ghost: boolean
 }
 
-export interface UserMe {
+export interface AquaNetUser {
   username: string
   email: string
   displayName: string
@@ -80,6 +80,7 @@ export interface RankCount {
 export interface GenericGameSummary {
   name: string
   iconId: number
+  aquaUser?: AquaNetUser
   serverRank: number
   accuracy: number
   rating: number

@@ -6,7 +6,7 @@
   import Home from "./pages/Home.svelte";
   import Ranking from "./pages/Ranking.svelte";
   import { USER } from "./libs/sdk";
-  import type { UserMe } from "./libs/generalTypes";
+  import type { AquaNetUser } from "./libs/generalTypes";
   import Settings from "./pages/User/Settings.svelte";
   import { pfp } from "./libs/ui"
 
@@ -22,7 +22,7 @@
      -webkit-text-fill-color: transparent;`)
 
   export let url = "";
-  let me: UserMe
+  let me: AquaNetUser
 
   if (USER.isLoggedIn()) USER.me().then(m => me = m).catch(e => console.error(e))
 

@@ -2,7 +2,7 @@
 
 <script lang="ts">
   import { slide } from "svelte/transition";
-  import type { UserMe } from "../../libs/generalTypes";
+  import type { AquaNetUser } from "../../libs/generalTypes";
   import { USER } from "../../libs/sdk";
   import StatusOverlays from "../../components/StatusOverlays.svelte";
   import Icon from "@iconify/svelte";
@@ -10,7 +10,7 @@
 
   USER.ensureLoggedIn()
 
-  let me: UserMe;
+  let me: AquaNetUser;
   let error: string;
   let submitting = ""
 
@@ -25,7 +25,7 @@
   // Fetch user data
   const getMe = () => USER.me().then(m => {
     me = m
-    values = fields.map(([field]) => me[field as keyof UserMe])
+    values = fields.map(([field]) => me[field as keyof AquaNetUser])
   }).catch(e => error = e.message)
   getMe()
 

@@ -6,7 +6,7 @@ import type {
   GenericGameSummary,
   GenericRanking,
   TrendEntry,
-  UserMe
+  AquaNetUser
 } from "./generalTypes";
 import type { GameName } from "./scoring";
 
@@ -111,7 +111,7 @@ export const USER = {
   login,
   confirmEmail: (token: string) =>
     post('/api/v2/user/confirm-email', { token }),
-  me: (): Promise<UserMe> => {
+  me: (): Promise<AquaNetUser> => {
     ensureLoggedIn()
     return post('/api/v2/user/me', {})
   },

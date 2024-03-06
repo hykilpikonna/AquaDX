@@ -4,13 +4,13 @@
   import SetupInstructions from "./Home/SetupInstructions.svelte";
   import { DISCORD_INVITE, FADE_IN, FADE_OUT } from "../libs/config";
   import { USER } from "../libs/sdk.js";
-  import type { UserMe } from "../libs/generalTypes";
+  import type { AquaNetUser } from "../libs/generalTypes";
   import StatusOverlays from "../components/StatusOverlays.svelte";
   import ActionCard from "../components/ActionCard.svelte";
 
   USER.ensureLoggedIn();
 
-  let me: UserMe
+  let me: AquaNetUser
   let error = ""
 
   let tab = 0;

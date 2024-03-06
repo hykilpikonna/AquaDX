@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { CHARTJS_OPT, coverNotFound, pfpNotFound, registerChart, renderCal, title, tooltip } from "../libs/ui";
-  import type { GenericGamePlaylog, GenericGameSummary, MusicMeta, TrendEntry, UserMe } from "../libs/generalTypes";
+  import { CHARTJS_OPT, coverNotFound, pfpNotFound, registerChart, renderCal, title, tooltip, pfp } from "../libs/ui";
+  import type { GenericGamePlaylog, GenericGameSummary, MusicMeta, TrendEntry, AquaNetUser } from "../libs/generalTypes";
   import { DATA_HOST } from "../libs/config";
   import 'cal-heatmap/cal-heatmap.css';
   import { Line } from 'svelte-chartjs';
@@ -17,7 +17,7 @@
   export let game: GameName = "mai2"
   let calElement: HTMLElement
   let error: string;
-  let me: UserMe
+  let me: AquaNetUser
   title(`User ${username}`)
 
   interface MusicAndPlay extends MusicMeta, GenericGamePlaylog {}
@@ -56,7 +56,7 @@
 <main id="user-home" class="content">
   {#if d}
     <div class="user-pfp">
-      <img src={`${DATA_HOST}/d/${game}/assetbundle/icon/${d.user.iconId.toString().padStart(6, "0")}.png`} alt="" class="pfp" on:error={pfpNotFound}>
+      <img use:pfp={d.user.aquaUser} alt="" class="pfp" on:error={pfpNotFound}>
       <div class="name-box">
         <h2>{d.user.name}</h2>
         {#if me && me.username === username}
