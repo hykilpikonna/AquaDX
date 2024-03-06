@@ -130,22 +130,22 @@
           </div>
 
           <div class="max-combo">
-            <span>Max Combo</span>
+            <span>{t("UserHome.MaxCombo")}</span>
             <span>{d.user.maxCombo}</span>
           </div>
 
           <div class="full-combo">
-            <span>Full Combo</span>
+            <span>{t("UserHome.FullCombo")}</span>
             <span>{d.user.fullCombo}</span>
           </div>
 
           <div class="all-perfect">
-            <span>All Perfect</span>
+            <span>{t("UserHome.AllPerfect")}</span>
             <span>{d.user.allPerfect}</span>
           </div>
 
           <div class="total-dx-score">
-            <span>{game === 'mai2' ? t('UserHome.DXScore') : 'Total Score'}</span>
+            <span>{game === 'mai2' ? t('UserHome.DXScore') : t("UserHome.Score")}</span>
             <span>{d.user.totalScore.toLocaleString()}</span>
           </div>
         </div>
