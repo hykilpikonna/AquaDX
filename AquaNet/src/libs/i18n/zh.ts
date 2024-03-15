@@ -22,6 +22,9 @@ const zhUser: typeof EN_REF_USER = {
   'UserHome.UnknownSong': "(未知曲目)",
   'UserHome.Settings': '设置',
   'UserHome.NoValidGame': "用户还没有玩过游戏",
+  'UserHome.ShowRanksDetails': "点击显示评分详细",
+  'UserHome.RankDetail.Title': '评分详细',
+  'UserHome.RankDetail.Level': "等级",
 }
 
 const zhWelcome: typeof EN_REF_Welcome = {

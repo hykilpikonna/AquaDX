@@ -86,6 +86,7 @@ export interface GenericGameSummary {
   rating: number
   ratingHighest: number
   ranks: RankCount[]
+  detailedRanks: { [key: number]: { [key: string]: number } }
   maxCombo: number
   fullCombo: number
   allPerfect: number

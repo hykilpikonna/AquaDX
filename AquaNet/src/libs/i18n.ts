@@ -18,6 +18,10 @@ if (navigator.language.startsWith('zh')) {
 }
 
 export function t(key: keyof LocalizedMessages, variables?: { [index: string]: any }) {
+  if (!msgs[lang][key]) {
+    console.warn(`Missing translation for ${key}`)
+    return key
+  }
   if (variables) {
     return msgs[lang][key].replace(/\${(.*?)}/g, (_: string, v: string | number) => variables[v] + "")
   }

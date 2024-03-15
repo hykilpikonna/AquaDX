@@ -17,6 +17,7 @@
   import StatusOverlays from "../components/StatusOverlays.svelte";
   import Icon from "@iconify/svelte";
   import { GAME_TITLE, t } from "../libs/i18n";
+  import RankDetails from "../components/RankDetails.svelte";
 
   const TREND_DAYS = 60
 
@@ -39,6 +40,8 @@
     recent: MusicAndPlay[],
     validGames: [ string, string ][]
   } | null
+
+  let showDetailRank = false
 
   USER.isLoggedIn() && USER.me().then(u => me = u)
 
@@ -131,7 +134,9 @@
             </div>
           </div>
 
-          <div class="info-bottom">
+          <div class="info-bottom clickable" use:tooltip={t("UserHome.ShowRanksDetails")}
+               on:click={() => showDetailRank = !showDetailRank} role="button" tabindex="0"
+               on:keydown={e => e.key === "Enter" && (showDetailRank = !showDetailRank)}>
             {#each d.user.ranks as r}
               <div>
                 <span>{r.name}</span>
@@ -169,6 +174,8 @@
         </div>
       </div>
     </div>
+
+    {#if showDetailRank}<RankDetails g={d.user}/>{/if}
 
     <div>
       <h2>{t('UserHome.PlayActivity')}</h2>
@@ -307,6 +314,9 @@ $gap: 20px
         // character spacing
         letter-spacing: 0.1em
         color: $c-main
+
+  .info-bottom
+    width: max-content
 
   .info-top > div > span:last-child
     font-size: 1.5rem

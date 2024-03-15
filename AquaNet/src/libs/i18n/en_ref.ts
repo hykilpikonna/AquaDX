@@ -20,6 +20,9 @@ export const EN_REF_USER = {
   'UserHome.UnknownSong': "(unknown song)",
   'UserHome.Settings': 'Settings',
   'UserHome.NoValidGame': "The user hasn't played any game yet.",
+  'UserHome.ShowRanksDetails': "Click to show details",
+  'UserHome.RankDetail.Title': 'Achievement Details',
+  'UserHome.RankDetail.Level': "Level",
 }
 
 export const EN_REF_Welcome = {
