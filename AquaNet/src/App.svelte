@@ -50,6 +50,7 @@
   <Route path="/" component={Welcome} />
   <Route path="/home" component={Home} />
   <Route path="/ranking" component={Ranking} />
+  <Route path="/ranking/:game" component={Ranking} />
   <Route path="/u/:username" component={UserHome} />
   <Route path="/u/:username/:game" component={UserHome} />
   <Route path="/u/:username/:game/rating" component={MaimaiRating} />

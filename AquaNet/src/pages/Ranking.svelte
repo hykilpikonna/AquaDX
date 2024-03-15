@@ -3,12 +3,15 @@
   import { GAME } from "../libs/sdk";
   import type { GenericRanking } from "../libs/generalTypes";
   import StatusOverlays from "../components/StatusOverlays.svelte";
+  import type { GameName } from "../libs/scoring";
+
+  export let game: GameName = 'mai2';
 
   title(`Ranking`);
 
   let d: { users: GenericRanking[] };
   let error: string | null;
-  Promise.all([GAME.ranking("mai2")])
+  Promise.all([GAME.ranking(game)])
     .then(([users]) => {
       console.log(users)
       d = { users };
