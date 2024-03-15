@@ -1,13 +1,16 @@
 package icu.samnyan.aqua.net.utils
 
 import ext.isoDate
-import ext.millis
 import ext.minus
-import icu.samnyan.aqua.net.games.*
+import icu.samnyan.aqua.net.games.GameApiController
+import icu.samnyan.aqua.net.games.GenericGameSummary
+import icu.samnyan.aqua.net.games.RankCount
+import icu.samnyan.aqua.net.games.TrendOut
 import icu.samnyan.aqua.sega.general.model.Card
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.repository.NoRepositoryBean
 import java.time.LocalDate
+import java.util.*
 
 data class TrendLog(val date: String, val rating: Int)
 
@@ -76,21 +79,19 @@ interface IGenericGamePlaylog {
 
 interface GenericPlaylogRepo {
     fun findByUserCardExtId(extId: Long): List<IGenericGamePlaylog>
+    fun findById(id: Long): Optional<IGenericGamePlaylog>
 }
 
 fun List<IGenericGamePlaylog>.acc() = if (isEmpty()) 0.0 else sumOf { it.achievement }.toDouble() / size / 10000.0
 
 fun GameApiController.genericUserSummary(
     card: Card,
-    userDataRepo: GenericUserDataRepo<*, *>,
-    userPlaylogRepo: GenericPlaylogRepo,
-    shownRanks: List<Pair<Int, String>>,
     ratingComposition: Map<String, String>,
 ): GenericGameSummary {
     // Summary values: total plays, player rating, server-wide ranking
     // number of each rank, max combo, number of full combo, number of all perfect
     val user = userDataRepo.findByCard(card) ?: (404 - "Game data not found")
-    val plays = userPlaylogRepo.findByUserCardExtId(card.extId)
+    val plays = playlogRepo.findByUserCardExtId(card.extId)
 
     // Detailed ranks: Find the number of each rank in each level category
     // map<level, map<rank, count>>
@@ -133,34 +134,4 @@ fun GameApiController.genericUserSummary(
         ratingComposition = ratingComposition,
         recent = plays.sortedBy { it.userPlayDate.toString() }.takeLast(15).reversed()
     )
-}
-
-val rankingCache = mutableMapOf<String, Pair<Long, List<GenericRankingPlayer>>>()
-
-fun genericRanking(
-    userDataRepo: GenericUserDataRepo<*, *>,
-    userPlaylogRepo: GenericPlaylogRepo,
-): List<GenericRankingPlayer> {
-    // Read from cache if we just computed it less than 2 minutes ago
-    val cacheKey = userPlaylogRepo::class.java.name
-    rankingCache[cacheKey]?.let { (t, r) ->
-        if (millis() - t < 120_000) return r
-    }
-
-    // TODO: pagination
-    val players = userDataRepo.findAll().sortedByDescending { it.playerRating }
-    return players.filter { it.card != null }.mapIndexed { i, user ->
-        val plays = userPlaylogRepo.findByUserCardExtId(user.card!!.extId)
-
-        GenericRankingPlayer(
-            rank = i + 1,
-            name = user.userName,
-            accuracy = plays.acc(),
-            rating = user.playerRating,
-            allPerfect = plays.count { it.isAllPerfect },
-            fullCombo = plays.count { it.isFullCombo },
-            lastSeen = user.lastPlayDate.toString(),
-            username = user.card!!.aquaUser?.username ?: "user${user.card!!.id}"
-        )
-    }.also { rankingCache[cacheKey] = millis() to it }  // Update the cache
 }
