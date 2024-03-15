@@ -7,7 +7,9 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonNamingStrategy
 import org.apache.tika.Tika
 import org.apache.tika.mime.MimeTypes
 import org.springframework.http.HttpStatus
@@ -47,12 +49,15 @@ val emailRegex = "^(?=.{1,64}@)[\\p{L}0-9_-]+(\\.[\\p{L}0-9_-]+)*@[^-][\\p{L}0-9
 fun Str.isValidEmail(): Bool = emailRegex.matches(this)
 
 // Global tools
+@OptIn(ExperimentalSerializationApi::class)
+val JSON = Json {
+    ignoreUnknownKeys = true
+    isLenient = true
+    namingStrategy = JsonNamingStrategy.SnakeCase
+}
 val HTTP = HttpClient(CIO) {
     install(ContentNegotiation) {
-        json(Json {
-            ignoreUnknownKeys = true
-            isLenient = true
-        })
+        json(JSON)
     }
 }
 val TIKA = Tika()

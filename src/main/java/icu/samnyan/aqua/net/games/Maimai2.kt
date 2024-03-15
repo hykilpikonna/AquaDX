@@ -19,7 +19,7 @@ class Maimai2(
     val userPlaylogRepository: UserPlaylogRepository,
     val userDataRepository: UserDataRepository,
     val userGeneralDataRepository: UserGeneralDataRepository
-): GameApiController
+): GameApiController("mai2")
 {
     override suspend fun trend(@RP username: Str): List<TrendOut> = us.cardByName(username) { card ->
         findTrend(userPlaylogRepository.findByUser_Card_ExtId(card.extId)

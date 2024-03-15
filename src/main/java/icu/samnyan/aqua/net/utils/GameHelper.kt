@@ -3,10 +3,7 @@ package icu.samnyan.aqua.net.utils
 import ext.isoDate
 import ext.millis
 import ext.minus
-import icu.samnyan.aqua.net.games.GenericGameSummary
-import icu.samnyan.aqua.net.games.GenericRankingPlayer
-import icu.samnyan.aqua.net.games.RankCount
-import icu.samnyan.aqua.net.games.TrendOut
+import icu.samnyan.aqua.net.games.*
 import icu.samnyan.aqua.sega.general.model.Card
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.repository.NoRepositoryBean
@@ -83,7 +80,7 @@ interface GenericPlaylogRepo {
 
 fun List<IGenericGamePlaylog>.acc() = if (isEmpty()) 0.0 else sumOf { it.achievement }.toDouble() / size / 10000.0
 
-fun genericUserSummary(
+fun GameApiController.genericUserSummary(
     card: Card,
     userDataRepo: GenericUserDataRepo<*, *>,
     userPlaylogRepo: GenericPlaylogRepo,
@@ -95,11 +92,23 @@ fun genericUserSummary(
     val user = userDataRepo.findByCard(card) ?: (404 - "Game data not found")
     val plays = userPlaylogRepo.findByUserCardExtId(card.extId)
 
-    // O(6n) ranks algorithm: Loop through the entire list of plays,
-    // count the number of each rank
-    val ranks = shownRanks.associate { (_, v) -> v to 0 }.toMutableMap()
-    plays.forEach {
-        shownRanks.find { (s, _) -> it.achievement > s }?.let { (_, v) -> ranks[v] = ranks[v]!! + 1 }
+    // Detailed ranks: Find the number of each rank in each level category
+    // map<level, map<rank, count>>
+    val rankMap = shownRanks.associate { (_, v) -> v to 0 }
+    val detailedRanks = HashMap<Int, MutableMap<String, Int>>()
+    plays.forEach { play ->
+        val lvl = musicMapping[play.musicId]?.notes?.getOrNull(if (play.level == 10) 0 else play.level)?.lv ?: return@forEach
+        shownRanks.find { (s, _) -> play.achievement > s }?.let { (_, v) ->
+            val ranks = detailedRanks.getOrPut(lvl.toInt()) { rankMap.toMutableMap() }
+            ranks[v] = ranks[v]!! + 1
+        }
+    }
+
+    // Collapse detailed ranks to get non-detailed ranks map<rank, count>
+    val ranks = shownRanks.associate { (_, v) -> v to 0 }.toMutableMap().also { ranks ->
+        plays.forEach { play ->
+            shownRanks.find { (s, _) -> play.achievement > s }?.let { (_, v) -> ranks[v] = ranks[v]!! + 1 }
+        }
     }
 
     return GenericGameSummary(
@@ -111,6 +120,7 @@ fun genericUserSummary(
         rating = user.playerRating,
         ratingHighest = user.highestRating,
         ranks = ranks.map { (k, v) -> RankCount(k, v) },
+        detailedRanks = detailedRanks,
         maxCombo = plays.maxOfOrNull { it.maxCombo } ?: 0,
         fullCombo = plays.count { it.isFullCombo },
         allPerfect = plays.count { it.isAllPerfect },

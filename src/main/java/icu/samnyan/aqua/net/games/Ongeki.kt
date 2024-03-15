@@ -17,7 +17,7 @@ class Ongeki(
     val userPlaylogRepository: UserPlaylogRepository,
     val userDataRepository: UserDataRepository,
     val userGeneralDataRepository: UserGeneralDataRepository
-): GameApiController {
+): GameApiController("ongeki") {
     override suspend fun trend(username: String) = us.cardByName(username) { card ->
         findTrend(userPlaylogRepository.findByUser_Card_ExtId(card.extId)
             .map { TrendLog(it.playDate, it.playerRating) })

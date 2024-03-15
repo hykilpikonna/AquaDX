@@ -77,3 +77,4 @@ gradle-app.setting
 # Java heap dump
 *.hprof
 .jpb
+src/main/resources/meta/*/*.json

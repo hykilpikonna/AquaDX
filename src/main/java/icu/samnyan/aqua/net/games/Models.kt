@@ -1,8 +1,10 @@
 package icu.samnyan.aqua.net.games
 
 import ext.API
+import ext.JSON
 import ext.RP
 import icu.samnyan.aqua.net.utils.IGenericGamePlaylog
+import kotlinx.serialization.Serializable
 
 data class TrendOut(val date: String, val rating: Int, val plays: Int)
 
@@ -19,6 +21,7 @@ data class GenericGameSummary(
     val rating: Int,
     val ratingHighest: Int,
     val ranks: List<RankCount>,
+    val detailedRanks: Map<Int, Map<String, Int>>,
     val maxCombo: Int,
     val fullCombo: Int,
     val allPerfect: Int,
@@ -46,15 +49,35 @@ data class GenericRankingPlayer(
     val lastSeen: String
 )
 
-interface GameApiController {
+@Serializable
+data class GenericMusicMeta(
+    val name: String?,
+    val ver: String,
+    val notes: List<GenericNoteMeta>
+)
+
+@Serializable
+data class GenericNoteMeta(
+    val lv: Double,
+    val lvId: Int
+)
+
+abstract class GameApiController(name: String) {
+    val musicMapping: Map<Int, GenericMusicMeta> = GameApiController::class.java
+        .getResourceAsStream("/meta/$name/music.json")
+        .use { it?.reader()?.readText() }
+        ?.let { JSON.decodeFromString<Map<String, GenericMusicMeta>>(it) }
+        ?.mapKeys { it.key.toInt() }
+        ?: emptyMap()
+
     @API("trend")
-    suspend fun trend(@RP username: String): List<TrendOut>
+    abstract suspend fun trend(@RP username: String): List<TrendOut>
     @API("user-summary")
-    suspend fun userSummary(@RP username: String): GenericGameSummary
+    abstract suspend fun userSummary(@RP username: String): GenericGameSummary
     @API("ranking")
-    suspend fun ranking(): List<GenericRankingPlayer>
+    abstract suspend fun ranking(): List<GenericRankingPlayer>
     @API("playlog")
-    suspend fun playlog(@RP id: Long): IGenericGamePlaylog
+    abstract suspend fun playlog(@RP id: Long): IGenericGamePlaylog
     @API("recent")
-    suspend fun recent(@RP username: String): List<IGenericGamePlaylog>
+    abstract suspend fun recent(@RP username: String): List<IGenericGamePlaylog>
 }
