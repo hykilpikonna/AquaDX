@@ -5,6 +5,7 @@
   import StatusOverlays from "../components/StatusOverlays.svelte";
   import type { GameName } from "../libs/scoring";
   import { GAME_TITLE } from "../libs/i18n";
+  import { t } from "../libs/i18n";
 
   export let game: GameName = 'mai2';
 
@@ -22,7 +23,7 @@
 
 <main class="content leaderboard">
   <div class="outer-title-options">
-    <h2>Global Leaderboard</h2>
+    <h2>{t("Leaderboard.Title")}</h2>
     <nav>
       {#each Object.entries(GAME_TITLE) as [k, v]}
         <a href="/ranking/{k}" class:active={k === game}>{v}</a>
@@ -33,12 +34,12 @@
   {#if d}
     <div class="leaderboard-container">
       <div class="lb-user">
-        <span class="rank">Rank</span>
+        <span class="rank">{t("Leaderboard.Rank")}</span>
         <span class="name"></span>
-        <span class="rating">Rating</span>
-        <span class="accuracy">Accuracy</span>
-        <span class="fc">FC</span>
-        <span class="ap">AP</span>
+        <span class="rating">{t("Leaderboard.Rating")}</span>
+        <span class="accuracy">{t("Leaderboard.Accuracy")}</span>
+        <span class="fc">{t("Leaderboard.FC")}</span>
+        <span class="ap">{t("Leaderboard.AP")}</span>
       </div>
       {#each d.users as user, i (user.rank)}
         <div class="lb-user" class:alternate={i % 2 === 1}>

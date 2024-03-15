@@ -43,12 +43,21 @@ export const EN_REF_Welcome = {
   'welcome.verification-failed': 'Verification failed: ${message}. Please try again.',
 }
 
+export const EN_REF_LEADERBOARD = {
+  'Leaderboard.Title': 'Server Leaderboard',
+  'Leaderboard.Rank': 'Rank',
+  'Leaderboard.Rating': 'Rating',
+  'Leaderboard.Accuracy': 'Accuracy',
+  'Leaderboard.FC': 'FC',
+  'Leaderboard.AP': 'AP',
+}
+
 export const EN_REF_GENERAL = {
   'game.mai2': "Mai",
   'game.chu3': "Chuni",
   'game.ongeki': "Ongeki",
 }
 
-export const EN_REF = { ...EN_REF_USER, ...EN_REF_Welcome, ...EN_REF_GENERAL }
+export const EN_REF = { ...EN_REF_USER, ...EN_REF_Welcome, ...EN_REF_GENERAL, ...EN_REF_LEADERBOARD }
 
 export type LocalizedMessages = typeof EN_REF

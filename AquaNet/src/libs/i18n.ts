@@ -23,6 +23,7 @@ export function t(key: keyof LocalizedMessages, variables?: { [index: string]: a
   }
   return msgs[lang][key]
 }
+Object.assign(window, { t })
 
 export const GAME_TITLE: { [key in GameName]: string } =
   {chu3: t("game.chu3"), mai2: t("game.mai2"), ongeki: t("game.ongeki")}

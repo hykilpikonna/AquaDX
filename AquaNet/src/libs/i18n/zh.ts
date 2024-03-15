@@ -1,4 +1,4 @@
-import { EN_REF_GENERAL, EN_REF_USER, type EN_REF_Welcome } from "./en_ref";
+import { EN_REF_GENERAL, EN_REF_LEADERBOARD, EN_REF_USER, type EN_REF_Welcome } from "./en_ref";
 
 const zhUser: typeof EN_REF_USER = {
   'UserHome.ServerRank': '服务器排名',
@@ -45,10 +45,19 @@ const zhWelcome: typeof EN_REF_Welcome = {
   'welcome.verification-failed': '验证失败：${message}。请重试',
 }
 
+const zhLeaderboard: typeof EN_REF_LEADERBOARD = {
+  'Leaderboard.Title': '排行榜',
+  'Leaderboard.Rank': '排名',
+  'Leaderboard.Rating': '评分',
+  'Leaderboard.Accuracy': '准确率',
+  'Leaderboard.FC': 'FC',
+  'Leaderboard.AP': 'AP',
+}
+
 const zhGeneral: typeof EN_REF_GENERAL = {
   'game.mai2': "舞萌",
   'game.chu3': "中二",
   'game.ongeki': "音击",
 }
 
-export const ZH = { ...zhUser, ...zhWelcome, ...zhGeneral }
+export const ZH = { ...zhUser, ...zhWelcome, ...zhGeneral, ...zhLeaderboard }
