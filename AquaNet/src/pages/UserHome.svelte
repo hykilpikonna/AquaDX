@@ -134,16 +134,21 @@
             </div>
           </div>
 
-          <div class="info-bottom clickable" use:tooltip={t("UserHome.ShowRanksDetails")}
-               on:click={() => showDetailRank = !showDetailRank} role="button" tabindex="0"
-               on:keydown={e => e.key === "Enter" && (showDetailRank = !showDetailRank)}>
-            {#each d.user.ranks as r}
-              <div>
-                <span>{r.name}</span>
-                <span>{r.count}</span>
-              </div>
-            {/each}
-          </div>
+          {#if Object.entries(d.user.detailedRanks).length > 0}
+            <div class="info-bottom clickable" use:tooltip={t("UserHome.ShowRanksDetails")}
+                 on:click={() => showDetailRank = !showDetailRank} role="button" tabindex="0"
+                 on:keydown={e => e.key === "Enter" && (showDetailRank = !showDetailRank)}>
+              {#each d.user.ranks as r}
+                <div><span>{r.name}</span><span>{r.count}</span></div>
+              {/each}
+            </div>
+          {:else}
+            <div class="info-bottom">
+              {#each d.user.ranks as r}
+                <div><span>{r.name}</span><span>{r.count}</span></div>
+              {/each}
+            </div>
+          {/if}
         </div>
 
         <div class="other-info">
