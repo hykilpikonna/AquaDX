@@ -115,7 +115,7 @@
           <div class="trend">
             <!-- ChartJS cannot be fully responsive unless there is a parent div that's independent from its size and helps it determine its size -->
             <div class="chartjs-box-reference">
-              {#if d.trend.length === 0}
+              {#if d.trend.length <= 1}
                 <div class="no-data">{t("UserHome.NoData", { days: TREND_DAYS })}</div>
               {:else}
                 <Line data={{
