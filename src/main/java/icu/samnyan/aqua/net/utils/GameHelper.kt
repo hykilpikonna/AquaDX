@@ -95,11 +95,20 @@ fun genericUserSummary(
     val user = userDataRepo.findByCard(card) ?: (404 - "Game data not found")
     val plays = userPlaylogRepo.findByUserCardExtId(card.extId)
 
-    // O(6n) ranks algorithm: Loop through the entire list of plays,
-    // count the number of each rank
-    val ranks = shownRanks.associate { (_, v) -> v to 0 }.toMutableMap()
-    plays.forEach {
-        shownRanks.find { (s, _) -> it.achievement > s }?.let { (_, v) -> ranks[v] = ranks[v]!! + 1 }
+    // Detailed ranks: Find the number of each rank in each level category
+    // map<level, map<rank, count>>
+    // TODO: Not all games have difficulty from 1 to 15
+    val detailedRanks = (1..15).associateWith { lvl ->
+        shownRanks.associate { (_, v) -> v to 0 }.toMutableMap().also { ranks ->
+            plays.filter { lvl < it.level && it.level < lvl + 1 }.forEach {
+                shownRanks.find { (s, _) -> it.achievement > s }?.let { (_, v) -> ranks[v] = ranks[v]!! + 1 }
+            }
+        }
+    }
+
+    // Collapse detailed ranks to get non-detailed ranks map<rank, count>
+    val ranks = detailedRanks.values.first().keys.associateWith { rank ->
+        detailedRanks.values.sumOf { it[rank] ?: 0 }
     }
 
     return GenericGameSummary(
@@ -111,6 +120,7 @@ fun genericUserSummary(
         rating = user.playerRating,
         ratingHighest = user.highestRating,
         ranks = ranks.map { (k, v) -> RankCount(k, v) },
+        detailedRanks = detailedRanks,
         maxCombo = plays.maxOfOrNull { it.maxCombo } ?: 0,
         fullCombo = plays.count { it.isFullCombo },
         allPerfect = plays.count { it.isAllPerfect },

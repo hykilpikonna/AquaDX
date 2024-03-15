@@ -19,6 +19,7 @@ data class GenericGameSummary(
     val rating: Int,
     val ratingHighest: Int,
     val ranks: List<RankCount>,
+    val detailedRanks: Map<Int, Map<String, Int>>,
     val maxCombo: Int,
     val fullCombo: Int,
     val allPerfect: Int,
