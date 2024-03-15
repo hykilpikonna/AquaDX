@@ -38,6 +38,10 @@ class CardController(
         )
     }
 
+    @API("/user-games")
+    @Doc("Get the game summary of the user, including the user's name, rating, and last login date.", "Summary of the user")
+    suspend fun userGames(@RP username: Str) = us.cardByName(username) { card -> cardGameService.getSummary(card) }
+
     /**
      * Bind a card to the user. This action will migrate selected data from the card to the user's ghost card.
      *
@@ -100,7 +104,7 @@ class CardController(
     @API("/default-game")
     @Doc("Get the default game for the card.", "Game ID")
     suspend fun defaultGame(@RP username: Str) = us.cardByName(username) { card ->
-        cardGameService.getSummary(card).filterValues { it != null }.keys.firstOrNull()
+        mapOf("game" to cardGameService.getSummary(card).filterValues { it != null }.keys.firstOrNull())
     }
 }
 
