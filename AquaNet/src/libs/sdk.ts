@@ -135,6 +135,8 @@ export const CARD = {
     post('/api/v2/card/link', props),
   unlink: (cardId: string) =>
     post('/api/v2/card/unlink', { cardId }),
+  userGames: (username: string): Promise<CardSummary> =>
+    post('/api/v2/card/user-games', { username }),
 }
 
 export const GAME = {

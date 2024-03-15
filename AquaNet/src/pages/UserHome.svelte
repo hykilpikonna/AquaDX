@@ -1,12 +1,19 @@
 <script lang="ts">
   import { CHARTJS_OPT, coverNotFound, pfpNotFound, registerChart, renderCal, title, tooltip, pfp } from "../libs/ui";
-  import type { GenericGamePlaylog, GenericGameSummary, MusicMeta, TrendEntry, AquaNetUser } from "../libs/generalTypes";
+  import type {
+    GenericGamePlaylog,
+    GenericGameSummary,
+    MusicMeta,
+    TrendEntry,
+    AquaNetUser,
+    CardSummary
+  } from "../libs/generalTypes";
   import { DATA_HOST } from "../libs/config";
   import 'cal-heatmap/cal-heatmap.css';
   import { Line } from 'svelte-chartjs';
   import moment from "moment";
   import 'chartjs-adapter-moment';
-  import { DATA, GAME, USER } from "../libs/sdk";
+  import { CARD, DATA, GAME, USER } from "../libs/sdk";
   import { type GameName, getMult } from "../libs/scoring";
   import StatusOverlays from "../components/StatusOverlays.svelte";
   import Icon from "@iconify/svelte";
@@ -23,37 +30,51 @@
   let me: AquaNetUser
   title(`User ${username}`)
 
+  const GAME_TITLE: { [key in GameName]: string } =
+    {chu3: t("UserHome.Game.Chu3"), mai2: t("UserHome.Game.Mai2"), ongeki: t("UserHome.Game.Ongeki")}
+  const titleText = GAME_TITLE[game]
+
   interface MusicAndPlay extends MusicMeta, GenericGamePlaylog {}
 
   let d: {
     user: GenericGameSummary,
     trend: TrendEntry[]
-    recent: MusicAndPlay[]
+    recent: MusicAndPlay[],
+    validGames: [ string, string ][]
   } | null
 
   USER.isLoggedIn() && USER.me().then(u => me = u)
 
-  Promise.all([
-    GAME.userSummary(username, game),
-    GAME.trend(username, game),
-    DATA.allMusic(game)
-  ]).then(([user, trend, music]) => {
-    console.log(user)
-    console.log(trend)
 
-    const minDate = moment().subtract(TREND_DAYS, 'days').format("YYYY-MM-DD")
-    d = {user,
-      trend: trend.filter(it => it.date >= minDate && it.plays != 0),
-      recent: user.recent.map(it => {return {...music[it.musicId], ...it}})
+  CARD.userGames(username).then(games => {
+    if (!games[game]) {
+      // Find a valid game
+      const valid = Object.entries(games).filter(([g, valid]) => valid)
+      if (!valid) return error = t("UserHome.NoValidGame")
+      window.location.href = `/u/${username}/${valid[0][0]}`
     }
-    renderCal(calElement, trend.map(it => {return {date: it.date, value: it.plays}})).then(() => {
-      // Scroll to the rightmost
-      calElement.scrollLeft = calElement.scrollWidth - calElement.clientWidth
-    })
-  }).catch((e) => error = e.message);
 
-  const games = {chu3: t("UserHome.Game.Chu3"), mai2: t("UserHome.Game.Mai2"), ongeki: t("UserHome.Game.Ongeki")}
-  const titleText = games[game]
+    Promise.all([
+      GAME.userSummary(username, game),
+      GAME.trend(username, game),
+      DATA.allMusic(game),
+    ]).then(([user, trend, music]) => {
+      console.log(user)
+      console.log(trend)
+      console.log(games)
+
+      const minDate = moment().subtract(TREND_DAYS, 'days').format("YYYY-MM-DD")
+      d = {user,
+        trend: trend.filter(it => it.date >= minDate && it.plays != 0),
+        recent: user.recent.map(it => {return {...music[it.musicId], ...it}}),
+        validGames: Object.entries(GAME_TITLE).filter(g => games[g[0] as GameName])
+      }
+      renderCal(calElement, trend.map(it => {return {date: it.date, value: it.plays}})).then(() => {
+        // Scroll to the rightmost
+        calElement.scrollLeft = calElement.scrollWidth - calElement.clientWidth
+      })
+    }).catch((e) => error = e.message);
+  })
 </script>
 
 <main id="user-home" class="content">
@@ -69,7 +90,7 @@
         {/if}
       </div>
       <nav>
-        {#each Object.entries(games) as [g, name]}
+        {#each d.validGames as [g, name]}
           <a href={`/u/${username}/${g}`} class:active={game === g}>{name}</a>
         {/each}
       </nav>

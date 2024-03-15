@@ -22,6 +22,7 @@ export const EN_REF_USER = {
   'UserHome.Game.Ongeki': "Ongeki",
   'UserHome.UnknownSong': "(unknown song)",
   'UserHome.Settings': 'Settings',
+  'UserHome.NoValidGame': "The user hasn't played any game yet.",
 }
 
 export const EN_REF_Welcome = {
