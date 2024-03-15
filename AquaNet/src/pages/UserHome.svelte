@@ -441,7 +441,7 @@ $gap: 20px
 
         .rank-S
           // Gold green gradient on text
-          background: linear-gradient(90deg, #ffee94, #ffb798, #ffa3e5, #ebff94)
+          background: $grad-special
           -webkit-background-clip: text
           color: transparent
 

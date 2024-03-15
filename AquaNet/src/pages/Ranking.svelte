@@ -20,12 +20,12 @@
 </script>
 
 <main class="content leaderboard">
-  <h2>Global Leaderboard</h2>
+  <h2 class="outer-title">Global Leaderboard</h2>
 
   {#if d}
     <div class="leaderboard-container">
       <div class="lb-user">
-        <span class="rank"></span>
+        <span class="rank">Rank</span>
         <span class="name"></span>
         <span class="rating">Rating</span>
         <span class="accuracy">Accuracy</span>
@@ -35,11 +35,13 @@
       {#each d.users as user, i (user.rank)}
         <div class="lb-user" class:alternate={i % 2 === 1}>
           <span class="rank">#{user.rank}</span>
-          {#if user.username !== ""}
-          <a class="name" href="/u/{user.username}">{user.name}</a>
-          {:else}
-          <span class="name">{user.name}</span>
-          {/if}
+          <span class="name">
+            {#if user.username !== ""}
+              <a href="/u/{user.username}" class:registered={!(/user\d+/.test(user.username))}>{user.name}</a>
+            {:else}
+              <span>{user.name}</span>
+            {/if}
+          </span>
           <span class="rating">{user.rating.toLocaleString()}</span>
           <span class="accuracy">{(+user.accuracy).toFixed(2)}%</span>
           <span class="fc">{user.fullCombo}</span>
@@ -75,6 +77,15 @@
     .name
       min-width: 100px
       flex: 1
+
+      > a
+        color: unset
+
+      .registered
+        background: $grad-special
+        color: transparent
+        -webkit-background-clip: text
+        background-clip: text
 
     .accuracy, .rating
       width: 15%
