@@ -17,9 +17,6 @@ export const EN_REF_USER = {
   'UserHome.Version': 'Last Version',
   'UserHome.RecentScores': 'Recent Scores',
   'UserHome.NoData': 'No data in the past ${days} days',
-  'UserHome.Game.Mai2': "Mai",
-  'UserHome.Game.Chu3': "Chuni",
-  'UserHome.Game.Ongeki': "Ongeki",
   'UserHome.UnknownSong': "(unknown song)",
   'UserHome.Settings': 'Settings',
   'UserHome.NoValidGame': "The user hasn't played any game yet.",
@@ -46,6 +43,12 @@ export const EN_REF_Welcome = {
   'welcome.verification-failed': 'Verification failed: ${message}. Please try again.',
 }
 
-export const EN_REF = { ...EN_REF_USER, ...EN_REF_Welcome }
+export const EN_REF_GENERAL = {
+  'game.mai2': "Mai",
+  'game.chu3': "Chuni",
+  'game.ongeki': "Ongeki",
+}
+
+export const EN_REF = { ...EN_REF_USER, ...EN_REF_Welcome, ...EN_REF_GENERAL }
 
 export type LocalizedMessages = typeof EN_REF

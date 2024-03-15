@@ -1,4 +1,4 @@
-import { EN_REF_USER, type EN_REF_Welcome } from "./en_ref";
+import { EN_REF_GENERAL, EN_REF_USER, type EN_REF_Welcome } from "./en_ref";
 
 const zhUser: typeof EN_REF_USER = {
   'UserHome.ServerRank': '服务器排名',
@@ -19,9 +19,6 @@ const zhUser: typeof EN_REF_USER = {
   'UserHome.Version': '最新最热否',
   'UserHome.RecentScores': '成绩',
   'UserHome.NoData': '过去 ${days} 天内没有玩过',
-  'UserHome.Game.Mai2': "舞萌",
-  'UserHome.Game.Chu3': "中二",
-  'UserHome.Game.Ongeki': "音击",
   'UserHome.UnknownSong': "(未知曲目)",
   'UserHome.Settings': '设置',
   'UserHome.NoValidGame': "用户还没有玩过游戏",
@@ -48,4 +45,10 @@ const zhWelcome: typeof EN_REF_Welcome = {
   'welcome.verification-failed': '验证失败：${message}。请重试',
 }
 
-export const ZH = { ...zhUser, ...zhWelcome }
+const zhGeneral: typeof EN_REF_GENERAL = {
+  'game.mai2': "舞萌",
+  'game.chu3': "中二",
+  'game.ongeki': "音击",
+}
+
+export const ZH = { ...zhUser, ...zhWelcome, ...zhGeneral }

@@ -1,5 +1,6 @@
 import { EN_REF, type LocalizedMessages } from "./i18n/en_ref";
 import { ZH } from "./i18n/zh";
+import type { GameName } from "./scoring";
 
 type Lang = 'en' | 'zh'
 
@@ -22,3 +23,6 @@ export function t(key: keyof LocalizedMessages, variables?: { [index: string]: a
   }
   return msgs[lang][key]
 }
+
+export const GAME_TITLE: { [key in GameName]: string } =
+  {chu3: t("game.chu3"), mai2: t("game.mai2"), ongeki: t("game.ongeki")}

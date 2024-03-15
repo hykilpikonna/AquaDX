@@ -4,6 +4,7 @@
   import type { GenericRanking } from "../libs/generalTypes";
   import StatusOverlays from "../components/StatusOverlays.svelte";
   import type { GameName } from "../libs/scoring";
+  import { GAME_TITLE } from "../libs/i18n";
 
   export let game: GameName = 'mai2';
 
@@ -20,7 +21,14 @@
 </script>
 
 <main class="content leaderboard">
-  <h2 class="outer-title">Global Leaderboard</h2>
+  <div class="outer-title-options">
+    <h2>Global Leaderboard</h2>
+    <nav>
+      {#each Object.entries(GAME_TITLE) as [k, v]}
+        <a href="/ranking/{k}" class:active={k === game}>{v}</a>
+      {/each}
+    </nav>
+  </div>
 
   {#if d}
     <div class="leaderboard-container">

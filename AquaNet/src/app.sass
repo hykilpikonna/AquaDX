@@ -177,14 +177,28 @@ input.error
   @media (max-width: $w-mobile)
     margin: 100px 0 0
 
-  > h2.outer-title
+  > h2.outer-title, > .outer-title-options
     margin-top: -5rem
     margin-bottom: 1rem
 
     @media (max-width: $w-mobile)
       text-align: center
 
-  > h2
+  > .outer-title-options
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+    nav
+      display: flex
+      flex-direction: row
+      gap: 10px
+      top: 4px
+
+    @media (max-width: $w-mobile)
+      flex-direction: column
+
+  > h2, > .outer-title-options > h2
     margin: 0
 
 main.content

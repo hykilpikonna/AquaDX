@@ -5,8 +5,7 @@
     GenericGameSummary,
     MusicMeta,
     TrendEntry,
-    AquaNetUser,
-    CardSummary
+    AquaNetUser
   } from "../libs/generalTypes";
   import { DATA_HOST } from "../libs/config";
   import 'cal-heatmap/cal-heatmap.css';
@@ -17,7 +16,7 @@
   import { type GameName, getMult } from "../libs/scoring";
   import StatusOverlays from "../components/StatusOverlays.svelte";
   import Icon from "@iconify/svelte";
-  import {t} from "../libs/i18n";
+  import { GAME_TITLE, t } from "../libs/i18n";
 
   const TREND_DAYS = 60
 
@@ -30,8 +29,6 @@
   let me: AquaNetUser
   title(`User ${username}`)
 
-  const GAME_TITLE: { [key in GameName]: string } =
-    {chu3: t("UserHome.Game.Chu3"), mai2: t("UserHome.Game.Mai2"), ongeki: t("UserHome.Game.Ongeki")}
   const titleText = GAME_TITLE[game]
 
   interface MusicAndPlay extends MusicMeta, GenericGamePlaylog {}
