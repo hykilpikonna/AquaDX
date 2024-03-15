@@ -46,7 +46,7 @@
           <span class="rank">#{user.rank}</span>
           <span class="name">
             {#if user.username !== ""}
-              <a href="/u/{user.username}" class:registered={!(/user\d+/.test(user.username))}>{user.name}</a>
+              <a href="/u/{user.username}/{game}" class:registered={!(/user\d+/.test(user.username))}>{user.name}</a>
             {:else}
               <span>{user.name}</span>
             {/if}
