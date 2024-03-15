@@ -1776,6 +1776,11 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
+lxgw-wenkai-lite-webfont@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/lxgw-wenkai-lite-webfont/-/lxgw-wenkai-lite-webfont-1.7.0.tgz#2f6404d92d47e0b97d5e8f327a3061ab5fa393e5"
+  integrity sha512-VcQYNRpdXAxaZsJ18rfT1mmAreGqkIFNZ/9pdVLbT2Tkb+2lLWJDXq4zYxMEk9AcecSnxO31R2LHh5ieLlxjRg==
+
 magic-string@^0.30.4, magic-string@^0.30.5:
   version "0.30.7"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.30.7.tgz#0cecd0527d473298679da95a2d7aeb8c64048505"
