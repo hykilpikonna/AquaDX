@@ -2,7 +2,10 @@ package icu.samnyan.aqua.net.games
 
 import ext.*
 import icu.samnyan.aqua.net.utils.*
+import icu.samnyan.aqua.sega.general.model.Card
 import kotlinx.serialization.Serializable
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.repository.NoRepositoryBean
 import kotlin.jvm.optionals.getOrNull
 
 data class TrendOut(val date: String, val rating: Int, val plays: Int)
@@ -60,6 +63,37 @@ data class GenericNoteMeta(
     val lv: Double,
     val lvId: Int
 )
+
+// Here are some interfaces to generalize across multiple games
+interface IGenericUserData {
+    val userName: String
+    val iconId: Int
+    val playerRating: Int
+    val highestRating: Int
+    val firstPlayDate: Any
+    val lastPlayDate: Any
+    val lastRomVersion: String
+    val totalScore: Long
+    var card: Card?
+}
+
+@NoRepositoryBean
+interface GenericUserDataRepo<T : IGenericUserData, ID> : JpaRepository<T, ID> {
+    fun findByCard(card: Card): T?
+    fun getRanking(rating: Int): Long
+}
+
+interface IGenericGamePlaylog {
+    val musicId: Int
+    val level: Int
+    val userPlayDate: Any
+    val achievement: Int
+    val maxCombo: Int
+    val isFullCombo: Boolean
+    val beforeRating: Int
+    val afterRating: Int
+    val isAllPerfect: Boolean
+}
 
 abstract class GameApiController(name: String) {
     val musicMapping: Map<Int, GenericMusicMeta> = GameApiController::class.java

@@ -4,8 +4,8 @@ import ext.*
 import icu.samnyan.aqua.net.components.JWT
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.AquaNetProps
-import icu.samnyan.aqua.net.utils.GenericUserDataRepo
-import icu.samnyan.aqua.net.utils.IGenericUserData
+import icu.samnyan.aqua.net.games.GenericUserDataRepo
+import icu.samnyan.aqua.net.games.IGenericUserData
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card

@@ -2,16 +2,14 @@ package icu.samnyan.aqua.sega.chusan.model.userdata;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import icu.samnyan.aqua.net.utils.IGenericGamePlaylog;
+import icu.samnyan.aqua.net.games.IGenericGamePlaylog;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)

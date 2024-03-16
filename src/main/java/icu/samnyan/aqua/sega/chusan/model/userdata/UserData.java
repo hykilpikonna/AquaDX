@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import icu.samnyan.aqua.net.utils.IGenericUserData;
+import icu.samnyan.aqua.net.games.IGenericUserData;
 import icu.samnyan.aqua.sega.chusan.model.response.data.UserEmoney;
 import icu.samnyan.aqua.sega.general.model.Card;
 import icu.samnyan.aqua.sega.util.jackson.AccessCodeSerializer;

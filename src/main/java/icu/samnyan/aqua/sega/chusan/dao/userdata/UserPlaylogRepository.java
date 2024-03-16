@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.dao.userdata;
 
-import icu.samnyan.aqua.net.utils.GenericPlaylogRepo;
+import icu.samnyan.aqua.net.games.GenericPlaylogRepo;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserPlaylog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

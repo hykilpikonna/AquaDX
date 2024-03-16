@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.maimai2.dao.userdata;
 
-import icu.samnyan.aqua.net.utils.GenericPlaylogRepo;
+import icu.samnyan.aqua.net.games.GenericPlaylogRepo;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserDetail;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserPlaylog;
 

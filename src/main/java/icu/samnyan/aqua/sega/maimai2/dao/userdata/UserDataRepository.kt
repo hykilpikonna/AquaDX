@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.maimai2.dao.userdata
 
-import icu.samnyan.aqua.net.utils.GenericUserDataRepo
+import icu.samnyan.aqua.net.games.GenericUserDataRepo
 import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserDetail
 import org.springframework.data.jpa.repository.Query

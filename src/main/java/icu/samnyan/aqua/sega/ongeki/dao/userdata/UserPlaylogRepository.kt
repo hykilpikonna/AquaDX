@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.ongeki.dao.userdata
 
-import icu.samnyan.aqua.net.utils.GenericPlaylogRepo
+import icu.samnyan.aqua.net.games.GenericPlaylogRepo
 import icu.samnyan.aqua.sega.ongeki.model.userdata.UserData
 import icu.samnyan.aqua.sega.ongeki.model.userdata.UserPlaylog
 import org.springframework.data.domain.Page
