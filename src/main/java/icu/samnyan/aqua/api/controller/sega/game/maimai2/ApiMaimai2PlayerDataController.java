@@ -232,7 +232,7 @@ public class ApiMaimai2PlayerDataController {
     public ReducedPageResponse<UserPlaylog> getRecent(@RequestParam long aimeId,
                                                       @RequestParam(required = false, defaultValue = "0") int page,
                                                       @RequestParam(required = false, defaultValue = "10") int size) {
-        Page<UserPlaylog> playlogs = userPlaylogRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page, size, Sort.Direction.DESC, "id"));
+        Page<UserPlaylog> playlogs = userPlaylogRepository.findByUserCardExtId(aimeId, PageRequest.of(page, size, Sort.Direction.DESC, "id"));
         return new ReducedPageResponse<>(playlogs.getContent(), playlogs.getPageable().getPageNumber(), playlogs.getTotalPages(), playlogs.getTotalElements());
 
     }
@@ -303,7 +303,7 @@ public class ApiMaimai2PlayerDataController {
             data.setUserItemList(userItemRepository.findByUser_Card_ExtId(aimeId));
             data.setUserLoginBonusList(userLoginBonusRepository.findByUser_Card_ExtId(aimeId));
             data.setUserMusicDetailList(userMusicDetailRepository.findByUser_Card_ExtId(aimeId));
-            data.setUserPlaylogList(userPlaylogRepository.findByUser_Card_ExtId(aimeId));
+            data.setUserPlaylogList(userPlaylogRepository.findByUserCardExtId(aimeId));
             data.setMapEncountNpcList(mapEncountNpcRepository.findByUser_Card_ExtId(aimeId));
             data.setUserActList(userActRepository.findByUser_Card_ExtId(aimeId));
             data.setUserChargeList(userChargeRepository.findByUser_Card_ExtId(aimeId));

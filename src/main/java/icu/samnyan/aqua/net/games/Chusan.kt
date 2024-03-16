@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @API("api/v2/game/chu3")
 class Chusan(
-    val us: AquaUserServices,
+    override val us: AquaUserServices,
     override val playlogRepo: UserPlaylogRepository,
     override val userDataRepo: UserDataRepository,
     val userGeneralDataRepository: UserGeneralDataRepository
 ): GameApiController("chu3")
 {
     override suspend fun trend(@RP username: Str): List<TrendOut> = us.cardByName(username) { card ->
-        findTrend(playlogRepo.findByUser_Card_ExtId(card.extId)
+        findTrend(playlogRepo.findByUserCardExtId(card.extId)
             .map { TrendLog(it.playDate.toString(), it.playerRating) })
     }
 
@@ -38,9 +38,5 @@ class Chusan(
         )
 
         genericUserSummary(card, ratingComposition)
-    }
-
-    override suspend fun recent(@RP username: Str) = us.cardByName(username) { card ->
-        playlogRepo.findByUser_Card_ExtId(card.extId)
     }
 }

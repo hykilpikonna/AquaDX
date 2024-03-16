@@ -5,22 +5,20 @@ import ext.RP
 import ext.Str
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.*
-import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserDataRepository
-import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserGeneralDataRepository
-import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserPlaylogRepository
+import icu.samnyan.aqua.sega.maimai2.dao.userdata.*
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @API("api/v2/game/mai2")
 class Maimai2(
-    val us: AquaUserServices,
+    override val us: AquaUserServices,
     override val playlogRepo: UserPlaylogRepository,
     override val userDataRepo: UserDataRepository,
     val userGeneralDataRepository: UserGeneralDataRepository
 ): GameApiController("mai2")
 {
     override suspend fun trend(@RP username: Str): List<TrendOut> = us.cardByName(username) { card ->
-        findTrend(playlogRepo.findByUser_Card_ExtId(card.extId)
+        findTrend(playlogRepo.findByUserCardExtId(card.extId)
             .map { TrendLog(it.playDate, it.afterRating) })
     }
 
@@ -37,9 +35,5 @@ class Maimai2(
         )
 
         genericUserSummary(card, ratingComposition)
-    }
-
-    override suspend fun recent(@RP username: Str) = us.cardByName(username) { card ->
-        playlogRepo.findByUser_Card_ExtId(card.extId)
     }
 }

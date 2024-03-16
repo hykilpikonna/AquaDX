@@ -113,7 +113,7 @@ class CardController(
  *
  * Assumption: The card is already linked to the user.
  */
-suspend fun <T : IGenericUserData> migrateCard(repo: GenericUserDataRepo<T, *>, card: Card): Bool
+suspend fun <T : IGenericUserData> migrateCard(repo: GenericUserDataRepo<T>, card: Card): Bool
 {
     // Check if data already exists in the user's ghost card
     async { repo.findByCard(card.aquaUser!!.ghostCard) }?.let {
@@ -130,7 +130,7 @@ suspend fun <T : IGenericUserData> migrateCard(repo: GenericUserDataRepo<T, *>, 
     return true
 }
 
-suspend fun getSummaryFor(repo: GenericUserDataRepo<*, *>, card: Card): Map<Str, Any>?
+suspend fun getSummaryFor(repo: GenericUserDataRepo<*>, card: Card): Map<Str, Any>?
 {
     val data = async { repo.findByCard(card) } ?: return null
     return mapOf(

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @API("api/v2/game/ongeki")
 class Ongeki(
-    val us: AquaUserServices,
+    override val us: AquaUserServices,
     override val playlogRepo: UserPlaylogRepository,
     override val userDataRepo: UserDataRepository,
     val userGeneralDataRepository: UserGeneralDataRepository
@@ -30,9 +30,5 @@ class Ongeki(
         // TODO: Rating composition
 
         genericUserSummary(card, mapOf())
-    }
-
-    override suspend fun recent(username: String) = us.cardByName(username) { card ->
-        playlogRepo.findByUser_Card_ExtId(card.extId)
     }
 }

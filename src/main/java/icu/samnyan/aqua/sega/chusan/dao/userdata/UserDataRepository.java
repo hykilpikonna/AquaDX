@@ -11,7 +11,7 @@ import java.util.Optional;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Repository("ChusanUserDataRepository")
-public interface UserDataRepository extends GenericUserDataRepo<UserData, Long> {
+public interface UserDataRepository extends GenericUserDataRepo<UserData> {
 
     Optional<UserData> findByCard_ExtId(Long extId);
 }

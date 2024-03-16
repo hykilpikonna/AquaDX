@@ -11,7 +11,7 @@ import java.util.*
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Repository("OngekiUserDataRepository")
-interface UserDataRepository : GenericUserDataRepo<UserData, Long> {
+interface UserDataRepository : GenericUserDataRepo<UserData> {
     fun findByCard_ExtIdIn(userIds: Collection<Long>): List<UserData>
 
     fun findByCard_ExtId(aimeId: Long): Optional<UserData>

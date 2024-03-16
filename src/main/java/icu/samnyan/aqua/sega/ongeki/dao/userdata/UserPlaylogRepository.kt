@@ -5,7 +5,6 @@ import icu.samnyan.aqua.sega.ongeki.model.userdata.UserData
 import icu.samnyan.aqua.sega.ongeki.model.userdata.UserPlaylog
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 
@@ -13,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Repository("OngekiUserPlaylogRepository")
-interface UserPlaylogRepository : JpaRepository<UserPlaylog, Long>, GenericPlaylogRepo {
+interface UserPlaylogRepository : GenericPlaylogRepo<UserPlaylog> {
     fun findByUser_Card_ExtId(userId: Long): List<UserPlaylog>
 
     fun findByUser_Card_ExtId(userId: Long, page: Pageable): Page<UserPlaylog>

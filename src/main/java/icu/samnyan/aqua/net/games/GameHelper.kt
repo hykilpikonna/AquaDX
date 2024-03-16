@@ -40,11 +40,6 @@ fun findTrend(log: List<TrendLog>): List<TrendOut> {
     return trend
 }
 
-interface GenericPlaylogRepo {
-    fun findByUserCardExtId(extId: Long): List<IGenericGamePlaylog>
-    fun findById(id: Long): Optional<IGenericGamePlaylog>
-}
-
 fun List<IGenericGamePlaylog>.acc() = if (isEmpty()) 0.0 else sumOf { it.achievement }.toDouble() / size / 10000.0
 
 fun GameApiController.genericUserSummary(

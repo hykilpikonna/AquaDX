@@ -1,12 +1,14 @@
 package icu.samnyan.aqua.net.games
 
 import ext.*
+import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.*
 import icu.samnyan.aqua.sega.general.model.Card
 import kotlinx.serialization.Serializable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.NoRepositoryBean
+import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
 data class TrendOut(val date: String, val rating: Int, val plays: Int)
@@ -78,14 +80,6 @@ interface IGenericUserData {
     var card: Card?
 }
 
-@NoRepositoryBean
-interface GenericUserDataRepo<T : IGenericUserData, ID> : JpaRepository<T, ID> {
-    fun findByCard(card: Card): T?
-
-    @Query("select count(*) from #{#entityName} where playerRating > :rating")
-    fun getRanking(rating: Int): Long
-}
-
 interface IGenericGamePlaylog {
     val musicId: Int
     val level: Int
@@ -98,6 +92,19 @@ interface IGenericGamePlaylog {
     val isAllPerfect: Boolean
 }
 
+@NoRepositoryBean
+interface GenericUserDataRepo<T : IGenericUserData> : JpaRepository<T, Long> {
+    fun findByCard(card: Card): T?
+
+    @Query("select count(*) from #{#entityName} where playerRating > :rating")
+    fun getRanking(rating: Int): Long
+}
+
+@NoRepositoryBean
+interface GenericPlaylogRepo<T: IGenericGamePlaylog> : JpaRepository<T, Long> {
+    fun findByUserCardExtId(extId: Long): List<T>
+}
+
 abstract class GameApiController(name: String) {
     val musicMapping: Map<Int, GenericMusicMeta> = GameApiController::class.java
         .getResourceAsStream("/meta/$name/music.json")
@@ -106,24 +113,26 @@ abstract class GameApiController(name: String) {
         ?.mapKeys { it.key.toInt() }
         ?: emptyMap()
 
-    abstract val userDataRepo: GenericUserDataRepo<*, *>
-    abstract val playlogRepo: GenericPlaylogRepo
+    abstract val us: AquaUserServices
+    abstract val userDataRepo: GenericUserDataRepo<*>
+    abstract val playlogRepo: GenericPlaylogRepo<*>
     abstract val shownRanks: List<Pair<Int, String>>
 
     @API("trend")
     abstract suspend fun trend(@RP username: String): List<TrendOut>
     @API("user-summary")
     abstract suspend fun userSummary(@RP username: String): GenericGameSummary
+
     @API("recent")
-    abstract suspend fun recent(@RP username: String): List<IGenericGamePlaylog>
+    suspend fun recent(@RP username: String): List<IGenericGamePlaylog> = us.cardByName(username) { card ->
+        playlogRepo.findByUserCardExtId(card.extId)
+    }
 
-
-    private val rankingCache = mutableMapOf<String, Pair<Long, List<GenericRankingPlayer>>>()
+    private var rankingCache: Pair<Long, List<GenericRankingPlayer>>? = null
     @API("ranking")
     fun ranking(): List<GenericRankingPlayer> {
         // Read from cache if we just computed it less than 2 minutes ago
-        val cacheKey = playlogRepo::class.java.name
-        rankingCache[cacheKey]?.let { (t, r) ->
+        rankingCache?.let { (t, r) ->
             if (millis() - t < 120_000) return r
         }
 
@@ -142,7 +151,7 @@ abstract class GameApiController(name: String) {
                 lastSeen = user.lastPlayDate.toString(),
                 username = user.card!!.aquaUser?.username ?: "user${user.card!!.id}"
             )
-        }.also { rankingCache[cacheKey] = millis() to it }  // Update the cache
+        }.also { rankingCache = millis() to it }  // Update the cache
     }
 
     @API("playlog")

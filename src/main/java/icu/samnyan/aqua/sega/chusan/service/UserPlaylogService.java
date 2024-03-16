@@ -33,7 +33,7 @@ public class UserPlaylogService {
     }
 
     public Page<UserPlaylog> getRecentPlays(String userId, Pageable page) {
-        return userPlaylogRepository.findByUser_Card_ExtId(Long.parseLong(userId), page);
+        return userPlaylogRepository.findByUserCardExtId(Long.parseLong(userId), page);
     }
 
     public List<UserPlaylog> getRecent30Plays(String userId) {
@@ -42,7 +42,7 @@ public class UserPlaylogService {
     }
 
     public List<UserPlaylog> getByUserId(String userId) {
-        return userPlaylogRepository.findByUser_Card_ExtId(Long.parseLong(userId));
+        return userPlaylogRepository.findByUserCardExtId(Long.parseLong(userId));
     }
 
     public List<UserPlaylog> getByUserIdAndMusicIdAndLevel(String userId, int id, int level) {
