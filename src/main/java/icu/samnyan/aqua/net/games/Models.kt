@@ -5,6 +5,7 @@ import icu.samnyan.aqua.net.utils.*
 import icu.samnyan.aqua.sega.general.model.Card
 import kotlinx.serialization.Serializable
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.NoRepositoryBean
 import kotlin.jvm.optionals.getOrNull
 
@@ -80,6 +81,8 @@ interface IGenericUserData {
 @NoRepositoryBean
 interface GenericUserDataRepo<T : IGenericUserData, ID> : JpaRepository<T, ID> {
     fun findByCard(card: Card): T?
+
+    @Query("select count(*) from #{#entityName} where playerRating > :rating")
     fun getRanking(rating: Int): Long
 }
 

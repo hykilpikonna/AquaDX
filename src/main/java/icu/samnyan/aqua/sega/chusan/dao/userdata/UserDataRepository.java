@@ -2,7 +2,6 @@ package icu.samnyan.aqua.sega.chusan.dao.userdata;
 
 import icu.samnyan.aqua.net.games.GenericUserDataRepo;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
-import icu.samnyan.aqua.sega.general.model.Card;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -14,11 +13,5 @@ import java.util.Optional;
 @Repository("ChusanUserDataRepository")
 public interface UserDataRepository extends GenericUserDataRepo<UserData, Long> {
 
-    UserData findByCard(Card card);
-
     Optional<UserData> findByCard_ExtId(Long extId);
-
-    @Override
-    @Query("select count(*) from ChusanUserData where playerRating > :rating")
-    long getRanking(int rating);
 }
