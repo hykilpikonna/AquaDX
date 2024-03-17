@@ -3,6 +3,7 @@ package icu.samnyan.aqua.sega.chusan.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.chusan.handler.impl.*;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping({"/g/chu3/{version}/ChuniServlet", "/g/chu3/{version}"})
+@AllArgsConstructor
 public class ChusanServletController {
 
     private final GameLoginHandler gameLoginHandler;
@@ -63,81 +65,6 @@ public class ChusanServletController {
     private final EndMatchingHandler endMatchingHandler;
     private final GetMatchingStateHandler getMatchingStateHandler;
     private final RemoveMatchingMemberHandler removeMatchingMemberHandler;
-
-    @Autowired
-    public ChusanServletController(GameLoginHandler gameLoginHandler, GameLogoutHandler gameLogoutHandler,
-    GetGameChargeHandler getGameChargeHandler, GetGameEventHandler getGameEventHandler,
-    GetGameIdlistHandler getGameIdlistHandler, GetGameRankingHandler getGameRankingHandler,
-    GetGameSettingHandler getGameSettingHandler, GetTeamCourseRuleHandler getTeamCourseRuleHandler,
-    GetTeamCourseSettingHandler getTeamCourseSettingHandler, GetUserActivityHandler getUserActivityHandler,
-    GetUserCharacterHandler getUserCharacterHandler, GetUserChargeHandler getUserChargeHandler,
-    GetUserCourseHandler getUserCourseHandler, GetUserDataHandler getUserDataHandler,
-    GetUserDuelHandler getUserDuelHandler, GetUserFavoriteItemHandler getUserFavoriteItemHandler,
-    GetUserItemHandler getUserItemHandler, GetUserLoginBonusHandler getUserLoginBonusHandler,
-    GetUserMapAreaHandler getUserMapAreaHandler, GetUserMusicHandler getUserMusicHandler,
-    GetUserOptionHandler getUserOptionHandler, GetUserPreviewHandler getUserPreviewHandler,
-    GetUserRecentRatingHandler getUserRecentRatingHandler, GetUserRegionHandler getUserRegionHandler,
-    GetUserRivalDataHandler getUserRivalDataHandler, GetUserRivalMusicHandler getUserRivalMusicHandler,
-    GetUserTeamHandler getUserTeamHandler, UpsertUserAllHandler upsertUserAllHandler,
-    UpsertUserChargelogHandler upsertUserChargelogHandler, GetUserSymbolChatSettingHandler getUserSymbolChatSettingHandler,
-    GetUserNetBattleDataHandler getUserNetBattleDataHandler, GetGameGachaHandler getGameGachaHandler,
-    GetGameGachaCardByIdHandler getGameGachaCardByIdHandler, GetUserCardPrintErrorHandler getUserCardPrintErrorHandler,
-    CMGetUserPreviewHandler cmGetUserPreviewHandler, CMGetUserDataHandler cmGetUserDataHandler,
-    CMGetUserCharacterHandler cmGetUserCharacterHandler, GetUserGachaHandler getUserGachaHandler,
-    GetUserPrintedCardHandler getUserPrintedCardHandler, CMGetUserItemHandler cmGetUserItemHandler,
-    RollGachaHandler rollGachaHandler, CMUpsertUserGachaHandler cmUpsertUserGachaHandler,
-    CMUpsertUserPrintSubtractHandler cmUpsertUserPrintSubtractHandler, CMUpsertUserPrintCancelHandler cmUpsertUserPrintCancelHandler,
-    BeginMatchingHandler beginMatchingHandler, EndMatchingHandler endMatchingHandler,
-    GetMatchingStateHandler getMatchingStateHandler, RemoveMatchingMemberHandler removeMatchingMemberHandler) {
-        this.gameLoginHandler = gameLoginHandler;
-        this.gameLogoutHandler = gameLogoutHandler;
-        this.getGameChargeHandler = getGameChargeHandler;
-        this.getGameEventHandler = getGameEventHandler;
-        this.getGameIdlistHandler = getGameIdlistHandler;
-        this.getGameRankingHandler = getGameRankingHandler;
-        this.getGameSettingHandler = getGameSettingHandler;
-        this.getTeamCourseRuleHandler = getTeamCourseRuleHandler;
-        this.getTeamCourseSettingHandler = getTeamCourseSettingHandler;
-        this.getUserActivityHandler = getUserActivityHandler;
-        this.getUserCharacterHandler = getUserCharacterHandler;
-        this.getUserChargeHandler = getUserChargeHandler;
-        this.getUserCourseHandler = getUserCourseHandler;
-        this.getUserDataHandler = getUserDataHandler;
-        this.getUserDuelHandler = getUserDuelHandler;
-        this.getUserFavoriteItemHandler = getUserFavoriteItemHandler;
-        this.getUserItemHandler = getUserItemHandler;
-        this.getUserLoginBonusHandler = getUserLoginBonusHandler;
-        this.getUserMapAreaHandler = getUserMapAreaHandler;
-        this.getUserMusicHandler = getUserMusicHandler;
-        this.getUserOptionHandler = getUserOptionHandler;
-        this.getUserPreviewHandler = getUserPreviewHandler;
-        this.getUserRecentRatingHandler = getUserRecentRatingHandler;
-        this.getUserRegionHandler = getUserRegionHandler;
-        this.getUserRivalDataHandler = getUserRivalDataHandler;
-        this.getUserRivalMusicHandler = getUserRivalMusicHandler;
-        this.getUserTeamHandler = getUserTeamHandler;
-        this.upsertUserAllHandler = upsertUserAllHandler;
-        this.upsertUserChargelogHandler = upsertUserChargelogHandler;
-        this.getUserSymbolChatSettingHandler = getUserSymbolChatSettingHandler;
-        this.getUserNetBattleDataHandler = getUserNetBattleDataHandler;
-        this.getGameGachaHandler = getGameGachaHandler;
-        this.getGameGachaCardByIdHandler = getGameGachaCardByIdHandler;
-        this.getUserCardPrintErrorHandler = getUserCardPrintErrorHandler;
-        this.cmGetUserPreviewHandler = cmGetUserPreviewHandler;
-        this.cmGetUserDataHandler = cmGetUserDataHandler;
-        this.cmGetUserCharacterHandler = cmGetUserCharacterHandler;
-        this.getUserGachaHandler = getUserGachaHandler;
-        this.getUserPrintedCardHandler = getUserPrintedCardHandler;
-        this.cmGetUserItemHandler = cmGetUserItemHandler;
-        this.rollGachaHandler = rollGachaHandler;
-        this.cmUpsertUserGachaHandler = cmUpsertUserGachaHandler;
-        this.cmUpsertUserPrintSubtractHandler = cmUpsertUserPrintSubtractHandler;
-        this.cmUpsertUserPrintCancelHandler = cmUpsertUserPrintCancelHandler;
-        this.beginMatchingHandler = beginMatchingHandler;
-        this.endMatchingHandler = endMatchingHandler;
-        this.getMatchingStateHandler = getMatchingStateHandler;
-        this.removeMatchingMemberHandler = removeMatchingMemberHandler;
-    }
 
     @PostMapping("GameLoginApi")
     String gameLogin(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {

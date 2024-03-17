@@ -83,10 +83,10 @@ public class ApiMaimai2PlayerDataController {
             .map(Path::getFileName)
             .map(Path::toString)
             .sorted(Comparator.reverseOrder())
-            .collect(Collectors.toList());
+            .toList();
             Photo.setTotalImage(matchedFiles.size());
             Photo.setImageIndex(imageIndex);
-            if(matchedFiles.size() > imageIndex){
+            if(matchedFiles.size() > imageIndex) {
                 byte[] targetImageContent = Files.readAllBytes(Paths.get("data/" + matchedFiles.get(imageIndex)));
                 String divData = Base64.getEncoder().encodeToString(targetImageContent);
                 Photo.setDivData(divData);

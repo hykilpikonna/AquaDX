@@ -177,24 +177,24 @@ public class Maimai2ServletController {
     }
 
     @PostMapping("UploadUserPhotoApi")
-    public String uploadUserPhotoHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+    public Object uploadUserPhotoHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return uploadUserPhotoHandler.handle(request);
     }
 
     @PostMapping("UploadUserPlaylogApi")
-    public String uploadUserPlaylogHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+    public Object uploadUserPlaylogHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return uploadUserPlaylogHandler.handle(request);
     }
 
     @CrossOrigin // enable cors because aqua-viewer also use it.
     @PostMapping("UploadUserPortraitApi")
-    public String uploadUserPortraitHandler(@ModelAttribute Map<String, Object> request)
+    public Object uploadUserPortraitHandler(@ModelAttribute Map<String, Object> request)
             throws JsonProcessingException {
         return uploadUserPortraitHandler.handle(request);
     }
 
     @PostMapping("UserLoginApi")
-    public String userLoginHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+    public Object userLoginHandler(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return userLoginHandler.handle(request);
     }
 

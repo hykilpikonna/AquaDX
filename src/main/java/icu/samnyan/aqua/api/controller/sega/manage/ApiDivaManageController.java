@@ -10,6 +10,7 @@ import icu.samnyan.aqua.sega.diva.model.common.Edition;
 import icu.samnyan.aqua.sega.diva.model.gamedata.*;
 import icu.samnyan.aqua.sega.general.dao.PropertyEntryRepository;
 import icu.samnyan.aqua.sega.general.model.PropertyEntry;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("api/manage/diva/")
+@AllArgsConstructor
 public class ApiDivaManageController {
 
     private final PvEntryRepository pvEntryRepository;
@@ -29,17 +31,6 @@ public class ApiDivaManageController {
     private final FestaRepository festaRepository;
     private final ContestRepository contestRepository;
     private final PropertyEntryRepository propertyEntryRepository;
-    private final DivaPvRepository divaPvRepository;
-
-    public ApiDivaManageController(PvEntryRepository pvEntryRepository, DivaModuleRepository moduleRepository, DivaCustomizeRepository customizeRepository, FestaRepository festaRepository, ContestRepository contestRepository, PropertyEntryRepository propertyEntryRepository, DivaPvRepository divaPvRepository) {
-        this.pvEntryRepository = pvEntryRepository;
-        this.moduleRepository = moduleRepository;
-        this.customizeRepository = customizeRepository;
-        this.festaRepository = festaRepository;
-        this.contestRepository = contestRepository;
-        this.propertyEntryRepository = propertyEntryRepository;
-        this.divaPvRepository = divaPvRepository;
-    }
 
     @PostMapping("pvList")
     public List<PvEntry> updatePvList(@RequestBody PvListRequest request) {

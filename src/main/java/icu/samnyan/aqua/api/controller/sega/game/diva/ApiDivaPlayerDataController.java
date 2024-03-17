@@ -8,6 +8,7 @@ import icu.samnyan.aqua.sega.diva.model.common.Difficulty;
 import icu.samnyan.aqua.sega.diva.model.common.Edition;
 import icu.samnyan.aqua.sega.diva.model.userdata.*;
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("api/game/diva")
+@AllArgsConstructor
 public class ApiDivaPlayerDataController {
 
     private final PlayerProfileService playerProfileService;
@@ -32,17 +34,6 @@ public class ApiDivaPlayerDataController {
     private final PlayerModuleRepository playerModuleRepository;
     private final PlayerCustomizeRepository playerCustomizeRepository;
     private final PlayerScreenShotRepository playerScreenShotRepository;
-
-    public ApiDivaPlayerDataController(PlayerProfileService playerProfileService, GameSessionRepository gameSessionRepository, PlayLogRepository playLogRepository, PlayerPvRecordRepository playerPvRecordRepository, PlayerPvCustomizeRepository playerPvCustomizeRepository, PlayerModuleRepository playerModuleRepository, PlayerCustomizeRepository playerCustomizeRepository, PlayerScreenShotRepository playerScreenShotRepository) {
-        this.playerProfileService = playerProfileService;
-        this.gameSessionRepository = gameSessionRepository;
-        this.playLogRepository = playLogRepository;
-        this.playerPvRecordRepository = playerPvRecordRepository;
-        this.playerPvCustomizeRepository = playerPvCustomizeRepository;
-        this.playerModuleRepository = playerModuleRepository;
-        this.playerCustomizeRepository = playerCustomizeRepository;
-        this.playerScreenShotRepository = playerScreenShotRepository;
-    }
 
     @PostMapping("forceUnlock")
     public ResponseEntity<MessageResponse> forceUnlock(@RequestParam int pdId) {

@@ -16,6 +16,7 @@ import icu.samnyan.aqua.sega.ongeki.dao.userdata.*;
 import icu.samnyan.aqua.sega.ongeki.model.gamedata.GameCard;
 import icu.samnyan.aqua.sega.ongeki.model.response.data.UserRivalData;
 import icu.samnyan.aqua.sega.ongeki.model.userdata.*;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -35,6 +36,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("api/game/ongeki")
+@AllArgsConstructor
 public class ApiOngekiPlayerDataController {
 
     private final ApiMapper mapper;
@@ -75,38 +77,6 @@ public class ApiOngekiPlayerDataController {
     private final UserTechCountRepository userTechCountRepository;
 
     private final GameCardRepository gameCardRepository;
-
-    public ApiOngekiPlayerDataController(ApiMapper mapper, CardService cardService, UserRivalDataRepository userRivalDataRepository, UserActivityRepository userActivityRepository, UserCardRepository userCardRepository, UserChapterRepository userChapterRepository, UserCharacterRepository userCharacterRepository, UserDataRepository userDataRepository, UserDeckRepository userDeckRepository, UserEventPointRepository userEventPointRepository, UserItemRepository userItemRepository, UserLoginBonusRepository userLoginBonusRepository, UserMissionPointRepository userMissionPointRepository, UserMusicDetailRepository userMusicDetailRepository, UserMusicItemRepository userMusicItemRepository, UserOptionRepository userOptionRepository, UserPlaylogRepository userPlaylogRepository, UserStoryRepository userStoryRepository, UserTrainingRoomRepository userTrainingRoomRepository, UserGeneralDataRepository userGeneralDataRepository, GameCardRepository gameCardRepository, UserTradeItemRepository userTradeItemRepository, UserEventMusicRepository userEventMusicRepository, UserTechEventRepository userTechEventRepository, UserKopRepository userKopRepository, UserMemoryChapterRepository userMemoryChapterRepository, UserScenarioRepository userScenarioRepository, UserBossRepository userBossRepository, UserTechCountRepository userTechCountRepository) {
-        this.mapper = mapper;
-        this.cardService = cardService;
-        this.userActivityRepository = userActivityRepository;
-        this.userCardRepository = userCardRepository;
-        this.userChapterRepository = userChapterRepository;
-        this.userCharacterRepository = userCharacterRepository;
-        this.userDataRepository = userDataRepository;
-        this.userDeckRepository = userDeckRepository;
-        this.userEventPointRepository = userEventPointRepository;
-        this.userItemRepository = userItemRepository;
-        this.userLoginBonusRepository = userLoginBonusRepository;
-        this.userMissionPointRepository = userMissionPointRepository;
-        this.userMusicDetailRepository = userMusicDetailRepository;
-        this.userMusicItemRepository = userMusicItemRepository;
-        this.userOptionRepository = userOptionRepository;
-        this.userPlaylogRepository = userPlaylogRepository;
-        this.userStoryRepository = userStoryRepository;
-        this.userTrainingRoomRepository = userTrainingRoomRepository;
-        this.userGeneralDataRepository = userGeneralDataRepository;
-        this.gameCardRepository = gameCardRepository;
-        this.userTradeItemRepository = userTradeItemRepository;
-        this.userEventMusicRepository = userEventMusicRepository;
-        this.userTechEventRepository = userTechEventRepository;
-        this.userKopRepository = userKopRepository;
-        this.userMemoryChapterRepository = userMemoryChapterRepository;
-        this.userScenarioRepository = userScenarioRepository;
-        this.userBossRepository = userBossRepository;
-        this.userTechCountRepository = userTechCountRepository;
-        this.userRivalDataRepository = userRivalDataRepository;
-    }
 
     @GetMapping("profile")
     public ProfileResp getProfile(@RequestParam long aimeId) {

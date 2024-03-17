@@ -2,6 +2,7 @@ package icu.samnyan.aqua.api.controller.sega.game.ongeki;
 
 import icu.samnyan.aqua.sega.ongeki.dao.gamedata.*;
 import icu.samnyan.aqua.sega.ongeki.model.gamedata.*;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/game/ongeki/data")
+@AllArgsConstructor
 public class ApiOngekiGameDataController {
 
     private final GameCardRepository gameCardRepository;
@@ -18,14 +20,6 @@ public class ApiOngekiGameDataController {
     private final GameEventRepository gameEventRepository;
     private final GameMusicRepository gameMusicRepository;
     private final GameSkillRepository gameSkillRepository;
-
-    public ApiOngekiGameDataController(GameCardRepository gameCardRepository, GameCharaRepository gameCharaRepository, GameEventRepository gameEventRepository, GameMusicRepository gameMusicRepository, GameSkillRepository gameSkillRepository) {
-        this.gameCardRepository = gameCardRepository;
-        this.gameCharaRepository = gameCharaRepository;
-        this.gameEventRepository = gameEventRepository;
-        this.gameMusicRepository = gameMusicRepository;
-        this.gameSkillRepository = gameSkillRepository;
-    }
 
     @GetMapping("cardList")
     public List<GameCard> getCardList() {

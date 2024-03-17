@@ -18,6 +18,7 @@ import icu.samnyan.aqua.sega.general.model.Card;
 import icu.samnyan.aqua.sega.general.service.CardService;
 import icu.samnyan.aqua.sega.util.VersionInfo;
 import icu.samnyan.aqua.sega.util.VersionUtil;
+import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +40,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("api/game/chuni/v2")
+@AllArgsConstructor
 public class ApiChuniV2PlayerDataController {
 
     private static final Logger logger = LoggerFactory.getLogger(ApiChuniV2PlayerDataController.class);
@@ -60,33 +62,6 @@ public class ApiChuniV2PlayerDataController {
     private final UserPlaylogService userPlaylogService;
     private final UserGeneralDataService userGeneralDataService;
     private final GameMusicService gameMusicService;
-
-    @Autowired
-    public ApiChuniV2PlayerDataController(ApiMapper mapper, CardService cardService, UserActivityService userActivityService, UserCharacterService userCharacterService, UserChargeService userChargeService, UserDataService userDataService, UserMapAreaService userMapAreaService, UserPlaylogService userPlaylogService, UserMusicDetailService userMusicDetailService, UserCourseService userCourseService, UserDuelService userDuelService, UserGameOptionService userGameOptionService, UserItemService userItemService, UserGeneralDataService userGeneralDataService, GameMusicService gameMusicService) {
-        this.mapper = mapper;
-        this.cardService = cardService;
-        this.userActivityService = userActivityService;
-        this.userCharacterService = userCharacterService;
-        this.userChargeService = userChargeService;
-        this.userDataService = userDataService;
-        this.userMapAreaService = userMapAreaService;
-        this.userPlaylogService = userPlaylogService;
-        this.userMusicDetailService = userMusicDetailService;
-        this.userCourseService = userCourseService;
-        this.userDuelService = userDuelService;
-        this.userGameOptionService = userGameOptionService;
-        this.userItemService = userItemService;
-        this.userGeneralDataService = userGeneralDataService;
-        this.gameMusicService = gameMusicService;
-    }
-
-    /*
-    // Keep it here for legacy
-    @GetMapping("music")
-    public List<Music> getMusicList() {
-        return gameMusicService.getAll();
-    }
-    */
 
     /**
      * Get Basic info

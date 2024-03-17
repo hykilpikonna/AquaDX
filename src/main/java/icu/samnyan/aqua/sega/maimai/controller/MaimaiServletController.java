@@ -2,6 +2,7 @@ package icu.samnyan.aqua.sega.maimai.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.maimai.handler.impl.*;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/g/mai")
+@AllArgsConstructor
 public class MaimaiServletController {
 
     private final GetGameEventHandler getGameEventHandler;
@@ -40,32 +42,6 @@ public class MaimaiServletController {
     private final UpsertUserAllHandler upsertUserAllHandler;
     private final UserLoginHandler userLoginHandler;
     private final UserLogoutHandler userLogoutHandler;
-
-    public MaimaiServletController(GetGameEventHandler getGameEventHandler, GetGameRankingHandler getGameRankingHandler, GetGameSettingHandler getGameSettingHandler, GetTransferFriendHandler getTransferFriendHandler, GetUserActivityHandler getUserActivityHandler, GetUserBossHandler getUserBossHandler, GetUserCharacterHandler getUserCharacterHandler, GetUserCourseHandler getUserCourseHandler, GetUserDataHandler getUserDataHandler, GetUserGradeHandler getUserGradeHandler, GetUserItemHandler getUserItemHandler, GetUserMusicHandler getUserMusicHandler, GetUserOptionHandler getUserOptionHandler, GetUserPresentEventHandler getUserPresentEventHandler, GetUserPresentHandler getUserPresentHandler, GetUserPreviewHandler getUserPreviewHandler, GetUserRecentRatingHandler getUserRecentRatingHandler, GetUserSurvivalHandler getUserSurvivalHandler, GetUserWebOptionHandler getUserWebOptionHandler, UpsertTransferHandler upsertTransferHandler, UpsertUserAllHandler upsertUserAllHandler, UserLoginHandler userLoginHandler, UserLogoutHandler userLogoutHandler) {
-        this.getGameEventHandler = getGameEventHandler;
-        this.getGameRankingHandler = getGameRankingHandler;
-        this.getGameSettingHandler = getGameSettingHandler;
-        this.getTransferFriendHandler = getTransferFriendHandler;
-        this.getUserActivityHandler = getUserActivityHandler;
-        this.getUserBossHandler = getUserBossHandler;
-        this.getUserCharacterHandler = getUserCharacterHandler;
-        this.getUserCourseHandler = getUserCourseHandler;
-        this.getUserDataHandler = getUserDataHandler;
-        this.getUserGradeHandler = getUserGradeHandler;
-        this.getUserItemHandler = getUserItemHandler;
-        this.getUserMusicHandler = getUserMusicHandler;
-        this.getUserOptionHandler = getUserOptionHandler;
-        this.getUserPresentEventHandler = getUserPresentEventHandler;
-        this.getUserPresentHandler = getUserPresentHandler;
-        this.getUserPreviewHandler = getUserPreviewHandler;
-        this.getUserRecentRatingHandler = getUserRecentRatingHandler;
-        this.getUserSurvivalHandler = getUserSurvivalHandler;
-        this.getUserWebOptionHandler = getUserWebOptionHandler;
-        this.upsertTransferHandler = upsertTransferHandler;
-        this.upsertUserAllHandler = upsertUserAllHandler;
-        this.userLoginHandler = userLoginHandler;
-        this.userLogoutHandler = userLogoutHandler;
-    }
 
     @PostMapping("GetGameEventApi")
     public String getGameEvent(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {

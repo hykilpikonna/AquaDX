@@ -3,6 +3,7 @@ package icu.samnyan.aqua.api.controller.sega.game.chuni.v2;
 import icu.samnyan.aqua.sega.chusan.model.*;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.Character;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.*;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/game/chuni/v2/data")
+@AllArgsConstructor
 public class ApiChuniV2GameDataController {
 
     private final Chu3GameMusicRepo gameMusicRepository;
@@ -24,17 +26,6 @@ public class ApiChuniV2GameDataController {
     private final Chu3GameMapIconRepo gameMapIconRepository;
     private final Chu3GameFrameRepo gameFrameRepository;
     private final Chu3GameAvatarAccRepo gameAvatarAccRepository;
-
-    public ApiChuniV2GameDataController(Chu3GameMusicRepo gameMusicRepository, Chu3GameCharacterRepo gameCharacterRepository, Chu3GameTrophyRepo gameTrophyRepository, Chu3GameNamePlateRepo gameNamePlateRepository, Chu3GameSystemVoiceRepo gameSystemVoiceRepository, Chu3GameMapIconRepo gameMapIconRepository, Chu3GameFrameRepo gameFrameRepository, Chu3GameAvatarAccRepo gameAvatarAccRepository) {
-        this.gameMusicRepository = gameMusicRepository;
-        this.gameCharacterRepository = gameCharacterRepository;
-        this.gameTrophyRepository = gameTrophyRepository;
-        this.gameNamePlateRepository = gameNamePlateRepository;
-        this.gameSystemVoiceRepository = gameSystemVoiceRepository;
-        this.gameMapIconRepository = gameMapIconRepository;
-        this.gameFrameRepository = gameFrameRepository;
-        this.gameAvatarAccRepository = gameAvatarAccRepository;
-    }
 
     @GetMapping("music")
     public List<Music> getMusic() {

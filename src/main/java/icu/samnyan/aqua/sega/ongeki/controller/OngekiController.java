@@ -3,6 +3,7 @@ package icu.samnyan.aqua.sega.ongeki.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.ongeki.handler.impl.*;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/g/ongeki")
+@AllArgsConstructor
 public class OngekiController {
 
     private final GetGameEventHandler getGameEventHandler;
@@ -64,56 +66,6 @@ public class OngekiController {
     private final GetClientBookkeepingHandler getClientBookkeepingHandler;
     private final GetClientTestmodeHandler getClientTestmodeHandler;
     private final GetGameMusicReleaseStateHandler getGameMusicReleaseStateHandler;
-
-    @Autowired
-    public OngekiController(GetGameEventHandler getGameEventHandler, GetGameIdlistHandler getGameIdlistHandler, GetGameMessageHandler getGameMessageHandler, GetGamePointHandler getGamePointHandler, GetGamePresentHandler getGamePresentHandler, GetGameRankingHandler getGameRankingHandler, GetGameRewardHandler getGameRewardHandler, GetGameSettingHandler getGameSettingHandler, GetUserActivityHandler getUserActivityHandler, GetUserBossHandler getUserBossHandler, GetUserBpBaseHandler getUserBpBaseHandler, GetUserCardHandler getUserCardHandler, GetUserChapterHandler getUserChapterHandler, GetUserCharacterHandler getUserCharacterHandler, GetUserDataHandler getUserDataHandler, GetUserDeckByKeyHandler getUserDeckByKeyHandler, GetUserEventPointHandler getUserEventPointHandler, GetUserEventRankingHandler getUserEventRankingHandler, GetUserItemHandler getUserItemHandler, GetUserLoginBonusHandler getUserLoginBonusHandler, GetUserMissionPointHandler getUserMissionPointHandler, GetUserMusicHandler getUserMusicHandler, GetUserMusicItemHandler getUserMusicItemHandler, GetUserOptionHandler getUserOptionHandler, GetUserPreviewHandler getUserPreviewHandler, GetUserRatinglogListHandler getUserRatinglogListHandler, GetUserRecentRatingHandler getUserRecentRatingHandler, GetUserRegionHandler getUserRegionHandler, GetUserRivalHandler getUserRivalHandler, GetUserRivalMusicHandler getUserRivalMusicHandler, GetUserScenarioHandler getUserScenarioHandler, GetUserStoryHandler getUserStoryHandler, GetUserTechCountHandler getUserTechCountHandler, GetUserTrainingRoomByKeyHandler getUserTrainingRoomByKeyHandler, UpsertUserAllHandler upsertUserAllHandler, GetGameTechMusicHandler getGameTechMusicHandler, GetUserTechEventHandler getUserTechEventHandler, GetUserTechEventRankingHandler getUserTechEventRankingHandler, GetUserEventMusicHandler getUserEventMusicHandler, GetUserTradeItemHandler getUserTradeItemHandler, GetUserKopHandler getUserKopHandler, GetClientBookkeepingHandler getClientBookkeepingHandler, GetClientTestmodeHandler getClientTestmodeHandler, GetGameMusicReleaseStateHandler getGameMusicReleaseStateHandler, GetUserMemoryChapterHandler getUserMemoryChapterHandler, GetUserRivalDataHandler getUserRivalDataHandler) {
-        this.getGameEventHandler = getGameEventHandler;
-        this.getGameIdlistHandler = getGameIdlistHandler;
-        this.getGameMessageHandler = getGameMessageHandler;
-        this.getGamePointHandler = getGamePointHandler;
-        this.getGamePresentHandler = getGamePresentHandler;
-        this.getGameRankingHandler = getGameRankingHandler;
-        this.getGameRewardHandler = getGameRewardHandler;
-        this.getGameSettingHandler = getGameSettingHandler;
-        this.getUserActivityHandler = getUserActivityHandler;
-        this.getUserBossHandler = getUserBossHandler;
-        this.getUserBpBaseHandler = getUserBpBaseHandler;
-        this.getUserCardHandler = getUserCardHandler;
-        this.getUserChapterHandler = getUserChapterHandler;
-        this.getUserMemoryChapterHandler = getUserMemoryChapterHandler;
-        this.getUserCharacterHandler = getUserCharacterHandler;
-        this.getUserDataHandler = getUserDataHandler;
-        this.getUserDeckByKeyHandler = getUserDeckByKeyHandler;
-        this.getUserEventPointHandler = getUserEventPointHandler;
-        this.getUserEventRankingHandler = getUserEventRankingHandler;
-        this.getUserItemHandler = getUserItemHandler;
-        this.getUserLoginBonusHandler = getUserLoginBonusHandler;
-        this.getUserMissionPointHandler = getUserMissionPointHandler;
-        this.getUserMusicHandler = getUserMusicHandler;
-        this.getUserMusicItemHandler = getUserMusicItemHandler;
-        this.getUserOptionHandler = getUserOptionHandler;
-        this.getUserPreviewHandler = getUserPreviewHandler;
-        this.getUserRatinglogListHandler = getUserRatinglogListHandler;
-        this.getUserRecentRatingHandler = getUserRecentRatingHandler;
-        this.getUserRegionHandler = getUserRegionHandler;
-        this.getUserRivalHandler = getUserRivalHandler;
-        this.getUserRivalMusicHandler = getUserRivalMusicHandler;
-        this.getUserRivalDataHandler = getUserRivalDataHandler;
-        this.getUserScenarioHandler = getUserScenarioHandler;
-        this.getUserStoryHandler = getUserStoryHandler;
-        this.getUserTechCountHandler = getUserTechCountHandler;
-        this.getUserTrainingRoomByKeyHandler = getUserTrainingRoomByKeyHandler;
-        this.upsertUserAllHandler = upsertUserAllHandler;
-        this.getGameTechMusicHandler = getGameTechMusicHandler;
-        this.getUserTechEventHandler = getUserTechEventHandler;
-        this.getUserTechEventRankingHandler = getUserTechEventRankingHandler;
-        this.getUserEventMusicHandler = getUserEventMusicHandler;
-        this.getUserTradeItemHandler = getUserTradeItemHandler;
-        this.getUserKopHandler = getUserKopHandler;
-        this.getClientBookkeepingHandler = getClientBookkeepingHandler;
-        this.getClientTestmodeHandler = getClientTestmodeHandler;
-        this.getGameMusicReleaseStateHandler = getGameMusicReleaseStateHandler;
-    }
 
     @PostMapping("ExtendLockTimeApi")
     public String extendLockTime(@ModelAttribute Map<String, Object> request) {

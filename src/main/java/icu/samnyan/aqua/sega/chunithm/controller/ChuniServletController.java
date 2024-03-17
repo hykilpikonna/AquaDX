@@ -3,6 +3,7 @@ package icu.samnyan.aqua.sega.chunithm.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.chunithm.handler.impl.*;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/g/chu2/{ROM_VERSION}/{CLIENT_ID}/ChuniServlet")
+@AllArgsConstructor
 public class ChuniServletController {
 
     private final GameLoginHandler gameLoginHandler;
@@ -47,56 +49,10 @@ public class ChuniServletController {
     private final GetUserRivalDataHandler getUserRivalDataHandler;
     private final GetUserRivalMusicHandler getUserRivalMusicHandler;
     private final GetUserTeamHandler getUserTeamHandler;
-    private final UpsertClientBookkeepingHandler upsertClientBookkeepingHandler;
-    private final UpsertClientDevelopHandler upsertClientDevelopHandler;
-    private final UpsertClientErrorHandler upsertClientErrorHandler;
     private final UpsertClientSettingHandler upsertClientSettingHandler;
-    private final UpsertClientTestmodeHandler upsertClientTestmodeHandler;
     private final UpsertUserAllHandler upsertUserAllHandler;
     private final UpsertUserChargelogHandler upsertUserChargelogHandler;
 
-    @Autowired
-    public ChuniServletController(GameLoginHandler gameLoginHandler, GameLogoutHandler gameLogoutHandler, GetGameChargeHandler getGameChargeHandler, GetGameEventHandler getGameEventHandler, GetGameIdlistHandler getGameIdlistHandler, GetGameMessageHandler getGameMessageHandler, GetGameRankingHandler getGameRankingHandler, GetGameSaleHandler getGameSaleHandler, GetGameSettingHandler getGameSettingHandler,GetTeamCourseRuleHandler getTeamCourseRuleHandler, GetTeamCourseSettingHandler getTeamCourseSettingHandler, GetUserActivityHandler getUserActivityHandler, GetUserCharacterHandler getUserCharacterHandler, GetUserChargeHandler getUserChargeHandler, GetUserCourseHandler getUserCourseHandler, GetUserDataExHandler getUserDataExHandler, GetUserDataHandler getUserDataHandler, GetUserDuelHandler getUserDuelHandler, GetUserFavoriteItemHandler getUserFavoriteItemHandler, GetUserFavoriteMusicHandler getUserFavoriteMusicHandler, GetUserItemHandler getUserItemHandler, GetUserLoginBonusHandler getUserLoginBonusHandler, GetUserMapHandler getUserMapHandler, GetUserMusicHandler getUserMusicHandler, GetUserOptionExHandler getUserOptionExHandler, GetUserOptionHandler getUserOptionHandler, GetUserPreviewHandler getUserPreviewHandler, GetUserRecentRatingHandler getUserRecentRatingHandler, GetUserRegionHandler getUserRegionHandler, GetUserRivalDataHandler getUserRivalDataHandler, GetUserRivalMusicHandler getUserRivalMusicHandler, GetUserTeamHandler getUserTeamHandler, UpsertClientBookkeepingHandler upsertClientBookkeepingHandler, UpsertClientDevelopHandler upsertClientDevelopHandler, UpsertClientErrorHandler upsertClientErrorHandler, UpsertClientSettingHandler upsertClientSettingHandler, UpsertClientTestmodeHandler upsertClientTestmodeHandler, UpsertUserAllHandler upsertUserAllHandler, UpsertUserChargelogHandler upsertUserChargelogHandler) {
-        this.gameLoginHandler = gameLoginHandler;
-        this.gameLogoutHandler = gameLogoutHandler;
-        this.getGameChargeHandler = getGameChargeHandler;
-        this.getGameEventHandler = getGameEventHandler;
-        this.getGameIdlistHandler = getGameIdlistHandler;
-        this.getGameMessageHandler = getGameMessageHandler;
-        this.getGameRankingHandler = getGameRankingHandler;
-        this.getGameSaleHandler = getGameSaleHandler;
-        this.getGameSettingHandler = getGameSettingHandler;
-        this.getTeamCourseRuleHandler = getTeamCourseRuleHandler;
-        this.getTeamCourseSettingHandler = getTeamCourseSettingHandler;
-        this.getUserActivityHandler = getUserActivityHandler;
-        this.getUserCharacterHandler = getUserCharacterHandler;
-        this.getUserChargeHandler = getUserChargeHandler;
-        this.getUserCourseHandler = getUserCourseHandler;
-        this.getUserDataExHandler = getUserDataExHandler;
-        this.getUserDataHandler = getUserDataHandler;
-        this.getUserDuelHandler = getUserDuelHandler;
-        this.getUserFavoriteItemHandler = getUserFavoriteItemHandler;
-        this.getUserFavoriteMusicHandler = getUserFavoriteMusicHandler;
-        this.getUserItemHandler = getUserItemHandler;
-        this.getUserLoginBonusHandler = getUserLoginBonusHandler;
-        this.getUserMapHandler = getUserMapHandler;
-        this.getUserMusicHandler = getUserMusicHandler;
-        this.getUserOptionExHandler = getUserOptionExHandler;
-        this.getUserOptionHandler = getUserOptionHandler;
-        this.getUserPreviewHandler = getUserPreviewHandler;
-        this.getUserRecentRatingHandler = getUserRecentRatingHandler;
-        this.getUserRegionHandler = getUserRegionHandler;
-        this.getUserRivalDataHandler = getUserRivalDataHandler;
-        this.getUserRivalMusicHandler = getUserRivalMusicHandler;
-        this.getUserTeamHandler = getUserTeamHandler;
-        this.upsertClientBookkeepingHandler = upsertClientBookkeepingHandler;
-        this.upsertClientDevelopHandler = upsertClientDevelopHandler;
-        this.upsertClientErrorHandler = upsertClientErrorHandler;
-        this.upsertClientSettingHandler = upsertClientSettingHandler;
-        this.upsertClientTestmodeHandler = upsertClientTestmodeHandler;
-        this.upsertUserAllHandler = upsertUserAllHandler;
-        this.upsertUserChargelogHandler = upsertUserChargelogHandler;
-    }
 
     @PostMapping("GameLoginApi")
     String gameLogin(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {

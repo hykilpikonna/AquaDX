@@ -7,6 +7,7 @@ import icu.samnyan.aqua.sega.chunithm.model.userdata.UserMusicDetail;
 import icu.samnyan.aqua.sega.chunithm.service.GameMusicService;
 import icu.samnyan.aqua.sega.chunithm.service.UserDataService;
 import icu.samnyan.aqua.sega.chunithm.service.UserMusicDetailService;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("api/manage/chuni/v1")
+@AllArgsConstructor
 public class ApiChuniV1ManageController {
 
     private static final Logger logger = LoggerFactory.getLogger(ApiChuniV1ManageController.class);
@@ -33,12 +35,6 @@ public class ApiChuniV1ManageController {
     private final UserMusicDetailService userMusicDetailService;
 
     private final GameMusicService gameMusicService;
-
-    public ApiChuniV1ManageController(UserDataService userDataService, UserMusicDetailService userMusicDetailService, GameMusicService gameMusicService) {
-        this.userDataService = userDataService;
-        this.userMusicDetailService = userMusicDetailService;
-        this.gameMusicService = gameMusicService;
-    }
 
     /**
      * A request to fill fake score to all chart. only use for testing
