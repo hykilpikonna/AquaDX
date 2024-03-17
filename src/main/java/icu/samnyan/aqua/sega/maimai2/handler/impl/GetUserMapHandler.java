@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.maimai2.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import icu.samnyan.aqua.sega.maimai2.model.UserMapRepository;
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserMapRepo;
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserMap;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
@@ -24,9 +24,9 @@ public class GetUserMapHandler implements BaseHandler {
 
     private final BasicMapper mapper;
 
-    private final UserMapRepository userMapRepository;
+    private final Mai2UserMapRepo userMapRepository;
 
-    public GetUserMapHandler(BasicMapper mapper, UserMapRepository userMapRepository) {
+    public GetUserMapHandler(BasicMapper mapper, Mai2UserMapRepo userMapRepository) {
         this.mapper = mapper;
         this.userMapRepository = userMapRepository;
     }

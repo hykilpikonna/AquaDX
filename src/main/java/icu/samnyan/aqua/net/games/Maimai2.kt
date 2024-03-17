@@ -6,18 +6,18 @@ import ext.Str
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.*
 import icu.samnyan.aqua.sega.maimai2.model.*
-import icu.samnyan.aqua.sega.maimai2.model.UserDataRepository
-import icu.samnyan.aqua.sega.maimai2.model.UserGeneralDataRepository
-import icu.samnyan.aqua.sega.maimai2.model.UserPlaylogRepository
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserGeneralDataRepo
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserPlaylogRepo
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @API("api/v2/game/mai2")
 class Maimai2(
     override val us: AquaUserServices,
-    override val playlogRepo: UserPlaylogRepository,
-    override val userDataRepo: UserDataRepository,
-    val userGeneralDataRepository: UserGeneralDataRepository
+    override val playlogRepo: Mai2UserPlaylogRepo,
+    override val userDataRepo: Mai2UserDataRepo,
+    val userGeneralDataRepository: Mai2UserGeneralDataRepo
 ): GameApiController("mai2")
 {
     override suspend fun trend(@RP username: Str): List<TrendOut> = us.cardByName(username) { card ->

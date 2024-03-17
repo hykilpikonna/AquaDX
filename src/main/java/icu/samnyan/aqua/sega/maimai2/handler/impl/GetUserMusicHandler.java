@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.maimai2.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import icu.samnyan.aqua.sega.maimai2.model.UserMusicDetailRepository;
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserMusicDetailRepo;
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserMusic;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserMusicDetail;
@@ -27,9 +27,9 @@ public class GetUserMusicHandler implements BaseHandler {
 
     private final BasicMapper mapper;
 
-    private final UserMusicDetailRepository userMusicDetailRepository;
+    private final Mai2UserMusicDetailRepo userMusicDetailRepository;
 
-    public GetUserMusicHandler(BasicMapper mapper, UserMusicDetailRepository userMusicDetailRepository) {
+    public GetUserMusicHandler(BasicMapper mapper, Mai2UserMusicDetailRepo userMusicDetailRepository) {
         this.mapper = mapper;
         this.userMusicDetailRepository = userMusicDetailRepository;
     }

@@ -34,21 +34,21 @@ public class UpsertUserAllHandler implements BaseHandler {
 
     private final CardService cardService;
 
-    private final UserDataRepository userDataRepository;
-    private final UserExtendRepository userExtendRepository;
-    private final UserOptionRepository userOptionRepository;
-    private final UserItemRepository userItemRepository;
-    private final UserMusicDetailRepository userMusicDetailRepository;
+    private final Mai2UserDataRepo userDataRepository;
+    private final Mai2UserExtendRepo userExtendRepository;
+    private final Mai2UserOptionRepo userOptionRepository;
+    private final Mai2UserItemRepo userItemRepository;
+    private final Mai2UserMusicDetailRepo userMusicDetailRepository;
     private final Mai2UserActRepo userActRepository;
     private final Mai2UserCharacterRepo userCharacterRepository;
-    private final UserMapRepository userMapRepository;
-    private final UserLoginBonusRepository userLoginBonusRepository;
-    private final UserFavoriteRepository userFavoriteRepository;
-    private final UserUdemaeRepository userUdemaeRepository;
-    private final UserGeneralDataRepository userGeneralDataRepository;
-    private final UserCourseRepository userCourseRepository;
-    private final UserFriendSeasonRankingRepository userFriendSeasonRankingRepository;
-    private final UserPlaylogRepository userPlaylogRepository;
+    private final Mai2UserMapRepo userMapRepository;
+    private final Mai2UserLoginBonusRepo userLoginBonusRepository;
+    private final Mai2UserFavoriteRepo userFavoriteRepository;
+    private final Mai2UserUdemaeRepo userUdemaeRepository;
+    private final Mai2UserGeneralDataRepo userGeneralDataRepository;
+    private final Mai2UserCourseRepo userCourseRepository;
+    private final Mai2UserFriendSeasonRankingRepo userFriendSeasonRankingRepository;
+    private final Mai2UserPlaylogRepo userPlaylogRepository;
 
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {

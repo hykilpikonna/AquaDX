@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.maimai2.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import icu.samnyan.aqua.sega.maimai2.model.GameSellingCardRepository;
+import icu.samnyan.aqua.sega.maimai2.model.Mai2GameSellingCardRepo;
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import icu.samnyan.aqua.sega.maimai2.model.gamedata.GameSellingCard;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
@@ -22,11 +22,11 @@ import java.util.Map;
 public class CMGetSellingCardHandler implements BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(CMGetSellingCardHandler.class);
-    private final GameSellingCardRepository gameSellingCardRepository;
+    private final Mai2GameSellingCardRepo gameSellingCardRepository;
     private final BasicMapper mapper;
 
     @Autowired
-    public CMGetSellingCardHandler(GameSellingCardRepository gameSellingCardRepository, BasicMapper mapper) {
+    public CMGetSellingCardHandler(Mai2GameSellingCardRepo gameSellingCardRepository, BasicMapper mapper) {
         this.gameSellingCardRepository = gameSellingCardRepository;
         this.mapper = mapper;
     }

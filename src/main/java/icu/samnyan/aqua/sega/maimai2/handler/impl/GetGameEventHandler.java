@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.maimai2.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import icu.samnyan.aqua.sega.maimai2.model.GameEventRepository;
+import icu.samnyan.aqua.sega.maimai2.model.Mai2GameEventRepo;
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import icu.samnyan.aqua.sega.maimai2.model.gamedata.GameEvent;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
@@ -22,11 +22,11 @@ public class GetGameEventHandler implements BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GetGameEventHandler.class);
 
-    private final GameEventRepository gameEventRepository;
+    private final Mai2GameEventRepo gameEventRepository;
 
     private final BasicMapper mapper;
 
-    public GetGameEventHandler(GameEventRepository gameEventRepository, BasicMapper mapper) {
+    public GetGameEventHandler(Mai2GameEventRepo gameEventRepository, BasicMapper mapper) {
         this.gameEventRepository = gameEventRepository;
         this.mapper = mapper;
     }

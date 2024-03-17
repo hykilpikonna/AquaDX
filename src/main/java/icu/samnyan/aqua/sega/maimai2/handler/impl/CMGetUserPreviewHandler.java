@@ -3,7 +3,7 @@ package icu.samnyan.aqua.sega.maimai2.handler.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserDetail;
-import icu.samnyan.aqua.sega.maimai2.model.UserDataRepository;
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +24,10 @@ public class CMGetUserPreviewHandler implements BaseHandler {
 
     private final BasicMapper mapper;
 
-    private final UserDataRepository userDataRepository;
+    private final Mai2UserDataRepo userDataRepository;
 
     @Autowired
-    public CMGetUserPreviewHandler(BasicMapper mapper, UserDataRepository userDataRepository) {
+    public CMGetUserPreviewHandler(BasicMapper mapper, Mai2UserDataRepo userDataRepository) {
         this.mapper = mapper;
         this.userDataRepository = userDataRepository;
     }

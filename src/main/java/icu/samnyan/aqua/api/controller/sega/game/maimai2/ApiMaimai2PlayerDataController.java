@@ -45,21 +45,21 @@ public class ApiMaimai2PlayerDataController {
 
     private final Mai2UserActRepo userActRepository;
     private final Mai2UserCharacterRepo userCharacterRepository;
-    private final UserDataRepository userDataRepository;
-    private final UserItemRepository userItemRepository;
-    private final UserLoginBonusRepository userLoginBonusRepository;
-    private final UserMusicDetailRepository userMusicDetailRepository;
-    private final UserOptionRepository userOptionRepository;
-    private final UserPlaylogRepository userPlaylogRepository;
-    private final UserGeneralDataRepository userGeneralDataRepository;
+    private final Mai2UserDataRepo userDataRepository;
+    private final Mai2UserItemRepo userItemRepository;
+    private final Mai2UserLoginBonusRepo userLoginBonusRepository;
+    private final Mai2UserMusicDetailRepo userMusicDetailRepository;
+    private final Mai2UserOptionRepo userOptionRepository;
+    private final Mai2UserPlaylogRepo userPlaylogRepository;
+    private final Mai2UserGeneralDataRepo userGeneralDataRepository;
     private final Mai2MapEncountNpcRepo mapEncountNpcRepository;
-    private final UserChargeRepository userChargeRepository;
-    private final UserCourseRepository userCourseRepository;
-    private final UserExtendRepository userExtendRepository;
-    private final UserFavoriteRepository userFavoriteRepository;
-    private final UserFriendSeasonRankingRepository userFriendSeasonRankingRepository;
-    private final UserMapRepository userMapRepository;
-    private final UserUdemaeRepository userUdemaeRepository;
+    private final Mai2UserChargeRepo userChargeRepository;
+    private final Mai2UserCourseRepo userCourseRepository;
+    private final Mai2UserExtendRepo userExtendRepository;
+    private final Mai2UserFavoriteRepo userFavoriteRepository;
+    private final Mai2UserFriendSeasonRankingRepo userFriendSeasonRankingRepository;
+    private final Mai2UserMapRepo userMapRepository;
+    private final Mai2UserUdemaeRepo userUdemaeRepository;
 
     @GetMapping("config/userPhoto/divMaxLength")
     public long getConfigUserPhotoDivMaxLength(@Value("${game.maimai2.userPhoto.divMaxLength:32}") long divMaxLength) {

@@ -3,7 +3,7 @@ package icu.samnyan.aqua.sega.maimai2.handler.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserFavoriteItem;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserGeneralData;
-import icu.samnyan.aqua.sega.maimai2.model.UserGeneralDataRepository;
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserGeneralDataRepo;
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
 import java.util.LinkedHashMap;
@@ -23,10 +23,10 @@ public class GetUserFavoriteItemHandler implements BaseHandler {
             .getLogger(icu.samnyan.aqua.sega.maimai2.handler.impl.GetUserFavoriteItemHandler.class);
 
     private final StringMapper mapper;
-    private final UserGeneralDataRepository userGeneralDataRepository;
+    private final Mai2UserGeneralDataRepo userGeneralDataRepository;
 
     @Autowired
-    public GetUserFavoriteItemHandler(StringMapper mapper, UserGeneralDataRepository userGeneralDataRepository) {
+    public GetUserFavoriteItemHandler(StringMapper mapper, Mai2UserGeneralDataRepo userGeneralDataRepository) {
         this.mapper = mapper;
         this.userGeneralDataRepository = userGeneralDataRepository;
     }

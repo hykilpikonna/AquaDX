@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.maimai2.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import icu.samnyan.aqua.sega.maimai2.model.UserFavoriteRepository;
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserFavoriteRepo;
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserFavorite;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
@@ -23,9 +23,9 @@ public class GetUserFavoriteHandler implements BaseHandler {
 
     private final BasicMapper mapper;
 
-    private final UserFavoriteRepository userFavoriteRepository;
+    private final Mai2UserFavoriteRepo userFavoriteRepository;
 
-    public GetUserFavoriteHandler(BasicMapper mapper, UserFavoriteRepository userFavoriteRepository) {
+    public GetUserFavoriteHandler(BasicMapper mapper, Mai2UserFavoriteRepo userFavoriteRepository) {
         this.mapper = mapper;
         this.userFavoriteRepository = userFavoriteRepository;
     }

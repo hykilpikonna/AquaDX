@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.maimai2.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import icu.samnyan.aqua.sega.maimai2.model.UserFriendSeasonRankingRepository;
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserFriendSeasonRankingRepo;
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserFriendSeasonRanking;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
@@ -24,9 +24,9 @@ public class GetUserFriendSeasonRankingHandler implements BaseHandler {
 
     private final BasicMapper mapper;
 
-    private final UserFriendSeasonRankingRepository userFriendSeasonRankingRepository;
+    private final Mai2UserFriendSeasonRankingRepo userFriendSeasonRankingRepository;
 
-    public GetUserFriendSeasonRankingHandler(BasicMapper mapper, UserFriendSeasonRankingRepository userFriendSeasonRankingRepository) {
+    public GetUserFriendSeasonRankingHandler(BasicMapper mapper, Mai2UserFriendSeasonRankingRepo userFriendSeasonRankingRepository) {
         this.mapper = mapper;
         this.userFriendSeasonRankingRepository = userFriendSeasonRankingRepository;
     }

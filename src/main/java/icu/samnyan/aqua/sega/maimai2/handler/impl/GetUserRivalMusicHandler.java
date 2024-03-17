@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import icu.samnyan.aqua.sega.maimai2.model.UserMusicDetailRepository;
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserMusicDetailRepo;
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRivalMusic;
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRivalMusicDetail;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserMusicDetail;
@@ -25,10 +25,10 @@ public class GetUserRivalMusicHandler {
             .getLogger(icu.samnyan.aqua.sega.maimai2.handler.impl.GetUserRivalMusicHandler.class);
 
     private final StringMapper mapper;
-    private final UserMusicDetailRepository userMusicDetailRepository;
+    private final Mai2UserMusicDetailRepo userMusicDetailRepository;
 
     @Autowired
-    public GetUserRivalMusicHandler(StringMapper mapper, UserMusicDetailRepository userMusicDetailRepository) {
+    public GetUserRivalMusicHandler(StringMapper mapper, Mai2UserMusicDetailRepo userMusicDetailRepository) {
         this.mapper = mapper;
         this.userMusicDetailRepository = userMusicDetailRepository;
     }

@@ -2,9 +2,9 @@ package icu.samnyan.aqua.sega.maimai2.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import icu.samnyan.aqua.sega.maimai2.model.UserDataRepository;
-import icu.samnyan.aqua.sega.maimai2.model.UserGeneralDataRepository;
-import icu.samnyan.aqua.sega.maimai2.model.UserUdemaeRepository;
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo;
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserGeneralDataRepo;
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserUdemaeRepo;
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRating;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserDetail;
@@ -28,12 +28,12 @@ public class GetUserRatingHandler implements BaseHandler {
     private static final Logger logger = LoggerFactory.getLogger(GetUserRatingHandler.class);
 
     private final BasicMapper mapper;
-    private final UserGeneralDataRepository userGeneralDataRepository;
-    private final UserUdemaeRepository userUdemaeRepository;
-    private final UserDataRepository userDataRepository;
+    private final Mai2UserGeneralDataRepo userGeneralDataRepository;
+    private final Mai2UserUdemaeRepo userUdemaeRepository;
+    private final Mai2UserDataRepo userDataRepository;
 
-    public GetUserRatingHandler(BasicMapper mapper, UserUdemaeRepository userUdemaeRepository, UserGeneralDataRepository userGeneralDataRepository,
-    UserDataRepository userDataRepository) {
+    public GetUserRatingHandler(BasicMapper mapper, Mai2UserUdemaeRepo userUdemaeRepository, Mai2UserGeneralDataRepo userGeneralDataRepository,
+                                Mai2UserDataRepo userDataRepository) {
         this.mapper = mapper;
         this.userGeneralDataRepository = userGeneralDataRepository;
         this.userUdemaeRepository = userUdemaeRepository;

@@ -1,8 +1,8 @@
 package icu.samnyan.aqua.sega.maimai2.handler.impl
 
 import ext.millis
-import icu.samnyan.aqua.sega.maimai2.model.UserDataRepository
-import icu.samnyan.aqua.sega.maimai2.model.UserPlaylogRepository
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserPlaylogRepo
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler
 import icu.samnyan.aqua.sega.maimai2.model.request.UploadUserPlaylog
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserPlaylog
@@ -16,8 +16,8 @@ import kotlin.jvm.optionals.getOrNull
  */
 @Component("Maimai2UploadUserPlaylogHandler")
 class UploadUserPlaylogHandler(
-    private val userDataRepository: UserDataRepository,
-    private val playlogRepo: UserPlaylogRepository,
+    private val userDataRepository: Mai2UserDataRepo,
+    private val playlogRepo: Mai2UserPlaylogRepo,
     private val mapper: BasicMapper
 ) : BaseHandler {
     data class BacklogEntry(val time: Long, val playlog: UserPlaylog)

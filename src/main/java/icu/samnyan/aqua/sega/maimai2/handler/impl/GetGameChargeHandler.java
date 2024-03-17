@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.maimai2.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import icu.samnyan.aqua.sega.maimai2.model.GameChargeRepository;
+import icu.samnyan.aqua.sega.maimai2.model.Mai2GameChargeRepo;
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import icu.samnyan.aqua.sega.maimai2.model.gamedata.GameCharge;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
@@ -21,11 +21,11 @@ import java.util.Map;
 public class GetGameChargeHandler implements BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GetGameChargeHandler.class);
-    private final GameChargeRepository gameChargeRepository;
+    private final Mai2GameChargeRepo gameChargeRepository;
     private final BasicMapper mapper;
 
     @Autowired
-    public GetGameChargeHandler(GameChargeRepository gameChargeRepository, BasicMapper mapper) {
+    public GetGameChargeHandler(Mai2GameChargeRepo gameChargeRepository, BasicMapper mapper) {
         this.gameChargeRepository = gameChargeRepository;
         this.mapper = mapper;
     }

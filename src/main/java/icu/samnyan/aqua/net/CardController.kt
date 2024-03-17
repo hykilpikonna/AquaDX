@@ -10,7 +10,7 @@ import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.general.service.CardService
-import icu.samnyan.aqua.sega.maimai2.model.UserDataRepository
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.RestController
 import kotlin.jvm.optionals.getOrNull
@@ -143,7 +143,7 @@ suspend fun getSummaryFor(repo: GenericUserDataRepo<*>, card: Card): Map<Str, An
 
 @Service
 class CardGameService(
-    val maimai2: UserDataRepository,
+    val maimai2: Mai2UserDataRepo,
     val chusan: icu.samnyan.aqua.sega.chusan.dao.userdata.UserDataRepository,
     val ongeki: icu.samnyan.aqua.sega.ongeki.dao.userdata.UserDataRepository,
     val diva: icu.samnyan.aqua.sega.diva.dao.userdata.PlayerProfileRepository,

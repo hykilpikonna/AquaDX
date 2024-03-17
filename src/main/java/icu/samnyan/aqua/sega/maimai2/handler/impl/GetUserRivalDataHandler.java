@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import icu.samnyan.aqua.sega.maimai2.model.UserDataRepository;
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo;
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRivalData;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserDetail;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
@@ -22,10 +22,10 @@ public class GetUserRivalDataHandler {
             .getLogger(icu.samnyan.aqua.sega.maimai2.handler.impl.GetUserRivalDataHandler.class);
 
     private final StringMapper mapper;
-    private final UserDataRepository userDataRepository;
+    private final Mai2UserDataRepo userDataRepository;
 
     @Autowired
-    public GetUserRivalDataHandler(StringMapper mapper, UserDataRepository userDataRepository) {
+    public GetUserRivalDataHandler(StringMapper mapper, Mai2UserDataRepo userDataRepository) {
         this.mapper = mapper;
         this.userDataRepository = userDataRepository;
     }
