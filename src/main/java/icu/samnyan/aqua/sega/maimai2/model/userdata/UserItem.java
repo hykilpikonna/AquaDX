@@ -39,4 +39,16 @@ public class UserItem implements Serializable {
     public UserItem(UserDetail user) {
         this.user = user;
     }
+
+    public static final int KIND_NAMEPLATE = 1;
+    public static final int KIND_TITLE = 2;
+    public static final int KIND_ICON = 3;
+    public static final int KIND_MUSIC_UNLOCK = 5;
+    public static final int KIND_MUSIC_MASTER_UNLOCK = 6;
+    public static final int KIND_MUSIC_REMASTER_UNLOCK = 7;
+    public static final int KIND_MUSIC_STRONG_UNLOCK = 8;
+    public static final int KIND_CHARACTER = 9;
+    public static final int KIND_PARTNER = 10;
+    public static final int KIND_FRAME = 11;
+    public static final int KIND_TICKETS = 12;
 }
