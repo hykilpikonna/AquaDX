@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.model.UserDuelRepository;
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserDuelRepo;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserDuel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +15,10 @@ import java.util.Optional;
 @Service("ChusanUserDuelService")
 public class UserDuelService {
 
-    private final UserDuelRepository userDuelRepository;
+    private final Chu3UserDuelRepo userDuelRepository;
 
     @Autowired
-    public UserDuelService(UserDuelRepository userDuelRepository) {
+    public UserDuelService(Chu3UserDuelRepo userDuelRepository) {
         this.userDuelRepository = userDuelRepository;
     }
 

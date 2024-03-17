@@ -7,7 +7,7 @@ import icu.samnyan.aqua.net.utils.AquaNetProps
 import icu.samnyan.aqua.net.games.GenericUserDataRepo
 import icu.samnyan.aqua.net.games.IGenericUserData
 import icu.samnyan.aqua.net.utils.SUCCESS
-import icu.samnyan.aqua.sega.chusan.model.UserDataRepository
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserDataRepo
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.general.service.CardService
@@ -145,7 +145,7 @@ suspend fun getSummaryFor(repo: GenericUserDataRepo<*>, card: Card): Map<Str, An
 @Service
 class CardGameService(
     val maimai2: Mai2UserDataRepo,
-    val chusan: UserDataRepository,
+    val chusan: Chu3UserDataRepo,
     val ongeki: icu.samnyan.aqua.sega.ongeki.dao.userdata.UserDataRepository,
     val diva: icu.samnyan.aqua.sega.diva.dao.userdata.PlayerProfileRepository,
 ) {

@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.model.UserGachaRepository;
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserGachaRepo;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserGacha;
 import org.springframework.stereotype.Service;
@@ -14,9 +14,9 @@ import java.util.Optional;
 @Service("ChusanUserGachaService")
 public class UserGachaService {
 
-    private final UserGachaRepository userGachaRepository;
+    private final Chu3UserGachaRepo userGachaRepository;
 
-    public UserGachaService(UserGachaRepository userGachaRepository) {
+    public UserGachaService(Chu3UserGachaRepo userGachaRepository) {
         this.userGachaRepository = userGachaRepository;
     }
 

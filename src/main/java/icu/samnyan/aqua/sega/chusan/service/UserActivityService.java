@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.model.UserActivityRepository;
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserActivityRepo;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserActivity;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +15,10 @@ import java.util.Optional;
 @Service("ChusanUserActivityService")
 public class UserActivityService {
 
-    private final UserActivityRepository userActivityRepository;
+    private final Chu3UserActivityRepo userActivityRepository;
 
     @Autowired
-    public UserActivityService(UserActivityRepository userActivityRepository) {
+    public UserActivityService(Chu3UserActivityRepo userActivityRepository) {
         this.userActivityRepository = userActivityRepository;
     }
 

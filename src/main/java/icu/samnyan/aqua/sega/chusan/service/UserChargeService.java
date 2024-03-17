@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.model.UserChargeRepository;
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserChargeRepo;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCharge;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
 import org.springframework.stereotype.Service;
@@ -14,9 +14,9 @@ import java.util.Optional;
 @Service("ChusanUserChargeService")
 public class UserChargeService {
 
-    private final UserChargeRepository userChargeRepository;
+    private final Chu3UserChargeRepo userChargeRepository;
 
-    public UserChargeService(UserChargeRepository userChargeRepository) {
+    public UserChargeService(Chu3UserChargeRepo userChargeRepository) {
         this.userChargeRepository = userChargeRepository;
     }
 

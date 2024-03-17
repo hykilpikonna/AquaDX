@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
 
-import icu.samnyan.aqua.sega.chusan.model.GameLoginBonusRepository;
+import icu.samnyan.aqua.sega.chusan.model.Chu3GameLoginBonusRepo;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.GameLoginBonus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,10 +11,10 @@ import java.util.Optional;
 
 @Service("ChusanGameLoginBonusService")
 public class GameLoginBonusService {
-    private final GameLoginBonusRepository gameLoginBonusRepository;
+    private final Chu3GameLoginBonusRepo gameLoginBonusRepository;
 
     @Autowired
-    public GameLoginBonusService(GameLoginBonusRepository gameLoginBonusRepository){
+    public GameLoginBonusService(Chu3GameLoginBonusRepo gameLoginBonusRepository){
         this.gameLoginBonusRepository = gameLoginBonusRepository;
     }
 

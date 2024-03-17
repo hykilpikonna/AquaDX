@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.model.GameMusicRepository;
+import icu.samnyan.aqua.sega.chusan.model.Chu3GameMusicRepo;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.Music;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -17,10 +17,10 @@ import java.util.Optional;
 @Service("ChusanGameMusicService")
 public class GameMusicService {
 
-    private final GameMusicRepository gameMusicRepository;
+    private final Chu3GameMusicRepo gameMusicRepository;
 
     @Autowired
-    public GameMusicService(GameMusicRepository gameMusicRepository) {
+    public GameMusicService(Chu3GameMusicRepo gameMusicRepository) {
         this.gameMusicRepository = gameMusicRepository;
     }
 

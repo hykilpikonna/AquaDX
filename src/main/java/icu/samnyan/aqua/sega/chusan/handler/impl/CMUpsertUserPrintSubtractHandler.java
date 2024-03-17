@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.chusan.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import icu.samnyan.aqua.sega.chusan.model.UserCardPrintStateRepository;
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserCardPrintStateRepo;
 import icu.samnyan.aqua.sega.chusan.handler.BaseHandler;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCardPrintState;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
@@ -24,13 +24,13 @@ import java.util.*;
 public class CMUpsertUserPrintSubtractHandler implements BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(CMUpsertUserPrintSubtractHandler.class);
-    private final UserCardPrintStateRepository userCardPrintStateRepository;
+    private final Chu3UserCardPrintStateRepo userCardPrintStateRepository;
     private final UserItemService userItemService;
     private final UserDataService userDataService;
     private final BasicMapper mapper;
 
     @Autowired
-    public CMUpsertUserPrintSubtractHandler(UserItemService userItemService, UserDataService userDataService, UserCardPrintStateRepository userCardPrintStateRepository, BasicMapper mapper) {
+    public CMUpsertUserPrintSubtractHandler(UserItemService userItemService, UserDataService userDataService, Chu3UserCardPrintStateRepo userCardPrintStateRepository, BasicMapper mapper) {
         this.userCardPrintStateRepository = userCardPrintStateRepository;
         this.userItemService = userItemService;
         this.userDataService = userDataService;

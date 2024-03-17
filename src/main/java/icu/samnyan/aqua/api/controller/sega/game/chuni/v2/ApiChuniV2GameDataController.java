@@ -16,16 +16,16 @@ import java.util.List;
 @RequestMapping("api/game/chuni/v2/data")
 public class ApiChuniV2GameDataController {
 
-    private final GameMusicRepository gameMusicRepository;
-    private final GameCharacterRepository gameCharacterRepository;
-    private final GameTrophyRepository gameTrophyRepository;
-    private final GameNamePlateRepository gameNamePlateRepository;
-    private final GameSystemVoiceRepository gameSystemVoiceRepository;
-    private final GameMapIconRepository gameMapIconRepository;
-    private final GameFrameRepository gameFrameRepository;
-    private final GameAvatarAccRepository gameAvatarAccRepository;
+    private final Chu3GameMusicRepo gameMusicRepository;
+    private final Chu3GameCharacterRepo gameCharacterRepository;
+    private final Chu3GameTrophyRepo gameTrophyRepository;
+    private final Chu3GameNamePlateRepo gameNamePlateRepository;
+    private final Chu3GameSystemVoiceRepo gameSystemVoiceRepository;
+    private final Chu3GameMapIconRepo gameMapIconRepository;
+    private final Chu3GameFrameRepo gameFrameRepository;
+    private final Chu3GameAvatarAccRepo gameAvatarAccRepository;
 
-    public ApiChuniV2GameDataController(GameMusicRepository gameMusicRepository, GameCharacterRepository gameCharacterRepository, GameTrophyRepository gameTrophyRepository, GameNamePlateRepository gameNamePlateRepository, GameSystemVoiceRepository gameSystemVoiceRepository, GameMapIconRepository gameMapIconRepository, GameFrameRepository gameFrameRepository, GameAvatarAccRepository gameAvatarAccRepository) {
+    public ApiChuniV2GameDataController(Chu3GameMusicRepo gameMusicRepository, Chu3GameCharacterRepo gameCharacterRepository, Chu3GameTrophyRepo gameTrophyRepository, Chu3GameNamePlateRepo gameNamePlateRepository, Chu3GameSystemVoiceRepo gameSystemVoiceRepository, Chu3GameMapIconRepo gameMapIconRepository, Chu3GameFrameRepo gameFrameRepository, Chu3GameAvatarAccRepo gameAvatarAccRepository) {
         this.gameMusicRepository = gameMusicRepository;
         this.gameCharacterRepository = gameCharacterRepository;
         this.gameTrophyRepository = gameTrophyRepository;

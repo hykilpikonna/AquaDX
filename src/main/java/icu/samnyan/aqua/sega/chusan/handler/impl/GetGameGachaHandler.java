@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.chusan.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import icu.samnyan.aqua.sega.chusan.model.GameGachaRepository;
+import icu.samnyan.aqua.sega.chusan.model.Chu3GameGachaRepo;
 import icu.samnyan.aqua.sega.chusan.handler.BaseHandler;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.GameGacha;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
@@ -21,11 +21,11 @@ import java.util.Map;
 public class GetGameGachaHandler implements BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GetGameGachaHandler.class);
-    private final GameGachaRepository gameGachaRepository;
+    private final Chu3GameGachaRepo gameGachaRepository;
     private final BasicMapper mapper;
 
     @Autowired
-    public GetGameGachaHandler(GameGachaRepository gameGachaRepository, BasicMapper mapper) {
+    public GetGameGachaHandler(Chu3GameGachaRepo gameGachaRepository, BasicMapper mapper) {
         this.gameGachaRepository = gameGachaRepository;
         this.mapper = mapper;
     }

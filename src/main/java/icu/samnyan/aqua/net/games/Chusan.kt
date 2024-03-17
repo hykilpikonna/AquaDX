@@ -6,18 +6,18 @@ import ext.Str
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.*
 import icu.samnyan.aqua.sega.chusan.dao.userdata.*
-import icu.samnyan.aqua.sega.chusan.model.UserDataRepository
-import icu.samnyan.aqua.sega.chusan.model.UserGeneralDataRepository
-import icu.samnyan.aqua.sega.chusan.model.UserPlaylogRepository
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserDataRepo
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserGeneralDataRepo
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserPlaylogRepo
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @API("api/v2/game/chu3")
 class Chusan(
     override val us: AquaUserServices,
-    override val playlogRepo: UserPlaylogRepository,
-    override val userDataRepo: UserDataRepository,
-    val userGeneralDataRepository: UserGeneralDataRepository
+    override val playlogRepo: Chu3UserPlaylogRepo,
+    override val userDataRepo: Chu3UserDataRepo,
+    val userGeneralDataRepository: Chu3UserGeneralDataRepo
 ): GameApiController("chu3")
 {
     override suspend fun trend(@RP username: Str): List<TrendOut> = us.cardByName(username) { card ->

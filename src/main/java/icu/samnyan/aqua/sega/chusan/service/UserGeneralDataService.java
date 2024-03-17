@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.model.UserGeneralDataRepository;
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserGeneralDataRepo;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserGeneralData;
 import org.springframework.stereotype.Service;
@@ -13,9 +13,9 @@ import java.util.Optional;
 @Service("ChusanUserGeneralDataService")
 public class UserGeneralDataService {
 
-    private final UserGeneralDataRepository userGeneralDataRepository;
+    private final Chu3UserGeneralDataRepo userGeneralDataRepository;
 
-    public UserGeneralDataService(UserGeneralDataRepository userGeneralDataRepository) {
+    public UserGeneralDataService(Chu3UserGeneralDataRepo userGeneralDataRepository) {
         this.userGeneralDataRepository = userGeneralDataRepository;
     }
 

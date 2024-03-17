@@ -1,8 +1,8 @@
 package icu.samnyan.aqua.sega.chusan.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import icu.samnyan.aqua.sega.chusan.model.UserCardPrintStateRepository;
-import icu.samnyan.aqua.sega.chusan.model.UserGachaRepository;
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserCardPrintStateRepo;
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserGachaRepo;
 import icu.samnyan.aqua.sega.chusan.handler.BaseHandler;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.GameGachaCard;
 import icu.samnyan.aqua.sega.chusan.model.request.UpsertUserGacha;
@@ -28,16 +28,16 @@ import java.util.*;
 public class CMUpsertUserGachaHandler implements BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(CMUpsertUserGachaHandler.class);
-    private final UserCardPrintStateRepository userCardPrintStateRepository;
-    private final UserGachaRepository userGachaRepository;
+    private final Chu3UserCardPrintStateRepo userCardPrintStateRepository;
+    private final Chu3UserGachaRepo userGachaRepository;
     private final UserDataService userDataService;
     private final UserItemService userItemService;
     private final BasicMapper mapper;
 
     @Autowired
     public CMUpsertUserGachaHandler(UserItemService userItemService, UserDataService userDataService,
-    UserCardPrintStateRepository userCardPrintStateRepository, BasicMapper mapper,
-    UserGachaRepository userGachaRepository) {
+                                    Chu3UserCardPrintStateRepo userCardPrintStateRepository, BasicMapper mapper,
+                                    Chu3UserGachaRepo userGachaRepository) {
         this.userCardPrintStateRepository = userCardPrintStateRepository;
         this.userGachaRepository = userGachaRepository;
         this.userDataService = userDataService;

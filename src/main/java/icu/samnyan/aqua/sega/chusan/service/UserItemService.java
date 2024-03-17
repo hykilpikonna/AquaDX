@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.model.UserItemRepository;
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserItemRepo;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserItem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +18,10 @@ import java.util.Optional;
  */
 @Service("ChusanUserItemService")
 public class UserItemService {
-    private final UserItemRepository userItemRepository;
+    private final Chu3UserItemRepo userItemRepository;
 
     @Autowired
-    public UserItemService(UserItemRepository userItemRepository) {
+    public UserItemService(Chu3UserItemRepo userItemRepository) {
         this.userItemRepository = userItemRepository;
     }
 

@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.chusan.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import icu.samnyan.aqua.sega.chusan.model.GameEventRepository;
+import icu.samnyan.aqua.sega.chusan.model.Chu3GameEventRepo;
 import icu.samnyan.aqua.sega.chusan.handler.BaseHandler;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.GameEvent;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
@@ -22,12 +22,12 @@ public class GetGameEventHandler implements BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GetGameEventHandler.class);
 
-    private final GameEventRepository gameEventRepository;
+    private final Chu3GameEventRepo gameEventRepository;
 
     private final StringMapper mapper;
 
     @Autowired
-    public GetGameEventHandler(GameEventRepository gameEventRepository, StringMapper mapper) {
+    public GetGameEventHandler(Chu3GameEventRepo gameEventRepository, StringMapper mapper) {
         this.gameEventRepository = gameEventRepository;
         this.mapper = mapper;
     }

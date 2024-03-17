@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.chusan.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import icu.samnyan.aqua.sega.chusan.model.UserCardPrintStateRepository;
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserCardPrintStateRepo;
 import icu.samnyan.aqua.sega.chusan.handler.BaseHandler;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCardPrintState;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
@@ -21,11 +21,11 @@ import java.util.Map;
 public class GetUserCardPrintErrorHandler implements BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GetUserCardPrintErrorHandler.class);
-    private final UserCardPrintStateRepository userCardPrintStateRepository;
+    private final Chu3UserCardPrintStateRepo userCardPrintStateRepository;
     private final BasicMapper mapper;
 
     @Autowired
-    public GetUserCardPrintErrorHandler(UserCardPrintStateRepository userCardPrintStateRepository, BasicMapper mapper) {
+    public GetUserCardPrintErrorHandler(Chu3UserCardPrintStateRepo userCardPrintStateRepository, BasicMapper mapper) {
         this.mapper = mapper;
         this.userCardPrintStateRepository = userCardPrintStateRepository;
     }

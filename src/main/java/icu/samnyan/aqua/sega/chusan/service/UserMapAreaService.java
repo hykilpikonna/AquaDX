@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.model.UserMapAreaRepository;
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserMapAreaRepo;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserMapArea;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +15,10 @@ import java.util.Optional;
 @Service("ChusanUserMapAreaService")
 public class UserMapAreaService {
 
-    private final UserMapAreaRepository userMapRepository;
+    private final Chu3UserMapAreaRepo userMapRepository;
 
     @Autowired
-    public UserMapAreaService(UserMapAreaRepository userMapRepository) {
+    public UserMapAreaService(Chu3UserMapAreaRepo userMapRepository) {
         this.userMapRepository = userMapRepository;
     }
 

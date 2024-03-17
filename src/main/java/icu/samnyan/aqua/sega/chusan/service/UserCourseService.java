@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.model.UserCourseRepository;
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserCourseRepo;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCourse;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +18,10 @@ import java.util.Optional;
 @Service("ChusanUserCourseService")
 public class UserCourseService {
 
-    private final UserCourseRepository userCourseRepository;
+    private final Chu3UserCourseRepo userCourseRepository;
 
     @Autowired
-    public UserCourseService(UserCourseRepository userCourseRepository) {
+    public UserCourseService(Chu3UserCourseRepo userCourseRepository) {
         this.userCourseRepository = userCourseRepository;
     }
 

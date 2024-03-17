@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.model.GameGachaCardRepository;
+import icu.samnyan.aqua.sega.chusan.model.Chu3GameGachaCardRepo;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.GameGachaCard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -16,10 +16,10 @@ import java.util.Random;
 @Service("ChusanGameGachaCardService")
 public class GameGachaCardService {
 
-    private final GameGachaCardRepository gameGachaCardRepository;
+    private final Chu3GameGachaCardRepo gameGachaCardRepository;
 
     @Autowired
-    public GameGachaCardService(GameGachaCardRepository gameGachaCardRepository) {
+    public GameGachaCardService(Chu3GameGachaCardRepo gameGachaCardRepository) {
         this.gameGachaCardRepository = gameGachaCardRepository;
     }
 

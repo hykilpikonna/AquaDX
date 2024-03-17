@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.model.UserPlaylogRepository;
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserPlaylogRepo;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserPlaylog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,10 +17,10 @@ import java.util.List;
 @Service("ChusanUserPlaylogService")
 public class UserPlaylogService {
 
-    private final UserPlaylogRepository userPlaylogRepository;
+    private final Chu3UserPlaylogRepo userPlaylogRepository;
 
     @Autowired
-    public UserPlaylogService(UserPlaylogRepository userPlaylogRepository) {
+    public UserPlaylogService(Chu3UserPlaylogRepo userPlaylogRepository) {
         this.userPlaylogRepository = userPlaylogRepository;
     }
 

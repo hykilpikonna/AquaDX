@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.model.UserCharacterRepository;
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserCharacterRepo;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCharacter;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +18,10 @@ import java.util.Optional;
 @Service("ChusanUserCharacterService")
 public class UserCharacterService {
 
-    private final UserCharacterRepository userCharacterRepository;
+    private final Chu3UserCharacterRepo userCharacterRepository;
 
     @Autowired
-    public UserCharacterService(UserCharacterRepository userCharacterRepository) {
+    public UserCharacterService(Chu3UserCharacterRepo userCharacterRepository) {
         this.userCharacterRepository = userCharacterRepository;
     }
 

@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.model.UserMusicDetailRepository;
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserMusicDetailRepo;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserMusicDetail;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,10 @@ import java.util.Optional;
 @Service("ChusanUserMusicDetailService")
 public class UserMusicDetailService {
 
-    private final UserMusicDetailRepository userMusicDetailRepository;
+    private final Chu3UserMusicDetailRepo userMusicDetailRepository;
 
     @Autowired
-    public UserMusicDetailService(UserMusicDetailRepository userMusicDetailRepository) {
+    public UserMusicDetailService(Chu3UserMusicDetailRepo userMusicDetailRepository) {
         this.userMusicDetailRepository = userMusicDetailRepository;
     }
 

@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.model.UserGameOptionRepository;
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserGameOptionRepo;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserGameOption;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +14,10 @@ import java.util.Optional;
 @Service("ChusanGameOptionService")
 public class UserGameOptionService {
 
-    private final UserGameOptionRepository userGameOptionRepository;
+    private final Chu3UserGameOptionRepo userGameOptionRepository;
 
     @Autowired
-    public UserGameOptionService(UserGameOptionRepository userGameOptionRepository) {
+    public UserGameOptionService(Chu3UserGameOptionRepo userGameOptionRepository) {
         this.userGameOptionRepository = userGameOptionRepository;
     }
 
