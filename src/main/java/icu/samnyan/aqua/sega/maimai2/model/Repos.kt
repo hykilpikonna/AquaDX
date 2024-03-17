@@ -13,12 +13,14 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.repository.NoRepositoryBean
+import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @NoRepositoryBean
 interface UserLinked<T>: JpaRepository<T, Long> {
-    fun findByUser(user: UserDetail): Optional<T>
+    fun findByUser(user: UserDetail): List<T>
+    fun findSingleByUser(user: UserDetail): Optional<T>
     fun findByUser_Card_ExtId(userId: Long): List<T>
     fun findByUser_Card_ExtId(userId: Long, page: Pageable): Page<T>
     fun findSingleByUser_Card_ExtId(userId: Long): Optional<T>
@@ -110,3 +112,29 @@ interface Mai2GameEventRepo : JpaRepository<GameEvent, Int> {
 }
 
 interface Mai2GameSellingCardRepo : JpaRepository<GameSellingCard, Long>
+
+@Component
+class Mai2Repos(
+    val mapEncountNpc: Mai2MapEncountNpcRepo,
+    val userAct: Mai2UserActRepo,
+    val userCard: Mai2UserCardRepo,
+    val userCharacter: Mai2UserCharacterRepo,
+    val userCharge: Mai2UserChargeRepo,
+    val userCourse: Mai2UserCourseRepo,
+    val userData: Mai2UserDataRepo,
+    val userExtend: Mai2UserExtendRepo,
+    val userFavorite: Mai2UserFavoriteRepo,
+    val userFriendSeasonRanking: Mai2UserFriendSeasonRankingRepo,
+    val userGeneralData: Mai2UserGeneralDataRepo,
+    val userItem: Mai2UserItemRepo,
+    val userLoginBonus: Mai2UserLoginBonusRepo,
+    val userMap: Mai2UserMapRepo,
+    val userMusicDetail: Mai2UserMusicDetailRepo,
+    val userOption: Mai2UserOptionRepo,
+    val userPlaylog: Mai2UserPlaylogRepo,
+    val userPrintDetail: Mai2UserPrintDetailRepo,
+    val userUdemae: Mai2UserUdemaeRepo,
+    val gameCharge: Mai2GameChargeRepo,
+    val gameEvent: Mai2GameEventRepo,
+    val gameSellingCard: Mai2GameSellingCardRepo
+)

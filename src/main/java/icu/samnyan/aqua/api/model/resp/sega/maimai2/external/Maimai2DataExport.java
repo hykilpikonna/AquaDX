@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -14,24 +16,22 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Maimai2DataExport {
-    private String gameId = "SDEZ";
-    private UserDetail userData;
-    private UserExtend userExtend;
-    private UserOption userOption;
-    private List<MapEncountNpc> mapEncountNpcList;
-    private List<UserAct> userActList;
-    private List<UserCharacter> userCharacterList;
-    private List<UserCharge> userChargeList;
-    private List<UserCourse> userCourseList;
-    private List<UserFavorite> userFavoriteList;
-    private List<UserFriendSeasonRanking> userFriendSeasonRankingList;
-    private List<UserGeneralData> userGeneralDataList;
-    private List<UserGhost> userGhostList;
-    private List<UserItem> userItemList;
-    private List<UserLoginBonus> userLoginBonusList;
-    private List<UserMap> userMapList;
-    private List<UserMusicDetail> userMusicDetailList;
-    private List<UserPlaylog> userPlaylogList;
-    private List<UserRate> userRateList;
-    private UserUdemae userUdemae;
+    public String gameId = "SDEZ";
+    public UserDetail userData;
+    public UserExtend userExtend;
+    public UserOption userOption;
+    public List<MapEncountNpc> mapEncountNpcList;
+    public List<UserAct> userActList;
+    public List<UserCharacter> userCharacterList;
+    public List<UserCharge> userChargeList;
+    public List<UserCourse> userCourseList;
+    public List<UserFavorite> userFavoriteList;
+    public List<UserFriendSeasonRanking> userFriendSeasonRankingList;
+    public List<UserGeneralData> userGeneralDataList;
+    public List<UserItem> userItemList;
+    public List<UserLoginBonus> userLoginBonusList;
+    public List<UserMap> userMapList;
+    public List<UserMusicDetail> userMusicDetailList;
+    public List<UserPlaylog> userPlaylogList;
+    public UserUdemae userUdemae;
 }

@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.NoRepositoryBean
+import org.springframework.stereotype.Component
 import java.util.*
 
 
@@ -155,3 +156,36 @@ interface Chu3GameNamePlateRepo : JpaRepository<NamePlate, Long>
 interface Chu3GameSystemVoiceRepo : JpaRepository<SystemVoice, Long>
 
 interface Chu3GameTrophyRepo : JpaRepository<Trophy, Long>
+
+@Component
+class Chu3Repos(
+    val userLoginBonus: Chu3UserLoginBonusRepo,
+    val userActivity: Chu3UserActivityRepo,
+    val userCardPrintState: Chu3UserCardPrintStateRepo,
+    val userCharacter: Chu3UserCharacterRepo,
+    val userCharge: Chu3UserChargeRepo,
+    val userCourse: Chu3UserCourseRepo,
+    val userData: Chu3UserDataRepo,
+    val userDuel: Chu3UserDuelRepo,
+    val userGacha: Chu3UserGachaRepo,
+    val userGameOption: Chu3UserGameOptionRepo,
+    val userGeneralData: Chu3UserGeneralDataRepo,
+    val userItem: Chu3UserItemRepo,
+    val userMapArea: Chu3UserMapAreaRepo,
+    val userMusicDetail: Chu3UserMusicDetailRepo,
+    val userPlaylog: Chu3UserPlaylogRepo,
+    val gameAvatarAcc: Chu3GameAvatarAccRepo,
+    val gameCharacter: Chu3GameCharacterRepo,
+    val gameCharge: Chu3GameChargeRepo,
+    val gameEvent: Chu3GameEventRepo,
+    val gameFrame: Chu3GameFrameRepo,
+    val gameGachaCard: Chu3GameGachaCardRepo,
+    val gameGacha: Chu3GameGachaRepo,
+    val gameLoginBonusPresets: Chu3GameLoginBonusPresetsRepo,
+    val gameLoginBonus: Chu3GameLoginBonusRepo,
+    val gameMapIcon: Chu3GameMapIconRepo,
+    val gameMusic: Chu3GameMusicRepo,
+    val gameNamePlate: Chu3GameNamePlateRepo,
+    val gameSystemVoice: Chu3GameSystemVoiceRepo,
+    val gameTrophy: Chu3GameTrophyRepo
+)

@@ -2,6 +2,7 @@ package icu.samnyan.aqua.net.db
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import ext.*
+import icu.samnyan.aqua.net.components.JWT
 import icu.samnyan.aqua.sega.allnet.AllNetProps
 import icu.samnyan.aqua.sega.allnet.KeyChipRepo
 import icu.samnyan.aqua.sega.allnet.KeychipSession
@@ -112,7 +113,8 @@ class AquaUserServices(
     val cardRepo: CardRepository,
     val hasher: PasswordEncoder,
     val keyChipRepo: KeyChipRepo,
-    val allNetProps: AllNetProps
+    val allNetProps: AllNetProps,
+    val jwt: JWT
 ) {
     companion object {
         val SETTING_FIELDS = AquaUserServices::class.functions

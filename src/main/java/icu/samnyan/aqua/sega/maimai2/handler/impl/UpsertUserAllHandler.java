@@ -103,7 +103,7 @@ public class UpsertUserAllHandler implements BaseHandler {
         if (userAll.getUserExtend() != null) {
             UserExtend newUserExtend = userAll.getUserExtend().get(0);
 
-            Optional<UserExtend> userExtendOptional = userExtendRepository.findByUser(newUserData);
+            Optional<UserExtend> userExtendOptional = userExtendRepository.findSingleByUser(newUserData);
             UserExtend userExtend = userExtendOptional.orElseGet(() -> new UserExtend(newUserData));
 
             newUserExtend.setId(userExtend.getId());
@@ -116,7 +116,7 @@ public class UpsertUserAllHandler implements BaseHandler {
         if (userAll.getUserOption() != null) {
             UserOption newUserOption = userAll.getUserOption().get(0);
 
-            Optional<UserOption> userOptionOptional = userOptionRepository.findByUser(newUserData);
+            Optional<UserOption> userOptionOptional = userOptionRepository.findSingleByUser(newUserData);
             UserOption userOption = userOptionOptional.orElseGet(() -> new UserOption(newUserData));
 
             newUserOption.setId(userOption.getId());
@@ -185,7 +185,7 @@ public class UpsertUserAllHandler implements BaseHandler {
             //Udemae
             UserUdemae newUserUdemae = userRating.getUdemae();
 
-            Optional<UserUdemae> udemaeOptional = userUdemaeRepository.findByUser(newUserData);
+            Optional<UserUdemae> udemaeOptional = userUdemaeRepository.findSingleByUser(newUserData);
             UserUdemae userUdemae = udemaeOptional.orElseGet(() -> new UserUdemae(newUserData));
 
             newUserUdemae.setId(userUdemae.getId());
