@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.dao.userdata.ChusanUserLoginBonusRepository;
+import icu.samnyan.aqua.sega.chusan.model.ChusanUserLoginBonusRepository;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserLoginBonus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

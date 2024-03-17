@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.dao.gamedata.GameGachaCardRepository;
+import icu.samnyan.aqua.sega.chusan.model.GameGachaCardRepository;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.GameGachaCard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;

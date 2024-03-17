@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.dao.userdata.UserPlaylogRepository;
+import icu.samnyan.aqua.sega.chusan.model.UserPlaylogRepository;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserPlaylog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

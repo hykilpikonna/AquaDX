@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.dao.userdata.UserChargeRepository;
+import icu.samnyan.aqua.sega.chusan.model.UserChargeRepository;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCharge;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.chusan.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import icu.samnyan.aqua.sega.chusan.dao.gamedata.GameGachaRepository;
+import icu.samnyan.aqua.sega.chusan.model.GameGachaRepository;
 import icu.samnyan.aqua.sega.chusan.handler.BaseHandler;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.GameGacha;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;

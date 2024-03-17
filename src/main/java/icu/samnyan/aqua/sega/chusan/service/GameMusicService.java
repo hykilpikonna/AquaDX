@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.dao.gamedata.GameMusicRepository;
+import icu.samnyan.aqua.sega.chusan.model.GameMusicRepository;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.Music;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;

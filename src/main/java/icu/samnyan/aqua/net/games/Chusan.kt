@@ -5,9 +5,10 @@ import ext.RP
 import ext.Str
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.*
-import icu.samnyan.aqua.sega.chusan.dao.userdata.UserDataRepository
-import icu.samnyan.aqua.sega.chusan.dao.userdata.UserGeneralDataRepository
-import icu.samnyan.aqua.sega.chusan.dao.userdata.UserPlaylogRepository
+import icu.samnyan.aqua.sega.chusan.dao.userdata.*
+import icu.samnyan.aqua.sega.chusan.model.UserDataRepository
+import icu.samnyan.aqua.sega.chusan.model.UserGeneralDataRepository
+import icu.samnyan.aqua.sega.chusan.model.UserPlaylogRepository
 import org.springframework.web.bind.annotation.RestController
 
 @RestController

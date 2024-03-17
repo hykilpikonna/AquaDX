@@ -18,7 +18,7 @@ public class UserLoginBonus implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
-    private int id;
+    private long id;
     private int version;
     private int user;
     private int presetId;

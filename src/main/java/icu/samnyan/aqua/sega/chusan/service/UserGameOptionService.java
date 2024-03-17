@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.dao.userdata.UserGameOptionRepository;
+import icu.samnyan.aqua.sega.chusan.model.UserGameOptionRepository;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserGameOption;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +26,10 @@ public class UserGameOptionService {
     }
 
     public Optional<UserGameOption> getByUser(UserData user) {
-        return userGameOptionRepository.findByUser(user);
+        return userGameOptionRepository.findSingleByUser(user);
     }
 
     public Optional<UserGameOption> getByUserId(String userId) {
-        return userGameOptionRepository.findByUser_Card_ExtId(Long.parseLong(userId));
+        return userGameOptionRepository.findSingleByUser_Card_ExtId(Long.parseLong(userId));
     }
 }

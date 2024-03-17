@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.dao.userdata.UserGachaRepository;
+import icu.samnyan.aqua.sega.chusan.model.UserGachaRepository;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserGacha;
 import org.springframework.stereotype.Service;

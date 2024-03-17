@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.dao.userdata.UserMapAreaRepository;
+import icu.samnyan.aqua.sega.chusan.model.UserMapAreaRepository;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserMapArea;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +31,11 @@ public class UserMapAreaService {
     }
 
     public List<UserMapArea> getByUser(UserData user) {
-        return userMapRepository.findAllByUser(user);
+        return userMapRepository.findByUser(user);
     }
 
     public List<UserMapArea> getByUserId(String userId) {
-        return userMapRepository.findAllByUser_Card_ExtId(Long.parseLong(userId));
+        return userMapRepository.findByUser_Card_ExtId(Long.parseLong(userId));
     }
 
     public Optional<UserMapArea> getByUserAndMapAreaId(UserData user, int mapId) {

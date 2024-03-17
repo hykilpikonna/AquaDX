@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.dao.userdata.UserItemRepository;
+import icu.samnyan.aqua.sega.chusan.model.UserItemRepository;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserItem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class UserItemService {
     }
 
     public List<UserItem> getByUserId(String userId) {
-        List<UserItem> userItemList = userItemRepository.findAllByUser_Card_ExtId(Long.parseLong(userId));
+        List<UserItem> userItemList = userItemRepository.findByUser_Card_ExtId(Long.parseLong(userId));
         userItemList.sort(Comparator.comparingInt(UserItem::getItemId));
         return userItemList;
     }

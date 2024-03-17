@@ -3,8 +3,12 @@ package icu.samnyan.aqua.net.games
 import ext.*
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.*
+import icu.samnyan.aqua.sega.chusan.model.userdata.UserData
+import icu.samnyan.aqua.sega.chusan.model.userdata.UserPlaylog
 import icu.samnyan.aqua.sega.general.model.Card
 import kotlinx.serialization.Serializable
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.NoRepositoryBean
@@ -95,7 +99,7 @@ interface IGenericGamePlaylog {
 @NoRepositoryBean
 interface GenericUserDataRepo<T : IGenericUserData> : JpaRepository<T, Long> {
     fun findByCard(card: Card): T?
-
+    fun findByCard_ExtId(extId: Long): Optional<T>
     @Query("select count(*) from #{#entityName} where playerRating > :rating")
     fun getRanking(rating: Int): Long
 }
@@ -103,6 +107,7 @@ interface GenericUserDataRepo<T : IGenericUserData> : JpaRepository<T, Long> {
 @NoRepositoryBean
 interface GenericPlaylogRepo<T: IGenericGamePlaylog> : JpaRepository<T, Long> {
     fun findByUserCardExtId(extId: Long): List<T>
+    fun findByUserCardExtId(extId: Long, page: Pageable): Page<T>
 }
 
 abstract class GameApiController(name: String) {

@@ -1,8 +1,8 @@
 package icu.samnyan.aqua.sega.chusan.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import icu.samnyan.aqua.sega.chusan.dao.userdata.UserCardPrintStateRepository;
-import icu.samnyan.aqua.sega.chusan.dao.userdata.UserGachaRepository;
+import icu.samnyan.aqua.sega.chusan.model.UserCardPrintStateRepository;
+import icu.samnyan.aqua.sega.chusan.model.UserGachaRepository;
 import icu.samnyan.aqua.sega.chusan.handler.BaseHandler;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.GameGachaCard;
 import icu.samnyan.aqua.sega.chusan.model.request.UpsertUserGacha;

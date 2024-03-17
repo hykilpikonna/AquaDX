@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.dao.userdata.UserCourseRepository;
+import icu.samnyan.aqua.sega.chusan.model.UserCourseRepository;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCourse;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
 import org.springframework.beans.factory.annotation.Autowired;

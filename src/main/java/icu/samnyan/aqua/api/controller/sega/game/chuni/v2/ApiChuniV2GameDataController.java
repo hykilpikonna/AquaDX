@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.api.controller.sega.game.chuni.v2;
 
-import icu.samnyan.aqua.sega.chusan.dao.gamedata.*;
+import icu.samnyan.aqua.sega.chusan.model.*;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.Character;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.*;
 import org.springframework.web.bind.annotation.GetMapping;

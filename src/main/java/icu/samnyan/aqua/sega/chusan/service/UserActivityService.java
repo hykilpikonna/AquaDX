@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.dao.userdata.UserActivityRepository;
+import icu.samnyan.aqua.sega.chusan.model.UserActivityRepository;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserActivity;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +39,6 @@ public class UserActivityService {
     }
 
     public List<UserActivity> getByUserId(String userId) {
-        return userActivityRepository.findAllByUser_Card_ExtId(Long.parseLong(userId));
+        return userActivityRepository.findByUser_Card_ExtId(Long.parseLong(userId));
     }
 }
