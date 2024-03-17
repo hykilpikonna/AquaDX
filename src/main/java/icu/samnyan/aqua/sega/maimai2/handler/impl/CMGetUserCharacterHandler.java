@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.maimai2.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserCharacterRepository;
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserCharacterRepo;
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserCharacter;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
@@ -23,9 +23,9 @@ public class CMGetUserCharacterHandler implements BaseHandler {
 
     private final BasicMapper mapper;
 
-    private final UserCharacterRepository userCharacterRepository;
+    private final Mai2UserCharacterRepo userCharacterRepository;
 
-    public CMGetUserCharacterHandler(BasicMapper mapper, UserCharacterRepository userCharacterRepository) {
+    public CMGetUserCharacterHandler(BasicMapper mapper, Mai2UserCharacterRepo userCharacterRepository) {
         this.mapper = mapper;
         this.userCharacterRepository = userCharacterRepository;
     }

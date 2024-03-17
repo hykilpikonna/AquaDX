@@ -1,8 +1,8 @@
 package icu.samnyan.aqua.sega.maimai2.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserDataRepository;
-import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserOptionRepository;
+import icu.samnyan.aqua.sega.maimai2.model.UserDataRepository;
+import icu.samnyan.aqua.sega.maimai2.model.UserOptionRepository;
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import icu.samnyan.aqua.sega.maimai2.model.response.GetUserPreviewResp;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserDetail;
@@ -46,7 +46,7 @@ public class GetUserPreviewHandler implements BaseHandler {
         String json;
         if (userDataOptional.isPresent() && userDataOptional.get().getUserName() != null) {
             UserDetail user = userDataOptional.get();
-            Optional<UserOption> userOptionOptional = userOptionRepository.findByUser_Card_ExtId(userId);
+            Optional<UserOption> userOptionOptional = userOptionRepository.findSingleByUser_Card_ExtId(userId);
             resp.setUserName(user.getUserName());
             resp.setLogin(false);
             resp.setLastGameId(user.getLastGameId());

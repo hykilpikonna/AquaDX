@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.maimai2.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import icu.samnyan.aqua.sega.maimai2.dao.gamedata.GameEventRepository;
+import icu.samnyan.aqua.sega.maimai2.model.GameEventRepository;
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import icu.samnyan.aqua.sega.maimai2.model.gamedata.GameEvent;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;

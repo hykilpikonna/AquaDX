@@ -2,9 +2,9 @@ package icu.samnyan.aqua.sega.maimai2.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserDataRepository;
-import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserGeneralDataRepository;
-import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserUdemaeRepository;
+import icu.samnyan.aqua.sega.maimai2.model.UserDataRepository;
+import icu.samnyan.aqua.sega.maimai2.model.UserGeneralDataRepository;
+import icu.samnyan.aqua.sega.maimai2.model.UserUdemaeRepository;
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRating;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserDetail;
@@ -89,7 +89,7 @@ public class GetUserRatingHandler implements BaseHandler {
             userRating.setNextNewRatingList(emptyRating);
         }
 
-        Optional<UserUdemae> optionalUserUdemae = userUdemaeRepository.findByUser_Card_ExtId(userId);
+        Optional<UserUdemae> optionalUserUdemae = userUdemaeRepository.findSingleByUser_Card_ExtId(userId);
         if (optionalUserUdemae.isPresent()) {
             UserUdemae userUdemae = optionalUserUdemae.get();
             userRating.setUdemae(userUdemae);

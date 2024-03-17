@@ -2,9 +2,9 @@ package icu.samnyan.aqua.sega.maimai2.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserCardRepository;
-import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserDataRepository;
-import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserPrintDetailRepository;
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserCardRepo;
+import icu.samnyan.aqua.sega.maimai2.model.UserDataRepository;
+import icu.samnyan.aqua.sega.maimai2.model.UserPrintDetailRepository;
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import icu.samnyan.aqua.sega.maimai2.model.request.UpsertUserPrint;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserCard;
@@ -29,12 +29,12 @@ public class UpsertUserPrintHandler implements BaseHandler {
     private static final Logger logger = LoggerFactory.getLogger(UpsertUserPrintHandler.class);
     private final BasicMapper mapper;
 
-    private final UserCardRepository userCardRepository;
+    private final Mai2UserCardRepo userCardRepository;
     private final UserPrintDetailRepository userPrintDetailRepository;
     private final UserDataRepository userDataRepository;
 
     @Autowired
-    public UpsertUserPrintHandler(BasicMapper mapper, UserPrintDetailRepository userPrintDetailRepository, UserCardRepository userCardRepository, UserDataRepository userDataRepository) {
+    public UpsertUserPrintHandler(BasicMapper mapper, UserPrintDetailRepository userPrintDetailRepository, Mai2UserCardRepo userCardRepository, UserDataRepository userDataRepository) {
         this.mapper = mapper;
         this.userPrintDetailRepository = userPrintDetailRepository;
         this.userCardRepository = userCardRepository;

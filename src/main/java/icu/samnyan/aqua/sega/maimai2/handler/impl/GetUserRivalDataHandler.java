@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserDataRepository;
+import icu.samnyan.aqua.sega.maimai2.model.UserDataRepository;
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRivalData;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserDetail;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;

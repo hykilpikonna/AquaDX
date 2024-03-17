@@ -12,8 +12,9 @@ import icu.samnyan.aqua.api.model.resp.sega.maimai2.external.Maimai2DataImport;
 import icu.samnyan.aqua.api.util.ApiMapper;
 import icu.samnyan.aqua.sega.general.model.Card;
 import icu.samnyan.aqua.sega.general.service.CardService;
-import icu.samnyan.aqua.sega.maimai2.dao.userdata.*;
+import icu.samnyan.aqua.sega.maimai2.model.*;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.*;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,7 +27,6 @@ import org.springframework.web.bind.annotation.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -36,16 +36,15 @@ import java.util.stream.Stream;
  */
 @RestController
 @RequestMapping("api/game/maimai2")
+@AllArgsConstructor
 public class ApiMaimai2PlayerDataController {
 
     private final ApiMapper mapper;
 
-    private static DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.0");
-
     private final CardService cardService;
 
-    private final UserActRepository userActRepository;
-    private final UserCharacterRepository userCharacterRepository;
+    private final Mai2UserActRepo userActRepository;
+    private final Mai2UserCharacterRepo userCharacterRepository;
     private final UserDataRepository userDataRepository;
     private final UserItemRepository userItemRepository;
     private final UserLoginBonusRepository userLoginBonusRepository;
@@ -53,7 +52,7 @@ public class ApiMaimai2PlayerDataController {
     private final UserOptionRepository userOptionRepository;
     private final UserPlaylogRepository userPlaylogRepository;
     private final UserGeneralDataRepository userGeneralDataRepository;
-    private final MapEncountNpcRepository mapEncountNpcRepository;
+    private final Mai2MapEncountNpcRepo mapEncountNpcRepository;
     private final UserChargeRepository userChargeRepository;
     private final UserCourseRepository userCourseRepository;
     private final UserExtendRepository userExtendRepository;
@@ -61,34 +60,6 @@ public class ApiMaimai2PlayerDataController {
     private final UserFriendSeasonRankingRepository userFriendSeasonRankingRepository;
     private final UserMapRepository userMapRepository;
     private final UserUdemaeRepository userUdemaeRepository;
-
-    public ApiMaimai2PlayerDataController(ApiMapper mapper, CardService cardService, UserActRepository userActRepository,
-    UserCharacterRepository userCharacterRepository, UserDataRepository userDataRepository, UserItemRepository userItemRepository,
-    UserLoginBonusRepository userLoginBonusRepository, UserMusicDetailRepository userMusicDetailRepository, UserOptionRepository userOptionRepository,
-    UserPlaylogRepository userPlaylogRepository, UserGeneralDataRepository userGeneralDataRepository, MapEncountNpcRepository mapEncountNpcRepository,
-    UserChargeRepository userChargeRepository, UserCourseRepository userCourseRepository, UserExtendRepository userExtendRepository,
-    UserFavoriteRepository userFavoriteRepository, UserFriendSeasonRankingRepository userFriendSeasonRankingRepository, UserMapRepository userMapRepository,
-    UserUdemaeRepository userUdemaeRepository) {
-        this.mapper = mapper;
-        this.cardService = cardService;
-        this.userActRepository = userActRepository;
-        this.userCharacterRepository = userCharacterRepository;
-        this.userDataRepository = userDataRepository;
-        this.userItemRepository = userItemRepository;
-        this.userLoginBonusRepository = userLoginBonusRepository;
-        this.userMusicDetailRepository = userMusicDetailRepository;
-        this.userOptionRepository = userOptionRepository;
-        this.userPlaylogRepository = userPlaylogRepository;
-        this.userGeneralDataRepository = userGeneralDataRepository;
-        this.mapEncountNpcRepository = mapEncountNpcRepository;
-        this.userChargeRepository = userChargeRepository;
-        this.userCourseRepository = userCourseRepository;
-        this.userExtendRepository = userExtendRepository;
-        this.userFavoriteRepository = userFavoriteRepository;
-        this.userFriendSeasonRankingRepository = userFriendSeasonRankingRepository;
-        this.userMapRepository = userMapRepository;
-        this.userUdemaeRepository = userUdemaeRepository;
-    }
 
     @GetMapping("config/userPhoto/divMaxLength")
     public long getConfigUserPhotoDivMaxLength(@Value("${game.maimai2.userPhoto.divMaxLength:32}") long divMaxLength) {
@@ -232,7 +203,7 @@ public class ApiMaimai2PlayerDataController {
     public ReducedPageResponse<UserPlaylog> getRecent(@RequestParam long aimeId,
                                                       @RequestParam(required = false, defaultValue = "0") int page,
                                                       @RequestParam(required = false, defaultValue = "10") int size) {
-        Page<UserPlaylog> playlogs = userPlaylogRepository.findByUserCardExtId(aimeId, PageRequest.of(page, size, Sort.Direction.DESC, "id"));
+        Page<UserPlaylog> playlogs = userPlaylogRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page, size, Sort.Direction.DESC, "id"));
         return new ReducedPageResponse<>(playlogs.getContent(), playlogs.getPageable().getPageNumber(), playlogs.getTotalPages(), playlogs.getTotalElements());
 
     }
@@ -249,7 +220,7 @@ public class ApiMaimai2PlayerDataController {
 
     @GetMapping("options")
     public UserOption getOptions(@RequestParam long aimeId) {
-        return userOptionRepository.findByUser_Card_ExtId(aimeId).orElseThrow();
+        return userOptionRepository.findSingleByUser_Card_ExtId(aimeId).orElseThrow();
     }
 
     @PostMapping("options")
@@ -295,9 +266,9 @@ public class ApiMaimai2PlayerDataController {
         try {
             data.setGameId("SDEZ");
             data.setUserData(userDataRepository.findByCardExtId(aimeId).orElseThrow());
-            data.setUserExtend(userExtendRepository.findByUser_Card_ExtId(aimeId).orElseThrow());
-            data.setUserOption(userOptionRepository.findByUser_Card_ExtId(aimeId).orElseThrow());
-            data.setUserUdemae(userUdemaeRepository.findByUser_Card_ExtId(aimeId).orElseThrow());
+            data.setUserExtend(userExtendRepository.findSingleByUser_Card_ExtId(aimeId).orElseThrow());
+            data.setUserOption(userOptionRepository.findSingleByUser_Card_ExtId(aimeId).orElseThrow());
+            data.setUserUdemae(userUdemaeRepository.findSingleByUser_Card_ExtId(aimeId).orElseThrow());
             data.setUserCharacterList(userCharacterRepository.findByUser_Card_ExtId(aimeId));
             data.setUserGeneralDataList(userGeneralDataRepository.findByUser_Card_ExtId(aimeId));
             data.setUserItemList(userItemRepository.findByUser_Card_ExtId(aimeId));

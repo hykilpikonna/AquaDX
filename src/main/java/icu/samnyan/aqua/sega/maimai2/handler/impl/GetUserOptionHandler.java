@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.maimai2.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserOptionRepository;
+import icu.samnyan.aqua.sega.maimai2.model.UserOptionRepository;
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserOption;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
@@ -33,7 +33,7 @@ public class GetUserOptionHandler implements BaseHandler {
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         long userId = ((Number) request.get("userId")).longValue();
 
-        UserOption userOption = userOptionRepository.findByUser_Card_ExtId(userId).orElseThrow();
+        UserOption userOption = userOptionRepository.findSingleByUser_Card_ExtId(userId).orElseThrow();
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userId);

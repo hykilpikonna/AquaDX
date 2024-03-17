@@ -1,8 +1,8 @@
 package icu.samnyan.aqua.sega.maimai2.handler.impl
 
 import ext.millis
-import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserDataRepository
-import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserPlaylogRepository
+import icu.samnyan.aqua.sega.maimai2.model.UserDataRepository
+import icu.samnyan.aqua.sega.maimai2.model.UserPlaylogRepository
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler
 import icu.samnyan.aqua.sega.maimai2.model.request.UploadUserPlaylog
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserPlaylog

@@ -3,7 +3,7 @@ package icu.samnyan.aqua.sega.maimai2.handler.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserFavoriteItem;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserGeneralData;
-import icu.samnyan.aqua.sega.maimai2.dao.userdata.UserGeneralDataRepository;
+import icu.samnyan.aqua.sega.maimai2.model.UserGeneralDataRepository;
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
 import java.util.LinkedHashMap;
