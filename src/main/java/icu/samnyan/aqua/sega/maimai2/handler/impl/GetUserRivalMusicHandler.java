@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import icu.samnyan.aqua.sega.maimai2.model.userdata.UserMusicDetail;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
 
 @Component("Maimai2GetUserRivalMusicHandler")
-public class GetUserRivalMusicHandler {
+public class GetUserRivalMusicHandler implements BaseHandler {
     private static final Logger logger = LoggerFactory
             .getLogger(icu.samnyan.aqua.sega.maimai2.handler.impl.GetUserRivalMusicHandler.class);
 

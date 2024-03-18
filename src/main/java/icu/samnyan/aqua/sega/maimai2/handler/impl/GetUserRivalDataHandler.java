@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import icu.samnyan.aqua.sega.maimai2.model.userdata.UserDetail;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
 
 @Component("Maimai2GetUserRivalDataHandler")
-public class GetUserRivalDataHandler {
+public class GetUserRivalDataHandler implements BaseHandler {
     private static final Logger logger = LoggerFactory
             .getLogger(icu.samnyan.aqua.sega.maimai2.handler.impl.GetUserRivalDataHandler.class);
 

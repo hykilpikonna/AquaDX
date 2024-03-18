@@ -3,7 +3,7 @@ package icu.samnyan.aqua.sega.maimai2.handler.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.general.model.Card;
 import icu.samnyan.aqua.sega.general.service.CardService;
-import icu.samnyan.aqua.sega.maimai.handler.BaseHandler;
+import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler;
 import icu.samnyan.aqua.sega.maimai2.model.*;
 import icu.samnyan.aqua.sega.maimai2.model.request.UpsertUserAll;
 import icu.samnyan.aqua.sega.maimai2.model.request.data.UserAll;
