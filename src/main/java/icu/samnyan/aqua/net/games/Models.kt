@@ -68,7 +68,13 @@ data class GenericMusicMeta(
 @Serializable
 data class GenericNoteMeta(
     val lv: Double,
-    val lvId: Int
+)
+
+@Serializable
+data class GenericItemMeta(
+    val name: String? = null,
+    val disable: Boolean? = null,
+    val ver: String? = null
 )
 
 // Here are some interfaces to generalize across multiple games
@@ -111,12 +117,10 @@ interface GenericPlaylogRepo<T: IGenericGamePlaylog> : JpaRepository<T, Long> {
 }
 
 abstract class GameApiController(name: String) {
-    val musicMapping: Map<Int, GenericMusicMeta> = GameApiController::class.java
-        .getResourceAsStream("/meta/$name/music.json")
-        .use { it?.reader()?.readText() }
-        ?.let { JSON.decodeFromString<Map<String, GenericMusicMeta>>(it) }
-        ?.mapKeys { it.key.toInt() }
-        ?: emptyMap()
+    val musicMapping = resJson<Map<String, GenericMusicMeta>>("/meta/$name/music.json")
+        ?.mapKeys { it.key.toInt() } ?: emptyMap()
+
+    val itemMapping = resJson<Map<String, Map<String, GenericItemMeta>>>("/meta/$name/items.json") ?: emptyMap()
 
     abstract val us: AquaUserServices
     abstract val userDataRepo: GenericUserDataRepo<*>

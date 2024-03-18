@@ -12,6 +12,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonNamingStrategy
 import org.apache.tika.Tika
 import org.apache.tika.mime.MimeTypes
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
@@ -66,6 +67,16 @@ val HTTP = HttpClient(CIO) {
 }
 val TIKA = Tika()
 val MIMES = MimeTypes.getDefaultMimeTypes()
+
+// Class resource
+object Ext {
+    val log = LoggerFactory.getLogger(Ext::class.java)
+}
+fun res(name: Str) = Ext::class.java.getResourceAsStream(name)
+fun resStr(name: Str) = res(name)?.reader()?.readText()
+inline fun <reified T> resJson(name: Str, warn: Boolean = true) = resStr(name)?.let {
+    JSON.decodeFromString<T>(it)
+} ?: run { if (warn) Ext.log.warn("Resource $name is not found"); null }
 
 // Date and time
 fun millis() = System.currentTimeMillis()

@@ -1,13 +1,15 @@
 package icu.samnyan.aqua.sega.maimai2.model.userdata;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import jakarta.persistence.*;
 
@@ -40,15 +42,26 @@ public class UserItem implements Serializable {
         this.user = user;
     }
 
-    public static final int KIND_NAMEPLATE = 1;
-    public static final int KIND_TITLE = 2;
-    public static final int KIND_ICON = 3;
-    public static final int KIND_MUSIC_UNLOCK = 5;
-    public static final int KIND_MUSIC_MASTER_UNLOCK = 6;
-    public static final int KIND_MUSIC_REMASTER_UNLOCK = 7;
-    public static final int KIND_MUSIC_STRONG_UNLOCK = 8;
-    public static final int KIND_CHARACTER = 9;
-    public static final int KIND_PARTNER = 10;
-    public static final int KIND_FRAME = 11;
-    public static final int KIND_TICKETS = 12;
+    public enum Mai2ItemKind {
+        plate(1),
+        title(2),
+        icon(3),
+        musicUnlock(5),
+        musicMasterUnlock(6),
+        musicRemasterUnlock(7),
+        musicStrongUnlock(8),
+        chara(9),
+        partner(10),
+        frame(11),
+        ticket(12);
+
+        public final int value;
+
+        Mai2ItemKind(int value) {
+            this.value = value;
+        }
+
+        public static final Map<Integer, Mai2ItemKind> ALL = Arrays.stream(Mai2ItemKind.class.getEnumConstants())
+            .map(k -> Map.entry(k.value, k)).collect(HashMap::new, (m, v) -> m.put(v.getKey(), v.getValue()), Map::putAll);
+    }
 }

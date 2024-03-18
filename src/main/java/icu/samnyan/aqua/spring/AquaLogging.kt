@@ -2,7 +2,6 @@ package icu.samnyan.aqua.spring
 
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.core.pattern.CompositeConverter
-import ext.center
 import ext.get
 import org.springframework.boot.ansi.AnsiColor
 import org.springframework.boot.ansi.AnsiOutput
@@ -10,7 +9,7 @@ import org.springframework.boot.ansi.AnsiOutput
 private const val PROJECT_PACKAGE_PREFIX = "icu.samnyan.aqua"
 private const val SEGA_PACKAGE_PREFIX = "icu.samnyan.aqua.sega"
 private val SYSTEM_COLOR = AnsiColor.WHITE
-private val SEGA_COLOR = AnsiColor.MAGENTA
+private val SEGA_COLOR = AnsiColor.BRIGHT_CYAN
 private val MISC_COLOR = AnsiColor.BRIGHT_BLUE
 
 class LoggerComponent : CompositeConverter<ILoggingEvent>() {
