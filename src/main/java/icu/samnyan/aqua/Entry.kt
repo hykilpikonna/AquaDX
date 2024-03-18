@@ -9,17 +9,14 @@ import java.io.File
 
 @SpringBootApplication
 @EnableScheduling
-class AquaServerApplication
+class Entry
 
-/**
- * Main method, entry point of the application
- */
 fun main(args: Array<String>) {
     // If data/ is not found, create it
     File("data").mkdirs()
 
     // Run the application
-    val ctx = SpringApplication.run(AquaServerApplication::class.java, *args)
+    val ctx = SpringApplication.run(Entry::class.java, *args)
 
     // Start the AimeDbServer
     val aimeDbServer = ctx.getBean(AimeDbServer::class.java)
@@ -29,3 +26,4 @@ fun main(args: Array<String>) {
     val checker = ctx.getBean(AutoChecker::class.java)
     checker.check()
 }
+
