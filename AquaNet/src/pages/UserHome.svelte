@@ -74,7 +74,7 @@
         calElement.scrollLeft = calElement.scrollWidth - calElement.clientWidth
       })
     }).catch((e) => error = e.message);
-  })
+  }).catch((e) => error = e.message);
 </script>
 
 <main id="user-home" class="content">
