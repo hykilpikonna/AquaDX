@@ -1,4 +1,4 @@
-import { EN_REF_GENERAL, EN_REF_LEADERBOARD, EN_REF_USER, type EN_REF_Welcome } from "./en_ref";
+import { EN_REF_GENERAL, EN_REF_HOME, EN_REF_LEADERBOARD, EN_REF_USER, type EN_REF_Welcome } from "./en_ref";
 
 const zhUser: typeof EN_REF_USER = {
   'UserHome.ServerRank': '服务器排名',
@@ -70,4 +70,19 @@ const zhGeneral: typeof EN_REF_GENERAL = {
   "action.confirm": "确认",
 }
 
-export const ZH = { ...zhUser, ...zhWelcome, ...zhGeneral, ...zhLeaderboard }
+const zhHome: typeof EN_REF_HOME = {
+  'home.nav.portal': "主页",
+  'home.nav.link-card': "绑卡",
+  'home.nav.game-setup': "连接设置",
+  'home.manage-cards': '管理游戏卡',
+  'home.manage-cards-description': '绑定、解绑、管理游戏数据卡',
+  'home.link-card': '绑定游戏卡',
+  'home.link-cards-description':'绑定游戏数据卡 (Amusement IC 或 Aime 卡) 后才可以访问游戏存档哦',
+  'home.join-discord': '加入 Discord',
+  'home.join-discord-description': '加入我们的 Discord 群，与其他玩家聊天、获取帮助',
+  'home.setup': '连接私服',
+  'home.setup-description': '如果您有街机框体或者手台，点击这里设置服务器的连接',
+}
+
+export const ZH = { ...zhUser, ...zhWelcome, ...zhGeneral,
+  ...zhLeaderboard, ...zhHome }

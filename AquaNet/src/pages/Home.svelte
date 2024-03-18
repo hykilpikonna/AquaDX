@@ -7,6 +7,7 @@
   import type { AquaNetUser } from "../libs/generalTypes";
   import StatusOverlays from "../components/StatusOverlays.svelte";
   import ActionCard from "../components/ActionCard.svelte";
+  import { t } from "../libs/i18n";
 
   USER.ensureLoggedIn();
 
@@ -14,7 +15,7 @@
   let error = ""
 
   let tab = 0;
-  let tabs = ["Portal", "Link Card", "Game Setup"];
+  let tabs = [t('home.nav.portal'), t('home.nav.link-card'), t('home.nav.game-setup')]
 
   USER.me().then((m) => me = m).catch(e => error = e.message)
 </script>
@@ -36,22 +37,22 @@
     <div out:fade={FADE_OUT} in:fade={FADE_IN} class="action-cards">
       <ActionCard color="255, 192, 203" icon="solar:card-bold-duotone" on:click={() => tab = 1}>
         {#if me && me.cards.length > 1}
-          <h3>Manage Cards</h3>
-          <span>Link, unlink, and manage your cards</span>
+          <h3>{t('home.manage-cards')}</h3>
+          <span>{t('home.manage-cards-description')}</span>
         {:else if me}
-          <h3>Link card</h3>
-          <span>Link your Amusement IC / Aime card to play games.</span>
+          <h3>{t('home.link-card')}</h3>
+          <span>{t('home.link-cards-description')}</span>
         {/if}
       </ActionCard>
 
       <ActionCard color="82, 93, 233" icon="ic:baseline-discord" on:click={() => window.location.href = DISCORD_INVITE}>
-        <h3>Join Discord</h3>
-        <span>Join our Discord server to chat with other players and get help.</span>
+        <h3>{t('home.join-discord')}</h3>
+        <span>{t('home.join-discord-description')}</span>
       </ActionCard>
 
       <ActionCard on:click={() => tab = 2} icon="uil:link-alt">
-        <h3>Setup Connection</h3>
-        <span>If you own a cab or arcade setup, begin setting up the connection.</span>
+        <h3>{t('home.setup')}</h3>
+        <span>{t('home.setup-description')}</span>
       </ActionCard>
     </div>
   {:else if tab === 1}

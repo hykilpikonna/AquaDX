@@ -68,6 +68,21 @@ export const EN_REF_GENERAL = {
   'action.confirm': 'Confirm',
 }
 
-export const EN_REF = { ...EN_REF_USER, ...EN_REF_Welcome, ...EN_REF_GENERAL, ...EN_REF_LEADERBOARD }
+export const EN_REF_HOME = {
+  'home.nav.portal': 'Portal',
+  'home.nav.link-card': 'Link Card',
+  'home.nav.game-setup': 'Game Setup',
+  'home.manage-cards': 'Manage Cards',
+  'home.manage-cards-description': 'Link, unlink, and manage your cards.',
+  'home.link-card': 'Link Card',
+  'home.link-cards-description': 'Link your Amusement IC / Aime card to play games.',
+  'home.join-discord': 'Join Discord',
+  'home.join-discord-description': 'Join our Discord server to chat with other players and get help.',
+  'home.setup': 'Setup Connection',
+  'home.setup-description': 'If you own a cab or arcade setup, begin setting up the connection.',
+}
+
+export const EN_REF = { ...EN_REF_USER, ...EN_REF_Welcome, ...EN_REF_GENERAL,
+  ...EN_REF_LEADERBOARD, ...EN_REF_HOME }
 
 export type LocalizedMessages = typeof EN_REF
