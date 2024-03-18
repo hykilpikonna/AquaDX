@@ -36,7 +36,7 @@ class SettingsApi(
     @API("set")
     @Doc("Set a field in the game options")
     fun setField(@RP token: String, @RP key: String, @RP value: String) = us.jwt.auth(token) { u ->
-        val field = fieldMap[key] ?: error("Field not found")
+        val field = fieldMap[key] ?: (400 - "Invalid field $key")
         val options = u.gameOptions ?: AquaGameOptions().also {
             userRepo.save(u.apply { gameOptions = it })
         }
@@ -46,7 +46,7 @@ class SettingsApi(
             type == String::class -> value
             type == Int::class -> value.toInt()
             type == Boolean::class -> value.toBoolean()
-            else -> error("Unsupported type")
+            else -> (400 - "Invalid field type $type")
         }
         field.set(options, newValue)
     }
