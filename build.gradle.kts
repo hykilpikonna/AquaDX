@@ -38,6 +38,7 @@ dependencies {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
     testImplementation("org.springframework.security:spring-security-test")
+    implementation("net.logstash.logback:logstash-logback-encoder:7.4")
 
     // Database
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client:3.3.2")
@@ -85,7 +86,7 @@ description = "AquaDX Arcade Server"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 springBoot {
-    mainClass.set("icu.samnyan.aqua.AquaServerApplicationKt")
+    mainClass.set("icu.samnyan.aqua.EntryKt")
 }
 
 val buildTime: String by extra(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss z").withZone(ZoneId.of("UTC")).format(Instant.now()))
