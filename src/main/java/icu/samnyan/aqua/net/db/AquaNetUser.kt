@@ -11,7 +11,6 @@ import icu.samnyan.aqua.sega.general.model.Card
 import jakarta.persistence.*
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
 import java.io.Serializable
 import kotlin.jvm.optionals.getOrNull
@@ -19,8 +18,7 @@ import kotlin.reflect.KFunction
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.full.functions
 
-@Entity(name = "AquaNetUser")
-@Table(name = "aqua_net_user")
+@Entity
 class AquaNetUser(
     @JsonIgnore
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -75,6 +73,10 @@ class AquaNetUser(
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
     var keychipSessions: MutableList<KeychipSession> = mutableListOf(),
+
+    @OneToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "gameOptions", unique = true, nullable = true)
+    var gameOptions: AquaGameOptions? = null
 ) : Serializable {
     val computedName get() = displayName.ifEmpty { username }
 
@@ -89,7 +91,6 @@ class AquaNetUser(
     )
 }
 
-@Repository("AquaNetUserRepository")
 interface AquaNetUserRepo : JpaRepository<AquaNetUser, Long> {
     fun findByAuId(auId: Long): AquaNetUser?
     fun findByEmailIgnoreCase(email: String): AquaNetUser?
