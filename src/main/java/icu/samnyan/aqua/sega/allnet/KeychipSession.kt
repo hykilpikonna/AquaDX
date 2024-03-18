@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.sega.allnet
 
+import ext.async
 import icu.samnyan.aqua.net.db.AquaNetUser
 import jakarta.persistence.*
 import jakarta.transaction.Transactional
@@ -59,7 +60,7 @@ class KeychipSessionService(
      * Delete sessions that are older than the expire time.
      */
     @Scheduled(fixedDelayString = "\${allnet.server.keychip-ses-clean-interval}")
-    fun cleanup() {
+    suspend fun cleanup() = async {
         logger.info("!!! Keychip session cleanup !!!")
         val expire = System.currentTimeMillis() - props.keychipSesExpire
         keychipSessionRepo.deleteAllByLastUseBefore(expire)
