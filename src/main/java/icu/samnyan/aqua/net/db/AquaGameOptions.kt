@@ -32,4 +32,4 @@ class AquaGameOptions(
     var unlockTickets: Boolean = false,
 )
 
-interface AquaGameOptionsRepository : JpaRepository<AquaGameOptions, Long>
+interface AquaGameOptionsRepo : JpaRepository<AquaGameOptions, Long>

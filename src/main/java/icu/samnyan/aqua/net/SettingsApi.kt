@@ -2,26 +2,25 @@ package icu.samnyan.aqua.net
 
 import ext.*
 import icu.samnyan.aqua.net.db.AquaGameOptions
+import icu.samnyan.aqua.net.db.AquaGameOptionsRepo
 import icu.samnyan.aqua.net.db.AquaNetUserRepo
 import icu.samnyan.aqua.net.db.AquaUserServices
 import org.springframework.web.bind.annotation.RestController
 import kotlin.reflect.full.findAnnotation
-import kotlin.reflect.full.primaryConstructor
 
 @RestController
 @API("/api/v2/settings")
 class SettingsApi(
     val us: AquaUserServices,
-    val userRepo: AquaNetUserRepo
+    val userRepo: AquaNetUserRepo,
+    val goRepo: AquaGameOptionsRepo
 ) {
     // Get all params with SettingField annotation
-    // Kotlin by default put all the @Annotations in the constructor param
-    val params = AquaGameOptions::class.primaryConstructor!!.parameters
+    val fields = AquaGameOptions::class.vars()
         .mapNotNull { it.findAnnotation<SettingField>()?.let { an -> it to an } }
-    val fields = AquaGameOptions::class.vars().associateBy { it.name }
-    val fieldMap = params.associate { (key, _) -> key.name to fields[key.name]!! }
-    val fieldDesc = params.map { (key, an) -> mapOf(
-        "key" to key.name,
+    val fieldMap = fields.associate { (f, _) -> f.name to f }
+    val fieldDesc = fields.map { (f, an) -> mapOf(
+        "key" to f.name,
         "name" to an.name,
         "desc" to an.desc
     ) }
@@ -42,12 +41,13 @@ class SettingsApi(
         }
         // Check field type
         val type = field.returnType
-        val newValue = when {
-            type == String::class -> value
-            type == Int::class -> value.toInt()
-            type == Boolean::class -> value.toBoolean()
+        val newValue = when (type.classifier) {
+            String::class -> value
+            Int::class -> value.toInt()
+            Boolean::class -> value.toBoolean()
             else -> (400 - "Invalid field type $type")
         }
         field.set(options, newValue)
+        goRepo.save(options)
     }
 }
