@@ -50,7 +50,7 @@
     if (!games[game]) {
       // Find a valid game
       const valid = Object.entries(games).filter(([g, valid]) => valid)
-      if (!valid) return error = t("UserHome.NoValidGame")
+      if (!valid || !valid[0]) return error = t("UserHome.NoValidGame")
       window.location.href = `/u/${username}/${valid[0][0]}`
     }
 
@@ -74,7 +74,7 @@
         calElement.scrollLeft = calElement.scrollWidth - calElement.clientWidth
       })
     }).catch((e) => error = e.message);
-  }).catch((e) => error = e.message);
+  }).catch((e) => { error = e.message; console.error(e) } );
 </script>
 
 <main id="user-home" class="content">
