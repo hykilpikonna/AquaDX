@@ -5,6 +5,7 @@
   import type { ConfirmProps } from "../libs/generalTypes";
   import { DISCORD_INVITE } from "../libs/config";
   import Icon from "@iconify/svelte";
+  import { t } from "../libs/i18n"
 
   // Props
   export let confirm: ConfirmProps | null = null
@@ -26,9 +27,9 @@
 
             // Set to null
             confirm = null
-          }}>Cancel</button>
+          }}>{t('action.cancel')}</button>
         {/if}
-        <button on:click={() => confirm && confirm.confirm()} class:error={confirm.dangerous}>Confirm</button>
+        <button on:click={() => confirm && confirm.confirm()} class:error={confirm.dangerous}>{t('action.confirm')}</button>
       </div>
     </div>
   </div>
@@ -37,16 +38,13 @@
 {#if error}
   <div class="overlay" transition:fade>
     <div>
-      <h2 class="error">Error</h2>
-      <span>Something went wrong, please try again later or <a href={DISCORD_INVITE}>join our discord for support.</a></span>
-      <span>Detail: {error}</span>
-<!--      <div class="actions">-->
-<!--        <button on:click={() => error = null}>Close</button>-->
-<!--      </div>-->
+      <h2 class="error">{t('status.error')}</h2>
+      <span>{t('status.error.hint')}<a href={DISCORD_INVITE}>{t('status.error.hint.link')}</a></span>
+      <span>{t('status.detail', { detail: error })}</span>
 
       <div class="actions">
         <button on:click={() => location.reload()} class="error">
-          Refresh
+          {t('action.refresh')}
         </button>
       </div>
     </div>

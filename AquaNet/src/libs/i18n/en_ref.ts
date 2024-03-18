@@ -59,6 +59,13 @@ export const EN_REF_GENERAL = {
   'game.mai2': "Mai",
   'game.chu3': "Chuni",
   'game.ongeki': "Ongeki",
+  'status.error': "Error",
+  'status.error.hint': 'Something went wrong, please try again later or ',
+  'status.error.hint.link': 'join our discord for support.',
+  'status.detail': 'Detail: ${detail}',
+  'action.refresh': 'Refresh',
+  'action.cancel': 'Cancel',
+  'action.confirm': 'Confirm',
 }
 
 export const EN_REF = { ...EN_REF_USER, ...EN_REF_Welcome, ...EN_REF_GENERAL, ...EN_REF_LEADERBOARD }
