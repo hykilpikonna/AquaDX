@@ -22,6 +22,9 @@ import java.nio.file.Path
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import kotlin.reflect.KClass
+import kotlin.reflect.KMutableProperty1
+import kotlin.reflect.full.memberProperties
 
 typealias RP = RequestParam
 typealias RB = RequestBody
@@ -30,16 +33,21 @@ typealias API = RequestMapping
 typealias Str = String
 typealias Bool = Boolean
 
-@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY)
+@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY, AnnotationTarget.PROPERTY_GETTER)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class Doc(
     val desc: String,
     val ret: String = ""
 )
 
-@Target(AnnotationTarget.VALUE_PARAMETER)
+@Target(AnnotationTarget.PROPERTY)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class SettingField(val name: Str, val desc: Str)
+
+// Reflection
+@Suppress("UNCHECKED_CAST")
+fun <T : Any> KClass<T>.vars() = memberProperties.mapNotNull { it as? KMutableProperty1<T, Any> }
+
 
 // Make it easier to throw a ResponseStatusException
 operator fun HttpStatus.invoke(message: String? = null): Nothing = throw ApiException(value(), message ?: this.reasonPhrase)
