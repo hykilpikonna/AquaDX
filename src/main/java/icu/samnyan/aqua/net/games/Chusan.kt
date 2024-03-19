@@ -3,9 +3,11 @@ package icu.samnyan.aqua.net.games
 import ext.API
 import ext.RP
 import ext.Str
+import ext.minus
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.*
 import icu.samnyan.aqua.sega.chusan.model.*
+import icu.samnyan.aqua.sega.chusan.model.userdata.UserData
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -14,9 +16,8 @@ class Chusan(
     override val us: AquaUserServices,
     override val playlogRepo: Chu3UserPlaylogRepo,
     override val userDataRepo: Chu3UserDataRepo,
-    val userGeneralDataRepository: Chu3UserGeneralDataRepo
-): GameApiController("chu3")
-{
+    val userGeneralDataRepository: Chu3UserGeneralDataRepo,
+): GameApiController<UserData>("chu3") {
     override suspend fun trend(@RP username: Str): List<TrendOut> = us.cardByName(username) { card ->
         findTrend(playlogRepo.findByUserCardExtId(card.extId)
             .map { TrendLog(it.playDate.toString(), it.playerRating) })
@@ -24,6 +25,11 @@ class Chusan(
 
     // Only show > AAA rank
     override val shownRanks = chu3Scores.filter { it.first >= 95 * 10000 }
+    override val settableFields: Map<String, (UserData, String) -> Unit> = mapOf(
+        "name" to { u, v -> u.setUserName(v)
+            if (!v.all { it in USERNAME_CHARS }) { 400 - "Invalid character in username" }
+        },
+    )
 
     override suspend fun userSummary(@RP username: Str) = us.cardByName(username) { card ->
         // Summary values: total plays, player rating, server-wide ranking

@@ -47,7 +47,13 @@ annotation class SettingField(val name: Str, val desc: Str)
 // Reflection
 @Suppress("UNCHECKED_CAST")
 fun <T : Any> KClass<T>.vars() = memberProperties.mapNotNull { it as? KMutableProperty1<T, Any> }
-
+@Suppress("UNCHECKED_CAST")
+fun <C, T: Any> KMutableProperty1<C, T>.setCast(obj: C, value: String) = set(obj, when (returnType.classifier) {
+    String::class -> value
+    Int::class -> value.toInt()
+    Boolean::class -> value.toBoolean()
+    else -> 400 - "Invalid field type $returnType"
+} as T)
 
 // Make it easier to throw a ResponseStatusException
 operator fun HttpStatus.invoke(message: String? = null): Nothing = throw ApiException(value(), message ?: this.reasonPhrase)
