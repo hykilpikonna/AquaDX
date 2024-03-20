@@ -5,7 +5,7 @@ import icu.samnyan.aqua.sega.general.model.Card;
 import icu.samnyan.aqua.sega.general.model.response.UserRecentRating;
 import icu.samnyan.aqua.sega.general.service.CardService;
 import icu.samnyan.aqua.sega.ongeki.dao.userdata.*;
-import icu.samnyan.aqua.sega.ongeki.handler.BaseHandler;
+import icu.samnyan.aqua.sega.general.BaseHandler;
 import icu.samnyan.aqua.sega.ongeki.model.request.UpsertUserAll;
 import icu.samnyan.aqua.sega.ongeki.model.response.CodeResp;
 import icu.samnyan.aqua.sega.ongeki.model.userdata.*;

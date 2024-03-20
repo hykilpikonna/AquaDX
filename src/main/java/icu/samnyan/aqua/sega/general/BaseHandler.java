@@ -9,5 +9,5 @@ import java.util.Map;
  */
 public interface BaseHandler {
 
-    String handle(Map<String, Object> request) throws JsonProcessingException;
+    Object handle(Map<String, Object> request) throws JsonProcessingException;
 }

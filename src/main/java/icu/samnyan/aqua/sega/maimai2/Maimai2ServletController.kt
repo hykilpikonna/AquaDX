@@ -3,7 +3,6 @@ package icu.samnyan.aqua.sega.maimai2
 import ext.API
 import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.maimai2.handler.*
-import icu.samnyan.aqua.sega.maimai2.handler.impl.*
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.*
 import kotlin.reflect.full.declaredMemberProperties

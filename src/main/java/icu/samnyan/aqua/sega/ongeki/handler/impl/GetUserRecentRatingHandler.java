@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.general.model.response.UserRecentRating;
 import icu.samnyan.aqua.sega.ongeki.dao.userdata.UserGeneralDataRepository;
 import icu.samnyan.aqua.sega.ongeki.dao.userdata.UserPlaylogRepository;
-import icu.samnyan.aqua.sega.ongeki.handler.BaseHandler;
+import icu.samnyan.aqua.sega.general.BaseHandler;
 import icu.samnyan.aqua.sega.ongeki.model.userdata.UserGeneralData;
 import icu.samnyan.aqua.sega.ongeki.model.userdata.UserPlaylog;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;

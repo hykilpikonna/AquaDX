@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.maimai.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.maimai.dao.userdata.UserGeneralDataRepository;
-import icu.samnyan.aqua.sega.maimai.handler.BaseHandler;
+import icu.samnyan.aqua.sega.general.BaseHandler;
 import icu.samnyan.aqua.sega.maimai.model.response.data.UserRecentRating;
 import icu.samnyan.aqua.sega.maimai.model.userdata.UserGeneralData;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.general.model.Card;
 import icu.samnyan.aqua.sega.general.service.CardService;
 import icu.samnyan.aqua.sega.maimai.dao.userdata.*;
-import icu.samnyan.aqua.sega.maimai.handler.BaseHandler;
+import icu.samnyan.aqua.sega.general.BaseHandler;
 import icu.samnyan.aqua.sega.maimai.model.request.UpsertUserAll;
 import icu.samnyan.aqua.sega.maimai.model.request.data.UserAll;
 import icu.samnyan.aqua.sega.maimai.model.response.data.UserGradeStatus;

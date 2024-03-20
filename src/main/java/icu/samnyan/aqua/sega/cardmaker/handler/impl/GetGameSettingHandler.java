@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.cardmaker.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import icu.samnyan.aqua.sega.cardmaker.handler.BaseHandler;
+import icu.samnyan.aqua.sega.general.BaseHandler;
 import icu.samnyan.aqua.sega.cardmaker.model.response.GetGameSettingResp;
 import icu.samnyan.aqua.sega.cardmaker.model.response.data.GameSetting;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;

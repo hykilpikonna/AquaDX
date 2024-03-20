@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.chunithm.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import icu.samnyan.aqua.sega.chunithm.handler.BaseHandler;
+import icu.samnyan.aqua.sega.general.BaseHandler;
 import icu.samnyan.aqua.sega.chunithm.model.userdata.UserGameOptionEx;
 import icu.samnyan.aqua.sega.chunithm.service.UserGameOptionExService;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
