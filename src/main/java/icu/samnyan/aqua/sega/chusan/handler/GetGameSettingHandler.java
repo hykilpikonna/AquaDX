@@ -67,8 +67,8 @@ public class GetGameSettingHandler implements BaseHandler {
             localAddr = "localhost";
         }
 
-        String addr = ALLNET_HOST.equals("") ? localAddr : ALLNET_HOST;
-        String port = ALLNET_PORT.equals("") ? SERVER_PORT : ALLNET_PORT;
+        String addr = ALLNET_HOST.isEmpty() ? localAddr : ALLNET_HOST;
+        String port = ALLNET_PORT.isEmpty() ? SERVER_PORT : ALLNET_PORT;
 
         GameSetting gameSetting = new GameSetting(
                 ROM_VERSION, // Chusan checks these two versions to determine if it can enable game modes

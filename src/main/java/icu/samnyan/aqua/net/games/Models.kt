@@ -1,15 +1,15 @@
 package icu.samnyan.aqua.net.games
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import icu.samnyan.aqua.sega.general.model.Card
+import jakarta.persistence.*
 import kotlinx.serialization.Serializable
-import org.springframework.context.annotation.Import
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.NoRepositoryBean
 import java.util.*
-import kotlin.system.measureTimeMillis
 
 data class TrendOut(val date: String, val rating: Int, val plays: Int)
 
@@ -96,6 +96,22 @@ interface IGenericGamePlaylog {
     val beforeRating: Int
     val afterRating: Int
     val isAllPerfect: Boolean
+}
+
+@MappedSuperclass
+open class BaseEntity(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
+    var id: Long = 0
+)
+
+@MappedSuperclass
+open class UserMappedEntity<T : IGenericUserData> : BaseEntity() {
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    open var user: T? = null
 }
 
 @NoRepositoryBean

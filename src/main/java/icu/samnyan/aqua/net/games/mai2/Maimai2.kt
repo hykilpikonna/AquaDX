@@ -8,6 +8,8 @@ import icu.samnyan.aqua.net.games.*
 import icu.samnyan.aqua.net.utils.*
 import icu.samnyan.aqua.sega.maimai2.model.*
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserDetail
+import org.springframework.transaction.PlatformTransactionManager
+import org.springframework.transaction.support.TransactionTemplate
 import org.springframework.web.bind.annotation.RestController
 import java.lang.reflect.Field
 import java.time.LocalDateTime
@@ -24,8 +26,11 @@ class Maimai2(
     override val userDataRepo: Mai2UserDataRepo,
     val userGeneralDataRepository: Mai2UserGeneralDataRepo,
     val repos: Mai2Repos,
-    val netProps: AquaNetProps
+    val netProps: AquaNetProps,
+    transManager: PlatformTransactionManager
 ): GameApiController<UserDetail>("mai2", UserDetail::class) {
+    val trans = TransactionTemplate(transManager)
+
     override suspend fun trend(@RP username: Str): List<TrendOut> = us.cardByName(username) { card ->
         findTrend(playlogRepo.findByUserCardExtId(card.extId)
             .map { TrendLog(it.playDate, it.afterRating) })
@@ -77,14 +82,31 @@ class Maimai2(
         val export = json.parseJson<Maimai2DataExport>()
         if (!export.gameId.equals("SDEZ", true)) 400 - "Invalid game ID"
 
+        // Validate new user data
+        // Check that all ids are 0 (this should be true since all ids are @JsonIgnore)
+        if (export.userData.id != 0L) 400 - "User ID must be 0"
+        exportFields.keys.forEach { it.gets<BaseEntity>(export).id.let { if (it != 0L) 400 - "ID must be 0" } }
+
+        // Set user card
+        export.userData.card = u.ghostCard
+        // Set user of the remaining data
+//        exportFields.values.forEach { it.setUser(export.userData) }
+
         // Check existing data
-        if (repos.userData.findByCard(u.ghostCard) != null) {
+        val gu = repos.userData.findByCard(u.ghostCard)?.also { gu ->
             // Store a backup of the old data
             val fl = "mai2-backup-${u.auId}-${LocalDateTime.now().isoDateTime()}.json"
             (Path(netProps.importBackupPath) / fl).writeText(export(u).toJson())
+        }
 
-            // Delete the old data
-            TODO()
+        trans.execute {
+            gu?.let {
+                // Delete the old data
+                exportFields.values.forEach { it.deleteByUser(gu) }
+                repos.userData.deleteByCard(u.ghostCard)
+            }
+
+            // Insert new data
         }
 
         TODO()

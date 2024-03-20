@@ -20,11 +20,8 @@ import org.apache.tika.Tika
 import org.apache.tika.mime.MimeTypes
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestHeader
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.*
+import java.lang.reflect.Field
 import java.nio.file.Path
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -69,6 +66,7 @@ fun <C, T: Any> KMutableProperty1<C, T>.setCast(obj: C, value: String) = set(obj
     Boolean::class -> value.toBoolean()
     else -> 400 - "Invalid field type $returnType"
 } as T)
+inline fun <reified T: Any> Field.gets(obj: Any) = get(obj) as T
 
 // Make it easier to throw a ResponseStatusException
 operator fun HttpStatus.invoke(message: String? = null): Nothing = throw ApiException(value(), message ?: this.reasonPhrase)
