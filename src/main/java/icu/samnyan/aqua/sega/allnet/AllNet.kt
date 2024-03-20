@@ -170,6 +170,7 @@ class AllNet(
         return "http://$addr:$port/$base/" + when (gameId) {
             "SDBT" -> "chu2/$ver/$serial/"
             "SDHD" -> "chu3/$ver/"
+            "SDGS" -> "chu3/$ver/"
             "SBZV" -> "diva/"
             "SDDT" -> "ongeki/"
             "SDEY" -> "mai/"

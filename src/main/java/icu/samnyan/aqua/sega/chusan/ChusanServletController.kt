@@ -67,6 +67,7 @@ class ChusanServletController(
 ) {
     val logger = LoggerFactory.getLogger(ChusanServletController::class.java)
 
+    val getUserCtoCPlay = BaseHandler { """{"userId":"${it["userId"]}","orderBy":"0","count":"0","userCtoCPlayList":[]}""" }
     val cmUpsertUserPrint = BaseHandler { """{"returnCode":1,"orderId":"0","serialId":"FAKECARDIMAG12345678","apiName":"CMUpsertUserPrintApi"}""" }
     val cmUpsertUserPrintlog = BaseHandler { """{"returnCode":1,"orderId":"0","serialId":"FAKECARDIMAG12345678","apiName":"CMUpsertUserPrintlogApi"}""" }
 
@@ -84,7 +85,10 @@ class ChusanServletController(
         "GetGameGachaCardByIdApi", "GetUserCardPrintErrorApi", "CMGetUserCharacterApi", "CMGetUserDataApi",
         "GetUserGachaApi", "CMGetUserItemApi", "CMGetUserPreviewApi", "GetUserPrintedCardApi", "PrinterLoginApi",
         "PrinterLogoutApi", "RollGachaApi", "CMUpsertUserGachaApi", "CMUpsertUserPrintApi", "CMUpsertUserPrintCancelApi",
-        "CMUpsertUserPrintlogApi", "CMUpsertUserPrintSubtractApi")
+        "CMUpsertUserPrintlogApi", "CMUpsertUserPrintSubtractApi",
+
+        // SDGS Exclusive
+        "GetUserCtoCPlayApi")
 
     val noopEndpoint = endpointList.popAll("UpsertClientBookkeepingApi", "UpsertClientDevelopApi", "UpsertClientErrorApi",
         "UpsertClientSettingApi", "UpsertClientTestmodeApi", "CreateTokenApi", "RemoveTokenApi", "UpsertClientUploadApi",
