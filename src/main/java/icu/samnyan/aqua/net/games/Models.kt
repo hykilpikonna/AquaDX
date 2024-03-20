@@ -113,10 +113,3 @@ interface GenericPlaylogRepo<T: IGenericGamePlaylog> : JpaRepository<T, Long> {
 }
 
 data class ImportResult(val errors: List<String>, val warnings: List<String>, val json: String)
-
-interface GameDataImport {
-    /**
-     * Read an artemis SQL dump file and return Aqua JSON
-     */
-    fun importArtemisSql(sql: String): ImportResult
-}

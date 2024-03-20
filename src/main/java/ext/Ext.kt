@@ -82,6 +82,7 @@ fun Str.isValidEmail(): Bool = emailRegex.matches(this)
 // JSON
 val ACCEPTABLE_FALSE = setOf("0", "false", "no", "off", "False", "None", "null")
 val ACCEPTABLE_TRUE = setOf("1", "true", "yes", "on", "True")
+@Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN", "UNCHECKED_CAST")
 val jackson = ObjectMapper().apply {
     registerModule(SimpleModule().addDeserializer(Boolean::class.java, object : JsonDeserializer<Boolean>() {
         override fun deserialize(parser: JsonParser, context: DeserializationContext) = when(parser.text) {
@@ -143,6 +144,7 @@ operator fun <K, V> MutableMap<K, V>.plusAssign(map: Map<K, V>) { putAll(map) }
 operator fun Str.get(range: IntRange) = substring(range.first, (range.last + 1).coerceAtMost(length))
 operator fun Str.get(start: Int, end: Int) = substring(start, end.coerceAtMost(length))
 fun Str.center(width: Int, padChar: Char = ' ') = padStart((length + width) / 2, padChar).padEnd(width, padChar)
+fun Str.splitLines() = replace("\r\n", "\n").split('\n')
 
 // Coroutine
 suspend fun <T> async(block: suspend kotlinx.coroutines.CoroutineScope.() -> T): T = withContext(Dispatchers.IO) { block() }

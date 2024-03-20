@@ -44,25 +44,3 @@ fun findTrend(log: List<TrendLog>): List<TrendOut> {
 }
 
 fun List<IGenericGamePlaylog>.acc() = if (isEmpty()) 0.0 else sumOf { it.achievement }.toDouble() / size / 10000.0
-
-val insertPattern = """INSERT INTO\s+(\w+)\s*\(([^)]+)\)\s*VALUES\s*\(([^)]+)\);""".toRegex()
-data class SqlInsert(val table: String, val mapping: Map<String, String>)
-fun String.asSqlInsert(): SqlInsert {
-    val match = insertPattern.matchEntire(this) ?: error("Does not match insert pattern")
-    val (table, rawCols, rawVals) = match.destructured
-    val cols = rawCols.split(',').map { it.trim(' ', '"') }
-
-    // Parse values with proper quote handling
-    val vals = mutableListOf<String>()
-    var startI = 0
-    var insideQuote = false
-    rawVals.forEachIndexed { i, c ->
-        if (c == ',' && !insideQuote) {
-            vals.add(rawVals.substring(startI, i).trim(' ', '"'))
-            startI = i + 1
-        } else if (c == '"') insideQuote = !insideQuote
-    }
-
-    assert(cols.size == vals.size) { "Column and value count mismatch" }
-    return SqlInsert(table, cols.zip(vals).toMap())
-}
