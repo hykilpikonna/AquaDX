@@ -14,6 +14,7 @@ plugins {
     id("io.freefair.lombok") version "8.6"
     id("org.springframework.boot") version "3.2.3"
     id("com.github.ben-manes.versions") version "0.51.0"
+    application
 }
 
 apply(plugin = "io.spring.dependency-management")
