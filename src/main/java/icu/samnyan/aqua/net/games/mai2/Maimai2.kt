@@ -47,8 +47,7 @@ class Maimai2(
     }
 
     // Use reflection to get all properties in Mai2Repos with matching names in Maimai2DataExport
-    var exportFields: Map<Field, UserLinked<*>> = listOf(*Maimai2DataExport::class.java.declaredFields)
-        .filter { it.name !in arrayOf("gameId", "userData") }
+    val exportFields: Map<Field, UserLinked<*>> = listOf(*Maimai2DataExport::class.java.declaredFields)
         .associateWith { Mai2Repos::class.declaredMembers
             .filter { f -> f returns UserLinked::class }
             .firstOrNull { f -> f.name == it.name || f.name == it.name.replace("List", "") }
@@ -62,6 +61,7 @@ class Maimai2(
                 gameId = "SDEZ"
                 userData = repos.userData.findByCard(u.ghostCard) ?: (404 - "User not found")
                 exportFields.forEach { (f, u) ->
+                    if (f.name == "gameId" || f.name == "userData") return@forEach
                     f.set(this, if (f.type == List::class.java) u.findByUser(userData)
                         else u.findSingleByUser(userData).orElse(null))
                 }
