@@ -1,17 +1,8 @@
 ALTER TABLE chusan_user_playlog
-    ADD machine_type INT NULL;
+    ADD machine_type INT NOT NULL DEFAULT 0;
 
 ALTER TABLE chusan_user_playlog
-    ADD region_id INT NULL;
+    ADD region_id INT NOT NULL DEFAULT 0;
 
 ALTER TABLE chusan_user_playlog
-    ADD ticket_id INT NULL;
-
-ALTER TABLE chusan_user_playlog
-    MODIFY machine_type INT NOT NULL DEFAULT 0;
-
-ALTER TABLE chusan_user_playlog
-    MODIFY region_id INT NOT NULL DEFAULT 0;
-
-ALTER TABLE chusan_user_playlog
-    MODIFY ticket_id INT NOT NULL DEFAULT 0;
+    ADD ticket_id INT NOT NULL DEFAULT 0;
