@@ -43,6 +43,9 @@ dependencies {
     testImplementation("org.springframework.security:spring-security-test")
     implementation("net.logstash.logback:logstash-logback-encoder:7.4")
 
+    // Development tools
+    compileOnly("org.springframework.boot:spring-boot-devtools")
+
     // Database
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client:3.3.3")
     runtimeOnly("org.xerial:sqlite-jdbc:3.45.2.0")
