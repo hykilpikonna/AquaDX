@@ -4,13 +4,15 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 plugins {
+    val ktVer = "2.0.0-Beta4"
+
     java
-    kotlin("plugin.lombok") version "1.9.22"
-    kotlin("jvm") version "1.9.22"
-    kotlin("plugin.spring") version "1.9.22"
-    kotlin("plugin.serialization") version "1.9.22"
+    kotlin("plugin.lombok") version ktVer
+    kotlin("jvm") version ktVer
+    kotlin("plugin.spring") version ktVer
+    kotlin("plugin.serialization") version ktVer
     id("io.freefair.lombok") version "8.6"
-    id("org.springframework.boot") version "3.2.2"
+    id("org.springframework.boot") version "3.2.3"
     id("com.github.ben-manes.versions") version "0.51.0"
 }
 
@@ -32,8 +34,8 @@ dependencies {
     implementation("io.netty:netty-all")
     implementation("org.apache.commons:commons-lang3:3.14.0")
     implementation("org.apache.httpcomponents.client5:httpclient5")
-    implementation("org.flywaydb:flyway-core:10.8.1")
-    implementation("org.flywaydb:flyway-mysql:10.8.1")
+    implementation("org.flywaydb:flyway-core:10.10.0")
+    implementation("org.flywaydb:flyway-mysql:10.10.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
@@ -41,8 +43,8 @@ dependencies {
     implementation("net.logstash.logback:logstash-logback-encoder:7.4")
 
     // Database
-    runtimeOnly("org.mariadb.jdbc:mariadb-java-client:3.3.2")
-    runtimeOnly("org.xerial:sqlite-jdbc:3.45.1.0")
+    runtimeOnly("org.mariadb.jdbc:mariadb-java-client:3.3.3")
+    runtimeOnly("org.xerial:sqlite-jdbc:3.45.2.0")
     implementation("org.hibernate.orm:hibernate-core:6.4.4.Final")
     implementation("org.hibernate.orm:hibernate-community-dialects:6.4.4.Final")
 
@@ -58,7 +60,7 @@ dependencies {
     implementation("io.ktor:ktor-client-cio:2.3.8")
     implementation("io.ktor:ktor-client-content-negotiation:2.3.8")
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.8")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.22")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
 
     // Somehow these are needed for ktor even though they're not in the documentation
     runtimeOnly("org.reactivestreams:reactive-streams:1.0.4")
