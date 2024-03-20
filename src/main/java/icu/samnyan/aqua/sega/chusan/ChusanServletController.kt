@@ -103,6 +103,12 @@ class ChusanServletController(
         var api = endpoint
         request["version"] = version
 
+        // Export version
+        if (api.endsWith("C3Exp")) {
+            api = api.removeSuffix("C3Exp")
+            request["c3exp"] = true
+        }
+
         logger.info("Chu3 $api : $request")
 
         if (api in noopEndpoint) {
