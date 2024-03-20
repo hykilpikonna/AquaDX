@@ -80,6 +80,9 @@ dependencies {
 
     // Content validation
     implementation("org.apache.tika:tika-core:2.9.1")
+
+    // Import: DateTime Parsing
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.0")
 }
 
 group = "icu.samnya"

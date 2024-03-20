@@ -84,6 +84,7 @@ val ACCEPTABLE_FALSE = setOf("0", "false", "no", "off", "False", "None", "null")
 val ACCEPTABLE_TRUE = setOf("1", "true", "yes", "on", "True")
 @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN", "UNCHECKED_CAST")
 val jackson = ObjectMapper().apply {
+    findAndRegisterModules()
     registerModule(SimpleModule().addDeserializer(Boolean::class.java, object : JsonDeserializer<Boolean>() {
         override fun deserialize(parser: JsonParser, context: DeserializationContext) = when(parser.text) {
             in ACCEPTABLE_FALSE -> false
@@ -98,6 +99,9 @@ val jackson = ObjectMapper().apply {
                 else text.split(',').map { it.trim().toInt() } as List<Integer>
             } catch (e: Exception) {
                 400 - "Invalid list value ${parser.text}: $e" }
+    }).addDeserializer(LocalDateTime::class.java, object : JsonDeserializer<LocalDateTime>() {
+        override fun deserialize(parser: JsonParser, context: DeserializationContext) =
+            parser.text.asDateTime() ?: (400 - "Invalid date time value ${parser.text}")
     }))
 }
 @OptIn(ExperimentalSerializationApi::class)
@@ -130,6 +134,11 @@ fun millis() = System.currentTimeMillis()
 val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 fun LocalDate.isoDate() = format(DATE_FORMAT)
 fun LocalDateTime.isoDateTime() = format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+
+val ALT_DATETIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+fun Str.asDateTime() = try { LocalDateTime.parse(this, DateTimeFormatter.ISO_LOCAL_DATE_TIME) }
+catch (e: Exception) { try { LocalDateTime.parse(this, ALT_DATETIME_FORMAT) }
+catch (e: Exception) { null } }
 
 // Encodings
 fun Long.toHex(len: Int = 16): Str = "0x${this.toString(len).padStart(len, '0').uppercase()}"
