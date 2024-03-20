@@ -17,19 +17,20 @@ class Chusan(
     override val playlogRepo: Chu3UserPlaylogRepo,
     override val userDataRepo: Chu3UserDataRepo,
     val userGeneralDataRepository: Chu3UserGeneralDataRepo,
-): GameApiController<UserData>("chu3") {
+): GameApiController<UserData>("chu3", UserData::class) {
     override suspend fun trend(@RP username: Str): List<TrendOut> = us.cardByName(username) { card ->
         findTrend(playlogRepo.findByUserCardExtId(card.extId)
             .map { TrendLog(it.playDate.toString(), it.playerRating) })
     }
 
+
     // Only show > AAA rank
     override val shownRanks = chu3Scores.filter { it.first >= 95 * 10000 }
-    override val settableFields: Map<String, (UserData, String) -> Unit> = mapOf(
-        "name" to { u, v -> u.setUserName(v)
+    override val settableFields: Map<String, (UserData, String) -> Unit> by lazy { mapOf(
+        "userName" to { u, v -> u.setUserName(v)
             if (!v.all { it in USERNAME_CHARS }) { 400 - "Invalid character in username" }
         },
-    )
+    ) }
 
     override suspend fun userSummary(@RP username: Str) = us.cardByName(username) { card ->
         // Summary values: total plays, player rating, server-wide ranking

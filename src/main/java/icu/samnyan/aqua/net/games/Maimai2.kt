@@ -24,7 +24,7 @@ class Maimai2(
     override val userDataRepo: Mai2UserDataRepo,
     val userGeneralDataRepository: Mai2UserGeneralDataRepo,
     val repos: Mai2Repos
-): GameApiController<UserDetail>("mai2") {
+): GameApiController<UserDetail>("mai2", UserDetail::class) {
     override suspend fun trend(@RP username: Str): List<TrendOut> = us.cardByName(username) { card ->
         findTrend(playlogRepo.findByUserCardExtId(card.extId)
             .map { TrendLog(it.playDate, it.afterRating) })
@@ -32,11 +32,11 @@ class Maimai2(
 
     // Only show > S rank
     override val shownRanks = mai2Scores.filter { it.first >= 97 * 10000 }
-    override val settableFields: Map<String, (UserDetail, String) -> Unit> = mapOf(
-        "name" to { u, v -> u.userName = v
+    override val settableFields: Map<String, (UserDetail, String) -> Unit> by lazy { mapOf(
+        "userName" to { u, v -> u.userName = v
             if (!v.all { it in USERNAME_CHARS }) { 400 - "Invalid character in username" }
         },
-    )
+    ) }
 
     override suspend fun userSummary(@RP username: Str) = us.cardByName(username) { card ->
         val extra = userGeneralDataRepository.findByUser_Card_ExtId(card.extId)

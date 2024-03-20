@@ -3,6 +3,7 @@ package icu.samnyan.aqua.net.games
 import ext.*
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.*
+import icu.samnyan.aqua.sega.chusan.model.userdata.UserData
 import icu.samnyan.aqua.sega.general.model.Card
 import kotlinx.serialization.Serializable
 import org.springframework.data.domain.Page
@@ -12,6 +13,7 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.NoRepositoryBean
 import java.util.*
 import kotlin.jvm.optionals.getOrNull
+import kotlin.reflect.KClass
 
 data class TrendOut(val date: String, val rating: Int, val plays: Int)
 
@@ -114,7 +116,7 @@ interface GenericPlaylogRepo<T: IGenericGamePlaylog> : JpaRepository<T, Long> {
     fun findByUserCardExtId(extId: Long, page: Pageable): Page<T>
 }
 
-abstract class GameApiController<T : IGenericUserData>(name: String) {
+abstract class GameApiController<T : IGenericUserData>(name: String, userDataClass: KClass<T>) {
     val musicMapping = resJson<Map<String, GenericMusicMeta>>("/meta/$name/music.json")
         ?.mapKeys { it.key.toInt() } ?: emptyMap()
 
@@ -165,14 +167,24 @@ abstract class GameApiController<T : IGenericUserData>(name: String) {
     @API("playlog")
     fun playlog(@RP id: Long): IGenericGamePlaylog = playlogRepo.findById(id).getOrNull() ?: (404 - "Playlog not found")
 
-    @API("user-setting")
-    suspend fun userSetting(@RP username: String, @RP field: String, @RP value: String): Any {
+    val userDetailFields by lazy { userDataClass.gettersMap().let { vm ->
+        settableFields.map { (k, _) -> k to (vm[k] ?: error("Field $k not found")) }.toMap()
+    } }
+
+    @API("user-detail")
+    suspend fun userDetail(@RP username: String) = us.cardByName(username) { card ->
+        val u = userDataRepo.findByCard(card) ?: (404 - "User not found")
+        userDetailFields.toList().associate { (k, f) -> k to f.invoke(u) }
+    }
+
+    @API("user-detail-set")
+    suspend fun userDetailSet(@RP token: String, @RP field: String, @RP value: String): Any {
         val prop = settableFields[field] ?: (400 - "Invalid field $field")
 
-        return us.cardByName(username) { card ->
-            val user = userDataRepo.findByCard(card) ?: (404 - "User not found")
+        return us.jwt.auth(token) { u ->
+            val user = async { userDataRepo.findByCard(u.ghostCard) } ?: (404 - "User not found")
             prop(user, value)
-            userDataRepo.save(user)
+            async { userDataRepo.save(user) }
             SUCCESS
         }
     }
