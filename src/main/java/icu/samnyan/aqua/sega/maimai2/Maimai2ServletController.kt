@@ -1,9 +1,9 @@
 package icu.samnyan.aqua.sega.maimai2
 
 import ext.API
-import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler
+import icu.samnyan.aqua.sega.general.BaseHandler
+import icu.samnyan.aqua.sega.maimai2.handler.*
 import icu.samnyan.aqua.sega.maimai2.handler.impl.*
-import lombok.AllArgsConstructor
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.*
 import kotlin.reflect.full.declaredMemberProperties
@@ -12,7 +12,6 @@ import kotlin.reflect.full.declaredMemberProperties
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Suppress("unused")
-@AllArgsConstructor
 @RestController
 @RequestMapping(path = ["/g/mai2/Maimai2Servlet/", "/g/mai2/"])
 class Maimai2ServletController(
