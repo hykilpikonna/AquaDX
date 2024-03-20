@@ -145,6 +145,14 @@ public class UserPlaylog implements Serializable, IGenericGamePlaylog {
 
     private int commonId;
 
+    // SUN
+    private int regionId;
+
+    private int machineType;
+
+    // SUN PLUS
+    private int ticketId;
+
     public UserPlaylog(UserData userData) {
         user = userData;
     }
