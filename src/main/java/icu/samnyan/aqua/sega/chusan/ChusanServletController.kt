@@ -92,7 +92,7 @@ class ChusanServletController(
 
     val members = this::class.declaredMemberProperties
     val handlers: Map<String, BaseHandler> = endpointList.associateWith { api ->
-        val name = api.replace("Api", "").lowercase()
+        val name = api.replace("Api", "").replace("MatchingServer/", "").lowercase()
         (members.find { it.name.lowercase() == name } ?: members.find { it.name.lowercase() == name.replace("cm", "") })
             ?.let { it.call(this) as BaseHandler }
             ?: throw IllegalArgumentException("Chu3: No handler found for $api")
