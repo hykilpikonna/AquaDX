@@ -1,5 +1,10 @@
 package ext
 
+import com.fasterxml.jackson.core.JsonParser
+import com.fasterxml.jackson.databind.DeserializationContext
+import com.fasterxml.jackson.databind.JsonDeserializer
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.module.SimpleModule
 import icu.samnyan.aqua.net.utils.ApiException
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
@@ -74,13 +79,33 @@ operator fun Int.minus(message: String): Nothing {
 val emailRegex = "^(?=.{1,64}@)[\\p{L}0-9_-]+(\\.[\\p{L}0-9_-]+)*@[^-][\\p{L}0-9-]+(\\.[\\p{L}0-9-]+)*(\\.[\\p{L}]{2,})$".toRegex()
 fun Str.isValidEmail(): Bool = emailRegex.matches(this)
 
-// Global tools
+// JSON
+val ACCEPTABLE_FALSE = setOf("0", "false", "no", "off", "False", "None", "null")
+val ACCEPTABLE_TRUE = setOf("1", "true", "yes", "on", "True")
+val jackson = ObjectMapper().apply {
+    registerModule(SimpleModule().addDeserializer(Boolean::class.java, object : JsonDeserializer<Boolean>() {
+        override fun deserialize(parser: JsonParser, context: DeserializationContext) = when(parser.text) {
+            in ACCEPTABLE_FALSE -> false
+            in ACCEPTABLE_TRUE -> true
+            else -> 400 - "Invalid boolean value ${parser.text}"
+        }
+    }).addDeserializer(List::class.java, object : JsonDeserializer<List<Integer>>() {
+        override fun deserialize(parser: JsonParser, context: DeserializationContext) =
+            try {
+                val text = parser.text.trim('[', ']')
+                if (text.isEmpty()) emptyList()
+                else text.split(',').map { it.trim().toInt() } as List<Integer>
+            } catch (e: Exception) {
+                400 - "Invalid list value ${parser.text}: $e" }
+    }))
+}
 @OptIn(ExperimentalSerializationApi::class)
 val JSON = Json {
     ignoreUnknownKeys = true
     isLenient = true
     namingStrategy = JsonNamingStrategy.SnakeCase
 }
+// Global Tools
 val HTTP = HttpClient(CIO) {
     install(ContentNegotiation) {
         json(JSON)
