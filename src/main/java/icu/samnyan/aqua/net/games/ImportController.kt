@@ -20,7 +20,7 @@ abstract class ImportController<T: Any>(
 
     init {
         renameTable.values.forEach {
-            if (it.name !in exportFields) error("Code error! Export fields incomplete")
+            if (it.name !in exportFields) error("Code error! Export fields incomplete: missing ${it.name}")
         }
     }
 

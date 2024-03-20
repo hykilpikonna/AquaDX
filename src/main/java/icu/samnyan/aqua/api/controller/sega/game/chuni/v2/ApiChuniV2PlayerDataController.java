@@ -6,7 +6,7 @@ import icu.samnyan.aqua.api.model.ReducedPageResponse;
 import icu.samnyan.aqua.api.model.resp.sega.chuni.v2.ProfileResp;
 import icu.samnyan.aqua.api.model.resp.sega.chuni.v2.RatingItem;
 import icu.samnyan.aqua.api.model.resp.sega.chuni.v2.RecentResp;
-import icu.samnyan.aqua.api.model.resp.sega.chuni.v2.external.ChuniDataExport;
+import icu.samnyan.aqua.api.model.resp.sega.chuni.v2.external.Chu3DataExport;
 import icu.samnyan.aqua.api.model.resp.sega.chuni.v2.external.ChuniDataImport;
 import icu.samnyan.aqua.api.model.resp.sega.chuni.v2.external.ExternalUserData;
 import icu.samnyan.aqua.api.util.ApiMapper;
@@ -22,7 +22,6 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -399,7 +398,7 @@ public class ApiChuniV2PlayerDataController {
 
     @GetMapping("export")
     public ResponseEntity<Object> exportAllUserData(@RequestParam String aimeId) {
-        ChuniDataExport data = new ChuniDataExport();
+        Chu3DataExport data = new Chu3DataExport();
         try {
             data.setGameId("SDHD");
             data.setUserData(userDataService.getUserByExtId(aimeId).orElseThrow());
