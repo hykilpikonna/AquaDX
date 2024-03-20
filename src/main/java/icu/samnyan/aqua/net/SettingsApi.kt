@@ -40,14 +40,6 @@ class SettingsApi(
             userRepo.save(u.apply { gameOptions = it })
         }
         // Check field type
-//        val type = field.returnType
-//        val newValue = when (type.classifier) {
-//            String::class -> value
-//            Int::class -> value.toInt()
-//            Boolean::class -> value.toBoolean()
-//            else -> (400 - "Invalid field type $type")
-//        }
-//        field.set(options, newValue)
         field.setCast(options, value)
         goRepo.save(options)
     }

@@ -1,13 +1,14 @@
 package icu.samnyan.aqua.net.games.chu3
 
+import ext.API
 import icu.samnyan.aqua.api.model.resp.sega.chuni.v2.external.Chu3DataExport
 import icu.samnyan.aqua.net.games.ImportClass
 import icu.samnyan.aqua.net.games.ImportController
 import icu.samnyan.aqua.sega.chusan.model.userdata.*
-import kotlin.io.path.Path
-import kotlin.io.path.readText
+import org.springframework.web.bind.annotation.RestController
 
-
+@RestController
+@API("api/v2/game/chu3")
 class Chu3Import : ImportController<Chu3DataExport>(
     exportFields = Chu3DataExport::class.java.declaredFields.associateBy {
         var name = it.name
@@ -34,8 +35,4 @@ class Chu3Import : ImportController<Chu3DataExport>(
 ) {
     override fun createEmpty() = Chu3DataExport("SDEZ", UserData(), UserGameOption(), ArrayList(), ArrayList(),
         ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList())
-}
-
-fun main() {
-    Chu3Import().importArtemisSql(Path("C:\\Users\\Azalea\\Downloads\\all_inserts (2).sql").readText())
 }

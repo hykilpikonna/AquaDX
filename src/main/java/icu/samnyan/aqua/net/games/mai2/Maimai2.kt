@@ -2,6 +2,7 @@ package icu.samnyan.aqua.net.games.mai2
 
 import ext.*
 import icu.samnyan.aqua.api.model.resp.sega.maimai2.external.Maimai2DataExport
+import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.games.*
 import icu.samnyan.aqua.net.utils.*
@@ -9,7 +10,10 @@ import icu.samnyan.aqua.sega.maimai2.model.*
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserDetail
 import org.springframework.web.bind.annotation.RestController
 import java.lang.reflect.Field
+import java.time.LocalDateTime
 import java.util.*
+import kotlin.io.path.Path
+import kotlin.io.path.writeText
 import kotlin.reflect.full.declaredMembers
 
 @RestController
@@ -19,7 +23,8 @@ class Maimai2(
     override val playlogRepo: Mai2UserPlaylogRepo,
     override val userDataRepo: Mai2UserDataRepo,
     val userGeneralDataRepository: Mai2UserGeneralDataRepo,
-    val repos: Mai2Repos
+    val repos: Mai2Repos,
+    val netProps: AquaNetProps
 ): GameApiController<UserDetail>("mai2", UserDetail::class) {
     override suspend fun trend(@RP username: Str): List<TrendOut> = us.cardByName(username) { card ->
         findTrend(playlogRepo.findByUserCardExtId(card.extId)
@@ -49,23 +54,40 @@ class Maimai2(
     // Use reflection to get all properties in Mai2Repos with matching names in Maimai2DataExport
     val exportFields: Map<Field, UserLinked<*>> = listOf(*Maimai2DataExport::class.java.declaredFields)
         .associateWith { Mai2Repos::class.declaredMembers
+            .filter { f -> f.name !in setOf("gameId", "userData") }
             .filter { f -> f returns UserLinked::class }
             .firstOrNull { f -> f.name == it.name || f.name == it.name.replace("List", "") }
             ?.call(repos) as UserLinked<*>? ?: error("No matching field found for ${it.name}")
         }
 
+    fun export(u: AquaNetUser) = Maimai2DataExport().apply {
+        gameId = "SDEZ"
+        userData = repos.userData.findByCard(u.ghostCard) ?: (404 - "User not found")
+        exportFields.forEach { (f, u) ->
+            if (f.name == "gameId" || f.name == "userData") return@forEach
+            f.set(this, if (f.type == List::class.java) u.findByUser(userData)
+            else u.findSingleByUser(userData).orElse(null))
+        }
+    }
+
     @API("export")
-    fun exportAllUserData(@RP token: Str) = us.jwt.auth(token) { u ->
-        try {
-            Maimai2DataExport().apply {
-                gameId = "SDEZ"
-                userData = repos.userData.findByCard(u.ghostCard) ?: (404 - "User not found")
-                exportFields.forEach { (f, u) ->
-                    if (f.name == "gameId" || f.name == "userData") return@forEach
-                    f.set(this, if (f.type == List::class.java) u.findByUser(userData)
-                        else u.findSingleByUser(userData).orElse(null))
-                }
-            }
-        } catch (e: Exception) { 500 - "Error during data export. Reason: ${e.message}" }
+    fun exportAllUserData(@RP token: Str) = us.jwt.auth(token) { u -> export(u) }
+
+    @API("import")
+    fun importUserData(@RP token: Str, @RP json: Str) = us.jwt.auth(token) { u ->
+        val export = json.parseJson<Maimai2DataExport>()
+        if (!export.gameId.equals("SDEZ", true)) 400 - "Invalid game ID"
+
+        // Check existing data
+        if (repos.userData.findByCard(u.ghostCard) != null) {
+            // Store a backup of the old data
+            val fl = "mai2-backup-${u.auId}-${LocalDateTime.now().isoDateTime()}.json"
+            (Path(netProps.importBackupPath) / fl).writeText(export(u).toJson())
+
+            // Delete the old data
+            TODO()
+        }
+
+        TODO()
     }
 }

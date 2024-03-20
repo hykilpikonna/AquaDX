@@ -2,6 +2,7 @@ package ext
 
 import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
@@ -19,6 +20,7 @@ import org.apache.tika.Tika
 import org.apache.tika.mime.MimeTypes
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
@@ -37,6 +39,7 @@ import kotlin.reflect.jvm.jvmErasure
 typealias RP = RequestParam
 typealias RB = RequestBody
 typealias RH = RequestHeader
+typealias PV = PathVariable
 typealias API = RequestMapping
 typealias Str = String
 typealias Bool = Boolean
@@ -83,7 +86,7 @@ fun Str.isValidEmail(): Bool = emailRegex.matches(this)
 val ACCEPTABLE_FALSE = setOf("0", "false", "no", "off", "False", "None", "null")
 val ACCEPTABLE_TRUE = setOf("1", "true", "yes", "on", "True")
 @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN", "UNCHECKED_CAST")
-val jackson = ObjectMapper().apply {
+val JACKSON = ObjectMapper().apply {
     findAndRegisterModules()
     registerModule(SimpleModule().addDeserializer(Boolean::class.java, object : JsonDeserializer<Boolean>() {
         override fun deserialize(parser: JsonParser, context: DeserializationContext) = when(parser.text) {
@@ -103,7 +106,10 @@ val jackson = ObjectMapper().apply {
         override fun deserialize(parser: JsonParser, context: DeserializationContext) =
             parser.text.asDateTime() ?: (400 - "Invalid date time value ${parser.text}")
     }))
+    configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 }
+inline fun <reified T> Str.parseJson() = JACKSON.readValue(this, T::class.java)
+fun <T> T.toJson() = JACKSON.writeValueAsString(this)
 @OptIn(ExperimentalSerializationApi::class)
 val JSON = Json {
     ignoreUnknownKeys = true
@@ -144,10 +150,12 @@ catch (e: Exception) { null } }
 fun Long.toHex(len: Int = 16): Str = "0x${this.toString(len).padStart(len, '0').uppercase()}"
 fun Map<String, Any>.toUrl() = entries.joinToString("&") { (k, v) -> "$k=$v" }
 
-// Map
+// Collections
 operator fun <K, V> Map<K, V>.plus(map: Map<K, V>) =
     (if (this is MutableMap) this else toMutableMap()).apply { putAll(map) }
 operator fun <K, V> MutableMap<K, V>.plusAssign(map: Map<K, V>) { putAll(map) }
+fun <T> MutableList<T>.popAll(list: List<T>) = list.also { removeAll(it) }
+fun <T> MutableList<T>.popAll(vararg items: T) = popAll(items.toList())
 
 // Strings
 operator fun Str.get(range: IntRange) = substring(range.first, (range.last + 1).coerceAtMost(length))

@@ -7,4 +7,5 @@ import org.springframework.context.annotation.Configuration
 @ConfigurationProperties(prefix = "aqua-net")
 class AquaNetProps {
     var linkCardLimit: Int = 10
+    var importBackupPath = "data/import-backups"
 }

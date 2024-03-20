@@ -1,10 +1,14 @@
 package icu.samnyan.aqua.net.games.mai2
 
+import ext.API
 import icu.samnyan.aqua.api.model.resp.sega.maimai2.external.Maimai2DataExport
 import icu.samnyan.aqua.net.games.ImportClass
 import icu.samnyan.aqua.net.games.ImportController
 import icu.samnyan.aqua.sega.maimai2.model.userdata.*
+import org.springframework.web.bind.annotation.RestController
 
+@RestController
+@API("api/v2/game/mai2")
 class Mai2Import : ImportController<Maimai2DataExport>(
     exportFields = Maimai2DataExport::class.java.declaredFields.associateBy {
         it.name.replace("List", "").lowercase()

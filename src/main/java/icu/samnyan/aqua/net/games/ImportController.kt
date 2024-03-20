@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.net.games
 
-import ext.jackson
+import ext.JACKSON
 import ext.splitLines
 import java.lang.reflect.Field
 import kotlin.reflect.KClass
@@ -54,7 +54,7 @@ abstract class ImportController<T: Any>(
             lists[tb.name]?.add(obj) ?: field.set(data, obj)
         }
 
-        return ImportResult(errors, warnings, jackson.writeValueAsString(data))
+        return ImportResult(errors, warnings, JACKSON.writeValueAsString(data))
     }
 
     companion object
@@ -69,7 +69,7 @@ abstract class ImportController<T: Any>(
             // Process Nones
             dict = dict.filterValues { it != "None" }
 
-            return jackson.convertValue(dict, type.java)
+            return JACKSON.convertValue(dict, type.java)
         }
     }
 }
