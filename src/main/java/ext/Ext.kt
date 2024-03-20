@@ -22,9 +22,12 @@ import java.nio.file.Path
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import kotlin.reflect.KCallable
 import kotlin.reflect.KClass
 import kotlin.reflect.KMutableProperty1
+import kotlin.reflect.full.isSubclassOf
 import kotlin.reflect.full.memberProperties
+import kotlin.reflect.jvm.jvmErasure
 
 typealias RP = RequestParam
 typealias RB = RequestBody
@@ -50,6 +53,7 @@ fun <T : Any> KClass<T>.vars() = memberProperties.mapNotNull { it as? KMutablePr
 fun <T : Any> KClass<T>.varsMap() = vars().associateBy { it.name }
 fun <T : Any> KClass<T>.getters() = java.methods.filter { it.name.startsWith("get") }
 fun <T : Any> KClass<T>.gettersMap() = getters().associateBy { it.name.removePrefix("get").decapitalize() }
+infix fun KCallable<*>.returns(type: KClass<*>) = returnType.jvmErasure.isSubclassOf(type)
 @Suppress("UNCHECKED_CAST")
 fun <C, T: Any> KMutableProperty1<C, T>.setCast(obj: C, value: String) = set(obj, when (returnType.classifier) {
     String::class -> value

@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.maimai2.handler.impl
 
-import icu.samnyan.aqua.net.games.Maimai2
+import icu.samnyan.aqua.net.games.mai2.Maimai2
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.maimai2.handler.BaseHandler
 import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
