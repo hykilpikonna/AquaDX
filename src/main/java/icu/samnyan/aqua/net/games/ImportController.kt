@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.module.SimpleModule
+import ext.API
 import ext.JACKSON
 import ext.minus
 import ext.splitLines
@@ -33,6 +34,7 @@ abstract class ImportController<T: Any>(
      * Read an artemis SQL dump file and return Aqua JSON
      */
     @Suppress("UNCHECKED_CAST")
+    @API("convert-artemis")
     fun importArtemisSql(sql: String): ImportResult {
         val data = createEmpty()
         val errors = ArrayList<String>()
