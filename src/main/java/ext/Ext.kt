@@ -1,5 +1,6 @@
 package ext
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.DeserializationFeature
@@ -85,37 +86,42 @@ fun Str.isValidEmail(): Bool = emailRegex.matches(this)
 // JSON
 val ACCEPTABLE_FALSE = setOf("0", "false", "no", "off", "False", "None", "null")
 val ACCEPTABLE_TRUE = setOf("1", "true", "yes", "on", "True")
-@Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN", "UNCHECKED_CAST")
+val JSON_FUZZY_BOOLEAN = SimpleModule().addDeserializer(Boolean::class.java, object : JsonDeserializer<Boolean>() {
+    override fun deserialize(parser: JsonParser, context: DeserializationContext) = when(parser.text) {
+        in ACCEPTABLE_FALSE -> false
+        in ACCEPTABLE_TRUE -> true
+        else -> 400 - "Invalid boolean value ${parser.text}"
+    }
+})
+val JSON_DATETIME = SimpleModule().addDeserializer(LocalDateTime::class.java, object : JsonDeserializer<LocalDateTime>() {
+    override fun deserialize(parser: JsonParser, context: DeserializationContext) =
+        parser.text.asDateTime() ?: (400 - "Invalid date time value ${parser.text}")
+})
 val JACKSON = ObjectMapper().apply {
+    setSerializationInclusion(JsonInclude.Include.NON_NULL)
+    setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL)
     findAndRegisterModules()
-    registerModule(SimpleModule().addDeserializer(Boolean::class.java, object : JsonDeserializer<Boolean>() {
-        override fun deserialize(parser: JsonParser, context: DeserializationContext) = when(parser.text) {
-            in ACCEPTABLE_FALSE -> false
-            in ACCEPTABLE_TRUE -> true
-            else -> 400 - "Invalid boolean value ${parser.text}"
-        }
-    }).addDeserializer(List::class.java, object : JsonDeserializer<List<Integer>>() {
-        override fun deserialize(parser: JsonParser, context: DeserializationContext) =
-            try {
-                val text = parser.text.trim('[', ']')
-                if (text.isEmpty()) emptyList()
-                else text.split(',').map { it.trim().toInt() } as List<Integer>
-            } catch (e: Exception) {
-                400 - "Invalid list value ${parser.text}: $e" }
-    }).addDeserializer(LocalDateTime::class.java, object : JsonDeserializer<LocalDateTime>() {
-        override fun deserialize(parser: JsonParser, context: DeserializationContext) =
-            parser.text.asDateTime() ?: (400 - "Invalid date time value ${parser.text}")
-    }))
+    registerModule(JSON_FUZZY_BOOLEAN)
+    registerModule(JSON_DATETIME)
     configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 }
-inline fun <reified T> Str.parseJson() = JACKSON.readValue(this, T::class.java)
+inline fun <reified T> ObjectMapper.readValue(str: Str) = readValue(str, T::class.java)
+// TODO: https://stackoverflow.com/q/78197784/7346633
+inline fun <reified T> Str.parseJackson() = if (contains("null")) {
+    val map = JACKSON.readValue<MutableMap<String, Any>>(this)
+    JACKSON.convertValue(map.recursiveNotNull(), T::class.java)
+}
+else JACKSON.readValue(this, T::class.java)
 fun <T> T.toJson() = JACKSON.writeValueAsString(this)
 @OptIn(ExperimentalSerializationApi::class)
 val JSON = Json {
     ignoreUnknownKeys = true
     isLenient = true
     namingStrategy = JsonNamingStrategy.SnakeCase
+    explicitNulls = false
+    coerceInputValues = true
 }
+inline fun <reified T> Json.parse(str: Str) = decodeFromString<T>(str)
 // Global Tools
 val HTTP = HttpClient(CIO) {
     install(ContentNegotiation) {
@@ -160,6 +166,10 @@ fun <K, V: Any> Map<K, V?>.vNotNull(): Map<K, V> = filterValues { it != null }.m
 fun <T> MutableList<T>.popAll(list: List<T>) = list.also { removeAll(it) }
 fun <T> MutableList<T>.popAll(vararg items: T) = popAll(items.toList())
 inline fun <T> Iterable<T>.mapApply(block: T.() -> Unit) = map { it.apply(block) }
+@Suppress("UNCHECKED_CAST")
+fun <K, V: Any> Map<K, V?>.recursiveNotNull(): Map<K, V> = mapNotNull { (k, v) ->
+    k to if (v is Map<*, *>) (v as Map<Any?, Any?>).recursiveNotNull() else v
+}.toMap() as Map<K, V>
 
 // Optionals
 operator fun <T> Optional<T>.invoke(): T? = orElse(null)

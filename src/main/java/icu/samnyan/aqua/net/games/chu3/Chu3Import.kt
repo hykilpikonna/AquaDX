@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.net.games.chu3
 
 import ext.API
+import ext.vars
 import icu.samnyan.aqua.api.model.resp.sega.chuni.v2.external.Chu3DataExport
 import icu.samnyan.aqua.net.games.ImportClass
 import icu.samnyan.aqua.net.games.ImportController
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @API("api/v2/game/chu3")
 class Chu3Import : ImportController<Chu3DataExport>(
-    exportFields = Chu3DataExport::class.java.declaredFields.associateBy {
+    exportFields = Chu3DataExport::class.vars().associateBy {
         var name = it.name
         if (name == "userMapList") name = "userMapAreaList"
         name.replace("List", "").lowercase()
@@ -33,6 +34,5 @@ class Chu3Import : ImportController<Chu3DataExport>(
 //        "chuni_profile_recent_rating" to ImportClass(UserRecentRating::class),
     )
 ) {
-    override fun createEmpty() = Chu3DataExport("SDEZ", UserData(), UserGameOption(), ArrayList(), ArrayList(),
-        ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList())
+    override fun createEmpty() = Chu3DataExport()
 }

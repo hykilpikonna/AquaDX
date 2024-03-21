@@ -4,12 +4,11 @@ import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.module.SimpleModule
-import ext.API
-import ext.JACKSON
-import ext.minus
-import ext.splitLines
+import ext.*
 import java.lang.reflect.Field
 import kotlin.reflect.KClass
+import kotlin.reflect.KMutableProperty1
+import kotlin.reflect.KProperty1
 
 // Import class with renaming
 data class ImportClass<T : Any>(
@@ -19,7 +18,7 @@ data class ImportClass<T : Any>(
 )
 
 abstract class ImportController<T: Any>(
-    val exportFields: Map<String, Field>,
+    val exportFields: Map<String, KMutableProperty1<T, Any>>,
     val renameTable: Map<String, ImportClass<*>>
 ) {
     abstract fun createEmpty(): T
@@ -35,14 +34,14 @@ abstract class ImportController<T: Any>(
      */
     @Suppress("UNCHECKED_CAST")
     @API("convert-artemis")
-    fun importArtemisSql(sql: String): ImportResult {
+    fun importArtemisSql(@RB sql: String): ImportResult {
         val data = createEmpty()
         val errors = ArrayList<String>()
         val warnings = ArrayList<String>()
         fun err(msg: String) { errors.add(msg) }
         fun warn(msg: String) { warnings.add(msg) }
 
-        val lists = exportFields.filter { it.value.type == List::class.java }
+        val lists = exportFields.filter { it.value returns List::class }
             .mapValues { it.value.get(data) as ArrayList<Any> }
 
         val statements = sql.splitLines().mapNotNull {
