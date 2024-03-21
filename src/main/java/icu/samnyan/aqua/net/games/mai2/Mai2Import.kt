@@ -34,8 +34,5 @@ class Mai2Import : ImportController<Maimai2DataExport>(
         // "mai2_profile_region" to ImportClass(UserRegion::class),
     )
 ) {
-    override fun createEmpty() = Maimai2DataExport("SDEZ", Mai2UserDetail(), Mai2UserExtend(), Mai2UserOption(),
-        ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(),
-        ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(),
-        ArrayList(), Mai2UserUdemae())
+    override fun createEmpty() = Maimai2DataExport()
 }

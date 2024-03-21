@@ -1,6 +1,11 @@
 package icu.samnyan.aqua.net.games
 
+import com.fasterxml.jackson.core.JsonParser
+import com.fasterxml.jackson.databind.DeserializationContext
+import com.fasterxml.jackson.databind.JsonDeserializer
+import com.fasterxml.jackson.databind.module.SimpleModule
 import ext.JACKSON
+import ext.minus
 import ext.splitLines
 import java.lang.reflect.Field
 import kotlin.reflect.KClass
@@ -54,7 +59,7 @@ abstract class ImportController<T: Any>(
             lists[tb.name]?.add(obj) ?: field.set(data, obj)
         }
 
-        return ImportResult(errors, warnings, JACKSON.writeValueAsString(data))
+        return ImportResult(errors, warnings, JACKSON_ARTEMIS.writeValueAsString(data))
     }
 
     companion object
@@ -69,7 +74,7 @@ abstract class ImportController<T: Any>(
             // Process Nones
             dict = dict.filterValues { it != "None" }
 
-            return JACKSON.convertValue(dict, type.java)
+            return JACKSON_ARTEMIS.convertValue(dict, type.java)
         }
     }
 }
@@ -95,4 +100,19 @@ fun String.asSqlInsert(): SqlInsert {
 
     assert(cols.size == vals.size) { "Column and value count mismatch" }
     return SqlInsert(table, cols.zip(vals).toMap())
+}
+
+@Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN", "UNCHECKED_CAST")
+val JSON_INT_LIST_STR = SimpleModule().addDeserializer(List::class.java, object : JsonDeserializer<List<Integer>>() {
+    override fun deserialize(parser: JsonParser, context: DeserializationContext) =
+        try {
+            val text = parser.text.trim('[', ']')
+            if (text.isEmpty()) emptyList()
+            else text.split(',').map { it.trim().toInt() } as List<Integer>
+        } catch (e: Exception) {
+            400 - "Invalid list value ${parser.text}: $e" }
+})
+
+val JACKSON_ARTEMIS = JACKSON.copy().apply {
+    registerModule(JSON_INT_LIST_STR)
 }

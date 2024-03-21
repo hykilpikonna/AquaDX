@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.net.games
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import ext.JACKSON
 import ext.JavaSerializable
 import icu.samnyan.aqua.sega.general.model.Card
 import jakarta.persistence.*
@@ -11,6 +12,8 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.NoRepositoryBean
 import java.util.*
+import kotlin.reflect.full.memberProperties
+import kotlin.reflect.jvm.isAccessible
 
 data class TrendOut(val date: String, val rating: Int, val plays: Int)
 
@@ -99,13 +102,16 @@ interface IGenericGamePlaylog {
     val isAllPerfect: Boolean
 }
 
+@Serializable
 @MappedSuperclass
 open class BaseEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     var id: Long = 0
-) : JavaSerializable
+) : JavaSerializable {
+    override fun toString() = JACKSON.writeValueAsString(this)
+}
 
 @NoRepositoryBean
 interface GenericUserDataRepo<T : IGenericUserData> : JpaRepository<T, Long> {

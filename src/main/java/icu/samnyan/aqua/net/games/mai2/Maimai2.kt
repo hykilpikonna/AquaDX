@@ -12,11 +12,11 @@ import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserEntity
 import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.support.TransactionTemplate
 import org.springframework.web.bind.annotation.RestController
-import java.lang.reflect.Field
 import java.time.LocalDateTime
 import java.util.*
 import kotlin.io.path.Path
 import kotlin.io.path.writeText
+import kotlin.reflect.KMutableProperty1
 import kotlin.reflect.full.declaredMembers
 
 @RestController
@@ -58,7 +58,7 @@ class Maimai2(
     }
 
     // Use reflection to get all properties in Mai2Repos with matching names in Maimai2DataExport
-    val exportFields: Map<Field, UserLinked<*>> = listOf(*Maimai2DataExport::class.java.declaredFields)
+    val exportFields: Map<KMutableProperty1<Maimai2DataExport, Any>, UserLinked<*>> = Maimai2DataExport::class.vars()
         .filter { f -> f.name !in setOf("gameId", "userData") }
         .associateWith { Mai2Repos::class.declaredMembers
             .filter { f -> f returns UserLinked::class }
@@ -66,15 +66,15 @@ class Maimai2(
             ?.call(repos) as UserLinked<*>? ?: error("No matching field found for ${it.name}")
         }
 
-    val listFields = exportFields.filter { it.key.type == List::class.java }
-    val singleFields = exportFields.filter { it.key.type != List::class.java }
+    val listFields = exportFields.filter { it.key returns List::class }
+    val singleFields = exportFields.filter { !(it.key returns List::class) }
 
     fun export(u: AquaNetUser) = Maimai2DataExport().apply {
         gameId = "SDEZ"
         userData = repos.userData.findByCard(u.ghostCard) ?: (404 - "User not found")
         exportFields.forEach { (f, u) ->
-            f.set(this, if (f.type == List::class.java) u.findByUser(userData)
-            else u.findSingleByUser(userData).orElse(null))
+            if (f returns List::class) f.set(this, u.findByUser(userData))
+            else u.findSingleByUser(userData)()?.let { f.set(this, it) }
         }
     }
 
@@ -84,13 +84,11 @@ class Maimai2(
     @Suppress("UNCHECKED_CAST")
     @API("import")
     fun importUserData(@RP token: Str, @RB json: Str) = us.jwt.auth(token) { u ->
-        val export = json.parseJson<Maimai2DataExport>()
+        val export = json.parseJackson<Maimai2DataExport>()
         if (!export.gameId.equals("SDEZ", true)) 400 - "Invalid game ID"
 
-        val lists = listFields.toList().associate { (f, r) -> r to f.gets<List<Mai2UserEntity>>(export) }.vNotNull()
-        val singles = singleFields.toList().associate { (f, r) -> r to f.gets<Mai2UserEntity>(export) }.vNotNull()
-
-        if (export.userData == null) 400 - "Invalid user data"
+        val lists = listFields.toList().associate { (f, r) -> r to f.get(export) as List<Mai2UserEntity> }.vNotNull()
+        val singles = singleFields.toList().associate { (f, r) -> r to f.get(export) as Mai2UserEntity }.vNotNull()
 
         // Validate new user data
         // Check that all ids are 0 (this should be true since all ids are @JsonIgnore)
@@ -120,8 +118,8 @@ class Maimai2(
             lists.values.flatten().forEach { it.user = nu }
             singles.values.forEach { it.user = nu }
             // Save new data
-            lists.forEach { (repo, list) -> (repo as UserLinked<Any>).saveAll(list) }
             singles.forEach { (repo, single) -> (repo as UserLinked<Any>).save(single) }
+            lists.forEach { (repo, list) -> (repo as UserLinked<Any>).saveAll(list) }
         }
 
         SUCCESS
