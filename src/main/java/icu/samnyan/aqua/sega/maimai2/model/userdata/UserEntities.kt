@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor
 @MappedSuperclass
 open class Mai2UserEntity : BaseEntity() {
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "user_id")
     open var user: Mai2UserDetail? = null
 }
@@ -31,7 +31,7 @@ class Mai2MapEncountNpc : Mai2UserEntity() {
     var musicId = 0
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "extend_id")
     var userExtend: Mai2UserExtend? = null
 }
@@ -59,8 +59,8 @@ class Mai2UserCard : Mai2UserEntity() {
     var cardTypeId: Int = 0
     var charaId: Int = 0
     var mapId: Int = 0
-    var startDate: String? = null
-    var endDate: String? = null
+    var startDate: String = ""
+    var endDate: String = ""
 }
 
 @Table(name = "maimai2_user_character")
@@ -99,8 +99,8 @@ class Mai2UserCharge : Mai2UserEntity() {
     @Column(name = "charge_id")
     var chargeId = 0
     var stock = 0
-    var purchaseDate: String? = null
-    var validDate: String? = null
+    var purchaseDate: String = ""
+    var validDate: String = ""
 }
 
 @Table(name = "maimai2_user_course")
@@ -114,12 +114,12 @@ class Mai2UserCourse : Mai2UserEntity() {
     var totalAchievement = 0
     var totalDeluxscore = 0
     var playCount = 0
-    var clearDate: String? = null
-    var lastPlayDate: String? = null
+    var clearDate: String = ""
+    var lastPlayDate: String = ""
     var bestAchievement = 0
-    var bestAchievementDate: String? = null
+    var bestAchievementDate: String = ""
     var bestDeluxscore = 0
-    var bestDeluxscoreDate: String? = null
+    var bestDeluxscoreDate: String = ""
 }
 
 @Table(name = "maimai2_user_extend")
@@ -162,7 +162,7 @@ class Mai2UserExtend : Mai2UserEntity() {
     var selectResultScoreViewType = 0
 
     @Convert(converter = IntegerListConverter::class)
-    var selectedCardList: List<Int>? = null
+    var selectedCardList: List<Int> = ArrayList()
 
     @OneToMany(mappedBy = "userExtend")
     var encountMapNpcList: List<Mai2MapEncountNpc> = ArrayList()
@@ -176,7 +176,7 @@ class Mai2UserFavorite : Mai2UserEntity() {
     var itemKind = 0
 
     @Convert(converter = IntegerListConverter::class)
-    var itemIdList: List<Int>? = null
+    var itemIdList: List<Int> = ArrayList()
 }
 
 @Table(name = "maimai2_user_friend_season_ranking")
@@ -188,8 +188,8 @@ class Mai2UserFriendSeasonRanking : Mai2UserEntity() {
     @Column(name = "\"rank\"")
     var rank = 0
     var rewardGet = false
-    var userName: String? = null
-    var recordDate: String? = null
+    var userName: String = ""
+    var recordDate: String = ""
 }
 
 /**
@@ -209,7 +209,7 @@ class Mai2UserGeneralData : Mai2UserEntity() {
 @AllArgsConstructor
 @NoArgsConstructor
 class Mai2UserGhost {
-    var name: String? = null
+    var name: String = ""
     var iconId = 0
     var plateId = 0
     var titleId = 0
@@ -218,7 +218,7 @@ class Mai2UserGhost {
     var courseRank = 0
     var classRank = 0
     var classValue = 0
-    var playDatetime: String? = null
+    var playDatetime: String = ""
     var shopId = 0
     var regionCode = 0
     var typeId = 0
@@ -364,7 +364,7 @@ class Mai2UserPlaylog : Mai2UserEntity(), IGenericGamePlaylog {
     var playlogId: Long = 0
     var version = 0
     var placeId = 0
-    var placeName: String? = null
+    var placeName: String = ""
     var loginDate: Long = 0
     var playDate: String = ""
     override var userPlayDate: String = ""
@@ -373,7 +373,7 @@ class Mai2UserPlaylog : Mai2UserEntity(), IGenericGamePlaylog {
     override var level: Int = 0
     var trackNo = 0
     var vsMode = 0
-    var vsUserName: String? = null
+    var vsUserName: String = ""
     var vsStatus = 0
     var vsUserRating = 0
     var vsUserAchievement = 0
@@ -381,13 +381,13 @@ class Mai2UserPlaylog : Mai2UserEntity(), IGenericGamePlaylog {
     var vsRank = 0
     var playerNum = 0
     var playedUserId1: Long = 0
-    var playedUserName1: String? = null
+    var playedUserName1: String = ""
     var playedMusicLevel1 = 0
     var playedUserId2: Long = 0
-    var playedUserName2: String? = null
+    var playedUserName2: String = ""
     var playedMusicLevel2 = 0
     var playedUserId3: Long = 0
-    var playedUserName3: String? = null
+    var playedUserName3: String = ""
     var playedMusicLevel3 = 0
     var characterId1 = 0
     var characterLevel1 = 0
@@ -519,11 +519,11 @@ class Mai2UserPlaylog : Mai2UserEntity(), IGenericGamePlaylog {
 class Mai2UserPrintDetail : Mai2UserEntity() {
     var orderId: Long = 0
     var printNumber = 0
-    var printDate: String? = null
-    var serialId: String? = null
+    var printDate: String = ""
+    var serialId: String = ""
     var placeId = 0
-    var clientId: String? = null
-    var printerSerialId: String? = null
+    var clientId: String = ""
+    var printerSerialId: String = ""
 
     @ManyToOne
     @JoinColumn(name = "user_card_id")
@@ -540,7 +540,7 @@ class Mai2UserPrintDetail : Mai2UserEntity() {
     var printOption8 = false
     var printOption9 = false
     var printOption10 = false
-    var created: String? = null
+    var created: String = ""
 }
 
 data class Mai2UserRate(
