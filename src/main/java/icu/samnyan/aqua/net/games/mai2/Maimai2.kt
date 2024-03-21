@@ -8,6 +8,7 @@ import icu.samnyan.aqua.net.games.*
 import icu.samnyan.aqua.net.utils.*
 import icu.samnyan.aqua.sega.maimai2.model.*
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserDetail
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserEntity
 import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.support.TransactionTemplate
 import org.springframework.web.bind.annotation.RestController
@@ -65,6 +66,9 @@ class Maimai2(
             ?.call(repos) as UserLinked<*>? ?: error("No matching field found for ${it.name}")
         }
 
+    val listFields = exportFields.filter { it.key.type == List::class.java }
+    val singleFields = exportFields.filter { it.key.type != List::class.java }
+
     fun export(u: AquaNetUser) = Maimai2DataExport().apply {
         gameId = "SDEZ"
         userData = repos.userData.findByCard(u.ghostCard) ?: (404 - "User not found")
@@ -77,38 +81,49 @@ class Maimai2(
     @API("export")
     fun exportAllUserData(@RP token: Str) = us.jwt.auth(token) { u -> export(u) }
 
+    @Suppress("UNCHECKED_CAST")
     @API("import")
-    fun importUserData(@RP token: Str, @RP json: Str) = us.jwt.auth(token) { u ->
+    fun importUserData(@RP token: Str, @RB json: Str) = us.jwt.auth(token) { u ->
         val export = json.parseJson<Maimai2DataExport>()
         if (!export.gameId.equals("SDEZ", true)) 400 - "Invalid game ID"
+
+        val lists = listFields.toList().associate { (f, r) -> r to f.gets<List<Mai2UserEntity>>(export) }.vNotNull()
+        val singles = singleFields.toList().associate { (f, r) -> r to f.gets<Mai2UserEntity>(export) }.vNotNull()
+
+        if (export.userData == null) 400 - "Invalid user data"
 
         // Validate new user data
         // Check that all ids are 0 (this should be true since all ids are @JsonIgnore)
         if (export.userData.id != 0L) 400 - "User ID must be 0"
-        exportFields.keys.forEach { it.gets<BaseEntity>(export).id.let { if (it != 0L) 400 - "ID must be 0" } }
+        lists.values.flatten().forEach { if (it.id != 0L) 400 - "ID must be 0" }
+        singles.values.forEach { if (it.id != 0L) 400 - "ID must be 0" }
 
         // Set user card
         export.userData.card = u.ghostCard
-        // Set user of the remaining data
-//        exportFields.values.forEach { it.setUser(export.userData) }
 
         // Check existing data
         val gu = repos.userData.findByCard(u.ghostCard)?.also { gu ->
             // Store a backup of the old data
-            val fl = "mai2-backup-${u.auId}-${LocalDateTime.now().isoDateTime()}.json"
+            val fl = "mai2-backup-${u.auId}-${LocalDateTime.now().urlSafeStr()}.json"
             (Path(netProps.importBackupPath) / fl).writeText(export(u).toJson())
         }
 
         trans.execute {
             gu?.let {
-                // Delete the old data
-                exportFields.values.forEach { it.deleteByUser(gu) }
+                // Delete the old data (After migration v1000.7, all user-linked entities have ON DELETE CASCADE)
                 repos.userData.deleteByCard(u.ghostCard)
             }
 
             // Insert new data
+            val nu = repos.userData.save(export.userData)
+            // Set user fields
+            lists.values.flatten().forEach { it.user = nu }
+            singles.values.forEach { it.user = nu }
+            // Save new data
+            lists.forEach { (repo, list) -> (repo as UserLinked<Any>).saveAll(list) }
+            singles.forEach { (repo, single) -> (repo as UserLinked<Any>).save(single) }
         }
 
-        TODO()
+        SUCCESS
     }
 }

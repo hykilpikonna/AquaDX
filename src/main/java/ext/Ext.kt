@@ -68,7 +68,7 @@ fun <C, T: Any> KMutableProperty1<C, T>.setCast(obj: C, value: String) = set(obj
     Boolean::class -> value.toBoolean()
     else -> 400 - "Invalid field type $returnType"
 } as T)
-inline fun <reified T: Any> Field.gets(obj: Any) = get(obj) as T
+inline fun <reified T: Any> Field.gets(obj: Any): T? = get(obj)?.let { it as T }
 
 // Make it easier to throw a ResponseStatusException
 operator fun HttpStatus.invoke(message: String? = null): Nothing = throw ApiException(value(), message ?: this.reasonPhrase)
@@ -140,6 +140,8 @@ fun millis() = System.currentTimeMillis()
 val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 fun LocalDate.isoDate() = format(DATE_FORMAT)
 fun LocalDateTime.isoDateTime() = format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+val URL_SAFE_DT = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")
+fun LocalDateTime.urlSafeStr() = format(URL_SAFE_DT)
 
 val ALT_DATETIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 fun Str.asDateTime() = try { LocalDateTime.parse(this, DateTimeFormatter.ISO_LOCAL_DATE_TIME) }
@@ -154,6 +156,7 @@ fun Map<String, Any>.toUrl() = entries.joinToString("&") { (k, v) -> "$k=$v" }
 operator fun <K, V> Map<K, V>.plus(map: Map<K, V>) =
     (if (this is MutableMap) this else toMutableMap()).apply { putAll(map) }
 operator fun <K, V> MutableMap<K, V>.plusAssign(map: Map<K, V>) { putAll(map) }
+fun <K, V: Any> Map<K, V?>.vNotNull(): Map<K, V> = filterValues { it != null }.mapValues { it.value!! }
 fun <T> MutableList<T>.popAll(list: List<T>) = list.also { removeAll(it) }
 fun <T> MutableList<T>.popAll(vararg items: T) = popAll(items.toList())
 inline fun <T> Iterable<T>.mapApply(block: T.() -> Unit) = map { it.apply(block) }
