@@ -7,9 +7,9 @@ import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo;
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserPrintDetailRepo;
 import icu.samnyan.aqua.sega.general.BaseHandler;
 import icu.samnyan.aqua.sega.maimai2.model.request.UpsertUserPrint;
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserCard;
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserDetail;
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserPrintDetail;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserCard;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserDetail;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserPrintDetail;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,9 +45,9 @@ public class UpsertUserPrintHandler implements BaseHandler {
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         long userId = ((Number) request.get("userId")).longValue();
 
-        UserDetail userData;
+        Mai2UserDetail userData;
 
-        Optional<UserDetail> userOptional = userDataRepository.findByCardExtId(userId);
+        Optional<Mai2UserDetail> userOptional = userDataRepository.findByCardExtId(userId);
         if (userOptional.isPresent()) {
             userData = userOptional.get();
         } else {
@@ -57,8 +57,8 @@ public class UpsertUserPrintHandler implements BaseHandler {
 
         UpsertUserPrint upsertUserPrint = mapper.convert(request, UpsertUserPrint.class);
 
-        UserPrintDetail userPrintDetail = upsertUserPrint.getUserPrintDetail();
-        UserCard newUserCard = userPrintDetail.getUserCard();
+        Mai2UserPrintDetail userPrintDetail = upsertUserPrint.getUserPrintDetail();
+        Mai2UserCard newUserCard = userPrintDetail.getUserCard();
 
         newUserCard.setUser(userData);
         userPrintDetail.setUser(userData);
@@ -67,9 +67,9 @@ public class UpsertUserPrintHandler implements BaseHandler {
         newUserCard.setEndDate("2029-01-01 00:00:00.000000");
         userPrintDetail.setSerialId("FAKECARDIMAG12345678");
 
-        Optional<UserCard> userCardOptional = userCardRepository.findByUserAndCardId(newUserCard.getUser(), newUserCard.getCardId());
+        Optional<Mai2UserCard> userCardOptional = userCardRepository.findByUserAndCardId(newUserCard.getUser(), newUserCard.getCardId());
         if (userCardOptional.isPresent()) {
-            UserCard userCard = userCardOptional.get();
+            Mai2UserCard userCard = userCardOptional.get();
             newUserCard.setId(userCard.getId());
         }
 

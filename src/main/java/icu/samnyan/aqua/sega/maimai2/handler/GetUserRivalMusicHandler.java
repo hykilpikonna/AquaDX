@@ -17,7 +17,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserMusicDetailRepo;
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRivalMusic;
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRivalMusicDetail;
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserMusicDetail;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserMusicDetail;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
 
 @Component("Maimai2GetUserRivalMusicHandler")
@@ -38,10 +38,10 @@ public class GetUserRivalMusicHandler implements BaseHandler {
         long userId = ((Number) request.get("userId")).longValue();
         long rivalId = ((Number) request.get("rivalId")).intValue();
 
-        List<UserMusicDetail> details = userMusicDetailRepository.findByUser_Card_ExtId(rivalId);
+        List<Mai2UserMusicDetail> details = userMusicDetailRepository.findByUser_Card_ExtId(rivalId);
         List<UserRivalMusic> userRivalMusicList = new LinkedList<UserRivalMusic>();
         Map<Integer, UserRivalMusic> userRivalMusicMap = new HashMap<Integer, UserRivalMusic>();
-        for (UserMusicDetail detail : details) {
+        for (Mai2UserMusicDetail detail : details) {
             int musicId = detail.getMusicId();
             UserRivalMusic info = userRivalMusicMap.getOrDefault(musicId, null);
             if (info == null) {

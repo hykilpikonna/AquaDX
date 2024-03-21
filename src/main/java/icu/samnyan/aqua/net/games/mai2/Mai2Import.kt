@@ -14,28 +14,28 @@ class Mai2Import : ImportController<Maimai2DataExport>(
         it.name.replace("List", "").lowercase()
     },
     renameTable = mapOf(
-        "mai2_item_character" to ImportClass(UserCharacter::class),
-        "mai2_item_charge" to ImportClass(UserCharge::class),
-        "mai2_item_friend_season_ranking" to ImportClass(UserFriendSeasonRanking::class),
-        "mai2_item_item" to ImportClass(UserItem::class, mapOf("isValid" to "valid")),
-        "mai2_item_login_bonus" to ImportClass(UserLoginBonus::class),
-        "mai2_item_map" to ImportClass(UserMap::class),
-        "mai2_playlog" to ImportClass(UserPlaylog::class, mapOf("userId" to null)),
-        "mai2_profile_activity" to ImportClass(UserAct::class, mapOf("activityId" to "id")),
-        "mai2_profile_detail" to ImportClass(UserDetail::class,
+        "mai2_item_character" to ImportClass(Mai2UserCharacter::class),
+        "mai2_item_charge" to ImportClass(Mai2UserCharge::class),
+        "mai2_item_friend_season_ranking" to ImportClass(Mai2UserFriendSeasonRanking::class),
+        "mai2_item_item" to ImportClass(Mai2UserItem::class, mapOf("isValid" to "valid")),
+        "mai2_item_login_bonus" to ImportClass(Mai2UserLoginBonus::class),
+        "mai2_item_map" to ImportClass(Mai2UserMap::class),
+        "mai2_playlog" to ImportClass(Mai2UserPlaylog::class, mapOf("userId" to null)),
+        "mai2_profile_activity" to ImportClass(Mai2UserAct::class, mapOf("activityId" to "id")),
+        "mai2_profile_detail" to ImportClass(Mai2UserDetail::class,
             mapOf("user" to null, "version" to null, "isNetMember" to null),
             name = "userdata"),
-        "mai2_profile_extend" to ImportClass(UserExtend::class, mapOf("version" to null)),
-        "mai2_profile_option" to ImportClass(UserOption::class, mapOf("version" to null)),
-        "mai2_score_best" to ImportClass(UserMusicDetail::class),
-        "mai2_score_course" to ImportClass(UserCourse::class),
+        "mai2_profile_extend" to ImportClass(Mai2UserExtend::class, mapOf("version" to null)),
+        "mai2_profile_option" to ImportClass(Mai2UserOption::class, mapOf("version" to null)),
+        "mai2_score_best" to ImportClass(Mai2UserMusicDetail::class),
+        "mai2_score_course" to ImportClass(Mai2UserCourse::class),
         // "mai2_profile_ghost" to ImportClass(UserGhost::class),
         // "mai2_profile_rating" to ImportClass(UserRating::class),
         // "mai2_profile_region" to ImportClass(UserRegion::class),
     )
 ) {
-    override fun createEmpty() = Maimai2DataExport("SDEZ", UserDetail(), UserExtend(), UserOption(),
+    override fun createEmpty() = Maimai2DataExport("SDEZ", Mai2UserDetail(), Mai2UserExtend(), Mai2UserOption(),
         ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(),
         ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(),
-        ArrayList(), UserUdemae())
+        ArrayList(), Mai2UserUdemae())
 }

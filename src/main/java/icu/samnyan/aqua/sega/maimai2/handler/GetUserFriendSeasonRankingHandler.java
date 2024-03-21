@@ -3,7 +3,7 @@ package icu.samnyan.aqua.sega.maimai2.handler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserFriendSeasonRankingRepo;
 import icu.samnyan.aqua.sega.general.BaseHandler;
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserFriendSeasonRanking;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserFriendSeasonRanking;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +39,7 @@ public class GetUserFriendSeasonRankingHandler implements BaseHandler {
 
         int pageNum = nextIndexVal / maxCount;
 
-        Page<UserFriendSeasonRanking> dbPage = userFriendSeasonRankingRepository.findByUser_Card_ExtId(userId, PageRequest.of(pageNum, maxCount));
+        Page<Mai2UserFriendSeasonRanking> dbPage = userFriendSeasonRankingRepository.findByUser_Card_ExtId(userId, PageRequest.of(pageNum, maxCount));
 
         long currentIndex = maxCount * pageNum + dbPage.getNumberOfElements();
 

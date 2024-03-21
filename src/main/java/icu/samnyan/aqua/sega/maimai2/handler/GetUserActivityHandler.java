@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserActRepo;
 import icu.samnyan.aqua.sega.general.BaseHandler;
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserActivity;
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserAct;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserAct;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,8 +38,8 @@ public class GetUserActivityHandler implements BaseHandler {
 
         // kind 1 = playList, kind 2 = musicList
         // maimaiDX require these two
-        List<UserAct> userPlayList = userActRepository.findByUser_Card_ExtIdAndKind(userId, 1);
-        List<UserAct> userMusicList = userActRepository.findByUser_Card_ExtIdAndKind(userId, 2);
+        List<Mai2UserAct> userPlayList = userActRepository.findByUser_Card_ExtIdAndKind(userId, 1);
+        List<Mai2UserAct> userMusicList = userActRepository.findByUser_Card_ExtIdAndKind(userId, 2);
 
         UserActivity userActivity = new UserActivity();
         userActivity.setMusicList(userMusicList);

@@ -3,7 +3,7 @@ package icu.samnyan.aqua.sega.maimai2.handler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserCharacterRepo;
 import icu.samnyan.aqua.sega.general.BaseHandler;
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserCharacter;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserCharacter;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +34,7 @@ public class CMGetUserCharacterHandler implements BaseHandler {
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         long userId = ((Number) request.get("userId")).longValue();
 
-        List<UserCharacter> userCharacterList = userCharacterRepository.findByUser_Card_ExtId(userId);
+        List<Mai2UserCharacter> userCharacterList = userCharacterRepository.findByUser_Card_ExtId(userId);
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("returnCode", 1);

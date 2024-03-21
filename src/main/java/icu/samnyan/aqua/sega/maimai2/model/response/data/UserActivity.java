@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.maimai2.model.response.data;
 
 import java.util.List;
 
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserAct;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserAct;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +14,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserActivity {
-    private List<UserAct> playList;
-    private List<UserAct> musicList;
+    private List<Mai2UserAct> playList;
+    private List<Mai2UserAct> musicList;
 }

@@ -7,7 +7,7 @@ import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.games.*
 import icu.samnyan.aqua.net.utils.*
 import icu.samnyan.aqua.sega.maimai2.model.*
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserDetail
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserDetail
 import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.support.TransactionTemplate
 import org.springframework.web.bind.annotation.RestController
@@ -28,7 +28,7 @@ class Maimai2(
     val repos: Mai2Repos,
     val netProps: AquaNetProps,
     transManager: PlatformTransactionManager
-): GameApiController<UserDetail>("mai2", UserDetail::class) {
+): GameApiController<Mai2UserDetail>("mai2", Mai2UserDetail::class) {
     val trans = TransactionTemplate(transManager)
 
     override suspend fun trend(@RP username: Str): List<TrendOut> = us.cardByName(username) { card ->
@@ -38,7 +38,7 @@ class Maimai2(
 
     // Only show > S rank
     override val shownRanks = mai2Scores.filter { it.first >= 97 * 10000 }
-    override val settableFields: Map<String, (UserDetail, String) -> Unit> by lazy { mapOf(
+    override val settableFields: Map<String, (Mai2UserDetail, String) -> Unit> by lazy { mapOf(
         "userName" to { u, v -> u.userName = v
             if (!v.all { it in USERNAME_CHARS }) { 400 - "Invalid character in username" }
         },

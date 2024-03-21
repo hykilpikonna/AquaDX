@@ -26,6 +26,7 @@ import java.nio.file.Path
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 import kotlin.reflect.KCallable
 import kotlin.reflect.KClass
 import kotlin.reflect.KMutableProperty1
@@ -40,6 +41,7 @@ typealias PV = PathVariable
 typealias API = RequestMapping
 typealias Str = String
 typealias Bool = Boolean
+typealias JavaSerializable = java.io.Serializable
 
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY, AnnotationTarget.PROPERTY_GETTER)
 @Retention(AnnotationRetention.RUNTIME)
@@ -154,6 +156,10 @@ operator fun <K, V> Map<K, V>.plus(map: Map<K, V>) =
 operator fun <K, V> MutableMap<K, V>.plusAssign(map: Map<K, V>) { putAll(map) }
 fun <T> MutableList<T>.popAll(list: List<T>) = list.also { removeAll(it) }
 fun <T> MutableList<T>.popAll(vararg items: T) = popAll(items.toList())
+inline fun <T> Iterable<T>.mapApply(block: T.() -> Unit) = map { it.apply(block) }
+
+// Optionals
+operator fun <T> Optional<T>.invoke(): T? = orElse(null)
 
 // Strings
 operator fun Str.get(range: IntRange) = substring(range.first, (range.last + 1).coerceAtMost(length))

@@ -3,21 +3,16 @@ package icu.samnyan.aqua.sega.maimai2.model.userdata
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import ext.Str
 import icu.samnyan.aqua.net.games.BaseEntity
 import icu.samnyan.aqua.net.games.IGenericUserData
 import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.maimai2.util.IntegerListConverter
 import icu.samnyan.aqua.sega.util.jackson.AccessCodeSerializer
 import jakarta.persistence.*
-import java.io.Serializable
 
-/**
- * @author samnyan (privateamusement@protonmail.com)
- */
 @Entity(name = "Maimai2UserData")
 @Table(name = "maimai2_user_detail")
-class UserDetail(
+class Mai2UserDetail(
     @JsonSerialize(using = AccessCodeSerializer::class)
     @JsonProperty(value = "accessCode", access = JsonProperty.Access.READ_ONLY)
     @OneToOne
@@ -28,8 +23,8 @@ class UserDetail(
 
     @JsonInclude
     @Transient
-    var friendCode: Str = "",
-    var isNetMember: Int = 0,
+    var friendCode: String = "",
+    var isNetMember: Int = 1,
 
     @JsonInclude
     @Transient
@@ -153,7 +148,7 @@ class UserDetail(
     // TODO: Make these non-nullable with default value
     var currentPlayCount: Int? = 0,
     var renameCredit: Int? = 0
-) : Serializable, IGenericUserData, BaseEntity() {
+) : BaseEntity(), IGenericUserData {
     override val totalScore: Long
         get() = totalDeluxscore
 }

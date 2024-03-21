@@ -5,8 +5,8 @@ import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo;
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserOptionRepo;
 import icu.samnyan.aqua.sega.general.BaseHandler;
 import icu.samnyan.aqua.sega.maimai2.model.response.GetUserPreviewResp;
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserDetail;
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserOption;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserDetail;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserOption;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,14 +39,14 @@ public class GetUserPreviewHandler implements BaseHandler {
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         long userId = ((Number) request.get("userId")).longValue();
 
-        Optional<UserDetail> userDataOptional = userDataRepository.findByCardExtId(userId);
+        Optional<Mai2UserDetail> userDataOptional = userDataRepository.findByCardExtId(userId);
 
         GetUserPreviewResp resp = new GetUserPreviewResp();
         resp.setUserId(userId);
         String json;
         if (userDataOptional.isPresent() && userDataOptional.get().getUserName() != null) {
-            UserDetail user = userDataOptional.get();
-            Optional<UserOption> userOptionOptional = userOptionRepository.findSingleByUser_Card_ExtId(userId);
+            Mai2UserDetail user = userDataOptional.get();
+            Optional<Mai2UserOption> userOptionOptional = userOptionRepository.findSingleByUser_Card_ExtId(userId);
             resp.setUserName(user.getUserName());
             resp.setLogin(false);
             resp.setLastGameId(user.getLastGameId());
@@ -64,7 +64,7 @@ public class GetUserPreviewHandler implements BaseHandler {
             resp.setIsNetMember(user.isNetMember());
             resp.setDailyBonusDate(user.getDailyBonusDate());
             if (userOptionOptional.isPresent()) {
-                UserOption option = userOptionOptional.get();
+                Mai2UserOption option = userOptionOptional.get();
                 resp.setHeadPhoneVolume(option.getHeadPhoneVolume());
                 resp.setDispRate(option.getDispRate());
             }

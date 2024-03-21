@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.maimai2.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserFavoriteItem;
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserGeneralData;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserGeneralData;
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserGeneralDataRepo;
 import icu.samnyan.aqua.sega.general.BaseHandler;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
@@ -35,7 +35,7 @@ public class GetUserFavoriteItemHandler implements BaseHandler {
         long userId = ((Number) request.get("userId")).longValue();
         int kind = ((Number) request.get("kind")).intValue();
 
-        Optional<UserGeneralData> favOptional;
+        Optional<Mai2UserGeneralData> favOptional;
         List<UserFavoriteItem> items = new LinkedList<>();
         switch (kind) {
             case 1:
@@ -50,7 +50,7 @@ public class GetUserFavoriteItemHandler implements BaseHandler {
                 break;
         }
         if (favOptional.isPresent()) {
-            String val = ((UserGeneralData) favOptional.get()).getPropertyValue();
+            String val = ((Mai2UserGeneralData) favOptional.get()).getPropertyValue();
             if (StringUtils.isNotBlank(val)) {
                 String[] records = val.split(",");
                 int order = 0;

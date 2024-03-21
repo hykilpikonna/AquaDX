@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.maimai2.model.request;
 
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserPrintDetail;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserPrintDetail;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,5 +18,5 @@ public class UpsertUserPrint implements Serializable {
 	private long userId;
 	private long orderId;
 	private Map<String, Object> userPrintReserve;
-	private UserPrintDetail userPrintDetail;
+	private Mai2UserPrintDetail userPrintDetail;
 }

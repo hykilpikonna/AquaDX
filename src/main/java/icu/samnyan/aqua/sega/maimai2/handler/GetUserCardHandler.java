@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserCardRepo;
 import icu.samnyan.aqua.sega.general.BaseHandler;
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserCard;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserCard;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +40,7 @@ public class GetUserCardHandler implements BaseHandler {
 
         int pageNum = nextIndex / maxCount;
 
-        Page<UserCard> dbPage = userCardRepository.findByUser_Card_ExtId(userId, PageRequest.of(pageNum, maxCount));
+        Page<Mai2UserCard> dbPage = userCardRepository.findByUser_Card_ExtId(userId, PageRequest.of(pageNum, maxCount));
 
         int currentIndex = maxCount * pageNum + dbPage.getNumberOfElements();
 

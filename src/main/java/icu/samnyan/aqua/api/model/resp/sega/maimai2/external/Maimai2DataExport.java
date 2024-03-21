@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -17,21 +15,21 @@ import java.util.List;
 @NoArgsConstructor
 public class Maimai2DataExport {
     public String gameId = "SDEZ";
-    public UserDetail userData;
-    public UserExtend userExtend;
-    public UserOption userOption;
-    public List<MapEncountNpc> mapEncountNpcList;
-    public List<UserAct> userActList;
-    public List<UserCharacter> userCharacterList;
-    public List<UserCharge> userChargeList;
-    public List<UserCourse> userCourseList;
-    public List<UserFavorite> userFavoriteList;
-    public List<UserFriendSeasonRanking> userFriendSeasonRankingList;
-    public List<UserGeneralData> userGeneralDataList;
-    public List<UserItem> userItemList;
-    public List<UserLoginBonus> userLoginBonusList;
-    public List<UserMap> userMapList;
-    public List<UserMusicDetail> userMusicDetailList;
-    public List<UserPlaylog> userPlaylogList;
-    public UserUdemae userUdemae;
+    public Mai2UserDetail userData;
+    public Mai2UserExtend userExtend;
+    public Mai2UserOption userOption;
+    public List<Mai2MapEncountNpc> mapEncountNpcList;
+    public List<Mai2UserAct> userActList;
+    public List<Mai2UserCharacter> userCharacterList;
+    public List<Mai2UserCharge> userChargeList;
+    public List<Mai2UserCourse> userCourseList;
+    public List<Mai2UserFavorite> userFavoriteList;
+    public List<Mai2UserFriendSeasonRanking> userFriendSeasonRankingList;
+    public List<Mai2UserGeneralData> userGeneralDataList;
+    public List<Mai2UserItem> userItemList;
+    public List<Mai2UserLoginBonus> userLoginBonusList;
+    public List<Mai2UserMap> userMapList;
+    public List<Mai2UserMusicDetail> userMusicDetailList;
+    public List<Mai2UserPlaylog> userPlaylogList;
+    public Mai2UserUdemae userUdemae;
 }

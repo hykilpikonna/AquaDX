@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserMusicDetailRepo;
 import icu.samnyan.aqua.sega.general.BaseHandler;
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserMusic;
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserMusicDetail;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserMusicDetail;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +42,7 @@ public class GetUserMusicHandler implements BaseHandler {
 
         int pageNum = nextIndexVal / maxCount;
 
-        Page<UserMusicDetail> dbPage = userMusicDetailRepository.findByUser_Card_ExtId(userId, PageRequest.of(pageNum, maxCount));
+        Page<Mai2UserMusicDetail> dbPage = userMusicDetailRepository.findByUser_Card_ExtId(userId, PageRequest.of(pageNum, maxCount));
 
         long currentIndex = maxCount * pageNum + dbPage.getNumberOfElements();
 

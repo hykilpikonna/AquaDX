@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserPlaylog;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserPlaylog;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -16,5 +16,5 @@ import icu.samnyan.aqua.sega.maimai2.model.userdata.UserPlaylog;
 @NoArgsConstructor
 public class UploadUserPlaylog implements Serializable {
 	private long userId;
-	private UserPlaylog userPlaylog;
+	private Mai2UserPlaylog userPlaylog;
 }

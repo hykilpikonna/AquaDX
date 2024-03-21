@@ -3,7 +3,7 @@ package icu.samnyan.aqua.sega.maimai2.handler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserFavoriteRepo;
 import icu.samnyan.aqua.sega.general.BaseHandler;
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserFavorite;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserFavorite;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +35,7 @@ public class GetUserFavoriteHandler implements BaseHandler {
         long userId = ((Number) request.get("userId")).longValue();
         int itemKind = ((Number) request.get("itemKind")).intValue();
 
-        List<UserFavorite> userFavoriteList = userFavoriteRepository.findByUserIdAndItemKind(userId, itemKind);
+        List<Mai2UserFavorite> userFavoriteList = userFavoriteRepository.findByUserIdAndItemKind(userId, itemKind);
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userId);

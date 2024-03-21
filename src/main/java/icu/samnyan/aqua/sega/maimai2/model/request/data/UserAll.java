@@ -18,20 +18,20 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserAll implements Serializable {
-	private List<UserDetail> userData;
-	private List<UserExtend> userExtend;
-	private List<UserOption> userOption;
-	private List<UserCharacter> userCharacterList;
-	private List<UserGhost> userGhost;
-	private List<UserMap> userMapList;
-	private List<UserLoginBonus> userLoginBonusList;
+	private List<Mai2UserDetail> userData;
+	private List<Mai2UserExtend> userExtend;
+	private List<Mai2UserOption> userOption;
+	private List<Mai2UserCharacter> userCharacterList;
+	private List<Mai2UserGhost> userGhost;
+	private List<Mai2UserMap> userMapList;
+	private List<Mai2UserLoginBonus> userLoginBonusList;
 	private List<UserRating> userRatingList;
-	private List<UserItem> userItemList;
-	private List<UserMusicDetail> userMusicDetailList;
-	private List<UserCourse> userCourseList;
-	private List<UserFriendSeasonRanking> userFriendSeasonRankingList;
-	private List<UserCharge> userChargeList;
-	private List<UserFavorite> userFavoriteList;
+	private List<Mai2UserItem> userItemList;
+	private List<Mai2UserMusicDetail> userMusicDetailList;
+	private List<Mai2UserCourse> userCourseList;
+	private List<Mai2UserFriendSeasonRanking> userFriendSeasonRankingList;
+	private List<Mai2UserCharge> userChargeList;
+	private List<Mai2UserFavorite> userFavoriteList;
 	private List<UserActivity> userActivityList;
 	private List<Map<String, Object>> userGamePlaylogList;
 	private String isNewCharacterList;

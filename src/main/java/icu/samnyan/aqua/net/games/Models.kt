@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.net.games
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import ext.JavaSerializable
 import icu.samnyan.aqua.sega.general.model.Card
 import jakarta.persistence.*
 import kotlinx.serialization.Serializable
@@ -104,15 +105,7 @@ open class BaseEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     var id: Long = 0
-)
-
-@MappedSuperclass
-open class UserMappedEntity<T : IGenericUserData> : BaseEntity() {
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    open var user: T? = null
-}
+) : JavaSerializable
 
 @NoRepositoryBean
 interface GenericUserDataRepo<T : IGenericUserData> : JpaRepository<T, Long> {

@@ -1,10 +1,10 @@
 package icu.samnyan.aqua.sega.maimai2.handler
 
 import icu.samnyan.aqua.net.games.mai2.Maimai2
-import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.BaseHandler
+import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserItem.Mai2ItemKind
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2ItemKind
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.PageRequest

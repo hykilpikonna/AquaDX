@@ -14,7 +14,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo;
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRivalData;
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserDetail;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserDetail;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
 
 @Component("Maimai2GetUserRivalDataHandler")
@@ -35,7 +35,7 @@ public class GetUserRivalDataHandler implements BaseHandler {
         long userId = ((Number) request.get("userId")).longValue();
         long rivalId = ((Number) request.get("rivalId")).intValue();
 
-        Optional<UserDetail> detailOptional = userDataRepository.findByCardExtId(rivalId);
+        Optional<Mai2UserDetail> detailOptional = userDataRepository.findByCardExtId(rivalId);
         UserRivalData rivalData;
         if (detailOptional.isPresent()) {
             rivalData = new UserRivalData(rivalId, detailOptional.get().getUserName());

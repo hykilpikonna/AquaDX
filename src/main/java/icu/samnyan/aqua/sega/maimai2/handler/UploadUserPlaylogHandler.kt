@@ -5,7 +5,7 @@ import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserPlaylogRepo
 import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.maimai2.model.request.UploadUserPlaylog
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserPlaylog
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserPlaylog
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
@@ -20,7 +20,7 @@ class UploadUserPlaylogHandler(
     private val playlogRepo: Mai2UserPlaylogRepo,
     private val mapper: BasicMapper
 ) : BaseHandler {
-    data class BacklogEntry(val time: Long, val playlog: UserPlaylog)
+    data class BacklogEntry(val time: Long, val playlog: Mai2UserPlaylog)
     companion object {
         @JvmStatic
         val playBacklog = mutableMapOf<Long, MutableList<BacklogEntry>>()

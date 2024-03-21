@@ -105,66 +105,66 @@ public class ApiMaimai2PlayerDataController {
     }
 
     @PostMapping("profile/username")
-    public UserDetail updateName(@RequestBody Map<String, Object> request) {
-        UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
+    public Mai2UserDetail updateName(@RequestBody Map<String, Object> request) {
+        Mai2UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         profile.setUserName((String) request.get("userName"));
         return userDataRepository.save(profile);
     }
 
     @PostMapping("profile/icon")
-    public UserDetail updateIcon(@RequestBody Map<String, Object> request) {
-        UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
+    public Mai2UserDetail updateIcon(@RequestBody Map<String, Object> request) {
+        Mai2UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         profile.setIconId((Integer) request.get("iconId"));
         return userDataRepository.save(profile);
     }
 
     @PostMapping("profile/plate")
-    public UserDetail updatePlate(@RequestBody Map<String, Object> request) {
-        UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
+    public Mai2UserDetail updatePlate(@RequestBody Map<String, Object> request) {
+        Mai2UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         profile.setPlateId((Integer) request.get("plateId"));
         return userDataRepository.save(profile);
     }
 
     @PostMapping("profile/frame")
-    public UserDetail updateFrame(@RequestBody Map<String, Object> request) {
-        UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
+    public Mai2UserDetail updateFrame(@RequestBody Map<String, Object> request) {
+        Mai2UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         profile.setFrameId((Integer) request.get("frameId"));
         return userDataRepository.save(profile);
     }
 
     @PostMapping("profile/title")
-    public UserDetail updateTrophy(@RequestBody Map<String, Object> request) {
-        UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
+    public Mai2UserDetail updateTrophy(@RequestBody Map<String, Object> request) {
+        Mai2UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         profile.setTitleId((Integer) request.get("titleId"));
         return userDataRepository.save(profile);
     }
 
     @PostMapping("profile/partner")
-    public UserDetail updatePartner(@RequestBody Map<String, Object> request) {
-        UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
+    public Mai2UserDetail updatePartner(@RequestBody Map<String, Object> request) {
+        Mai2UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         profile.setPartnerId((Integer) request.get("partnerId"));
         return userDataRepository.save(profile);
     }
 
     @GetMapping("character")
-    public ReducedPageResponse<UserCharacter> getCharacter(@RequestParam long aimeId,
-                                                           @RequestParam(required = false, defaultValue = "0") int page,
-                                                           @RequestParam(required = false, defaultValue = "10") int size) {
-        Page<UserCharacter> characters = userCharacterRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page, size));
+    public ReducedPageResponse<Mai2UserCharacter> getCharacter(@RequestParam long aimeId,
+                                                               @RequestParam(required = false, defaultValue = "0") int page,
+                                                               @RequestParam(required = false, defaultValue = "10") int size) {
+        Page<Mai2UserCharacter> characters = userCharacterRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page, size));
         return new ReducedPageResponse<>(characters.getContent(), characters.getPageable().getPageNumber(), characters.getTotalPages(), characters.getTotalElements());
     }
 
     @GetMapping("activity")
-    public List<UserAct> getActivities(@RequestParam long aimeId) {
+    public List<Mai2UserAct> getActivities(@RequestParam long aimeId) {
         return userActRepository.findByUser_Card_ExtId(aimeId);
     }
 
     @GetMapping("item")
-    public ReducedPageResponse<UserItem> getItem(@RequestParam long aimeId,
-                                                 @RequestParam(required = false, defaultValue = "0") int page,
-                                                 @RequestParam(required = false, defaultValue = "10") int size,
-                                                 @RequestParam(required = false, defaultValue = "0") int ItemKind) {
-        Page<UserItem> items;
+    public ReducedPageResponse<Mai2UserItem> getItem(@RequestParam long aimeId,
+                                                     @RequestParam(required = false, defaultValue = "0") int page,
+                                                     @RequestParam(required = false, defaultValue = "10") int size,
+                                                     @RequestParam(required = false, defaultValue = "0") int ItemKind) {
+        Page<Mai2UserItem> items;
         if(ItemKind == 0){
             items = userItemRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page, size));
         }
@@ -176,7 +176,7 @@ public class ApiMaimai2PlayerDataController {
 
     @PostMapping("item")
     public ResponseEntity<Object> updateItem(@RequestBody Map<String, Object> request) {
-        UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
+        Mai2UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         Integer itemKind = (Integer) request.get("itemKind");
         Integer itemId = (Integer) request.get("itemId");
         int stock = 1;
@@ -184,13 +184,14 @@ public class ApiMaimai2PlayerDataController {
             stock = (Integer) request.get("stock");
         }
 
-        Optional<UserItem> userItemOptional = userItemRepository.findByUserAndItemKindAndItemId(profile, itemKind, itemId);
+        Optional<Mai2UserItem> userItemOptional = userItemRepository.findByUserAndItemKindAndItemId(profile, itemKind, itemId);
 
-        UserItem userItem;
+        Mai2UserItem userItem;
         if (userItemOptional.isPresent()) {
             userItem = userItemOptional.get();
         } else {
-            userItem = new UserItem(profile);
+            userItem = new Mai2UserItem();
+            userItem.setUser(profile);
             userItem.setItemId(itemId);
             userItem.setItemKind(itemKind);
         }
@@ -200,34 +201,34 @@ public class ApiMaimai2PlayerDataController {
     }
 
     @GetMapping("recent")
-    public ReducedPageResponse<UserPlaylog> getRecent(@RequestParam long aimeId,
-                                                      @RequestParam(required = false, defaultValue = "0") int page,
-                                                      @RequestParam(required = false, defaultValue = "10") int size) {
-        Page<UserPlaylog> playlogs = userPlaylogRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page, size, Sort.Direction.DESC, "id"));
+    public ReducedPageResponse<Mai2UserPlaylog> getRecent(@RequestParam long aimeId,
+                                                          @RequestParam(required = false, defaultValue = "0") int page,
+                                                          @RequestParam(required = false, defaultValue = "10") int size) {
+        Page<Mai2UserPlaylog> playlogs = userPlaylogRepository.findByUser_Card_ExtId(aimeId, PageRequest.of(page, size, Sort.Direction.DESC, "id"));
         return new ReducedPageResponse<>(playlogs.getContent(), playlogs.getPageable().getPageNumber(), playlogs.getTotalPages(), playlogs.getTotalElements());
 
     }
 
     @GetMapping("song/{id}")
-    public List<UserMusicDetail> getSongDetail(@RequestParam long aimeId, @PathVariable int id) {
+    public List<Mai2UserMusicDetail> getSongDetail(@RequestParam long aimeId, @PathVariable int id) {
         return userMusicDetailRepository.findByUser_Card_ExtIdAndMusicId(aimeId, id);
     }
 
     @GetMapping("song/{id}/{level}")
-    public List<UserPlaylog> getLevelPlaylog(@RequestParam long aimeId, @PathVariable int id, @PathVariable int level) {
+    public List<Mai2UserPlaylog> getLevelPlaylog(@RequestParam long aimeId, @PathVariable int id, @PathVariable int level) {
         return userPlaylogRepository.findByUser_Card_ExtIdAndMusicIdAndLevel(aimeId, id, level);
     }
 
     @GetMapping("options")
-    public UserOption getOptions(@RequestParam long aimeId) {
+    public Mai2UserOption getOptions(@RequestParam long aimeId) {
         return userOptionRepository.findSingleByUser_Card_ExtId(aimeId).orElseThrow();
     }
 
     @PostMapping("options")
     public ResponseEntity<Object> updateOptions(@RequestBody Map<String, Object> request) {
-		UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
+		Mai2UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
 		ObjectMapper objectMapper = new ObjectMapper();
-		UserOption userOption = objectMapper.convertValue(request.get("options"), UserOption.class);
+		Mai2UserOption userOption = objectMapper.convertValue(request.get("options"), Mai2UserOption.class);
 		userOption.setUser(profile);
 		userOptionRepository.deleteByUser(profile);
 		userOptionRepository.flush();
@@ -236,24 +237,26 @@ public class ApiMaimai2PlayerDataController {
 
     @GetMapping("general")
     public ResponseEntity<Object> getGeneralData(@RequestParam long aimeId, @RequestParam String key) {
-        Optional<UserGeneralData> userGeneralDataOptional = userGeneralDataRepository.findByUser_Card_ExtIdAndPropertyKey(aimeId, key);
+        Optional<Mai2UserGeneralData> userGeneralDataOptional = userGeneralDataRepository.findByUser_Card_ExtIdAndPropertyKey(aimeId, key);
         return userGeneralDataOptional.<ResponseEntity<Object>>map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("User or value not found.")));
     }
 
     @PostMapping("general")
     public ResponseEntity<Object> setGeneralData(@RequestBody Map<String, Object> request) {
-        UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
+        Mai2UserDetail profile = userDataRepository.findByCardExtId(((Number) request.get("aimeId")).longValue()).orElseThrow();
         String key = (String) request.get("key");
         String value = (String) request.get("value");
 
-        Optional<UserGeneralData> userGeneralDataOptional = userGeneralDataRepository.findByUserAndPropertyKey(profile, key);
-        UserGeneralData userGeneralData;
+        Optional<Mai2UserGeneralData> userGeneralDataOptional = userGeneralDataRepository.findByUserAndPropertyKey(profile, key);
+        Mai2UserGeneralData userGeneralData;
         if (userGeneralDataOptional.isPresent()) {
             userGeneralData = userGeneralDataOptional.get();
         }
         else {
-            userGeneralData = new UserGeneralData(profile, key);
+            userGeneralData = new Mai2UserGeneralData();
+            userGeneralData.setUser(profile);
+            userGeneralData.setPropertyKey(key);
         }
         userGeneralData.setPropertyValue(value);
 
@@ -307,7 +310,7 @@ public class ApiMaimai2PlayerDataController {
         Card card;
         if (cardOptional.isPresent()) {
             card = cardOptional.get();
-            Optional<UserDetail> existUserData = Optional.ofNullable(userDataRepository.findByCard(cardOptional.get()));
+            Optional<Mai2UserDetail> existUserData = Optional.ofNullable(userDataRepository.findByCard(cardOptional.get()));
             if (existUserData.isPresent()) {
 //                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 //                        .body(new MessageResponse("This card already has a maimai2 profile."));
@@ -354,7 +357,7 @@ public class ApiMaimai2PlayerDataController {
             card = cardService.registerByAccessCode(exUser.getAccessCode());
         }
 
-        UserDetail userData = mapper.convert(exUser, new TypeReference<>() {
+        Mai2UserDetail userData = mapper.convert(exUser, new TypeReference<>() {
         });
         userData.setCard(card);
         userDataRepository.saveAndFlush(userData);
@@ -373,15 +376,15 @@ public class ApiMaimai2PlayerDataController {
         userChargeRepository.saveAll(data.getUserChargeList().stream().peek(x -> x.setUser(userData)).collect(Collectors.toList()));
         userCourseRepository.saveAll(data.getUserCourseList().stream().peek(x -> x.setUser(userData)).collect(Collectors.toList()));
 
-        UserExtend userExtend = data.getUserExtend();
+        Mai2UserExtend userExtend = data.getUserExtend();
         userExtend.setUser(userData);
         userExtendRepository.save(userExtend);
 
-        UserOption userOption = data.getUserOption();
+        Mai2UserOption userOption = data.getUserOption();
         userOption.setUser(userData);
         userOptionRepository.save(userOption);
 
-        UserUdemae userUdemae = data.getUserUdemae();
+        Mai2UserUdemae userUdemae = data.getUserUdemae();
         userUdemae.setUser(userData);
         userUdemaeRepository.save(userUdemae);
 

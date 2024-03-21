@@ -3,7 +3,7 @@ package icu.samnyan.aqua.sega.maimai2.handler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserCourseRepo;
 import icu.samnyan.aqua.sega.general.BaseHandler;
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserCourse;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserCourse;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +41,7 @@ public class GetUserCourseHandler implements BaseHandler {
 
         int pageNum = nextIndexVal / maxCount;
 
-        Page<UserCourse> dbPage = userCourseRepository.findByUser_Card_ExtId(userId, PageRequest.of(pageNum, maxCount));
+        Page<Mai2UserCourse> dbPage = userCourseRepository.findByUser_Card_ExtId(userId, PageRequest.of(pageNum, maxCount));
 
         long currentIndex = maxCount * pageNum + dbPage.getNumberOfElements();
 

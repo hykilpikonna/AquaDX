@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.maimai2.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.general.BaseHandler;
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserDetail;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserDetail;
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
@@ -38,11 +38,11 @@ public class CMGetUserPreviewHandler implements BaseHandler {
         Long userId = ((Number) request.get("userId")).longValue();
         String segaIdAuthKey = String.valueOf(request.get("segaIdAuthKey"));
 
-        Optional<UserDetail> userDataOptional = userDataRepository.findByCardExtId(userId);
+        Optional<Mai2UserDetail> userDataOptional = userDataRepository.findByCardExtId(userId);
 
         if (userDataOptional.isPresent()) {
             Map<String, Object> resultMap = new LinkedHashMap<>();
-            UserDetail user = userDataOptional.get();
+            Mai2UserDetail user = userDataOptional.get();
 
             resultMap.put("userName", user.getUserName());
             resultMap.put("rating", user.getPlayerRating());

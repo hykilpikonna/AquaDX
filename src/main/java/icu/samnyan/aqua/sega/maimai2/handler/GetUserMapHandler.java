@@ -3,7 +3,7 @@ package icu.samnyan.aqua.sega.maimai2.handler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserMapRepo;
 import icu.samnyan.aqua.sega.general.BaseHandler;
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserMap;
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserMap;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +39,7 @@ public class GetUserMapHandler implements BaseHandler {
 
         int pageNum = nextIndexVal / maxCount;
 
-        Page<UserMap> dbPage = userMapRepository.findByUser_Card_ExtId(userId, PageRequest.of(pageNum, maxCount));
+        Page<Mai2UserMap> dbPage = userMapRepository.findByUser_Card_ExtId(userId, PageRequest.of(pageNum, maxCount));
 
         long currentIndex = maxCount * pageNum + dbPage.getNumberOfElements();
 
