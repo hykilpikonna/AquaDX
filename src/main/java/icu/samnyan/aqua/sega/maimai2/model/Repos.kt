@@ -9,6 +9,7 @@ import icu.samnyan.aqua.sega.maimai2.model.userdata.*
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
@@ -50,8 +51,9 @@ interface Mai2UserCourseRepo : UserLinked<Mai2UserCourse> {
 interface Mai2UserDataRepo : GenericUserDataRepo<Mai2UserDetail> {
     fun findByCardExtId(userId: Long): Optional<Mai2UserDetail>
 
+    @Modifying
     @Transactional
-    fun deleteByCard(card: Card)
+    fun deleteByCard(card: Card): Void
 }
 
 interface Mai2UserExtendRepo : UserLinked<Mai2UserExtend>

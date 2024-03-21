@@ -4,12 +4,14 @@ import ext.*
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.general.model.Card
+import org.slf4j.LoggerFactory
 import kotlin.jvm.optionals.getOrNull
 import kotlin.reflect.KClass
 
 abstract class GameApiController<T : IGenericUserData>(name: String, userDataClass: KClass<T>) {
     val musicMapping = resJson<Map<String, GenericMusicMeta>>("/meta/$name/music.json")
         ?.mapKeys { it.key.toInt() } ?: emptyMap()
+    val logger = LoggerFactory.getLogger(javaClass)
 
     val itemMapping = resJson<Map<String, Map<String, GenericItemMeta>>>("/meta/$name/items.json") ?: emptyMap()
 

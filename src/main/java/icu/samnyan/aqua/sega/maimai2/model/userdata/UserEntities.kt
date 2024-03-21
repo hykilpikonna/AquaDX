@@ -17,9 +17,9 @@ import lombok.NoArgsConstructor
 @MappedSuperclass
 open class Mai2UserEntity : BaseEntity() {
     @JsonIgnore
-    @ManyToOne(cascade = [CascadeType.ALL])
+    @ManyToOne
     @JoinColumn(name = "user_id")
-    open var user: Mai2UserDetail? = null
+    open var user: Mai2UserDetail = Mai2UserDetail()
 }
 
 

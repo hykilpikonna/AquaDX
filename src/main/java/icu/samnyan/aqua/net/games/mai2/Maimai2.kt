@@ -102,18 +102,18 @@ class Maimai2(
         export.userData.card = u.ghostCard
 
         // Check existing data
-        val gu = repos.userData.findByCard(u.ghostCard)?.also { gu ->
+        repos.userData.findByCard(u.ghostCard)?.also { gu ->
             // Store a backup of the old data
             val fl = "mai2-backup-${u.auId}-${LocalDateTime.now().urlSafeStr()}.json"
             (Path(netProps.importBackupPath) / fl).writeText(export(u).toJson())
+
+            // Delete the old data (After migration v1000.7, all user-linked entities have ON DELETE CASCADE)
+            logger.info("Mai2 Import: Deleting old data for user ${u.auId}")
+            repos.userData.delete(gu)
+            repos.userData.flush()
         }
 
         trans.execute {
-            gu?.let {
-                // Delete the old data (After migration v1000.7, all user-linked entities have ON DELETE CASCADE)
-                repos.userData.deleteByCard(u.ghostCard)
-            }
-
             // Insert new data
             val nu = repos.userData.save(export.userData)
             // Set user fields
