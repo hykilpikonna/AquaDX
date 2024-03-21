@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException
 import ext.invoke
 import ext.mapApply
 import ext.minus
+import icu.samnyan.aqua.net.games.USERNAME_CHARS
 import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.general.service.CardService
 import icu.samnyan.aqua.sega.maimai2.handler.UploadUserPlaylogHandler.Companion.playBacklog
@@ -45,6 +46,10 @@ class UpsertUserAllHandler(
             id = userData?.id ?: 0
             card = userData?.card ?: cardService.getCardByExtId(userId).orElseThrow()
             isNetMember = 1
+
+            // Verify user name
+            if (userName.isBlank() || userName.length > 8 || !userName.all { it in USERNAME_CHARS })
+                400 - "Invalid username"
         })
 
         // Check playlog backlog
@@ -55,7 +60,7 @@ class UpsertUserAllHandler(
         // Set users
         req.run { listOf(userExtend, userOption, userCharacterList, userMapList, userLoginBonusList, userItemList,
             userMusicDetailList, userCourseList, userFriendSeasonRankingList, userFavoriteList) }
-            .forEach { it?.forEach { it?.user = u } }
+            .flatten().forEach { it?.user = u }
 
         req.userExtend?.getOrNull(0)?.let {
             repos.userExtend.save(it.apply { id = repos.userExtend.findSingleByUser(u)()?.id ?: 0 })

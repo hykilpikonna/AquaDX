@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.sega.maimai2
 
 import ext.API
+import ext.popAll
 import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.maimai2.handler.*
 import org.slf4j.LoggerFactory
@@ -22,7 +23,6 @@ class Maimai2ServletController(
     val getTransferFriend: GetTransferFriendHandler,
     val getUserActivity: GetUserActivityHandler,
     val userLogin: UserLoginHandler,
-    val userLogout: UserLogoutHandler,
     val getUserData: GetUserDataHandler,
     val upsertUserAll: UpsertUserAllHandler,
     val getUserPreview: GetUserPreviewHandler,
@@ -62,7 +62,8 @@ class Maimai2ServletController(
     val createToken = BaseHandler { """{"Bearer":"AQUATOKEN"}""" }
     val cmUpsertUserPrintLog = BaseHandler { """{"returnCode":1,"orderId":"0","serialId":"FAKECARDIMAG12345678"}""" }
 
-    val endpointList = listOf("GetGameEventApi", "GetGameRankingApi", "GetGameSettingApi", "GetGameTournamentInfoApi",
+    val endpointList = mutableListOf("GetGameEventApi", "GetGameRankingApi", "GetGameSettingApi",
+        "GetGameTournamentInfoApi",
         "GetTransferFriendApi", "GetUserActivityApi", "GetUserCardApi", "GetUserCharacterApi", "GetUserDataApi",
         "GetUserExtendApi", "GetUserFavoriteApi", "GetUserGhostApi", "GetUserItemApi", "GetUserLoginBonusApi",
         "GetUserMapApi", "GetUserMusicApi", "GetUserOptionApi", "GetUserPortraitApi", "GetUserPreviewApi",
@@ -72,11 +73,14 @@ class Maimai2ServletController(
         "GetUserRecommendRateMusicApi", "GetUserRecommendSelectMusicApi", "CMGetSellingCardApi",
         "CMGetUserCardApi", "CMGetUserCardPrintErrorApi", "CMGetUserCharacterApi", "CMGetUserDataApi", "CMGetUserItemApi",
         "CMGetUserPreviewApi", "CMUpsertUserPrintApi",
-        "CMUpsertUserPrintlogApi", "GetUserFavoriteItemApi", "GetUserRivalDataApi", "GetUserRivalMusicApi")
-
-    val noopEndpoint = setOf("GetUserScoreRankingApi", "UpsertClientBookkeepingApi", "UpsertClientSettingApi",
+        "CMUpsertUserPrintlogApi", "GetUserFavoriteItemApi", "GetUserRivalDataApi", "GetUserRivalMusicApi",
+        "GetUserScoreRankingApi", "UpsertClientBookkeepingApi", "UpsertClientSettingApi",
         "UpsertClientTestmodeApi", "UpsertClientUploadApi", "Ping", "RemoveTokenApi", "CMLoginApi", "CMLogoutApi",
         "CMUpsertBuyCardApi")
+
+    val noopEndpoint = endpointList.popAll("GetUserScoreRankingApi", "UpsertClientBookkeepingApi",
+        "UpsertClientSettingApi", "UpsertClientTestmodeApi", "UpsertClientUploadApi", "Ping", "RemoveTokenApi",
+        "CMLoginApi", "CMLogoutApi", "CMUpsertBuyCardApi", "UserLogoutApi")
 
     val members = this::class.declaredMemberProperties
     val handlers: Map<String, BaseHandler> = endpointList.associateWith { api ->
