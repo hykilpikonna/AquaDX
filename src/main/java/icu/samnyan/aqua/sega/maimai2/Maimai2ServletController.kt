@@ -75,11 +75,7 @@ class Maimai2ServletController(
         "CMUpsertUserPrintlogApi", "GetUserFavoriteItemApi", "GetUserRivalDataApi", "GetUserRivalMusicApi",
         "GetUserScoreRankingApi", "UpsertClientBookkeepingApi", "UpsertClientSettingApi",
         "UpsertClientTestmodeApi", "UpsertClientUploadApi", "Ping", "RemoveTokenApi", "CMLoginApi", "CMLogoutApi",
-        "CMUpsertBuyCardApi",
-
-        // Luminous
-        "GetGameMapAreaConditionApi", "GetUserCMissionApi"
-        ).toMutableList()
+        "CMUpsertBuyCardApi").toMutableList()
 
     val noopEndpoint = endpointList.popAll("GetUserScoreRankingApi", "UpsertClientBookkeepingApi",
         "UpsertClientSettingApi", "UpsertClientTestmodeApi", "UpsertClientUploadApi", "Ping", "RemoveTokenApi",

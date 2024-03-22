@@ -66,9 +66,9 @@ class ChusanServletController(
     val removeMatchingMember: RemoveMatchingMemberHandler,
 
     // Luminous
-    val getUserCMissionHandler: GetUserCMissionHandler,
-    val getUserNetBattleRankingInfoHandler: GetUserNetBattleRankingInfoHandler,
-    val getGameMapAreaConditionHandler: GetGameMapAreaConditionHandler
+    val getUserCMission: GetUserCMissionHandler,
+    val getUserNetBattleRankingInfo: GetUserNetBattleRankingInfoHandler,
+    val getGameMapAreaCondition: GetGameMapAreaConditionHandler
 ) {
     val logger = LoggerFactory.getLogger(ChusanServletController::class.java)
 
