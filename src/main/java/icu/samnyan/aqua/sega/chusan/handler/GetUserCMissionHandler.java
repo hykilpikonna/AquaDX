@@ -1,12 +1,12 @@
-package icu.samnyan.aqua.sega.chusan.handler.impl;
+package icu.samnyan.aqua.sega.chusan.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.chusan.dao.userdata.UserCMissionProgressRepository;
 import icu.samnyan.aqua.sega.chusan.dao.userdata.UserCMissionRepository;
-import icu.samnyan.aqua.sega.chusan.handler.BaseHandler;
 import icu.samnyan.aqua.sega.chusan.model.response.data.UserCMissionProgressResp;
 import icu.samnyan.aqua.sega.chusan.model.response.data.UserCMissionResp;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCMission;
+import icu.samnyan.aqua.sega.general.BaseHandler;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

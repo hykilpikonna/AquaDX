@@ -1,11 +1,10 @@
 package icu.samnyan.aqua.sega.chusan.model.userdata;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @Entity(name = "ChusanUserCMissionProgress")
 @Table(name = "chusan_user_cmission_progress", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "mission_id", "order"})})
