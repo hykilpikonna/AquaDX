@@ -62,7 +62,6 @@ public class ChusanServletController {
     private final CMUpsertUserGachaHandler cmUpsertUserGachaHandler;
     private final CMUpsertUserPrintSubtractHandler cmUpsertUserPrintSubtractHandler;
     private final CMUpsertUserPrintCancelHandler cmUpsertUserPrintCancelHandler;
-    private final GetUserCtoCPlayHandler getUserCtoCPlayHandler;
     private final BeginMatchingHandler beginMatchingHandler;
     private final EndMatchingHandler endMatchingHandler;
     private final GetMatchingStateHandler getMatchingStateHandler;
@@ -140,7 +139,6 @@ public class ChusanServletController {
         this.cmUpsertUserGachaHandler = cmUpsertUserGachaHandler;
         this.cmUpsertUserPrintSubtractHandler = cmUpsertUserPrintSubtractHandler;
         this.cmUpsertUserPrintCancelHandler = cmUpsertUserPrintCancelHandler;
-        this.getUserCtoCPlayHandler = getUserCtoCPlayHandler;
         this.beginMatchingHandler = beginMatchingHandler;
         this.endMatchingHandler = endMatchingHandler;
         this.getMatchingStateHandler = getMatchingStateHandler;
