@@ -1,6 +1,8 @@
 package icu.samnyan.aqua.net.games
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import ext.JACKSON
 import ext.JavaSerializable
 import icu.samnyan.aqua.sega.general.model.Card
@@ -107,7 +109,7 @@ interface IGenericGamePlaylog {
 open class BaseEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     var id: Long = 0
 ) : JavaSerializable {
     override fun toString() = JACKSON.writeValueAsString(this)
