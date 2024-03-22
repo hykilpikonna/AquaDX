@@ -29,6 +29,7 @@ public class GameSetting {
     private int matchTimeLimit;
     private int matchErrorLimit;
     private String matchingUri;
+    private String matchingUriX;
     private String udpHolePunchUri;
     private String reflectorUri;
 }

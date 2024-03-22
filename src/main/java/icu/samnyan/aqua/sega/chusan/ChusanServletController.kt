@@ -64,6 +64,11 @@ class ChusanServletController(
     val endMatching: EndMatchingHandler,
     val getMatchingState: GetMatchingStateHandler,
     val removeMatchingMember: RemoveMatchingMemberHandler,
+
+    // Luminous
+    val getUserCMissionHandler: GetUserCMissionHandler,
+    val getUserNetBattleRankingInfoHandler: GetUserNetBattleRankingInfoHandler,
+    val getGameMapAreaConditionHandler: GetGameMapAreaConditionHandler
 ) {
     val logger = LoggerFactory.getLogger(ChusanServletController::class.java)
 
@@ -88,7 +93,7 @@ class ChusanServletController(
         "CMUpsertUserPrintlogApi", "CMUpsertUserPrintSubtractApi",
 
         // SDGS Exclusive
-        "GetUserCtoCPlayApi")
+        "GetUserCtoCPlayApi", "GetUserCMissionApi", "GetUserNetBattleRankingInfoApi", "GetGameMapAreaConditionApi")
 
     val noopEndpoint = endpointList.popAll("UpsertClientBookkeepingApi", "UpsertClientDevelopApi", "UpsertClientErrorApi",
         "UpsertClientSettingApi", "UpsertClientTestmodeApi", "CreateTokenApi", "RemoveTokenApi", "UpsertClientUploadApi",

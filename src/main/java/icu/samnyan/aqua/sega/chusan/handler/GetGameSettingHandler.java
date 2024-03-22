@@ -87,6 +87,7 @@ public class GetGameSettingHandler implements BaseHandler {
                 10,
                 "http://" + addr + ":" + port + "/ChusanServlet/",
                 "http://" + addr + ":" + port + "/ChusanServlet/",
+                "http://" + addr + ":" + port + "/ChusanServlet/",
                 "http://" + addr + ":" + port + "/ChusanServlet/"
                 );
 

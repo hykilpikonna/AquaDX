@@ -62,8 +62,7 @@ class Maimai2ServletController(
     val createToken = BaseHandler { """{"Bearer":"AQUATOKEN"}""" }
     val cmUpsertUserPrintLog = BaseHandler { """{"returnCode":1,"orderId":"0","serialId":"FAKECARDIMAG12345678"}""" }
 
-    val endpointList = mutableListOf("GetGameEventApi", "GetGameRankingApi", "GetGameSettingApi",
-        "GetGameTournamentInfoApi",
+    val endpointList = setOf("GetGameEventApi", "GetGameRankingApi", "GetGameSettingApi", "GetGameTournamentInfoApi",
         "GetTransferFriendApi", "GetUserActivityApi", "GetUserCardApi", "GetUserCharacterApi", "GetUserDataApi",
         "GetUserExtendApi", "GetUserFavoriteApi", "GetUserGhostApi", "GetUserItemApi", "GetUserLoginBonusApi",
         "GetUserMapApi", "GetUserMusicApi", "GetUserOptionApi", "GetUserPortraitApi", "GetUserPreviewApi",
@@ -76,11 +75,15 @@ class Maimai2ServletController(
         "CMUpsertUserPrintlogApi", "GetUserFavoriteItemApi", "GetUserRivalDataApi", "GetUserRivalMusicApi",
         "GetUserScoreRankingApi", "UpsertClientBookkeepingApi", "UpsertClientSettingApi",
         "UpsertClientTestmodeApi", "UpsertClientUploadApi", "Ping", "RemoveTokenApi", "CMLoginApi", "CMLogoutApi",
-        "CMUpsertBuyCardApi")
+        "CMUpsertBuyCardApi",
+
+        // Luminous
+        "GetGameMapAreaConditionApi", "GetUserCMissionApi"
+        ).toMutableList()
 
     val noopEndpoint = endpointList.popAll("GetUserScoreRankingApi", "UpsertClientBookkeepingApi",
         "UpsertClientSettingApi", "UpsertClientTestmodeApi", "UpsertClientUploadApi", "Ping", "RemoveTokenApi",
-        "CMLoginApi", "CMLogoutApi", "CMUpsertBuyCardApi", "UserLogoutApi")
+        "CMLoginApi", "CMLogoutApi", "CMUpsertBuyCardApi", "UserLogoutApi", "GetGameMapAreaConditionApi")
 
     val members = this::class.declaredMemberProperties
     val handlers: Map<String, BaseHandler> = endpointList.associateWith { api ->
