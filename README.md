@@ -15,7 +15,7 @@ Below is a list of games supported by this server.
 
 | Game                      | Ver  | Codename      | Thanks to                                  |
 |---------------------------|------|---------------|--------------------------------------------|
-| SDHD: CHUNITHM (Chusan)   | 2.16 | SUN Plus      | [@rinsama](https://github.com/mxihan)      |
+| SDHD: CHUNITHM (Chusan)   | 2.20 | LUMINOUS      | [@rinsama](https://github.com/mxihan)      |
 | SDEZ: MaiMai DX           | 1.40 | BUDDiES       | [@肥宅虾哥](https://github.com/FeiZhaixiage)   |
 | SDED: Card Maker          | 1.34 |               |                                            |
 | SBZV: Project DIVA Arcade | 7.10 | Future Tone   |                                            |
