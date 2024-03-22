@@ -2,6 +2,8 @@ package icu.samnyan.aqua.sega.chusan.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.general.BaseHandler;
+import icu.samnyan.aqua.sega.chusan.dao.userdata.UserCMissionProgressRepository;
+import icu.samnyan.aqua.sega.chusan.dao.userdata.UserCMissionRepository;
 import icu.samnyan.aqua.sega.chusan.model.request.UpsertUserAll;
 import icu.samnyan.aqua.sega.chusan.model.response.CodeResp;
 import icu.samnyan.aqua.sega.chusan.model.userdata.*;
@@ -46,6 +48,8 @@ public class UpsertUserAllHandler implements BaseHandler {
     private final UserDuelService userDuelService;
     private final UserGeneralDataService userGeneralDataService;
     private final UserLoginBonusService userLoginBonusService;
+    private final UserCMissionRepository userCMissionRepository;
+    private final UserCMissionProgressRepository userCMissionProgressRepository;
 
     @Autowired
     public UpsertUserAllHandler(StringMapper mapper,
@@ -62,7 +66,8 @@ public class UpsertUserAllHandler implements BaseHandler {
                                 UserCourseService userCourseService,
                                 UserDuelService userDuelService,
                                 UserGeneralDataService userGeneralDataService,
-                                UserLoginBonusService userLoginBonusService) {
+                                UserLoginBonusService userLoginBonusService,
+                                UserCMissionRepository userCMissionRepository, UserCMissionProgressRepository userCMissionProgressRepository) {
         this.mapper = mapper;
         this.cardService = cardService;
         this.userDataService = userDataService;
@@ -78,6 +83,8 @@ public class UpsertUserAllHandler implements BaseHandler {
         this.userDuelService = userDuelService;
         this.userGeneralDataService = userGeneralDataService;
         this.userLoginBonusService = userLoginBonusService;
+        this.userCMissionRepository = userCMissionRepository;
+        this.userCMissionProgressRepository = userCMissionProgressRepository;
     }
 
 
@@ -334,6 +341,45 @@ public class UpsertUserAllHandler implements BaseHandler {
                 newUserLoginBonusMap.put(loginBonusPresetId, userLoginBonus);
             });
             userLoginBonusService.saveAll(newUserLoginBonusMap.values());
+        }
+
+        // userCMissionList
+        if (upsertUserAll.getUserCMissionList() != null){
+            List<Map<String, Object>> userCMissionList = upsertUserAll.getUserCMissionList();
+            userCMissionList.forEach(userCMission -> {
+                int missionId = Integer.parseInt((String) userCMission.get("missionId"));
+                int point = Integer.parseInt((String) userCMission.get("point"));
+                List<Map<String, Object>> userCMissionProgressList = (List<Map<String, Object>>) userCMission.get("userCMissionProgressList");
+                userCMissionRepository.findByUser_Card_ExtIdAndMissionId(Long.parseLong(userId), missionId).ifPresentOrElse(userCMission1 -> {
+                    userCMission1.setPoint(point);
+                    userCMissionRepository.save(userCMission1);
+                }, () -> {
+                    UserCMission userCMission1 = new UserCMission();
+                    userCMission1.setMissionId(missionId);
+                    userCMission1.setPoint(point);
+                    userCMission1.setUser(userData);
+                    userCMissionRepository.save(userCMission1);
+                });
+
+                userCMissionProgressList.forEach(userCMissionProgress -> {
+                    int order = Integer.parseInt((String) userCMissionProgress.get("order"));
+                    int progress = Integer.parseInt((String) userCMissionProgress.get("progress"));
+                    int stage = Integer.parseInt((String) userCMissionProgress.get("stage"));
+                    userCMissionProgressRepository.findByUser_Card_ExtIdAndMissionIdAndOrder(Long.parseLong(userId), missionId, order).ifPresentOrElse(userCMissionProgress1 -> {
+                        userCMissionProgress1.setProgress(progress);
+                        userCMissionProgress1.setStage(stage);
+                        userCMissionProgressRepository.save(userCMissionProgress1);
+                    }, () -> {
+                        UserCMissionProgress userCMissionProgress1 = new UserCMissionProgress();
+                        userCMissionProgress1.setMissionId(missionId);
+                        userCMissionProgress1.setOrder(order);
+                        userCMissionProgress1.setProgress(progress);
+                        userCMissionProgress1.setStage(stage);
+                        userCMissionProgress1.setUser(userData);
+                        userCMissionProgressRepository.save(userCMissionProgress1);
+                    });
+                });
+            });
         }
 
         String json = mapper.write(new CodeResp(1));

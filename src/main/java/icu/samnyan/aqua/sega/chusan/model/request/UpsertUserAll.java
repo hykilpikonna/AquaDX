@@ -84,6 +84,9 @@ public class UpsertUserAll implements Serializable {
     private List<Map<String, Object>> userNetBattleData;
 
     @Nullable
+    private List<Map<String, Object>> userCMissionList;
+
+    @Nullable
     @JsonProperty("isNewCharacterList")
     private String isNewCharacterList;
 
@@ -106,5 +109,9 @@ public class UpsertUserAll implements Serializable {
     @Nullable
     @JsonProperty("isNewMapAreaList")
     private String isNewMapAreaList;
+
+    @Nullable
+    @JsonProperty("isNewCMissionList")
+    private String isNewCMissionList;
 
 }
