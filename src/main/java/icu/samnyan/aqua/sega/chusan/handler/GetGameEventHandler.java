@@ -44,7 +44,7 @@ public class GetGameEventHandler implements BaseHandler {
         resultMap.put("gameEventList", gameEventList);
 
         String json = mapper.write(resultMap);
-        logger.info("Response: " + json);
+        logger.info("Response: {} events", gameEventList.size());
         return json;
     }
 }

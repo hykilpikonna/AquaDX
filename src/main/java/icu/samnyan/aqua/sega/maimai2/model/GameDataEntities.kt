@@ -11,12 +11,12 @@ import java.time.LocalDateTime
 @Data @Entity
 @Table(name = "maimai2_game_event")
 class Mai2GameEvent : BaseEntity() {
-    private val type = 0
-    private val startDate: String? = null
-    private val endDate: String? = null
+    var type = 0
+    var startDate: String? = null
+    var endDate: String? = null
 
     @JsonIgnore
-    private val enable = false
+    var enable = false
 }
 
 @Data @Entity
@@ -33,9 +33,9 @@ class Mai2GameCharge : BaseEntity() {
 @Data @Entity
 @Table(name = "maimai2_game_selling_card")
 class Mai2GameSellingCard : BaseEntity() {
-    private val cardId = 0L
-    private val startDate: LocalDateTime? = null
-    private val endDate: LocalDateTime? = null
-    private val noticeStartDate: LocalDateTime? = null
-    private val noticeEndDate: LocalDateTime? = null
+    var cardId = 0L
+    var startDate: LocalDateTime? = null
+    var endDate: LocalDateTime? = null
+    var noticeStartDate: LocalDateTime? = null
+    var noticeEndDate: LocalDateTime? = null
 }

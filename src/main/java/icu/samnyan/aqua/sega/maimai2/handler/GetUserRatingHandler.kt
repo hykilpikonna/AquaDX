@@ -48,9 +48,10 @@ class GetUserRatingHandler(
 
         ur.udemae = repos.userUdemae.findSingleByUser_Card_ExtId(userId)() ?: Mai2UserUdemae()
 
-        val resultMap: MutableMap<String, Any> = LinkedHashMap()
-        resultMap["userId"] = userId
-        resultMap["userRating"] = ur
+        val resultMap = mapOf(
+            "userId" to userId,
+            "userRating" to ur
+        )
 
         val json = mapper.write(resultMap)
         logger.info("Response: $json")
