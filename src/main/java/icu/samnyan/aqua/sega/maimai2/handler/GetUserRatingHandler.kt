@@ -57,7 +57,7 @@ class GetUserRatingHandler(
         return json
     }
 
-    fun loadRateData(value: String) = value.split(",").map {
+    fun loadRateData(value: String) = value.split(",").filter { it.isNotBlank() }.map {
         val (musicId, level, beforeRating, afterRating) = it.split(":")
         Mai2UserRate(musicId.toInt(), level.toInt(), beforeRating.toInt(), afterRating.toInt())
     }
