@@ -43,4 +43,4 @@ fun findTrend(log: List<TrendLog>): List<TrendOut> {
     return trend
 }
 
-fun List<IGenericGamePlaylog>.acc() = if (isEmpty()) 0.0 else sumOf { it.achievement }.toDouble() / size / 10000.0
+fun List<IGenericGamePlaylog>.acc() = if (isEmpty()) 0.0 else sumOf { it.achievement / 10000.0 } / size
