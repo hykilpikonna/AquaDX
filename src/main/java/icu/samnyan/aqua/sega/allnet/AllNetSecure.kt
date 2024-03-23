@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.sega.allnet
 
 import ext.Str
+import icu.samnyan.aqua.net.FrontierProps
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletRequestWrapper
 import jakarta.servlet.http.HttpServletResponse
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 class TokenChecker(
     val keyChipRepo: KeyChipRepo,
     val keychipSessionService: KeychipSessionService,
+    val frontierProps: FrontierProps,
 ) : HandlerInterceptor {
     val log = LoggerFactory.getLogger(TokenChecker::class.java)
 
@@ -41,8 +43,10 @@ class TokenChecker(
 
         // Check whether the token exists in the database
         // The token can either be a keychip id (old method) or a session id (new method)
+        // Or the frontier token
         val session = keychipSessionService.find(token)
-        if (token.isNotBlank() && (keyChipRepo.existsByKeychipId(token) || session != null))
+        if (token.isNotBlank() && (keyChipRepo.existsByKeychipId(token) || session != null
+                || (frontierProps.enabled && frontierProps.ftk == token)))
         {
             // Forward the request
             val w = RewriteWrapper(req, token).apply { setAttribute("token", token) }
