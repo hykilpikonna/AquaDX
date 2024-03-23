@@ -75,6 +75,7 @@ interface Mai2UserGeneralDataRepo : UserLinked<Mai2UserGeneralData> {
 }
 
 interface Mai2UserItemRepo : UserLinked<Mai2UserItem> {
+    fun findByUserCardExtIdAndItemKind(userId: Long, kind: Int): List<Mai2UserItem>
     fun findByUserAndItemKindAndItemId(user: Mai2UserDetail, itemKind: Int, itemId: Int): Optional<Mai2UserItem>
 
     fun findByUser_Card_ExtIdAndItemKind(userId: Long, kind: Int, page: Pageable): Page<Mai2UserItem>

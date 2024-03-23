@@ -7,7 +7,6 @@ import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2ItemKind
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Component
 import kotlin.jvm.optionals.getOrNull
 
@@ -45,11 +44,8 @@ class GetUserItemHandler(
     override fun handle(request: Map<String, Any>): Any {
         val userId = (request["userId"] as Number).toLong()
         val nextIndexVal = (request["nextIndex"] as Number).toLong()
-        val maxCount = (request["maxCount"] as Number).toInt()
 
         val kind = (nextIndexVal / MULT).toInt()
-        val nextIndex = (nextIndexVal % MULT).toInt()
-        val pageNum = nextIndex / maxCount
         val kindType = Mai2ItemKind.ALL[kind]?.name
 
         // Aqua Net game unlock feature
@@ -74,18 +70,8 @@ class GetUserItemHandler(
             )
         }
 
-        val dbPage = repos.userItem.findByUser_Card_ExtIdAndItemKind(userId, kind, PageRequest.of(pageNum, maxCount))
-
-        val currentIndex = kind * MULT + maxCount * pageNum + dbPage.numberOfElements
-        val result = mapOf(
-            "userId" to userId,
-            "nextIndex" to if (dbPage.numberOfElements < maxCount) 0 else currentIndex,
-            "itemKind" to kind,
-            "userItemList" to dbPage.content
-        )
-
-        logger.info("Response: ${dbPage.numberOfElements} $kindType items")
-        return result
+        return repos.userItem.findByUserCardExtIdAndItemKind(userId, kind).apply {
+            logger.info("Response: $size $kindType items - DB") }
     }
 
     companion object {
