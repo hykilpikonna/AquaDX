@@ -12,6 +12,7 @@ import icu.samnyan.aqua.sega.general.model.Card;
 import icu.samnyan.aqua.sega.general.model.response.UserRecentRating;
 import icu.samnyan.aqua.sega.general.service.CardService;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import java.util.*;
  *
  * @author samnyan (privateamusement@protonmail.com)
  */
+@AllArgsConstructor
 @Component("ChusanUpsertUserAllHandler")
 public class UpsertUserAllHandler implements BaseHandler {
 
@@ -51,42 +53,6 @@ public class UpsertUserAllHandler implements BaseHandler {
     private final UserCMissionRepository userCMissionRepository;
     private final UserCMissionProgressRepository userCMissionProgressRepository;
 
-    @Autowired
-    public UpsertUserAllHandler(StringMapper mapper,
-                                CardService cardService,
-                                UserDataService userDataService,
-                                UserCharacterService userCharacterService,
-                                UserGameOptionService userGameOptionService,
-                                UserMapAreaService userMapService,
-                                UserItemService userItemService,
-                                UserMusicDetailService userMusicDetailService,
-                                UserActivityService userActivityService,
-                                UserPlaylogService userPlaylogService,
-                                UserChargeService userChargeService,
-                                UserCourseService userCourseService,
-                                UserDuelService userDuelService,
-                                UserGeneralDataService userGeneralDataService,
-                                UserLoginBonusService userLoginBonusService,
-                                UserCMissionRepository userCMissionRepository, UserCMissionProgressRepository userCMissionProgressRepository) {
-        this.mapper = mapper;
-        this.cardService = cardService;
-        this.userDataService = userDataService;
-        this.userCharacterService = userCharacterService;
-        this.userGameOptionService = userGameOptionService;
-        this.userMapService = userMapService;
-        this.userItemService = userItemService;
-        this.userMusicDetailService = userMusicDetailService;
-        this.userActivityService = userActivityService;
-        this.userPlaylogService = userPlaylogService;
-        this.userChargeService = userChargeService;
-        this.userCourseService = userCourseService;
-        this.userDuelService = userDuelService;
-        this.userGeneralDataService = userGeneralDataService;
-        this.userLoginBonusService = userLoginBonusService;
-        this.userCMissionRepository = userCMissionRepository;
-        this.userCMissionProgressRepository = userCMissionProgressRepository;
-    }
-
 
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
@@ -95,7 +61,6 @@ public class UpsertUserAllHandler implements BaseHandler {
 
         // Not all field will be sent. Check if they are exist first.
 
-        UserData userData;
         UserData newUserData;
         // UserData
         if (upsertUserAll.getUserData() == null) {
@@ -103,15 +68,12 @@ public class UpsertUserAllHandler implements BaseHandler {
         } else {
             newUserData = upsertUserAll.getUserData().get(0);
 
-            Optional<UserData> userOptional = userDataService.getUserByExtId(userId);
-
-            if (userOptional.isPresent()) {
-                userData = userOptional.get();
-            } else {
-                userData = new UserData();
+            UserData userData = userDataService.getUserByExtId(userId).orElseGet(() -> {
+                var data = new UserData();
                 Card card = cardService.getCardByExtId(userId).orElseThrow();
-                userData.setCard(card);
-            }
+                data.setCard(card);
+                return data;
+            });
 
             newUserData.setId(userData.getId());
             newUserData.setCard(userData.getCard());
@@ -357,7 +319,7 @@ public class UpsertUserAllHandler implements BaseHandler {
                     UserCMission userCMission1 = new UserCMission();
                     userCMission1.setMissionId(missionId);
                     userCMission1.setPoint(point);
-                    userCMission1.setUser(userData);
+                    userCMission1.setUser(newUserData);
                     userCMissionRepository.save(userCMission1);
                 });
 
@@ -375,7 +337,7 @@ public class UpsertUserAllHandler implements BaseHandler {
                         userCMissionProgress1.setOrder(order);
                         userCMissionProgress1.setProgress(progress);
                         userCMissionProgress1.setStage(stage);
-                        userCMissionProgress1.setUser(userData);
+                        userCMissionProgress1.setUser(newUserData);
                         userCMissionProgressRepository.save(userCMissionProgress1);
                     });
                 });
