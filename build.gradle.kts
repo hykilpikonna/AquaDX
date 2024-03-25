@@ -4,7 +4,7 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 plugins {
-    val ktVer = "2.0.0-Beta4"
+    val ktVer = "2.0.0-Beta5"
 
     java
     kotlin("plugin.lombok") version ktVer
@@ -87,6 +87,9 @@ dependencies {
 
     // Import: DateTime Parsing
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.0")
+
+    // Serailization
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 }
 
 group = "icu.samnya"
