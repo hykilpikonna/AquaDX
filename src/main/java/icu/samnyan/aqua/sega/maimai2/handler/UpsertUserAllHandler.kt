@@ -13,7 +13,6 @@ import icu.samnyan.aqua.sega.maimai2.model.request.UpsertUserAll
 import icu.samnyan.aqua.sega.maimai2.model.userdata.*
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper
 import lombok.AllArgsConstructor
-import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
@@ -27,7 +26,6 @@ class UpsertUserAllHandler(
     val cardService: CardService,
     val repos: Mai2Repos
 ) : BaseHandler {
-    val SUCCESS = """{"returnCode":1,"apiName":"com.sega.maimai2servlet.api.UpsertUserAllApi"}"""
 
     @Throws(JsonProcessingException::class)
     override fun handle(request: Map<String, Any>): Any? {
@@ -60,7 +58,7 @@ class UpsertUserAllHandler(
         // Set users
         req.run { listOf(userExtend, userOption, userCharacterList, userMapList, userLoginBonusList, userItemList,
             userMusicDetailList, userCourseList, userFriendSeasonRankingList, userFavoriteList) }
-            .flatten().forEach { it?.user = u }
+            .flatten().forEach { it.user = u }
 
         req.userExtend?.getOrNull(0)?.let {
             repos.userExtend.save(it.apply { id = repos.userExtend.findSingleByUser(u)()?.id ?: 0 })
@@ -134,6 +132,7 @@ class UpsertUserAllHandler(
     }
 
     companion object {
-        val logger: Logger = LoggerFactory.getLogger(UpsertUserAllHandler::class.java)
+        val logger = LoggerFactory.getLogger(UpsertUserAllHandler::class.java)
+        const val SUCCESS = """{"returnCode":1,"apiName":"com.sega.maimai2servlet.api.UpsertUserAllApi"}"""
     }
 }

@@ -236,6 +236,8 @@ class Mai2UserItem : Mai2UserEntity() {
     var itemKind = 0
     var itemId = 0
     var stock = 0
+
+    @JsonProperty("isValid")
     var isValid = false
 }
 
