@@ -71,6 +71,7 @@ class GetUserItemHandler(
         }
 
         return repos.userItem.findByUserCardExtIdAndItemKind(userId, kind).apply {
+            forEach { it.isValid = true }
             logger.info("Response: $size $kindType items - DB") }
     }
 
