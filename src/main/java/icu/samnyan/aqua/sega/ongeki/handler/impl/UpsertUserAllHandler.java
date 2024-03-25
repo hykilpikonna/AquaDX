@@ -98,27 +98,37 @@ public class UpsertUserAllHandler implements BaseHandler {
 
         // All the field should exist, no need to check now.
         // UserData
-        UserData userData;
-        UserData newUserData = upsertUserAll.getUserData().get(0);
+        UserData newUserData;
+        {
+            UserData userData;
 
-        Optional<UserData> userOptional = userDataRepository.findByCard_ExtId(userId);
+            Optional<UserData> userOptional = userDataRepository.findByCard_ExtId(userId);
 
-        if (userOptional.isPresent()) {
-            userData = userOptional.get();
-        } else {
-            userData = new UserData();
-            Card card = cardService.getCardByExtId(userId).orElseThrow();
-            userData.setCard(card);
+            // UserData might be empty on later runs
+            if (userOptional.isEmpty() && upsertUserAll.getUserData().isEmpty()) {
+                return null;
+            }
+
+            if (userOptional.isPresent()) {
+                userData = userOptional.get();
+            } else {
+                userData = new UserData();
+                Card card = cardService.getCardByExtId(userId).orElseThrow();
+                userData.setCard(card);
+            }
+
+            // If new data exists, use new data. Otherwise, use old data
+            newUserData = !upsertUserAll.getUserData().isEmpty() ? upsertUserAll.getUserData().get(0) : userData;
+
+            newUserData.setId(userData.getId());
+            newUserData.setCard(userData.getCard());
+
+            // Set eventWatchedDate with lastPlayDate, because client doesn't update it
+            newUserData.setEventWatchedDate(userData.getLastPlayDate());
+            newUserData.setCmEventWatchedDate(userData.getLastPlayDate());
+
+            userDataRepository.save(newUserData);
         }
-
-        newUserData.setId(userData.getId());
-        newUserData.setCard(userData.getCard());
-
-        // Set eventWatchedDate with lastPlayDate, because client doesn't update it
-        newUserData.setEventWatchedDate(userData.getLastPlayDate());
-        newUserData.setCmEventWatchedDate(userData.getLastPlayDate());
-
-        userDataRepository.save(newUserData);
 
 
         // UserOption
