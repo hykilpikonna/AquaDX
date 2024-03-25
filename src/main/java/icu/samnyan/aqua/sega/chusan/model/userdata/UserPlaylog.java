@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class UserPlaylog implements Serializable, IGenericGamePlaylog {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -50,11 +52,11 @@ public class UserPlaylog implements Serializable, IGenericGamePlaylog {
 
     private int customId;
 
-    private int playedUserId1;
+    private long playedUserId1;
 
-    private int playedUserId2;
+    private long playedUserId2;
 
-    private int playedUserId3;
+    private long playedUserId3;
 
     private String playedUserName1;
 
