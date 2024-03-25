@@ -9,7 +9,7 @@ This document is for detailed game specific notes, if any.
 |-------------------|---------|--------------------------|-------------------------|--------------------|----------------|
 | Chunithm (Chusan) | SDHD    | Sun                      | A152                    | Yes                | Yes            |
 | Chunithm          | SDBT    | Paradise Lost            | A032                    | Yes                | Yes (Paradise) |
-| Maimai DX         | SDEZ    | Festival                 | F061                    | Yes                | Yes            |
+| Maimai DX         | SDEZ    | Buddies                  | H061                    | Yes                | Yes            |
 | O.N.G.E.K.I       | SDDT    | Bright memory            | A108                    | Yes                | Yes            |
 | Card Maker        | SDED    | 1.34                     | A030                    | Yes                | Yes            |
 | Maimai            | SDEY    | Finale                   | ?                       | No                 | ?              |
