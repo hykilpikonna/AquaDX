@@ -3,9 +3,11 @@ package icu.samnyan.aqua.net.games
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import ext.JACKSON
 import ext.JavaSerializable
 import icu.samnyan.aqua.sega.general.model.Card
+import icu.samnyan.aqua.sega.util.jackson.AccessCodeSerializer
 import jakarta.persistence.*
 import kotlinx.serialization.Serializable
 import org.springframework.data.domain.Page
@@ -104,7 +106,6 @@ interface IGenericGamePlaylog {
     val isAllPerfect: Boolean
 }
 
-@Serializable
 @MappedSuperclass
 open class BaseEntity(
     @Id
@@ -113,6 +114,15 @@ open class BaseEntity(
     var id: Long = 0
 ) : JavaSerializable {
     override fun toString() = JACKSON.writeValueAsString(this)
+}
+
+@MappedSuperclass
+open class UserDataEntity : BaseEntity() {
+    @JsonSerialize(using = AccessCodeSerializer::class)
+    @JsonProperty(value = "accessCode", access = JsonProperty.Access.READ_ONLY)
+    @OneToOne
+    @JoinColumn(name = "aime_card_id", unique = true)
+    var card: Card? = null
 }
 
 @NoRepositoryBean

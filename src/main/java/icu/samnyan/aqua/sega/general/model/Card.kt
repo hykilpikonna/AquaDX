@@ -3,8 +3,6 @@ package icu.samnyan.aqua.sega.general.model
 import com.fasterxml.jackson.annotation.JsonIgnore
 import icu.samnyan.aqua.net.db.AquaNetUser
 import jakarta.persistence.*
-import java.io.Serial
-import java.io.Serializable
 import java.time.LocalDateTime
 
 /**
@@ -43,12 +41,7 @@ class Card(
     // Whether the card is a ghost card
     @Column(name = "is_ghost")
     var isGhost: Boolean = false,
-): Serializable {
-    companion object {
-        @Serial
-        private val serialVersionUID = 1L
-    }
-
+) {
     @Suppress("unused") // Used by serialization
     val isLinked get() = aquaUser != null
 }
