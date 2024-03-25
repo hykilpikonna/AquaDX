@@ -110,7 +110,7 @@ interface IGenericGamePlaylog {
 open class BaseEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @JsonIgnore
     var id: Long = 0
 ) : JavaSerializable {
     override fun toString() = JACKSON.writeValueAsString(this)
