@@ -73,7 +73,7 @@ CREATE TABLE wacca_friend
 CREATE TABLE wacca_user_gate
 (
     id           BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    user_id      BIGINT                NULL,
+    user_id      BIGINT                NOT NULL,
     gate_id      INT                   NOT NULL,
     page         INT                   NOT NULL,
     progress     INT                   NOT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE wacca_user_gate
 CREATE TABLE wacca_user_item
 (
     id           BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    user_id      BIGINT                NULL,
+    user_id      BIGINT                NOT NULL,
     item_id      INT                   NOT NULL,
     type         INT                   NOT NULL,
     acquire_date VARCHAR(255)          NULL,
@@ -99,7 +99,7 @@ CREATE TABLE wacca_user_item
 CREATE TABLE wacca_user_score
 (
     id              BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    user_id         BIGINT                NULL,
+    user_id         BIGINT                NOT NULL,
     song_id         INT                   NOT NULL,
     chart_id        INT                   NOT NULL,
     score           INT                   NOT NULL,
@@ -131,7 +131,7 @@ CREATE TABLE wacca_user_score
 CREATE TABLE wacca_user_playlog
 (
     id          BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    user_id     BIGINT                NULL,
+    user_id     BIGINT                NOT NULL,
     song_id     INT                   NOT NULL,
     chart_id    INT                   NOT NULL,
     score       INT                   NOT NULL,
@@ -153,7 +153,7 @@ CREATE TABLE wacca_user_playlog
 CREATE TABLE wacca_user_stageup
 (
     id            BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    user_id       BIGINT                NULL,
+    user_id       BIGINT                NOT NULL,
     version       INT                   NOT NULL,
     stage_id      INT                   NOT NULL,
     clear_status  INT                   NOT NULL,
@@ -169,7 +169,7 @@ CREATE TABLE wacca_user_stageup
 CREATE TABLE wacca_user_song_unlock
 (
     id                 BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    user_id            BIGINT                NULL,
+    user_id            BIGINT                NOT NULL,
     song_id            INT                   NOT NULL,
     highest_difficulty INT                   NOT NULL,
     acquire_date       VARCHAR(255)          NULL,
@@ -180,7 +180,7 @@ CREATE TABLE wacca_user_song_unlock
 CREATE TABLE wacca_user_ticket
 (
     id           BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    user_id      BIGINT                NULL,
+    user_id      BIGINT                NOT NULL,
     ticket_id    INT                   NOT NULL,
     acquire_date VARCHAR(255)          NULL,
     expire_date  VARCHAR(255)          NULL,
@@ -191,7 +191,7 @@ CREATE TABLE wacca_user_ticket
 CREATE TABLE wacca_user_trophy
 (
     id         BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    user_id    BIGINT                NULL,
+    user_id    BIGINT                NOT NULL,
     trophy_id  INT                   NOT NULL,
     season     INT                   NOT NULL,
     progress   INT                   NOT NULL,
@@ -203,7 +203,7 @@ CREATE TABLE wacca_user_trophy
 CREATE TABLE wacca_user_option
 (
     id      BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    user_id BIGINT                NULL,
+    user_id BIGINT                NOT NULL,
     opt_id  INT                   NOT NULL,
     value   INT                   NOT NULL,
     CONSTRAINT wacca_user_option_unique UNIQUE (user_id, opt_id),
