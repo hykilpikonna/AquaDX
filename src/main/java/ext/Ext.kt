@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule
 import icu.samnyan.aqua.net.utils.ApiException
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
+import io.ktor.client.plugins.compression.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.Dispatchers
@@ -87,6 +88,10 @@ fun Str.isValidEmail(): Bool = emailRegex.matches(this)
 val HTTP = HttpClient(CIO) {
     install(ContentNegotiation) {
         json(JSON)
+    }
+    install(ContentEncoding) {
+        gzip()
+        deflate()
     }
 }
 val TIKA = Tika()

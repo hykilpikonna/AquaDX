@@ -63,6 +63,7 @@ dependencies {
     implementation("io.ktor:ktor-client-core:2.3.8")
     implementation("io.ktor:ktor-client-cio:2.3.8")
     implementation("io.ktor:ktor-client-content-negotiation:2.3.8")
+    implementation("io.ktor:ktor-client-encoding:2.3.8")
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.8")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
@@ -88,7 +89,7 @@ dependencies {
     // Import: DateTime Parsing
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.0")
 
-    // Serailization
+    // Serialization
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 }
 
