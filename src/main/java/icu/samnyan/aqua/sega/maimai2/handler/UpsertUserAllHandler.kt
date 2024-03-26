@@ -45,6 +45,9 @@ class UpsertUserAllHandler(
             card = userData?.card ?: cardService.getCardByExtId(userId).orElseThrow()
             isNetMember = 1
 
+            // Decode Username
+            userName = String(userName.toByteArray(Charsets.ISO_8859_1), Charsets.UTF_8)
+
             // Verify user name
             if (userName.isBlank() || userName.length > 8 || !userName.all { it in USERNAME_CHARS })
                 400 - "Invalid username"
