@@ -37,7 +37,7 @@ CREATE TABLE wacca_user
     last_login_date         VARCHAR(255)          NULL,
     gate_tutorial_flags     VARCHAR(255)          NULL,
     CONSTRAINT wacca_user_detail_unique UNIQUE (aime_card_id),
-    CONSTRAINT wacca_user_detail_fk FOREIGN KEY (aime_card_id) REFERENCES main.sega_card (id)
+    CONSTRAINT wacca_user_detail_fk FOREIGN KEY (aime_card_id) REFERENCES sega_card (id)
 );
 
 CREATE TABLE wacca_user_bingo
