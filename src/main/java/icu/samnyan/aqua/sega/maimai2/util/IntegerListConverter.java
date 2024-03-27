@@ -35,7 +35,7 @@ public class IntegerListConverter implements AttributeConverter<List<Integer>, S
     @Override
     public List<Integer> convertToEntityAttribute(String string) {
         if (string != null && !string.isEmpty()) {
-            List<Integer> iList = new ArrayList<Integer>();
+            List<Integer> iList = new ArrayList<>();
             for (String s : string.split(SPLIT_CHAR)) {
                 iList.add(Integer.parseInt(s));
             }

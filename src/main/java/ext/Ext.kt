@@ -1,9 +1,9 @@
 package ext
 
 import icu.samnyan.aqua.net.utils.ApiException
+import icu.samnyan.aqua.sega.general.BaseHandler
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
-import io.ktor.client.plugins.compression.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.Dispatchers
@@ -68,6 +68,9 @@ operator fun Int.minus(message: String): Nothing {
     ApiException.log.info("> Error $this: $message")
     throw ApiException(this, message)
 }
+fun <R> parsing(block: () -> R) = try { block() }
+catch (e: ApiException) { throw e }
+catch (e: Exception) { 400 - e.message.toString() }
 
 // Email validation
 // https://www.baeldung.com/java-email-validation-regex

@@ -110,7 +110,7 @@ class Maimai2ServletController(
     } }
 
     val getGameEvent = BaseHandler {
-        val type = (it["type"] as Number).toInt()
+        val type = parsing { (it["type"] as Number).toInt() }
         mapOf(
             "type" to type,
             "gameEventList" to repos.gameEvent.findByEnable(true) // Maimai only request for type 1
@@ -118,7 +118,7 @@ class Maimai2ServletController(
     }
 
     val getUserRivalData = UserReqHandler { req, userId ->
-        val rivalId = (req["rivalId"] as Number).toLong()
+        val rivalId = parsing { (req["rivalId"] as Number).toLong() }
 
         mapOf(
             "userId" to userId,
@@ -155,7 +155,7 @@ class Maimai2ServletController(
             "isLogin" to false,
             "isExistSellingCard" to false
         )
-    } }
+    } ?: (404 - "User not found") }
 
     val getUserPreview = UserReqHandler { _, userId ->
         val d = repos.userData.findByCardExtId(userId)() ?: (404 - "User not found")
@@ -253,7 +253,7 @@ class Maimai2ServletController(
 
     @API("/{api}")
     fun handle(@PathVariable api: String, @RequestBody request: Map<String, Any>): Any {
-        logger.info("Mai2 < $api : $request")
+        logger.info("Mai2 < $api : ${request.toJson()}") // TODO: Optimize logging
 
         if (api in noopEndpoint) {
             logger.info("Mai2 > $api no-op")
@@ -266,7 +266,8 @@ class Maimai2ServletController(
         }
 
         return handlers[api]?.handle(request)?.let { if (it is String) it else it.toJson() }?.also {
-            if (api !in setOf("GetUserItemApi")) logger.info("Mai2 > $api : $it")
+            if (api !in setOf("GetUserItemApi", "GetGameEventApi"))
+                logger.info("Mai2 > $api : $it")
         } ?: {
             logger.warn("Mai2 > $api not found")
             """{"returnCode":1,"apiName":"com.sega.maimai2servlet.api.$api"}"""
