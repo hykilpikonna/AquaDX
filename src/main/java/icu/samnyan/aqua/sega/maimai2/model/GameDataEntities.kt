@@ -11,6 +11,9 @@ import java.time.LocalDateTime
 @Data @Entity
 @Table(name = "maimai2_game_event")
 class Mai2GameEvent : BaseEntity() {
+    @JsonIgnore(false)
+    override var id = 0L
+
     var type = 0
     var startDate: String? = null
     var endDate: String? = null

@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.sega.maimai2.model.userdata
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
@@ -13,8 +14,8 @@ import jakarta.persistence.*
 @Entity(name = "Maimai2UserData")
 @Table(name = "maimai2_user_detail")
 class Mai2UserDetail(
-    @JsonSerialize(using = AccessCodeSerializer::class)
-    @JsonProperty(value = "accessCode", access = JsonProperty.Access.READ_ONLY)
+    @get:JsonSerialize(using = AccessCodeSerializer::class)
+    @get:JsonProperty(value = "accessCode", access = JsonProperty.Access.READ_ONLY)
     @OneToOne
     @JoinColumn(name = "aime_card_id", unique = true)
     override var card: Card? = null,
@@ -149,6 +150,7 @@ class Mai2UserDetail(
     var currentPlayCount: Int? = 0,
     var renameCredit: Int? = 0
 ) : BaseEntity(), IGenericUserData {
+    @get:JsonIgnore
     override val totalScore: Long
         get() = totalDeluxscore
 }

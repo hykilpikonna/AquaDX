@@ -111,7 +111,7 @@ open class BaseEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
-    var id: Long = 0
+    open var id: Long = 0
 ) : JavaSerializable {
     override fun toString() = JACKSON.writeValueAsString(this)
 }
