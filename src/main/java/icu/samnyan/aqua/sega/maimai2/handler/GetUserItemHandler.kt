@@ -70,9 +70,14 @@ class GetUserItemHandler(
             )
         }
 
-        return repos.userItem.findByUserCardExtIdAndItemKind(userId, kind).apply {
-            forEach { it.isValid = true }
-            logger.info("Response: $size $kindType items - DB") }
+        return mapOf(
+            "userId" to userId,
+            "nextIndex" to 0,
+            "itemKind" to kind,
+            "userItemList" to repos.userItem.findByUserCardExtIdAndItemKind(userId, kind).apply {
+                forEach { it.isValid = true }
+                logger.info("Response: $size $kindType items - DB") }
+        )
     }
 
     companion object {
