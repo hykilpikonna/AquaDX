@@ -27,6 +27,8 @@ class UpsertUserAllHandler(
     val repos: Mai2Repos
 ) : BaseHandler {
 
+    fun String.isValidUsername() = isNotBlank() && length <= 8 && all { it in USERNAME_CHARS }
+
     @Throws(JsonProcessingException::class)
     override fun handle(request: Map<String, Any>): Any? {
         val upsertUserAll = mapper.convert(request, UpsertUserAll::class.java)
@@ -45,12 +47,13 @@ class UpsertUserAllHandler(
             card = userData?.card ?: cardService.getCardByExtId(userId).orElseThrow()
             isNetMember = 1
 
-            // Decode Username
-            userName = String(userName.toByteArray(Charsets.ISO_8859_1), Charsets.UTF_8)
-
-            // Verify user name
-            if (userName.isBlank() || userName.length > 8 || !userName.all { it in USERNAME_CHARS })
-                400 - "Invalid username"
+            // Validate username
+            if (!userName.isValidUsername())
+            {
+                // Maybe it's encoded
+                userName = String(userName.toByteArray(Charsets.ISO_8859_1), Charsets.UTF_8)
+                if (!userName.isValidUsername()) 400 - "Invalid username"
+            }
         })
 
         // Check playlog backlog
