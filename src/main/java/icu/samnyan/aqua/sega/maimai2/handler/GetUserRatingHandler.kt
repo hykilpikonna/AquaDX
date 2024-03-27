@@ -1,6 +1,5 @@
 package icu.samnyan.aqua.sega.maimai2.handler
 
-import com.fasterxml.jackson.core.JsonProcessingException
 import ext.invoke
 import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
@@ -8,10 +7,7 @@ import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRating
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserRate
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserUdemae
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
-import java.util.*
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -21,8 +17,7 @@ class GetUserRatingHandler(
     val mapper: BasicMapper,
     val repos: Mai2Repos
 ) : BaseHandler {
-    @Throws(JsonProcessingException::class)
-    override fun handle(request: Map<String, Any>): String {
+    override fun handle(request: Map<String, Any>): Any {
         val userId = (request["userId"] as Number?)!!.toLong()
         val empty: List<Mai2UserRate> = ArrayList()
 
@@ -48,22 +43,14 @@ class GetUserRatingHandler(
 
         ur.udemae = repos.userUdemae.findSingleByUser_Card_ExtId(userId)() ?: Mai2UserUdemae()
 
-        val resultMap = mapOf(
+        return mapOf(
             "userId" to userId,
             "userRating" to ur
         )
-
-        val json = mapper.write(resultMap)
-        logger.info("Response: $json")
-        return json
     }
 
     fun loadRateData(value: String) = value.split(",").filter { it.isNotBlank() }.map {
         val (musicId, level, beforeRating, afterRating) = it.split(":")
         Mai2UserRate(musicId.toInt(), level.toInt(), beforeRating.toInt(), afterRating.toInt())
-    }
-
-    companion object {
-        private val logger: Logger = LoggerFactory.getLogger(GetUserRatingHandler::class.java)
     }
 }

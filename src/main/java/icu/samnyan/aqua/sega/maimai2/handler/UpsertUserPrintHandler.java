@@ -11,6 +11,7 @@ import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserCard;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserDetail;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserPrintDetail;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import java.util.Optional;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component("Maimai2UpsertUserPrintHandler")
+@AllArgsConstructor
 public class UpsertUserPrintHandler implements BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(UpsertUserPrintHandler.class);
@@ -32,14 +34,6 @@ public class UpsertUserPrintHandler implements BaseHandler {
     private final Mai2UserCardRepo userCardRepository;
     private final Mai2UserPrintDetailRepo userPrintDetailRepository;
     private final Mai2UserDataRepo userDataRepository;
-
-    @Autowired
-    public UpsertUserPrintHandler(BasicMapper mapper, Mai2UserPrintDetailRepo userPrintDetailRepository, Mai2UserCardRepo userCardRepository, Mai2UserDataRepo userDataRepository) {
-        this.mapper = mapper;
-        this.userPrintDetailRepository = userPrintDetailRepository;
-        this.userCardRepository = userCardRepository;
-        this.userDataRepository = userDataRepository;
-    }
 
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
@@ -83,8 +77,6 @@ public class UpsertUserPrintHandler implements BaseHandler {
         resultMap.put("startDate", "2019-01-01 00:00:00.000000");
         resultMap.put("endDate", "2029-01-01 00:00:00.000000");
 
-        String json = mapper.write(resultMap);
-        logger.info("Response: " + json);
-        return json;
+        return mapper.write(resultMap);
     }
 }

@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.maimai2.model.request.data;
 
-import icu.samnyan.aqua.sega.maimai2.model.response.data.UserActivity;
+import icu.samnyan.aqua.sega.maimai2.model.response.data.Mai2UserActivity;
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRating;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.*;
 import lombok.AllArgsConstructor;
@@ -32,7 +32,7 @@ public class UserAll implements Serializable {
 	private List<Mai2UserFriendSeasonRanking> userFriendSeasonRankingList;
 	private List<Mai2UserCharge> userChargeList;
 	private List<Mai2UserFavorite> userFavoriteList;
-	private List<UserActivity> userActivityList;
+	private List<Mai2UserActivity> userActivityList;
 	private List<Map<String, Object>> userGamePlaylogList;
 	private String isNewCharacterList;
 	private String isNewMapList;

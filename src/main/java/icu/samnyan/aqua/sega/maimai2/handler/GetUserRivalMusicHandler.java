@@ -39,8 +39,8 @@ public class GetUserRivalMusicHandler implements BaseHandler {
         long rivalId = ((Number) request.get("rivalId")).intValue();
 
         List<Mai2UserMusicDetail> details = userMusicDetailRepository.findByUser_Card_ExtId(rivalId);
-        List<UserRivalMusic> userRivalMusicList = new LinkedList<UserRivalMusic>();
-        Map<Integer, UserRivalMusic> userRivalMusicMap = new HashMap<Integer, UserRivalMusic>();
+        List<UserRivalMusic> userRivalMusicList = new LinkedList<>();
+        Map<Integer, UserRivalMusic> userRivalMusicMap = new HashMap<>();
         for (Mai2UserMusicDetail detail : details) {
             int musicId = detail.getMusicId();
             UserRivalMusic info = userRivalMusicMap.getOrDefault(musicId, null);
@@ -61,8 +61,6 @@ public class GetUserRivalMusicHandler implements BaseHandler {
         resultMap.put("nextIndex", 0);
         resultMap.put("userRivalMusicList", userRivalMusicList);
 
-        String json = this.mapper.write(resultMap);
-        logger.info("Response: " + json);
-        return json;
+        return mapper.write(resultMap);
     }
 }

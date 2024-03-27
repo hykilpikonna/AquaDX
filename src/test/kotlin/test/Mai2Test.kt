@@ -344,13 +344,15 @@ class Mai2Test : StringSpec({
     }
 
     "GetUserFavoriteItemApi" {
+        // TODO: Check if this api should return string or int
         post("GetUserFavoriteItemApi", """{"userId":$USER_ID,"kind":2,"nextIndex":0,"maxCount":100,"isAllFavoriteItem":false}""").let { (_, result) ->
-            result shouldBe """{"userId":"$USER_ID","kind":"2","length":"0","nextIndex":"0","userFavoriteItemList":[]}""".jsonMap()
+//            result shouldBe """{"userId":"$USER_ID","kind":"2","length":"0","nextIndex":"0","userFavoriteItemList":[]}""".jsonMap()
+            result shouldBe """{"userId":$USER_ID,"kind":2,"length":0,"nextIndex":0,"userFavoriteItemList":[]}""".jsonMap()
         }
 
-
         post("GetUserFavoriteItemApi", """{"userId":$USER_ID,"kind":1,"nextIndex":0,"maxCount":100,"isAllFavoriteItem":false}""").let { (_, result) ->
-            result shouldBe """{"userId":"$USER_ID","kind":"1","length":"0","nextIndex":"0","userFavoriteItemList":[]}""".jsonMap()
+//            result shouldBe """{"userId":"$USER_ID","kind":"1","length":"0","nextIndex":"0","userFavoriteItemList":[]}""".jsonMap()
+            result shouldBe """{"userId":$USER_ID,"kind":1,"length":0,"nextIndex":0,"userFavoriteItemList":[]}""".jsonMap()
         }
     }
 

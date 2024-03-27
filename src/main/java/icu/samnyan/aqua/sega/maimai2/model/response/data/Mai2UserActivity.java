@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserActivity {
+public class Mai2UserActivity {
     private List<Mai2UserAct> playList;
     private List<Mai2UserAct> musicList;
 }

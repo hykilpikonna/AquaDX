@@ -108,7 +108,7 @@ interface Mai2UserUdemaeRepo : UserLinked<Mai2UserUdemae>
 interface Mai2GameChargeRepo : JpaRepository<Mai2GameCharge, Long>
 
 interface Mai2GameEventRepo : JpaRepository<Mai2GameEvent, Int> {
-    fun findByTypeAndEnable(type: Int, enable: Boolean): List<Mai2GameEvent>
+    fun findByEnable(enable: Boolean): List<Mai2GameEvent>
 }
 
 interface Mai2GameSellingCardRepo : JpaRepository<Mai2GameSellingCard, Long>
