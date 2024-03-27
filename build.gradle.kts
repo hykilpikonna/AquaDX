@@ -91,6 +91,10 @@ dependencies {
 
     // Serialization
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    // Testing
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:5.8.1")
+    testImplementation("io.kotest:kotest-assertions-core")
 }
 
 group = "icu.samnya"

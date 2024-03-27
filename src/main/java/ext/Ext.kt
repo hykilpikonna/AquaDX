@@ -1,12 +1,5 @@
 package ext
 
-import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.core.JsonParser
-import com.fasterxml.jackson.databind.DeserializationContext
-import com.fasterxml.jackson.databind.DeserializationFeature
-import com.fasterxml.jackson.databind.JsonDeserializer
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.module.SimpleModule
 import icu.samnyan.aqua.net.utils.ApiException
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
@@ -15,9 +8,6 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonNamingStrategy
 import org.apache.tika.Tika
 import org.apache.tika.mime.MimeTypes
 import org.slf4j.LoggerFactory
@@ -88,10 +78,6 @@ fun Str.isValidEmail(): Bool = emailRegex.matches(this)
 val HTTP = HttpClient(CIO) {
     install(ContentNegotiation) {
         json(JSON)
-    }
-    install(ContentEncoding) {
-        gzip()
-        deflate()
     }
 }
 val TIKA = Tika()
