@@ -3,7 +3,6 @@ package icu.samnyan.aqua.sega.aimedb
 import io.netty.buffer.ByteBuf
 import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.ByteToMessageDecoder
-import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 /**
@@ -11,7 +10,7 @@ import org.slf4j.LoggerFactory
  */
 class AimeDbDecoder : ByteToMessageDecoder() {
     companion object {
-        val logger: Logger = LoggerFactory.getLogger(AimeDbDecoder::class.java)
+        val logger = LoggerFactory.getLogger(AimeDbDecoder::class.java)
     }
 
     var length = 0
@@ -28,11 +27,14 @@ class AimeDbDecoder : ByteToMessageDecoder() {
         if (length < 0 || input.readableBytes() < length) return
 
         // Create a byte array to store the encrypted data
-        val result = AimeDbEncryption.decrypt(input.readBytes(length))
+        val d = input.readBytes(length)
+        val result = AimeDbEncryption.decrypt(d)
+        d.release()
 
-        val resultMap: MutableMap<String, Any> = HashMap()
-        resultMap["type"] = result.getShortLE(0x04).toInt()
-        resultMap["data"] = result
+        val resultMap = mapOf(
+            "type" to result.getShortLE(0x04).toInt(),
+            "data" to result
+        )
 
         logger.debug("AimeDB Request Type: " + resultMap["type"])
 
