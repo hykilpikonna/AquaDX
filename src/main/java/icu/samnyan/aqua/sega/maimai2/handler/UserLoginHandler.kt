@@ -15,7 +15,8 @@ class UserLoginHandler(mapper: BasicMapper) : BaseHandler {
         "loginCount" to 1,
         "consecutiveLoginCount" to 0,
         "loginId" to 1,
-        "Bearer" to "meow" // Isn't actually used by the game
+        "Bearer" to "meow", // Isn't actually used by the game
+        "bearer" to "meow"
     ))
 
     override fun handle(request: Map<String, Any>) = resp
