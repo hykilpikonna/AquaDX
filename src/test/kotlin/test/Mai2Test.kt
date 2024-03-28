@@ -1,8 +1,6 @@
 package test
 
-import ext.HTTP
-import ext.JACKSON
-import ext.ensureEndingSlash
+import ext.*
 import icu.samnyan.aqua.sega.util.Compression
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
@@ -10,19 +8,11 @@ import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
-import kotlin.random.Random
-import kotlin.random.nextInt
-
-const val CLIENT_ID = "A1234567890"
-const val FTK = "test"
-const val HOST = "http://localhost"
-const val BASE_URL = "$HOST/gs/A1234567890/mai2"
 
 var USER_ID = 0L
-val ACCESS_CODE = "9900" + (1..16).map { Random.nextInt(0..9) }.joinToString("")
 
 suspend fun post(url: String, body: String): Pair<HttpResponse, Map<String, Any?>> {
-    val resp = HTTP.post(BASE_URL.ensureEndingSlash() + url) {
+    val resp = HTTP.post("$HOST/gs/$CLIENT_ID/mai2".ensureEndingSlash() + url) {
         contentType(ContentType.Application.Json)
         setBody(body)
     }
@@ -31,20 +21,6 @@ suspend fun post(url: String, body: String): Pair<HttpResponse, Map<String, Any?
 
     return Pair(resp, Compression.decompress(resp.body<ByteArray>()).decodeToString().jsonMap())
 }
-
-suspend fun post(url: String, body: Map<String, Any?>): Pair<HttpResponse, Map<String, Any?>> =
-    post(url, JACKSON.writeValueAsString(body))
-
-inline fun <reified T> String.json() = try {
-    JACKSON.readValue(this, T::class.java)
-}
-catch (e: Exception) {
-    println("Failed to parse JSON: $this")
-    throw e
-}
-
-fun String.jsonMap(): Map<String, Any?> = json()
-fun String.jsonArray(): List<Map<String, Any?>> = json()
 
 class Mai2Test : StringSpec({
     beforeTest {
