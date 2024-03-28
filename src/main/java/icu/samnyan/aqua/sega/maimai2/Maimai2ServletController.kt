@@ -277,8 +277,8 @@ class Maimai2ServletController(
                 """{"returnCode":1,"apiName":"com.sega.maimai2servlet.api.$api"}"""
             }
         } catch (e: ApiException) {
-            logger.warn("Mai2 > $api : ${e.code} - ${e.message}")
-            return ResponseEntity.status(e.code).body("""{"returnCode":0,"apiName":"com.sega.maimai2servlet.api.$api","message":"${e.message?.replace("\"", "\\\"")} - ${e.code}"}""")
+            // It's a bad practice to return 200 ok on error, but this is what maimai does so we have to follow
+            return ResponseEntity.ok().body("""{"returnCode":0,"apiName":"com.sega.maimai2servlet.api.$api","message":"${e.message?.replace("\"", "\\\"")} - ${e.code}"}""")
         }
     }
 }

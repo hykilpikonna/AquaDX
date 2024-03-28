@@ -3,7 +3,7 @@ package icu.samnyan.aqua.sega.allnet
 import ext.*
 import icu.samnyan.aqua.net.db.AquaNetUserRepo
 import icu.samnyan.aqua.sega.util.AquaConst
-import icu.samnyan.aqua.sega.util.Decoder.decodeAllNet
+import icu.samnyan.aqua.sega.util.AllNetBillingDecoder.decodeAllNet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.slf4j.Logger

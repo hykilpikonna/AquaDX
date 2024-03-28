@@ -1,13 +1,16 @@
 package icu.samnyan.aqua.sega.general.filter
 
 import ext.logger
-import icu.samnyan.aqua.sega.util.Compression
+import icu.samnyan.aqua.sega.util.ZLib
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.eclipse.jetty.io.EofException
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
+import org.springframework.web.util.ContentCachingResponseWrapper
+import java.util.*
+
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -16,27 +19,37 @@ import org.springframework.web.filter.OncePerRequestFilter
 class CompressionFilter : OncePerRequestFilter() {
     companion object {
         val logger = logger()
+        val b64d = Base64.getMimeDecoder()
+        val b64e = Base64.getMimeEncoder()
     }
 
     override fun doFilterInternal(req: HttpServletRequest, resp: HttpServletResponse, chain: FilterChain) {
+        val isDeflate = req.getHeader("content-encoding") == "deflate"
+        val isDfi = req.getHeader("pragma") == "DFI"
+
+        // Decode input
         val reqSrc = req.inputStream.readAllBytes().let {
-            if (req.getHeader("content-encoding") == "deflate") Compression.decompress(it)
+            if (isDeflate) ZLib.decompress(it)
+            else if (isDfi) ZLib.decompress(b64d.decode(it))
             else it
         }
 
-        val requestWrapper = CompressRequestWrapper(req, reqSrc)
-        val responseWrapper = CompressResponseWrapper(resp)
+        // Handle request
+        val result = ContentCachingResponseWrapper(resp).run {
+            chain.doFilter(CompressRequestWrapper(req, reqSrc), this)
+            ZLib.compress(contentAsByteArray).let { if (isDfi) b64e.encode(it) else it }
+        }
 
-        chain.doFilter(requestWrapper, responseWrapper)
-
-        val result = Compression.compress(responseWrapper.toByteArray())
-
+        // Write response
         resp.setContentLength(result.size)
-        resp.contentType = "application/json; charset=utf-8"
-        resp.addHeader("Content-Encoding", "deflate")
+        if (isDfi) resp.setHeader("pragma", "DFI")
+        if (isDeflate) {
+            resp.contentType = "application/json; charset=utf-8"
+            resp.setHeader("content-encoding", "deflate")
+        }
 
         try {
-            resp.outputStream.write(result)
+            resp.outputStream.use { it.write(result); it.flush() }
         } catch (e: EofException) {
             logger.warn("- EOF: Client closed connection when writing result")
         }
@@ -46,6 +59,5 @@ class CompressionFilter : OncePerRequestFilter() {
      * Filter games that are not diva
      */
     override fun shouldNotFilter(req: HttpServletRequest) =
-        !(req.servletPath.startsWith("/g/") && !req.servletPath.startsWith("/g/diva")
-            && !req.servletPath.startsWith("/g/wacca"))
+        !(req.servletPath.startsWith("/g/") && !req.servletPath.startsWith("/g/wacca"))
 }

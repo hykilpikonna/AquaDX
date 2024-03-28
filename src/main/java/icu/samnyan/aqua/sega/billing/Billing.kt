@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.billing
 
 import ext.toUrl
-import icu.samnyan.aqua.sega.util.Decoder.decodeBilling
+import icu.samnyan.aqua.sega.util.AllNetBillingDecoder.decodeBilling
 import jakarta.annotation.PostConstruct
 import jakarta.servlet.http.HttpServletRequest
 import org.eclipse.jetty.http.HttpVersion
