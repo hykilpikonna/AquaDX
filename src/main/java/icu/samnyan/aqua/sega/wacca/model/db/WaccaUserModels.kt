@@ -120,6 +120,12 @@ class WcUserScore : WaccaUserEntity() {
     var bestCombo = 0
     var lowestMissCt = 0
     var rating = 0
+
+    fun ls() = ls(songId, chartId,
+        ls(playCt, clearCt, misslessCt, fullcomboCt, allmarvCt),
+        ls(playCt, clearCt, misslessCt, fullcomboCt, allmarvCt),
+        ls(gradeDCt, gradeCCt, gradeBCt, gradeACt, gradeAACt, gradeAAACt, gradeSCt, gradeSSCt, gradeSSSCt, gradeMasterCt),
+        score, bestCombo, lowestMissCt, 1, rating)
 }
 
 @Entity @Table(name = "wacca_user_playlog", uniqueConstraints = [UC("", ["user_id", "song_id", "chart_id", "date_scored"])])

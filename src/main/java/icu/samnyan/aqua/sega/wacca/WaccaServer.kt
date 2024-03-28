@@ -23,15 +23,18 @@ class WaccaServer(val rp: WaccaRepos, val cardRepo: CardRepository) {
     val cacheMap = mutableMapOf<String, String>()
 
     val log = logger()
+    val season = 3
 
     init { init() }
 
     // DSL Functions
+    fun user(uid: Any) = rp.user.findByCardExtId(uid.long())
     fun options(u: WaccaUser?) = u?.let { rp.option.findByUser(u).associate { it.optId to it.value } } ?: emptyMap()
     operator fun Map<Int, Int>.get(type: WaccaOptionType) = getOrDefault(type.id, type.default)
     operator fun String.minus(value: Any) = value
     operator fun String.invoke(block: (BaseRequest, List<Any>) -> Any) { handlerMap[this.lowercase()] = block }
-    infix fun String.cached(block: () -> Any) { cacheMap[this.lowercase()] = block().toJson() }
+    infix fun String.cached(block: () -> Any) { cacheMap[this.lowercase()] =
+        block().let { if (it is String) it else it.toJson() } }
 
     /** Convert "3.07.01.JPN.26935.S" into "3.7.1" */
     fun String.shortVer() = split('.').let { if (it.size < 3) "1.0.0" else
@@ -55,14 +58,14 @@ class WaccaServer(val rp: WaccaRepos, val cardRepo: CardRepository) {
         if (path in cacheMap) return resp(cacheMap[path]!!)
         if (path !in handlerMap) return resp("[]", 1, "Not Found")
 
-        log.info("Wacca $path < $body")
+        log.info("Wacca < $path : $body")
 
         val br = JACKSON.parse<BaseRequest>(body)
         return handlerMap[path]!!(br, br.params).let { when (it) {
             is String -> return resp(it)
             is List<*> -> return resp(it.toJson())
             else -> Error("Invalid response type ${it.javaClass}")
-        } }.let { log.info("Wacca $path > $it") }
+        } }.let { log.info("Wacca > $path : $it") }
     }
 }
 
@@ -73,15 +76,15 @@ fun WaccaServer.init() {
         1047, 1044, 1027, 1004, 1001, 24, 2068, 2062, 2021, 1275, 1249, 1207, 1203, 1107, 1021, 1009, 9, 4, 3, 23, 22,
         2014, 13, 1276, 1247, 1240, 1237, 1128, 1114, 1110, 1109, 1102, 1045, 1043, 1036, 1035, 1030, 1023, 1015))
     }
-    "advertise/GetRanking" cached { empty }
-    "advertise/GetNews" cached { ls("notices" - empty, "copyright" - empty, empty, empty, empty, empty, empty, empty, empty) }
+    "advertise/GetRanking" cached { "[]" }
+    "advertise/GetNews" cached { "[[], [], [], [], [], [], [], [], []]" }
     "user/info/GetMyRoom" cached { ls(0, 0, 0, 0, 0, empty, 0, 0, 0) }
-    "user/status/Logout" cached { empty }
+    "user/status/Logout" cached { "[]" }
     "user/info/GetRanking" cached { ls("totalScore#" - 0, "highScoreBySong#" - 0, "cumulativeScore#" - 0,
         "stateUpScore#" - 0, "otherScore#" - 0, "waccaPoints#" - 0) }
 
     "user/status/get" { req, (uid) ->
-        val ru = rp.user.findById(uid.long())()
+        val ru = user(uid)
         val u = ru ?: WaccaUser()
         val o = options(ru)
         u.run { ls(u.lStatus(),
@@ -95,6 +98,8 @@ fun WaccaServer.init() {
     }
 
     "user/status/create" { _, (uid, name) ->
+        if (user(uid) != null) 400 - "User already exists"
+
         val u = rp.user.save(WaccaUser().apply {
             card = cardRepo.findByExtId(uid.long())() ?: (404 - "Card not found")
             username = name.toString()
@@ -115,20 +120,59 @@ fun WaccaServer.init() {
     }
 
     "user/status/login" api@ { _, (uid) ->
-        if (uid == 0) return@api "[[], [], [], 0, [2077, 1, 1, 1, [], []], 0, []]"
-        val u = rp.user.findByCardExtId(uid.long()) ?: (404 - "User not found")
+        val u = user(uid)
+        if (uid == 0 || u == null) return@api "[[], [], [], 0, [2077, 1, 1, 1, [], []], 0, []]"
 
         // Record login
-        u.loginCountConsec = u.loginCount++
-        if (millis() - u.lastLoginDate.time > 86400000) { // Is new day
-            u.loginCountDays++
-            u.loginCountToday = 0
-            if (millis() - u.lastLoginDate.time < 172800000) u.loginCountDaysConsec++
-        }
-        u.loginCountToday++
-        u.lastLoginDate = Date()
+        rp.user.save(u.apply {
+            loginCountConsec = loginCount++
+            if (millis() - lastLoginDate.time > 86400000) { // Is new day
+                loginCountDays++
+                loginCountToday = 0
+                if (millis() - lastLoginDate.time < 172800000) loginCountDaysConsec++
+            }
+            loginCountToday++
+            lastLoginDate = Date()
+        })
 
         "[[], [], [], 0, [2077, 1, 1, 1, [], []], ${u.lastLoginDate.time / 1000}, []]"
+    }
+
+    "user/status/GetDetail" api@ { _, (uid) ->
+        val u = user(uid) ?: return@api "[]"
+        val o = options(u)
+        val items = rp.item.findByUser(u).groupBy { it.type }
+        val scores = rp.bestScore.findByUser(u)
+        val gates = rp.gate.findByUser(u)
+        val bingo = rp.bingo.findByUser(u).firstOrNull()
+
+        u.run { ls("status" - lStatus(),
+            "options" - o.map { (k, v) -> ls(k, v) },
+            "seasonalPlayModeCounts" - (ls(playcountSingle, playcountMultiVs, playcountMultiCoop, playcountStageup, playcountTimeFree)
+                .mapIndexed { i, it -> ls(season, i + 1, it) } + ls(0, 1, 1)),
+            "items" - ls(MUSIC_UNLOCK, TITLE, ICON, TROPHY, SKILL, TICKET, NOTE_COLOR, NOTE_SOUND, NAVIGATOR, USER_PLATE, TOUCH_EFFECT)
+                .map { items[it()]?.map { it.ls() } },
+            "scores" - scores.map { it.ls() },
+            "songPlayStatus" - ls(lastSongId, 1),
+            "seasonInfo" - ls(xp, wpTotal, wpSpent, scores.sumOf { it.score },
+                items[TITLE()]?.size ?: 0, items[ICON()]?.size ?: 0, 0,
+                items[NOTE_COLOR()]?.size ?: 0, items[NOTE_SOUND()]?.size ?: 0, items[USER_PLATE()]?.size ?: 0,
+                gates.sumOf { it.totalPoints }),
+            "playAreaList" - "[[0],[0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0],[0,0,0,0],[0,0,0,0,0,0,0],[0]]".jsonArray(),
+            "songUpdateTime" - lastLoginDate.time / 1000,
+            "favorites" - rp.favoriteSong.findByUser(u).map { it.songId },
+            "stoppedSongIds" - empty,
+            "events" - empty,
+            "gate" - gates.map { it.ls() },
+            "lastSongInfo" - ls(lastSongId, lastSongDifficulty, lastFolderOrder, lastFolderId, lastSongOrder),
+            "gateTutorialFlags" - (gateTutorialFlags ?: "[]").jsonArray().map { it as Array<*> }.map { ls(it[0], it[1]?.long()) },
+            "gatchaInfo" - empty,
+            "friendList" - empty,
+            "bingoStatus" - ls(
+                "pageNumber" - (bingo?.pageNumber ?: 0),
+                "pageStatus" - (bingo?.pageProgress?.jsonArray() ?: empty)
+            )
+        ) }
     }
 
 }
