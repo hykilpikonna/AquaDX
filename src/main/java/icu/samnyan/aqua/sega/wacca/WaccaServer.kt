@@ -238,3 +238,32 @@ fun WaccaServer.init() {
 
         empty
     }
+
+    "user/music/update" { _, (uid, _, details, items) ->
+        val u = user(uid) ?: (400 - "User not found")
+        addItems(items as List<List<Int>>, u, itmGrp(u))
+
+        // Upsert playlog
+        val song = WcUserPlayLog.parse(details as List<*>)
+        rp.playLog.save(song.apply { user = u })
+
+        // Update best record
+        val best = rp.bestScore.findByUserAndSongIdAndDifficulty(u, song.songId, song.difficulty)
+            ?: WcUserScore().apply { user = u; songId = song.songId; difficulty = song.difficulty }
+
+        best.grades[song.grade - 1]++
+        best.clears = best.clears.zip(song.clears()) { a, b -> a + b }.toMutableList()
+        best.score = max(best.score, song.score)
+        best.bestCombo = max(best.bestCombo, song.maxCombo)
+        best.lowestMissCt = min(best.lowestMissCt, song.judgements[3])
+        best.rating = waccaRating(best.score, song.level)
+
+        rp.bestScore.save(best)
+
+        ls(best.ls(), ls(song.songId, best.clears[0]), "seasonalInfo" - (1..11).map { 0 }, "rankingInfo" - empty)
+    }
+}
+
+
+
+
