@@ -60,24 +60,26 @@ class WaccaServer(val rp: WaccaRepos, val cardRepo: CardRepository) {
 
     /** Handle all requests */
     @API("/api/**")
-    fun handle(req: HttpServletRequest, @RB body: String) = try {
-        val path = req.requestURI.removePrefix("/g/wacca").removePrefix("/api").removePrefix("/").lowercase()
-        if (path in cacheMap) return resp(cacheMap[path]!!)
-        if (path !in handlerMap) return resp("[]", 1, "Not Found")
+    fun handle(req: HttpServletRequest, @RB body: String): Any {
+        return try {
+            val path = req.requestURI.removePrefix("/g/wacca").removePrefix("/api").removePrefix("/").lowercase()
+            if (path in cacheMap) return resp(cacheMap[path]!!)
+            if (path !in handlerMap) return resp("[]", 1, "Not Found")
 
-        log.info("Wacca < $path : $body")
+            log.info("Wacca < $path : $body")
 
-        val br = JACKSON.parse<BaseRequest>(body)
-        handlerMap[path]!!(br, br.params).let { when (it) {
-            is String -> return resp(it)
-            is List<*> -> return resp(it.toJson())
-            else -> Error("Invalid response type ${it.javaClass}")
-        } }.let { log.info("Wacca > $path : $it") }
-    }
-    catch (e: ApiException) { resp("[]", e.code, e.message ?: "") }
-    catch (e: Exception) {
-        log.error("Wacca > Error", e)
-        resp("[]", 500, e.message ?: "")
+            val br = JACKSON.parse<BaseRequest>(body)
+            handlerMap[path]!!(br, br.params).let { when (it) {
+                is String -> return resp(it)
+                is List<*> -> return resp(it.toJson())
+                else -> Error("Invalid response type ${it.javaClass}")
+            } }.let { log.info("Wacca > $path : $it") }
+        }
+        catch (e: ApiException) { resp("[]", e.code, e.message ?: "") }
+        catch (e: Exception) {
+            log.error("Wacca > Error", e)
+            resp("[]", 500, e.message ?: "")
+        }
     }
 }
 
