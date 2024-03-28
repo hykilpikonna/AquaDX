@@ -226,3 +226,15 @@ fun WaccaServer.init() {
         addItems(itemsRecv as List<List<Int>>, u, items)
         empty
     }
+
+    "user/mission/update" { _, (uid, bingoDetail, items, gateTutorialFlags) ->
+        val u = user(uid) ?: (400 - "User not found")
+        u.gateTutorialFlags = gateTutorialFlags.toJson()
+        addItems(items as List<List<Int>>, u, itmGrp(u))
+
+        // Update bingo
+        val (page, prog) = bingoDetail as List<Any>
+        rp.bingo.findByUser(u).firstOrNull() ?: WcUserBingo().apply { user = u; pageNumber = page.int(); pageProgress = prog.toJson() }
+
+        empty
+    }
