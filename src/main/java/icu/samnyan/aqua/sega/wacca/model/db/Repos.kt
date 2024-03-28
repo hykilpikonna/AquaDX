@@ -23,9 +23,6 @@ interface WcUserFriendRepo : IWaccaUserLinked<WcUserFriend>
 interface WcUserFavoriteSongRepo : IWaccaUserLinked<WcUserFavoriteSong>
 interface WcUserGateRepo : IWaccaUserLinked<WcUserGate>
 interface WcUserItemRepo : IWaccaUserLinked<WcUserItem>
-interface WcUserTicketRepo : IWaccaUserLinked<WcUserTicket>
-interface WcUserSongUnlockRepo : IWaccaUserLinked<WcUserSongUnlock>
-interface WcUserTrophyRepo : IWaccaUserLinked<WcUserTrophy>
 interface WcUserBestScoreRepo : IWaccaUserLinked<WcUserScore>
 interface WcUserPlayLogRepo : IWaccaUserLinked<WcUserPlayLog>
 interface WcUserStageUpRepo : IWaccaUserLinked<WcUserStageUp>
@@ -39,9 +36,6 @@ class WaccaRepos(
     val favoriteSong: WcUserFavoriteSongRepo,
     val gate: WcUserGateRepo,
     val item: WcUserItemRepo,
-    val ticket: WcUserTicketRepo,
-    val songUnlock: WcUserSongUnlockRepo,
-    val trophy: WcUserTrophyRepo,
     val bestScore: WcUserBestScoreRepo,
     val playLog: WcUserPlayLogRepo,
     val stageUp: WcUserStageUpRepo

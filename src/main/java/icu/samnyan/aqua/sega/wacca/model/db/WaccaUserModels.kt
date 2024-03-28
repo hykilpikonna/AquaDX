@@ -1,8 +1,10 @@
 package icu.samnyan.aqua.sega.wacca.model.db
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import ext.ls
 import icu.samnyan.aqua.net.games.BaseEntity
 import icu.samnyan.aqua.sega.wacca.WaccaItemType
+import icu.samnyan.aqua.sega.wacca.WaccaItemType.*
 import jakarta.persistence.*
 
 typealias UC = UniqueConstraint
@@ -38,7 +40,7 @@ class WcUserBingo : WaccaUserEntity() {
  */
 @Entity @Table(name = "wacca_friend", uniqueConstraints = [UC("", ["user_id", "with"])])
 class WcUserFriend : WaccaUserEntity() {
-    @ManyToOne @JoinColumn(name = "profile_reciever")
+    @ManyToOne @JoinColumn(name = "with")
     var with: WaccaUser = WaccaUser()
     var isAccepted = false
 }
@@ -55,40 +57,37 @@ class WcUserGate : WaccaUserEntity() {
     var page = 0
     var progress = 0
     var loops = 0
+    @Temporal(TemporalType.TIMESTAMP)
+    var lastUsed = 0
     var missionFlag = 0
     var totalPoints = 0
+
+    fun ls() = ls(gateId, page, progress, loops, lastUsed, missionFlag)
 }
 
 @Entity @Table(name = "wacca_user_item", uniqueConstraints = [UC("", ["user_id", "item_id", "type"])])
-class WcUserItem() : WaccaUserEntity() {
-    var itemId = 0
-    var type = 0
-    var acquireDate = ""
-    var useCount = 0
+class WcUserItem(
+    var type: Int = 0,
 
-    constructor(u: WaccaUser, id: Int, typ: WaccaItemType) : this() { user = u; itemId = id; type = typ() }
-}
+    // Item prop represents different things based on the item type
+    var itemId: Int = 0,
+    var p1: Long = 0L,
+    var p2: Long = 0L,
+    var p3: Long = 0L
+) : WaccaUserEntity() {
+    fun ls() = when (type) {
+        MUSIC_UNLOCK() -> ls(itemId, p1, p2, p3) // songId, diff, acquireDate, unlockDate
+        ICON() -> ls(itemId, type, p1, p2) // id, type, uses, acquiredDate
+        TROPHY() -> ls(itemId, p1, p2, p3) // id, season, progress, badgeType
+        SKILL() -> ls(itemId, p1, p2, p3) // skillType, level, flag, badge
+        TICKET() -> ls(id, itemId, p1) // userTicketId, ticketId, expire
+        NAVIGATOR() -> ls(itemId, type, p1, p2, p3) // id, type, acquiredDate, uses, usesToday
 
-@Entity @Table(name = "wacca_user_ticket", uniqueConstraints = [UC("", ["user_id", "ticket_id"])])
-class WcUserTicket : WaccaUserEntity() {
-    var ticketId = 0
-    var acquireDate = ""
-    var expireDate = ""
-}
+        // Generic: title, note colors, note sounds, plates, touch effects
+        else -> ls(itemId, type, p1)
+    }
 
-@Entity @Table(name = "wacca_user_song_unlock", uniqueConstraints = [UC("", ["user_id", "song_id"])])
-class WcUserSongUnlock : WaccaUserEntity() {
-    var songId = 0
-    var highestDifficulty = 0
-    var acquireDate = ""
-}
-
-@Entity @Table(name = "wacca_user_trophy", uniqueConstraints = [UC("", ["user_id", "trophy_id", "season"])])
-class WcUserTrophy : WaccaUserEntity() {
-    var trophyId = 0
-    var season = 0
-    var progress = 0
-    var badgeType = 0
+    infix fun isType(t: WaccaItemType) = type == t()
 }
 
 @Entity @Table(name = "wacca_user_score", uniqueConstraints = [UC("", ["user_id", "song_id", "chart_id"])])
