@@ -54,6 +54,6 @@ class WaccaUser : BaseEntity() {
     var lastLoginDate: String? = null
     var gateTutorialFlags: String? = null
 
-    fun lStatus() = ls(card.id, username, 1, xp, danLevel, danType, wp, ls(0, 0, 0), loginCount, loginCountDays,
+    fun lStatus() = ls(card.extId, username, 1, xp, danLevel, danType, wp, ls(0, 0, 0), loginCount, loginCountDays,
         loginCountConsec, loginCountDaysConsec, vipExpireTime, loginCountToday, rating)
 }
