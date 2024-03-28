@@ -34,7 +34,8 @@ class WaccaServer(val rp: WaccaRepos) {
     infix fun String.cached(block: () -> Any) { cacheMap[this.lowercase()] = block().toJson() }
 
     /** Convert "3.07.01.JPN.26935.S" into "3.7.1" */
-    fun String.shortVer() = split('.').let { "${it[0]}.${it[1].trimStart('0')}.${it[2].trimStart('0')}" }
+    fun String.shortVer() = split('.').let { if (it.size < 3) "1.0.0" else
+        "${it[0]}.${it[1].toInt()}.${it[2].toInt()}" }
 
     /** Generate response message */
     fun resp(paramsJson: String, status: Int = 0, message: String = ""): ResponseEntity<String> {
@@ -79,12 +80,13 @@ fun WaccaServer.api() {
         val u = ru ?: WaccaUser()
         val o = options(ru)
         u.run { ls(
-            ls(uid, username, "userType" - 1, xp, danLevel, danType, wp, "titlePartIds" - ls(0, 0, 0),
+            ls(u.id, username, "userType" - 1, xp, danLevel, danType, wp, "titlePartIds" - ls(0, 0, 0),
                 loginCount, loginCountDays, loginCountConsec, loginCountDaysConsec, vipExpireTime, loginCountToday, rating),
             o[SET_TITLE_ID], o[SET_ICON_ID],
             "status" - if (ru == null) 1 else 0, // 0 = GOOD, 1 = Register
             // 0 = Version GOOD, 1 = Game is newer, 2 = Game is older
-            "version" - ls(req.appVersion.shortVer().compareTo(lastGameVer.shortVer()), lastGameVer.shortVer())
+            "version" - ls(req.appVersion.shortVer().compareTo(lastGameVer.shortVer()), lastGameVer.shortVer()),
+            o.map { (k, v) -> ls(k, v) }
         ) }
     }
 }

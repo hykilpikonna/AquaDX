@@ -3,6 +3,7 @@ package icu.samnyan.aqua.sega.wacca.model.db
 import icu.samnyan.aqua.net.games.BaseEntity
 import icu.samnyan.aqua.sega.general.model.Card
 import jakarta.persistence.*
+import java.util.Date
 
 /**
  * General user information
@@ -26,7 +27,8 @@ class WaccaUser : BaseEntity() {
     var title1 = 0
     var title2 = 0
     var rating = 0
-    var vipExpireTime: String = ""
+    @Temporal(TemporalType.TIME)
+    var vipExpireTime: Date = Date(0)
     var alwaysVip = false
     var loginCount = 0
     var loginCountConsec = 0
@@ -42,7 +44,7 @@ class WaccaUser : BaseEntity() {
     var friendView2 = 0
     var friendView3 = 0
     @Column(length = 50)
-    var lastGameVer = ""
+    var lastGameVer = "1.0.0"
     var lastSongId = 0
     var lastSongDifficulty = 0
     var lastFolderOrder = 0
