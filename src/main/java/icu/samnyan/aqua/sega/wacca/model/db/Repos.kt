@@ -22,7 +22,6 @@ interface WcUserBingoRepo : IWaccaUserLinked<WcUserBingo> {
     fun findByUserAndPageNumber(user: WaccaUser, pageNumber: Int): WcUserBingo?
 }
 interface WcUserFriendRepo : IWaccaUserLinked<WcUserFriend>
-interface WcUserFavoriteSongRepo : IWaccaUserLinked<WcUserFavoriteSong>
 interface WcUserGateRepo : IWaccaUserLinked<WcUserGate> {
     fun findByUserAndGateId(user: WaccaUser, gateId: Int): WcUserGate?
 }
@@ -39,7 +38,6 @@ class WaccaRepos(
     val option: WcUserOptionRepo,
     val bingo: WcUserBingoRepo,
     val friend: WcUserFriendRepo,
-    val favoriteSong: WcUserFavoriteSongRepo,
     val gate: WcUserGateRepo,
     val item: WcUserItemRepo,
     val bestScore: WcUserBestScoreRepo,

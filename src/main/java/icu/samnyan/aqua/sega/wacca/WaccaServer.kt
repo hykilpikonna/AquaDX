@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.sega.wacca
 
 import ext.*
+import icu.samnyan.aqua.net.utils.ApiException
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.wacca.WaccaItemType.*
 import icu.samnyan.aqua.sega.wacca.WaccaOptionType.SET_ICON_ID
@@ -38,6 +39,9 @@ class WaccaServer(val rp: WaccaRepos, val cardRepo: CardRepository) {
     operator fun String.invoke(block: (BaseRequest, List<Any>) -> Any) { handlerMap[this.lowercase()] = block }
     infix fun String.cached(block: () -> Any) { cacheMap[this.lowercase()] =
         block().let { if (it is String) it else it.toJson() } }
+    infix fun String.redirect(path: String) {
+        handlerMap[this.lowercase()] = handlerMap[path.lowercase()] ?: { _, _ -> 404 - "Not Found" }
+    }
 
     /** Convert "3.07.01.JPN.26935.S" into "3.7.1" */
     fun String.shortVer() = split('.').let { if (it.size < 3) "1.0.0" else
@@ -56,7 +60,7 @@ class WaccaServer(val rp: WaccaRepos, val cardRepo: CardRepository) {
 
     /** Handle all requests */
     @API("/api/**")
-    fun handle(req: HttpServletRequest, @RB body: String): Any {
+    fun handle(req: HttpServletRequest, @RB body: String) = try {
         val path = req.requestURI.removePrefix("/g/wacca").removePrefix("/api").removePrefix("/").lowercase()
         if (path in cacheMap) return resp(cacheMap[path]!!)
         if (path !in handlerMap) return resp("[]", 1, "Not Found")
@@ -64,14 +68,20 @@ class WaccaServer(val rp: WaccaRepos, val cardRepo: CardRepository) {
         log.info("Wacca < $path : $body")
 
         val br = JACKSON.parse<BaseRequest>(body)
-        return handlerMap[path]!!(br, br.params).let { when (it) {
+        handlerMap[path]!!(br, br.params).let { when (it) {
             is String -> return resp(it)
             is List<*> -> return resp(it.toJson())
             else -> Error("Invalid response type ${it.javaClass}")
         } }.let { log.info("Wacca > $path : $it") }
     }
+    catch (e: ApiException) { resp("[]", e.code, e.message ?: "") }
+    catch (e: Exception) {
+        log.error("Wacca > Error", e)
+        resp("[]", 500, e.message ?: "")
+    }
 }
 
+@Suppress("UNCHECKED_CAST")
 fun WaccaServer.init() {
     "housing/get" cached { ls("housingId" - 39, "isNewCab" - 0) }
     "housing/start" cached { ls("regionId" - 1, "recommendSongList" - ls(1269, 1007, 1270, 1002, 1020, 1003, 1008,
@@ -85,6 +95,8 @@ fun WaccaServer.init() {
     "user/status/Logout" cached { "[]" }
     "user/info/GetRanking" cached { ls("totalScore#" - 0, "highScoreBySong#" - 0, "cumulativeScore#" - 0,
         "stateUpScore#" - 0, "otherScore#" - 0, "waccaPoints#" - 0) }
+    "competition/status/login" cached { "[]" }
+    "competition/status/update" cached { "[]" }
 
     "user/status/get" { req, (uid) ->
         val ru = user(uid)
@@ -101,7 +113,7 @@ fun WaccaServer.init() {
     }
 
     "user/status/create" { _, (uid, name) ->
-        if (user(uid) != null) 400 - "User already exists"
+        if (user(uid) != null) 404 - "User already exists"
 
         val u = rp.user.save(WaccaUser().apply {
             card = cardRepo.findByExtId(uid.long())() ?: (404 - "Card not found")
@@ -128,7 +140,7 @@ fun WaccaServer.init() {
 
         // Record login
         rp.user.save(u.apply {
-            loginCountConsec = loginCount++
+            loginCount++
             if (millis() - lastConsecDate.time > 23 * 60 * 60 * 1000) {
                 loginCountDays++
                 loginCountToday = 0
@@ -152,31 +164,31 @@ fun WaccaServer.init() {
         val go = u.card.aquaUser?.gameOptions
 
         // TODO: make this and vip configurable
-        u.wp = 999999
+        // u.wp = 999999
 
-        u.run { ls("status" - lStatus(),
+        u.run {
+            ls("status" - lStatus(),
             "options" - o.map { (k, v) -> ls(k, v) },
-            "seasonalPlayModeCounts" - (ls(playcountSingle, playcountMultiVs, playcountMultiCoop, playcountStageup, playcountTimeFree)
-                .mapIndexed { i, it -> ls(season, i + 1, it) } + ls(ls(0, 1, 1))),
+            "seasonalPlayModeCounts" - (playCounts.mapIndexed { i, it -> ls(season, i + 1, it) } + ls(ls(0, 1, 1))),
             "items" - ls(MUSIC_UNLOCK, TITLE, ICON, TROPHY, SKILL, TICKET, NOTE_COLOR, NOTE_SOUND, NAVIGATOR, USER_PLATE, TOUCH_EFFECT).map {
                 if (it == TICKET && go?.unlockTickets == true) (0..4).map { ls(it, 106002, 0) }
                 else items[it()]?.map { it.ls() } ?: empty
             },
             "scores" - scores.map { it.ls() },
-            "songPlayStatus" - ls(lastSongId, 1),
+            "songPlayStatus" - ls(lastSongInfo[0], 1),
             "seasonInfo" - ls(xp, wpTotal, wpSpent, scores.sumOf { it.score },
                 items[TITLE()]?.size ?: 0, items[ICON()]?.size ?: 0, 0,
                 items[NOTE_COLOR()]?.size ?: 0, items[NOTE_SOUND()]?.size ?: 0, items[USER_PLATE()]?.size ?: 0,
                 gates.sumOf { it.totalPoints }),
             "playAreaList" - "[[0],[0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0],[0,0,0,0],[0,0,0,0,0,0,0],[0]]".jsonArray(),
             "songUpdateTime" - lastLoginDate.time / 1000,
-            "favorites" - rp.favoriteSong.findByUser(u).map { it.songId },
+            "favorites" - u.favoriteSongs,
             "stoppedSongIds" - empty,
             "events" - empty,
             "gate" - gates.associateBy { it.gateId }.let { gateMap -> enabledGates.map {
                 gateMap[it]?.ls() ?: WcUserGate().apply { gateId = it }.ls()
             } },
-            "lastSongInfo" - ls(lastSongId, lastSongDifficulty, lastFolderOrder, lastFolderId, lastSongOrder),
+            "lastSongInfo" - lastSongInfo,
             "gateTutorialFlags" - gateTutorialFlags.jsonArray(),
             "gatchaInfo" - empty,
             "friendList" - empty,
@@ -190,10 +202,10 @@ fun WaccaServer.init() {
     fun addItems(recv: List<List<Int>>, u: WaccaUser, items: Map<Int, Map<Int, WcUserItem>>) {
         if (recv.isEmpty()) return
         val newItems = mutableListOf<WcUserItem>()
-        recv.forEach { (id, type, param) ->
+        recv.forEach { (type, id, param) ->
             val ex = items[type]?.get(id)
             when (type) {
-                WP() -> u.wp += param
+                WP() -> { u.wp += param; u.wpTotal += param }
                 XP() -> u.xp += param
                 MUSIC_DIFFICULTY_UNLOCK(),
                 MUSIC_UNLOCK() -> newItems += (ex ?: WcUserItem(type, id))
@@ -207,7 +219,7 @@ fun WaccaServer.init() {
     }
 
     "user/sugoroku/update" api@ { _, (uid, gid, page, progress, loops, boostsUsed, itemsRecv, totalPts, missionFlag) ->
-        val u = user(uid) ?: (400 - "User not found")
+        val u = user(uid) ?: (404 - "User not found")
         val g = rp.gate.findByUserAndGateId(u, gid.int()) ?: WcUserGate().apply { user = u; gateId = gid.int() }
         val items = itmGrp(u)
 
@@ -218,6 +230,7 @@ fun WaccaServer.init() {
             it.loops = loops.int()
             it.missionFlag = missionFlag.int()
             it.totalPoints = totalPts.int()
+            it.lastUsed = Date()
         })
 
         operator fun <T> MutableList<T>.plusAssign(item: T) { add(item) }
@@ -228,7 +241,7 @@ fun WaccaServer.init() {
     }
 
     "user/mission/update" { _, (uid, bingoDetail, items, gateTutorialFlags) ->
-        val u = user(uid) ?: (400 - "User not found")
+        val u = user(uid) ?: (404 - "User not found")
         u.gateTutorialFlags = gateTutorialFlags.toJson()
         addItems(items as List<List<Int>>, u, itmGrp(u))
 
@@ -240,7 +253,7 @@ fun WaccaServer.init() {
     }
 
     "user/music/update" { _, (uid, _, details, items) ->
-        val u = user(uid) ?: (400 - "User not found")
+        val u = user(uid) ?: (404 - "User not found")
         addItems(items as List<List<Int>>, u, itmGrp(u))
 
         // Upsert playlog
