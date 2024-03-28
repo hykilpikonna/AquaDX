@@ -292,6 +292,22 @@ fun WaccaServer.init() {
 
         empty
     }
+
+    "user/status/update" { req, (uid, playType, items, isContinue, isFirstPlayFree, itemsUsed, lastSong) ->
+        val u = user(uid) ?: (404 - "User not found")
+        rp.user.save(u.apply {
+            playCounts[playType.int() - 1]++
+
+            addItems(items as List<List<Int>>, u, itmGrp(u))
+
+            lastSongInfo = (lastSong as List<Int>).toMutableList()
+            lastGameVer = req.appVersion
+
+            // TODO: Add icon and nav items
+        })
+
+        empty
+    }
 }
 
 
