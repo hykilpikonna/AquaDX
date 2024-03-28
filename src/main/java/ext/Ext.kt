@@ -1,7 +1,6 @@
 package ext
 
 import icu.samnyan.aqua.net.utils.ApiException
-import icu.samnyan.aqua.sega.general.BaseHandler
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -11,10 +10,13 @@ import kotlinx.coroutines.withContext
 import org.apache.tika.Tika
 import org.apache.tika.mime.MimeTypes
 import org.slf4j.LoggerFactory
+import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity.BodyBuilder
 import org.springframework.web.bind.annotation.*
 import java.lang.reflect.Field
 import java.nio.file.Path
+import java.security.MessageDigest
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -62,7 +64,7 @@ fun <C, T: Any> KMutableProperty1<C, T>.setCast(obj: C, value: String) = set(obj
 } as T)
 inline fun <reified T: Any> Field.gets(obj: Any): T? = get(obj)?.let { it as T }
 
-// Make it easier to throw a ResponseStatusException
+// HTTP
 operator fun HttpStatus.invoke(message: String? = null): Nothing = throw ApiException(value(), message ?: this.reasonPhrase)
 operator fun Int.minus(message: String): Nothing {
     ApiException.log.info("> Error $this: $message")
@@ -71,6 +73,7 @@ operator fun Int.minus(message: String): Nothing {
 fun <R> parsing(block: () -> R) = try { block() }
 catch (e: ApiException) { throw e }
 catch (e: Exception) { 400 - e.message.toString() }
+fun BodyBuilder.headers(vararg pairs: Pair<String, String>) = headers(HttpHeaders().apply { pairs.forEach { (k, v) -> set(k, v) } })
 
 // Email validation
 // https://www.baeldung.com/java-email-validation-regex
@@ -85,11 +88,10 @@ val HTTP = HttpClient(CIO) {
 }
 val TIKA = Tika()
 val MIMES = MimeTypes.getDefaultMimeTypes()
+val MD5 = MessageDigest.getInstance("MD5")
 
 // Class resource
-object Ext {
-    val log = LoggerFactory.getLogger(Ext::class.java)
-}
+object Ext { val log = logger() }
 fun res(name: Str) = Ext::class.java.getResourceAsStream(name)
 fun resStr(name: Str) = res(name)?.reader()?.readText()
 inline fun <reified T> resJson(name: Str, warn: Boolean = true) = resStr(name)?.let {
@@ -134,6 +136,8 @@ operator fun Str.get(range: IntRange) = substring(range.first, (range.last + 1).
 operator fun Str.get(start: Int, end: Int) = substring(start, end.coerceAtMost(length))
 fun Str.center(width: Int, padChar: Char = ' ') = padStart((length + width) / 2, padChar).padEnd(width, padChar)
 fun Str.splitLines() = replace("\r\n", "\n").split('\n')
+@OptIn(ExperimentalStdlibApi::class)
+fun Str.md5() = MD5.digest(toByteArray(Charsets.UTF_8)).toHexString()
 
 // Coroutine
 suspend fun <T> async(block: suspend kotlinx.coroutines.CoroutineScope.() -> T): T = withContext(Dispatchers.IO) { block() }
@@ -143,3 +147,5 @@ fun path(part1: Str, vararg parts: Str) = Path.of(part1, *parts)
 fun Str.path() = Path.of(this)
 operator fun Path.div(part: Str) = resolve(part)
 fun Str.ensureEndingSlash() = if (endsWith('/')) this else "$this/"
+
+fun <T: Any> T.logger() = LoggerFactory.getLogger(this::class.java)

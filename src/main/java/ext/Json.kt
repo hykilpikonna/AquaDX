@@ -32,10 +32,10 @@ val JACKSON = jacksonObjectMapper().apply {
     configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
     setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CAMEL_CASE);
 }
-inline fun <reified T> ObjectMapper.readValue(str: Str) = readValue(str, T::class.java)
+inline fun <reified T> ObjectMapper.parse(str: Str) = readValue(str, T::class.java)
 // TODO: https://stackoverflow.com/q/78197784/7346633
 inline fun <reified T> Str.parseJackson() = if (contains("null")) {
-    val map = JACKSON.readValue<MutableMap<String, Any>>(this)
+    val map = JACKSON.parse<MutableMap<String, Any>>(this)
     JACKSON.convertValue(map.recursiveNotNull(), T::class.java)
 }
 else JACKSON.readValue(this, T::class.java)
@@ -51,3 +51,12 @@ val JSON = Json {
     explicitNulls = false
     coerceInputValues = true
 }
+
+// Bean for default jackson object mapper
+//@Configuration
+//class JacksonConfig {
+//    @Bean
+//    fun objectMapper(): ObjectMapper {
+//        return JACKSON
+//    }
+//}
