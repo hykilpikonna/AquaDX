@@ -18,12 +18,18 @@ interface IWaccaUserLinked<T> : JpaRepository<T, Long> {
 }
 
 interface WcUserOptionRepo : IWaccaUserLinked<WcUserOption>
-interface WcUserBingoRepo : IWaccaUserLinked<WcUserBingo>
+interface WcUserBingoRepo : IWaccaUserLinked<WcUserBingo> {
+    fun findByUserAndPageNumber(user: WaccaUser, pageNumber: Int): WcUserBingo?
+}
 interface WcUserFriendRepo : IWaccaUserLinked<WcUserFriend>
 interface WcUserFavoriteSongRepo : IWaccaUserLinked<WcUserFavoriteSong>
-interface WcUserGateRepo : IWaccaUserLinked<WcUserGate>
+interface WcUserGateRepo : IWaccaUserLinked<WcUserGate> {
+    fun findByUserAndGateId(user: WaccaUser, gateId: Int): WcUserGate?
+}
 interface WcUserItemRepo : IWaccaUserLinked<WcUserItem>
-interface WcUserBestScoreRepo : IWaccaUserLinked<WcUserScore>
+interface WcUserBestScoreRepo : IWaccaUserLinked<WcUserScore> {
+    fun findByUserAndSongIdAndDifficulty(user: WaccaUser, songId: Int, difficulty: Int): WcUserScore?
+}
 interface WcUserPlayLogRepo : IWaccaUserLinked<WcUserPlayLog>
 interface WcUserStageUpRepo : IWaccaUserLinked<WcUserStageUp>
 

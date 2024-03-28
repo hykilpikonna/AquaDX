@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import icu.samnyan.aqua.net.games.BaseEntity
 import icu.samnyan.aqua.net.games.IGenericGamePlaylog
-import icu.samnyan.aqua.sega.maimai2.util.IntegerListConverter
+import icu.samnyan.aqua.sega.general.IntegerListConverter
 import jakarta.persistence.*
 import lombok.AllArgsConstructor
 import lombok.Data

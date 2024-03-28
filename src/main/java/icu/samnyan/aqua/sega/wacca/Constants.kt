@@ -93,3 +93,22 @@ enum class WaccaOptionType(val id: Int, val default: Int) {
     SET_NAV_ID(1004, 210001), // ID
     SET_PLATE_ID(1005, 211001), // ID
 }
+
+val waccaRatingMult = linkedMapOf(
+    990_000 to 4.0,
+    980_000 to 3.75,
+    970_000 to 3.5,
+    960_000 to 3.25,
+    950_000 to 3.0,
+    940_000 to 2.75,
+    930_000 to 2.5,
+    920_000 to 2.25,
+    910_000 to 2.0,
+    900_000 to 1.0,
+    0 to 0.0
+)
+
+fun waccaRating(score: Int, level: Double): Int {
+    val mult = waccaRatingMult.entries.firstOrNull { score >= it.key }?.value ?: 0.0
+    return (level * mult * 10).toInt()
+}

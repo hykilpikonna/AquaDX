@@ -1,9 +1,9 @@
 package icu.samnyan.aqua.sega.wacca.model.db
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import ext.ls
-import ext.sec
+import ext.*
 import icu.samnyan.aqua.net.games.BaseEntity
+import icu.samnyan.aqua.sega.general.IntegerListConverter
 import icu.samnyan.aqua.sega.wacca.WaccaItemType
 import icu.samnyan.aqua.sega.wacca.WaccaItemType.*
 import jakarta.persistence.*
@@ -60,7 +60,7 @@ class WcUserGate : WaccaUserEntity() {
     var progress = 0
     var loops = 0
     @Temporal(TemporalType.TIMESTAMP)
-    var lastUsed = 0
+    var lastUsed = Date(0)
     var missionFlag = 0
     var totalPoints = 0
 
@@ -98,53 +98,50 @@ class WcUserItem(
 @Entity @Table(name = "wacca_user_score", uniqueConstraints = [UC("", ["user_id", "song_id", "chart_id"])])
 class WcUserScore : WaccaUserEntity() {
     var songId = 0
-    var chartId = 0
+    var difficulty = 0 // aka difficulty
     var score = 0
-    var playCt = 0
-    var clearCt = 0
-    var misslessCt = 0
-    var fullcomboCt = 0
-    var allmarvCt = 0
-    var gradeDCt = 0
-    var gradeCCt = 0
-    var gradeBCt = 0
-    var gradeACt = 0
-    var gradeAACt = 0
-    var gradeAAACt = 0
-    var gradeSCt = 0
-    var gradeSSCt = 0
-    var gradeSSSCt = 0
-    var gradeMasterCt = 0
-    var gradeSpCt = 0
-    var gradeSspCt = 0
-    var gradeSsspCt = 0
+
+    @Convert(converter = IntegerListConverter::class)
+    var clears: MutableList<Int> = mutableListOf(0, 0, 0, 0, 0) // Played, Clear, Full Combo, Missless, All Marv
+
+    @Convert(converter = IntegerListConverter::class)
+    var grades: MutableList<Int> = (1..13).map { 0 }.toMutableList() // From D to SSS+
     var bestCombo = 0
-    var lowestMissCt = 0
+    var lowestMissCt = Int.MAX_VALUE
     var rating = 0
 
-    fun ls() = ls(songId, chartId,
-        ls(playCt, clearCt, misslessCt, fullcomboCt, allmarvCt),
-        ls(playCt, clearCt, misslessCt, fullcomboCt, allmarvCt),
-        ls(gradeDCt, gradeCCt, gradeBCt, gradeACt, gradeAACt, gradeAAACt, gradeSCt, gradeSSCt, gradeSSSCt, gradeMasterCt),
-        score, bestCombo, lowestMissCt, 1, rating)
+    fun ls() = ls(songId, difficulty, clears, clears, grades, score, lowestMissCt, 0, 1, rating)
 }
 
 @Entity @Table(name = "wacca_user_playlog", uniqueConstraints = [UC("", ["user_id", "song_id", "chart_id", "date_scored"])])
 class WcUserPlayLog : WaccaUserEntity() {
     var songId = 0
-    var chartId = 0
+    var difficulty = 0
+    var level = 0.0
     var score = 0
-    var clear = 0
-    var grade = 0
+    @Convert(converter = IntegerListConverter::class)
+    var judgements: MutableList<Int> = mutableListOf(0, 0, 0, 0) // Marv, Great, Good, Miss
     var maxCombo = 0
-    var marvCt = 0
-    var greatCt = 0
-    var goodCt = 0
-    var missCt = 0
+    var grade = 0
+    var clear = false
+    var missless = false
+    var fullCombo = false
+    var allMarv = false
+    var giveUp = false
+    var skillPt = 0
     var fastCt = 0
     var lateCt = 0
-    var season = 0
-    var dateScored = ""
+    var newRecord = false
+
+    @Temporal(TemporalType.TIMESTAMP)
+    var dateScored = Date()
+
+    fun clears() = ls(1, +clear, +fullCombo, +missless, +allMarv)
+
+    companion object {
+        val keys = ls("songId", "difficulty", "level", "score", "judgements", "maxCombo", "grade", "clear", "missless", "fullCombo", "allMarv", "giveUp", "skillPt", "fastCt", "lateCt", "newRecord")
+        fun parse(l: List<*>) = JACKSON.parse<WcUserPlayLog>(keys.zip(l).toMap())
+    }
 }
 
 @Entity @Table(name = "wacca_user_stageup", uniqueConstraints = [UC("", ["user_id", "stage_id"])])

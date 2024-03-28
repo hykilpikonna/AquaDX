@@ -55,6 +55,8 @@ class WaccaUser : BaseEntity() {
     var lastFolderId = 0
     var lastSongOrder = 0
     @Temporal(TemporalType.TIMESTAMP)
+    var lastConsecDate: Date = Date(0)
+    @Temporal(TemporalType.TIMESTAMP)
     var lastLoginDate: Date = Date()
     var gateTutorialFlags: String = "[[1, 0], [2, 0], [3, 0], [4, 0], [5, 0]]"
 

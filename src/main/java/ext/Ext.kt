@@ -117,6 +117,9 @@ catch (e: Exception) { null } }
 val Calendar.year get() = get(Calendar.YEAR)
 val Calendar.month get() = get(Calendar.MONTH) + 1
 val Calendar.day get() = get(Calendar.DAY_OF_MONTH)
+fun cal() = Calendar.getInstance()
+fun Date.cal() = Calendar.getInstance().apply { time = this@cal }
+operator fun Calendar.invoke(field: Int) = get(field)
 val Date.sec get() = time / 1000
 
 // Encodings
@@ -128,6 +131,8 @@ fun Any.long() = when (this) {
     is String -> toLong()
     else -> 400 - "Invalid number: $this"
 }
+fun Any.int() = long().toInt()
+operator fun Bool.unaryPlus() = if (this) 1 else 0
 
 // Collections
 fun <T> ls(vararg args: T) = args.toList()
@@ -164,3 +169,13 @@ operator fun Path.div(part: Str) = resolve(part)
 fun Str.ensureEndingSlash() = if (endsWith('/')) this else "$this/"
 
 fun <T: Any> T.logger() = LoggerFactory.getLogger(this::class.java)
+
+// I hate this ;-;
+operator fun <E> List<E>.component6(): E = get(5)
+operator fun <E> List<E>.component7(): E = get(6)
+operator fun <E> List<E>.component8(): E = get(7)
+operator fun <E> List<E>.component9(): E = get(8)
+operator fun <E> List<E>.component10(): E = get(9)
+operator fun <E> List<E>.component11(): E = get(10)
+operator fun <E> List<E>.component12(): E = get(11)
+operator fun <E> List<E>.component13(): E = get(12)

@@ -32,4 +32,5 @@ ALTER TABLE wacca_user
     DROP COLUMN last_login_date,
     DROP COLUMN vip_expire_time,
     ADD last_login_date datetime NOT NULL,
-    ADD vip_expire_time datetime NOT NULL;
+    ADD vip_expire_time datetime NOT NULL,
+    ADD last_consec_date datetime NOT NULL;
