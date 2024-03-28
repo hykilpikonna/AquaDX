@@ -2,11 +2,7 @@ package icu.samnyan.aqua.sega.wacca.model.db
 
 import icu.samnyan.aqua.net.games.BaseEntity
 import icu.samnyan.aqua.sega.general.model.Card
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.OneToOne
-import jakarta.persistence.Table
+import jakarta.persistence.*
 
 /**
  * General user information
@@ -30,7 +26,7 @@ class WaccaUser : BaseEntity() {
     var title1 = 0
     var title2 = 0
     var rating = 0
-    var vipExpireTime: String? = null
+    var vipExpireTime: String = ""
     var alwaysVip = false
     var loginCount = 0
     var loginCountConsec = 0
