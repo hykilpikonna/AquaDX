@@ -187,4 +187,42 @@ fun WaccaServer.init() {
         ) }
     }
 
-}
+    fun addItems(recv: List<List<Int>>, u: WaccaUser, items: Map<Int, Map<Int, WcUserItem>>) {
+        if (recv.isEmpty()) return
+        val newItems = mutableListOf<WcUserItem>()
+        recv.forEach { (id, type, param) ->
+            val ex = items[type]?.get(id)
+            when (type) {
+                WP() -> u.wp += param
+                XP() -> u.xp += param
+                MUSIC_DIFFICULTY_UNLOCK(),
+                MUSIC_UNLOCK() -> newItems += (ex ?: WcUserItem(type, id))
+                    .apply { user = u; p1 = min(max(param.long(), p1), WaccaDifficulty.HARD.value.long()) }
+                TROPHY() -> newItems += (ex ?: TROPHY(u, id)).apply { p1 = season.long(); p2 = param.long() }
+                else -> newItems += (ex ?: WcUserItem(type, id)).apply { user = u }
+            }
+        }
+        rp.user.save(u)
+        rp.item.saveAll(newItems)
+    }
+
+    "user/sugoroku/update" api@ { _, (uid, gid, page, progress, loops, boostsUsed, itemsRecv, totalPts, missionFlag) ->
+        val u = user(uid) ?: (400 - "User not found")
+        val g = rp.gate.findByUserAndGateId(u, gid.int()) ?: WcUserGate().apply { user = u; gateId = gid.int() }
+        val items = itmGrp(u)
+
+        // Update gate
+        rp.gate.save(g.also {
+            it.page = page.int()
+            it.progress = progress.int()
+            it.loops = loops.int()
+            it.missionFlag = missionFlag.int()
+            it.totalPoints = totalPts.int()
+        })
+
+        operator fun <T> MutableList<T>.plusAssign(item: T) { add(item) }
+
+        // Update items
+        addItems(itemsRecv as List<List<Int>>, u, items)
+        empty
+    }
