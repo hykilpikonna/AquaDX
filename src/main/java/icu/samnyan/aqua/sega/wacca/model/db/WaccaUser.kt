@@ -1,6 +1,9 @@
 package icu.samnyan.aqua.sega.wacca.model.db
 
+import ext.isoDate
 import ext.ls
+import ext.sec
+import ext.toDate
 import icu.samnyan.aqua.net.games.BaseEntity
 import icu.samnyan.aqua.sega.general.model.Card
 import jakarta.persistence.*
@@ -29,7 +32,7 @@ class WaccaUser : BaseEntity() {
     var title2 = 0
     var rating = 0
     @Temporal(TemporalType.TIMESTAMP)
-    var vipExpireTime: Date = Date(0)
+    var vipExpireTime: Date = "2077-01-01".isoDate().toDate()
     var alwaysVip = false
     var loginCount = 0
     var loginCountConsec = 0
@@ -52,9 +55,9 @@ class WaccaUser : BaseEntity() {
     var lastFolderId = 0
     var lastSongOrder = 0
     @Temporal(TemporalType.TIMESTAMP)
-    var lastLoginDate: Date = Date(0)
-    var gateTutorialFlags: String? = null
+    var lastLoginDate: Date = Date()
+    var gateTutorialFlags: String = "[[1, 0], [2, 0], [3, 0], [4, 0], [5, 0]]"
 
     fun lStatus() = ls(card.extId, username, 1, xp, danLevel, danType, wp, ls(0, 0, 0), loginCount, loginCountDays,
-        loginCountConsec, loginCountDaysConsec, vipExpireTime, loginCountToday, rating)
+        loginCountConsec, loginCountDaysConsec, vipExpireTime.sec, loginCountToday, rating)
 }

@@ -29,18 +29,15 @@ class WaccaTest : StringSpec({
     }
 
     infix fun List<Any?>.exp(expected: List<Any?>) {
-        expected.size shouldBe size
-        for (i in indices) {
-            val a = this[i]
-            when (val b = expected[i]) {
-                null -> {} // Use null to ignore the value
-                is List<*> -> a as List<Any> exp b as List<Any>
-                else -> a shouldBe b
-            }
-        }
+        // Replace all timestamps as null
+        val start = millis().toString().substring(0..3)
+        val lst = this.toJson().replace(Regex("""$start\d{6}(?=[], ])"""), "null").jsonArray()
+        lst shouldBe expected
     }
 
     infix fun List<Any?>.exp(json: String) = exp(json.jsonArray())
+
+    System.getProperty("kotest.assertions.collection.print.size", "1000")
 
     beforeTest {
         if (uid == 0L) uid = registerUser()
@@ -62,12 +59,12 @@ class WaccaTest : StringSpec({
 
     "user/status/get #1" {
         post("user/status/get", """["$uid"]""").res exp
-            """[[0, "", 1, 0, 0, 0, 0, [0, 0, 0], 0, 0, 0, 0, 0, 0, 0], 104001, 102001, 1, [2, "1.0.0"], []]"""
+            """[[0, "", 1, 0, 0, 0, 0, [0, 0, 0], 0, 0, 0, 0, 3376684800, 0, 0], 104001, 102001, 1, [2, "1.0.0"], []]"""
     }
 
     "user/status/create #1" {
         post("user/status/create", """["$uid", "AZA"]""").res exp
-            """[[$uid, "AZA", 1, 0, 0, 0, 0, [0, 0, 0], 0, 0, 0, 0, 0, 0, 0]]"""
+            """[[$uid, "AZA", 1, 0, 0, 0, 0, [0, 0, 0], 0, 0, 0, 0, 3376684800, 0, 0]]"""
     }
 
     "user/status/login Guest" {
@@ -78,5 +75,10 @@ class WaccaTest : StringSpec({
     "user/status/login #2" {
         post("user/status/login", "[$uid]").res exp
             "[[], [], [], 0, [2077, 1, 1, 1, [], []], null, []]"
+    }
+
+    "user/status/getDetail #1" {
+        post("user/status/getDetail", "[$uid]").res exp
+            """[[$uid, "AZA", 1, 0, 0, 0, 999999, [0, 0, 0], 1, 0, 0, 0, 3376684800, 1, 0], [], [[3, 1, 0], [3, 2, 0], [3, 3, 0], [3, 4, 0], [3, 5, 0], [0, 1, 1]], [[], [[104001, 1, null], [104002, 1, null], [104003, 1, null], [104005, 1, null]], [[102001, 1, 0, null], [102002, 1, 0, null]], [], [], [], [[103001, 1, null], [203001, 1, null]], [[105001, 1, null], [205005, 1, null]], [[210001, 1, null, 0, 0], [210002, 1, null, 0, 0], [210054, 1, null, 0, 0], [210055, 1, null, 0, 0], [210056, 1, null, 0, 0], [210057, 1, null, 0, 0], [210058, 1, null, 0, 0], [210059, 1, null, 0, 0], [210060, 1, null, 0, 0], [210061, 1, null, 0, 0], [310001, 1, null, 0, 0], [310002, 1, null, 0, 0]], [[211001, 1, null]], [[312000, 1, null], [312001, 1, null]]], [], [0, 1], [0, 0, 0, 0, 4, 2, 0, 2, 2, 1, 0], [[0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0]], null, [], [], [], [[1, 1, 1, 0, 0, 0, 0], [2, 1, 1, 0, 0, 0, 0], [3, 1, 1, 0, 0, 0, 0], [4, 1, 1, 0, 0, 0, 0], [5, 1, 1, 0, 0, 0, 0], [6, 1, 1, 0, 0, 0, 0], [7, 1, 1, 0, 0, 0, 0], [8, 1, 1, 0, 0, 0, 0], [9, 1, 1, 0, 0, 0, 0], [10, 1, 1, 0, 0, 0, 0], [11, 1, 1, 0, 0, 0, 0], [12, 1, 1, 0, 0, 0, 0], [13, 1, 1, 0, 0, 0, 0], [14, 1, 1, 0, 0, 0, 0], [15, 1, 1, 0, 0, 0, 0], [16, 1, 1, 0, 0, 0, 0], [17, 1, 1, 0, 0, 0, 0], [18, 1, 1, 0, 0, 0, 0], [19, 1, 1, 0, 0, 0, 0], [20, 1, 1, 0, 0, 0, 0], [21, 1, 1, 0, 0, 0, 0], [22, 1, 1, 0, 0, 0, 0], [23, 1, 1, 0, 0, 0, 0], [24, 1, 1, 0, 0, 0, 0]], [0, 0, 0, 0, 0], [[1, 0], [2, 0], [3, 0], [4, 0], [5, 0]], [], [], [0, []]]"""
     }
 })

@@ -102,7 +102,10 @@ inline fun <reified T> resJson(name: Str, warn: Boolean = true) = resStr(name)?.
 fun millis() = System.currentTimeMillis()
 val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 fun LocalDate.isoDate() = format(DATE_FORMAT)
+fun String.isoDate() = DATE_FORMAT.parse(this, LocalDate::from)
+fun LocalDate.toDate() = Date(atStartOfDay().toInstant(java.time.ZoneOffset.UTC).toEpochMilli())
 fun LocalDateTime.isoDateTime() = format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+fun String.isoDateTime() = LocalDateTime.parse(this, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
 val URL_SAFE_DT = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")
 fun LocalDateTime.urlSafeStr() = format(URL_SAFE_DT)
 
@@ -114,6 +117,7 @@ catch (e: Exception) { null } }
 val Calendar.year get() = get(Calendar.YEAR)
 val Calendar.month get() = get(Calendar.MONTH) + 1
 val Calendar.day get() = get(Calendar.DAY_OF_MONTH)
+val Date.sec get() = time / 1000
 
 // Encodings
 fun Long.toHex(len: Int = 16): Str = "0x${this.toString(len).padStart(len, '0').uppercase()}"

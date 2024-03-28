@@ -8,6 +8,7 @@ import icu.samnyan.aqua.sega.wacca.WaccaOptionType.SET_TITLE_ID
 import icu.samnyan.aqua.sega.wacca.model.BaseRequest
 import icu.samnyan.aqua.sega.wacca.model.db.WaccaRepos
 import icu.samnyan.aqua.sega.wacca.model.db.WaccaUser
+import icu.samnyan.aqua.sega.wacca.model.db.WcUserGate
 import io.ktor.client.utils.*
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.ResponseEntity
@@ -24,6 +25,7 @@ class WaccaServer(val rp: WaccaRepos, val cardRepo: CardRepository) {
 
     val log = logger()
     val season = 3
+    val enabledGates = 1..24
 
     init { init() }
 
@@ -145,13 +147,19 @@ fun WaccaServer.init() {
         val scores = rp.bestScore.findByUser(u)
         val gates = rp.gate.findByUser(u)
         val bingo = rp.bingo.findByUser(u).firstOrNull()
+        val go = u.card.aquaUser?.gameOptions
+
+        // TODO: make this and vip configurable
+        u.wp = 999999
 
         u.run { ls("status" - lStatus(),
             "options" - o.map { (k, v) -> ls(k, v) },
             "seasonalPlayModeCounts" - (ls(playcountSingle, playcountMultiVs, playcountMultiCoop, playcountStageup, playcountTimeFree)
-                .mapIndexed { i, it -> ls(season, i + 1, it) } + ls(0, 1, 1)),
-            "items" - ls(MUSIC_UNLOCK, TITLE, ICON, TROPHY, SKILL, TICKET, NOTE_COLOR, NOTE_SOUND, NAVIGATOR, USER_PLATE, TOUCH_EFFECT)
-                .map { items[it()]?.map { it.ls() } },
+                .mapIndexed { i, it -> ls(season, i + 1, it) } + ls(ls(0, 1, 1))),
+            "items" - ls(MUSIC_UNLOCK, TITLE, ICON, TROPHY, SKILL, TICKET, NOTE_COLOR, NOTE_SOUND, NAVIGATOR, USER_PLATE, TOUCH_EFFECT).map {
+                if (it == TICKET && go?.unlockTickets == true) (0..4).map { ls(it, 106002, 0) }
+                else items[it()]?.map { it.ls() } ?: empty
+            },
             "scores" - scores.map { it.ls() },
             "songPlayStatus" - ls(lastSongId, 1),
             "seasonInfo" - ls(xp, wpTotal, wpSpent, scores.sumOf { it.score },
@@ -163,9 +171,11 @@ fun WaccaServer.init() {
             "favorites" - rp.favoriteSong.findByUser(u).map { it.songId },
             "stoppedSongIds" - empty,
             "events" - empty,
-            "gate" - gates.map { it.ls() },
+            "gate" - gates.associateBy { it.gateId }.let { gateMap -> enabledGates.map {
+                gateMap[it]?.ls() ?: WcUserGate().apply { gateId = it }.ls()
+            } },
             "lastSongInfo" - ls(lastSongId, lastSongDifficulty, lastFolderOrder, lastFolderId, lastSongOrder),
-            "gateTutorialFlags" - (gateTutorialFlags ?: "[]").jsonArray().map { it as Array<*> }.map { ls(it[0], it[1]?.long()) },
+            "gateTutorialFlags" - gateTutorialFlags.jsonArray(),
             "gatchaInfo" - empty,
             "friendList" - empty,
             "bingoStatus" - ls(

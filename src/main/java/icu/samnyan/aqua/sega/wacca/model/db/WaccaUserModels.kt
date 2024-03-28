@@ -2,6 +2,7 @@ package icu.samnyan.aqua.sega.wacca.model.db
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import ext.ls
+import ext.sec
 import icu.samnyan.aqua.net.games.BaseEntity
 import icu.samnyan.aqua.sega.wacca.WaccaItemType
 import icu.samnyan.aqua.sega.wacca.WaccaItemType.*
@@ -55,7 +56,7 @@ class WcUserFavoriteSong : WaccaUserEntity() {
 @Entity @Table(name = "wacca_user_gate", uniqueConstraints = [UC("", ["user_id", "gate_id"])])
 class WcUserGate : WaccaUserEntity() {
     var gateId = 0
-    var page = 0
+    var page = 1
     var progress = 0
     var loops = 0
     @Temporal(TemporalType.TIMESTAMP)
@@ -63,7 +64,7 @@ class WcUserGate : WaccaUserEntity() {
     var missionFlag = 0
     var totalPoints = 0
 
-    fun ls() = ls(gateId, page, progress, loops, lastUsed, missionFlag)
+    fun ls() = ls(gateId, 1, page, progress, loops, lastUsed, missionFlag)
 }
 
 @Entity @Table(name = "wacca_user_item", uniqueConstraints = [UC("", ["user_id", "item_id", "type"])])
@@ -80,15 +81,15 @@ class WcUserItem(
     var acquiredDate: Date = Date(),
 ) : WaccaUserEntity() {
     fun ls() = when (type) {
-        MUSIC_UNLOCK() -> ls(itemId, p1, acquiredDate, acquiredDate) // songId, diff, acquireDate, unlockDate
-        ICON() -> ls(itemId, type, p1, acquiredDate) // id, type, uses, acquiredDate
+        MUSIC_UNLOCK() -> ls(itemId, p1, acquiredDate.sec, acquiredDate.sec) // songId, diff, acquireDate, unlockDate
+        ICON() -> ls(itemId, 1, p1, acquiredDate.sec) // id, type, uses, acquiredDate
         TROPHY() -> ls(itemId, p1, p2, p3) // id, season, progress, badgeType
         SKILL() -> ls(itemId, p1, p2, p3) // skillType, level, flag, badge
         TICKET() -> ls(id, itemId, p1) // userTicketId, ticketId, expire
-        NAVIGATOR() -> ls(itemId, type, acquiredDate, p1, p2) // id, type, acquiredDate, uses, usesToday
+        NAVIGATOR() -> ls(itemId, 1, acquiredDate.sec, p1, p2) // id, type, acquiredDate, uses, usesToday
 
         // Generic: title, note colors, note sounds, plates, touch effects
-        else -> ls(itemId, type, acquiredDate) // id, type, acquireDate
+        else -> ls(itemId, 1, acquiredDate.sec) // id, type, acquireDate
     }
 
     infix fun isType(t: WaccaItemType) = type == t()
