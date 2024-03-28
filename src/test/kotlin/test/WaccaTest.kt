@@ -69,4 +69,14 @@ class WaccaTest : StringSpec({
         post("user/status/create", """["$uid", "AZA"]""").res exp
             """[[$uid, "AZA", 1, 0, 0, 0, 0, [0, 0, 0], 0, 0, 0, 0, 0, 0, 0]]"""
     }
+
+    "user/status/login Guest" {
+        post("user/status/login", "[0]").res exp
+            "[[], [], [], 0, [2077, 1, 1, 1, [], []], 0, []]"
+    }
+
+    "user/status/login #2" {
+        post("user/status/login", "[$uid]").res exp
+            "[[], [], [], 0, [2077, 1, 1, 1, [], []], null, []]"
+    }
 })
