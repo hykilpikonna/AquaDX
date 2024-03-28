@@ -9,7 +9,7 @@ object AllNetBillingDecoder {
      */
     fun decode(src: ByteArray, base64: Boolean, nowrap: Boolean): Map<String, String> {
         // Decode the input byte array from Base64 MIME encoding
-        val bytes = if (base64) src else Base64.getMimeDecoder().decode(src)
+        val bytes = if (!base64) src else Base64.getMimeDecoder().decode(src)
 
         // Decompress the decoded byte array
         val output = ZLib.decompress(bytes, nowrap).toString(UTF_8).trim()
