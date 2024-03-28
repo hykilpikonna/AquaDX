@@ -5,6 +5,8 @@ import io.ktor.client.statement.*
 import kotlin.random.Random
 import kotlin.random.nextInt
 
+const val BOARD_ID = "ACAE-01A99999999"
+const val FULL_CLIENT_ID = "A123-45678909999"
 const val CLIENT_ID = "A1234567890"
 const val FTK = "test"
 const val HOST = "http://localhost"
