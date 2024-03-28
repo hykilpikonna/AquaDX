@@ -43,7 +43,7 @@ class CompressionFilter : OncePerRequestFilter() {
         // Write response
         resp.setContentLength(result.size)
         if (isDfi) resp.setHeader("pragma", "DFI")
-        if (isDeflate) {
+        else {
             resp.contentType = "application/json; charset=utf-8"
             resp.setHeader("content-encoding", "deflate")
         }
