@@ -1,10 +1,13 @@
 package icu.samnyan.aqua.sega.maimai2
 
 import ext.*
+import icu.samnyan.aqua.net.utils.ApiException
 import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.maimai2.handler.*
 import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
+import io.ktor.client.request.*
 import org.slf4j.LoggerFactory
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import kotlin.reflect.full.declaredMemberProperties
 
@@ -253,24 +256,29 @@ class Maimai2ServletController(
 
     @API("/{api}")
     fun handle(@PathVariable api: String, @RequestBody request: Map<String, Any>): Any {
-        logger.info("Mai2 < $api : ${request.toJson()}") // TODO: Optimize logging
+        try {
+            logger.info("Mai2 < $api : ${request.toJson()}") // TODO: Optimize logging
 
-        if (api in noopEndpoint) {
-            logger.info("Mai2 > $api no-op")
-            return """{"returnCode":1,"apiName":"com.sega.maimai2servlet.api.$api"}"""
-        }
+            if (api in noopEndpoint) {
+                logger.info("Mai2 > $api no-op")
+                return """{"returnCode":1,"apiName":"com.sega.maimai2servlet.api.$api"}"""
+            }
 
-        if (api in staticEndpoint) {
-            logger.info("Mai2 > $api static")
-            return staticEndpoint[api]!!
-        }
+            if (api in staticEndpoint) {
+                logger.info("Mai2 > $api static")
+                return staticEndpoint[api]!!
+            }
 
-        return handlers[api]?.handle(request)?.let { if (it is String) it else it.toJson() }?.also {
-            if (api !in setOf("GetUserItemApi", "GetGameEventApi"))
-                logger.info("Mai2 > $api : $it")
-        } ?: {
-            logger.warn("Mai2 > $api not found")
-            """{"returnCode":1,"apiName":"com.sega.maimai2servlet.api.$api"}"""
+            return handlers[api]?.handle(request)?.let { if (it is String) it else it.toJson() }?.also {
+                if (api !in setOf("GetUserItemApi", "GetGameEventApi"))
+                    logger.info("Mai2 > $api : $it")
+            } ?: {
+                logger.warn("Mai2 > $api not found")
+                """{"returnCode":1,"apiName":"com.sega.maimai2servlet.api.$api"}"""
+            }
+        } catch (e: ApiException) {
+            logger.warn("Mai2 > $api : ${e.code} - ${e.message}")
+            return ResponseEntity.status(e.code).body("""{"returnCode":${e.code},"apiName":"com.sega.maimai2servlet.api.$api","message":"${e.message}"}""")
         }
     }
 }

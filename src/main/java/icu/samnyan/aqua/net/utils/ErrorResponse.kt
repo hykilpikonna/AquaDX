@@ -13,13 +13,15 @@ class ApiException(val code: Int, message: Str) : RuntimeException(message) {
     companion object {
         val log = LoggerFactory.getLogger(ApiException::class.java)
     }
+
+    fun resp() = ResponseEntity.status(code).body(message.toString())
 }
 
-@ControllerAdvice
+@ControllerAdvice(basePackages = ["icu.samnyan"])
 class GlobalExceptionHandler {
     @ExceptionHandler(ApiException::class)
-    fun handleCustomApiException(e: ApiException): ResponseEntity<Any?> {
+    fun handleCustomApiException(e: ApiException): ResponseEntity<String> {
         // On error, return the error code and message
-        return ResponseEntity.status(e.code).body(e.message)
+        return e.resp()
     }
 }
