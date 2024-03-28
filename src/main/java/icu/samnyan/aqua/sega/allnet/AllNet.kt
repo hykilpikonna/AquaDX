@@ -175,6 +175,7 @@ class AllNet(
             "SDDT" -> "ongeki/"
             "SDEY" -> "mai/"
             "SDEZ" -> "mai2/"
+            "SDFE" -> "wacca/"
             "SDED" -> "card/"
             else -> ""
         }
