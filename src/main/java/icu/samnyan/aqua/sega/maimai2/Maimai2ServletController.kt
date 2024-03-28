@@ -278,7 +278,7 @@ class Maimai2ServletController(
             }
         } catch (e: ApiException) {
             logger.warn("Mai2 > $api : ${e.code} - ${e.message}")
-            return ResponseEntity.status(e.code).body("""{"returnCode":${e.code},"apiName":"com.sega.maimai2servlet.api.$api","message":"${e.message}"}""")
+            return ResponseEntity.status(e.code).body("""{"returnCode":0,"apiName":"com.sega.maimai2servlet.api.$api","message":"${e.message?.replace("\"", "\\\"")} - ${e.code}"}""")
         }
     }
 }
