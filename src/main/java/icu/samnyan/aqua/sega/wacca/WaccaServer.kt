@@ -50,7 +50,7 @@ class WaccaServer(val rp: WaccaRepos) {
     /** Handle all requests */
     @API("/api/**")
     fun handle(req: HttpServletRequest, @RB body: String): Any {
-        val path = req.requestURI.removePrefix("/g/wacca").removePrefix("/api").lowercase()
+        val path = req.requestURI.removePrefix("/g/wacca").removePrefix("/api").removePrefix("/").lowercase()
         if (path in cacheMap) return resp(cacheMap[path]!!)
         if (path !in handlerMap) return resp("[]", 1, "Not Found")
 
@@ -61,20 +61,20 @@ class WaccaServer(val rp: WaccaRepos) {
 }
 
 fun WaccaServer.api() {
-    "/housing/get" cached { ls("housingId" - 39, "isNewCab" - 0) }
-    "/housing/start" cached { ls("regionId" - 1, "recommendSongList" - ls(1269, 1007, 1270, 1002, 1020, 1003, 1008,
+    "housing/get" cached { ls("housingId" - 39, "isNewCab" - 0) }
+    "housing/start" cached { ls("regionId" - 1, "recommendSongList" - ls(1269, 1007, 1270, 1002, 1020, 1003, 1008,
         1211, 1018, 1092, 1056, 32, 1260, 1230, 1258, 1251, 2212, 1264, 1125, 1037, 2001, 1272, 1126, 1119, 1104, 1070,
         1047, 1044, 1027, 1004, 1001, 24, 2068, 2062, 2021, 1275, 1249, 1207, 1203, 1107, 1021, 1009, 9, 4, 3, 23, 22,
         2014, 13, 1276, 1247, 1240, 1237, 1128, 1114, 1110, 1109, 1102, 1045, 1043, 1036, 1035, 1030, 1023, 1015))
     }
-    "/advertise/GetRanking" cached { empty }
-    "/advertise/GetNews" cached { ls("notices" - empty, "copyright" - empty, empty, empty, empty, empty, empty, empty, empty) }
-    "/user/info/GetMyRoom" cached { ls(0, 0, 0, 0, 0, empty, 0, 0, 0) }
-    "/user/status/Logout" cached { empty }
-    "/user/info/GetRanking" cached { ls("totalScore#" - 0, "highScoreBySong#" - 0, "cumulativeScore#" - 0,
+    "advertise/GetRanking" cached { empty }
+    "advertise/GetNews" cached { ls("notices" - empty, "copyright" - empty, empty, empty, empty, empty, empty, empty, empty) }
+    "user/info/GetMyRoom" cached { ls(0, 0, 0, 0, 0, empty, 0, 0, 0) }
+    "user/status/Logout" cached { empty }
+    "user/info/GetRanking" cached { ls("totalScore#" - 0, "highScoreBySong#" - 0, "cumulativeScore#" - 0,
         "stateUpScore#" - 0, "otherScore#" - 0, "waccaPoints#" - 0) }
 
-    "/user/status/get" { req, (uid) ->
+    "user/status/get" { req, (uid) ->
         val ru = rp.user.findById(uid as Long)()
         val u = ru ?: WaccaUser()
         val o = options(u)
