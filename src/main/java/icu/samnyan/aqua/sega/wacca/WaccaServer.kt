@@ -6,14 +6,14 @@ import icu.samnyan.aqua.sega.wacca.WaccaItemType.*
 import icu.samnyan.aqua.sega.wacca.WaccaOptionType.SET_ICON_ID
 import icu.samnyan.aqua.sega.wacca.WaccaOptionType.SET_TITLE_ID
 import icu.samnyan.aqua.sega.wacca.model.BaseRequest
-import icu.samnyan.aqua.sega.wacca.model.db.WaccaRepos
-import icu.samnyan.aqua.sega.wacca.model.db.WaccaUser
-import icu.samnyan.aqua.sega.wacca.model.db.WcUserGate
+import icu.samnyan.aqua.sega.wacca.model.db.*
 import io.ktor.client.utils.*
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
 import java.util.*
+import kotlin.math.max
+import kotlin.math.min
 
 val empty = emptyList<Any>()
 
@@ -30,8 +30,9 @@ class WaccaServer(val rp: WaccaRepos, val cardRepo: CardRepository) {
     init { init() }
 
     // DSL Functions
-    fun user(uid: Any) = rp.user.findByCardExtId(uid.long())
+    fun user(uid: Any) = if (uid == 0) null else rp.user.findByCardExtId(uid.long())
     fun options(u: WaccaUser?) = u?.let { rp.option.findByUser(u).associate { it.optId to it.value } } ?: emptyMap()
+    fun itmGrp(u: WaccaUser) = rp.item.findByUser(u).groupBy { it.type }.mapValues { it.value.associateBy { it.itemId } }
     operator fun Map<Int, Int>.get(type: WaccaOptionType) = getOrDefault(type.id, type.default)
     operator fun String.minus(value: Any) = value
     operator fun String.invoke(block: (BaseRequest, List<Any>) -> Any) { handlerMap[this.lowercase()] = block }
@@ -128,10 +129,11 @@ fun WaccaServer.init() {
         // Record login
         rp.user.save(u.apply {
             loginCountConsec = loginCount++
-            if (millis() - lastLoginDate.time > 86400000) { // Is new day
+            if (millis() - lastConsecDate.time > 23 * 60 * 60 * 1000) {
                 loginCountDays++
                 loginCountToday = 0
-                if (millis() - lastLoginDate.time < 172800000) loginCountDaysConsec++
+                lastConsecDate = Date()
+                if (millis() - lastLoginDate.time < 2 * 24 * 60 * 60 * 1000) loginCountDaysConsec++
             }
             loginCountToday++
             lastLoginDate = Date()
