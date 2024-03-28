@@ -308,6 +308,23 @@ fun WaccaServer.init() {
 
         empty
     }
+
+    "user/info/update" { _, (uid, opts, _, dates, favAdd, favRem) ->
+        val u = user(uid) ?: (404 - "User not found")
+
+        // Update options
+        val o = rp.option.findByUser(u).associate { it.optId to it }
+        rp.option.saveAll((opts as List<List<Int>>).map { (k, v) -> o[k]?.apply { value = v }
+            ?: WcUserOption(k, v).apply { user = u } })
+
+        // Update favorite songs
+        rp.user.save(u.apply { favoriteSongs.apply {
+            addAll(favAdd as List<Int>)
+            removeAll(favRem as List<Int>)
+        } })
+
+        empty
+    }
 }
 
 
