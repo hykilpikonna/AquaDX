@@ -2,6 +2,7 @@ package icu.samnyan.aqua.sega.wacca.model.db
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import icu.samnyan.aqua.net.games.BaseEntity
+import icu.samnyan.aqua.sega.wacca.WaccaItemType
 import jakarta.persistence.*
 
 typealias UC = UniqueConstraint
@@ -59,11 +60,13 @@ class WcUserGate : WaccaUserEntity() {
 }
 
 @Entity @Table(name = "wacca_user_item", uniqueConstraints = [UC("", ["user_id", "item_id", "type"])])
-class WcUserItem : WaccaUserEntity() {
+class WcUserItem() : WaccaUserEntity() {
     var itemId = 0
     var type = 0
     var acquireDate = ""
     var useCount = 0
+
+    constructor(u: WaccaUser, id: Int, typ: WaccaItemType) : this() { user = u; itemId = id; type = typ() }
 }
 
 @Entity @Table(name = "wacca_user_ticket", uniqueConstraints = [UC("", ["user_id", "ticket_id"])])

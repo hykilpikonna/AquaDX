@@ -1,9 +1,10 @@
 package icu.samnyan.aqua.sega.wacca.model.db
 
+import ext.ls
 import icu.samnyan.aqua.net.games.BaseEntity
 import icu.samnyan.aqua.sega.general.model.Card
 import jakarta.persistence.*
-import java.util.Date
+import java.util.*
 
 /**
  * General user information
@@ -12,7 +13,7 @@ import java.util.Date
 class WaccaUser : BaseEntity() {
     @OneToOne
     @JoinColumn(name = "aime_card_id", unique = true)
-    var card: Card? = null
+    var card: Card = Card()
 
     @Column(length = 8)
     var username = ""
@@ -52,4 +53,7 @@ class WaccaUser : BaseEntity() {
     var lastSongOrder = 0
     var lastLoginDate: String? = null
     var gateTutorialFlags: String? = null
+
+    fun lStatus() = ls(card.id, username, 1, xp, danLevel, danType, wp, ls(0, 0, 0), loginCount, loginCountDays,
+        loginCountConsec, loginCountDaysConsec, vipExpireTime, loginCountToday, rating)
 }

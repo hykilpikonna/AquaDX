@@ -122,6 +122,7 @@ fun Any.long() = when (this) {
 }
 
 // Collections
+fun <T> ls(vararg args: T) = args.toList()
 operator fun <K, V> Map<K, V>.plus(map: Map<K, V>) =
     (if (this is MutableMap) this else toMutableMap()).apply { putAll(map) }
 operator fun <K, V> MutableMap<K, V>.plusAssign(map: Map<K, V>) { putAll(map) }

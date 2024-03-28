@@ -50,4 +50,9 @@ class WaccaTest : StringSpec({
         post("user/status/get", """["$uid"]""").res shouldBe
             """[[0, "", 1, 0, 0, 0, 0, [0, 0, 0], 0, 0, 0, 0, 0, 0, 0], 104001, 102001, 1, [2, "1.0.0"], []]""".jsonArray()
     }
+
+    "user/status/create #1" {
+        post("user/status/create", """["$uid", "AZA"]""").res shouldBe
+            """[[$uid, "AZA", 1, 0, 0, 0, 0, [0, 0, 0], 0, 0, 0, 0, 0, 0, 0]]""".jsonArray()
+    }
 })

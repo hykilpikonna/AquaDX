@@ -1,5 +1,8 @@
 package icu.samnyan.aqua.sega.wacca
 
+import icu.samnyan.aqua.sega.wacca.model.db.WaccaUser
+import icu.samnyan.aqua.sega.wacca.model.db.WcUserItem
+
 enum class WaccaGrades(val value: Int) {
     D(1),
     C(2),
@@ -23,25 +26,28 @@ enum class WaccaDifficulty(val value: Int) {
     INFERNO(4),
 }
 
-val WACCA_ITEM_TYPES = mapOf(
-    "xp" to 1,
-    "wp" to 2,
-    "music_unlock" to 3,
-    "music_difficulty_unlock" to 4,
-    "title" to 5,
-    "icon" to 6,
-    "trophy" to 7,
-    "skill" to 8,
-    "ticket" to 9,
-    "note_color" to 10,
-    "note_sound" to 11,
-    "baht_do_not_send" to 12,
-    "boost_badge" to 13,
-    "gate_point" to 14,
-    "navigator" to 15,
-    "user_plate" to 16,
-    "touch_effect" to 17,
-)
+enum class WaccaItemType(val type: Int) {
+    XP(1),
+    WP(2),
+    MUSIC_UNLOCK(3),
+    MUSIC_DIFFICULTY_UNLOCK(4),
+    TITLE(5),
+    ICON(6),
+    TROPHY(7),
+    SKILL(8),
+    TICKET(9),
+    NOTE_COLOR(10),
+    NOTE_SOUND(11),
+    BAHT_DO_NOT_SEND(12),
+    BOOST_BADGE(13),
+    GATE_POINT(14),
+    NAVIGATOR(15),
+    USER_PLATE(16),
+    TOUCH_EFFECT(17);
+
+    operator fun invoke() = type
+    operator fun invoke(u: WaccaUser, id: Int) = WcUserItem(u, id, this)
+}
 
 enum class WaccaOptionType(val id: Int, val default: Int) {
     NOTE_SPEED(1, 5), // 1.0 - 6.0

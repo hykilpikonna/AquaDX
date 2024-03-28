@@ -1,6 +1,8 @@
 package icu.samnyan.aqua.sega.wacca
 
 import ext.*
+import icu.samnyan.aqua.sega.general.dao.CardRepository
+import icu.samnyan.aqua.sega.wacca.WaccaItemType.*
 import icu.samnyan.aqua.sega.wacca.WaccaOptionType.SET_ICON_ID
 import icu.samnyan.aqua.sega.wacca.WaccaOptionType.SET_TITLE_ID
 import icu.samnyan.aqua.sega.wacca.model.BaseRequest
@@ -15,7 +17,7 @@ val empty = emptyList<Any>()
 
 @RestController
 @API("/g/wacca/")
-class WaccaServer(val rp: WaccaRepos) {
+class WaccaServer(val rp: WaccaRepos, val cardRepo: CardRepository) {
     val handlerMap = mutableMapOf<String, (BaseRequest, List<Any>) -> List<Any>>()
     val cacheMap = mutableMapOf<String, String>()
 
@@ -26,10 +28,7 @@ class WaccaServer(val rp: WaccaRepos) {
     // DSL Functions
     fun options(u: WaccaUser?) = u?.let { rp.option.findByUser(u).associate { it.optId to it.value } } ?: emptyMap()
     operator fun Map<Int, Int>.get(type: WaccaOptionType) = getOrDefault(type.id, type.default)
-
-    fun ls(vararg args: Any) = args.toList()
     operator fun String.minus(value: Any) = value
-
     operator fun String.invoke(block: (BaseRequest, List<Any>) -> List<Any>) { handlerMap[this.lowercase()] = block }
     infix fun String.cached(block: () -> Any) { cacheMap[this.lowercase()] = block().toJson() }
 
@@ -79,14 +78,33 @@ fun WaccaServer.api() {
         val ru = rp.user.findById(uid.long())()
         val u = ru ?: WaccaUser()
         val o = options(ru)
-        u.run { ls(
-            ls(u.id, username, "userType" - 1, xp, danLevel, danType, wp, "titlePartIds" - ls(0, 0, 0),
-                loginCount, loginCountDays, loginCountConsec, loginCountDaysConsec, vipExpireTime, loginCountToday, rating),
+        u.run { ls(u.lStatus(),
             o[SET_TITLE_ID], o[SET_ICON_ID],
             "status" - if (ru == null) 1 else 0, // 0 = GOOD, 1 = Register
-            // 0 = Version GOOD, 1 = Game is newer, 2 = Game is older
-            "version" - ls(req.appVersion.shortVer().compareTo(lastGameVer.shortVer()), lastGameVer.shortVer()),
+            "version" - ls(req.appVersion.shortVer().compareTo(lastGameVer.shortVer())
+                .let { if (it < 0) 1 else if (it > 0) 2 else 0 }, // 0 = Version GOOD, 1 = Game is newer, 2 = Game is older
+                lastGameVer.shortVer()),
             o.map { (k, v) -> ls(k, v) }
         ) }
+    }
+
+    "user/status/create" { _, (uid, name) ->
+        val u = rp.user.save(WaccaUser().apply {
+            card = cardRepo.findByExtId(uid.long())() ?: (400 - "Card not found")
+            username = name.toString()
+        })
+
+        // Starter items
+        rp.item.saveAll(
+            ls(104001, 104002, 104003, 104005).map { TITLE(u, it) } +
+            ls(102001, 102002).map { ICON(u, it) } +
+            ls(103001, 203001).map { NOTE_COLOR(u, it) } +
+            ls(105001, 205005).map { NOTE_SOUND(u, it) } +
+            (ls(210001, 210002, 310001, 310002) + (210054..210061)).map { NAVIGATOR(u, it) } +
+            ls(211001).map { USER_PLATE(u, it) } +
+            ls(312000, 312001).map { TOUCH_EFFECT(u, it) }
+        )
+
+        ls(u.lStatus())
     }
 }
