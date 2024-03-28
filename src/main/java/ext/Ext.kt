@@ -115,6 +115,12 @@ catch (e: Exception) { null } }
 fun Long.toHex(len: Int = 16): Str = "0x${this.toString(len).padStart(len, '0').uppercase()}"
 fun Map<String, Any>.toUrl() = entries.joinToString("&") { (k, v) -> "$k=$v" }
 
+fun Any.long() = when (this) {
+    is Number -> toLong()
+    is String -> toLong()
+    else -> 400 - "Invalid number: $this"
+}
+
 // Collections
 operator fun <K, V> Map<K, V>.plus(map: Map<K, V>) =
     (if (this is MutableMap) this else toMutableMap()).apply { putAll(map) }

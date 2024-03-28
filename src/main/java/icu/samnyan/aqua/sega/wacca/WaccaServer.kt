@@ -24,7 +24,7 @@ class WaccaServer(val rp: WaccaRepos) {
     init { api() }
 
     // DSL Functions
-    fun options(u: WaccaUser) = rp.option.findByUser(u).associate { it.optId to it.value }
+    fun options(u: WaccaUser?) = u?.let { rp.option.findByUser(u).associate { it.optId to it.value } } ?: emptyMap()
     operator fun Map<Int, Int>.get(type: WaccaOptionType) = getOrDefault(type.id, type.default)
 
     fun ls(vararg args: Any) = args.toList()
@@ -75,9 +75,9 @@ fun WaccaServer.api() {
         "stateUpScore#" - 0, "otherScore#" - 0, "waccaPoints#" - 0) }
 
     "user/status/get" { req, (uid) ->
-        val ru = rp.user.findById(uid as Long)()
+        val ru = rp.user.findById(uid.long())()
         val u = ru ?: WaccaUser()
-        val o = options(u)
+        val o = options(ru)
         u.run { ls(
             ls(uid, username, "userType" - 1, xp, danLevel, danType, wp, "titlePartIds" - ls(0, 0, 0),
                 loginCount, loginCountDays, loginCountConsec, loginCountDaysConsec, vipExpireTime, loginCountToday, rating),
