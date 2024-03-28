@@ -41,6 +41,17 @@ inline fun <reified T> Str.parseJackson() = if (contains("null")) {
 else JACKSON.readValue(this, T::class.java)
 fun <T> T.toJson() = JACKSON.writeValueAsString(this)
 
+inline fun <reified T> String.json() = try {
+    JACKSON.readValue(this, T::class.java)
+}
+catch (e: Exception) {
+    println("Failed to parse JSON: $this")
+    throw e
+}
+
+fun String.jsonMap(): Map<String, Any?> = json()
+fun String.jsonArray(): List<Map<String, Any?>> = json()
+
 
 // KotlinX Serialization
 @OptIn(ExperimentalSerializationApi::class)

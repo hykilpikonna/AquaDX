@@ -111,6 +111,10 @@ fun Str.asDateTime() = try { LocalDateTime.parse(this, DateTimeFormatter.ISO_LOC
 catch (e: Exception) { try { LocalDateTime.parse(this, ALT_DATETIME_FORMAT) }
 catch (e: Exception) { null } }
 
+val Calendar.year get() = get(Calendar.YEAR)
+val Calendar.month get() = get(Calendar.MONTH) + 1
+val Calendar.day get() = get(Calendar.DAY_OF_MONTH)
+
 // Encodings
 fun Long.toHex(len: Int = 16): Str = "0x${this.toString(len).padStart(len, '0').uppercase()}"
 fun Map<String, Any>.toUrl() = entries.joinToString("&") { (k, v) -> "$k=$v" }

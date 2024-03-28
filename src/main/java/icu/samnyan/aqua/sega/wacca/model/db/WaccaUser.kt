@@ -51,7 +51,8 @@ class WaccaUser : BaseEntity() {
     var lastFolderOrder = 0
     var lastFolderId = 0
     var lastSongOrder = 0
-    var lastLoginDate: String? = null
+    @Temporal(TemporalType.TIME)
+    var lastLoginDate: Date = Date(0)
     var gateTutorialFlags: String? = null
 
     fun lStatus() = ls(card.extId, username, 1, xp, danLevel, danType, wp, ls(0, 0, 0), loginCount, loginCountDays,

@@ -12,24 +12,25 @@ import io.ktor.client.utils.*
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
+import java.util.*
 
 val empty = emptyList<Any>()
 
 @RestController
 @API("/g/wacca/")
 class WaccaServer(val rp: WaccaRepos, val cardRepo: CardRepository) {
-    val handlerMap = mutableMapOf<String, (BaseRequest, List<Any>) -> List<Any>>()
+    val handlerMap = mutableMapOf<String, (BaseRequest, List<Any>) -> Any>()
     val cacheMap = mutableMapOf<String, String>()
 
     val log = logger()
 
-    init { api() }
+    init { init() }
 
     // DSL Functions
     fun options(u: WaccaUser?) = u?.let { rp.option.findByUser(u).associate { it.optId to it.value } } ?: emptyMap()
     operator fun Map<Int, Int>.get(type: WaccaOptionType) = getOrDefault(type.id, type.default)
     operator fun String.minus(value: Any) = value
-    operator fun String.invoke(block: (BaseRequest, List<Any>) -> List<Any>) { handlerMap[this.lowercase()] = block }
+    operator fun String.invoke(block: (BaseRequest, List<Any>) -> Any) { handlerMap[this.lowercase()] = block }
     infix fun String.cached(block: () -> Any) { cacheMap[this.lowercase()] = block().toJson() }
 
     /** Convert "3.07.01.JPN.26935.S" into "3.7.1" */
@@ -54,13 +55,18 @@ class WaccaServer(val rp: WaccaRepos, val cardRepo: CardRepository) {
         if (path in cacheMap) return resp(cacheMap[path]!!)
         if (path !in handlerMap) return resp("[]", 1, "Not Found")
 
+        log.info("Wacca $path < $body")
+
         val br = JACKSON.parse<BaseRequest>(body)
-        val resp = handlerMap[path]!!(br, br.params)
-        return resp(resp.toJson())
+        return handlerMap[path]!!(br, br.params).let { when (it) {
+            is String -> return resp(it)
+            is List<*> -> return resp(it.toJson())
+            else -> Error("Invalid response type ${it.javaClass}")
+        } }.let { log.info("Wacca $path > $it") }
     }
 }
 
-fun WaccaServer.api() {
+fun WaccaServer.init() {
     "housing/get" cached { ls("housingId" - 39, "isNewCab" - 0) }
     "housing/start" cached { ls("regionId" - 1, "recommendSongList" - ls(1269, 1007, 1270, 1002, 1020, 1003, 1008,
         1211, 1018, 1092, 1056, 32, 1260, 1230, 1258, 1251, 2212, 1264, 1125, 1037, 2001, 1272, 1126, 1119, 1104, 1070,
@@ -90,7 +96,7 @@ fun WaccaServer.api() {
 
     "user/status/create" { _, (uid, name) ->
         val u = rp.user.save(WaccaUser().apply {
-            card = cardRepo.findByExtId(uid.long())() ?: (400 - "Card not found")
+            card = cardRepo.findByExtId(uid.long())() ?: (404 - "Card not found")
             username = name.toString()
         })
 
@@ -107,4 +113,22 @@ fun WaccaServer.api() {
 
         ls(u.lStatus())
     }
+
+    "user/status/login" api@ { _, (uid) ->
+        if (uid == 0) return@api "[[], [], [], 0, [2077, 1, 1, 1, [], []], 0, []]"
+        val u = rp.user.findByCardExtId(uid.long()) ?: (404 - "User not found")
+
+        // Record login
+        u.loginCountConsec = u.loginCount++
+        if (millis() - u.lastLoginDate.time > 86400000) { // Is new day
+            u.loginCountDays++
+            u.loginCountToday = 0
+            if (millis() - u.lastLoginDate.time < 172800000) u.loginCountDaysConsec++
+        }
+        u.loginCountToday++
+        u.lastLoginDate = Date()
+
+        "[[], [], [], 0, [2077, 1, 1, 1, [], []], ${u.lastLoginDate.time / 1000}, []]"
+    }
+
 }
