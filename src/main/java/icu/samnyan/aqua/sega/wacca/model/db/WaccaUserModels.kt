@@ -6,6 +6,7 @@ import icu.samnyan.aqua.net.games.BaseEntity
 import icu.samnyan.aqua.sega.wacca.WaccaItemType
 import icu.samnyan.aqua.sega.wacca.WaccaItemType.*
 import jakarta.persistence.*
+import java.util.*
 
 typealias UC = UniqueConstraint
 
@@ -73,18 +74,21 @@ class WcUserItem(
     var itemId: Int = 0,
     var p1: Long = 0L,
     var p2: Long = 0L,
-    var p3: Long = 0L
+    var p3: Long = 0L,
+
+    @Temporal(TemporalType.TIMESTAMP)
+    var acquiredDate: Date = Date(),
 ) : WaccaUserEntity() {
     fun ls() = when (type) {
-        MUSIC_UNLOCK() -> ls(itemId, p1, p2, p3) // songId, diff, acquireDate, unlockDate
-        ICON() -> ls(itemId, type, p1, p2) // id, type, uses, acquiredDate
+        MUSIC_UNLOCK() -> ls(itemId, p1, acquiredDate, acquiredDate) // songId, diff, acquireDate, unlockDate
+        ICON() -> ls(itemId, type, p1, acquiredDate) // id, type, uses, acquiredDate
         TROPHY() -> ls(itemId, p1, p2, p3) // id, season, progress, badgeType
         SKILL() -> ls(itemId, p1, p2, p3) // skillType, level, flag, badge
         TICKET() -> ls(id, itemId, p1) // userTicketId, ticketId, expire
-        NAVIGATOR() -> ls(itemId, type, p1, p2, p3) // id, type, acquiredDate, uses, usesToday
+        NAVIGATOR() -> ls(itemId, type, acquiredDate, p1, p2) // id, type, acquiredDate, uses, usesToday
 
         // Generic: title, note colors, note sounds, plates, touch effects
-        else -> ls(itemId, type, p1)
+        else -> ls(itemId, type, acquiredDate) // id, type, acquireDate
     }
 
     infix fun isType(t: WaccaItemType) = type == t()

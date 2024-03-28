@@ -46,7 +46,7 @@ enum class WaccaItemType(val type: Int) {
     TOUCH_EFFECT(17);
 
     operator fun invoke() = type
-    operator fun invoke(u: WaccaUser, id: Int) = WcUserItem(id, this()).apply { user = u }
+    operator fun invoke(u: WaccaUser, id: Int) = WcUserItem(type = this(), itemId = id).apply { user = u }
 }
 
 enum class WaccaOptionType(val id: Int, val default: Int) {

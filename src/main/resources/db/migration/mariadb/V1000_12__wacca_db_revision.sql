@@ -19,28 +19,17 @@ ALTER TABLE wacca_user_gate
     ADD last_used datetime NOT NULL;
 
 ALTER TABLE wacca_user_item
-    ADD p1 BIGINT NOT NULL;
-
-ALTER TABLE wacca_user_item
-    ADD p2 BIGINT NOT NULL;
-
-ALTER TABLE wacca_user_item
-    ADD p3 BIGINT NOT NULL;
-
-ALTER TABLE wacca_user_item
-    DROP COLUMN acquire_date;
-
-ALTER TABLE wacca_user_item
-    DROP COLUMN use_count;
+    ADD p1 BIGINT NOT NULL,
+    ADD p2 BIGINT NOT NULL,
+    ADD p3 BIGINT NOT NULL,
+    DROP COLUMN acquire_date,
+    DROP COLUMN use_count,
+    ADD acquired_date datetime NOT NULL,
+    DROP CONSTRAINT wacca_user_item_unique,
+    ADD CONSTRAINT wacca_user_item_unique UNIQUE (user_id, item_id, type);
 
 ALTER TABLE wacca_user
-    DROP COLUMN last_login_date;
-
-ALTER TABLE wacca_user
-    DROP COLUMN vip_expire_time;
-
-ALTER TABLE wacca_user
-    ADD last_login_date time NOT NULL;
-
-ALTER TABLE wacca_user
-    ADD vip_expire_time time NOT NULL;
+    DROP COLUMN last_login_date,
+    DROP COLUMN vip_expire_time,
+    ADD last_login_date datetime NOT NULL,
+    ADD vip_expire_time datetime NOT NULL;

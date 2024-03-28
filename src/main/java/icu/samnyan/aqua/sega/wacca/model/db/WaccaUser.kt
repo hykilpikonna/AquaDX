@@ -28,7 +28,7 @@ class WaccaUser : BaseEntity() {
     var title1 = 0
     var title2 = 0
     var rating = 0
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.TIMESTAMP)
     var vipExpireTime: Date = Date(0)
     var alwaysVip = false
     var loginCount = 0
@@ -51,7 +51,7 @@ class WaccaUser : BaseEntity() {
     var lastFolderOrder = 0
     var lastFolderId = 0
     var lastSongOrder = 0
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.TIMESTAMP)
     var lastLoginDate: Date = Date(0)
     var gateTutorialFlags: String? = null
 
