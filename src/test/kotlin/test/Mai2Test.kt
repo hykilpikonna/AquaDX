@@ -1,7 +1,7 @@
 package test
 
 import ext.*
-import icu.samnyan.aqua.sega.util.Compression
+import icu.samnyan.aqua.sega.util.ZLib
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.ktor.client.call.*
@@ -13,14 +13,14 @@ class Mai2Test : StringSpec({
     var userId = 0L
 
     suspend fun post(url: String, body: String): Pair<HttpResponse, Map<String, Any?>> {
-        val resp = HTTP.post("$HOST/gs/$CLIENT_ID/mai2".ensureEndingSlash() + url) {
+        val resp = HTTP.post("$HOST/gs/$CLIENT_ID/mai2/$url") {
             contentType(ContentType.Application.Json)
             setBody(body)
         }
 
         assert(resp.status.isSuccess()) { "Failed to post to $url: ${resp.status} - ${resp.bodyAsText()}" }
 
-        return Pair(resp, Compression.decompress(resp.body<ByteArray>()).decodeToString().jsonMap())
+        return Pair(resp, ZLib.decompress(resp.body<ByteArray>()).decodeToString().jsonMap())
     }
 
     beforeTest {
