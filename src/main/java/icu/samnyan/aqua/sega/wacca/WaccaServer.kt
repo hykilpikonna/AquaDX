@@ -275,6 +275,23 @@ fun WaccaServer.init() {
 
         ls(best.ls(), ls(song.songId, best.clears[0]), "seasonalInfo" - (1..11).map { 0 }, "rankingInfo" - empty)
     }
+    "user/music/UpdateCoop" redirect "user/music/update"
+    "user/music/UpdateVersus" redirect "user/music/update"
+    "user/music/UpdateTrial" redirect "user/music/update"
+
+    "user/rating/update" { _, (uid, newRating, songs) ->
+        val u = user(uid) ?: (404 - "User not found")
+        rp.user.save(u.apply { rating = newRating.int() })
+
+        // Update best record
+        (songs as List<List<Any>>).forEach { (songId, diff, newRating) ->
+            val best = rp.bestScore.findByUserAndSongIdAndDifficulty(u, songId.int(), diff.int()) ?: return@forEach
+            best.rating = newRating.int()
+            rp.bestScore.save(best)
+        }
+
+        empty
+    }
 }
 
 
