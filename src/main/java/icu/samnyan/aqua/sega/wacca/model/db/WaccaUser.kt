@@ -5,6 +5,7 @@ import ext.ls
 import ext.sec
 import ext.toDate
 import icu.samnyan.aqua.net.games.BaseEntity
+import icu.samnyan.aqua.sega.general.IntegerListConverter
 import icu.samnyan.aqua.sega.general.model.Card
 import jakarta.persistence.*
 import java.util.*
@@ -22,44 +23,37 @@ class WaccaUser : BaseEntity() {
     var username = ""
 
     var xp = 0
-    var wp = 0
-    var wpTotal = 0
+    var wp = 500
+    var wpTotal = 500
     var wpSpent = 0
     var danType = 0
     var danLevel = 0
-    var title0 = 0
-    var title1 = 0
-    var title2 = 0
+    @Convert(converter = IntegerListConverter::class)
+    var titles: MutableList<Int> = mutableListOf(0, 0, 0)
     var rating = 0
     @Temporal(TemporalType.TIMESTAMP)
     var vipExpireTime: Date = "2077-01-01".isoDate().toDate()
     var alwaysVip = false
     var loginCount = 0
-    var loginCountConsec = 0
     var loginCountDays = 0
     var loginCountDaysConsec = 0
     var loginCountToday = 0
-    var playcountSingle = 0
-    var playcountMultiVs = 0
-    var playcountMultiCoop = 0
-    var playcountStageup = 0
-    var playcountTimeFree = 0
-    var friendView1 = 0
-    var friendView2 = 0
-    var friendView3 = 0
+    @Convert(converter = IntegerListConverter::class)
+    var playCounts: MutableList<Int> = mutableListOf(0, 0, 0, 0, 0)
+    @Convert(converter = IntegerListConverter::class)
+    var friendViews: MutableList<Int> = mutableListOf(0, 0, 0)
     @Column(length = 50)
     var lastGameVer = "1.0.0"
-    var lastSongId = 0
-    var lastSongDifficulty = 0
-    var lastFolderOrder = 0
-    var lastFolderId = 0
-    var lastSongOrder = 0
+    @Convert(converter = IntegerListConverter::class)
+    var lastSongInfo: MutableList<Int> = mutableListOf(0, 0, 0, 0, 0)
     @Temporal(TemporalType.TIMESTAMP)
     var lastConsecDate: Date = Date(0)
     @Temporal(TemporalType.TIMESTAMP)
     var lastLoginDate: Date = Date()
     var gateTutorialFlags: String = "[[1, 0], [2, 0], [3, 0], [4, 0], [5, 0]]"
+    @Convert(converter = IntegerListConverter::class)
+    var favoriteSongs: MutableList<Int> = mutableListOf()
 
     fun lStatus() = ls(card.extId, username, 1, xp, danLevel, danType, wp, ls(0, 0, 0), loginCount, loginCountDays,
-        loginCountConsec, loginCountDaysConsec, vipExpireTime.sec, loginCountToday, rating)
+        (loginCount - 1).coerceAtLeast(0), loginCountDaysConsec, vipExpireTime.sec, loginCountToday, rating)
 }

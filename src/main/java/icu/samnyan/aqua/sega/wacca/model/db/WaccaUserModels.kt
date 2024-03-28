@@ -26,10 +26,10 @@ open class WaccaUserEntity : BaseEntity() {
  * In-game option key-value storage
  */
 @Entity @Table(name = "wacca_user_option", uniqueConstraints = [UC("", ["user_id", "opt_id"])])
-class WcUserOption : WaccaUserEntity() {
-    var optId = 0
-    var value = 0
-}
+class WcUserOption(
+    var optId: Int = 0,
+    var value: Int = 0
+) : WaccaUserEntity()
 
 @Entity @Table(name = "wacca_user_bingo", uniqueConstraints = [UC("", ["user_id", "page_number"])])
 class WcUserBingo : WaccaUserEntity() {
@@ -47,24 +47,19 @@ class WcUserFriend : WaccaUserEntity() {
     var isAccepted = false
 }
 
-@Entity @Table(name = "wacca_user_favorite_song", uniqueConstraints = [UC("", ["user_id", "song_id"])])
-class WcUserFavoriteSong : WaccaUserEntity() {
-    // TODO: Make this into a list instead?
-    var songId = 0
-}
-
 @Entity @Table(name = "wacca_user_gate", uniqueConstraints = [UC("", ["user_id", "gate_id"])])
 class WcUserGate : WaccaUserEntity() {
     var gateId = 0
     var page = 1
     var progress = 0
     var loops = 0
+
     @Temporal(TemporalType.TIMESTAMP)
     var lastUsed = Date(0)
     var missionFlag = 0
     var totalPoints = 0
 
-    fun ls() = ls(gateId, 1, page, progress, loops, lastUsed, missionFlag)
+    fun ls() = ls(gateId, 1, page, progress, loops, lastUsed.sec, missionFlag)
 }
 
 @Entity @Table(name = "wacca_user_item", uniqueConstraints = [UC("", ["user_id", "item_id", "type"])])
