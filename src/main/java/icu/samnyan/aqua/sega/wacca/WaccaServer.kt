@@ -292,8 +292,7 @@ fun WaccaServer.init() {
         addItems(items as List<List<Int>>, u, itmGrp(u))
 
         // Upsert playlog
-        val pl = WcUserPlayLog.parse(details as List<*>)
-        rp.playLog.save(pl.apply { user = u })
+        val pl = WcUserPlayLog.parse(details as List<*>).apply { user = u }
 
         // Update best record
         val best = rp.bestScore.save((rp.bestScore.findByUserAndMusicIdAndLevel(u, pl.musicId, pl.level)
@@ -307,10 +306,18 @@ fun WaccaServer.init() {
             rating = waccaRating(achievement, pl.levelConst)
         })
 
-        // TODO: Update player rating - Best 35 old & 15 new
+        // ⭐ Calculate player rating ⭐
+        // Take the top 50 scores ranked by rating
+        pl.beforeRating = u.playerRating
+        val top50 = rp.bestScore.findTop50(u)
+        u.playerRating = top50.sumOf { it.rating }
+        pl.afterRating = u.playerRating
 
         // Re-calculate user total score
-        rp.user.save(u.apply { totalScore = rp.bestScore.sumScoreByUser(u) })
+        u.totalScore = rp.bestScore.sumScoreByUser(u)
+
+        rp.user.save(u)
+        rp.playLog.save(pl)
 
         ls(best.lsMusicUpdate(), ls(pl.musicId, best.clears[0]), "seasonalInfo" - (1..11).map { 0 }, "ranking" - empty)
     }

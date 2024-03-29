@@ -36,6 +36,8 @@ interface WcUserBestScoreRepo : IWaccaUserLinked<WcUserScore> {
     fun findByUserAndMusicIdAndLevel(user: WaccaUser, songId: Int, level: Int): WcUserScore?
     @Query("SELECT SUM(achievement) FROM WcUserScore WHERE user = :user")
     fun sumScoreByUser(user: WaccaUser): Long
+    @Query("SELECT WcUserScore FROM WcUserScore WHERE user = :user ORDER BY rating DESC LIMIT 50")
+    fun findTop50(user: WaccaUser): List<WcUserScore>
 }
 interface WcUserPlayLogRepo : IWaccaUserLinked<WcUserPlayLog>, GenericPlaylogRepo<WcUserPlayLog>
 interface WcUserStageUpRepo : IWaccaUserLinked<WcUserStageUp>
