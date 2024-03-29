@@ -25,6 +25,7 @@ const zhUser: typeof EN_REF_USER = {
   'UserHome.ShowRanksDetails': "点击显示评分详细",
   'UserHome.RankDetail.Title': '评分详细',
   'UserHome.RankDetail.Level': "等级",
+  'UserHome.B50': "B50",
 }
 
 const zhWelcome: typeof EN_REF_Welcome = {
