@@ -1,4 +1,4 @@
-export type GameName = 'mai2' | 'chu3' | 'ongeki'
+export type GameName = 'mai2' | 'chu3' | 'ongeki' | 'wacca'
 
 const multTable = {
   'mai2': [
@@ -40,6 +40,19 @@ const multTable = {
     [ 75.0, 0, 'BB' ],
     [ 70.0, 0, 'B' ],
     [ 50.0, 0, 'C' ],
+    [ 0.0, 0, 'D' ]
+  ],
+
+  'wacca': [
+    [ 100.0, 0, 'AP' ],
+    [ 98.0, 0, 'SSS' ],
+    [ 95.0, 0, 'SS' ],
+    [ 90.0, 0, 'S' ],
+    [ 85.0, 0, 'AAA' ],
+    [ 80.0, 0, 'AA' ],
+    [ 70.0, 0, 'A' ],
+    [ 60.0, 0, 'B' ],
+    [ 1.0, 0, 'C' ],
     [ 0.0, 0, 'D' ]
   ]
 }

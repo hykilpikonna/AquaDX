@@ -59,6 +59,7 @@ export const EN_REF_GENERAL = {
   'game.mai2': "Mai",
   'game.chu3': "Chuni",
   'game.ongeki': "Ongeki",
+  'game.wacca': "Wacca",
   'status.error': "Error",
   'status.error.hint': 'Something went wrong, please try again later or ',
   'status.error.hint.link': 'join our discord for support.',
