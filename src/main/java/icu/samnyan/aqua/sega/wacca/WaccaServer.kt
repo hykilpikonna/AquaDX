@@ -321,6 +321,17 @@ fun WaccaServer.init() {
         ls(u.wp, rp.item.findByUserAndType(u, TICKET()).map { it.ls() })
     }
 
+    "user/goods/purchase" { _, (uid, pid, count, purchaseType, cost, items) ->
+        val u = user(uid) ?: (404 - "User not found")
+        val itemsMap = itmGrp(u)
+
+        addItems(items as List<List<Int>>, u, itemsMap)
+        // WP Purchase = 2, Credit purchase = 1
+        if (purchaseType == 2) useItems(ls(ls(WP(), 0, cost.int())), u, itemsMap)
+
+        ls(u.wp, rp.item.findByUserAndType(u, TICKET()).map { it.ls() })
+    }
+
     "user/rating/update" empty { _, (uid, newRating, songs) ->
         val u = user(uid) ?: (404 - "User not found")
         rp.user.save(u.apply { rating = newRating.int() })
