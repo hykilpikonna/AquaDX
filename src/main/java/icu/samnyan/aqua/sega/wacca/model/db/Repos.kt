@@ -26,6 +26,7 @@ interface WcUserGateRepo : IWaccaUserLinked<WcUserGate> {
     fun findByUserAndGateId(user: WaccaUser, gateId: Int): WcUserGate?
 }
 interface WcUserItemRepo : IWaccaUserLinked<WcUserItem> {
+    fun findByUserAndType(user: WaccaUser, type: Int): List<WcUserItem>
     fun findByUserAndItemIdAndType(user: WaccaUser, itemId: Int, type: Int): WcUserItem?
 }
 interface WcUserBestScoreRepo : IWaccaUserLinked<WcUserScore> {

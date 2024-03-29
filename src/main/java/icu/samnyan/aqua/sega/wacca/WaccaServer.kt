@@ -226,6 +226,23 @@ fun WaccaServer.init() {
         rp.item.saveAll(newItems)
     }
 
+    fun useItems(recv: List<List<Int>>, u: WaccaUser, items: Map<Int, Map<Int, WcUserItem>>) {
+        if (recv.isEmpty()) return
+        val toDelete = mutableListOf<WcUserItem>()
+        recv.forEach { (type, id, param) ->
+            val ex = items[type]?.get(id)
+            val oldWp = u.wp
+            // Only WP and Tickets can be used.
+            when (type) {
+                WP() -> { u.wp = (u.wp - param).coerceAtLeast(0); u.wpSpent += oldWp - u.wp }
+                TICKET() -> ex?.let { toDelete += it }
+                else -> log.warn("User ${u.id} tried to use an unusable item of type $type.")
+            }
+        }
+        rp.user.save(u)
+        rp.item.deleteAll(toDelete)
+    }
+
     "user/sugoroku/update" api@ { _, (uid, gid, page, progress, loops, boostsUsed, itemsRecv, totalPts, missionFlag) ->
         val u = user(uid) ?: (404 - "User not found")
         val g = rp.gate.findByUserAndGateId(u, gid.int()) ?: WcUserGate().apply { user = u; gateId = gid.int() }
@@ -287,6 +304,16 @@ fun WaccaServer.init() {
     "user/music/UpdateCoop" redirect "user/music/update"
     "user/music/UpdateVersus" redirect "user/music/update"
     "user/music/UpdateTrial" redirect "user/music/update"
+
+    "user/music/unlock" { _, (uid, songId, diff, itemUsed) ->
+        val u = user(uid) ?: (404 - "User not found")
+        val items = itmGrp(u)
+
+        addItems(ls(ls(MUSIC_UNLOCK(), songId.int(), diff.int())), u, items)
+        useItems(itemUsed as List<List<Int>>, u, items)
+
+        ls(u.wp, rp.item.findByUserAndType(u, TICKET()).map { it.ls() })
+    }
 
     "user/rating/update" { _, (uid, newRating, songs) ->
         val u = user(uid) ?: (404 - "User not found")
