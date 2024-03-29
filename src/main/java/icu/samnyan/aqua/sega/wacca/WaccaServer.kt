@@ -74,7 +74,8 @@ class WaccaServer {
     @API("/api/**")
     fun handle(req: HttpServletRequest, @RB body: String): Any {
         return try {
-            val path = req.requestURI.removePrefix("/g/wacca").removePrefix("/api").removePrefix("/").lowercase()
+            val path = req.requestURI.removePrefix("/g/wacca").removePrefix("/WaccaServlet")
+                .removePrefix("/api").removePrefix("/").lowercase()
             if (path in cacheMap) return resp(cacheMap[path]!!)
             if (path !in handlerMap) return resp("[]", 1, "Not Found")
 

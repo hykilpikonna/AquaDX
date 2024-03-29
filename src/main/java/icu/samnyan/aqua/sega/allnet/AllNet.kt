@@ -2,8 +2,8 @@ package icu.samnyan.aqua.sega.allnet
 
 import ext.*
 import icu.samnyan.aqua.net.db.AquaNetUserRepo
-import icu.samnyan.aqua.sega.util.AquaConst
 import icu.samnyan.aqua.sega.util.AllNetBillingDecoder.decodeAllNet
+import icu.samnyan.aqua.sega.util.AquaConst
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.slf4j.Logger
@@ -175,7 +175,7 @@ class AllNet(
             "SDDT" -> "ongeki/"
             "SDEY" -> "mai/"
             "SDEZ" -> "mai2/"
-            "SDFE" -> "wacca/"
+            "SDFE" -> "wacca" // Note: Wacca must not end with a trailing slash
             "SDED" -> "card/"
             else -> ""
         }
