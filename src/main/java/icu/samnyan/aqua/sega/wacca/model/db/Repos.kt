@@ -1,13 +1,14 @@
 package icu.samnyan.aqua.sega.wacca.model.db
 
 import icu.samnyan.aqua.net.games.GenericPlaylogRepo
+import icu.samnyan.aqua.net.games.GenericUserDataRepo
 import jakarta.transaction.Transactional
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.stereotype.Component
 
-interface WcUserRepo : JpaRepository<WaccaUser, Long> {
+interface WcUserRepo : JpaRepository<WaccaUser, Long>, GenericUserDataRepo<WaccaUser> {
     fun findByCardExtId(extId: Long): WaccaUser?
 }
 
