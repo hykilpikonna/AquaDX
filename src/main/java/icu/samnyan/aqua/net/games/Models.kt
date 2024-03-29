@@ -84,7 +84,6 @@ data class GenericItemMeta(
 // Here are some interfaces to generalize across multiple games
 interface IGenericUserData {
     val userName: String
-    val iconId: Int
     val playerRating: Int
     val highestRating: Int
     val firstPlayDate: Any

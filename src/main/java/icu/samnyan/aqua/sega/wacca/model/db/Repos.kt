@@ -2,6 +2,7 @@ package icu.samnyan.aqua.sega.wacca.model.db
 
 import jakarta.transaction.Transactional
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.stereotype.Component
 
@@ -31,6 +32,8 @@ interface WcUserItemRepo : IWaccaUserLinked<WcUserItem> {
 }
 interface WcUserBestScoreRepo : IWaccaUserLinked<WcUserScore> {
     fun findByUserAndSongIdAndDifficulty(user: WaccaUser, songId: Int, difficulty: Int): WcUserScore?
+    @Query("SELECT SUM(score) FROM WcUserScore WHERE user = :user")
+    fun sumScoreByUser(user: WaccaUser): Long
 }
 interface WcUserPlayLogRepo : IWaccaUserLinked<WcUserPlayLog>
 interface WcUserStageUpRepo : IWaccaUserLinked<WcUserStageUp>

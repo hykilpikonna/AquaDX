@@ -120,9 +120,9 @@ fun WaccaServer.init() {
         u.run { ls(u.lStatus(),
             o[SET_TITLE_ID], o[SET_ICON_ID],
             "status" - if (ru == null) 1 else 0, // 0 = GOOD, 1 = Register
-            "version" - ls(req.appVersion.shortVer().compareTo(lastGameVer.shortVer())
+            "version" - ls(req.appVersion.shortVer().compareTo(this.lastRomVersion.shortVer())
                 .let { if (it < 0) 1 else if (it > 0) 2 else 0 }, // 0 = Version GOOD, 1 = Game is newer, 2 = Game is older
-                lastGameVer.shortVer()),
+                this.lastRomVersion.shortVer()),
             o.map { (k, v) -> ls(k, v) }
         ) }
     }
@@ -132,7 +132,7 @@ fun WaccaServer.init() {
 
         val u = rp.user.save(WaccaUser().apply {
             card = cardRepo.findByExtId(uid.long())() ?: (404 - "Card not found")
-            username = name.toString()
+            userName = name.toString()
         })
 
         // Starter items
@@ -160,13 +160,13 @@ fun WaccaServer.init() {
                 loginCountDays++
                 loginCountToday = 0
                 lastConsecDate = Date()
-                if (millis() - lastLoginDate.time < 2 * 24 * 60 * 60 * 1000) loginCountDaysConsec++
+                if (millis() - this.lastPlayDate.time < 2 * 24 * 60 * 60 * 1000) loginCountDaysConsec++
             }
             loginCountToday++
-            lastLoginDate = Date()
+            this.lastPlayDate = Date()
         })
 
-        "[[], [], [], 0, [2077, 1, 1, 1, [], []], ${u.lastLoginDate.time / 1000}, []]"
+        "[[], [], [], 0, [2077, 1, 1, 1, [], []], ${u.lastPlayDate.time / 1000}, []]"
     }
 
     "user/status/GetDetail" api@ { _, (uid) ->
@@ -176,7 +176,7 @@ fun WaccaServer.init() {
         val scores = rp.bestScore.findByUser(u)
         val gates = rp.gate.findByUser(u)
         val bingo = rp.bingo.findByUser(u).firstOrNull()
-        val go = u.card.aquaUser?.gameOptions
+        val go = u.card?.aquaUser?.gameOptions
 
         // TODO: make this and vip configurable
         // u.wp = 999999
@@ -195,12 +195,12 @@ fun WaccaServer.init() {
             },
             "4 scores" - scores.map { it.ls() },
             "5 songPlayStatus" - ls(lastSongInfo[0], 1),
-            "6 seasonInfo" - ls(xp, wpTotal, wpSpent, scores.sumOf { it.score },
+            "6 seasonInfo" - ls(xp, wpTotal, wpSpent, u.totalScore,
                 items[TITLE()]?.size ?: 0, items[ICON()]?.size ?: 0, 0,
                 items[NOTE_COLOR()]?.size ?: 0, items[NOTE_SOUND()]?.size ?: 0, items[USER_PLATE()]?.size ?: 0,
                 gates.sumOf { it.totalPoints }),
             "7 playAreaList" - "[[0],[0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0],[0,0,0,0],[0,0,0,0,0,0,0],[0]]".jsonArray(),
-            "8 songUpdateTime" - lastLoginDate.time / 1000,
+            "8 songUpdateTime" - this.lastPlayDate.time / 1000,
             "9 favorites" - u.favoriteSongs,
             "10 stoppedSongIds" - empty,
             "11 events" - empty,
@@ -306,6 +306,9 @@ fun WaccaServer.init() {
             rating = waccaRating(score, song.level)
         })
 
+        // Re-calculate user total score
+        rp.user.save(u.apply { totalScore = rp.bestScore.sumScoreByUser(u) })
+
         ls(best.lsMusicUpdate(), ls(song.songId, best.clears[0]), "seasonalInfo" - (1..11).map { 0 }, "ranking" - empty)
     }
     "user/music/UpdateCoop" redirect "user/music/update"
@@ -335,7 +338,6 @@ fun WaccaServer.init() {
 
     "user/rating/update" empty { _, (uid, newRating, songs) ->
         val u = user(uid) ?: (404 - "User not found")
-        rp.user.save(u.apply { rating = newRating.int() })
 
         // Update best record
         (songs as List<List<Any>>).forEach { (songId, diff, newRating) ->
@@ -343,6 +345,12 @@ fun WaccaServer.init() {
             best.rating = newRating.int()
             rp.bestScore.save(best)
         }
+
+        rp.user.save(u.apply {
+            playerRating = newRating.int()
+            highestRating = max(highestRating, newRating.int())
+            totalScore = rp.bestScore.sumScoreByUser(u)
+        })
     }
 
     fun incrUses(u: WaccaUser, opts: Map<Int, Int>) {
@@ -356,7 +364,7 @@ fun WaccaServer.init() {
         rp.user.save(u.apply {
             playCounts[playType.int() - 1]++
             addItems(items, u, itmGrp(u))
-            lastGameVer = version
+            lastRomVersion = version
             incrUses(u, options(u))
         })
     }
