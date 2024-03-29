@@ -25,7 +25,6 @@ data class RankCount(val name: String, val count: Int)
 
 data class GenericGameSummary(
     val name: String,
-    val iconId: Int,
 
     val aquaUser: Map<String, Any?>?,
 

@@ -159,11 +159,6 @@ public class UserData implements Serializable, IGenericUserData {
     private int lastEmoneyBrand;
 
     @Override
-    public int getIconId() {
-        return characterId;
-    }
-
-    @Override
     public long getTotalScore() {
         return sumTechHighScore;
     }

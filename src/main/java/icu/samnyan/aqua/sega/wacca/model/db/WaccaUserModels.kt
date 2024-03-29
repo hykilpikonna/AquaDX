@@ -3,6 +3,7 @@ package icu.samnyan.aqua.sega.wacca.model.db
 import com.fasterxml.jackson.annotation.JsonIgnore
 import ext.*
 import icu.samnyan.aqua.net.games.BaseEntity
+import icu.samnyan.aqua.net.games.IGenericGamePlaylog
 import icu.samnyan.aqua.sega.general.IntegerListConverter
 import icu.samnyan.aqua.sega.wacca.WaccaItemType
 import icu.samnyan.aqua.sega.wacca.WaccaItemType.*
@@ -90,11 +91,11 @@ class WcUserItem(
     infix fun isType(t: WaccaItemType) = type == t()
 }
 
-@Entity @Table(name = "wacca_user_score", uniqueConstraints = [UC("", ["user_id", "song_id", "chart_id"])])
+@Entity @Table(name = "wacca_user_score", uniqueConstraints = [UC("", ["user_id", "music_id", "level"])])
 class WcUserScore : WaccaUserEntity() {
-    var songId = 0
-    var difficulty = 0 // aka difficulty
-    var score = 0
+    var musicId = 0
+    var level = 0 // aka difficulty
+    var achievement = 0
 
     @Convert(converter = IntegerListConverter::class)
     var clears: MutableList<Int> = mutableListOf(0, 0, 0, 0, 0) // Played, Clear, Full Combo, Missless, All Marv
@@ -105,37 +106,39 @@ class WcUserScore : WaccaUserEntity() {
     var lowestMissCt = Int.MAX_VALUE
     var rating = 0
 
-    fun ls() = ls(songId, difficulty, clears, clears, grades, score, bestCombo, lowestMissCt, 1, rating)
-    fun lsMusicUpdate() = ls(songId, difficulty, clears, clears, grades, score, lowestMissCt, 0, 1, rating)
+    fun ls() = ls(musicId, level, clears, clears, grades, achievement, bestCombo, lowestMissCt, 1, rating)
+    fun lsMusicUpdate() = ls(musicId, level, clears, clears, grades, achievement, lowestMissCt, 0, 1, rating)
 }
 
-@Entity @Table(name = "wacca_user_playlog", uniqueConstraints = [UC("", ["user_id", "song_id", "chart_id", "date_scored"])])
-class WcUserPlayLog : WaccaUserEntity() {
-    var songId = 0
-    var difficulty = 0
-    var level = 0.0
-    var score = 0
+@Entity @Table(name = "wacca_user_playlog", uniqueConstraints = [UC("", ["user_id", "music_id", "level", "user_play_date"])])
+class WcUserPlayLog : WaccaUserEntity(), IGenericGamePlaylog {
+    override var musicId = 0
+    override var level = 0
+    var levelConst = 0.0
+    override var achievement = 0
     @Convert(converter = IntegerListConverter::class)
     var judgements: MutableList<Int> = mutableListOf(0, 0, 0, 0) // Marv, Great, Good, Miss
-    var maxCombo = 0
+    override var maxCombo = 0
     var grade = 0
-    var clear = false
-    var missless = false
-    var fullCombo = false
-    var allMarv = false
+    var isClear = false
+    var isMissless = false
+    override var isFullCombo = false
+    override var isAllPerfect = false
     var giveUp = false
     var skillPt = 0
     var fastCt = 0
     var lateCt = 0
     var newRecord = false
+    override var beforeRating = 0
+    override var afterRating = 0
 
     @Temporal(TemporalType.TIMESTAMP)
-    var dateScored = Date()
+    override var userPlayDate = Date()
 
-    fun clears() = ls(1, +clear, +fullCombo, +missless, +allMarv)
+    fun clears() = ls(1, +isClear, +isFullCombo, +isMissless, +isAllPerfect)
 
     companion object {
-        val keys = ls("songId", "difficulty", "level", "score", "judgements", "maxCombo", "grade", "clear", "missless", "fullCombo", "allMarv", "giveUp", "skillPt", "fastCt", "lateCt", "newRecord")
+        val keys = ls("musicId", "level", "levelConst", "achievement", "judgements", "maxCombo", "grade", "clear", "missless", "isFullCombo", "isAllPerfect", "giveUp", "skillPt", "fastCt", "lateCt", "newRecord")
         fun parse(l: List<*>) = JACKSON.parse<WcUserPlayLog>(keys.zip(l).toMap())
     }
 }

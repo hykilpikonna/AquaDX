@@ -109,7 +109,6 @@ abstract class GameApiController<T : IGenericUserData>(name: String, userDataCla
 
         return GenericGameSummary(
             name = user.userName,
-            iconId = user.iconId,
             aquaUser = card.aquaUser?.publicFields,
             serverRank = userDataRepo.getRanking(user.playerRating),
             accuracy = plays.acc(),

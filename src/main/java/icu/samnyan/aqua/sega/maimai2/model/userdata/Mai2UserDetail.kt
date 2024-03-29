@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import icu.samnyan.aqua.net.games.BaseEntity
 import icu.samnyan.aqua.net.games.IGenericUserData
-import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.general.IntegerListConverter
+import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.util.jackson.AccessCodeSerializer
 import jakarta.persistence.*
 
@@ -30,7 +30,7 @@ class Mai2UserDetail(
     @JsonInclude
     @Transient
     var nameplateId: Int = 0,
-    override var iconId: Int = 0,
+    var iconId: Int = 0,
 
     @JsonInclude
     @Transient

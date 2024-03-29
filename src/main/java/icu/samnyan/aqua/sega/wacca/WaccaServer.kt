@@ -291,25 +291,25 @@ fun WaccaServer.init() {
         addItems(items as List<List<Int>>, u, itmGrp(u))
 
         // Upsert playlog
-        val song = WcUserPlayLog.parse(details as List<*>)
-        rp.playLog.save(song.apply { user = u })
+        val pl = WcUserPlayLog.parse(details as List<*>)
+        rp.playLog.save(pl.apply { user = u })
 
         // Update best record
-        val best = rp.bestScore.save((rp.bestScore.findByUserAndSongIdAndDifficulty(u, song.songId, song.difficulty)
-            ?: WcUserScore().apply { user = u; songId = song.songId; difficulty = song.difficulty }).apply {
+        val best = rp.bestScore.save((rp.bestScore.findByUserAndMusicIdAndLevel(u, pl.musicId, pl.level)
+            ?: WcUserScore().apply { user = u; musicId = pl.musicId; level = pl.level }).apply {
 
-            grades[WaccaGrades.valueMap[song.grade]?.ordinal ?: (400 - "Grade ${song.grade} invalid")]++
-            clears = clears.zip(song.clears()) { a, b -> a + b }.toMutableList()
-            score = max(score, song.score)
-            bestCombo = max(bestCombo, song.maxCombo)
-            lowestMissCt = min(lowestMissCt, song.judgements[3])
-            rating = waccaRating(score, song.level)
+            grades[WaccaGrades.valueMap[pl.grade]?.ordinal ?: (400 - "Grade ${pl.grade} invalid")]++
+            clears = clears.zip(pl.clears()) { a, b -> a + b }.toMutableList()
+            achievement = max(achievement, pl.achievement)
+            bestCombo = max(bestCombo, pl.maxCombo)
+            lowestMissCt = min(lowestMissCt, pl.judgements[3])
+            rating = waccaRating(achievement, pl.levelConst)
         })
 
         // Re-calculate user total score
         rp.user.save(u.apply { totalScore = rp.bestScore.sumScoreByUser(u) })
 
-        ls(best.lsMusicUpdate(), ls(song.songId, best.clears[0]), "seasonalInfo" - (1..11).map { 0 }, "ranking" - empty)
+        ls(best.lsMusicUpdate(), ls(pl.musicId, best.clears[0]), "seasonalInfo" - (1..11).map { 0 }, "ranking" - empty)
     }
     "user/music/UpdateCoop" redirect "user/music/update"
     "user/music/UpdateVersus" redirect "user/music/update"
@@ -341,7 +341,7 @@ fun WaccaServer.init() {
 
         // Update best record
         (songs as List<List<Any>>).forEach { (songId, diff, newRating) ->
-            val best = rp.bestScore.findByUserAndSongIdAndDifficulty(u, songId.int(), diff.int()) ?: return@forEach
+            val best = rp.bestScore.findByUserAndMusicIdAndLevel(u, songId.int(), diff.int()) ?: return@forEach
             best.rating = newRating.int()
             rp.bestScore.save(best)
         }

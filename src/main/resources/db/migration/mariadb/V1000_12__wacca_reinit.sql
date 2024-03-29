@@ -126,25 +126,27 @@ create table wacca_user_playlog
     id          bigint auto_increment
         primary key,
     user_id     bigint       not null,
-    song_id     int          not null,
-    difficulty  int          not null,
-    score       int          not null,
+    music_id    int          not null,
+    level       int          not null,
+    level_const double       not null,
+    achievement int          not null,
     grade       int          not null,
     max_combo   int          not null,
     fast_ct     int          not null,
     late_ct     int          not null,
-    all_marv    bit          not null,
-    full_combo  bit          not null,
+    is_clear    bit          not null,
+    is_missless bit          not null,
+    is_full_combo bit        not null,
+    is_all_perfect bit       not null,
     give_up     bit          not null,
     judgements  varchar(255) not null,
-    level       double       not null,
-    missless    bit          not null,
     new_record  bit          not null,
     skill_pt    int          not null,
-    clear       bit          not null,
-    date_scored datetime     not null,
+    user_play_date datetime  not null,
+    after_rating int         not null,
+    before_rating int        not null,
     constraint wacca_user_playlog_unique
-        unique (user_id, song_id, difficulty, date_scored),
+        unique (user_id, music_id, level, user_play_date),
     constraint fku_wacca_user_playlog
         foreign key (user_id) references wacca_user (id)
             on update cascade on delete cascade
@@ -155,16 +157,16 @@ create table wacca_user_score
     id             bigint auto_increment
         primary key,
     user_id        bigint       not null,
-    song_id        int          not null,
-    difficulty     int          not null,
-    score          int          not null,
+    music_id       int          not null,
+    level          int          not null,
+    achievement    int          not null,
     best_combo     int          not null,
     lowest_miss_ct int          not null,
     rating         int          not null,
     clears         varchar(255) not null,
     grades         varchar(255) not null,
     constraint wacca_user_score_unique
-        unique (user_id, song_id, difficulty),
+        unique (user_id, music_id, level),
     constraint fku_wacca_user_score
         foreign key (user_id) references wacca_user (id)
             on update cascade on delete cascade

@@ -347,11 +347,6 @@ public class UserData implements Serializable, IGenericUserData {
     private UserEmoney userEmoney;
 
     @Override
-    public int getIconId() {
-        return characterId;
-    }
-
-    @Override
     public long getTotalScore() {
         return totalHiScore;
     }
