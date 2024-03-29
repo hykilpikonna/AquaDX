@@ -223,7 +223,8 @@ class Maimai2ServletController(
 
     val noopEndpoint = endpointList.popAll("GetUserScoreRankingApi", "UpsertClientBookkeepingApi",
         "UpsertClientSettingApi", "UpsertClientTestmodeApi", "UpsertClientUploadApi", "Ping", "RemoveTokenApi",
-        "CMLoginApi", "CMLogoutApi", "CMUpsertBuyCardApi", "UserLogoutApi", "GetGameMapAreaConditionApi")
+        "CMLoginApi", "CMLogoutApi", "CMUpsertBuyCardApi", "UserLogoutApi", "GetGameMapAreaConditionApi",
+        "UpsertUserChargelogApi")
 
     val staticEndpoint = mapOf(
         "CreateTokenApi" to """{"Bearer":"meow"}""",
