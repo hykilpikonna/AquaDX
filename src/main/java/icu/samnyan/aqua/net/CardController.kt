@@ -3,15 +3,16 @@ package icu.samnyan.aqua.net
 import ext.*
 import icu.samnyan.aqua.net.components.JWT
 import icu.samnyan.aqua.net.db.AquaUserServices
-import icu.samnyan.aqua.net.utils.AquaNetProps
 import icu.samnyan.aqua.net.games.GenericUserDataRepo
 import icu.samnyan.aqua.net.games.IGenericUserData
+import icu.samnyan.aqua.net.utils.AquaNetProps
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.chusan.model.Chu3UserDataRepo
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.general.service.CardService
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo
+import icu.samnyan.aqua.sega.wacca.model.db.WcUserRepo
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.RestController
 import kotlin.jvm.optionals.getOrNull
@@ -146,6 +147,7 @@ suspend fun getSummaryFor(repo: GenericUserDataRepo<*>, card: Card): Map<Str, An
 class CardGameService(
     val maimai2: Mai2UserDataRepo,
     val chusan: Chu3UserDataRepo,
+    val wacca: WcUserRepo,
     val ongeki: icu.samnyan.aqua.sega.ongeki.dao.userdata.UserDataRepository,
     val diva: icu.samnyan.aqua.sega.diva.dao.userdata.PlayerProfileRepository,
 ) {
@@ -157,6 +159,7 @@ class CardGameService(
                 "mai2" -> migrateCard(maimai2, crd)
                 "chu3" -> migrateCard(chusan, crd)
                 "ongeki" -> migrateCard(ongeki, crd)
+                "wacca" -> migrateCard(wacca, crd)
                 // TODO: diva
 //                "diva" -> diva.findByPdId(card.extId.toInt()).getOrNull()?.let {
 //                    it.pdId = card.aquaUser!!.ghostCard
@@ -169,6 +172,7 @@ class CardGameService(
         "mai2" to getSummaryFor(maimai2, card),
         "chu3" to getSummaryFor(chusan, card),
         "ongeki" to getSummaryFor(ongeki, card),
+        "wacca" to getSummaryFor(wacca, card),
         "diva" to diva.findByPdId(card.extId.toInt()).getOrNull()?.let {
             mapOf(
                 "name" to it.playerName,
