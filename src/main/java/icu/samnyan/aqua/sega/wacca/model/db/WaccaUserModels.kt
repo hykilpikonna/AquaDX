@@ -146,8 +146,9 @@ class WcUserStageUp : WaccaUserEntity() {
     var stageId = 0
     var clearStatus = 0
     var clearSongCt = 0
-    var song1Score = 0
-    var song2Score = 0
-    var song3Score = 0
+    @Convert(converter = IntegerListConverter::class)
+    var songScores = mutableListOf(0, 0, 0)
     var playCt = 0
+
+    fun ls(danLevel: Int) = ls(stageId, danLevel, clearStatus, clearSongCt, songScores, 1)
 }

@@ -34,6 +34,9 @@ class WaccaServer {
     val log = logger()
     val season = 3
     val enabledGates = 1..24
+    // [[stageId, danLevel], ...]
+    val enabledStages = ("[[3014, 14], [3013, 13], [3012, 12], [3011, 11], [3010, 10], [3009, 9], [3008, 8], [3007, 7], [3006, 6], [3005, 5], [3004, 4], [3003, 3], [3002, 2], [3001, 1], [210001, 0], [210002, 0], [210003, 0], [310001, 0], [310002, 0], [310003, 0], [310004, 0], [310005, 0], [310006, 0]]"
+        .jsonArray() as List<List<Int>>).associate { it[0].int() to it[1].int() }
 
     init { init() }
 
@@ -364,5 +367,26 @@ fun WaccaServer.init() {
             addAll(favAdd as List<Int>)
             removeAll(favRem as List<Int>)
         } })
+    }
+
+    // TODO: Test this
+    "user/trial/get" { _, (uid) ->
+        val u = user(uid) ?: (404 - "User not found")
+        val stage = rp.stageUp.findByUser(u).associateBy { it.stageId }
+
+        enabledStages.map { (stageId, danLevel) -> (stage[stageId] ?: WcUserStageUp()).ls(danLevel) }
+    }
+
+    // TODO: Test this
+    "user/vip/get" { _, (uid) ->
+        val u = user(uid) ?: (404 - "User not found")
+        val vipDays = (u.vipExpireTime.time - millis()) / (24 * 60 * 60 * 1000)
+        ls(vipDays, ls(1, 1, "presents" - empty))
+    }
+
+    "user/vip/start" { _, (uid, cost, days) ->
+        val u = user(uid) ?: (404 - "User not found")
+        rp.user.save(u.apply { vipExpireTime = Date(millis() + days.int() * (24 * 60 * 60 * 1000)) })
+        ls(u.vipExpireTime.sec, "presents" - empty)
     }
 }
