@@ -12,6 +12,7 @@ import icu.samnyan.aqua.sega.wacca.model.BaseRequest
 import icu.samnyan.aqua.sega.wacca.model.db.*
 import io.ktor.client.utils.*
 import jakarta.servlet.http.HttpServletRequest
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
 import java.util.*
@@ -22,7 +23,11 @@ val empty = emptyList<Any>()
 
 @RestController
 @API("/g/wacca/")
-class WaccaServer(val rp: WaccaRepos, val cardRepo: CardRepository) {
+class WaccaServer {
+    @Autowired
+    lateinit var cardRepo: CardRepository
+    @Autowired
+    lateinit var rp: WaccaRepos
     val handlerMap = mutableMapOf<String, (BaseRequest, List<Any>) -> Any>()
     val cacheMap = mutableMapOf<String, String>()
 

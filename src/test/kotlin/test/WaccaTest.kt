@@ -1,6 +1,8 @@
 package test
 
 import ext.*
+import icu.samnyan.aqua.sega.wacca.WaccaServer
+import icu.samnyan.aqua.sega.wacca.init
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.ktor.client.request.*
@@ -63,6 +65,13 @@ class WaccaTest : StringSpec({
 
     beforeTest {
         if (uid == 0L) uid = registerUser()
+    }
+
+    "API Completion Status" {
+        val ws = WaccaServer().apply { init() }
+        val defined = (ws.handlerMap.keys + ws.cacheMap.keys).toSortedSet()
+        val all = setOf("advertise/GetNews", "advertise/GetRanking", "competition/status/login", "competition/status/update", "housing/get", "housing/start", "user/goods/purchase", "user/info/getMyroom", "user/info/getRanking", "user/info/update", "user/mission/update", "user/music/unlock", "user/music/updateCoop", "user/music/updateTrial", "user/music/updateVersus", "user/music/update", "user/rating/update", "user/status/create", "user/status/getDetail", "user/status/get", "user/status/login", "user/status/logout", "user/status/update", "user/sugoroku/update", "user/trial/get", "user/trial/update", "user/vip/get", "user/vip/start").map { it.lowercase() }.toSortedSet()
+        all shouldBe defined
     }
 
     "housing/get #1" {
