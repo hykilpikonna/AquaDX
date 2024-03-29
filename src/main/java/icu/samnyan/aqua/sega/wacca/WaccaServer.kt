@@ -222,7 +222,8 @@ fun WaccaServer.init() {
         if (recv.isEmpty()) return
         val newItems = mutableListOf<WcUserItem>()
         recv.forEach { (type, id, param) ->
-            val ex = items[type]?.get(id)
+            var ex = items[type]?.get(id)
+            if (type == MUSIC_DIFFICULTY_UNLOCK()) ex = ex ?: items[MUSIC_UNLOCK()]?.get(id)
             when (type) {
                 WP() -> { u.wp += param; u.wpTotal += param }
                 XP() -> u.xp += param
@@ -305,6 +306,8 @@ fun WaccaServer.init() {
             lowestMissCt = min(lowestMissCt, pl.judgements[3])
             rating = waccaRating(achievement, pl.levelConst)
         })
+
+        // TODO: Update player rating - Best 35 old & 15 new
 
         // Re-calculate user total score
         rp.user.save(u.apply { totalScore = rp.bestScore.sumScoreByUser(u) })
