@@ -46,8 +46,10 @@ class WaccaServer {
     operator fun String.invoke(block: (BaseRequest, List<Any>) -> Any) { handlerMap[this.lowercase()] = block }
     infix fun String.cached(block: () -> Any) { cacheMap[this.lowercase()] =
         block().let { if (it is String) it else it.toJson() } }
+    infix fun String.empty(block: (BaseRequest, List<Any>) -> Any)
+    { handlerMap[this.lowercase()] = { req, lst -> empty.also { block(req, lst) } } }
     infix fun String.redirect(path: String) {
-        handlerMap[this.lowercase()] = handlerMap[path.lowercase()] ?: { _, _ -> 404 - "Not Found" }
+        handlerMap[this.lowercase()] = handlerMap[path.lowercase()] ?: error("Server badly configured")
     }
 
     /** Convert "3.07.01.JPN.26935.S" into "3.7.1" */
@@ -248,7 +250,7 @@ fun WaccaServer.init() {
         rp.item.deleteAll(toDelete)
     }
 
-    "user/sugoroku/update" api@ { _, (uid, gid, page, progress, loops, boostsUsed, itemsRecv, totalPts, missionFlag) ->
+    "user/sugoroku/update" empty { _, (uid, gid, page, progress, loops, _, itemsRecv, totalPts, missionFlag) ->
         val u = user(uid) ?: (404 - "User not found")
         val g = rp.gate.findByUserAndGateId(u, gid.int()) ?: WcUserGate().apply { user = u; gateId = gid.int() }
         val items = itmGrp(u)
@@ -267,10 +269,9 @@ fun WaccaServer.init() {
 
         // Update items
         addItems(itemsRecv as List<List<Int>>, u, items)
-        empty
     }
 
-    "user/mission/update" { _, (uid, bingoDetail, items, tutFlags) ->
+    "user/mission/update" empty { _, (uid, bingoDetail, items, tutFlags) ->
         val u = user(uid) ?: (404 - "User not found")
         rp.user.save(u.apply { gateTutorialFlags = tutFlags.toJson() })
         addItems(items as List<List<Int>>, u, itmGrp(u))
@@ -279,8 +280,6 @@ fun WaccaServer.init() {
         val (page, prog) = bingoDetail as List<Any>
         val bingo = rp.bingo.findByUser(u).firstOrNull() ?: WcUserBingo().apply { user = u; pageNumber = page.int() }
         rp.bingo.save(bingo.apply { pageProgress = prog.toJson() })
-
-        empty
     }
 
     "user/music/update" { _, (uid, _, details, items) ->
@@ -292,19 +291,18 @@ fun WaccaServer.init() {
         rp.playLog.save(song.apply { user = u })
 
         // Update best record
-        val best = rp.bestScore.findByUserAndSongIdAndDifficulty(u, song.songId, song.difficulty)
-            ?: WcUserScore().apply { user = u; songId = song.songId; difficulty = song.difficulty }
+        val best = rp.bestScore.save((rp.bestScore.findByUserAndSongIdAndDifficulty(u, song.songId, song.difficulty)
+            ?: WcUserScore().apply { user = u; songId = song.songId; difficulty = song.difficulty }).apply {
 
-        best.grades[WaccaGrades.valueMap[song.grade]?.ordinal ?: (400 - "Grade ${song.grade} invalid")]++
-        best.clears = best.clears.zip(song.clears()) { a, b -> a + b }.toMutableList()
-        best.score = max(best.score, song.score)
-        best.bestCombo = max(best.bestCombo, song.maxCombo)
-        best.lowestMissCt = min(best.lowestMissCt, song.judgements[3])
-        best.rating = waccaRating(best.score, song.level)
+            grades[WaccaGrades.valueMap[song.grade]?.ordinal ?: (400 - "Grade ${song.grade} invalid")]++
+            clears = clears.zip(song.clears()) { a, b -> a + b }.toMutableList()
+            score = max(score, song.score)
+            bestCombo = max(bestCombo, song.maxCombo)
+            lowestMissCt = min(lowestMissCt, song.judgements[3])
+            rating = waccaRating(score, song.level)
+        })
 
-        rp.bestScore.save(best)
-
-        ls(best.lsMusicUpdate(), ls(song.songId, best.clears[0]), "seasonalInfo" - (1..11).map { 0 }, "rankingInfo" - empty)
+        ls(best.lsMusicUpdate(), ls(song.songId, best.clears[0]), "seasonalInfo" - (1..11).map { 0 }, "ranking" - empty)
     }
     "user/music/UpdateCoop" redirect "user/music/update"
     "user/music/UpdateVersus" redirect "user/music/update"
@@ -320,7 +318,7 @@ fun WaccaServer.init() {
         ls(u.wp, rp.item.findByUserAndType(u, TICKET()).map { it.ls() })
     }
 
-    "user/rating/update" { _, (uid, newRating, songs) ->
+    "user/rating/update" empty { _, (uid, newRating, songs) ->
         val u = user(uid) ?: (404 - "User not found")
         rp.user.save(u.apply { rating = newRating.int() })
 
@@ -330,8 +328,6 @@ fun WaccaServer.init() {
             best.rating = newRating.int()
             rp.bestScore.save(best)
         }
-
-        empty
     }
 
     fun incrUses(u: WaccaUser, opts: Map<Int, Int>) {
@@ -341,7 +337,7 @@ fun WaccaServer.init() {
             ?.let { rp.item.save(it.apply { p1++ }) }
     }
 
-    "user/status/update" { req, (uid, playType, items, isContinue, isFirstPlayFree, itemsUsed, lastSong) ->
+    "user/status/update" empty { req, (uid, playType, items, isContinue, isFirstPlayFree, itemsUsed, lastSong) ->
         val u = user(uid) ?: (404 - "User not found")
         rp.user.save(u.apply {
             playCounts[playType.int() - 1]++
@@ -353,11 +349,9 @@ fun WaccaServer.init() {
 
             incrUses(u, options(u))
         })
-
-        empty
     }
 
-    "user/info/update" { _, (uid, opts, _, dates, favAdd, favRem) ->
+    "user/info/update" empty { _, (uid, opts, _, dates, favAdd, favRem) ->
         val u = user(uid) ?: (404 - "User not found")
 
         // Update options
@@ -370,11 +364,5 @@ fun WaccaServer.init() {
             addAll(favAdd as List<Int>)
             removeAll(favRem as List<Int>)
         } })
-
-        empty
     }
 }
-
-
-
-
