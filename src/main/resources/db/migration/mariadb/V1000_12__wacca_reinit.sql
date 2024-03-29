@@ -172,14 +172,13 @@ create table wacca_user_stageup
     id            bigint auto_increment
         primary key,
     user_id       bigint not null,
-    version       int    not null,
     stage_id      int    not null,
     clear_status  int    not null,
     clear_song_ct int    not null,
     song_scores   varchar(255) not null,
     play_ct       int    not null,
     constraint wacca_user_stageup_unique
-        unique (user_id, version, stage_id),
+        unique (user_id, stage_id),
     constraint fku_wacca_user_stageup
         foreign key (user_id) references wacca_user (id)
             on update cascade on delete cascade

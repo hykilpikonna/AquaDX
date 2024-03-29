@@ -142,7 +142,6 @@ class WcUserPlayLog : WaccaUserEntity() {
 
 @Entity @Table(name = "wacca_user_stageup", uniqueConstraints = [UC("", ["user_id", "stage_id"])])
 class WcUserStageUp : WaccaUserEntity() {
-    var version = 0
     var stageId = 0
     var clearStatus = 0
     var clearSongCt = 0
