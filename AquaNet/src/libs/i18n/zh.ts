@@ -61,7 +61,7 @@ const zhGeneral: typeof EN_REF_GENERAL = {
   'game.mai2': "舞萌",
   'game.chu3': "中二",
   'game.ongeki': "音击",
-  'game.wacca': "ワッカ",
+  'game.wacca': "Wacca",
   "status.error": "发生错误",
   "status.error.hint": "出了一些问题，请稍后刷新重试或者",
   "status.error.hint.link": "加我们的 Discord 群问一问",
