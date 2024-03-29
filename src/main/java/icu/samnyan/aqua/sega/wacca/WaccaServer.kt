@@ -340,18 +340,19 @@ fun WaccaServer.init() {
             ?.let { rp.item.save(it.apply { p1++ }) }
     }
 
-    "user/status/update" empty { req, (uid, playType, items, isContinue, isFirstPlayFree, itemsUsed, lastSong) ->
-        val u = user(uid) ?: (404 - "User not found")
+    fun afterPlay(u: WaccaUser, items: List<List<Int>>, playType: Int, version: String) {
         rp.user.save(u.apply {
             playCounts[playType.int() - 1]++
-
-            addItems(items as List<List<Int>>, u, itmGrp(u))
-
-            lastSongInfo = (lastSong as List<Int>).toMutableList()
-            lastGameVer = req.appVersion
-
+            addItems(items, u, itmGrp(u))
+            lastGameVer = version
             incrUses(u, options(u))
         })
+    }
+
+    "user/status/update" empty { req, (uid, playType, items, isContinue, isFirstPlayFree, itemsUsed, lastSong) ->
+        val u = user(uid) ?: (404 - "User not found")
+        u.lastSongInfo = (lastSong as List<Int>).toMutableList()
+        afterPlay(u, items as List<List<Int>>, playType.int(), req.appVersion)
     }
 
     "user/info/update" empty { _, (uid, opts, _, dates, favAdd, favRem) ->
@@ -375,6 +376,29 @@ fun WaccaServer.init() {
         val stage = rp.stageUp.findByUser(u).associateBy { it.stageId }
 
         enabledStages.map { (stageId, danLevel) -> (stage[stageId] ?: WcUserStageUp()).ls(danLevel) }
+    }
+
+    "user/trial/update" { req, (uid, sid, dan, clearType, scoresRaw, clearCt, items) ->
+        val u = user(uid) ?: (404 - "User not found")
+        val stage = rp.stageUp.findByUser(u).associateBy { it.stageId }
+        val scores = scoresRaw as List<Int>
+
+        val s = stage[sid.int()] ?: WcUserStageUp().apply { user = u; stageId = sid.int() }
+        rp.stageUp.save(s.apply {
+            clearStatus = clearType.int() // 0..3: Fail, Blue, Silver, Gold
+            clearSongCt = clearCt.int()
+            playCt++
+            if (scores.sum() > s.songScores.sum()) songScores = scores.toMutableList()
+        })
+
+        if (dan.int() > u.danLevel || (dan.int() == u.danLevel && clearType.int() > u.danType)) {
+            rp.user.save(u.apply {
+                danLevel = dan.int()
+                danType = clearType.int()
+            })
+        }
+
+        afterPlay(u, items as List<List<Int>>, 4, req.appVersion)
     }
 
     // TODO: Test this
