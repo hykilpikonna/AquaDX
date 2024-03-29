@@ -176,9 +176,7 @@ create table wacca_user_stageup
     stage_id      int    not null,
     clear_status  int    not null,
     clear_song_ct int    not null,
-    song1score    int    not null,
-    song2score    int    not null,
-    song3score    int    not null,
+    song_scores   varchar(255) not null,
     play_ct       int    not null,
     constraint wacca_user_stageup_unique
         unique (user_id, version, stage_id),
