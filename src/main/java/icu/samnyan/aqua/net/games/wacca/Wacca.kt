@@ -1,14 +1,9 @@
 package icu.samnyan.aqua.net.games.wacca
 
-import ext.API
-import ext.minus
+import ext.*
 import icu.samnyan.aqua.net.db.AquaUserServices
-import icu.samnyan.aqua.net.games.GameApiController
-import icu.samnyan.aqua.net.games.GenericGameSummary
-import icu.samnyan.aqua.net.games.TrendOut
-import icu.samnyan.aqua.net.games.USERNAME_CHARS
-import icu.samnyan.aqua.net.utils.AquaNetProps
-import icu.samnyan.aqua.sega.wacca.model.db.WaccaRepos
+import icu.samnyan.aqua.net.games.*
+import icu.samnyan.aqua.net.utils.waccaScores
 import icu.samnyan.aqua.sega.wacca.model.db.WaccaUser
 import icu.samnyan.aqua.sega.wacca.model.db.WcUserPlayLogRepo
 import icu.samnyan.aqua.sega.wacca.model.db.WcUserRepo
@@ -20,8 +15,6 @@ class Wacca(
     override val us: AquaUserServices,
     override val playlogRepo: WcUserPlayLogRepo,
     override val userDataRepo: WcUserRepo,
-    val repos: WaccaRepos,
-    val netProps: AquaNetProps,
 ): GameApiController<WaccaUser>("wacca", WaccaUser::class) {
     override val settableFields: Map<String, (WaccaUser, String) -> Unit> by lazy { mapOf(
         "userName" to { u, v -> u.userName = v
@@ -29,13 +22,15 @@ class Wacca(
         },
     ) }
 
-    override suspend fun trend(username: String): List<TrendOut> {
-        TODO("Not yet implemented")
+    override suspend fun trend(@RP username: String) = us.cardByName(username) { card ->
+        findTrend(playlogRepo.findByUserCardExtId(card.extId)
+            .map { TrendLog(it.userPlayDate.utc().isoDate(), it.afterRating) })
     }
 
-    override suspend fun userSummary(username: String): GenericGameSummary {
-        TODO("Not yet implemented")
+    override suspend fun userSummary(@RP username: String) = us.cardByName(username) { card ->
+        // TODO: Rating composition
+        genericUserSummary(card, mapOf())
     }
 
-    override val shownRanks: List<Pair<Int, String>> = emptyList()
+    override val shownRanks: List<Pair<Int, String>> = waccaScores.filter { it.first > 83 * 10000 }
 }

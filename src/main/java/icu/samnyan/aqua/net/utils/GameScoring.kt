@@ -46,3 +46,16 @@ val ongekiScores = listOf(
     50.0   to "C",
     0.0    to "D",
 ).map { (k, v) -> (k * 10000).toInt() to v }
+
+val waccaScores = listOf(
+    100.0 to "AP",
+    98.0  to "SSS",
+    95.0  to "SS",
+    90.0  to "S",
+    85.0  to "AAA",
+    80.0  to "AA",
+    70.0  to "A",
+    60.0  to "B",
+    1.0  to "C",
+    0.0   to "D",
+).map { (k, v) -> (k * 10000).toInt() to v }
