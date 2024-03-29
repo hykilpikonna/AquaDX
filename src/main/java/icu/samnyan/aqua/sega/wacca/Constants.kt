@@ -11,12 +11,16 @@ enum class WaccaGrades(val value: Int) {
     AA(5),
     AAA(6),
     S(7),
-    SS(8),
-    SSS(9),
-    MASTER(10),
     S_PLUS(11),
+    SS(8),
     SS_PLUS(12),
+    SSS(9),
     SSS_PLUS(13),
+    MASTER(10);
+
+    companion object {
+        val valueMap = entries.associateBy { it.value }
+    }
 }
 
 enum class WaccaDifficulty(val value: Int) {
@@ -90,7 +94,7 @@ enum class WaccaOptionType(val id: Int, val default: Int) {
     MASTER_VOL(1001, 3), // 0
     SET_TITLE_ID(1002, 104001), // ID
     SET_ICON_ID(1003, 102001), // ID
-    SET_NAV_ID(1004, 210001), // ID
+    SET_NAV_ID(1004, 310001), // ID
     SET_PLATE_ID(1005, 211001), // ID
 }
 

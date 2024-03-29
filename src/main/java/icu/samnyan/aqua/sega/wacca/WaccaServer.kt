@@ -4,8 +4,10 @@ import ext.*
 import icu.samnyan.aqua.net.utils.ApiException
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.wacca.WaccaItemType.*
-import icu.samnyan.aqua.sega.wacca.WaccaOptionType.SET_ICON_ID
-import icu.samnyan.aqua.sega.wacca.WaccaOptionType.SET_TITLE_ID
+import icu.samnyan.aqua.sega.wacca.WaccaItemType.NOTE_COLOR
+import icu.samnyan.aqua.sega.wacca.WaccaItemType.NOTE_SOUND
+import icu.samnyan.aqua.sega.wacca.WaccaItemType.TOUCH_EFFECT
+import icu.samnyan.aqua.sega.wacca.WaccaOptionType.*
 import icu.samnyan.aqua.sega.wacca.model.BaseRequest
 import icu.samnyan.aqua.sega.wacca.model.db.*
 import io.ktor.client.utils.*
@@ -168,33 +170,37 @@ fun WaccaServer.init() {
         // TODO: make this and vip configurable
         // u.wp = 999999
 
-        u.run {
-            ls("status" - lStatus(),
-            "options" - o.map { (k, v) -> ls(k, v) },
-            "seasonalPlayModeCounts" - (playCounts.mapIndexed { i, it -> ls(season, i + 1, it) } + ls(ls(0, 1, 1))),
-            "items" - ls(MUSIC_UNLOCK, TITLE, ICON, TROPHY, SKILL, TICKET, NOTE_COLOR, NOTE_SOUND, NAVIGATOR, USER_PLATE, TOUCH_EFFECT).map {
-                if (it == TICKET && go?.unlockTickets == true) (0..4).map { ls(it, 106002, 0) }
+        u.run { ls(
+            "0 status" - lStatus(),
+            "1 options" - o.map { (k, v) -> ls(k, v) },
+            "2 seasonalPlayModeCounts" - (playCounts.mapIndexed { i, it -> ls(season, i + 1, it) } + ls(ls(0, 1, 1))),
+            "3 items" - ls(MUSIC_UNLOCK, TITLE, ICON, TROPHY, SKILL, TICKET, NOTE_COLOR, NOTE_SOUND, NAVIGATOR, USER_PLATE, TOUCH_EFFECT).map {
+                if (it == MUSIC_UNLOCK) items[it()]?.flatMap { song ->
+                    // Add all difficulties up to the highest unlocked
+                    (1..song.p1).map { diff -> ls(song.itemId, diff, 0, song.acquiredDate.sec) }
+                } ?: empty
+                else if (it == TICKET && go?.unlockTickets == true) (0..4).map { ls(it, 106002, 0) }
                 else items[it()]?.map { it.ls() } ?: empty
             },
-            "scores" - scores.map { it.ls() },
-            "songPlayStatus" - ls(lastSongInfo[0], 1),
-            "seasonInfo" - ls(xp, wpTotal, wpSpent, scores.sumOf { it.score },
+            "4 scores" - scores.map { it.ls() },
+            "5 songPlayStatus" - ls(lastSongInfo[0], 1),
+            "6 seasonInfo" - ls(xp, wpTotal, wpSpent, scores.sumOf { it.score },
                 items[TITLE()]?.size ?: 0, items[ICON()]?.size ?: 0, 0,
                 items[NOTE_COLOR()]?.size ?: 0, items[NOTE_SOUND()]?.size ?: 0, items[USER_PLATE()]?.size ?: 0,
                 gates.sumOf { it.totalPoints }),
-            "playAreaList" - "[[0],[0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0],[0,0,0,0],[0,0,0,0,0,0,0],[0]]".jsonArray(),
-            "songUpdateTime" - lastLoginDate.time / 1000,
-            "favorites" - u.favoriteSongs,
-            "stoppedSongIds" - empty,
-            "events" - empty,
-            "gate" - gates.associateBy { it.gateId }.let { gateMap -> enabledGates.map {
+            "7 playAreaList" - "[[0],[0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0],[0,0,0,0],[0,0,0,0,0,0,0],[0]]".jsonArray(),
+            "8 songUpdateTime" - lastLoginDate.time / 1000,
+            "9 favorites" - u.favoriteSongs,
+            "10 stoppedSongIds" - empty,
+            "11 events" - empty,
+            "12 gate" - gates.associateBy { it.gateId }.let { gateMap -> enabledGates.map {
                 gateMap[it]?.ls() ?: WcUserGate().apply { gateId = it }.ls()
             } },
-            "lastSongInfo" - lastSongInfo,
-            "gateTutorialFlags" - gateTutorialFlags.jsonArray(),
-            "gatchaInfo" - empty,
-            "friendList" - empty,
-            "bingoStatus" - ls(
+            "13 lastSongInfo" - lastSongInfo,
+            "14 gateTutorialFlags" - gateTutorialFlags.jsonArray(),
+            "15 gatchaInfo" - empty,
+            "16 friendList" - empty,
+            "17 bingoStatus" - ls(
                 "pageNumber" - (bingo?.pageNumber ?: 0),
                 "pageStatus" - (bingo?.pageProgress?.jsonArray() ?: empty)
             )
@@ -210,8 +216,8 @@ fun WaccaServer.init() {
                 WP() -> { u.wp += param; u.wpTotal += param }
                 XP() -> u.xp += param
                 MUSIC_DIFFICULTY_UNLOCK(),
-                MUSIC_UNLOCK() -> newItems += (ex ?: WcUserItem(type, id))
-                    .apply { user = u; p1 = min(max(param.long(), p1), WaccaDifficulty.HARD.value.long()) }
+                MUSIC_UNLOCK() -> newItems += (ex ?: WcUserItem(MUSIC_UNLOCK(), id))
+                    .apply { user = u; p1 = max(param.long(), p1).coerceAtLeast(WaccaDifficulty.HARD.value.long()) }
                 TROPHY() -> newItems += (ex ?: TROPHY(u, id)).apply { p1 = season.long(); p2 = param.long() }
                 else -> newItems += (ex ?: WcUserItem(type, id)).apply { user = u }
             }
@@ -242,14 +248,15 @@ fun WaccaServer.init() {
         empty
     }
 
-    "user/mission/update" { _, (uid, bingoDetail, items, gateTutorialFlags) ->
+    "user/mission/update" { _, (uid, bingoDetail, items, tutFlags) ->
         val u = user(uid) ?: (404 - "User not found")
-        u.gateTutorialFlags = gateTutorialFlags.toJson()
+        rp.user.save(u.apply { gateTutorialFlags = tutFlags.toJson() })
         addItems(items as List<List<Int>>, u, itmGrp(u))
 
         // Update bingo
         val (page, prog) = bingoDetail as List<Any>
-        rp.bingo.findByUser(u).firstOrNull() ?: WcUserBingo().apply { user = u; pageNumber = page.int(); pageProgress = prog.toJson() }
+        val bingo = rp.bingo.findByUser(u).firstOrNull() ?: WcUserBingo().apply { user = u; pageNumber = page.int() }
+        rp.bingo.save(bingo.apply { pageProgress = prog.toJson() })
 
         empty
     }
@@ -266,7 +273,7 @@ fun WaccaServer.init() {
         val best = rp.bestScore.findByUserAndSongIdAndDifficulty(u, song.songId, song.difficulty)
             ?: WcUserScore().apply { user = u; songId = song.songId; difficulty = song.difficulty }
 
-        best.grades[song.grade - 1]++
+        best.grades[WaccaGrades.valueMap[song.grade]?.ordinal ?: (400 - "Grade ${song.grade} invalid")]++
         best.clears = best.clears.zip(song.clears()) { a, b -> a + b }.toMutableList()
         best.score = max(best.score, song.score)
         best.bestCombo = max(best.bestCombo, song.maxCombo)
@@ -275,7 +282,7 @@ fun WaccaServer.init() {
 
         rp.bestScore.save(best)
 
-        ls(best.ls(), ls(song.songId, best.clears[0]), "seasonalInfo" - (1..11).map { 0 }, "rankingInfo" - empty)
+        ls(best.lsMusicUpdate(), ls(song.songId, best.clears[0]), "seasonalInfo" - (1..11).map { 0 }, "rankingInfo" - empty)
     }
     "user/music/UpdateCoop" redirect "user/music/update"
     "user/music/UpdateVersus" redirect "user/music/update"
@@ -295,6 +302,13 @@ fun WaccaServer.init() {
         empty
     }
 
+    fun incrUses(u: WaccaUser, opts: Map<Int, Int>) {
+        rp.item.findByUserAndItemIdAndType(u, opts[SET_ICON_ID], ICON())
+            ?.let { rp.item.save(it.apply { p1++ }) }
+        rp.item.findByUserAndItemIdAndType(u, opts[SET_NAV_ID], NAVIGATOR())
+            ?.let { rp.item.save(it.apply { p1++ }) }
+    }
+
     "user/status/update" { req, (uid, playType, items, isContinue, isFirstPlayFree, itemsUsed, lastSong) ->
         val u = user(uid) ?: (404 - "User not found")
         rp.user.save(u.apply {
@@ -305,7 +319,7 @@ fun WaccaServer.init() {
             lastSongInfo = (lastSong as List<Int>).toMutableList()
             lastGameVer = req.appVersion
 
-            // TODO: Add icon and nav items
+            incrUses(u, options(u))
         })
 
         empty

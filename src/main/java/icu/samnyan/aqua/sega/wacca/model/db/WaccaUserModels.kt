@@ -76,12 +76,12 @@ class WcUserItem(
     var acquiredDate: Date = Date(),
 ) : WaccaUserEntity() {
     fun ls() = when (type) {
-        MUSIC_UNLOCK() -> ls(itemId, p1, acquiredDate.sec, acquiredDate.sec) // songId, diff, acquireDate, unlockDate
+        MUSIC_UNLOCK() -> ls(itemId, p1, 0, acquiredDate.sec) // songId, diff, acquireDate, unlockDate
         ICON() -> ls(itemId, 1, p1, acquiredDate.sec) // id, type, uses, acquiredDate
         TROPHY() -> ls(itemId, p1, p2, p3) // id, season, progress, badgeType
         SKILL() -> ls(itemId, p1, p2, p3) // skillType, level, flag, badge
         TICKET() -> ls(id, itemId, p1) // userTicketId, ticketId, expire
-        NAVIGATOR() -> ls(itemId, 1, acquiredDate.sec, p1, p2) // id, type, acquiredDate, uses, usesToday
+        NAVIGATOR() -> ls(itemId, 1, acquiredDate.sec, p1, p1) // id, type, acquiredDate, uses, usesToday
 
         // Generic: title, note colors, note sounds, plates, touch effects
         else -> ls(itemId, 1, acquiredDate.sec) // id, type, acquireDate
@@ -105,7 +105,8 @@ class WcUserScore : WaccaUserEntity() {
     var lowestMissCt = Int.MAX_VALUE
     var rating = 0
 
-    fun ls() = ls(songId, difficulty, clears, clears, grades, score, lowestMissCt, 0, 1, rating)
+    fun ls() = ls(songId, difficulty, clears, clears, grades, score, bestCombo, lowestMissCt, 1, rating)
+    fun lsMusicUpdate() = ls(songId, difficulty, clears, clears, grades, score, lowestMissCt, 0, 1, rating)
 }
 
 @Entity @Table(name = "wacca_user_playlog", uniqueConstraints = [UC("", ["user_id", "song_id", "chart_id", "date_scored"])])
