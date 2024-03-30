@@ -83,10 +83,10 @@ class WaccaServer {
 
             val br = JACKSON.parse<BaseRequest>(body)
             handlerMap[path]!!(br, br.params).let { when (it) {
-                is String -> return resp(it)
-                is List<*> -> return resp(it.toJson())
-                else -> Error("Invalid response type ${it.javaClass}")
-            } }.let { log.info("Wacca > $path : $it") }
+                is String -> resp(it)
+                is List<*> -> resp(it.toJson())
+                else -> error("Invalid response type ${it.javaClass}")
+            } }.also { log.info("Wacca > $path : ${it.body}") }
         }
         catch (e: ApiException) { resp("[]", e.code, e.message ?: "") }
         catch (e: Exception) {
