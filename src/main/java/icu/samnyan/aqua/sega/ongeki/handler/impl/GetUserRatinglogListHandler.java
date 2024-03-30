@@ -30,7 +30,7 @@ public class GetUserRatinglogListHandler implements BaseHandler {
 
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
-        Integer userId = (Integer) request.get("userId");
+        long userId = ((Number) request.get("userId")).longValue();
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("userId", userId);

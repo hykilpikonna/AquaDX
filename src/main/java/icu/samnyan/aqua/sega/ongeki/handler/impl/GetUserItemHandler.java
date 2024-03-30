@@ -36,7 +36,7 @@ public class GetUserItemHandler implements BaseHandler {
 
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
-        Integer userId = (Integer) request.get("userId");
+        long userId = ((Number) request.get("userId")).longValue();
         Long nextIndexVal = (Long) request.get("nextIndex");
         Integer maxCount = (Integer) request.get("maxCount");
 

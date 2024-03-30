@@ -36,7 +36,7 @@ public class GetUserActivityHandler implements BaseHandler {
 
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
-        Integer userId = (Integer) request.get("userId");
+        long userId = ((Number) request.get("userId")).longValue();
         Integer kind = (Integer) request.get("kind");
 
         List<UserActivity> activityList = userActivityRepository.findByUser_Card_ExtIdAndKindOrderBySortNumberDesc(userId,kind);

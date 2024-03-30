@@ -35,7 +35,7 @@ public class GetUserScenarioHandler implements BaseHandler {
 
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
-        Integer userId = (Integer) request.get("userId");
+        long userId = ((Number) request.get("userId")).longValue();
 
         List<UserScenario> userScenarioList = userScenarioRepository.findByUser_Card_ExtId(userId);
 
