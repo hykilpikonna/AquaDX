@@ -194,7 +194,7 @@ fun WaccaServer.init() {
                 else if (it == TICKET && go?.unlockTickets == true) (0..4).map { ls(it, 106002, 0) }
                 else items[it()]?.map { it.ls() } ?: empty
             },
-            "4 scores" - (scores.map { it.ls() } + (items[MUSIC_UNLOCK()]?.map { song ->
+            "4 scores" - (scores.map { it.ls() } + (items[MUSIC_UNLOCK()]?.flatMap { song ->
                 // If the song is unlocked but hasn't been played, add a song in the score list with 0 clears
                 (WaccaDifficulty.HARD()..song.p1).filter { scoreMap[song.itemId to it.int()] == null }.map { diff ->
                     WcUserScore().apply { user = u; musicId = song.itemId; level = diff.int() }.ls()
