@@ -24,7 +24,7 @@ interface Chu3UserLinked<T> : IUserRepo<Chu3UserData, T> {
 }
 
 
-interface Chu3UserLoginBonusRepo : JpaRepository<UserLoginBonus, Int> {
+interface Chu3UserLoginBonusRepo : Chu3UserLinked<UserLoginBonus> {
     @Query(
         value = "select * from chusan_user_login_bonus where user = ?1 and version = ?2 and is_finished = ?3 order by last_update_date desc",
         nativeQuery = true

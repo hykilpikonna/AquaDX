@@ -18,7 +18,6 @@ import java.util.*
 
 @NoRepositoryBean
 interface Mai2UserLinked<T>: JpaRepository<T, Long>, IUserRepo<Mai2UserDetail, T> {
-    fun findSingleByUser(user: Mai2UserDetail): Optional<T>
     fun findByUser_Card_ExtId(userId: Long): List<T>
     fun findByUser_Card_ExtId(userId: Long, page: Pageable): Page<T>
     fun findSingleByUser_Card_ExtId(userId: Long): Optional<T>
