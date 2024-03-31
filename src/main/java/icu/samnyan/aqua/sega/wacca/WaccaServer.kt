@@ -174,6 +174,7 @@ fun WaccaServer.init() {
         val o = options(u)
         val items = rp.item.findByUser(u).groupBy { it.type }
         val scores = rp.bestScore.findByUser(u)
+        val scoreMap = scores.associateBy { it.musicId to it.level }
         val gates = rp.gate.findByUser(u)
         val bingo = rp.bingo.findByUser(u).firstOrNull()
         val go = u.card?.aquaUser?.gameOptions
@@ -193,7 +194,12 @@ fun WaccaServer.init() {
                 else if (it == TICKET && go?.unlockTickets == true) (0..4).map { ls(it, 106002, 0) }
                 else items[it()]?.map { it.ls() } ?: empty
             },
-            "4 scores" - scores.map { it.ls() },
+            "4 scores" - (scores.map { it.ls() } + (items[MUSIC_UNLOCK()]?.map { song ->
+                // If the song is unlocked but hasn't been played, add a song in the score list with 0 clears
+                (WaccaDifficulty.HARD()..song.p1).filter { scoreMap[song.itemId to it.int()] == null }.map { diff ->
+                    WcUserScore().apply { user = u; musicId = song.itemId; level = diff.int() }.ls()
+                }
+            } ?: empty)),
             "5 songPlayStatus" - ls(lastSongInfo[0], 1),
             "6 seasonInfo" - ls(xp, wpTotal, wpSpent, u.totalScore,
                 items[TITLE()]?.size ?: 0, items[ICON()]?.size ?: 0, 0,

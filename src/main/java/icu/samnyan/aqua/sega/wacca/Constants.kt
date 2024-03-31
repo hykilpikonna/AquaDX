@@ -27,7 +27,9 @@ enum class WaccaDifficulty(val value: Int) {
     NORMAL(1),
     HARD(2),
     EXPERT(3),
-    INFERNO(4),
+    INFERNO(4);
+
+    operator fun invoke() = value
 }
 
 enum class WaccaItemType(val type: Int) {
