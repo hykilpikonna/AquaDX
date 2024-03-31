@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
 import icu.samnyan.aqua.sega.chusan.model.Chu3UserGeneralDataRepo;
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
+import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserGeneralData;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class UserGeneralDataService {
         return userGeneralDataRepository.save(userGeneralData);
     }
 
-    public Optional<UserGeneralData> getByUserAndKey(UserData user, String key) {
+    public Optional<UserGeneralData> getByUserAndKey(Chu3UserData user, String key) {
         return userGeneralDataRepository.findByUserAndPropertyKey(user, key);
     }
 

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.general.BaseHandler;
 import icu.samnyan.aqua.sega.chusan.model.response.CodeResp;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCharge;
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
+import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData;
 import icu.samnyan.aqua.sega.chusan.service.UserChargeService;
 import icu.samnyan.aqua.sega.chusan.service.UserDataService;
 import icu.samnyan.aqua.sega.util.jackson.StringMapper;
@@ -36,7 +36,7 @@ public class UpsertUserChargelogHandler implements BaseHandler {
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         String userId = (String) request.get("userId");
-        UserData user = userDataService.getUserByExtId(userId).orElseThrow();
+        Chu3UserData user = userDataService.getUserByExtId(userId).orElseThrow();
 
         Map<String, Object> userChargeMap = (Map<String, Object>) request.get("userCharge");
         String chargeId = (String) userChargeMap.get("chargeId");

@@ -4,7 +4,7 @@ import ext.*
 import icu.samnyan.aqua.net.components.JWT
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.games.GenericUserDataRepo
-import icu.samnyan.aqua.net.games.IGenericUserData
+import icu.samnyan.aqua.net.games.IUserData
 import icu.samnyan.aqua.net.utils.AquaNetProps
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.chusan.model.Chu3UserDataRepo
@@ -116,7 +116,7 @@ class CardController(
  *
  * Assumption: The card is already linked to the user.
  */
-suspend fun <T : IGenericUserData> migrateCard(repo: GenericUserDataRepo<T>, card: Card): Bool
+suspend fun <T : IUserData> migrateCard(repo: GenericUserDataRepo<T>, card: Card): Bool
 {
     // Check if data already exists in the user's ghost card
     async { repo.findByCard(card.aquaUser!!.ghostCard) }?.let {

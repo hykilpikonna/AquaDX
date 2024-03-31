@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.chusan.service;
 
 import icu.samnyan.aqua.sega.chusan.model.Chu3UserChargeRepo;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCharge;
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
+import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class UserChargeService {
         return userChargeRepository.findByUser_Card_ExtId(Long.parseLong(userId));
     }
 
-    public Optional<UserCharge> getByUserAndChargeId(UserData user, int chargeId) {
+    public Optional<UserCharge> getByUserAndChargeId(Chu3UserData user, int chargeId) {
         return userChargeRepository.findByUserAndChargeId(user, chargeId);
     }
 

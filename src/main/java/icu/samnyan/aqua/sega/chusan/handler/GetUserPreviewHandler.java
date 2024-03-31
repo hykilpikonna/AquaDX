@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.general.BaseHandler;
 import icu.samnyan.aqua.sega.chusan.model.response.GetUserPreviewResp;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCharacter;
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
+import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserGameOption;
 import icu.samnyan.aqua.sega.chusan.service.UserCharacterService;
 import icu.samnyan.aqua.sega.chusan.service.UserDataService;
@@ -53,13 +53,13 @@ public class GetUserPreviewHandler implements BaseHandler {
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         String userId = (String) request.get("userId");
 
-        Optional<UserData> userData = userDataService.getUserByExtId(userId);
+        Optional<Chu3UserData> userData = userDataService.getUserByExtId(userId);
 
         if (userData.isEmpty()) {
             return null;
         }
 
-        UserData user = userData.get();
+        Chu3UserData user = userData.get();
 
         GetUserPreviewResp resp = new GetUserPreviewResp();
         resp.setUserId(userId);

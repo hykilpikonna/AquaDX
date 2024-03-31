@@ -20,7 +20,7 @@ public class UserCMissionProgress {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserData user;
+    private Chu3UserData user;
 
     @Column(name = "mission_id")
     private int missionId;

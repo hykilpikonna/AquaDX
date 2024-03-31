@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.chusan.model.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.GameGachaCard;
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
+import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserGacha;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserItem;
 import lombok.AllArgsConstructor;
@@ -22,7 +22,7 @@ import java.util.List;
 public class UpsertUserGacha implements Serializable {
 
     @Nullable
-    private UserData userData;
+    private Chu3UserData userData;
 
     @Nullable
     private UserGacha userGacha;

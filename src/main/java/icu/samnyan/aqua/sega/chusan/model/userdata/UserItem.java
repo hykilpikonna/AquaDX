@@ -31,7 +31,7 @@ public class UserItem implements Serializable {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserData user;
+    private Chu3UserData user;
 
     // Kind ,Type
     @Column(name = "item_kind")
@@ -45,7 +45,7 @@ public class UserItem implements Serializable {
     @JsonProperty("isValid")
     private boolean isValid = true;
 
-    public UserItem(UserData userData) {
+    public UserItem(Chu3UserData userData) {
         user = userData;
     }
 }

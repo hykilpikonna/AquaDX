@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
 import icu.samnyan.aqua.sega.chusan.model.Chu3UserDuelRepo;
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
+import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserDuel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class UserDuelService {
         this.userDuelRepository = userDuelRepository;
     }
 
-    public Optional<UserDuel> getByUserAndDuelId(UserData user, int duelId) {
+    public Optional<UserDuel> getByUserAndDuelId(Chu3UserData user, int duelId) {
         return userDuelRepository.findTopByUserAndDuelIdOrderByIdDesc(user, duelId);
     }
 

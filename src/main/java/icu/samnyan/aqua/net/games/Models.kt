@@ -1,7 +1,6 @@
 package icu.samnyan.aqua.net.games
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import ext.JACKSON
@@ -16,8 +15,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.NoRepositoryBean
 import java.util.*
-import kotlin.reflect.full.memberProperties
-import kotlin.reflect.jvm.isAccessible
 
 data class TrendOut(val date: String, val rating: Int, val plays: Int)
 
@@ -81,7 +78,8 @@ data class GenericItemMeta(
 )
 
 // Here are some interfaces to generalize across multiple games
-interface IGenericUserData {
+interface IUserData {
+    val id: Long
     val userName: String
     val playerRating: Int
     val highestRating: Int
@@ -124,7 +122,7 @@ open class UserDataEntity : BaseEntity() {
 }
 
 @NoRepositoryBean
-interface GenericUserDataRepo<T : IGenericUserData> : JpaRepository<T, Long> {
+interface GenericUserDataRepo<T : IUserData> : JpaRepository<T, Long> {
     fun findByCard(card: Card): T?
     fun findByCard_ExtId(extId: Long): Optional<T>
     @Query("select count(*) from #{#entityName} where playerRating > :rating")

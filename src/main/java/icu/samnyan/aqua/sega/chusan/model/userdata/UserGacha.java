@@ -29,7 +29,7 @@ public class UserGacha implements Serializable {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserData user;
+    private Chu3UserData user;
 
     @Column(name = "gacha_id")
     private int gachaId;
@@ -46,7 +46,7 @@ public class UserGacha implements Serializable {
 
     private LocalDateTime dailyGachaDate;
 
-    public UserGacha(UserData user) {
+    public UserGacha(Chu3UserData user) {
         this.user = user;
     }
 }

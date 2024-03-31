@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
 import icu.samnyan.aqua.sega.chusan.model.Chu3UserGachaRepo;
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
+import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserGacha;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +32,7 @@ public class UserGachaService {
         return userGachaRepository.findByUser_Card_ExtId(Long.parseLong(userId));
     }
 
-    public Optional<UserGacha> getByUserAndGachaId(UserData user, int gachaId) {
+    public Optional<UserGacha> getByUserAndGachaId(Chu3UserData user, int gachaId) {
         return userGachaRepository.findByUserAndGachaId(user, gachaId);
     }
 

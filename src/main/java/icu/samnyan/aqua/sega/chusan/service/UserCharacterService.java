@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.chusan.service;
 
 import icu.samnyan.aqua.sega.chusan.model.Chu3UserCharacterRepo;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCharacter;
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
+import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,7 +42,7 @@ public class UserCharacterService {
         return userCharacterRepository.findByUser_Card_ExtId(Long.parseLong(userId), pageable);
     }
 
-    public Optional<UserCharacter> getByUserAndCharacterId(UserData user, int characterId) {
+    public Optional<UserCharacter> getByUserAndCharacterId(Chu3UserData user, int characterId) {
         return userCharacterRepository.findTopByUserAndCharacterIdOrderByIdDesc(user, characterId);
     }
 

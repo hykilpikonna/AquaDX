@@ -27,7 +27,7 @@ public class UserCourse {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserData user;
+    private Chu3UserData user;
 
     @Column(name = "course_id")
     private int courseId;
@@ -70,7 +70,7 @@ public class UserCourse {
     @JsonProperty("isClear")
     private boolean isClear;
 
-    public UserCourse(UserData userData) {
+    public UserCourse(Chu3UserData userData) {
         user = userData;
     }
 

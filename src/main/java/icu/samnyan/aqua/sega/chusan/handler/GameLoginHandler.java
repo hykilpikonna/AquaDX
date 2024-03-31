@@ -5,7 +5,7 @@ import icu.samnyan.aqua.sega.general.BaseHandler;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.GameLoginBonus;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.GameLoginBonusPreset;
 import icu.samnyan.aqua.sega.chusan.model.response.CodeResp;
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
+import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserItem;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserLoginBonus;
 import icu.samnyan.aqua.sega.chusan.service.*;
@@ -63,7 +63,7 @@ public class GameLoginHandler implements BaseHandler {
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         String userId = (String) request.get("userId");
-        Optional<UserData> userDataOptional = userDataService.getUserByExtId(userId);
+        Optional<Chu3UserData> userDataOptional = userDataService.getUserByExtId(userId);
         boolean userPresent = userDataOptional.isPresent();
         if (userPresent){
             userDataService.updateLoginTime(userDataOptional.get());
@@ -105,7 +105,7 @@ public class GameLoginHandler implements BaseHandler {
                         Optional<GameLoginBonus> gameLoginBonus = this.gameLoginBonusService.getGameLoginBonusByDay(preset.getId(), bonusCount);
                         if(gameLoginBonus.isPresent()){
                             GameLoginBonus gameLoginBonusResult = gameLoginBonus.get();
-                            UserData userData = this.userDataService.getUserByExtId(userId).orElseThrow();
+                            Chu3UserData userData = this.userDataService.getUserByExtId(userId).orElseThrow();
                             UserItem userItem = new UserItem(userData);
                             userItem.setItemId(gameLoginBonusResult.getPresentId());
                             userItem.setItemKind(6);

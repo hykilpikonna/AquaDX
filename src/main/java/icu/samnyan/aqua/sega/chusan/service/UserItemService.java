@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
 import icu.samnyan.aqua.sega.chusan.model.Chu3UserItemRepo;
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
+import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,7 +39,7 @@ public class UserItemService {
         return userItemList;
     }
 
-    public Optional<UserItem> getByUserAndItemIdAndKind(UserData user, int itemId, int itemKind) {
+    public Optional<UserItem> getByUserAndItemIdAndKind(Chu3UserData user, int itemId, int itemKind) {
         return userItemRepository.findTopByUserAndItemIdAndItemKindOrderByIdDesc(user, itemId, itemKind);
     }
 

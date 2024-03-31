@@ -7,7 +7,7 @@ import icu.samnyan.aqua.sega.general.BaseHandler;
 import icu.samnyan.aqua.sega.chusan.model.gamedata.GameGachaCard;
 import icu.samnyan.aqua.sega.chusan.model.request.UpsertUserGacha;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCardPrintState;
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
+import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserGacha;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserItem;
 import icu.samnyan.aqua.sega.chusan.service.UserDataService;
@@ -53,9 +53,9 @@ public class CMUpsertUserGachaHandler implements BaseHandler {
 
         UpsertUserGacha upsertUserGacha = mapper.convert(request.get("cmUpsertUserGacha"), UpsertUserGacha.class);
         List<UserCardPrintState> userCardPrintStateList = new ArrayList<>();
-        UserData userData;
+        Chu3UserData userData;
 
-        Optional<UserData> userOptional = userDataService.getUserByExtId(userId);
+        Optional<Chu3UserData> userOptional = userDataService.getUserByExtId(userId);
         if (userOptional.isPresent()) {
             userData = userOptional.get();
         } else {

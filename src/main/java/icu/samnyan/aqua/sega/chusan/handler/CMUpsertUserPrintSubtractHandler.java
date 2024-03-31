@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import icu.samnyan.aqua.sega.chusan.model.Chu3UserCardPrintStateRepo;
 import icu.samnyan.aqua.sega.general.BaseHandler;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCardPrintState;
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
+import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserItem;
 import icu.samnyan.aqua.sega.chusan.service.UserDataService;
 import icu.samnyan.aqua.sega.chusan.service.UserItemService;
@@ -43,9 +43,9 @@ public class CMUpsertUserPrintSubtractHandler implements BaseHandler {
         UserCardPrintState userCardPrintState = mapper.convert(request.get("userCardPrintState"), UserCardPrintState.class);
         List<UserItem> userItemList = mapper.convert(request.get("userItemList"), new TypeReference<List<UserItem>>() {});
 
-        UserData userData;
+        Chu3UserData userData;
 
-        Optional<UserData> userOptional = userDataService.getUserByExtId(userId);
+        Optional<Chu3UserData> userOptional = userDataService.getUserByExtId(userId);
         if (userOptional.isPresent()) {
             userData = userOptional.get();
         } else {

@@ -30,7 +30,7 @@ public class UserCardPrintState implements Serializable {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserData user;
+    private Chu3UserData user;
 
     private boolean hasCompleted;
     private LocalDateTime limitDate;
@@ -38,7 +38,7 @@ public class UserCardPrintState implements Serializable {
     private int cardId;
     private int gachaId;
 
-    public UserCardPrintState(UserData user) {
+    public UserCardPrintState(Chu3UserData user) {
         this.user = user;
     }
 }

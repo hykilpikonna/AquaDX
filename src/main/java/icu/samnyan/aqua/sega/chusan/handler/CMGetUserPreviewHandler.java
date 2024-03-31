@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.chusan.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.general.BaseHandler;
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
+import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData;
 import icu.samnyan.aqua.sega.chusan.service.UserDataService;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
@@ -38,11 +38,11 @@ public class CMGetUserPreviewHandler implements BaseHandler {
         String userId = String.valueOf(request.get("userId"));
         String segaIdAuthKey = String.valueOf(request.get("segaIdAuthKey"));
 
-        Optional<UserData> userDataOptional = userDataService.getUserByExtId(userId);
+        Optional<Chu3UserData> userDataOptional = userDataService.getUserByExtId(userId);
 
         if (userDataOptional.isPresent()) {
             Map<String, Object> resultMap = new LinkedHashMap<>();
-            UserData user = userDataOptional.get();
+            Chu3UserData user = userDataOptional.get();
 
             resultMap.put("userName", user.getUserName());
             resultMap.put("level", user.getLevel());

@@ -8,7 +8,7 @@ import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.games.*
 import icu.samnyan.aqua.net.utils.*
 import icu.samnyan.aqua.sega.chusan.model.*
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserData
+import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -18,7 +18,7 @@ class Chusan(
     override val playlogRepo: Chu3UserPlaylogRepo,
     override val userDataRepo: Chu3UserDataRepo,
     val userGeneralDataRepository: Chu3UserGeneralDataRepo,
-): GameApiController<UserData>("chu3", UserData::class) {
+): GameApiController<Chu3UserData>("chu3", Chu3UserData::class) {
     override suspend fun trend(@RP username: Str): List<TrendOut> = us.cardByName(username) { card ->
         findTrend(playlogRepo.findByUserCardExtId(card.extId)
             .map { TrendLog(it.playDate.toString(), it.playerRating) })
@@ -27,7 +27,7 @@ class Chusan(
 
     // Only show > AAA rank
     override val shownRanks = chu3Scores.filter { it.first >= 95 * 10000 }
-    override val settableFields: Map<String, (UserData, String) -> Unit> by lazy { mapOf(
+    override val settableFields: Map<String, (Chu3UserData, String) -> Unit> by lazy { mapOf(
         "userName" to { u, v -> u.setUserName(v)
             if (!v.all { it in USERNAME_CHARS }) { 400 - "Invalid character in username" }
         },

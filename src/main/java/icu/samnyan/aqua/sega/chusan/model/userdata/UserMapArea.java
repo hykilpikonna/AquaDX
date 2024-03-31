@@ -39,7 +39,7 @@ public class UserMapArea implements Serializable {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserData user;
+    private Chu3UserData user;
 
     @Column(name = "map_area_id")
     private int mapAreaId;
@@ -58,7 +58,7 @@ public class UserMapArea implements Serializable {
     @JsonProperty("isLocked")
     private boolean isLocked;
 
-    public UserMapArea(UserData userData) {
+    public UserMapArea(Chu3UserData userData) {
         user = userData;
     }
 }

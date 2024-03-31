@@ -33,6 +33,7 @@ typealias RB = RequestBody
 typealias RH = RequestHeader
 typealias PV = PathVariable
 typealias API = RequestMapping
+typealias Var<T, V> = KMutableProperty1<T, V>
 typealias Str = String
 typealias Bool = Boolean
 typealias JavaSerializable = java.io.Serializable
@@ -50,13 +51,13 @@ annotation class SettingField(val name: Str, val desc: Str)
 
 // Reflection
 @Suppress("UNCHECKED_CAST")
-fun <T : Any> KClass<T>.vars() = memberProperties.mapNotNull { it as? KMutableProperty1<T, Any> }
+fun <T : Any> KClass<T>.vars() = memberProperties.mapNotNull { it as? Var<T, Any> }
 fun <T : Any> KClass<T>.varsMap() = vars().associateBy { it.name }
 fun <T : Any> KClass<T>.getters() = java.methods.filter { it.name.startsWith("get") }
 fun <T : Any> KClass<T>.gettersMap() = getters().associateBy { it.name.removePrefix("get").decapitalize() }
 infix fun KCallable<*>.returns(type: KClass<*>) = returnType.jvmErasure.isSubclassOf(type)
 @Suppress("UNCHECKED_CAST")
-fun <C, T: Any> KMutableProperty1<C, T>.setCast(obj: C, value: String) = set(obj, when (returnType.classifier) {
+fun <C, T: Any> Var<C, T>.setCast(obj: C, value: String) = set(obj, when (returnType.classifier) {
     String::class -> value
     Int::class -> value.toInt()
     Boolean::class -> value.toBoolean()

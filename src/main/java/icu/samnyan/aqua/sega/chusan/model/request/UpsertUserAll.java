@@ -21,7 +21,7 @@ import java.util.Map;
 public class UpsertUserAll implements Serializable {
 
     @Nullable
-    private List<UserData> userData;
+    private List<Chu3UserData> userData;
 
     @Nullable
     private List<UserGameOption> userGameOption;

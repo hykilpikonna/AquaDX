@@ -5,7 +5,7 @@ import ext.ls
 import ext.sec
 import ext.toDate
 import icu.samnyan.aqua.net.games.BaseEntity
-import icu.samnyan.aqua.net.games.IGenericUserData
+import icu.samnyan.aqua.net.games.IUserData
 import icu.samnyan.aqua.sega.general.IntegerListConverter
 import icu.samnyan.aqua.sega.general.model.Card
 import jakarta.persistence.*
@@ -15,7 +15,7 @@ import java.util.*
  * General user information
  */
 @Entity @Table(name = "wacca_user")
-class WaccaUser : BaseEntity(), IGenericUserData {
+class WaccaUser : BaseEntity(), IUserData {
     @OneToOne
     @JoinColumn(name = "aime_card_id", unique = true)
     override var card: Card? = Card()

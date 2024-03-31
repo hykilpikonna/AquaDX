@@ -81,7 +81,7 @@ public class UserGameOption implements Serializable {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserData user;
+    private Chu3UserData user;
 
     private int bgInfo;
 
@@ -183,7 +183,7 @@ public class UserGameOption implements Serializable {
 
     private int ext10;
 
-    public UserGameOption(UserData userData) {
+    public UserGameOption(Chu3UserData userData) {
         user = userData;
     }
 }

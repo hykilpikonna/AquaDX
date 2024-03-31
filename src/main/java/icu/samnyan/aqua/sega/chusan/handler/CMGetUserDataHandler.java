@@ -3,7 +3,7 @@ package icu.samnyan.aqua.sega.chusan.handler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.general.BaseHandler;
 import icu.samnyan.aqua.sega.chusan.model.response.data.UserEmoney;
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
+import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData;
 import icu.samnyan.aqua.sega.chusan.service.UserDataService;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
 import org.slf4j.Logger;
@@ -36,12 +36,12 @@ public class CMGetUserDataHandler implements BaseHandler {
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
         String userId = String.valueOf(request.get("userId"));
-        Optional<UserData> userDataOptional = userDataService.getUserByExtId(userId);
+        Optional<Chu3UserData> userDataOptional = userDataService.getUserByExtId(userId);
 
         if (userDataOptional.isPresent()) {
             Map<String, Object> resultMap = new LinkedHashMap<>();
             resultMap.put("userId", userId);
-            UserData user = userDataOptional.get();
+            Chu3UserData user = userDataOptional.get();
             UserEmoney userEmoney = new UserEmoney();
             user.setUserEmoney(userEmoney);
 

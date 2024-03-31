@@ -1,22 +1,36 @@
 package icu.samnyan.aqua.net.games.chu3
 
 import ext.API
+import ext.returns
 import ext.vars
 import icu.samnyan.aqua.api.model.resp.sega.chuni.v2.external.Chu3DataExport
 import icu.samnyan.aqua.net.games.ImportClass
 import icu.samnyan.aqua.net.games.ImportController
+import icu.samnyan.aqua.sega.chusan.model.Chu3Repos
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserLinked
 import icu.samnyan.aqua.sega.chusan.model.userdata.*
 import org.springframework.web.bind.annotation.RestController
+import kotlin.reflect.full.declaredMembers
 
 @RestController
 @API("api/v2/game/chu3")
-class Chu3Import : ImportController<Chu3DataExport>(
+class Chu3Import(
+    val repos: Chu3Repos,
+) : ImportController<Chu3DataExport, Chu3UserData>(
+    "SDHD", Chu3DataExport::class,
     exportFields = Chu3DataExport::class.vars().associateBy {
         var name = it.name
         if (name == "userMapList") name = "userMapAreaList"
         name.replace("List", "").lowercase()
     },
-    renameTable = mapOf(
+    exportRepos = Chu3DataExport::class.vars()
+        .filter { f -> f.name !in setOf("gameId", "userData") }
+        .associateWith { Chu3Repos::class.declaredMembers
+            .filter { f -> f returns Chu3UserLinked::class }
+            .firstOrNull { f -> f.name == it.name || f.name == it.name.replace("List", "") }
+            ?.call(repos) as Chu3UserLinked<*>? ?: error("No matching field found for ${it.name}")
+        },
+    artemisRenames = mapOf(
         "chuni_item_character" to ImportClass(UserCharacter::class),
         "chuni_item_duel" to ImportClass(UserDuel::class),
         "chuni_item_item" to ImportClass(UserItem::class, mapOf("isValid" to "valid")),
@@ -24,7 +38,7 @@ class Chu3Import : ImportController<Chu3DataExport>(
         "chuni_item_map_area" to ImportClass(UserMapArea::class),
         "chuni_profile_activity" to ImportClass(UserActivity::class, mapOf("activityId" to "id")),
         "chuni_profile_charge" to ImportClass(UserCharge::class),
-        "chuni_profile_data" to ImportClass(UserData::class, mapOf("user" to null, "version" to null, "isNetMember" to null)),
+        "chuni_profile_data" to ImportClass(Chu3UserData::class, mapOf("user" to null, "version" to null, "isNetMember" to null)),
         "chuni_profile_option" to ImportClass(UserGameOption::class, mapOf("version" to null)),
         "chuni_score_best" to ImportClass(UserMusicDetail::class),
         "chuni_score_playlog" to ImportClass(UserPlaylog::class),
@@ -35,4 +49,5 @@ class Chu3Import : ImportController<Chu3DataExport>(
     )
 ) {
     override fun createEmpty() = Chu3DataExport()
+    override val userDataRepo = repos.userData
 }

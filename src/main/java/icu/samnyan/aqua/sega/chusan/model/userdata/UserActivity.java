@@ -31,7 +31,7 @@ public class UserActivity implements Serializable {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserData user;
+    private Chu3UserData user;
 
     private int kind;
 
@@ -49,7 +49,7 @@ public class UserActivity implements Serializable {
 
     private int param4;
 
-    public UserActivity(UserData userData) {
+    public UserActivity(Chu3UserData userData) {
         user = userData;
     }
 }

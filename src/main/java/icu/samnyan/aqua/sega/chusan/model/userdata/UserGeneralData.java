@@ -29,14 +29,14 @@ public class UserGeneralData implements Serializable {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserData user;
+    private Chu3UserData user;
 
     private String propertyKey;
 
     @Column(columnDefinition = "TEXT")
     private String propertyValue;
 
-    public UserGeneralData(UserData userData, String key) {
+    public UserGeneralData(Chu3UserData userData, String key) {
         this.user = userData;
         this.propertyKey = key;
         this.propertyValue = "";

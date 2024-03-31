@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.chusan.service;
 
 import icu.samnyan.aqua.sega.chusan.model.Chu3UserActivityRepo;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserActivity;
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
+import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +30,7 @@ public class UserActivityService {
         return userActivityRepository.saveAll(userActivityList);
     }
 
-    public Optional<UserActivity> getByUserAndActivityIdAndKind(UserData user, int activityId, int kind) {
+    public Optional<UserActivity> getByUserAndActivityIdAndKind(Chu3UserData user, int activityId, int kind) {
         return userActivityRepository.findTopByUserAndActivityIdAndKindOrderByIdDesc(user, activityId, kind);
     }
 

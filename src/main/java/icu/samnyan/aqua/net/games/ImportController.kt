@@ -1,14 +1,20 @@
 package icu.samnyan.aqua.net.games
 
-import com.fasterxml.jackson.core.JsonParser
-import com.fasterxml.jackson.databind.DeserializationContext
-import com.fasterxml.jackson.databind.JsonDeserializer
-import com.fasterxml.jackson.databind.module.SimpleModule
 import ext.*
-import java.lang.reflect.Field
+import icu.samnyan.aqua.net.db.AquaNetUser
+import icu.samnyan.aqua.net.db.AquaUserServices
+import icu.samnyan.aqua.net.utils.AquaNetProps
+import icu.samnyan.aqua.net.utils.SUCCESS
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.repository.NoRepositoryBean
+import org.springframework.transaction.PlatformTransactionManager
+import org.springframework.transaction.support.TransactionTemplate
+import java.time.LocalDateTime
+import java.util.*
+import kotlin.io.path.Path
+import kotlin.io.path.writeText
 import kotlin.reflect.KClass
-import kotlin.reflect.KMutableProperty1
-import kotlin.reflect.KProperty1
 
 // Import class with renaming
 data class ImportClass<T : Any>(
@@ -17,16 +23,112 @@ data class ImportClass<T : Any>(
     val name: String = type.simpleName!!.removePrefix("Mai2").lowercase()
 )
 
-abstract class ImportController<T: Any>(
-    val exportFields: Map<String, KMutableProperty1<T, Any>>,
-    val renameTable: Map<String, ImportClass<*>>
+interface IUserEntity<UserModel: IUserData> {
+    var id: Long
+    var user: UserModel
+}
+
+interface IExportClass<UserModel: IUserData> {
+    var gameId: String
+    var userData: UserModel
+}
+
+@NoRepositoryBean
+interface IUserRepo<UserModel, ThisModel>: JpaRepository<ThisModel, Long> {
+    fun findByUser(user: UserModel): List<ThisModel>
+    fun findSingleByUser(user: UserModel): Optional<ThisModel>
+}
+
+/**
+ * Import controller for a game
+ *
+ * @param game: 4-letter Game ID
+ * @param exportFields: Mapping of type names to variables in the export model
+ *      (e.g. "Mai2UserCharacter" -> Mai2DataExport::userCharacterList)
+ * @param exportRepos: Mapping of variables to repositories that can be used to find the data
+ * @param artemisRenames: Mapping of Artemis table names to import classes
+ */
+abstract class ImportController<ExportModel: IExportClass<UserModel>, UserModel: IUserData>(
+    val game: String,
+    val exportClass: KClass<ExportModel>,
+    val exportFields: Map<String, Var<ExportModel, Any>>,
+    val exportRepos: Map<Var<ExportModel, Any>, IUserRepo<UserModel, *>>,
+    val artemisRenames: Map<String, ImportClass<*>>,
 ) {
-    abstract fun createEmpty(): T
+    abstract fun createEmpty(): ExportModel
+    abstract val userDataRepo: GenericUserDataRepo<UserModel>
+
+    @Autowired lateinit var us: AquaUserServices
+    @Autowired lateinit var netProps: AquaNetProps
+    @Autowired lateinit var transManager: PlatformTransactionManager
+    val trans by lazy { TransactionTemplate(transManager) }
 
     init {
-        renameTable.values.forEach {
+        artemisRenames.values.forEach {
             if (it.name !in exportFields) error("Code error! Export fields incomplete: missing ${it.name}")
         }
+    }
+
+    val listRepos = exportRepos.filter { it.key returns List::class }
+    val singleRepos = exportRepos.filter { !(it.key returns List::class) }
+
+    fun export(u: AquaNetUser) = createEmpty().apply {
+        gameId = game
+        userData = userDataRepo.findByCard(u.ghostCard) ?: (404 - "User not found")
+        exportRepos.forEach { (f, u) ->
+            if (f returns List::class) f.set(this, u.findByUser(userData))
+            else u.findSingleByUser(userData)()?.let { f.set(this, it) }
+        }
+    }
+
+    @API("export")
+    fun exportUserData(@RP token: Str) = us.jwt.auth(token) { u ->
+        log.info("Exporting user data for ${u.auId}")
+        export(u)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    @API("import")
+    fun importUserData(@RP token: Str, @RB json: Str) = us.jwt.auth(token) { u ->
+        val export = json.parseJackson(exportClass.java)
+        if (!export.gameId.equals(game, true)) 400 - "Invalid game ID"
+
+        val lists = listRepos.toList().associate { (f, r) -> r to f.get(export) as List<IUserEntity<UserModel>> }.vNotNull()
+        val singles = singleRepos.toList().associate { (f, r) -> r to f.get(export) as IUserEntity<UserModel> }.vNotNull()
+
+        // Validate new user data
+        // Check that all ids are 0 (this should be true since all ids are @JsonIgnore)
+        if (export.userData.id != 0L) 400 - "User ID must be 0"
+        lists.values.flatten().forEach { if (it.id != 0L) 400 - "ID must be 0" }
+        singles.values.forEach { if (it.id != 0L) 400 - "ID must be 0" }
+
+        // Set user card
+        export.userData.card = u.ghostCard
+
+        // Check existing data
+        userDataRepo.findByCard(u.ghostCard)?.also { gu ->
+            // Store a backup of the old data
+            val fl = "mai2-backup-${u.auId}-${LocalDateTime.now().urlSafeStr()}.json"
+            (Path(netProps.importBackupPath) / fl).writeText(export(u).toJson())
+
+            // Delete the old data (After migration v1000.7, all user-linked entities have ON DELETE CASCADE)
+            log.info("Mai2 Import: Deleting old data for user ${u.auId}")
+            userDataRepo.delete(gu)
+            userDataRepo.flush()
+        }
+
+        trans.execute {
+            // Insert new data
+            val nu = userDataRepo.save(export.userData)
+            // Set user fields
+            lists.values.flatten().forEach { it.user = nu }
+            singles.values.forEach { it.user = nu }
+            // Save new data
+            singles.forEach { (repo, single) -> (repo as IUserRepo<UserModel, Any>).save(single) }
+            lists.forEach { (repo, list) -> (repo as IUserRepo<UserModel, Any>).saveAll(list) }
+        }
+
+        SUCCESS
     }
 
     /**
@@ -52,7 +154,7 @@ abstract class ImportController<T: Any>(
         // For each insert statement, we will try to parse the values
         statements.forEachIndexed fi@{ i, insert ->
             // Try to map tables
-            val tb = renameTable[insert.table] ?: return@fi warn("Unknown table ${insert.table} in insert $i")
+            val tb = artemisRenames[insert.table] ?: return@fi warn("Unknown table ${insert.table} in insert $i")
             val field = exportFields[tb.name]!!
             val obj = tb.mapTo(insert.mapping)
 
@@ -77,43 +179,7 @@ abstract class ImportController<T: Any>(
 
             return JACKSON_ARTEMIS.convertValue(dict, type.java)
         }
+
+        val log = logger()
     }
-}
-
-// Read SQL dump and convert to dictionary
-val insertPattern = """INSERT INTO\s+(\w+)\s*\(([^)]+)\)\s*VALUES\s*\(([^)]+)\);""".toRegex()
-data class SqlInsert(val table: String, val mapping: Map<String, String>)
-fun String.asSqlInsert(): SqlInsert {
-    val match = insertPattern.matchEntire(this) ?: error("Does not match insert pattern")
-    val (table, rawCols, rawVals) = match.destructured
-    val cols = rawCols.split(',').map { it.trim(' ', '"') }
-
-    // Parse values with proper quote handling
-    val vals = mutableListOf<String>()
-    var startI = 0
-    var insideQuote = false
-    rawVals.forEachIndexed { i, c ->
-        if (c == ',' && !insideQuote) {
-            vals.add(rawVals.substring(startI, i).trim(' ', '"'))
-            startI = i + 1
-        } else if (c == '"') insideQuote = !insideQuote
-    }
-
-    assert(cols.size == vals.size) { "Column and value count mismatch" }
-    return SqlInsert(table, cols.zip(vals).toMap())
-}
-
-@Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN", "UNCHECKED_CAST")
-val JSON_INT_LIST_STR = SimpleModule().addDeserializer(List::class.java, object : JsonDeserializer<List<Integer>>() {
-    override fun deserialize(parser: JsonParser, context: DeserializationContext) =
-        try {
-            val text = parser.text.trim('[', ']')
-            if (text.isEmpty()) emptyList()
-            else text.split(',').map { it.trim().toInt() } as List<Integer>
-        } catch (e: Exception) {
-            400 - "Invalid list value ${parser.text}: $e" }
-})
-
-val JACKSON_ARTEMIS = JACKSON.copy().apply {
-    registerModule(JSON_INT_LIST_STR)
 }

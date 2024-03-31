@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
 import icu.samnyan.aqua.sega.chusan.model.Chu3UserMapAreaRepo;
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
+import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserMapArea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class UserMapAreaService {
         return userMapRepository.saveAll(userMap);
     }
 
-    public List<UserMapArea> getByUser(UserData user) {
+    public List<UserMapArea> getByUser(Chu3UserData user) {
         return userMapRepository.findByUser(user);
     }
 
@@ -38,7 +38,7 @@ public class UserMapAreaService {
         return userMapRepository.findByUser_Card_ExtId(Long.parseLong(userId));
     }
 
-    public Optional<UserMapArea> getByUserAndMapAreaId(UserData user, int mapId) {
+    public Optional<UserMapArea> getByUserAndMapAreaId(Chu3UserData user, int mapId) {
         return userMapRepository.findTopByUserAndMapAreaIdOrderByIdDesc(user, mapId);
     }
 }

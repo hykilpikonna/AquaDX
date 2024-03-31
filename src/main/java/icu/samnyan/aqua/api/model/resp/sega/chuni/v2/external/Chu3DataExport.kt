@@ -1,10 +1,11 @@
 package icu.samnyan.aqua.api.model.resp.sega.chuni.v2.external
 
+import icu.samnyan.aqua.net.games.IExportClass
 import icu.samnyan.aqua.sega.chusan.model.userdata.*
 
 data class Chu3DataExport(
-    var gameId: String = "SDHD",
-    var userData: UserData,
+    override var gameId: String = "SDHD",
+    override var userData: Chu3UserData,
     var userGameOption: UserGameOption,
     var userActivityList: List<UserActivity>,
     var userCharacterList: List<UserCharacter>,
@@ -16,7 +17,8 @@ data class Chu3DataExport(
     var userMusicDetailList: List<UserMusicDetail>,
     var userPlaylogList: List<UserPlaylog>,
     var userLoginBonusList: List<UserLoginBonus>,
-) {
-    constructor() : this("SDHD", UserData(), UserGameOption(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList())
+): IExportClass<Chu3UserData> {
+    constructor() : this("SDHD",
+        Chu3UserData(), UserGameOption(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList())
 }
 

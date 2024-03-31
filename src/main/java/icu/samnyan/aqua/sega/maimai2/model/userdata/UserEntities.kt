@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import icu.samnyan.aqua.net.games.BaseEntity
 import icu.samnyan.aqua.net.games.IGenericGamePlaylog
+import icu.samnyan.aqua.net.games.IUserEntity
 import icu.samnyan.aqua.sega.general.IntegerListConverter
 import jakarta.persistence.*
 import lombok.AllArgsConstructor
@@ -15,11 +16,11 @@ import lombok.Data
 import lombok.NoArgsConstructor
 
 @MappedSuperclass
-open class Mai2UserEntity : BaseEntity() {
+open class Mai2UserEntity : BaseEntity(), IUserEntity<Mai2UserDetail> {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    open var user: Mai2UserDetail = Mai2UserDetail()
+    override var user: Mai2UserDetail = Mai2UserDetail()
 }
 
 

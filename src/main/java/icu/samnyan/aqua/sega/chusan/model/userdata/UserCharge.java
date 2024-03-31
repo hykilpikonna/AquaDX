@@ -31,7 +31,7 @@ public class UserCharge implements Serializable {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserData user;
+    private Chu3UserData user;
 
     @Column(name = "charge_id")
     private int chargeId;
@@ -48,7 +48,7 @@ public class UserCharge implements Serializable {
 
     private LocalDateTime paramDate;
 
-    public UserCharge(UserData user) {
+    public UserCharge(Chu3UserData user) {
         this.user = user;
     }
 }

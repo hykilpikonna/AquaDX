@@ -81,64 +81,64 @@ public class ApiChuniV2PlayerDataController {
     }
 
     @PutMapping("profile/username")
-    public UserData updateName(@RequestBody Map<String, Object> request) {
-        UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
+    public Chu3UserData updateName(@RequestBody Map<String, Object> request) {
+        Chu3UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
         profile.setUserName((String) request.get("userName"));
         return userDataService.saveUserData(profile);
     }
 
     @PutMapping("profile/romversion")
-    public UserData updateRomVersion(@RequestBody Map<String, Object> request) {
-        UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
+    public Chu3UserData updateRomVersion(@RequestBody Map<String, Object> request) {
+        Chu3UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
         profile.setLastRomVersion((String) request.get("romVersion"));
         return userDataService.saveUserData(profile);
     }
 
     @PutMapping("profile/dataversion")
-    public UserData updateDataVersion(@RequestBody Map<String, Object> request) {
-        UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
+    public Chu3UserData updateDataVersion(@RequestBody Map<String, Object> request) {
+        Chu3UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
         profile.setLastDataVersion((String) request.get("dataVersion"));
         return userDataService.saveUserData(profile);
     }
 
     @PutMapping("profile/plate")
-    public UserData updatePlate(@RequestBody Map<String, Object> request) {
-        UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
+    public Chu3UserData updatePlate(@RequestBody Map<String, Object> request) {
+        Chu3UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
         profile.setNameplateId((Integer) request.get("nameplateId"));
         return userDataService.saveUserData(profile);
     }
 
     @PutMapping("profile/frame")
-    public UserData updateFrame(@RequestBody Map<String, Object> request) {
-        UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
+    public Chu3UserData updateFrame(@RequestBody Map<String, Object> request) {
+        Chu3UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
         profile.setFrameId((Integer) request.get("frameId"));
         return userDataService.saveUserData(profile);
     }
 
     @PutMapping("profile/trophy")
-    public UserData updateTrophy(@RequestBody Map<String, Object> request) {
-        UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
+    public Chu3UserData updateTrophy(@RequestBody Map<String, Object> request) {
+        Chu3UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
         profile.setTrophyId((Integer) request.get("trophyId"));
         return userDataService.saveUserData(profile);
     }
 
     @PutMapping("profile/mapicon")
-    public UserData updateMapIcon(@RequestBody Map<String, Object> request) {
-        UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
+    public Chu3UserData updateMapIcon(@RequestBody Map<String, Object> request) {
+        Chu3UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
         profile.setMapIconId((Integer) request.get("mapiconId"));
         return userDataService.saveUserData(profile);
     }
 
     @PutMapping("profile/sysvoice")
-    public UserData updateSystemVoice(@RequestBody Map<String, Object> request) {
-        UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
+    public Chu3UserData updateSystemVoice(@RequestBody Map<String, Object> request) {
+        Chu3UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
         profile.setVoiceId((Integer) request.get("voiceId"));
         return userDataService.saveUserData(profile);
     }
 
     @PutMapping("profile/avatar")
-    public UserData updateAvatar(@RequestBody Map<String, Object> request) {
-        UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
+    public Chu3UserData updateAvatar(@RequestBody Map<String, Object> request) {
+        Chu3UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
         int category = (Integer) request.get("category");
         switch (category) {
             case 1:
@@ -169,7 +169,7 @@ public class ApiChuniV2PlayerDataController {
 
     @PutMapping("profile/privacy")
     public ResponseEntity<Object> updatePrivacy(@RequestBody Map<String, Object> request) {
-        UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
+        Chu3UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
         UserGameOption option = userGameOptionService.getByUser(profile).orElseThrow();
         int privacy = (Integer) request.get("privacy");
         if (privacy != 1 && privacy != 0) {
@@ -300,7 +300,7 @@ public class ApiChuniV2PlayerDataController {
 
     @PutMapping("song/{id}/favorite")
     public void updateSongFavorite(@RequestParam String aimeId, @PathVariable String id) {
-        UserData profile = userDataService.getUserByExtId(aimeId).orElseThrow();
+        Chu3UserData profile = userDataService.getUserByExtId(aimeId).orElseThrow();
         UserGeneralData userGeneralData = userGeneralDataService.getByUserAndKey(profile, "favorite_music")
                     .orElseGet(() -> new UserGeneralData(profile, "favorite_music"));
         List<String> favoriteSongs = new LinkedList<String>(Arrays.asList(userGeneralData.getPropertyValue().split(",")));
@@ -329,7 +329,7 @@ public class ApiChuniV2PlayerDataController {
 
     @PostMapping("character")
     public ResponseEntity<Object> updateCharacter(@RequestBody Map<String, Object> request) {
-        UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
+        Chu3UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
         Integer characterId = (Integer) request.get("characterId");
         Optional<UserCharacter> characterOptional = userCharacterService.getByUserAndCharacterId(profile, characterId);
         UserCharacter character;
@@ -371,7 +371,7 @@ public class ApiChuniV2PlayerDataController {
 
     @PostMapping("item")
     public ResponseEntity<Object> updateItem(@RequestBody Map<String, Object> request) {
-        UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
+        Chu3UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
         Integer itemId = (Integer) request.get("itemId");
         Integer itemKind = (Integer) request.get("itemKind");
         Optional<UserItem> itemOptional = userItemService.getByUserAndItemIdAndKind(profile, itemId,itemKind);
@@ -446,7 +446,7 @@ public class ApiChuniV2PlayerDataController {
             card = cardService.registerByAccessCode(exUser.getAccessCode());
         }
 
-        UserData userData = mapper.convert(exUser, new TypeReference<>() {
+        Chu3UserData userData = mapper.convert(exUser, new TypeReference<>() {
         });
         userData.setCard(card);
         userDataService.saveAndFlushUserData(userData);

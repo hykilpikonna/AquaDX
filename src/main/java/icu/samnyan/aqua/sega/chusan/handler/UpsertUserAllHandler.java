@@ -15,7 +15,6 @@ import icu.samnyan.aqua.sega.util.jackson.StringMapper;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
@@ -61,15 +60,15 @@ public class UpsertUserAllHandler implements BaseHandler {
 
         // Not all field will be sent. Check if they are exist first.
 
-        UserData newUserData;
+        Chu3UserData newUserData;
         // UserData
         if (upsertUserAll.getUserData() == null) {
             return null;
         } else {
             newUserData = upsertUserAll.getUserData().get(0);
 
-            UserData userData = userDataService.getUserByExtId(userId).orElseGet(() -> {
-                var data = new UserData();
+            Chu3UserData userData = userDataService.getUserByExtId(userId).orElseGet(() -> {
+                var data = new Chu3UserData();
                 Card card = cardService.getCardByExtId(userId).orElseThrow();
                 data.setCard(card);
                 return data;

@@ -31,7 +31,7 @@ public class UserCharacter implements Serializable {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserData user;
+    private Chu3UserData user;
 
     @Column(name = "character_id")
     private int characterId;
@@ -56,7 +56,7 @@ public class UserCharacter implements Serializable {
 
     private int param2 = 0;
 
-    public UserCharacter(UserData userData) {
+    public UserCharacter(Chu3UserData userData) {
         user = userData;
     }
 }

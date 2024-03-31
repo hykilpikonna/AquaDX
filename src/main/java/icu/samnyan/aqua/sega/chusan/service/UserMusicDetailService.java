@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
 import icu.samnyan.aqua.sega.chusan.model.Chu3UserMusicDetailRepo;
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserData;
+import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData;
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserMusicDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -44,7 +44,7 @@ public class UserMusicDetailService {
         return userMusicDetailRepository.findByUser_Card_ExtIdAndMusicId(Long.parseLong(userId), musicId);
     }
 
-    public Optional<UserMusicDetail> getByUserAndMusicIdAndLevel(UserData user, int musicId, int level) {
+    public Optional<UserMusicDetail> getByUserAndMusicIdAndLevel(Chu3UserData user, int musicId, int level) {
         return userMusicDetailRepository.findTopByUserAndMusicIdAndLevelOrderByIdDesc(user, musicId, level);
     }
 }

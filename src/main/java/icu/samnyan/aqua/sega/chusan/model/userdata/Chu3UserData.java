@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import icu.samnyan.aqua.net.games.IGenericUserData;
+import icu.samnyan.aqua.net.games.IUserData;
 import icu.samnyan.aqua.sega.chusan.model.response.data.UserEmoney;
 import icu.samnyan.aqua.sega.general.model.Card;
 import icu.samnyan.aqua.sega.util.jackson.AccessCodeSerializer;
@@ -126,7 +126,7 @@ import java.util.List;
         "rankUpChallengeResults",
         "isNetBattleHost",
         "netBattleEndState" })
-public class UserData implements Serializable, IGenericUserData {
+public class Chu3UserData implements Serializable, IUserData {
     @Serial
     private static final long serialVersionUID = 1L;
 

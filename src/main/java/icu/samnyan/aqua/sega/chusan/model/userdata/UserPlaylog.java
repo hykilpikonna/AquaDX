@@ -32,7 +32,7 @@ public class UserPlaylog implements Serializable, IGenericGamePlaylog {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserData user;
+    private Chu3UserData user;
 
     private String romVersion;
 
@@ -155,7 +155,7 @@ public class UserPlaylog implements Serializable, IGenericGamePlaylog {
     // SUN PLUS
     private int ticketId;
 
-    public UserPlaylog(UserData userData) {
+    public UserPlaylog(Chu3UserData userData) {
         user = userData;
     }
 

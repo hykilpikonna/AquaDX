@@ -35,11 +35,11 @@ val JACKSON = jacksonObjectMapper().apply {
 inline fun <reified T> ObjectMapper.parse(str: Str) = readValue(str, T::class.java)
 inline fun <reified T> ObjectMapper.parse(map: Map<*, *>) = convertValue(map, T::class.java)
 // TODO: https://stackoverflow.com/q/78197784/7346633
-inline fun <reified T> Str.parseJackson() = if (contains("null")) {
+fun <T> Str.parseJackson(cls: Class<T>) = if (contains("null")) {
     val map = JACKSON.parse<MutableMap<String, Any>>(this)
-    JACKSON.convertValue(map.recursiveNotNull(), T::class.java)
+    JACKSON.convertValue(map.recursiveNotNull(), cls)
 }
-else JACKSON.readValue(this, T::class.java)
+else JACKSON.readValue(this, cls)
 fun <T> T.toJson() = JACKSON.writeValueAsString(this)
 
 inline fun <reified T> String.json() = try {

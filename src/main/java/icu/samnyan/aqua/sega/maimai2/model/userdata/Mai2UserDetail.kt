@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import icu.samnyan.aqua.net.games.BaseEntity
-import icu.samnyan.aqua.net.games.IGenericUserData
+import icu.samnyan.aqua.net.games.IUserData
 import icu.samnyan.aqua.sega.general.IntegerListConverter
 import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.util.jackson.AccessCodeSerializer
@@ -149,7 +149,7 @@ class Mai2UserDetail(
     // TODO: Make these non-nullable with default value
     var currentPlayCount: Int? = 0,
     var renameCredit: Int? = 0
-) : BaseEntity(), IGenericUserData {
+) : BaseEntity(), IUserData {
     @get:JsonIgnore
     override val totalScore: Long
         get() = totalDeluxscore

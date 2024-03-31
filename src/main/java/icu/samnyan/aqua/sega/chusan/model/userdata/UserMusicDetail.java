@@ -48,7 +48,7 @@ public class UserMusicDetail implements Serializable {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserData user;
+    private Chu3UserData user;
 
     @Column(name = "music_id")
     private int musicId;
@@ -86,7 +86,7 @@ public class UserMusicDetail implements Serializable {
 
     private int ext1;
 
-    public UserMusicDetail(UserData userData) {
+    public UserMusicDetail(Chu3UserData userData) {
         user = userData;
     }
 

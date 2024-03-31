@@ -4,6 +4,7 @@ package icu.samnyan.aqua.sega.chusan.model
 
 import icu.samnyan.aqua.net.games.GenericPlaylogRepo
 import icu.samnyan.aqua.net.games.GenericUserDataRepo
+import icu.samnyan.aqua.net.games.IUserRepo
 import icu.samnyan.aqua.sega.chusan.model.gamedata.*
 import icu.samnyan.aqua.sega.chusan.model.userdata.*
 import org.springframework.data.domain.Page
@@ -16,12 +17,10 @@ import java.util.*
 
 
 @NoRepositoryBean
-interface UserLinked<T, ID> : JpaRepository<T, ID> {
+interface Chu3UserLinked<T> : IUserRepo<Chu3UserData, T> {
     fun findByUser_Card_ExtId(extId: Long): List<T>
     fun findSingleByUser_Card_ExtId(extId: Long): Optional<T>
     fun findByUser_Card_ExtId(extId: Long, pageable: Pageable): Page<T>
-    fun findByUser(user: UserData): List<T>
-    fun findSingleByUser(user: UserData): Optional<T>
 }
 
 
@@ -39,62 +38,62 @@ interface Chu3UserLoginBonusRepo : JpaRepository<UserLoginBonus, Int> {
     fun findLoginBonus(userId: Int, version: Int, presetId: Int): Optional<UserLoginBonus>
 }
 
-interface Chu3UserActivityRepo : UserLinked<UserActivity, Long> {
-    fun findTopByUserAndActivityIdAndKindOrderByIdDesc(user: UserData, activityId: Int, kind: Int): Optional<UserActivity>
+interface Chu3UserActivityRepo : Chu3UserLinked<UserActivity> {
+    fun findTopByUserAndActivityIdAndKindOrderByIdDesc(user: Chu3UserData, activityId: Int, kind: Int): Optional<UserActivity>
 
     fun findAllByUser_Card_ExtIdAndKindOrderBySortNumberDesc(extId: Long, kind: Int): List<UserActivity>
 }
 
-interface Chu3UserCardPrintStateRepo : UserLinked<UserCardPrintState, Long> {
+interface Chu3UserCardPrintStateRepo : Chu3UserLinked<UserCardPrintState> {
     fun findByUser_Card_ExtIdAndHasCompleted(extId: Long, hasCompleted: Boolean): List<UserCardPrintState>
 
-    fun findByUserAndGachaIdAndHasCompleted(userData: UserData, gachaId: Int, hasCompleted: Boolean): List<UserCardPrintState>
+    fun findByUserAndGachaIdAndHasCompleted(userData: Chu3UserData, gachaId: Int, hasCompleted: Boolean): List<UserCardPrintState>
 }
 
-interface Chu3UserCharacterRepo : UserLinked<UserCharacter, Long> {
-    fun findTopByUserAndCharacterIdOrderByIdDesc(user: UserData, characterId: Int): Optional<UserCharacter>
+interface Chu3UserCharacterRepo : Chu3UserLinked<UserCharacter> {
+    fun findTopByUserAndCharacterIdOrderByIdDesc(user: Chu3UserData, characterId: Int): Optional<UserCharacter>
 }
 
-interface Chu3UserChargeRepo : UserLinked<UserCharge, Long> {
-    fun findByUserAndChargeId(extId: UserData, chargeId: Int): Optional<UserCharge>
+interface Chu3UserChargeRepo : Chu3UserLinked<UserCharge> {
+    fun findByUserAndChargeId(extId: Chu3UserData, chargeId: Int): Optional<UserCharge>
 }
 
-interface Chu3UserCourseRepo : UserLinked<UserCourse, Long> {
-    fun findTopByUserAndCourseIdOrderByIdDesc(user: UserData, courseId: Int): Optional<UserCourse>
+interface Chu3UserCourseRepo : Chu3UserLinked<UserCourse> {
+    fun findTopByUserAndCourseIdOrderByIdDesc(user: Chu3UserData, courseId: Int): Optional<UserCourse>
 }
 
-interface Chu3UserDataRepo : GenericUserDataRepo<UserData>
+interface Chu3UserDataRepo : GenericUserDataRepo<Chu3UserData>
 
-interface Chu3UserDuelRepo : UserLinked<UserDuel, Long> {
-    fun findTopByUserAndDuelIdOrderByIdDesc(user: UserData, duelId: Int): Optional<UserDuel>
+interface Chu3UserDuelRepo : Chu3UserLinked<UserDuel> {
+    fun findTopByUserAndDuelIdOrderByIdDesc(user: Chu3UserData, duelId: Int): Optional<UserDuel>
 }
 
-interface Chu3UserGachaRepo : UserLinked<UserGacha, Long> {
-    fun findByUserAndGachaId(extId: UserData, gachaId: Int): Optional<UserGacha>
+interface Chu3UserGachaRepo : Chu3UserLinked<UserGacha> {
+    fun findByUserAndGachaId(extId: Chu3UserData, gachaId: Int): Optional<UserGacha>
 }
 
-interface Chu3UserGameOptionRepo : UserLinked<UserGameOption, Long>
+interface Chu3UserGameOptionRepo : Chu3UserLinked<UserGameOption>
 
-interface Chu3UserGeneralDataRepo : UserLinked<UserGeneralData, Long> {
-    fun findByUserAndPropertyKey(user: UserData, key: String): Optional<UserGeneralData>
+interface Chu3UserGeneralDataRepo : Chu3UserLinked<UserGeneralData> {
+    fun findByUserAndPropertyKey(user: Chu3UserData, key: String): Optional<UserGeneralData>
 
     fun findByUser_Card_ExtIdAndPropertyKey(extId: Long, key: String): Optional<UserGeneralData>
 }
 
-interface Chu3UserItemRepo : UserLinked<UserItem, Long> {
-    fun findTopByUserAndItemIdAndItemKindOrderByIdDesc(user: UserData, itemId: Int, itemKind: Int): Optional<UserItem>
+interface Chu3UserItemRepo : Chu3UserLinked<UserItem> {
+    fun findTopByUserAndItemIdAndItemKindOrderByIdDesc(user: Chu3UserData, itemId: Int, itemKind: Int): Optional<UserItem>
 
     fun findAllByUser_Card_ExtIdAndItemKind(extId: Long, itemKind: Int, pageable: Pageable): Page<UserItem>
 
     fun findAllByUser_Card_ExtIdAndItemKind(extId: Long, itemKind: Int): List<UserItem>
 }
 
-interface Chu3UserMapAreaRepo : UserLinked<UserMapArea, Long> {
-    fun findTopByUserAndMapAreaIdOrderByIdDesc(user: UserData, mapAreaId: Int): Optional<UserMapArea>
+interface Chu3UserMapAreaRepo : Chu3UserLinked<UserMapArea> {
+    fun findTopByUserAndMapAreaIdOrderByIdDesc(user: Chu3UserData, mapAreaId: Int): Optional<UserMapArea>
 }
 
-interface Chu3UserMusicDetailRepo : UserLinked<UserMusicDetail, Long> {
-    fun findTopByUserAndMusicIdAndLevelOrderByIdDesc(user: UserData, musicId: Int, level: Int): Optional<UserMusicDetail>
+interface Chu3UserMusicDetailRepo : Chu3UserLinked<UserMusicDetail> {
+    fun findTopByUserAndMusicIdAndLevelOrderByIdDesc(user: Chu3UserData, musicId: Int, level: Int): Optional<UserMusicDetail>
 
     fun findByUser_Card_ExtIdAndMusicId(extId: Long, musicId: Int): List<UserMusicDetail>
 }

@@ -27,7 +27,7 @@ public class UserDuel {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserData user;
+    private Chu3UserData user;
 
     @Column(name = "duel_id")
     private int duelId;
@@ -49,7 +49,7 @@ public class UserDuel {
 
     private int param4;
 
-    public UserDuel(UserData userData) {
+    public UserDuel(Chu3UserData userData) {
         user = userData;
     }
 }
