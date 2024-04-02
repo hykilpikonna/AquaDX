@@ -63,6 +63,16 @@
       console.log(trend)
       console.log(games)
 
+      // If game is wacca, divide all ratings by 10
+      if (game === 'wacca') {
+        user.rating /= 10
+        trend.forEach(it => it.rating /= 10)
+        user.recent.forEach(it => {
+          it.beforeRating /= 10
+          it.afterRating /= 10
+        })
+      }
+
       const minDate = moment().subtract(TREND_DAYS, 'days').format("YYYY-MM-DD")
       d = {user,
         trend: trend.filter(it => it.date >= minDate && it.plays != 0),
@@ -226,15 +236,15 @@
               <div>{r.name ?? t("UserHome.UnknownSong")}</div>
               <div>
                 <span class={`lv level-${r.level === 10 ? 3 : r.level}`}>
-                  { r.notes?.[r.level === 10 ? 0 : r.level]?.lv?.toFixed(1) ?? r.level ?? '0'}
+                  { r.notes?.[r.level === 10 ? 0 : r.level]?.lv?.toFixed(1) ?? '-' ?? '0'}
                 </span>
                 <span class={`rank-${getMult(r.achievement, game)[2].toString()[0]}`}>
                   <span class="rank-text">{("" + getMult(r.achievement, game)[2]).replace("p", "+")}</span>
                   <span class="rank-num">{(r.achievement / 10000).toFixed(2)}%</span>
                 </span>
-                {#if game === 'mai2'}
+                {#if game === 'mai2' || game === 'wacca'}
                   <span class:increased={r.afterRating - r.beforeRating > 0} class="dx-change">
-                    {r.afterRating - r.beforeRating}
+                    {(r.afterRating - r.beforeRating).toFixed(0)}
                   </span>
                 {/if}
               </div>
