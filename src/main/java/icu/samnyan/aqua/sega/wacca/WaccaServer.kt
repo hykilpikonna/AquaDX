@@ -1,8 +1,11 @@
 package icu.samnyan.aqua.sega.wacca
 
 import ext.*
+import icu.samnyan.aqua.net.db.AquaGameOptions
+import icu.samnyan.aqua.net.games.wacca.Wacca
 import icu.samnyan.aqua.net.utils.ApiException
 import icu.samnyan.aqua.sega.general.dao.CardRepository
+import icu.samnyan.aqua.sega.wacca.WaccaDifficulty.INFERNO
 import icu.samnyan.aqua.sega.wacca.WaccaItemType.*
 import icu.samnyan.aqua.sega.wacca.WaccaItemType.NOTE_COLOR
 import icu.samnyan.aqua.sega.wacca.WaccaItemType.NOTE_SOUND
@@ -12,7 +15,6 @@ import icu.samnyan.aqua.sega.wacca.model.BaseRequest
 import icu.samnyan.aqua.sega.wacca.model.db.*
 import io.ktor.client.utils.*
 import jakarta.servlet.http.HttpServletRequest
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
 import java.util.*
@@ -23,11 +25,11 @@ val empty = emptyList<Any>()
 
 @RestController
 @API("/g/wacca/")
-class WaccaServer {
-    @Autowired
-    lateinit var cardRepo: CardRepository
-    @Autowired
-    lateinit var rp: WaccaRepos
+class WaccaServer(
+    val cardRepo: CardRepository,
+    val rp: WaccaRepos,
+    val wacca: Wacca
+) {
     val handlerMap = mutableMapOf<String, (BaseRequest, List<Any>) -> Any>()
     val cacheMap = mutableMapOf<String, String>()
 
@@ -172,15 +174,20 @@ fun WaccaServer.init() {
     "user/status/GetDetail" api@ { _, (uid) ->
         val u = user(uid) ?: return@api "[]"
         val o = options(u)
-        val items = rp.item.findByUser(u).groupBy { it.type }
+        val items = rp.item.findByUser(u).groupBy { it.type }.toMutableMap()
         val scores = rp.bestScore.findByUser(u)
         val scoreMap = scores.associateBy { it.musicId to it.level }
         val gates = rp.gate.findByUser(u)
         val bingo = rp.bingo.findByUser(u).firstOrNull()
-        val go = u.card?.aquaUser?.gameOptions
+        val go = u.card?.aquaUser?.gameOptions ?: AquaGameOptions()
 
         // TODO: make this and vip configurable
         // u.wp = 999999
+
+        // All unlock
+        if (go.unlockMusic) {
+            items[MUSIC_UNLOCK()] = wacca.musicMapping.keys.map { MUSIC_UNLOCK(u, it, p1 = INFERNO.value.long()) }
+        }
 
         u.run { ls(
             "0 status" - lStatus(),
@@ -234,8 +241,8 @@ fun WaccaServer.init() {
                 WP() -> { u.wp += param; u.wpTotal += param }
                 XP() -> u.xp += param
                 MUSIC_DIFFICULTY_UNLOCK(),
-                MUSIC_UNLOCK() -> newItems += (ex ?: WcUserItem(MUSIC_UNLOCK(), id))
-                    .apply { user = u; p1 = max(param.long(), p1).coerceAtLeast(WaccaDifficulty.HARD.value.long()) }
+                MUSIC_UNLOCK() -> newItems += (ex ?: MUSIC_UNLOCK(u, id))
+                    .apply { p1 = max(param.long(), p1).coerceAtLeast(WaccaDifficulty.HARD.value.long()) }
                 TROPHY() -> newItems += (ex ?: TROPHY(u, id)).apply { p1 = season.long(); p2 = param.long() }
                 else -> newItems += (ex ?: WcUserItem(type, id)).apply { user = u }
             }
