@@ -67,7 +67,7 @@ data class GenericMusicMeta(
 
 @Serializable
 data class GenericNoteMeta(
-    val lv: Double,
+    val lv: Double?,
 )
 
 @Serializable
