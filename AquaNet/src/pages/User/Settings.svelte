@@ -109,6 +109,9 @@
     display: flex
     flex-direction: column
 
+    label
+      max-width: max-content
+
     > div
       display: flex
       align-items: center
