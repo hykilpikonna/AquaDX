@@ -114,3 +114,11 @@ export interface MusicMeta {
 }
 
 export type AllMusic = { [key: string]: MusicMeta }
+
+export interface GameOption {
+  name: string
+  desc: string
+  key: string
+  value: any
+  type: "Boolean"
+}

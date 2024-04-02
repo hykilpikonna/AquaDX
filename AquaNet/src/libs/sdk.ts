@@ -6,7 +6,7 @@ import type {
   GenericGameSummary,
   GenericRanking,
   TrendEntry,
-  AquaNetUser
+  AquaNetUser, GameOption
 } from "./generalTypes";
 import type { GameName } from "./scoring";
 
@@ -152,4 +152,11 @@ export const GAME = {
 export const DATA = {
   allMusic: (game: GameName): Promise<AllMusic> =>
     fetch(`${DATA_HOST}/d/${game}/00/all-music.json`).then(it => it.json())
+}
+
+export const SETTING = {
+  get: (): Promise<GameOption[]> =>
+    post('/api/v2/settings/get', {}),
+  set: (key: string, value: string) =>
+    post('/api/v2/settings/set', { key, value }),
 }
