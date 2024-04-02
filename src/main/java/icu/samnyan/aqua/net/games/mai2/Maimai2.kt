@@ -25,9 +25,7 @@ class Maimai2(
     // Only show > S rank
     override val shownRanks = mai2Scores.filter { it.first >= 97 * 10000 }
     override val settableFields: Map<String, (Mai2UserDetail, String) -> Unit> by lazy { mapOf(
-        "userName" to { u, v -> u.userName = v
-            if (!v.all { it in USERNAME_CHARS }) { 400 - "Invalid character in username" }
-        },
+        "userName" to usernameCheck(SEGA_USERNAME_CAHRS),
     ) }
 
     override suspend fun userSummary(@RP username: Str) = us.cardByName(username) { card ->

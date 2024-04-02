@@ -1,13 +1,25 @@
 package icu.samnyan.aqua.net.games
 
 import ext.isoDate
+import ext.minus
 import java.time.LocalDate
 
 const val LETTERS = "ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ" +
     "ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ" +
     "０１２３４５６７８９"
 const val SYMBOLS = "・：；？！～／＋－×÷＝♂♀∀＃＆＊＠☆○◎◇□△▽♪†‡ΣαβγθφψωДё＄（）．＿␣"
-const val USERNAME_CHARS = LETTERS + SYMBOLS
+const val SEGA_USERNAME_CAHRS = LETTERS + SYMBOLS
+const val WACCA_USERNAME_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+    "abcdefghijklmnopqrstuvwxyz" +
+    "0123456789" +
+    "~|?!=()[]{},.:;\"@/_-+#*&%$"
+
+fun usernameCheck(chars: String): (IUserData, String) -> Unit = { u, v ->
+    u.userName = v
+    if (v.isBlank()) { 400 - "Username cannot be blank" }
+    if (v.length > 8) { 400 - "Username too long" }
+    v.find { it !in chars }?.let { 400 - "Invalid character '$it' in username" }
+}
 
 data class TrendLog(val date: String, val rating: Int)
 

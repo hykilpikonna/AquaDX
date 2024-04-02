@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException
 import ext.invoke
 import ext.mapApply
 import ext.minus
-import icu.samnyan.aqua.net.games.USERNAME_CHARS
+import icu.samnyan.aqua.net.games.SEGA_USERNAME_CAHRS
 import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.general.service.CardService
 import icu.samnyan.aqua.sega.maimai2.handler.UploadUserPlaylogHandler.Companion.playBacklog
@@ -27,7 +27,7 @@ class UpsertUserAllHandler(
     val repos: Mai2Repos
 ) : BaseHandler {
 
-    fun String.isValidUsername() = isNotBlank() && length <= 8 && all { it in USERNAME_CHARS }
+    fun String.isValidUsername() = isNotBlank() && length <= 8 && all { it in SEGA_USERNAME_CAHRS }
 
     @Throws(JsonProcessingException::class)
     override fun handle(request: Map<String, Any>): Any? {

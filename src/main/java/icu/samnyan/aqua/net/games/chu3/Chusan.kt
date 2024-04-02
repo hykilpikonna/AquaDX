@@ -3,7 +3,6 @@ package icu.samnyan.aqua.net.games.chu3
 import ext.API
 import ext.RP
 import ext.Str
-import ext.minus
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.games.*
 import icu.samnyan.aqua.net.utils.*
@@ -24,13 +23,10 @@ class Chusan(
             .map { TrendLog(it.playDate.toString(), it.playerRating) })
     }
 
-
     // Only show > AAA rank
     override val shownRanks = chu3Scores.filter { it.first >= 95 * 10000 }
     override val settableFields: Map<String, (Chu3UserData, String) -> Unit> by lazy { mapOf(
-        "userName" to { u, v -> u.setUserName(v)
-            if (!v.all { it in USERNAME_CHARS }) { 400 - "Invalid character in username" }
-        },
+        "userName" to usernameCheck(SEGA_USERNAME_CAHRS)
     ) }
 
     override suspend fun userSummary(@RP username: Str) = us.cardByName(username) { card ->

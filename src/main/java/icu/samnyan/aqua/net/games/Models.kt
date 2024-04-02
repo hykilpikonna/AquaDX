@@ -80,7 +80,7 @@ data class GenericItemMeta(
 // Here are some interfaces to generalize across multiple games
 interface IUserData {
     val id: Long
-    val userName: String
+    var userName: String
     val playerRating: Int
     val highestRating: Int
     val firstPlayDate: Any

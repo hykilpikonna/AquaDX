@@ -17,9 +17,7 @@ class Wacca(
     override val userDataRepo: WcUserRepo,
 ): GameApiController<WaccaUser>("wacca", WaccaUser::class) {
     override val settableFields: Map<String, (WaccaUser, String) -> Unit> by lazy { mapOf(
-        "userName" to { u, v -> u.userName = v
-            if (!v.all { it in USERNAME_CHARS }) { 400 - "Invalid character in username" }
-        },
+        "userName" to usernameCheck(WACCA_USERNAME_CHARS),
     ) }
 
     override suspend fun trend(@RP username: String) = us.cardByName(username) { card ->

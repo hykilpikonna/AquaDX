@@ -1,12 +1,8 @@
 package icu.samnyan.aqua.net.games.ongeki
 
 import ext.API
-import ext.minus
 import icu.samnyan.aqua.net.db.AquaUserServices
-import icu.samnyan.aqua.net.games.GameApiController
-import icu.samnyan.aqua.net.games.TrendLog
-import icu.samnyan.aqua.net.games.USERNAME_CHARS
-import icu.samnyan.aqua.net.games.findTrend
+import icu.samnyan.aqua.net.games.*
 import icu.samnyan.aqua.net.utils.*
 import icu.samnyan.aqua.sega.ongeki.dao.userdata.UserDataRepository
 import icu.samnyan.aqua.sega.ongeki.dao.userdata.UserGeneralDataRepository
@@ -29,9 +25,7 @@ class Ongeki(
 
     override val shownRanks = ongekiScores.filter { it.first >= 950000 }
     override val settableFields: Map<String, (UserData, String) -> Unit> by lazy { mapOf(
-        "userName" to { u, v -> u.setUserName(v)
-            if (!v.all { it in USERNAME_CHARS }) { 400 - "Invalid character in username" }
-        },
+        "userName" to usernameCheck(SEGA_USERNAME_CAHRS)
     ) }
 
     override suspend fun userSummary(username: String) = us.cardByName(username) { card ->
