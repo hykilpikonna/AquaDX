@@ -17,15 +17,34 @@ if (navigator.language.startsWith('zh')) {
   lang = 'zh'
 }
 
+export function ts(key: string, variables?: { [index: string]: any }) {
+  return t(key as keyof LocalizedMessages, variables)
+}
+
+/**
+ * Load the translation for the given key
+ *
+ * TODO: Check for translation completion on build
+ *
+ * @param key
+ * @param variables
+ */
 export function t(key: keyof LocalizedMessages, variables?: { [index: string]: any }) {
-  if (!msgs[lang][key]) {
-    console.warn(`Missing translation for ${key}`)
-    return key
+  // Check if the key exists
+  let msg = msgs[lang][key]
+  if (!msg) {
+    // Check if the key exists in English
+    if (!(msg = msgs.en[key])) {
+      msg = key
+      console.error(`ERROR!! Missing translation reference entry (English) for ${key}`)
+    }
+    else console.warn(`Missing translation for ${key} in ${lang}`)
   }
+  // Replace variables
   if (variables) {
-    return msgs[lang][key].replace(/\${(.*?)}/g, (_: string, v: string | number) => variables[v] + "")
+    return msg.replace(/\${(.*?)}/g, (_: string, v: string | number) => variables[v] + "")
   }
-  return msgs[lang][key]
+  return msg
 }
 Object.assign(window, { t })
 
