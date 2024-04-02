@@ -99,6 +99,10 @@ version = "1.0.0"
 description = "AquaDX Arcade Server"
 java.sourceCompatibility = JavaVersion.VERSION_21
 
+kotlin {
+    jvmToolchain(21)
+}
+
 springBoot {
     mainClass.set("icu.samnyan.aqua.EntryKt")
 }
@@ -114,6 +118,7 @@ tasks.processResources {
 tasks.test {
     enabled = false
     useJUnitPlatform()
+    jvmArgs("-Dkotest.assertions.collection.print.size=100")
 }
 
 tasks.withType<JavaCompile> {
