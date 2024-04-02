@@ -35,7 +35,7 @@ Check out these docs for more information.
 
 ### Usage
 
-1. Install [Java 17 JDK](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+1. Install [Java 21 Temurin JDK](https://adoptium.net/temurin/releases/?version=21) (Please select your appropriate operating system)
 2. Download the latest `aqua-nightly.zip` from [Releases](https://github.com/hykilpikonna/AquaDX/releases).
 3. Extract the zip file to a folder.
 4. Run `java -jar aqua.jar` in the folder.
