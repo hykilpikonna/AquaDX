@@ -14,21 +14,16 @@ class AquaGameOptions(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
 
-    @SettingField("Unlock All Music",
-        "Unlock all music and master difficulty in game")
+    @SettingField
     var unlockMusic: Boolean = false,
 
-    @SettingField("Unlock All Chara",
-        "Unlock all characters and partners in game")
+    @SettingField
     var unlockChara: Boolean = false,
 
-    @SettingField("Unlock All Collectables",
-        "Unlock all collectables (nameplate, title, icon, frame) in game. " +
-        "This setting is not relevant in chusan because in-game user box is disabled in chusan.")
+    @SettingField
     var unlockCollectables: Boolean = false,
 
-    @SettingField("Unlock All Tickets" ,
-        "Unlock all map tickets (the game still limits which tickets can be used)")
+    @SettingField
     var unlockTickets: Boolean = false,
 )
 

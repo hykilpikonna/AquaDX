@@ -20,11 +20,8 @@ class SettingsApi(
     val fields = AquaGameOptions::class.vars()
         .mapNotNull { it.findAnnotation<SettingField>()?.let { an -> it to an } }
     val fieldMap = fields.associate { (f, _) -> f.name to f }
-    val fieldDesc = fields.map { (f, an) -> mapOf(
-        "key" to f.name,
-        "name" to an.name,
-        "desc" to an.desc,
-        "type" to f.returnType.jvmErasure.simpleName
+    val fieldDesc = fields.map { (f, _) -> mapOf(
+        "key" to f.name, "type" to f.returnType.jvmErasure.simpleName
     ) }
 
     @API("get")

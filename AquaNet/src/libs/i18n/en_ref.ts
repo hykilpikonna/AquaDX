@@ -87,6 +87,15 @@ export const EN_REF_SETTINGS = {
   'settings.title': 'Settings',
   'settings.tabs.profile': 'Profile',
   'settings.tabs.game': 'Game',
+  'settings.fields.unlockMusic.name': 'Unlock All Music',
+  'settings.fields.unlockMusic.desc': 'Unlock all music and master difficulty in game.',
+  'settings.fields.unlockChara.name': 'Unlock All Characters',
+  'settings.fields.unlockChara.desc': 'Unlock all characters, voices, and partners in game.',
+  'settings.fields.unlockCollectables.name': 'Unlock All Collectables',
+  'settings.fields.unlockCollectables.desc': 'Unlock all collectables (nameplate, title, icon, frame) in game. ' +
+    'This setting is not relevant in chusan because in-game user box is disabled.',
+  'settings.fields.unlockTickets.name': 'Unlock All Tickets',
+  'settings.fields.unlockTickets.desc': 'Infinite map/ex tickets (note: maimai still limits which tickets can be used).',
 }
 
 export const EN_REF = { ...EN_REF_USER, ...EN_REF_Welcome, ...EN_REF_GENERAL,

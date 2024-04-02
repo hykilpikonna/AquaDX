@@ -47,7 +47,7 @@ annotation class Doc(
 
 @Target(AnnotationTarget.PROPERTY)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class SettingField(val name: Str, val desc: Str)
+annotation class SettingField
 
 // Reflection
 @Suppress("UNCHECKED_CAST")
