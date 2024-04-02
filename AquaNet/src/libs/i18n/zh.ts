@@ -104,7 +104,10 @@ const zhSettings: typeof EN_REF_SETTINGS = {
   'settings.fields.unlockCollectables.desc': '在游戏中解锁所有收藏品（名牌、称号、图标、背景图），此设置对中二不适用。',
   'settings.fields.unlockTickets.name': '解锁游戏券',
   'settings.fields.unlockTickets.desc': '无限跑图券/解锁券（注：maimai 客户端仍限制一些券不能使用）。',
-
+  'settings.fields.waccaInfiniteWp.name': 'Wacca: 无限 WP',
+  'settings.fields.waccaInfiniteWp.desc': '将 WP 设置为 999999',
+  'settings.fields.waccaAlwaysVip.name': 'Wacca: 永久会员',
+  'settings.fields.waccaAlwaysVip.desc': '将 VIP 到期时间设置为 2077-01-01',
 }
 
 export const ZH = { ...zhUser, ...zhWelcome, ...zhGeneral,

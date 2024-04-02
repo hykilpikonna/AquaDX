@@ -96,6 +96,10 @@ export const EN_REF_SETTINGS = {
     'This setting is not relevant in chusan because in-game user box is disabled.',
   'settings.fields.unlockTickets.name': 'Unlock All Tickets',
   'settings.fields.unlockTickets.desc': 'Infinite map/ex tickets (note: maimai still limits which tickets can be used).',
+  'settings.fields.waccaInfiniteWp.name': 'Wacca: Infinite WP',
+  'settings.fields.waccaInfiniteWp.desc': 'Set WP to 999999',
+  'settings.fields.waccaAlwaysVip.name': 'Wacca: Always VIP',
+  'settings.fields.waccaAlwaysVip.desc': 'Set VIP expiration date to 2077-01-01',
 }
 
 export const EN_REF = { ...EN_REF_USER, ...EN_REF_Welcome, ...EN_REF_GENERAL,

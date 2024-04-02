@@ -25,6 +25,12 @@ class AquaGameOptions(
 
     @SettingField
     var unlockTickets: Boolean = false,
+
+    @SettingField
+    var waccaInfiniteWp: Boolean = false,
+
+    @SettingField
+    var waccaAlwaysVip: Boolean = false,
 )
 
 interface AquaGameOptionsRepo : JpaRepository<AquaGameOptions, Long>
