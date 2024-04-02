@@ -1,18 +1,22 @@
 <!-- Svelte 4.2.11 -->
 
 <script lang="ts">
-  import { slide } from "svelte/transition";
+  import { slide, fade } from "svelte/transition";
   import type { AquaNetUser } from "../../libs/generalTypes";
   import { USER } from "../../libs/sdk";
   import StatusOverlays from "../../components/StatusOverlays.svelte";
   import Icon from "@iconify/svelte";
   import { pfp } from "../../libs/ui";
+  import { t, ts } from "../../libs/i18n";
+  import { FADE_IN, FADE_OUT } from "../../libs/config";
 
   USER.ensureLoggedIn()
 
   let me: AquaNetUser;
   let error: string;
   let submitting = ""
+  let tab = 0
+  const tabs = [ 'profile', 'game' ]
 
   const fields = [
     [ 'displayName', "Display Name" ],
@@ -59,45 +63,64 @@
 </script>
 
 <main class="content">
-  <h2 class="outer-title">Profile Settings</h2>
-
-  <div class="field">
-    <label for="profile-upload">Profile Picture</label>
-    <div>
-      {#if me && me.profilePicture}
-        <div on:click={() => pfpField.click()} on:keydown={e => e.key === 'Enter' && pfpField.click()}
-             role="button" tabindex="0" class="clickable">
-          <img use:pfp={me} alt="Profile" />
+  <div class="outer-title-options">
+    <h2>{t('settings.title')}</h2>
+    <nav>
+      {#each tabs as tabName, i}
+        <div transition:slide={{axis: 'x'}} class:active={tab === i}
+             on:click={() => tab = i} on:keydown={e => e.key === 'Enter' && (tab = i)}
+             role="button" tabindex="0">
+          {ts(`settings.tabs.${tabName}`)}
         </div>
-      {:else}
-        <button on:click={() => pfpField.click()}>
-          Upload New
-        </button>
-      {/if}
-    </div>
-    <input id="profile-upload" type="file" accept="image/*" style="display: none" bind:this={pfpField}
-           on:change={() => pfpField.files && uploadPfp(pfpField.files[0])} />
+      {/each}
+    </nav>
   </div>
 
-  {#each fields as [field, name], i (field)}
-    <div class="field">
-      <label for={field}>{name}</label>
-      <div>
-        <input id={field} type="text" use:passwordAction={field === 'password'}
-               bind:value={values[i]} on:input={() => changed = [...changed, field]}
-               placeholder={field === 'password' ? 'Unchanged' : 'Unset'}/>
-        {#if changed.includes(field) && values[i]}
-          <button transition:slide={{axis: 'x'}} on:click={() => submit(field, values[i])}>
-            {#if submitting === field}
-              <Icon icon="line-md:loading-twotone-loop" />
-            {:else}
-              Save
-            {/if}
-          </button>
-        {/if}
+  {#if tab === 0}
+    <!-- Tab 0: Profile settings -->
+    <div out:fade={FADE_OUT} in:fade={FADE_IN}>
+      <div class="field">
+        <label for="profile-upload">Profile Picture</label>
+        <div>
+          {#if me && me.profilePicture}
+            <div on:click={() => pfpField.click()} on:keydown={e => e.key === 'Enter' && pfpField.click()}
+                 role="button" tabindex="0" class="clickable">
+              <img use:pfp={me} alt="Profile" />
+            </div>
+          {:else}
+            <button on:click={() => pfpField.click()}>
+              Upload New
+            </button>
+          {/if}
+        </div>
+        <input id="profile-upload" type="file" accept="image/*" style="display: none" bind:this={pfpField}
+               on:change={() => pfpField.files && uploadPfp(pfpField.files[0])} />
       </div>
+
+      {#each fields as [field, name], i (field)}
+        <div class="field">
+          <label for={field}>{name}</label>
+          <div>
+            <input id={field} type="text" use:passwordAction={field === 'password'}
+                   bind:value={values[i]} on:input={() => changed = [...changed, field]}
+                   placeholder={field === 'password' ? 'Unchanged' : 'Unset'}/>
+            {#if changed.includes(field) && values[i]}
+              <button transition:slide={{axis: 'x'}} on:click={() => submit(field, values[i])}>
+                {#if submitting === field}
+                  <Icon icon="line-md:loading-twotone-loop" />
+                {:else}
+                  Save
+                {/if}
+              </button>
+            {/if}
+          </div>
+        </div>
+      {/each}
     </div>
-  {/each}
+  {:else if tab === 1}
+    <!-- Tab 1: Game settings -->
+    <div out:fade={FADE_OUT} in:fade={FADE_IN}>Hello world</div>
+  {/if}
 
   <StatusOverlays {error} loading={!me} />
 </main>

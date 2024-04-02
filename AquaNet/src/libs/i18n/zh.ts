@@ -1,4 +1,11 @@
-import { EN_REF_GENERAL, EN_REF_HOME, EN_REF_LEADERBOARD, EN_REF_USER, type EN_REF_Welcome } from "./en_ref";
+import {
+  EN_REF_GENERAL,
+  EN_REF_HOME,
+  EN_REF_LEADERBOARD,
+  EN_REF_SETTINGS,
+  EN_REF_USER,
+  type EN_REF_Welcome
+} from "./en_ref";
 
 const zhUser: typeof EN_REF_USER = {
   'UserHome.ServerRank': '服务器排名',
@@ -85,5 +92,11 @@ const zhHome: typeof EN_REF_HOME = {
   'home.setup-description': '如果您有街机框体或者手台，点击这里设置服务器的连接',
 }
 
+const zhSettings: typeof EN_REF_SETTINGS = {
+  'settings.title': '用户设置',
+  'settings.tabs.profile': '个人资料',
+  'settings.tabs.game': '游戏设置',
+}
+
 export const ZH = { ...zhUser, ...zhWelcome, ...zhGeneral,
-  ...zhLeaderboard, ...zhHome }
+  ...zhLeaderboard, ...zhHome, ...zhSettings }

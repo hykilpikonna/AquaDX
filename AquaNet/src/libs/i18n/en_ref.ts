@@ -83,7 +83,13 @@ export const EN_REF_HOME = {
   'home.setup-description': 'If you own a cab or arcade setup, begin setting up the connection.',
 }
 
+export const EN_REF_SETTINGS = {
+  'settings.title': 'Settings',
+  'settings.tabs.profile': 'Profile',
+  'settings.tabs.game': 'Game',
+}
+
 export const EN_REF = { ...EN_REF_USER, ...EN_REF_Welcome, ...EN_REF_GENERAL,
-  ...EN_REF_LEADERBOARD, ...EN_REF_HOME }
+  ...EN_REF_LEADERBOARD, ...EN_REF_HOME, ...EN_REF_SETTINGS }
 
 export type LocalizedMessages = typeof EN_REF
