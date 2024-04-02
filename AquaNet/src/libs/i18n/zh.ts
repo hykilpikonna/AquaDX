@@ -96,6 +96,15 @@ const zhSettings: typeof EN_REF_SETTINGS = {
   'settings.title': '用户设置',
   'settings.tabs.profile': '个人资料',
   'settings.tabs.game': '游戏设置',
+  'settings.fields.unlockMusic.name': '解锁谱面',
+  'settings.fields.unlockMusic.desc': '在游戏中解锁所有曲目和大师难度谱面。',
+  'settings.fields.unlockChara.name': '解锁角色',
+  'settings.fields.unlockChara.desc': '在游戏中解锁所有角色、语音和伙伴。',
+  'settings.fields.unlockCollectables.name': '解锁收藏品',
+  'settings.fields.unlockCollectables.desc': '在游戏中解锁所有收藏品（名牌、称号、图标、背景图），此设置对中二不适用。',
+  'settings.fields.unlockTickets.name': '解锁游戏券',
+  'settings.fields.unlockTickets.desc': '无限跑图券/解锁券（注：maimai 客户端仍限制一些券不能使用）。',
+
 }
 
 export const ZH = { ...zhUser, ...zhWelcome, ...zhGeneral,
