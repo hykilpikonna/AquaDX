@@ -48,14 +48,19 @@ val ongekiScores = listOf(
 ).map { (k, v) -> (k * 10000).toInt() to v }
 
 val waccaScores = listOf(
-    100.0 to "AP",
+    100.0 to "Master",
+    99.0  to "SSS+",
     98.0  to "SSS",
+    97.0  to "SS+",
     95.0  to "SS",
+    93.0  to "S+",
     90.0  to "S",
     85.0  to "AAA",
     80.0  to "AA",
     70.0  to "A",
+    // The official requirement for B is a score of 0 and a hit count of 10
+    // But that's nonsense, so I'm going to make something up
     60.0  to "B",
-    1.0  to "C",
+    30.0  to "C",
     0.0   to "D",
 ).map { (k, v) -> (k * 10000).toInt() to v }
