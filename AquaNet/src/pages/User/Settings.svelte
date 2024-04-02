@@ -135,7 +135,7 @@
           {#if field.type === "Boolean"}
             <div class="bool">
               <input id={field.name} type="checkbox" bind:checked={field.value}
-                     on:change={() => submitGameOption(field.key, !field.value)} />
+                     on:change={() => submitGameOption(field.key, field.value)} />
               <label for={field.name}>
                 <span class="name">{field.name}</span>
                 <span class="desc">{field.desc}</span>
@@ -147,7 +147,7 @@
     </div>
   {/if}
 
-  <StatusOverlays {error} loading={!me || submitting} />
+  <StatusOverlays {error} loading={!me || !!submitting} />
 </main>
 
 <style lang="sass">
