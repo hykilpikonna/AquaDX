@@ -185,17 +185,25 @@ fun WaccaServer.init() {
         val bingo = rp.bingo.findByUser(u).firstOrNull()
         val go = u.card?.aquaUser?.gameOptions ?: AquaGameOptions()
 
-        // TODO: make this and vip configurable
-        // u.wp = 999999
+        // TODO: make vip configurable
 
         // All unlock
+        if (go.waccaInfiniteWp) u.wp = 999999
         if (go.unlockMusic && wacca.musicMapping.isNotEmpty()) {
             items[MUSIC_UNLOCK()] = wacca.musicMapping.keys.map { MUSIC_UNLOCK(u, it, p1 = INFERNO.value.long()) }
         }
         if (go.unlockTickets) {
-            // Valid tickets: 106001, 106002, 206001, 206002
             var i = 0
             items[TICKET()] = enabledTickets.flatMap { (1..5).map { TICKET(u, it).apply { id = (i++).toLong() } } }
+        }
+        if (go.unlockChara) {
+            wacca.itemMapping["plates"]?.let { items[USER_PLATE()] = it.map { (k, _) -> USER_PLATE(u, k.int()) } }
+        }
+        if (go.unlockCollectables) {
+            // TODO: Add titles
+            mapOf("icon" to ICON, "plates" to USER_PLATE, "trophy" to TROPHY).map { (name, type) ->
+                wacca.itemMapping[name]?.let { items[type()] = it.map { (k, _) -> type(u, k.int()) } }
+            }
         }
 
         u.run { ls(
