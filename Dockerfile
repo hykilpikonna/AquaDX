@@ -1,6 +1,6 @@
 # Use a multi-stage build to keep the image size small
 # Start with a Gradle image for building the project
-FROM gradle:jdk11 as builder
+FROM gradle:jdk21-alpine as builder
 
 # Copy the Gradle wrapper and configuration files separately to leverage Docker cache
 COPY --chown=gradle:gradle gradlew /home/gradle/
@@ -20,13 +20,13 @@ COPY --chown=gradle:gradle src /home/gradle/src
 RUN ./gradlew build -x test
 
 # Start with a fresh image for the runtime
-FROM openjdk:11-jre-slim
+FROM eclipse-temurin:21-jre-alpine
 
 # Set the deployment directory
 WORKDIR /app
 
 # Copy only the built JAR from the builder image
-COPY --from=builder /home/gradle/build/libs/aqua-?.?.??.jar /app/
+COPY --from=builder /home/gradle/build/libs/AquaDX-*.jar /app/
 
 # The command to run the application
-CMD java -jar aqua-*.jar
+CMD java -jar AquaDX-*.jar

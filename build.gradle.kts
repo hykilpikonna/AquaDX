@@ -97,7 +97,7 @@ dependencies {
 group = "icu.samnya"
 version = "1.0.0"
 description = "AquaDX Arcade Server"
-java.sourceCompatibility = JavaVersion.VERSION_17
+java.sourceCompatibility = JavaVersion.VERSION_21
 
 springBoot {
     mainClass.set("icu.samnyan.aqua.EntryKt")
