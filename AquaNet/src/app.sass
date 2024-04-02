@@ -133,6 +133,23 @@ input
   transition: $transition
   box-sizing: border-box
 
+input[type="checkbox"]
+  width: 1.2em
+  height: 1.2em
+  margin: 0
+  padding: 0
+  border: 1px solid $c-main
+  background-color: $ov-lighter
+  appearance: none
+  cursor: pointer
+  flex-shrink: 0
+
+  &:checked
+    background-color: $c-main
+    border-color: $c-main
+
+label
+  cursor: pointer
 
 input:focus, input:focus-visible
   border: 1px solid $c-main

@@ -2,8 +2,8 @@
 
 <script lang="ts">
   import { slide, fade } from "svelte/transition";
-  import type { AquaNetUser } from "../../libs/generalTypes";
-  import { USER } from "../../libs/sdk";
+  import type { AquaNetUser, GameOption } from "../../libs/generalTypes";
+  import { SETTING, USER } from "../../libs/sdk";
   import StatusOverlays from "../../components/StatusOverlays.svelte";
   import Icon from "@iconify/svelte";
   import { pfp } from "../../libs/ui";
@@ -18,7 +18,7 @@
   let tab = 0
   const tabs = [ 'profile', 'game' ]
 
-  const fields = [
+  const profileFields = [
     [ 'displayName', "Display Name" ],
     [ 'username', "Username" ],
     [ 'password', "Password" ],
@@ -26,14 +26,17 @@
     [ 'profileBio', "Bio" ],
   ]
 
+  let gameFields: GameOption[] = []
+
   // Fetch user data
-  const getMe = () => USER.me().then(m => {
+  const getMe = () => Promise.all([USER.me(), SETTING.get()]).then(([m, s]) => {
+    gameFields = s
     me = m
-    values = fields.map(([field]) => me[field as keyof AquaNetUser])
+    values = profileFields.map(([field]) => me[field as keyof AquaNetUser])
   }).catch(e => error = e.message)
   getMe()
 
-  let values = Array(fields.length).fill('')
+  let values = Array(profileFields.length).fill('')
   let changed: string[] = []
   let pfpField: HTMLInputElement
 
@@ -44,6 +47,13 @@
     USER.setting(field, value).then(() => {
       changed = changed.filter(c => c !== field)
     }).catch(e => error = e.message).finally(() => submitting = "")
+  }
+
+  function submitGameOption(field: string, value: any) {
+    if (submitting) return
+    submitting = field
+
+    SETTING.set(field, value).catch(e => error = e.message).finally(() => submitting = "")
   }
 
   function uploadPfp(file: File) {
@@ -78,7 +88,7 @@
 
   {#if tab === 0}
     <!-- Tab 0: Profile settings -->
-    <div out:fade={FADE_OUT} in:fade={FADE_IN}>
+    <div out:fade={FADE_OUT} in:fade={FADE_IN} class="fields">
       <div class="field">
         <label for="profile-upload">Profile Picture</label>
         <div>
@@ -97,7 +107,7 @@
                on:change={() => pfpField.files && uploadPfp(pfpField.files[0])} />
       </div>
 
-      {#each fields as [field, name], i (field)}
+      {#each profileFields as [field, name], i (field)}
         <div class="field">
           <label for={field}>{name}</label>
           <div>
@@ -119,14 +129,46 @@
     </div>
   {:else if tab === 1}
     <!-- Tab 1: Game settings -->
-    <div out:fade={FADE_OUT} in:fade={FADE_IN}>Hello world</div>
+    <div out:fade={FADE_OUT} in:fade={FADE_IN} class="fields">
+      {#each gameFields as field}
+        <div class="field">
+          {#if field.type === "Boolean"}
+            <div class="bool">
+              <input id={field.name} type="checkbox" bind:checked={field.value}
+                     on:change={() => submitGameOption(field.key, !field.value)} />
+              <label for={field.name}>
+                <span class="name">{field.name}</span>
+                <span class="desc">{field.desc}</span>
+              </label>
+            </div>
+          {/if}
+        </div>
+      {/each}
+    </div>
   {/if}
 
-  <StatusOverlays {error} loading={!me} />
+  <StatusOverlays {error} loading={!me || submitting} />
 </main>
 
 <style lang="sass">
   @import "../../vars"
+
+  .fields
+    display: flex
+    flex-direction: column
+    gap: 12px
+
+  .bool
+    display: flex
+    align-items: center
+    gap: 1rem
+
+    label
+      display: flex
+      flex-direction: column
+
+      .desc
+        opacity: 0.6
 
   .field
     display: flex
@@ -135,7 +177,7 @@
     label
       max-width: max-content
 
-    > div
+    > div:not(.bool)
       display: flex
       align-items: center
       gap: 1rem

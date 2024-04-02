@@ -157,6 +157,6 @@ export const DATA = {
 export const SETTING = {
   get: (): Promise<GameOption[]> =>
     post('/api/v2/settings/get', {}),
-  set: (key: string, value: string) =>
-    post('/api/v2/settings/set', { key, value }),
+  set: (key: string, value: any) =>
+    post('/api/v2/settings/set', { key, value: `${value}` }),
 }
