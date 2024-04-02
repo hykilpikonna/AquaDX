@@ -30,5 +30,5 @@ class Wacca(
         genericUserSummary(card, mapOf())
     }
 
-    override val shownRanks: List<Pair<Int, String>> = waccaScores.filter { it.first > 83 * 10000 }
+    override val shownRanks: List<Pair<Int, String>> = waccaScores.filter { it.first > 85 * 10000 }
 }
