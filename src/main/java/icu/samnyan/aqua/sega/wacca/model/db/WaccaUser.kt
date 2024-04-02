@@ -34,7 +34,7 @@ class WaccaUser : BaseEntity(), IUserData {
     override var playerRating = 0
     override var highestRating = 0
     @Temporal(TemporalType.TIMESTAMP)
-    var vipExpireTime: Date = "2077-01-01".isoDate().toDate()
+    var vipExpireTime: Date = Date(0)
     var alwaysVip = false
     var loginCount = 0
     var loginCountDays = 0
@@ -60,7 +60,13 @@ class WaccaUser : BaseEntity(), IUserData {
     override var totalScore = 0L
 
     fun lStatus() = ls(card?.extId,
-        userName, 1, xp, danLevel, danType, wp, ls(0, 0, 0), loginCount, loginCountDays,
-        (loginCount - 1).coerceAtLeast(0), loginCountDaysConsec, vipExpireTime.sec, loginCountToday, this.playerRating
+        userName, 1, xp, danLevel, danType, getWp(), ls(0, 0, 0), loginCount, loginCountDays,
+        (loginCount - 1).coerceAtLeast(0), loginCountDaysConsec, getVipExpire().sec, loginCountToday, this.playerRating
     )
+
+    fun getVipExpire() =
+        if (card?.aquaUser?.gameOptions?.waccaAlwaysVip == true) "2077-01-01".isoDate().toDate()
+        else vipExpireTime
+
+    fun getWp() = if (card?.aquaUser?.gameOptions?.waccaInfiniteWp == true) 999999 else wp
 }

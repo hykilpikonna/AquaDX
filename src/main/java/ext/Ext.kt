@@ -129,6 +129,7 @@ fun Long.toHex(len: Int = 16): Str = "0x${this.toString(len).padStart(len, '0').
 fun Map<String, Any>.toUrl() = entries.joinToString("&") { (k, v) -> "$k=$v" }
 
 fun Any.long() = when (this) {
+    is Boolean -> if (this) 1L else 0
     is Number -> toLong()
     is String -> toLong()
     else -> 400 - "Invalid number: $this"
