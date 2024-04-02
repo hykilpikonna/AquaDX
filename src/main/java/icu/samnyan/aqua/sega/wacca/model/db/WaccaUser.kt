@@ -60,13 +60,13 @@ class WaccaUser : BaseEntity(), IUserData {
     override var totalScore = 0L
 
     fun lStatus() = ls(card?.extId,
-        userName, 1, xp, danLevel, danType, getWp(), ls(0, 0, 0), loginCount, loginCountDays,
-        (loginCount - 1).coerceAtLeast(0), loginCountDaysConsec, getVipExpire().sec, loginCountToday, this.playerRating
+        userName, 1, xp, danLevel, danType, moddedWp, ls(0, 0, 0), loginCount, loginCountDays,
+        (loginCount - 1).coerceAtLeast(0), loginCountDaysConsec, moddedVipExpire.sec, loginCountToday, this.playerRating
     )
 
-    fun getVipExpire() =
+    val moddedVipExpire get() =
         if (card?.aquaUser?.gameOptions?.waccaAlwaysVip == true) "2077-01-01".isoDate().toDate()
         else vipExpireTime
 
-    fun getWp() = if (card?.aquaUser?.gameOptions?.waccaInfiniteWp == true) 999999 else wp
+    val moddedWp get() = if (card?.aquaUser?.gameOptions?.waccaInfiniteWp == true) 999999 else wp
 }

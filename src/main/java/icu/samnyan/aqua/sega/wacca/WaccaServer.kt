@@ -358,7 +358,7 @@ fun WaccaServer.init() {
         addItems(ls(ls(MUSIC_UNLOCK(), songId.int(), diff.int())), u, items)
         useItems(itemUsed as List<List<Int>>, u, items)
 
-        ls(u.getWp(), rp.item.findByUserAndType(u, TICKET()).map { it.ls() })
+        ls(u.moddedWp, rp.item.findByUserAndType(u, TICKET()).map { it.ls() })
     }
 
     "user/goods/purchase" { _, (uid, pid, count, purchaseType, cost, items) ->
@@ -369,7 +369,7 @@ fun WaccaServer.init() {
         // WP Purchase = 2, Credit purchase = 1
         if (purchaseType == 2) useItems(ls(ls(WP(), 0, cost.int())), u, itemsMap)
 
-        ls(u.getWp(), rp.item.findByUserAndType(u, TICKET()).map { it.ls() })
+        ls(u.moddedWp, rp.item.findByUserAndType(u, TICKET()).map { it.ls() })
     }
 
     "user/rating/update" empty { _, (uid, newRating, songs) ->
@@ -460,13 +460,13 @@ fun WaccaServer.init() {
     // TODO: Test this
     "user/vip/get" { _, (uid) ->
         val u = user(uid) ?: (404 - "User not found")
-        val vipDays = (u.getVipExpire().time - millis()) / (24 * 60 * 60 * 1000)
+        val vipDays = (u.moddedVipExpire.time - millis()) / (24 * 60 * 60 * 1000)
         ls(vipDays, ls(1, 1, "presents" - empty))
     }
 
     "user/vip/start" { _, (uid, cost, days) ->
         val u = user(uid) ?: (404 - "User not found")
         rp.user.save(u.apply { vipExpireTime = Date(millis() + days.int() * (24 * 60 * 60 * 1000)) })
-        ls(u.getVipExpire().sec, "presents" - empty)
+        ls(u.moddedVipExpire.sec, "presents" - empty)
     }
 }
