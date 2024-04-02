@@ -42,6 +42,7 @@ class WaccaServer {
     // [[stageId, danLevel], ...]
     val enabledStages = ("[[3014, 14], [3013, 13], [3012, 12], [3011, 11], [3010, 10], [3009, 9], [3008, 8], [3007, 7], [3006, 6], [3005, 5], [3004, 4], [3003, 3], [3002, 2], [3001, 1], [210001, 0], [210002, 0], [210003, 0], [310001, 0], [310002, 0], [310003, 0], [310004, 0], [310005, 0], [310006, 0]]"
         .jsonArray() as List<List<Int>>).associate { it[0].int() to it[1].int() }
+    val enabledTickets = listOf(106001, 106002, 206001, 206002)
 
     init { init() }
 
@@ -191,6 +192,11 @@ fun WaccaServer.init() {
         if (go.unlockMusic && wacca.musicMapping.isNotEmpty()) {
             items[MUSIC_UNLOCK()] = wacca.musicMapping.keys.map { MUSIC_UNLOCK(u, it, p1 = INFERNO.value.long()) }
         }
+        if (go.unlockTickets) {
+            // Valid tickets: 106001, 106002, 206001, 206002
+            var i = 0
+            items[TICKET()] = enabledTickets.flatMap { (1..5).map { TICKET(u, it).apply { id = (i++).toLong() } } }
+        }
 
         u.run { ls(
             "0 status" - lStatus(),
@@ -201,7 +207,6 @@ fun WaccaServer.init() {
                     // Add all difficulties up to the highest unlocked
                     (1..song.p1).map { diff -> ls(song.itemId, diff, 0, song.acquiredDate.sec) }
                 } ?: empty
-                else if (it == TICKET && go?.unlockTickets == true) (0..4).map { ls(it, 106002, 0) }
                 else items[it()]?.map { it.ls() } ?: empty
             },
             "4 scores" - (scores.map { it.ls() } + (items[MUSIC_UNLOCK()]?.flatMap { song ->
