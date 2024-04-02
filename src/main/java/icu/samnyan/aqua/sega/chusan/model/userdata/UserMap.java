@@ -27,7 +27,7 @@ import java.io.Serializable;
         "remainGridCount",
         "isLocked"
 })
-public class UserMapArea implements Serializable {
+public class UserMap implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -58,7 +58,7 @@ public class UserMapArea implements Serializable {
     @JsonProperty("isLocked")
     private boolean isLocked;
 
-    public UserMapArea(Chu3UserData userData) {
+    public UserMap(Chu3UserData userData) {
         user = userData;
     }
 }

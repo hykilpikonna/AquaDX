@@ -1,8 +1,8 @@
 package icu.samnyan.aqua.sega.chusan.service;
 
-import icu.samnyan.aqua.sega.chusan.model.Chu3UserMapAreaRepo;
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserMapRepo;
 import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData;
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserMapArea;
+import icu.samnyan.aqua.sega.chusan.model.userdata.UserMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,30 +15,30 @@ import java.util.Optional;
 @Service("ChusanUserMapAreaService")
 public class UserMapAreaService {
 
-    private final Chu3UserMapAreaRepo userMapRepository;
+    private final Chu3UserMapRepo userMapRepository;
 
     @Autowired
-    public UserMapAreaService(Chu3UserMapAreaRepo userMapRepository) {
+    public UserMapAreaService(Chu3UserMapRepo userMapRepository) {
         this.userMapRepository = userMapRepository;
     }
 
-    public UserMapArea save(UserMapArea userMap) {
+    public UserMap save(UserMap userMap) {
         return userMapRepository.save(userMap);
     }
 
-    public List<UserMapArea> saveAll(Iterable<UserMapArea> userMap) {
+    public List<UserMap> saveAll(Iterable<UserMap> userMap) {
         return userMapRepository.saveAll(userMap);
     }
 
-    public List<UserMapArea> getByUser(Chu3UserData user) {
+    public List<UserMap> getByUser(Chu3UserData user) {
         return userMapRepository.findByUser(user);
     }
 
-    public List<UserMapArea> getByUserId(String userId) {
+    public List<UserMap> getByUserId(String userId) {
         return userMapRepository.findByUser_Card_ExtId(Long.parseLong(userId));
     }
 
-    public Optional<UserMapArea> getByUserAndMapAreaId(Chu3UserData user, int mapId) {
+    public Optional<UserMap> getByUserAndMapAreaId(Chu3UserData user, int mapId) {
         return userMapRepository.findTopByUserAndMapAreaIdOrderByIdDesc(user, mapId);
     }
 }

@@ -13,12 +13,11 @@ data class Chu3DataExport(
     var userCourseList: List<UserCourse>,
     var userDuelList: List<UserDuel>,
     var userItemList: List<UserItem>,
-    var userMapList: List<UserMapArea>,
+    var userMapList: List<UserMap>,
     var userMusicDetailList: List<UserMusicDetail>,
     var userPlaylogList: List<UserPlaylog>,
-    var userLoginBonusList: List<UserLoginBonus>,
 ): IExportClass<Chu3UserData> {
     constructor() : this("SDHD",
-        Chu3UserData(), UserGameOption(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList())
+        Chu3UserData(), UserGameOption(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList())
 }
 

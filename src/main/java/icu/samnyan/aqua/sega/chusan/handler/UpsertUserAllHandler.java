@@ -102,14 +102,14 @@ public class UpsertUserAllHandler implements BaseHandler {
 
         // userMapList
         if (upsertUserAll.getUserMapAreaList() != null) {
-            List<UserMapArea> userMapList = upsertUserAll.getUserMapAreaList();
-            Map<Integer, UserMapArea> newUserMapMap = new HashMap<>();
+            List<UserMap> userMapList = upsertUserAll.getUserMapAreaList();
+            Map<Integer, UserMap> newUserMapMap = new HashMap<>();
 
             userMapList.forEach(newUserMap -> {
                 int mapId = newUserMap.getMapAreaId();
-                UserMapArea userMap;
-                Optional<UserMapArea> userMapOptional = userMapService.getByUserAndMapAreaId(newUserData, mapId);
-                userMap = userMapOptional.orElseGet(() -> new UserMapArea(newUserData));
+                UserMap userMap;
+                Optional<UserMap> userMapOptional = userMapService.getByUserAndMapAreaId(newUserData, mapId);
+                userMap = userMapOptional.orElseGet(() -> new UserMap(newUserData));
 
                 newUserMap.setId(userMap.getId());
                 newUserMap.setUser(userMap.getUser());

@@ -20,7 +20,7 @@ import kotlin.reflect.KClass
 data class ImportClass<T : Any>(
     val type: KClass<T>,
     val renames: Map<String, String?>? = null,
-    val name: String = type.simpleName!!.removePrefix("Mai2").lowercase()
+    val name: String = type.simpleName!!.removePrefix("Mai2").removePrefix("Chu3").lowercase()
 )
 
 interface IUserEntity<UserModel: IUserData> {

@@ -479,7 +479,7 @@ public class ApiChuniV2PlayerDataController {
         userItemList.forEach(x -> x.setUser(userData));
         userItemService.saveAll(userItemList);
 
-        List<UserMapArea> userMapList = data.getUserMapList();
+        List<UserMap> userMapList = data.getUserMapList();
         userMapList.forEach(x -> x.setUser(userData));
         userMapAreaService.saveAll(userMapList);
 

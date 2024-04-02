@@ -24,7 +24,7 @@ public class ChuniDataImport {
     private List<UserDuel> userDuelList;
     private UserGameOption userGameOption;
     private List<UserItem> userItemList;
-    private List<UserMapArea> userMapList;
+    private List<UserMap> userMapList;
     private List<UserMusicDetail> userMusicDetailList;
     private List<UserPlaylog> userPlaylogList;
 }

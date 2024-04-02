@@ -24,7 +24,9 @@ interface Chu3UserLinked<T> : IUserRepo<Chu3UserData, T> {
 }
 
 
-interface Chu3UserLoginBonusRepo : Chu3UserLinked<UserLoginBonus> {
+// This repo cannot be generalized as UserLinked because the entity stores user as an int
+// TODO: Find a way to generalize this
+interface Chu3UserLoginBonusRepo : JpaRepository<UserLoginBonus, Long> {
     @Query(
         value = "select * from chusan_user_login_bonus where user = ?1 and version = ?2 and is_finished = ?3 order by last_update_date desc",
         nativeQuery = true
@@ -88,8 +90,8 @@ interface Chu3UserItemRepo : Chu3UserLinked<UserItem> {
     fun findAllByUser_Card_ExtIdAndItemKind(extId: Long, itemKind: Int): List<UserItem>
 }
 
-interface Chu3UserMapAreaRepo : Chu3UserLinked<UserMapArea> {
-    fun findTopByUserAndMapAreaIdOrderByIdDesc(user: Chu3UserData, mapAreaId: Int): Optional<UserMapArea>
+interface Chu3UserMapRepo : Chu3UserLinked<UserMap> {
+    fun findTopByUserAndMapAreaIdOrderByIdDesc(user: Chu3UserData, mapAreaId: Int): Optional<UserMap>
 }
 
 interface Chu3UserMusicDetailRepo : Chu3UserLinked<UserMusicDetail> {
@@ -98,7 +100,7 @@ interface Chu3UserMusicDetailRepo : Chu3UserLinked<UserMusicDetail> {
     fun findByUser_Card_ExtIdAndMusicId(extId: Long, musicId: Int): List<UserMusicDetail>
 }
 
-interface Chu3UserPlaylogRepo : GenericPlaylogRepo<UserPlaylog> {
+interface Chu3UserPlaylogRepo : GenericPlaylogRepo<UserPlaylog>, Chu3UserLinked<UserPlaylog> {
     fun findByUser_Card_ExtIdAndLevelNot(extId: Long, levelNot: Int, page: Pageable): List<UserPlaylog>
 
     fun findByUser_Card_ExtIdAndMusicIdAndLevel(extId: Long, musicId: Int, level: Int): List<UserPlaylog>
@@ -170,7 +172,7 @@ class Chu3Repos(
     val userGameOption: Chu3UserGameOptionRepo,
     val userGeneralData: Chu3UserGeneralDataRepo,
     val userItem: Chu3UserItemRepo,
-    val userMapArea: Chu3UserMapAreaRepo,
+    val userMap: Chu3UserMapRepo,
     val userMusicDetail: Chu3UserMusicDetailRepo,
     val userPlaylog: Chu3UserPlaylogRepo,
     val gameAvatarAcc: Chu3GameAvatarAccRepo,

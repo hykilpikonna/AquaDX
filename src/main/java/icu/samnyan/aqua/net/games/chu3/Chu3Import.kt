@@ -19,9 +19,7 @@ class Chu3Import(
 ) : ImportController<Chu3DataExport, Chu3UserData>(
     "SDHD", Chu3DataExport::class,
     exportFields = Chu3DataExport::class.vars().associateBy {
-        var name = it.name
-        if (name == "userMapList") name = "userMapAreaList"
-        name.replace("List", "").lowercase()
+        it.name.replace("List", "").lowercase()
     },
     exportRepos = Chu3DataExport::class.vars()
         .filter { f -> f.name !in setOf("gameId", "userData") }
@@ -34,8 +32,8 @@ class Chu3Import(
         "chuni_item_character" to ImportClass(UserCharacter::class),
         "chuni_item_duel" to ImportClass(UserDuel::class),
         "chuni_item_item" to ImportClass(UserItem::class, mapOf("isValid" to "valid")),
-        "chuni_item_login_bonus" to ImportClass(UserLoginBonus::class, mapOf("isWatched" to "watched")),
-        "chuni_item_map_area" to ImportClass(UserMapArea::class),
+//        "chuni_item_login_bonus" to ImportClass(UserLoginBonus::class, mapOf("isWatched" to "watched")),
+        "chuni_item_map_area" to ImportClass(UserMap::class),
         "chuni_profile_activity" to ImportClass(UserActivity::class, mapOf("activityId" to "id")),
         "chuni_profile_charge" to ImportClass(UserCharge::class),
         "chuni_profile_data" to ImportClass(Chu3UserData::class, mapOf("user" to null, "version" to null, "isNetMember" to null)),

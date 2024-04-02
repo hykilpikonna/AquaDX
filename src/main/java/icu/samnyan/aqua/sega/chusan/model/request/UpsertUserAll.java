@@ -69,7 +69,7 @@ public class UpsertUserAll implements Serializable {
     private List<Map<String, Object>> userLoginBonusList;
 
     @Nullable
-    private List<UserMapArea> userMapAreaList;
+    private List<UserMap> userMapAreaList;
 
     @Nullable
     private List<Map<String, Object>> userOverPowerList;
