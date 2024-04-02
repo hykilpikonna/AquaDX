@@ -16,8 +16,9 @@
 ┛ ┗┗━┫┗━┻┗━┻┻━┛━┛┗━
      ┗       v${APP_VERSION}`, `
      background: linear-gradient(-45deg, rgba(18,194,233,1) 0%, rgba(196,113,237,1) 50%, rgba(246,79,89,1) 100%);
-     font-weight: bold;
      font-size: 2em;
+     font-family: Monospace;
+     unicode-bidi: isolate;
      -webkit-background-clip: text;
      -webkit-text-fill-color: transparent;`)
 
