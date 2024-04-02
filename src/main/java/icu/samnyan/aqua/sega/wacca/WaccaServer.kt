@@ -15,6 +15,7 @@ import icu.samnyan.aqua.sega.wacca.model.BaseRequest
 import icu.samnyan.aqua.sega.wacca.model.db.*
 import io.ktor.client.utils.*
 import jakarta.servlet.http.HttpServletRequest
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
 import java.util.*
@@ -25,11 +26,13 @@ val empty = emptyList<Any>()
 
 @RestController
 @API("/g/wacca/")
-class WaccaServer(
-    val cardRepo: CardRepository,
-    val rp: WaccaRepos,
-    val wacca: Wacca
-) {
+class WaccaServer {
+    // These are lateinit autowired instead of constructor injection because the tests depend on creating
+    // an instance of this class with no arguments.
+    @Autowired lateinit var cardRepo: CardRepository
+    @Autowired lateinit var rp: WaccaRepos
+    @Autowired lateinit var wacca: Wacca
+
     val handlerMap = mutableMapOf<String, (BaseRequest, List<Any>) -> Any>()
     val cacheMap = mutableMapOf<String, String>()
 
@@ -185,7 +188,7 @@ fun WaccaServer.init() {
         // u.wp = 999999
 
         // All unlock
-        if (go.unlockMusic && !wacca.musicMapping.isEmpty()) {
+        if (go.unlockMusic && wacca.musicMapping.isNotEmpty()) {
             items[MUSIC_UNLOCK()] = wacca.musicMapping.keys.map { MUSIC_UNLOCK(u, it, p1 = INFERNO.value.long()) }
         }
 
