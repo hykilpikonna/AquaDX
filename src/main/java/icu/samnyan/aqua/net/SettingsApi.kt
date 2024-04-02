@@ -7,6 +7,7 @@ import icu.samnyan.aqua.net.db.AquaNetUserRepo
 import icu.samnyan.aqua.net.db.AquaUserServices
 import org.springframework.web.bind.annotation.RestController
 import kotlin.reflect.full.findAnnotation
+import kotlin.reflect.jvm.jvmErasure
 
 @RestController
 @API("/api/v2/settings")
@@ -22,7 +23,8 @@ class SettingsApi(
     val fieldDesc = fields.map { (f, an) -> mapOf(
         "key" to f.name,
         "name" to an.name,
-        "desc" to an.desc
+        "desc" to an.desc,
+        "type" to f.returnType.jvmErasure.simpleName
     ) }
 
     @API("get")
