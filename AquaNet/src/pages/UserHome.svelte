@@ -336,6 +336,11 @@ $gap: 20px
   .info-top > div > span:last-child
     font-size: 1.5rem
 
+  .info-bottom
+    max-width: 100%
+    flex-wrap: wrap
+    row-gap: 0.5rem
+
   .scoring-info
     display: flex
     gap: $gap
@@ -403,6 +408,7 @@ $gap: 20px
       .info-bottom
         flex-direction: column
         gap: 0
+        width: 100%
 
         > div
           flex-direction: row
