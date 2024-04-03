@@ -76,7 +76,7 @@ class AquaNetUser(
 
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "gameOptions", unique = true, nullable = true)
-    var gameOptions: AquaGameOptions? = null
+    var gameOptions: AquaGameOptions? = null,
 ) : Serializable {
     val computedName get() = displayName.ifEmpty { username }
 

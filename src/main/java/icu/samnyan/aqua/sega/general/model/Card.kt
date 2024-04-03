@@ -39,8 +39,11 @@ class Card(
     var aquaUser: AquaNetUser? = null,
 
     // Whether the card is a ghost card
-    @Column(name = "is_ghost")
     var isGhost: Boolean = false,
+
+    // Unfortunately some people decide to cheat and upload all perfect scores :(
+    // This will not affect gameplay behavior, but will hide the user from ranking
+    var rankingBanned: Boolean = false,
 ) {
     @Suppress("unused") // Used by serialization
     val isLinked get() = aquaUser != null

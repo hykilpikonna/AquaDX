@@ -1,0 +1,1 @@
+ALTER TABLE sega_card ADD COLUMN `ranking_banned` BIT(1) NOT NULL DEFAULT 0;

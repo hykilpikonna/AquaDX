@@ -31,16 +31,26 @@ abstract class GameApiController<T : IUserData>(name: String, userDataClass: KCl
         playlogRepo.findByUserCardExtId(card.extId)
     }
 
-    private var rankingCache: Pair<Long, List<GenericRankingPlayer>>? = null
+    private var rankingCache: MutableMap<Long, Pair<Long, List<GenericRankingPlayer>>> = mutableMapOf()
+    private val rankingCacheDuration = 240_000
     @API("ranking")
-    fun ranking(): List<GenericRankingPlayer> {
-        // Read from cache if we just computed it less than 2 minutes ago
-        rankingCache?.let { (t, r) ->
-            if (millis() - t < 120_000) return r
+    fun ranking(@RP token: String?): List<GenericRankingPlayer> {
+        val reqUser = token?.let { us.jwt.auth(it) { u ->
+            // Optimization: If the user is not banned, we don't need to process user information
+            if (!u.ghostCard.rankingBanned && !u.cards.any { it.rankingBanned }) null
+            else u
+        } }
+        val cacheKey = reqUser?.auId ?: -1
+
+        // Read from cache if we just computed it less than duration ago
+        rankingCache[cacheKey]?.let { (t, r) ->
+            if (millis() - t < rankingCacheDuration) return r
         }
 
         // TODO: pagination
+        // Shadow-ban: Do not show banned cards in the ranking except for the user who owns the card
         val players = userDataRepo.findAll().sortedByDescending { it.playerRating }
+            .filter { it.card?.rankingBanned != true || it.card?.aquaUser?.let { it == reqUser } ?: false }
         return players.filter { it.card != null }.mapIndexed { i, user ->
             val plays = playlogRepo.findByUserCardExtId(user.card!!.extId)
 
@@ -54,7 +64,7 @@ abstract class GameApiController<T : IUserData>(name: String, userDataClass: KCl
                 lastSeen = user.lastPlayDate.toString(),
                 username = user.card!!.aquaUser?.username ?: "user${user.card!!.id}"
             )
-        }.also { rankingCache = millis() to it }  // Update the cache
+        }.also { rankingCache[cacheKey] = millis() to it } // Update cache
     }
 
     @API("playlog")
