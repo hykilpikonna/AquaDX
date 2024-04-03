@@ -467,6 +467,15 @@ $gap: 20px
             .rank-text
               text-align: left
 
+            // Score and rank should be space-between on mobile
+            > div:last-child
+              display: flex
+              justify-content: space-between
+              gap: 10px
+
+              .lv
+                margin-right: auto
+
         .rank-S
           // Gold green gradient on text
           background: $grad-special
