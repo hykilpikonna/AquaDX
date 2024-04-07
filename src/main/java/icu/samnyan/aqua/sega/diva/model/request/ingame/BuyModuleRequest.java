@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BuyModuleRequest extends BaseRequest {
-    private int pd_id;
+    private long pd_id;
     private int accept_idx;
     private int start_idx;
     private int mdl_id;

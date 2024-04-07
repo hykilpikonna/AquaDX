@@ -12,6 +12,7 @@ import icu.samnyan.aqua.sega.diva.model.userdata.GameSession;
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerProfile;
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -20,19 +21,11 @@ import org.springframework.stereotype.Component;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
+@AllArgsConstructor
 public class ChangePasswdHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(ChangePasswdHandler.class);
-
     private final PlayerProfileService playerProfileService;
-
     private final GameSessionRepository gameSessionRepository;
-
-    public ChangePasswdHandler(DivaMapper mapper, PlayerProfileService playerProfileService, GameSessionRepository gameSessionRepository) {
-        super(mapper);
-        this.playerProfileService = playerProfileService;
-        this.gameSessionRepository = gameSessionRepository;
-    }
 
     public String handle(ChangePasswdRequest request) {
         PlayerProfile profile = playerProfileService.findByPdId(request.getPd_id()).orElseThrow(ProfileNotFoundException::new);
@@ -46,8 +39,8 @@ public class ChangePasswdHandler extends BaseHandler {
                 request.getReq_id(),
                 "ok",
                 Result.SUCCESS,
-                profile.getPdId(),
-                session.getAcceptId()
+                session.getAcceptId(),
+                profile.getPdId()
         );
 
         playerProfileService.save(profile);

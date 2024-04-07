@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StageStartRequest extends BaseRequest {
-    public int pd_id;
+    public long pd_id;
     public int accept_idx;
     public int start_idx;
     public boolean free_play;

@@ -7,6 +7,7 @@ import icu.samnyan.aqua.sega.diva.model.request.BaseRequest;
 import icu.samnyan.aqua.sega.diva.model.response.databank.ContestInfoResponse;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
 import icu.samnyan.aqua.sega.util.URIEncoder;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -18,16 +19,10 @@ import java.util.List;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
+@AllArgsConstructor
 public class ContestInfoHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(CmPlyInfoHandler.class);
-
     private final ContestRepository contestRepository;
-
-    public ContestInfoHandler(DivaMapper mapper, ContestRepository contestRepository) {
-        super(mapper);
-        this.contestRepository = contestRepository;
-    }
 
     public String handle(BaseRequest request) {
         List<Contest> contestList = contestRepository.findTop8ByEnable(true);

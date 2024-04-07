@@ -13,12 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class GameInitHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(GameInitHandler.class);
-
-    public GameInitHandler(DivaMapper mapper) {
-        super(mapper);
-    }
 
     public String handle(BaseRequest request) {
         GameInitResponse response = new GameInitResponse(

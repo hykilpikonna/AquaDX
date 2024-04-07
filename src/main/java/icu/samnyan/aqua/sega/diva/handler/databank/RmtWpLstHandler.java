@@ -16,12 +16,7 @@ import java.time.LocalDateTime;
  */
 @Component
 public class RmtWpLstHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(QstInfHandler.class);
-
-    public RmtWpLstHandler(DivaMapper mapper) {
-        super(mapper);
-    }
 
     public String handle(BaseRequest request) {
         RmtWpLstResponse response = new RmtWpLstResponse(

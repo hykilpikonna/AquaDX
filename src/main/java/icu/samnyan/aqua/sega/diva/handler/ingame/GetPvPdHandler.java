@@ -14,6 +14,7 @@ import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
 import icu.samnyan.aqua.sega.diva.util.DivaDateTimeUtil;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
 import icu.samnyan.aqua.sega.util.URIEncoder;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,7 @@ import java.util.Optional;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
+@AllArgsConstructor
 public class GetPvPdHandler extends BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GetPvPdHandler.class);
@@ -32,13 +34,6 @@ public class GetPvPdHandler extends BaseHandler {
     private final PlayerPvRecordRepository pvRecordRepository;
     private final PlayerPvCustomizeRepository pvCustomizeRepository;
     private final PlayerProfileService playerProfileService;
-
-    public GetPvPdHandler(DivaMapper mapper, PlayerPvRecordRepository pvRecordRepository, PlayerPvCustomizeRepository pvCustomizeRepository, PlayerProfileService playerProfileService) {
-        super(mapper);
-        this.pvRecordRepository = pvRecordRepository;
-        this.pvCustomizeRepository = pvCustomizeRepository;
-        this.playerProfileService = playerProfileService;
-    }
 
     public String handle(GetPvPdRequest request) {
 
@@ -105,28 +100,27 @@ public class GetPvPdHandler extends BaseHandler {
     }
 
 
-    private String getString(PlayerPvRecord record, PlayerPvCustomize customize, PlayerPvRecord rivalRecord, int rivalId) {
-        return
-                "" + record.getPvId() + "," +
-                        record.getEdition().getValue() + "," +
-                        record.getResult().getValue() + "," +
-                        record.getMaxScore() + "," +
-                        record.getMaxAttain() + "," +
-                        record.getChallengeKind().getValue() + "," +
-                        customize.getModule() + "," +
-                        customize.getCustomize() + "," +
-                        customize.getCustomizeFlag() + "," +
-                        customize.getSkin() + "," +
-                        customize.getButtonSe() + "," +
-                        customize.getSlideSe() + "," +
-                        customize.getChainSlideSe() + "," +
-                        customize.getSliderTouchSe() + "," +
-                        rivalId + "," +
-                        rivalRecord.getMaxScore() + "," +
-                        rivalRecord.getMaxAttain() + "," +
-                        "-1,-1," +
-                        pvRecordRepository.rankByPvIdAndPdIdAndEditionAndDifficulty(record.getPvId(), record.getPdId(), record.getEdition(), record.getDifficulty()) + "," +
-                        record.getRgoPurchased() + "," +
-                        record.getRgoPlayed();
+    private String getString(PlayerPvRecord record, PlayerPvCustomize customize, PlayerPvRecord rivalRecord, long rivalId) {
+        return record.getPvId() + "," +
+            record.getEdition().getValue() + "," +
+            record.getResult().getValue() + "," +
+            record.getMaxScore() + "," +
+            record.getMaxAttain() + "," +
+            record.getChallengeKind().getValue() + "," +
+            customize.getModule() + "," +
+            customize.getCustomize() + "," +
+            customize.getCustomizeFlag() + "," +
+            customize.getSkin() + "," +
+            customize.getButtonSe() + "," +
+            customize.getSlideSe() + "," +
+            customize.getChainSlideSe() + "," +
+            customize.getSliderTouchSe() + "," +
+            rivalId + "," +
+            rivalRecord.getMaxScore() + "," +
+            rivalRecord.getMaxAttain() + "," +
+            "-1,-1," +
+            pvRecordRepository.rankByPvIdAndPdIdAndEditionAndDifficulty(record.getPvId(), record.getPdId(), record.getEdition(), record.getDifficulty()) + "," +
+            record.getRgoPurchased() + "," +
+            record.getRgoPlayed();
     }
 }

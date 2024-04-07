@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StoreSsRequest extends BaseRequest {
-    private int pd_id;
+    private long pd_id;
     private String ss_dat_id;
     private int ss_pv_id;
     private int ss_sel_pv_id;

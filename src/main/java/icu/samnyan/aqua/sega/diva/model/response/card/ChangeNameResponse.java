@@ -13,10 +13,10 @@ import lombok.Setter;
 public class ChangeNameResponse extends BaseResponse {
     private Result cd_adm_result;
     private int accept_idx;
-    private int pd_id;
+    private long pd_id;
     private String player_name;
 
-    public ChangeNameResponse(String cmd, String req_id, String stat, Result cd_adm_result, int accept_idx, int pd_id, String player_name) {
+    public ChangeNameResponse(String cmd, String req_id, String stat, Result cd_adm_result, int accept_idx, long pd_id, String player_name) {
         super(cmd, req_id, stat);
         this.cd_adm_result = cd_adm_result;
         this.accept_idx = accept_idx;

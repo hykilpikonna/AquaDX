@@ -7,6 +7,7 @@ import icu.samnyan.aqua.sega.diva.model.gamedata.Festa;
 import icu.samnyan.aqua.sega.diva.model.request.BaseRequest;
 import icu.samnyan.aqua.sega.diva.model.response.databank.FestaInfoResponse;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -17,16 +18,10 @@ import java.util.List;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
+@AllArgsConstructor
 public class FestaInfoHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(FestaInfoHandler.class);
-
     private final FestaRepository festaRepository;
-
-    public FestaInfoHandler(DivaMapper mapper, FestaRepository festaRepository) {
-        super(mapper);
-        this.festaRepository = festaRepository;
-    }
 
     public String handle(BaseRequest request) {
         List<Festa> festaList = festaRepository.findTop2ByEnableOrderByCreateDateDesc(true);

@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetPvPdRequest extends BaseRequest {
-    private int pd_id;
+    private long pd_id;
     private int difficulty;
     private int[] pd_pv_id_lst;
 }

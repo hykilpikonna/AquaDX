@@ -16,12 +16,7 @@ import java.time.LocalDateTime;
  */
 @Component
 public class QstInfHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(QstInfHandler.class);
-
-    public QstInfHandler(DivaMapper mapper) {
-        super(mapper);
-    }
 
     public String handle(BaseRequest request) {
 

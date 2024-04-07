@@ -10,6 +10,7 @@ import icu.samnyan.aqua.sega.diva.model.userdata.PlayerProfile;
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerPvCustomize;
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -20,19 +21,11 @@ import static icu.samnyan.aqua.sega.diva.util.DivaStringUtils.arrToCsv;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
+@AllArgsConstructor
 public class ShopExitHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(ShopExitHandler.class);
-
     private final PlayerProfileService playerProfileService;
-
     private final PlayerPvCustomizeRepository pvCustomizeRepository;
-
-    public ShopExitHandler(DivaMapper mapper, PlayerProfileService playerProfileService, PlayerPvCustomizeRepository pvCustomizeRepository) {
-        super(mapper);
-        this.playerProfileService = playerProfileService;
-        this.pvCustomizeRepository = pvCustomizeRepository;
-    }
 
     public String handle(ShopExitRequest request) {
 

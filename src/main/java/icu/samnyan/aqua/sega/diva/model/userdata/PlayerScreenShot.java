@@ -25,7 +25,7 @@ public class PlayerScreenShot {
     @JoinColumn(name = "pd_id")
     private PlayerProfile pdId;
 
-    private int pvId;
+    private long pvId;
 
     private String fileName;
 
@@ -33,7 +33,7 @@ public class PlayerScreenShot {
 
     private String customizeList;
 
-    public PlayerScreenShot(PlayerProfile pdId, String fileName, int pvId, String moduleList, String customizeList) {
+    public PlayerScreenShot(PlayerProfile pdId, String fileName, long pvId, String moduleList, String customizeList) {
         this.pdId = pdId;
         this.fileName = fileName;
         this.pvId = pvId;

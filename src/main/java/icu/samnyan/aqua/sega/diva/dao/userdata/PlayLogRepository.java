@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface PlayLogRepository extends JpaRepository<PlayLog, Long> {
-    Page<PlayLog> findByPdId_PdIdOrderByDateTimeDesc(int pdId, Pageable page);
+    Page<PlayLog> findByPdId_PdIdOrderByDateTimeDesc(long pdId, Pageable page);
 }

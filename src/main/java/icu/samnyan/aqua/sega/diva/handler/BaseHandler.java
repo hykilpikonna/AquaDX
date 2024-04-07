@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.sega.diva.handler;
 
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -10,12 +11,7 @@ import java.util.Map;
  */
 @Component
 public class BaseHandler {
-
-    protected final DivaMapper mapper;
-
-    public BaseHandler(DivaMapper mapper) {
-        this.mapper = mapper;
-    }
+    static protected DivaMapper mapper = new DivaMapper();
 
     protected String build(Map<String, Object> map) {
         StringBuilder sb = new StringBuilder();

@@ -6,6 +6,7 @@ import icu.samnyan.aqua.sega.diva.model.response.operation.PingResponse;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
 import icu.samnyan.aqua.sega.general.dao.PropertyEntryRepository;
 import icu.samnyan.aqua.sega.general.model.PropertyEntry;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -14,16 +15,10 @@ import org.springframework.stereotype.Component;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
+@AllArgsConstructor
 public class PingHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(PingHandler.class);
-
     private final PropertyEntryRepository propertyEntryRepository;
-
-    public PingHandler(DivaMapper mapper, PropertyEntryRepository propertyEntryRepository) {
-        super(mapper);
-        this.propertyEntryRepository = propertyEntryRepository;
-    }
 
     public String handle(BaseRequest request) {
 

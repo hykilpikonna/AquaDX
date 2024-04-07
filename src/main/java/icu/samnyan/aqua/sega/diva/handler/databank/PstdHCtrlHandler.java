@@ -16,12 +16,7 @@ import java.time.LocalDateTime;
  */
 @Component
 public class PstdHCtrlHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(PstdHCtrlHandler.class);
-
-    public PstdHCtrlHandler(DivaMapper mapper) {
-        super(mapper);
-    }
 
     public String handle(BaseRequest request) {
         PstdHCtrlResponse response = new PstdHCtrlResponse(

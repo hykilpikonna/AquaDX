@@ -7,6 +7,7 @@ import icu.samnyan.aqua.sega.diva.model.request.BaseRequest;
 import icu.samnyan.aqua.sega.diva.model.response.databank.ShopCatalogResponse;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
 import icu.samnyan.aqua.sega.util.URIEncoder;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -19,16 +20,10 @@ import java.util.stream.Collectors;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
+@AllArgsConstructor
 public class ShopCatalogHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(ShopCatalogHandler.class);
-
     private final DivaModuleRepository moduleRepository;
-
-    public ShopCatalogHandler(DivaMapper mapper, DivaModuleRepository moduleRepository) {
-        super(mapper);
-        this.moduleRepository = moduleRepository;
-    }
 
     public String handle(BaseRequest request) {
         List<DivaModule> moduleList = moduleRepository.findAll();

@@ -16,5 +16,5 @@ import java.util.List;
 public interface PlayerModuleRepository extends JpaRepository<PlayerModule, Long> {
     List<PlayerModule> findByPdId(PlayerProfile profile);
 
-    Page<PlayerModule> findByPdId_PdId(int pdId, Pageable pageable);
+    Page<PlayerModule> findByPdId_PdId(long pdId, Pageable pageable);
 }

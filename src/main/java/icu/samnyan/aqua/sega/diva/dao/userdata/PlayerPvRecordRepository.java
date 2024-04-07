@@ -21,7 +21,7 @@ import java.util.Optional;
 public interface PlayerPvRecordRepository extends JpaRepository<PlayerPvRecord, Long> {
     Optional<PlayerPvRecord> findByPdIdAndPvIdAndEditionAndDifficulty(PlayerProfile profile, int pvId, Edition edition, Difficulty difficulty);
 
-    Optional<PlayerPvRecord> findByPdId_PdIdAndPvIdAndEditionAndDifficulty(int pdId, int pvId, Edition edition, Difficulty difficulty);
+    Optional<PlayerPvRecord> findByPdId_PdIdAndPvIdAndEditionAndDifficulty(long pdId, int pvId, Edition edition, Difficulty difficulty);
 
     @Query("SELECT COUNT(t1.id) as ranking from DivaPlayerPvRecord as t1 " +
             "where t1.maxScore >= (" +
@@ -35,7 +35,7 @@ public interface PlayerPvRecordRepository extends JpaRepository<PlayerPvRecord, 
 
     List<PlayerPvRecord> findByPdId(PlayerProfile profile);
 
-    Optional<PlayerPvRecord> findByIdAndPdId_PdId(long id, int pdId);
+    Optional<PlayerPvRecord> findByIdAndPdId_PdId(long id, long pdId);
 
     List<PlayerPvRecord> findByPdIdAndEdition(PlayerProfile profile, Edition edition);
 
@@ -43,7 +43,7 @@ public interface PlayerPvRecordRepository extends JpaRepository<PlayerPvRecord, 
 
     Page<PlayerPvRecord> findByPvIdAndEditionAndDifficultyOrderByMaxScoreDesc(int pvId, Edition edition, Difficulty difficulty, Pageable page);
 
-    Page<PlayerPvRecord> findByPdId_PdIdOrderByPvId(int pdId, Pageable page);
+    Page<PlayerPvRecord> findByPdId_PdIdOrderByPvId(long pdId, Pageable page);
 
-    List<PlayerPvRecord> findByPdId_PdIdAndPvId(int pdId, int pvId);
+    List<PlayerPvRecord> findByPdId_PdIdAndPvId(long pdId, int pvId);
 }

@@ -13,12 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class CmPlyInfoHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(CmPlyInfoHandler.class);
-
-    public CmPlyInfoHandler(DivaMapper mapper) {
-        super(mapper);
-    }
 
     public String handle(BaseRequest request) {
         BaseResponse response = new BaseResponse(

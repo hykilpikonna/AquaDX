@@ -15,12 +15,7 @@ import java.time.LocalDateTime;
  */
 @Component
 public class BannerDataHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(BannerDataHandler.class);
-
-    public BannerDataHandler(DivaMapper mapper) {
-        super(mapper);
-    }
 
     public String handle(BannerDataRequest request) {
         BannerDataResponse response = new BannerDataResponse(

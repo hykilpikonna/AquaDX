@@ -13,6 +13,8 @@ import icu.samnyan.aqua.sega.diva.model.userdata.*;
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
 import icu.samnyan.aqua.sega.diva.util.DivaCalculator;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,10 +29,9 @@ import static icu.samnyan.aqua.sega.diva.model.common.Const.NULL_QUEST;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
+@RequiredArgsConstructor
 public class StageResultHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(StageResultHandler.class);
-
     private final GameSessionRepository gameSessionRepository;
     private final PlayerPvRecordRepository pvRecordRepository;
     private final PlayerProfileService playerProfileService;
@@ -43,19 +44,6 @@ public class StageResultHandler extends BaseHandler {
     private final DivaCalculator divaCalculator;
 
     private PlayerProfile currentProfile = null;
-
-    public StageResultHandler(DivaMapper mapper, GameSessionRepository gameSessionRepository, PlayerPvRecordRepository pvRecordRepository, PlayerProfileService playerProfileService, PlayLogRepository playLogRepository, ContestRepository contestRepository, PlayerContestRepository playerContestRepository, PlayerCustomizeRepository playerCustomizeRepository, PlayerInventoryRepository playerInventoryRepository, DivaCalculator divaCalculator) {
-        super(mapper);
-        this.gameSessionRepository = gameSessionRepository;
-        this.pvRecordRepository = pvRecordRepository;
-        this.playerProfileService = playerProfileService;
-        this.playLogRepository = playLogRepository;
-        this.contestRepository = contestRepository;
-        this.playerContestRepository = playerContestRepository;
-        this.playerCustomizeRepository = playerCustomizeRepository;
-        this.playerInventoryRepository = playerInventoryRepository;
-        this.divaCalculator = divaCalculator;
-    }
 
     public String handle(StageResultRequest request) {
         StageResultResponse response;

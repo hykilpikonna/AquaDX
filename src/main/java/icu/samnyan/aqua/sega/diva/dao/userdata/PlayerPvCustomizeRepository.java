@@ -14,5 +14,5 @@ import java.util.Optional;
 public interface PlayerPvCustomizeRepository extends JpaRepository<PlayerPvCustomize, Long> {
     Optional<PlayerPvCustomize> findByPdIdAndPvId(PlayerProfile profile, int pvId);
 
-    Optional<PlayerPvCustomize> findByPdId_PdIdAndPvId(int pdId, int pvId);
+    Optional<PlayerPvCustomize> findByPdId_PdIdAndPvId(long pdId, int pvId);
 }

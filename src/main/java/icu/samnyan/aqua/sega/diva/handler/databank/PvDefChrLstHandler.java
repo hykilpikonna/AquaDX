@@ -16,12 +16,7 @@ import java.time.LocalDateTime;
  */
 @Component
 public class PvDefChrLstHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(PvDefChrLstHandler.class);
-
-    public PvDefChrLstHandler(DivaMapper mapper) {
-        super(mapper);
-    }
 
     public String handle(BaseRequest request) {
         PvDefChrLstResponse response = new PvDefChrLstResponse(

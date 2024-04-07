@@ -12,9 +12,9 @@ import lombok.Setter;
 @Setter
 public class RegistrationResponse extends BaseResponse {
     private Result cd_adm_result;
-    private int pd_id;
+    private long pd_id;
 
-    public RegistrationResponse(String cmd, String req_id, String stat, Result cd_adm_result, int pd_id) {
+    public RegistrationResponse(String cmd, String req_id, String stat, Result cd_adm_result, long pd_id) {
         super(cmd, req_id, stat);
         this.cd_adm_result = cd_adm_result;
         this.pd_id = pd_id;

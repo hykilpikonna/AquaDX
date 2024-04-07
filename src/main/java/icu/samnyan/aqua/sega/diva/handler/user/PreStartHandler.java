@@ -10,6 +10,7 @@ import icu.samnyan.aqua.sega.diva.model.userdata.GameSession;
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerProfile;
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -22,19 +23,11 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
+@AllArgsConstructor
 public class PreStartHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(PreStartHandler.class);
-
     private final PlayerProfileService playerProfileService;
-
     private final GameSessionRepository gameSessionRepository;
-
-    public PreStartHandler(DivaMapper mapper, PlayerProfileService playerProfileService, GameSessionRepository gameSessionRepository) {
-        super(mapper);
-        this.playerProfileService = playerProfileService;
-        this.gameSessionRepository = gameSessionRepository;
-    }
 
     public String handle(PreStartRequest request) {
         Optional<PlayerProfile> profileOptional = playerProfileService.findByPdId(request.getAime_id());

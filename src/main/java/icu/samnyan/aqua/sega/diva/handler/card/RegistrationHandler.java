@@ -7,6 +7,7 @@ import icu.samnyan.aqua.sega.diva.model.response.card.RegistrationResponse;
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerProfile;
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -15,16 +16,10 @@ import org.springframework.stereotype.Component;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
+@AllArgsConstructor
 public class RegistrationHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(RegistrationHandler.class);
-
     private final PlayerProfileService playerProfileService;
-
-    public RegistrationHandler(DivaMapper mapper, PlayerProfileService playerProfileService) {
-        super(mapper);
-        this.playerProfileService = playerProfileService;
-    }
 
     public String handle(RegistrationRequest request) {
         RegistrationResponse response;

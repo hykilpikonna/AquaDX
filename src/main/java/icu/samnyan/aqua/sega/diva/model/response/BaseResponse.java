@@ -16,5 +16,4 @@ public class BaseResponse {
     private String cmd;
     private String req_id;
     private String stat;
-
 }

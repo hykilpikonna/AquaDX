@@ -19,7 +19,7 @@ public class PlayerProfileService {
         this.playerProfileRepository = playerProfileRepository;
     }
 
-    public Optional<PlayerProfile> findByPdId(int pdId) {
+    public Optional<PlayerProfile> findByPdId(long pdId) {
         return playerProfileRepository.findByPdId(pdId);
     }
 

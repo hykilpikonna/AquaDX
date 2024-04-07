@@ -14,6 +14,7 @@ import icu.samnyan.aqua.sega.diva.model.userdata.PlayerProfile;
 import icu.samnyan.aqua.sega.diva.service.PlayerModuleService;
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,7 @@ import java.util.Optional;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
+@AllArgsConstructor
 public class BuyModuleHandler extends BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(BuyModuleHandler.class);
@@ -35,14 +37,6 @@ public class BuyModuleHandler extends BaseHandler {
     private final PlayerModuleService playerModuleService;
 
     private final GameSessionRepository gameSessionRepository;
-
-    public BuyModuleHandler(DivaMapper mapper, DivaModuleRepository divaModuleRepository, PlayerProfileService playerProfileService, PlayerModuleService playerModuleService, GameSessionRepository gameSessionRepository) {
-        super(mapper);
-        this.divaModuleRepository = divaModuleRepository;
-        this.playerProfileService = playerProfileService;
-        this.playerModuleService = playerModuleService;
-        this.gameSessionRepository = gameSessionRepository;
-    }
 
     public String handle(BuyModuleRequest request) {
         PlayerProfile profile = playerProfileService.findByPdId(request.getPd_id()).orElseThrow(ProfileNotFoundException::new);

@@ -13,12 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class NgWordHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(NgWordHandler.class);
-
-    public NgWordHandler(DivaMapper mapper) {
-        super(mapper);
-    }
 
     public String handle(BaseRequest request) {
         BaseResponse response = new BaseResponse(

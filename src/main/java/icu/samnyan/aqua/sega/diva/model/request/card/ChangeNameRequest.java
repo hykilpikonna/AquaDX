@@ -15,9 +15,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ChangeNameRequest extends BaseRequest {
     private String a_code;
-    private int aime_id;
+    private long aime_id;
     private String aime_a_code;
-    private int pd_id;
+    private long pd_id;
     private int accept_idx;
     private String player_name;
     private int chg_name_price;

@@ -18,6 +18,7 @@ import icu.samnyan.aqua.sega.diva.model.userdata.PlayerContest;
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerProfile;
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -30,8 +31,8 @@ import static icu.samnyan.aqua.sega.diva.util.DivaStringUtils.getDummyString;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
+@AllArgsConstructor
 public class EndHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(EndHandler.class);
 
     private final ContestRepository contestRepository;
@@ -41,14 +42,6 @@ public class EndHandler extends BaseHandler {
     private final PlayerContestRepository playerContestRepository;
 
     private final GameSessionRepository gameSessionRepository;
-
-    public EndHandler(DivaMapper mapper, ContestRepository contestRepository, PlayerProfileService playerProfileService, PlayerContestRepository playerContestRepository, GameSessionRepository gameSessionRepository) {
-        super(mapper);
-        this.contestRepository = contestRepository;
-        this.playerProfileService = playerProfileService;
-        this.playerContestRepository = playerContestRepository;
-        this.gameSessionRepository = gameSessionRepository;
-    }
 
     public String handle(StageResultRequest request) {
 

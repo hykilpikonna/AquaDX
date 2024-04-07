@@ -8,6 +8,7 @@ import icu.samnyan.aqua.sega.diva.model.request.BaseRequest;
 import icu.samnyan.aqua.sega.diva.model.response.databank.PvListResponse;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
 import icu.samnyan.aqua.sega.util.URIEncoder;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -20,19 +21,11 @@ import java.util.List;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
+@AllArgsConstructor
 public class PvListHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(BannerDataHandler.class);
-
     private final PvEntryRepository pvEntryRepository;
-
-    private final DateTimeFormatter df;
-
-    public PvListHandler(DivaMapper mapper, PvEntryRepository pvEntryRepository) {
-        super(mapper);
-        this.pvEntryRepository = pvEntryRepository;
-        this.df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    }
+    private final DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public String handle(BaseRequest request) {
         StringBuilder sb = new StringBuilder();

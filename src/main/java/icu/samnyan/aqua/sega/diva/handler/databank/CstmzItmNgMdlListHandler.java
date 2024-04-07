@@ -16,12 +16,7 @@ import java.time.LocalDateTime;
  */
 @Component
 public class CstmzItmNgMdlListHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(CstmzItmCtlgHandler.class);
-
-    public CstmzItmNgMdlListHandler(DivaMapper mapper) {
-        super(mapper);
-    }
 
     public String handle(BaseRequest request) {
         CstmzItmNgMdlListResponse response = new CstmzItmNgMdlListResponse(

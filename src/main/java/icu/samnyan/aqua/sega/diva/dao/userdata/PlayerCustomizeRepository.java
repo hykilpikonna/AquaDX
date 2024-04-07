@@ -17,7 +17,7 @@ import java.util.Optional;
 public interface PlayerCustomizeRepository extends JpaRepository<PlayerCustomize, Long> {
     List<PlayerCustomize> findByPdId(PlayerProfile profile);
 
-    Page<PlayerCustomize> findByPdId_PdId(int pdId, Pageable page);
+    Page<PlayerCustomize> findByPdId_PdId(long pdId, Pageable page);
 
     Optional<PlayerCustomize> findByPdIdAndCustomizeId(PlayerProfile currentProfile, int parseInt);
 }

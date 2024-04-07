@@ -22,7 +22,7 @@ public class PreStartResponse extends BaseResponse {
     private Integer nblss_ltt_tckt;
     private Integer nblss_ltt_is_opn;
 
-    private Integer pd_id;
+    private long pd_id;
     private String player_name;
     private SortMode sort_kind;
     private Integer lv_num;
@@ -45,7 +45,7 @@ public class PreStartResponse extends BaseResponse {
         this.ps_result = ps_result;
     }
 
-    public PreStartResponse(String cmd, String req_id, String stat, PreStartResult ps_result, Integer accept_idx, Integer pd_id, String player_name, SortMode sort_kind, Integer lv_num, Integer lv_pnt, String lv_str, Integer lv_efct_id, Integer lv_plt_id, String mdl_eqp_ary, LocalDateTime mdl_eqp_tm, Integer skn_eqp, Integer btn_se_eqp, Integer sld_se_eqp, Integer chn_sld_se_eqp, Integer sldr_tch_se_eqp, Integer vcld_pts, PassStat passwd_stat) {
+    public PreStartResponse(String cmd, String req_id, String stat, PreStartResult ps_result, Integer accept_idx, long pd_id, String player_name, SortMode sort_kind, Integer lv_num, Integer lv_pnt, String lv_str, Integer lv_efct_id, Integer lv_plt_id, String mdl_eqp_ary, LocalDateTime mdl_eqp_tm, Integer skn_eqp, Integer btn_se_eqp, Integer sld_se_eqp, Integer chn_sld_se_eqp, Integer sldr_tch_se_eqp, Integer vcld_pts, PassStat passwd_stat) {
         super(cmd, req_id, stat);
         this.ps_result = ps_result;
         this.accept_idx = accept_idx;

@@ -14,6 +14,7 @@ import icu.samnyan.aqua.sega.diva.model.userdata.PlayerProfile;
 import icu.samnyan.aqua.sega.diva.service.PlayerCustomizeService;
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -24,8 +25,8 @@ import java.util.Optional;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
+@AllArgsConstructor
 public class BuyCstmzItmHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(BuyCstmzItmHandler.class);
 
     private final DivaCustomizeRepository divaCustomizeRepository;
@@ -35,14 +36,6 @@ public class BuyCstmzItmHandler extends BaseHandler {
     private final PlayerCustomizeService playerCustomizeService;
 
     private final GameSessionRepository gameSessionRepository;
-
-    public BuyCstmzItmHandler(DivaMapper mapper, DivaCustomizeRepository divaCustomizeRepository, PlayerProfileService playerProfileService, PlayerCustomizeService playerCustomizeService, GameSessionRepository gameSessionRepository) {
-        super(mapper);
-        this.divaCustomizeRepository = divaCustomizeRepository;
-        this.playerProfileService = playerProfileService;
-        this.playerCustomizeService = playerCustomizeService;
-        this.gameSessionRepository = gameSessionRepository;
-    }
 
     public String handle(BuyCstmzItmRequest request) {
         PlayerProfile profile = playerProfileService.findByPdId(request.getPd_id()).orElseThrow(ProfileNotFoundException::new);

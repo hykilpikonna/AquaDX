@@ -14,6 +14,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StartRequest extends BaseRequest {
-    public int pd_id;
+    public long pd_id;
     public int accept_idx;
 }

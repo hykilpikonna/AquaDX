@@ -16,12 +16,7 @@ import java.time.LocalDateTime;
  */
 @Component
 public class PstdItemNgLstHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(PstdItemNgLstHandler.class);
-
-    public PstdItemNgLstHandler(DivaMapper mapper) {
-        super(mapper);
-    }
 
     public String handle(BaseRequest request) {
         PstdItemNgLstResponse response = new PstdItemNgLstResponse(

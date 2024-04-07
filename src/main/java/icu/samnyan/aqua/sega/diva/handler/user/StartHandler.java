@@ -21,6 +21,7 @@ import icu.samnyan.aqua.sega.diva.service.PlayerCustomizeService;
 import icu.samnyan.aqua.sega.diva.service.PlayerModuleService;
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -36,31 +37,15 @@ import java.util.stream.Collectors;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
+@AllArgsConstructor
 public class StartHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(StartHandler.class);
-
     private final PlayerProfileService playerProfileService;
-
     private final GameSessionRepository gameSessionRepository;
-
     private final PlayerCustomizeService playerCustomizeService;
-
     private final PlayerModuleService playerModuleService;
-
     private final PlayerPvRecordRepository playerPvRecordRepository;
-
     private final PlayerContestRepository playerContestRepository;
-
-    public StartHandler(DivaMapper mapper, PlayerProfileService playerProfileService, GameSessionRepository gameSessionRepository, PlayerCustomizeService playerCustomizeService, PlayerModuleService playerModuleService, PlayerPvRecordRepository playerPvRecordRepository, PlayerContestRepository playerContestRepository) {
-        super(mapper);
-        this.playerProfileService = playerProfileService;
-        this.gameSessionRepository = gameSessionRepository;
-        this.playerCustomizeService = playerCustomizeService;
-        this.playerModuleService = playerModuleService;
-        this.playerPvRecordRepository = playerPvRecordRepository;
-        this.playerContestRepository = playerContestRepository;
-    }
 
     public String handle(StartRequest request) {
 

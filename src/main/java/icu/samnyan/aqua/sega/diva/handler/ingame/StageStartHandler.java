@@ -10,6 +10,7 @@ import icu.samnyan.aqua.sega.diva.model.userdata.GameSession;
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerProfile;
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -18,18 +19,11 @@ import org.springframework.stereotype.Component;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
+@AllArgsConstructor
 public class StageStartHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(StageResultHandler.class);
-
     private final GameSessionRepository gameSessionRepository;
     private final PlayerProfileService playerProfileService;
-
-    public StageStartHandler(DivaMapper mapper, GameSessionRepository gameSessionRepository, PlayerProfileService playerProfileService) {
-        super(mapper);
-        this.gameSessionRepository = gameSessionRepository;
-        this.playerProfileService = playerProfileService;
-    }
 
     public String handle(StageStartRequest request) {
         if (request.getPd_id() != -1) {

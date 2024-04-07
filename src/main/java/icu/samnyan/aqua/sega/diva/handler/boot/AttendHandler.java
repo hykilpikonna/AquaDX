@@ -18,12 +18,7 @@ import java.time.LocalDateTime;
  */
 @Component
 public class AttendHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(AttendHandler.class);
-
-    public AttendHandler(DivaMapper mapper) {
-        super(mapper);
-    }
 
     public String handle(BaseRequest request) {
         AttendResponse response = new AttendResponse(

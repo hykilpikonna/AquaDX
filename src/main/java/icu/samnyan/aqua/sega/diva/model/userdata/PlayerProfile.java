@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -22,6 +23,7 @@ import static icu.samnyan.aqua.sega.diva.util.DivaStringUtils.getDummyString;
 @NoArgsConstructor
 public class PlayerProfile implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -29,7 +31,7 @@ public class PlayerProfile implements Serializable {
     private long id;
 
     @Column(unique = true)
-    private int pdId;
+    private long pdId;
 
     private String playerName = "xxx";
 
@@ -156,9 +158,9 @@ public class PlayerProfile implements Serializable {
     private String myList2 = getDummyString("-1", 40);
 
     @JsonIgnore
-    private int rivalPdId = -1;
+    private long rivalPdId = -1;
 
-    public PlayerProfile(int pdId, String playerName) {
+    public PlayerProfile(long pdId, String playerName) {
         this.pdId = pdId;
         this.playerName = playerName;
     }

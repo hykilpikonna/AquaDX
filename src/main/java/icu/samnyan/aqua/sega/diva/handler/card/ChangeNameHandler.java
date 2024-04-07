@@ -11,6 +11,7 @@ import icu.samnyan.aqua.sega.diva.model.userdata.GameSession;
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerProfile;
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -19,19 +20,13 @@ import org.springframework.stereotype.Component;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
+@AllArgsConstructor
 public class ChangeNameHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(ChangeNameHandler.class);
 
     private final PlayerProfileService playerProfileService;
 
     private final GameSessionRepository gameSessionRepository;
-
-    public ChangeNameHandler(DivaMapper mapper, PlayerProfileService playerProfileService, GameSessionRepository gameSessionRepository) {
-        super(mapper);
-        this.playerProfileService = playerProfileService;
-        this.gameSessionRepository = gameSessionRepository;
-    }
 
     public String handle(ChangeNameRequest request) {
         PlayerProfile profile = playerProfileService.findByPdId(request.getPd_id()).orElseThrow(ProfileNotFoundException::new);
@@ -44,8 +39,8 @@ public class ChangeNameHandler extends BaseHandler {
                 request.getReq_id(),
                 "ok",
                 Result.SUCCESS,
-                profile.getPdId(),
                 session.getAcceptId(),
+                profile.getPdId(),
                 profile.getPlayerName()
         );
 

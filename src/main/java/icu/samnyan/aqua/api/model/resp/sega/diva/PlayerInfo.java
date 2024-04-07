@@ -7,7 +7,7 @@ import lombok.Data;
  */
 @Data
 public class PlayerInfo {
-    private int pdId;
+    private long pdId;
     private String playerName;
     private int vocaloidPoints;
 }

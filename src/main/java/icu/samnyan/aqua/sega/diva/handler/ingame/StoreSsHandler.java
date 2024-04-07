@@ -9,6 +9,7 @@ import icu.samnyan.aqua.sega.diva.model.userdata.PlayerProfile;
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerScreenShot;
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -27,20 +28,11 @@ import static icu.samnyan.aqua.sega.diva.util.DivaStringUtils.arrToCsv;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
+@AllArgsConstructor
 public class StoreSsHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(StoreSsHandler.class);
-
     private final PlayerProfileService playerProfileService;
-
     private final PlayerScreenShotRepository screenShotRepository;
-
-    public StoreSsHandler(DivaMapper mapper, PlayerProfileService playerProfileService, PlayerScreenShotRepository screenShotRepository) {
-        super(mapper);
-        this.playerProfileService = playerProfileService;
-        this.screenShotRepository = screenShotRepository;
-    }
-
 
     public String handle(StoreSsRequest request, MultipartFile file) {
         PlayerProfile profile = playerProfileService.findByPdId(request.getPd_id()).orElseThrow(ProfileNotFoundException::new);

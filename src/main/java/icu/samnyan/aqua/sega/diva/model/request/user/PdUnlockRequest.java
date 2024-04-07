@@ -14,6 +14,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PdUnlockRequest extends BaseRequest {
-    private int pd_id;
+    private long pd_id;
     private int accept_idx;
 }

@@ -10,7 +10,7 @@ import java.util.Optional;
  * @author samnyan (privateamusement@protonmail.com)
  */
 public interface PlayerScreenShotRepository extends JpaRepository<PlayerScreenShot, Long> {
-    List<PlayerScreenShot> findByPdId_PdId(int pdId);
+    List<PlayerScreenShot> findByPdId_PdId(long pdId);
     Optional<PlayerScreenShot> findByFileName(String fileName);
 
 }

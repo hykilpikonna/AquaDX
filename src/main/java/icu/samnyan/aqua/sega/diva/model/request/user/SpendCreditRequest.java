@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SpendCreditRequest extends BaseRequest {
-    private int pd_id;
+    private long pd_id;
     private int[] my_qst_id;
     private int[] my_qst_sts;
     private int crdt_typ;

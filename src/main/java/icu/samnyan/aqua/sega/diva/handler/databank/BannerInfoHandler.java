@@ -13,12 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class BannerInfoHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(BannerInfoHandler.class);
-
-    public BannerInfoHandler(DivaMapper mapper) {
-        super(mapper);
-    }
 
     public String handle(BaseRequest request) {
         BannerInfoResponse response = new BannerInfoResponse(

@@ -13,12 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class NvRankingHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(NvRankingHandler.class);
-
-    public NvRankingHandler(DivaMapper mapper) {
-        super(mapper);
-    }
 
     public String handle(BaseRequest request) {
         NvRankingResponse response = new NvRankingResponse(

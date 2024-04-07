@@ -16,6 +16,6 @@ import lombok.Setter;
 public class CardProcedureRequest extends BaseRequest {
     private int cd_adm_cmd;
     private String a_code;
-    private int aime_id;
+    private long aime_id;
     private String aime_a_code;
 }

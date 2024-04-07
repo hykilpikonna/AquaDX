@@ -8,6 +8,7 @@ import icu.samnyan.aqua.sega.diva.model.response.databank.CstmzItmCtlgResponse;
 import icu.samnyan.aqua.sega.diva.util.DivaDateTimeUtil;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
 import icu.samnyan.aqua.sega.util.URIEncoder;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -20,16 +21,11 @@ import java.util.stream.Collectors;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
+@AllArgsConstructor
 public class CstmzItmCtlgHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(CstmzItmCtlgHandler.class);
 
     private final DivaCustomizeRepository customizeRepository;
-
-    public CstmzItmCtlgHandler(DivaMapper mapper, DivaCustomizeRepository customizeRepository) {
-        super(mapper);
-        this.customizeRepository = customizeRepository;
-    }
 
     public String handle(BaseRequest request) {
         List<DivaCustomize> customizeList = customizeRepository.findAll();

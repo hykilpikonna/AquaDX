@@ -10,6 +10,7 @@ import icu.samnyan.aqua.sega.diva.model.response.databank.PsRankingResponse;
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerPvRecord;
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
 import icu.samnyan.aqua.sega.util.URIEncoder;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -25,16 +26,10 @@ import java.util.stream.Collectors;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
+@AllArgsConstructor
 public class PsRankingHandler extends BaseHandler {
-
     private static final Logger logger = LoggerFactory.getLogger(PsRankingHandler.class);
-
     private final PlayerPvRecordRepository playerPvRecordRepository;
-
-    public PsRankingHandler(DivaMapper mapper, PlayerPvRecordRepository playerPvRecordRepository) {
-        super(mapper);
-        this.playerPvRecordRepository = playerPvRecordRepository;
-    }
 
     public String handle(PsRankingRequest request) {
         Edition edition = Edition.ORIGINAL;
