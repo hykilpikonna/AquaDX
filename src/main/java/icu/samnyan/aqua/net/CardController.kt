@@ -173,7 +173,7 @@ class CardGameService(
         "chu3" to getSummaryFor(chusan, card),
         "ongeki" to getSummaryFor(ongeki, card),
         "wacca" to getSummaryFor(wacca, card),
-        "diva" to diva.findByPdId(card.extId.toInt()).getOrNull()?.let {
+        "diva" to diva.findByPdId(card.extId).getOrNull()?.let {
             mapOf(
                 "name" to it.playerName,
                 "rating" to it.level,
