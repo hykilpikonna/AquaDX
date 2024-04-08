@@ -14,3 +14,5 @@ SkipWarningScreen=true
 SinglePlayer=true
 # !!EXPERIMENTAL!! Skip from the card-scanning screen directly to music selection screen
 SkipToMusicSelection=false
+# Set the version string displayed at the top-right corner of the screen
+CustomVersionString=""
