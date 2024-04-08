@@ -14,3 +14,7 @@ SkipWarningScreen=true
 SinglePlayer=true
 # !!EXPERIMENTAL!! Skip from the card-scanning screen directly to music selection screen
 SkipToMusicSelection=false
+
+[Performance]
+# Disable some useless checks and delays to speedup the game boot process
+ImproveLoadSpeed=false
