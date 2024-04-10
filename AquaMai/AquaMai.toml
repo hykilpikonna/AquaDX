@@ -16,3 +16,8 @@ SinglePlayer=true
 SkipToMusicSelection=false
 # Set the version string displayed at the top-right corner of the screen
 CustomVersionString=""
+
+[Performance]
+# Disable some useless checks and delays to speed up the game boot process
+# !! Known issue: The game may crash if DX Pass scanning is enabled
+ImproveLoadSpeed=false
