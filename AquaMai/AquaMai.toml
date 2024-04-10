@@ -12,9 +12,10 @@ TicketUnlock=true
 SkipWarningScreen=true
 # Single player: Show 1P only, at the center of the screen
 SinglePlayer=true
-# !!EXPERIMENTAL!! Skip from the card-scanning screen directly to music selection screen
+# !!EXPERIMENTAL!! Skip from the card-scanning screen directly to the music selection screen
 SkipToMusicSelection=false
 
 [Performance]
-# Disable some useless checks and delays to speedup the game boot process
+# Disable some useless checks and delays to speed up the game boot process
+# !! Known issue: The game may crash if DX Pass scanning is enabled
 ImproveLoadSpeed=false
