@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using HarmonyLib;
-using MelonLoader;
+using MAI2.Util;
+using Manager;
 using Process;
 
 namespace AquaMai.Performance
@@ -19,6 +20,8 @@ namespace AquaMai.Performance
                     traverse.Field("_state").SetValue((byte)4);
                     break;
                 case 5:
+                case 6:
+                case 7:
                     traverse.Field("_state").SetValue((byte)8);
                     break;
                 case 9:
@@ -38,9 +41,12 @@ namespace AquaMai.Performance
             switch (state)
             {
                 case 0:
-                case 1:
+                    traverse.Field("_state").SetValue((byte)1);
+                    break;
                 case 2:
-                    traverse.Field("_state").SetValue((byte)3);
+                    // AimeReader maybe typeof AimeReaderManager or ChimeReaderManager, must build with correct Assembly-CSharp.dll in Libs folder
+                    if(SingletonStateMachine<AmManager, AmManager.EState>.Instance.AimeReader.GetType().FullName == "Manager.AimeReaderManager")
+                        traverse.Field("_state").SetValue((byte)3);
                     break;
                 case 4:
                     traverse.Field("_state").SetValue((byte)5);
