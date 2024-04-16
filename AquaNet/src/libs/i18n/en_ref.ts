@@ -23,6 +23,7 @@ export const EN_REF_USER = {
   'UserHome.ShowRanksDetails': "Click to show details",
   'UserHome.RankDetail.Title': 'Achievement Details',
   'UserHome.RankDetail.Level': "Level",
+  'UserHome.B50': "B50",
 }
 
 export const EN_REF_Welcome = {

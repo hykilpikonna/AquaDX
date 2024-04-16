@@ -5,7 +5,10 @@
     GenericGameSummary,
     MusicMeta,
     TrendEntry,
-    AquaNetUser
+    AquaNetUser,
+
+    AllMusic
+
   } from "../libs/generalTypes";
   import { DATA_HOST } from "../libs/config";
   import 'cal-heatmap/cal-heatmap.css';
@@ -18,6 +21,7 @@
   import Icon from "@iconify/svelte";
   import { GAME_TITLE, t } from "../libs/i18n";
   import RankDetails from "../components/RankDetails.svelte";
+  import MapDetails from "../components/MapDetails.svelte";
 
   const TREND_DAYS = 60
 
@@ -38,11 +42,11 @@
     user: GenericGameSummary,
     trend: TrendEntry[]
     recent: MusicAndPlay[],
-    validGames: [ string, string ][]
+    validGames: [ string, string ][],
   } | null
 
+  let allMusics: AllMusic
   let showDetailRank = false
-
   USER.isLoggedIn() && USER.me().then(u => me = u)
 
 
@@ -79,6 +83,7 @@
         recent: user.recent.map(it => {return {...music[it.musicId], ...it}}),
         validGames: Object.entries(GAME_TITLE).filter(g => games[g[0] as GameName])
       }
+      allMusics = music
       renderCal(calElement, trend.map(it => {return {date: it.date, value: it.plays}})).then(() => {
         // Scroll to the rightmost
         calElement.scrollLeft = calElement.scrollWidth - calElement.clientWidth
@@ -223,6 +228,18 @@
             <span>{d.user.lastVersion}</span>
           </div>
         </div>
+      </div>
+    </div>
+    
+    <div>
+      <h2>B35</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; item-align: center; align-content: flex-start">
+        {#each d.user.ratingComposition.best35.split(",") as map}
+        <!-- TODO: fix flex: 1 0 -->
+          <div style="width:260px;">
+            <MapDetails g={map} meta={allMusics[map.split(":")[0]]} game={game}/>
+          </div>
+        {/each}
       </div>
     </div>
 
