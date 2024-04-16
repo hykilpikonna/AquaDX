@@ -119,7 +119,7 @@ export function tooltip(element: HTMLElement, params: { text: string } | string)
 
     // Initially hidden
     div.style.display = 'none'
-    
+
     document.body.appendChild(div)
   }
 

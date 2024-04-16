@@ -230,13 +230,12 @@
         </div>
       </div>
     </div>
-    
+
     <div>
       <h2>B35</h2>
-      <div style="display: flex; flex-wrap: wrap; gap: 12px; item-align: center; align-content: flex-start">
+      <div class="b35">
         {#each d.user.ratingComposition.best35.split(",") as map}
-        <!-- TODO: fix flex: 1 0 -->
-          <div style="width:260px;">
+          <div>
             <MapDetails g={map} meta={allMusics[map.split(":")[0]]} game={game}/>
           </div>
         {/each}
@@ -529,4 +528,11 @@ $gap: 20px
         &:before
           content: "+"
         color: $c-good
+
+.b35
+  display: grid
+  // 3 columns
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))
+  gap: $gap
+
 </style>

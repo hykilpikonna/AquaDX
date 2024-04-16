@@ -17,21 +17,21 @@
   let mult = getMult(mapData[3], game)
   let mapRank = parseFloat(meta.notes?.[mapData[1] === 10 ? 0 : mapData[1]]?.lv?.toFixed(1) ?? mapData[1] ?? '0')
   </script>
-  
+
   <div class="map-detail-container" transition:slide>
     <div class="scores">
       <div>
         <img src={`${DATA_HOST}/d/mai2/music/00${mapData[0].toString().padStart(6, '0').substring(2)}.png`} alt="" on:error={coverNotFound} />
         <div class="info">
-          <div class="firstline">
+          <div class="first-line">
             <div class="song-title">{meta.name ?? t("UserHome.UnknownSong")}</div>
             <span class={`lv level-${mapData[1] === 10 ? 3 : mapData[1]}`}>
               { mapRank }
             </span>
           </div>
-          <div>
+          <div class="second-line">
             <span class={`rank-${getMult(mapData[3], game)[2].toString()[0]}`}>
-            
+
               <span class="rank-text">{("" + getMult(mapData[3], game)[2]).replace("p", "+")}</span>
               <span class="rank-num">{(mapData[3] / 10000).toFixed(2)}%</span>
             </span>
@@ -45,16 +45,17 @@
       </div>
     </div>
   </div>
-  
+
   <style lang="sass">
-    
+
     @import "../vars"
     $gap: 20px
 
     .map-detail-container
       background-color: rgb(35,35,35)
       border-radius: $border-radius
-      max-width: 250px
+      overflow: hidden
+
       .scores
         display: flex
         flex-direction: column
@@ -68,7 +69,7 @@
           gap: 12px
           max-width: 100%
           box-sizing: border-box
-          
+
           img
             width: 50px
             height: 50px
@@ -82,8 +83,8 @@
             justify-content: space-between
             overflow: hidden
             flex-direction: column
-            
-            .firstline
+
+            .first-line
               display: flex
               flex-direction: row
 
@@ -123,12 +124,19 @@
             text-align: center
             background: rgba(var(--lv-color), 0.6)
             padding: 0 6px
-            border-radius: $border-radius
-            margin-right: 6px
+            border-radius: 0 $border-radius 0 $border-radius
+
+            // Inset shadow, like it's a paper below this card with a cut
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5)
 
           span
             display: inline-block
             text-align: left
+
+          .second-line
+            display: flex
+            justify-content: space-between
+            align-items: center
 
           // Vertical table-like alignment
           span.rank-text
@@ -143,4 +151,3 @@
             content: "+"
           color: $c-good
   </style>
-  
