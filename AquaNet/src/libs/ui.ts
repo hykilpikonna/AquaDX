@@ -116,6 +116,10 @@ export function tooltip(element: HTMLElement, params: { text: string } | string)
   if (!document.querySelector('.aqua-tooltip')) {
     const div = document.createElement('div')
     div.classList.add('aqua-tooltip')
+
+    // Initially hidden
+    div.style.display = 'none'
+    
     document.body.appendChild(div)
   }
 
