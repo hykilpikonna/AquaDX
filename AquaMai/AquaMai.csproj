@@ -266,8 +266,10 @@
     <Compile Include="Cheat\TicketUnlock.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Fix\FixCharaCrash.cs" />
+    <Compile Include="Performance\ImproveLoadSpeed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="UX\CustomVersionString.cs" />
     <Compile Include="UX\SinglePlayer.cs" />
     <Compile Include="UX\SkipWarningScreen.cs" />
     <Compile Include="UX\SkipToMusicSelection.cs" />

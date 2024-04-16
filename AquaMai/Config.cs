@@ -7,6 +7,7 @@ namespace AquaMai
     {
         public UXConfig UX { get; set; }
         public CheatConfig Cheat { get; set; }
+        public PerformanceConfig Performance { get; set; }
 
         public class CheatConfig
         {
@@ -18,6 +19,12 @@ namespace AquaMai
             public bool SkipWarningScreen { get; set; }
             public bool SinglePlayer { get; set; }
             public bool SkipToMusicSelection { get; set; }
+            public string CustomVersionString { get; set; }
+        }
+        
+        public class PerformanceConfig
+        {
+            public bool ImproveLoadSpeed { get; set; }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using AquaMai.Fix;
+using AquaMai.UX;
 using MelonLoader;
 using Tomlet;
 
@@ -77,6 +78,7 @@ namespace AquaMai
             // Fixes that does not have side effects
             // These don't need to be configurable
             Patch(typeof(FixCharaCrash));
+            Patch(typeof(CustomVersionString));
 
             MelonLogger.Msg("Loaded!");
         }
