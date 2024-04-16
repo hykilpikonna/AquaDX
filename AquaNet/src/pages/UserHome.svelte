@@ -231,16 +231,18 @@
       </div>
     </div>
 
-    <div>
-      <h2>B35</h2>
-      <div class="b35">
-        {#each d.user.ratingComposition.best35.split(",") as map}
-          <div>
-            <MapDetails g={map} meta={allMusics[map.split(":")[0]]} game={game}/>
-          </div>
-        {/each}
+    {#if d.user.ratingComposition.best35}
+      <div>
+        <h2>B35</h2>
+        <div class="b35">
+          {#each d.user.ratingComposition.best35.split(",") as map}
+            <div>
+              <MapDetails g={map} meta={allMusics[map.split(":")[0]]} game={game}/>
+            </div>
+          {/each}
+        </div>
       </div>
-    </div>
+    {/if}
 
     <div class="recent">
       <h2>{t('UserHome.RecentScores')}</h2>
