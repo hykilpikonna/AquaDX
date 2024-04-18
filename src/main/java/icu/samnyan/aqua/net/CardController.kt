@@ -96,7 +96,10 @@ class CardController(
         val card = cardService.tryLookup(cardId) ?: (404 - "Card not found")
 
         // If the card is not bound to the user
-        if (card.aquaUser != u) 400 - "Card not bound to user"
+        if (card.aquaUser != u) 400 - "Card not linked to user"
+
+        // Ghost cards cannot be unlinked
+        if (card.isGhost) 400 - "Account virtual cards cannot be unlinked"
 
         // Unbind the card
         card.aquaUser = null
