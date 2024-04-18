@@ -13,6 +13,7 @@ import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.general.service.CardService
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo
 import icu.samnyan.aqua.sega.wacca.model.db.WcUserRepo
+import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.RestController
 import kotlin.jvm.optionals.getOrNull
@@ -150,7 +151,12 @@ class CardGameService(
     val wacca: WcUserRepo,
     val ongeki: icu.samnyan.aqua.sega.ongeki.dao.userdata.UserDataRepository,
     val diva: icu.samnyan.aqua.sega.diva.dao.userdata.PlayerProfileRepository,
+    val safety: AquaNetSafetyService
 ) {
+    companion object {
+        val log = logger()
+    }
+
     suspend fun migrate(crd: Card, games: List<String>) = async {
         // Migrate data from the card to the user's ghost card
         // An easy migration is to change the UserData card field to the user's ghost card
@@ -180,4 +186,21 @@ class CardGameService(
             )
         },
     ) }
+
+    // Every hour
+    @Suppress("UNCHECKED_CAST")
+    @Scheduled(fixedDelay = 3600000)
+    suspend fun autoBan() {
+        log.info("Running auto-ban")
+
+        // Ban any players with unacceptable names
+        for (repo in listOf(maimai2, chusan, wacca, ongeki)) {
+            repo.findAll().filter { it.card != null }.forEach { data ->
+                if (!safety.isSafe(data.userName)) {
+                    data.card!!.rankingBanned = true
+                    async { (repo as GenericUserDataRepo<IUserData>).save(data) }
+                }
+            }
+        }
+    }
 }
