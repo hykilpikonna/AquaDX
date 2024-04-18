@@ -13,6 +13,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Service
+import java.text.Normalizer
 
 @Configuration
 @ConfigurationProperties(prefix = "aqua-net.openai")
@@ -49,7 +50,9 @@ class AquaNetSafetyService(
     val safety: AquaNetSafetyRepo,
     val openAIConfig: OpenAIConfig
 ) {
-    suspend fun isSafe(content: String): Boolean {
+    suspend fun isSafe(rawContent: String): Boolean {
+        // NFKC normalize
+        val content = Normalizer.normalize(rawContent, Normalizer.Form.NFKC)
         if (content.isBlank()) return true
 
         async { safety.findByContent(content) }?.let { return it.safe }
