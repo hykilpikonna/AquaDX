@@ -151,7 +151,8 @@ class CardGameService(
     val wacca: WcUserRepo,
     val ongeki: icu.samnyan.aqua.sega.ongeki.dao.userdata.UserDataRepository,
     val diva: icu.samnyan.aqua.sega.diva.dao.userdata.PlayerProfileRepository,
-    val safety: AquaNetSafetyService
+    val safety: AquaNetSafetyService,
+    val cardRepo: CardRepository
 ) {
     companion object {
         val log = logger()
@@ -188,17 +189,17 @@ class CardGameService(
     ) }
 
     // Every hour
-    @Suppress("UNCHECKED_CAST")
     @Scheduled(fixedDelay = 3600000)
     suspend fun autoBan() {
         log.info("Running auto-ban")
 
         // Ban any players with unacceptable names
         for (repo in listOf(maimai2, chusan, wacca, ongeki)) {
-            repo.findAll().filter { it.card != null }.forEach { data ->
+            repo.findAll().filter { it.card != null && !it.card!!.rankingBanned }.forEach { data ->
                 if (!safety.isSafe(data.userName)) {
+                    log.info("Banning user ${data.userName} ${data.card!!.id}")
                     data.card!!.rankingBanned = true
-                    async { (repo as GenericUserDataRepo<IUserData>).save(data) }
+                    async { cardRepo.save(data.card!!) }
                 }
             }
         }
