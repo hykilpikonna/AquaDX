@@ -62,19 +62,21 @@
 
       // Send request to server
       await USER.register({ username, email, password, turnstile })
+        .then(() => {
+          // Show verify email message
+          state = 'verify'
+          verifyMsg = t("welcome.verification-sent", { email })
+        })
         .catch(e => {
           error = e.message
           submitting = false
           turnstileReset()
         })
-
-      // Show verify email message
-      state = 'verify'
-      verifyMsg = t("welcome.verification-sent", { email })
     }
     else {
       // Send request to server
-      await USER.login({ email, password, turnstile }).then(() => window.location.href = "/home")
+      await USER.login({ email, password, turnstile })
+        .then(() => window.location.href = "/home")
         .catch(e => {
           if (e.message === 'Email not verified - STATE_0') {
             state = 'verify'
