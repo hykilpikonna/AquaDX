@@ -52,7 +52,8 @@ abstract class GameApiController<T : IUserData>(name: String, userDataClass: KCl
         val players = userDataRepo.findAll().sortedByDescending { it.playerRating }
             .filter { it.card?.rankingBanned != true || it.card?.aquaUser?.let { it == reqUser } ?: false }
         return players.filter { it.card != null }.mapIndexed { i, user ->
-            val plays = playlogRepo.findByUserCardExtId(user.card!!.extId)
+            val card = user.card!!
+            val plays = playlogRepo.findByUserCardExtId(card.extId)
 
             GenericRankingPlayer(
                 rank = i + 1,
@@ -62,7 +63,7 @@ abstract class GameApiController<T : IUserData>(name: String, userDataClass: KCl
                 allPerfect = plays.count { it.isAllPerfect },
                 fullCombo = plays.count { it.isFullCombo },
                 lastSeen = user.lastPlayDate.toString(),
-                username = user.card!!.aquaUser?.username ?: "user${user.card!!.id}"
+                username = (if (card.isGhost) user.card!!.aquaUser?.username else null) ?: "user${user.card!!.id}"
             )
         }.also { rankingCache[cacheKey] = millis() to it } // Update cache
     }
