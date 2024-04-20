@@ -29,14 +29,13 @@ class Maimai2(
     ) }
 
     override suspend fun userSummary(@RP username: Str) = us.cardByName(username) { card ->
-        val extra = repos.userGeneralData.findByUser_Card_ExtId(card.extId)
-            .associate { it.propertyKey to it.propertyValue }
+        genericUserSummary(card) { u ->
+            val extra = repos.userGeneralData.findByUser(u).associate { it.propertyKey to it.propertyValue }
 
-        val ratingComposition = mapOf(
-            "best35" to (extra["recent_rating"] ?: ""),
-            "best15" to (extra["recent_rating_new"] ?: "")
-        )
-
-        genericUserSummary(card, ratingComposition)
+            RatingComposition(
+                bestOld = extra["recent_rating"] ?: "",
+                bestNew = extra["recent_rating_new"] ?: ""
+            )
+        }
     }
 }

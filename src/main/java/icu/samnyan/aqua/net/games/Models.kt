@@ -20,7 +20,7 @@ data class TrendOut(val date: String, val rating: Int, val plays: Int)
 
 data class RankCount(val name: String, val count: Int)
 
-data class GenericGameSummary(
+data class GameSummary(
     val name: String,
 
     val aquaUser: Map<String, Any?>?,
@@ -42,7 +42,7 @@ data class GenericGameSummary(
     val lastSeen: String,
     val lastVersion: String,
 
-    val ratingComposition: Map<String, Any>,
+    val ratingComposition: RatingComposition,
 
     val recent: List<IGenericGamePlaylog>
 )
@@ -101,6 +101,23 @@ interface IGenericGamePlaylog {
     val afterRating: Int
     val isAllPerfect: Boolean
 }
+
+/**
+ * An entry of the best scores
+ */
+@Serializable
+data class RatingCompositionEntry(
+    val music: Int,
+    val level: Int,
+    val achievement: Int,
+    val rating: Int
+)
+
+@Serializable
+data class RatingComposition(
+    val bestNew: List<RatingCompositionEntry>,
+    val bestOld: List<RatingCompositionEntry>
+)
 
 @MappedSuperclass
 open class BaseEntity(
