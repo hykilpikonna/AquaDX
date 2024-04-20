@@ -134,6 +134,7 @@ fun Any.long() = when (this) {
     is String -> toLong()
     else -> 400 - "Invalid number: $this"
 }
+fun Any.uint32() = long() and 0xFFFFFFFF
 fun Any.int() = long().toInt()
 operator fun Bool.unaryPlus() = if (this) 1 else 0
 

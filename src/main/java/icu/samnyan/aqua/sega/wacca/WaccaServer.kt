@@ -5,7 +5,6 @@ import icu.samnyan.aqua.net.db.AquaGameOptions
 import icu.samnyan.aqua.net.games.wacca.Wacca
 import icu.samnyan.aqua.net.utils.ApiException
 import icu.samnyan.aqua.sega.general.dao.CardRepository
-import icu.samnyan.aqua.sega.wacca.WaccaDifficulty.INFERNO
 import icu.samnyan.aqua.sega.wacca.WaccaItemType.*
 import icu.samnyan.aqua.sega.wacca.WaccaItemType.NOTE_COLOR
 import icu.samnyan.aqua.sega.wacca.WaccaItemType.NOTE_SOUND
@@ -47,7 +46,7 @@ class WaccaServer {
     init { init() }
 
     // DSL Functions
-    fun user(uid: Any) = if (uid == 0) null else rp.user.findByCardExtId(uid.long())
+    fun user(uid: Any) = if (uid == 0) null else rp.user.findByCardExtId(uid.uint32())
     fun options(u: WaccaUser?) = u?.let { rp.option.findByUser(u).associate { it.optId to it.value } } ?: emptyMap()
     fun itmGrp(u: WaccaUser) = rp.item.findByUser(u).groupBy { it.type }.mapValues { it.value.associateBy { it.itemId } }
     operator fun Map<Int, Int>.get(type: WaccaOptionType) = getOrDefault(type.id, type.default)
@@ -137,7 +136,7 @@ fun WaccaServer.init() {
         if (user(uid) != null) 404 - "User already exists"
 
         val u = rp.user.save(WaccaUser().apply {
-            card = cardRepo.findByExtId(uid.long())() ?: (404 - "Card not found")
+            card = cardRepo.findByExtId(uid.uint32())() ?: (404 - "Card not found")
             userName = name.toString()
         })
 
