@@ -9,7 +9,7 @@ export interface Card {
   registerTime: string
   accessTime: string
   linked: boolean
-  ghost: boolean
+  isGhost: boolean
 }
 
 export interface AquaNetUser {

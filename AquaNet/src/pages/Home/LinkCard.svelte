@@ -23,7 +23,7 @@
     CARD.summary(m.ghostCard.luid).then(s => accountCardSummary = s.summary)
 
     // Always put the ghost card at the top
-    m.cards.sort((a, b) => a.ghost ? -1 : 1)
+    m.cards.sort((a, b) => a.isGhost ? -1 : 1)
     state = "ready"
   }).catch(e => error = e.message)
   updateMe()
@@ -54,7 +54,7 @@
     console.log("linking card", id)
 
     // Check if this card is already linked in the account
-    if (me?.cards?.some(c => formatLUID(c.luid, c.ghost).toLowerCase() === id.toLowerCase())) {
+    if (me?.cards?.some(c => formatLUID(c.luid, c.isGhost).toLowerCase() === id.toLowerCase())) {
       setError("This card is already linked to your account", type)
       state = "ready"
       return
@@ -217,13 +217,13 @@
   {#if me}
     <div class="existing-cards" transition:slide>
       {#each me.cards as card (card.luid)}
-        <div class:ghost={card.ghost} class='existing card' transition:fade|global>
-          <span class="type">{card.ghost ? "Account Card" : cardType(card.luid)}</span>
+        <div class:ghost={card.isGhost} class='existing card' transition:fade|global>
+          <span class="type">{card.isGhost ? "Account Card" : cardType(card.luid)}</span>
           <span class="register">Registered: {moment(card.registerTime).format("YYYY MMM DD")}</span>
           <span class="last">Last used: {moment(card.accessTime).format("YYYY MMM DD")}</span>
           <div/>
-          <span class="id">{formatLUID(card.luid, card.ghost)}</span>
-          {#if !card.ghost}
+          <span class="id">{formatLUID(card.luid, card.isGhost)}</span>
+          {#if !card.isGhost}
             <button class="icon error" on:click={() => unlink(card)}><Icon icon="tabler:trash-x-filled"/></button>
           {/if}
         </div>
