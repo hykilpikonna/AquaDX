@@ -234,8 +234,21 @@
     {#if d.user.ratingComposition.best35}
       <div>
         <h2>B35</h2>
-        <div class="b35">
+        <div class="rating-composition">
           {#each d.user.ratingComposition.best35.split(",") as map}
+            <div>
+              <MapDetails g={map} meta={allMusics[map.split(":")[0]]} game={game}/>
+            </div>
+          {/each}
+        </div>
+      </div>
+    {/if}
+
+    {#if d.user.ratingComposition.best15}
+      <div>
+        <h2>B15</h2>
+        <div class="rating-composition">
+          {#each d.user.ratingComposition.best15.split(",") as map}
             <div>
               <MapDetails g={map} meta={allMusics[map.split(":")[0]]} game={game}/>
             </div>
@@ -531,7 +544,7 @@ $gap: 20px
           content: "+"
         color: $c-good
 
-.b35
+.rating-composition
   display: grid
   // 3 columns
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))
