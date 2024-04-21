@@ -28,6 +28,10 @@ class CardController(
     val cardRepository: CardRepository,
     val props: AquaNetProps
 ) {
+    companion object {
+        val log = logger()
+    }
+
     @API("/summary")
     @Doc("Get a summary of the card, including the user's name, rating, and last login date.", "Summary of the card")
     suspend fun summary(@RP cardId: Str): Any
@@ -72,6 +76,8 @@ class CardController(
             // Create a new card
             cardService.registerByAccessCode(id, u)
 
+            log.info("Net /card/link : Created new card $id for user ${u.username}")
+
             return SUCCESS
         }
 
@@ -85,6 +91,8 @@ class CardController(
         // Migrate selected data to the new user
         val games = migrate.split(',')
         cardGameService.migrate(card, games)
+
+        log.info("Net /card/link : Linked card ${card.id} to user ${u.username} and migrated data to ${games.joinToString()}")
 
         SUCCESS
     }
@@ -104,6 +112,8 @@ class CardController(
         // Unbind the card
         card.aquaUser = null
         async { cardRepository.save(card) }
+
+        log.info("Net /card/unlink : Unlinked card ${card.id} from user ${u.username}")
 
         SUCCESS
     }
