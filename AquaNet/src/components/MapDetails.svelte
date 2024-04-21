@@ -5,26 +5,25 @@
   import { DATA_HOST } from "../libs/config";
   import { t } from "../libs/i18n";
   import { type GameName, getMult } from "../libs/scoring";
+  import { coverNotFound } from "../libs/ui";
+  import type { MusicMeta } from "../libs/generalTypes";
+
   export let g: string
   export let meta: MusicMeta
   export let game: GameName
-  import { coverNotFound } from "../libs/ui";
-  import { DATA } from "../libs/sdk";
-  import type { MusicMeta } from "../libs/generalTypes";
-  import { parse } from "svelte/compiler";
 
   let mapData = g.split(":").map(Number)
   let mult = getMult(mapData[3], game)
-  let mapRank = parseFloat(meta.notes?.[mapData[1] === 10 ? 0 : mapData[1]]?.lv?.toFixed(1) ?? mapData[1] ?? '0')
+  let mapRank = parseFloat(meta?.notes?.[mapData[1] === 10 ? 0 : mapData[1]]?.lv?.toFixed(1) ?? mapData[1] ?? '0')
   </script>
 
   <div class="map-detail-container" transition:slide>
     <div class="scores">
       <div>
-        <img src={`${DATA_HOST}/d/mai2/music/00${mapData[0].toString().padStart(6, '0').substring(2)}.png`} alt="" on:error={coverNotFound} />
+        <img src={`${DATA_HOST}/d/${game}/music/00${mapData[0].toString().padStart(6, '0').substring(2)}.png`} alt="" on:error={coverNotFound} />
         <div class="info">
           <div class="first-line">
-            <div class="song-title">{meta.name ?? t("UserHome.UnknownSong")}</div>
+            <div class="song-title">{meta?.name ?? t("UserHome.UnknownSong")}</div>
             <span class={`lv level-${mapData[1] === 10 ? 3 : mapData[1]}`}>
               { mapRank }
             </span>
@@ -36,7 +35,7 @@
               <span class="rank-num">{(mapData[3] / 10000).toFixed(2)}%</span>
             </span>
             {#if game === 'mai2'}
-              <span class:increased={true} class="dx-change">
+              <span class="dx-change">
                 { (mapData[3] / 1000000 * mapRank * Number(mult[1])).toFixed(0) }
               </span>
             {/if}
@@ -144,10 +143,6 @@
           span.rank-num
             min-width: 60px
           span.dx-change
-            min-width: 50px
-
-        span.increased
-          &:before
-            content: "+"
-          color: $c-good
+            margin-right: 0.5rem
+            color: $c-good
   </style>
