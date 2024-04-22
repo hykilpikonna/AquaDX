@@ -14,7 +14,8 @@
 
   let mapData = g.split(":").map(Number)
   let mult = getMult(mapData[3], game)
-  let mapRank = parseFloat(meta?.notes?.[mapData[1] === 10 ? 0 : mapData[1]]?.lv?.toFixed(1) ?? mapData[1] ?? '0')
+  let mapRank: number = meta?.notes?.[mapData[1] === 10 ? 0 : mapData[1]]?.lv ?? mapData[1] ?? 0
+  console.log(meta?.name, mapData, mapRank, mult)
   </script>
 
   <div class="map-detail-container" transition:slide>
@@ -36,7 +37,7 @@
             </span>
             {#if game === 'mai2'}
               <span class="dx-change">
-                { (mapData[3] / 1000000 * mapRank * Number(mult[1])).toFixed(0) }
+                { (mapRank * Number(mult[1])).toFixed(1) }
               </span>
             {/if}
           </div>
