@@ -16,6 +16,8 @@ SinglePlayer=true
 SkipToMusicSelection=false
 # Set the version string displayed at the top-right corner of the screen
 CustomVersionString=""
+# Load Jacket image from folder "LocalAssets" and filename "{MusicID}.png" for self-made charts
+LoadJacketPng=true
 
 [Performance]
 # Disable some useless checks and delays to speed up the game boot process
