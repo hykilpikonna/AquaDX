@@ -45,6 +45,8 @@ class WaccaUser : BaseEntity(), IUserData {
     @Convert(converter = IntegerListConverter::class)
     var friendViews: MutableList<Int> = mutableListOf(0, 0, 0)
     @Column(length = 50)
+    override var lastClientId = ""
+    @Column(length = 50)
     override var lastRomVersion = "1.0.0"
     @Convert(converter = IntegerListConverter::class)
     var lastSongInfo: MutableList<Int> = mutableListOf(0, 0, 0, 0, 0)

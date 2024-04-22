@@ -137,7 +137,8 @@ abstract class GameApiController<T : IUserData>(name: String, userDataClass: KCl
             lastSeen = user.lastPlayDate.toString(),
             lastVersion = user.lastRomVersion,
             ratingComposition = ratingComp,
-            recent = plays.sortedBy { it.userPlayDate.toString() }.takeLast(15).reversed()
+            recent = plays.sortedBy { it.userPlayDate.toString() }.takeLast(15).reversed(),
+            lastPlayedHost = us.userRepo.findByKeychip(user.lastClientId)?.username
         )
     }
 }

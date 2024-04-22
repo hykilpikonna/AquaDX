@@ -41,6 +41,7 @@ data class GenericGameSummary(
     val joined: String,
     val lastSeen: String,
     val lastVersion: String,
+    val lastPlayedHost: String? = null,
 
     val ratingComposition: Map<String, Any>,
 
@@ -88,6 +89,7 @@ interface IUserData {
     val lastRomVersion: String
     val totalScore: Long
     var card: Card?
+    val lastClientId: String
 }
 
 interface IGenericGamePlaylog {

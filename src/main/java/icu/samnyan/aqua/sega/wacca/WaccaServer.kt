@@ -39,6 +39,7 @@ class WaccaServer {
     val season = 3
     val enabledGates = 1..24
     // [[stageId, danLevel], ...]
+    @Suppress("UNCHECKED_CAST")
     val enabledStages = ("[[3014, 14], [3013, 13], [3012, 12], [3011, 11], [3010, 10], [3009, 9], [3008, 8], [3007, 7], [3006, 6], [3005, 5], [3004, 4], [3003, 3], [3002, 2], [3001, 1], [210001, 0], [210002, 0], [210003, 0], [310001, 0], [310002, 0], [310003, 0], [310004, 0], [310005, 0], [310006, 0]]"
         .jsonArray() as List<List<Int>>).associate { it[0].int() to it[1].int() }
     val enabledTickets = listOf(106001, 106002, 206001, 206002)
@@ -154,12 +155,13 @@ fun WaccaServer.init() {
         ls(u.lStatus())
     }
 
-    "user/status/login" api@ { _, (uid) ->
+    "user/status/login" api@ { req, (uid) ->
         val u = user(uid)
         if (uid == 0 || u == null) return@api "[[], [], [], 0, [2077, 1, 1, 1, [], []], 0, []]"
 
         // Record login
         rp.user.save(u.apply {
+            lastClientId = req.chipId
             loginCount++
             if (millis() - lastConsecDate.time > 23 * 60 * 60 * 1000) {
                 loginCountDays++

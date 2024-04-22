@@ -70,7 +70,7 @@ class Mai2UserDetail(
     var lastAllNetId: Int = 0,
     var lastRegionId: Int = 0,
     var lastRegionName: String = "",
-    var lastClientId: String = "",
+    override var lastClientId: String = "",
     var lastCountryCode: String = "",
     var lastSelectEMoney: Int = 0,
     var lastSelectTicket: Int = 0,
