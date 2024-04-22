@@ -19,6 +19,7 @@ namespace AquaMai
             public bool SkipWarningScreen { get; set; }
             public bool SinglePlayer { get; set; }
             public bool SkipToMusicSelection { get; set; }
+            public bool LoadJacketPng { get; set; }
             public string CustomVersionString { get; set; }
         }
         
