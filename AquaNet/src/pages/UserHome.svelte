@@ -16,7 +16,7 @@
   import moment from "moment";
   import 'chartjs-adapter-moment';
   import { CARD, DATA, GAME, USER } from "../libs/sdk";
-  import { type GameName, getMult } from "../libs/scoring";
+  import { type GameName, getMult, roundFloor } from "../libs/scoring";
   import StatusOverlays from "../components/StatusOverlays.svelte";
   import Icon from "@iconify/svelte";
   import { GAME_TITLE, t } from "../libs/i18n";
@@ -271,11 +271,13 @@
                 </span>
                 <span class={`rank-${getMult(r.achievement, game)[2].toString()[0]}`}>
                   <span class="rank-text">{("" + getMult(r.achievement, game)[2]).replace("p", "+")}</span>
-                  <span class="rank-num">{(r.achievement / 10000).toFixed(2)}%</span>
+                  <span class="rank-num" use:tooltip={(r.achievement / 10000).toFixed(4)}>
+                    {roundFloor(r.achievement, game, 1)}%
+                  </span>
                 </span>
                 {#if game === 'mai2' || game === 'wacca'}
                   <span class:increased={r.afterRating - r.beforeRating > 0} class="dx-change">
-                    {(r.afterRating - r.beforeRating).toFixed(0)}
+                    {r.afterRating === r.beforeRating ? '-' : (r.afterRating - r.beforeRating).toFixed(0)}
                   </span>
                 {/if}
               </div>

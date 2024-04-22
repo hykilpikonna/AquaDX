@@ -4,7 +4,7 @@
   import { slide } from "svelte/transition";
   import { DATA_HOST } from "../libs/config";
   import { t } from "../libs/i18n";
-  import { type GameName, getMult } from "../libs/scoring";
+  import { type GameName, getMult, roundFloor } from "../libs/scoring";
   import { coverNotFound } from "../libs/ui";
   import type { MusicMeta } from "../libs/generalTypes";
   import { tooltip } from "../libs/ui";
@@ -35,7 +35,7 @@
 
               <span class="rank-text">{("" + getMult(mapData[3], game)[2]).replace("p", "+")}</span>
               <span class="rank-num" use:tooltip={(mapData[3] / 10000).toFixed(4)}>
-                {(mapData[3] / 10000).toFixed(1)}%
+                {roundFloor(mapData[3], game, 1)}%
               </span>
             </span>
             {#if game === 'mai2'}

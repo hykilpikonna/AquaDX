@@ -66,7 +66,6 @@ const multTable = {
   ]
 }
 
-
 export function getMult(achievement: number, game: GameName) {
   achievement /= 10000
   const mt = multTable[game]
@@ -74,4 +73,13 @@ export function getMult(achievement: number, game: GameName) {
     if (achievement >= (mt[i][0] as number)) return mt[i]
   }
   return [ 0, 0, 0 ]
+}
+
+export function roundFloor(achievement: number, game: GameName, digits = 2) {
+  achievement /= 10000
+  // Round, but if the rounded number reaches the next rank, use floor instead
+  const mult = getMult(achievement, game);
+  const rounded = achievement.toFixed(digits);
+  if (getMult(+rounded, game)[2] === mult[2]) return rounded;
+  return (+rounded - Math.pow(10, -digits)).toFixed(digits);
 }
