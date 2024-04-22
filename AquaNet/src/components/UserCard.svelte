@@ -8,15 +8,16 @@
 
   export let username: string
   export let game: GameName
+  export let setLoading: (loading: boolean) => void = () => {}
 
   let data: GenericGameSummary
   let error = ""
-  let loading = true
 
-  GAME.userSummary(username, game).then(d => data = d).catch(e => error = e).finally(_ => loading = false)
+  setLoading(true)
+  GAME.userSummary(username, game).then(d => data = d).catch(e => error = e).finally(_ => setLoading(false))
 </script>
 
-{#if loading}
+{#if !data}
   <div>Loading...</div>
 {:else if error}
   <div>Error: {error}</div>

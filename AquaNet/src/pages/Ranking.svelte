@@ -23,6 +23,7 @@
     .catch((e) => error = e.message);
 
   let hoveringUser = "";
+  let hoverLoading = false;
 </script>
 
 <main class="content leaderboard">
@@ -63,8 +64,8 @@
       {/each}
     </div>
 
-    <Tooltip triggeredBy=".name">
-      <UserCard username={hoveringUser} {game} />
+    <Tooltip triggeredBy=".name" loading={hoverLoading}>
+      <UserCard username={hoveringUser} {game} setLoading={l => hoverLoading = l} />
     </Tooltip>
   {/if}
 

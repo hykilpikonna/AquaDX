@@ -2,6 +2,7 @@
   import { onMount, onDestroy } from 'svelte'
 
   export let triggeredBy: string
+  export let loading: boolean = false
   let isHovered = false
   let x: number, y: number
   let targets: Element[] = []
@@ -49,7 +50,7 @@
 </script>
 
 {#if isHovered}
-  <div style="top: {y}px; left: {x}px" class="tooltip">
+  <div style="top: {y}px; left: {x}px" class="tooltip" class:loading>
     <slot />
   </div>
 {/if}
@@ -68,4 +69,8 @@
     white-space: nowrap
     color: #242424
     transform: translate(-50%, 0)
+    transition: opacity 0.2s
+
+    &.loading
+      opacity: 0
 </style>
