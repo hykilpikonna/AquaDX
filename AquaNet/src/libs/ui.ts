@@ -111,7 +111,7 @@ export const coverNotFound = (e: Event) => (e.target as HTMLImageElement).src = 
 /**
  * use:tooltip
  */
-export function tooltip(element: HTMLElement, params: { text: string } | string) {
+export function tooltip(element: HTMLElement, params: { text: string, dom: HTMLElement } | string | HTMLElement) {
   // Create div if not exists
   if (!document.querySelector('.aqua-tooltip')) {
     const div = document.createElement('div')
@@ -125,7 +125,9 @@ export function tooltip(element: HTMLElement, params: { text: string } | string)
 
   let isFocus = false
   let div: HTMLDivElement = document.querySelector('.aqua-tooltip')!
-  const p = typeof params === 'string' ? { text: params } : params
+  const p: string = typeof params === 'string' ? params
+    : 'dom' in params ? params.dom.outerHTML
+    : params.outerHTML
 
   function updatePosition(event: MouseEvent) {
     div.style.top = `${event.pageY + 10}px`;
@@ -134,7 +136,7 @@ export function tooltip(element: HTMLElement, params: { text: string } | string)
 
   function mouseOver(event: MouseEvent) {
     if (isFocus) return
-    div.textContent = p.text;
+    div.innerHTML = p;
     div.style.display = ''
     updatePosition(event);
     isFocus = true;
