@@ -267,7 +267,7 @@
               <div>{r.name ?? t("UserHome.UnknownSong")}</div>
               <div>
                 <span class={`lv level-${r.level === 10 ? 3 : r.level}`}>
-                  { r.notes?.[r.level === 10 ? 0 : r.level]?.lv?.toFixed(1) ?? '-' ?? '0'}
+                  { r.notes?.[r.level === 10 ? 0 : r.level]?.lv?.toFixed(1) ?? '-' }
                 </span>
                 <span class={`rank-${getMult(r.achievement, game)[2].toString()[0]}`}>
                   <span class="rank-text">{("" + getMult(r.achievement, game)[2]).replace("p", "+")}</span>

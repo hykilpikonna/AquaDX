@@ -7,6 +7,7 @@
   import { type GameName, getMult } from "../libs/scoring";
   import { coverNotFound } from "../libs/ui";
   import type { MusicMeta } from "../libs/generalTypes";
+  import { tooltip } from "../libs/ui";
 
   export let g: string
   export let meta: MusicMeta
@@ -14,7 +15,7 @@
 
   let mapData = g.split(":").map(Number)
   let mult = getMult(mapData[3], game)
-  let mapRank: number = meta?.notes?.[mapData[1] === 10 ? 0 : mapData[1]]?.lv ?? mapData[1] ?? 0
+  let mapRank: number | undefined = meta?.notes?.[mapData[1] === 10 ? 0 : mapData[1]]?.lv
   console.log(meta?.name, mapData, mapRank, mult)
   </script>
 
@@ -26,18 +27,20 @@
           <div class="first-line">
             <div class="song-title">{meta?.name ?? t("UserHome.UnknownSong")}</div>
             <span class={`lv level-${mapData[1] === 10 ? 3 : mapData[1]}`}>
-              { mapRank }
+              { mapRank ?? '-' }
             </span>
           </div>
           <div class="second-line">
             <span class={`rank-${getMult(mapData[3], game)[2].toString()[0]}`}>
 
               <span class="rank-text">{("" + getMult(mapData[3], game)[2]).replace("p", "+")}</span>
-              <span class="rank-num">{(mapData[3] / 10000).toFixed(2)}%</span>
+              <span class="rank-num" use:tooltip={(mapData[3] / 10000).toFixed(4)}>
+                {(mapData[3] / 10000).toFixed(1)}%
+              </span>
             </span>
             {#if game === 'mai2'}
               <span class="dx-change">
-                { (mapRank * Number(mult[1])).toFixed(0) }
+                { mapRank ? (mapRank * Number(mult[1])).toFixed(0) : '-' }
               </span>
             {/if}
           </div>
