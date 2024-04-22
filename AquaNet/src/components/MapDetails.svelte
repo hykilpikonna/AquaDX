@@ -37,7 +37,7 @@
             </span>
             {#if game === 'mai2'}
               <span class="dx-change">
-                { (mapRank * Number(mult[1])).toFixed(1) }
+                { (mapRank * Number(mult[1])).toFixed(0) }
               </span>
             {/if}
           </div>
