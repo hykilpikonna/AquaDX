@@ -59,7 +59,7 @@
   @import "../vars"
 
   .tooltip
-    position: fixed
+    position: absolute
     z-index: 1000
     background: white
     padding: 10px 16px
