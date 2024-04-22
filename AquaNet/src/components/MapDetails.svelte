@@ -16,7 +16,6 @@
   let mapData = g.split(":").map(Number)
   let mult = getMult(mapData[3], game)
   let mapRank: number | undefined = meta?.notes?.[mapData[1] === 10 ? 0 : mapData[1]]?.lv
-  console.log(meta?.name, mapData, mapRank, mult)
   </script>
 
   <div class="map-detail-container" transition:slide>
