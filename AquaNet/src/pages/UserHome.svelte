@@ -294,8 +294,6 @@
 <style lang="sass">
 @import "../vars"
 
-$gap: 20px
-
 #user-home
   .user-pfp
     display: flex

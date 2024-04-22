@@ -6,6 +6,8 @@
   import type { GameName } from "../libs/scoring";
   import { GAME_TITLE } from "../libs/i18n";
   import { t } from "../libs/i18n";
+  import UserCard from "../components/UserCard.svelte";
+  import Tooltip from "../components/Tooltip.svelte";
 
   export let game: GameName = 'mai2';
 
@@ -19,6 +21,8 @@
       d = { users };
     })
     .catch((e) => error = e.message);
+
+  let hoveringUser = "";
 </script>
 
 <main class="content leaderboard">
@@ -33,7 +37,7 @@
 
   {#if d}
     <div class="leaderboard-container">
-      <div class="lb-user">
+      <div class="lb-user" on:mouseenter={() => hoveringUser = d.users[0].username}>
         <span class="rank">{t("Leaderboard.Rank")}</span>
         <span class="name"></span>
         <span class="rating">{t("Leaderboard.Rating")}</span>
@@ -42,7 +46,7 @@
         <span class="ap">{t("Leaderboard.AP")}</span>
       </div>
       {#each d.users as user, i (user.rank)}
-        <div class="lb-user" class:alternate={i % 2 === 1}>
+        <div class="lb-user" class:alternate={i % 2 === 1} on:mouseover={() => hoveringUser = user.username}>
           <span class="rank">#{user.rank}</span>
           <span class="name">
             {#if user.username !== ""}
@@ -58,6 +62,10 @@
         </div>
       {/each}
     </div>
+
+    <Tooltip triggeredBy=".name">
+      <UserCard username={hoveringUser} {game} />
+    </Tooltip>
   {/if}
 
   <StatusOverlays error={error} loading={!d} />
