@@ -18,6 +18,8 @@ SkipToMusicSelection=false
 CustomVersionString=""
 # Load Jacket image from folder "LocalAssets" and filename "{MusicID}.png" for self-made charts
 LoadJacketPng=true
+# Press key "7" for 1 second to skip to next step or restart current song
+QuickSkip=true
 
 [Performance]
 # Disable some useless checks and delays to speed up the game boot process

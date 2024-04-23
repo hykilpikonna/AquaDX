@@ -271,6 +271,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="UX\CustomVersionString.cs" />
     <Compile Include="UX\LoadJacketPng.cs" />
+    <Compile Include="UX\QuickSkip.cs" />
     <Compile Include="UX\SinglePlayer.cs" />
     <Compile Include="UX\SkipWarningScreen.cs" />
     <Compile Include="UX\SkipToMusicSelection.cs" />
