@@ -40,9 +40,27 @@ Check out these docs for more information.
 > If you were using SQLite Aqua before, it's not supported in AquaDX and the command below will create a new MariaDB database.
 > We're working on a migration guide, which will be released along with AquaDX v1 stable.
 
-1. Install [Docker](https://www.docker.com/get-started/)
-2. Download or clone this repo. ([Download](https://github.com/hykilpikonna/AquaDX/archive/refs/heads/v1-dev.zip) or `git clone https://github.com/hykilpikonna/AquaDX`)
+1. Install [Docker](https://www.docker.com/get-started/) and [Git](https://git-scm.com/downloads)
+2. Run `git clone https://github.com/hykilpikonna/AquaDX` to clone this repo.
 3. Run `docker compose up` in the AquaDX folder.
+
+### Updating Instructions
+
+> [!NOTE]
+> Please back up your database before you update! Even though we want to avoid database issues as much as possible, it's still possible that unexpected things will happen.
+
+Please run the commands below in the AquaDX folder to update:
+
+```
+# Backup your database
+docker run --rm -it mariadb:latest mariadb-dump -h host.docker.internal --port 3369 --user=cat --password=meow main > backup.sql
+
+# Pull the new repository
+git pull
+
+# Run the updated version
+docker compose up
+```
 
 ### Usage (Stable Old Version)
 
