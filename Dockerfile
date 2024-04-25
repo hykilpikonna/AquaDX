@@ -10,6 +10,9 @@ COPY --chown=gradle:gradle build.gradle.kts settings.gradle.kts /home/gradle/
 # Set working directory
 WORKDIR /home/gradle
 
+# Replace CRLF with LF in gradlew to make it work on Linux
+RUN sed -i 's/\r$//' ./gradlew
+
 # Download dependencies - cached if build.gradle.kts and settings.gradle.kts are unchanged
 RUN ./gradlew dependencies
 
