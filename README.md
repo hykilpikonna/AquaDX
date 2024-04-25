@@ -33,7 +33,21 @@ Check out these docs for more information.
 * This repository may contain untested, experimental implementations for a few games which I can't test properly. If you couldn't find your wanted game in the above list, do not expect support.
 * This server also provides a simple API for viewing play records and editing settings for some games.
 
-### Usage
+### Usage (V1 Developmental Preview)
+
+> [!NOTE]
+> AquaDX v1 is currently under heavy development.
+> If you were using SQLite Aqua before, it's not supported in AquaDX and the command below will create a new MariaDB database.
+> We're working on a migration guide, which will be released along with AquaDX v1 stable.
+
+1. Install [Docker](https://www.docker.com/get-started/)
+2. Download or clone this repo. ([Download](https://github.com/hykilpikonna/AquaDX/archive/refs/heads/v1-dev.zip) or `git clone https://github.com/hykilpikonna/AquaDX`
+3. Run `docker-compose up` in the AquaDX folder.
+
+### Usage (Stable Old Version)
+
+> [!WARNING]
+> The instructions below is for the old version of AquaDX 0.0.47. This version does not support the latest features and games.
 
 1. Install [Java 21 Temurin JDK](https://adoptium.net/temurin/releases/?version=21) (Please select your appropriate operating system)
 2. Download the latest `aqua-nightly.zip` from [Releases](https://github.com/hykilpikonna/AquaDX/releases).
