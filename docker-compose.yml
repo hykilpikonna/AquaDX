@@ -27,8 +27,8 @@ services:
       MYSQL_PASSWORD: meow
     ports:
       - "127.0.0.1:3369:3306"
-    # There is an unfixed bug in Windows WSL2 that prevents volumes from working
-    # properly with mariadb. Please uncomment this on Linux / MacOS.
-    # Check https://stackoverflow.com/questions/76711550/i-get-an-error-on-mariadb-allways-i-start-my-app
-    # volumes:
-      # - ./data/db:/var/lib/mysql
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+volumes:
+  mariadb_data:

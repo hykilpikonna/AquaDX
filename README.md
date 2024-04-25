@@ -41,8 +41,8 @@ Check out these docs for more information.
 > We're working on a migration guide, which will be released along with AquaDX v1 stable.
 
 1. Install [Docker](https://www.docker.com/get-started/)
-2. Download or clone this repo. ([Download](https://github.com/hykilpikonna/AquaDX/archive/refs/heads/v1-dev.zip) or `git clone https://github.com/hykilpikonna/AquaDX`
-3. Run `docker-compose up` in the AquaDX folder.
+2. Download or clone this repo. ([Download](https://github.com/hykilpikonna/AquaDX/archive/refs/heads/v1-dev.zip) or `git clone https://github.com/hykilpikonna/AquaDX`)
+3. Run `docker compose up` in the AquaDX folder.
 
 ### Usage (Stable Old Version)
 
