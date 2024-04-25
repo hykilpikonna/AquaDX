@@ -235,7 +235,7 @@ class Maimai2ServletController(
                 "isMaintenance" to false,
                 "requestInterval" to 10,
                 "rebootStartTime" to "2099-01-01 23:59:00.0",
-                "rebootEndTime" to "2099-01-01 23:59:00.0",
+                "rebootEndTime" to "2099-01-01 23:59:01.0",
                 "movieUploadLimit" to 10000,
                 "movieStatus" to 0,
                 "movieServerUri" to "",
