@@ -217,8 +217,8 @@ class Maimai2ServletController(
         // The time is adjusted to the next day if it's 12 hours or more from now.
         // And it's using local timezone instead of treating it as UTC.
         // The official maimai cabs will reboot every day, but we don't want that
-        // So, we need to return the hour and minute 10 hours from now
-        val rebootStart = Instant.now().atZone(ZoneId.of("Asia/Tokyo")).plusSeconds(60 * 60 * 10)
+        // So, we need to return the hour and minute 5 hours ago
+        val rebootStart = Instant.now().atZone(ZoneId.of("Asia/Tokyo")).minusHours(5)
         val rebootEnd = rebootStart.plusSeconds(60)
 
         mapOf(
