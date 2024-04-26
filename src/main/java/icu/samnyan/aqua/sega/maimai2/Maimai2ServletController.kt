@@ -9,6 +9,9 @@ import io.ktor.client.request.*
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import kotlin.reflect.full.declaredMemberProperties
 
 /**
@@ -34,6 +37,8 @@ class Maimai2ServletController(
     companion object {
         private val logger = LoggerFactory.getLogger(Maimai2ServletController::class.java)
         private val empty = listOf<Any>()
+        private val GAME_SETTING_DATE_FMT = DateTimeFormatter.ofPattern("2010-01-01 HH:mm:00.0")
+        private val GAME_SETTING_TIME_FMT = DateTimeFormatter.ofPattern("HH:mm:00")
     }
 
     val getUserExtend = UserReqHandler { _, userId -> mapOf(
@@ -206,6 +211,50 @@ class Maimai2ServletController(
     val getGameRanking = BaseHandler { mapOf("type" to it["type"].toString(), "gameRankingList" to empty) }
     val getGameTournamentInfo = BaseHandler { mapOf("length" to 0, "gameTournamentInfoList" to empty) }
 
+    val getGameSetting = BaseHandler {
+        // The client-side implementation for reboot time is extremely cursed.
+        // Only hour and minute are used, date is discarded and second is set to 0.
+        // And it's using local timezone instead of treating it as UTC.
+        // The official maimai cabs will reboot every day, but we don't want that
+        // So, we need to return the hour and minute 18 hours from now
+        val rebootStart = Instant.now().atZone(ZoneId.of("Asia/Tokyo")).plusSeconds(60 * 60 * 18)
+        val rebootEnd = rebootStart.plusSeconds(60)
+
+        mapOf(
+            "isAouAccession" to true,
+            "gameSetting" to mapOf(
+                "rebootStartTime" to GAME_SETTING_DATE_FMT.format(rebootStart),
+                "rebootEndTime" to GAME_SETTING_DATE_FMT.format(rebootEnd),
+                "rebootInterval" to 0,
+
+                // Fields below doesn't seem to be used by the client at all
+                "isMaintenance" to false,
+                "requestInterval" to 10,
+                "movieUploadLimit" to 0,
+                "movieStatus" to 0,
+                "movieServerUri" to "",
+                "deliverServerUri" to "",
+                "oldServerUri" to "",
+                "usbDlServerUri" to "",
+
+                // Fields below are SDGB-specific settings (not present in SDEZ)
+                "pingDisable" to true,
+                "packetTimeout" to 20_000,
+                "packetTimeoutLong" to 60_000,
+                "packetRetryCount" to 5,
+                "userDataDlErrTimeout" to 300_000,
+                "userDataDlErrRetryCount" to 5,
+                "userDataDlErrSamePacketRetryCount" to 5,
+                "userDataUpSkipTimeout" to 0,
+                "userDataUpSkipRetryCount" to 0,
+                "iconPhotoDisable" to true,
+                "uploadPhotoDisable" to false,
+                "maxCountMusic" to 0,
+                "maxCountItem" to 0
+            )
+        )
+    }
+
     val endpointList = setOf("GetGameEventApi", "GetGameRankingApi", "GetGameSettingApi", "GetGameTournamentInfoApi",
         "GetTransferFriendApi", "GetUserActivityApi", "GetUserCardApi", "GetUserCharacterApi", "GetUserDataApi",
         "GetUserExtendApi", "GetUserFavoriteApi", "GetUserGhostApi", "GetUserItemApi", "GetUserLoginBonusApi",
@@ -219,7 +268,7 @@ class Maimai2ServletController(
         "CMUpsertUserPrintlogApi", "GetUserFavoriteItemApi", "GetUserRivalDataApi", "GetUserRivalMusicApi",
         "GetUserScoreRankingApi", "UpsertClientBookkeepingApi", "UpsertClientSettingApi",
         "UpsertClientTestmodeApi", "UpsertClientUploadApi", "Ping", "RemoveTokenApi", "CMLoginApi", "CMLogoutApi",
-        "CMUpsertBuyCardApi").toMutableList()
+        "CMUpsertBuyCardApi", "GetGameSettingApi").toMutableList()
 
     val noopEndpoint = endpointList.popAll("GetUserScoreRankingApi", "UpsertClientBookkeepingApi",
         "UpsertClientSettingApi", "UpsertClientTestmodeApi", "UpsertClientUploadApi", "Ping", "RemoveTokenApi",
@@ -229,22 +278,6 @@ class Maimai2ServletController(
     val staticEndpoint = mapOf(
         "CreateTokenApi" to """{"Bearer":"meow"}""",
         "CMUpsertUserPrintlogApi" to """{"returnCode":1,"orderId":"0","serialId":"FAKECARDIMAG12345678"}""",
-        "GetGameSettingApi" to mapOf(
-            "isAouAccession" to true,
-            "gameSetting" to mapOf(
-                "isMaintenance" to false,
-                "requestInterval" to 10,
-                "rebootStartTime" to "2099-01-01 23:59:00.0",
-                "rebootEndTime" to "2099-01-01 23:59:01.0",
-                "movieUploadLimit" to 10000,
-                "movieStatus" to 0,
-                "movieServerUri" to "",
-                "deliverServerUri" to "",
-                "oldServerUri" to "",
-                "usbDlServerUri" to "",
-                "rebootInterval" to 0
-            )
-        ).toJson()
     ).also { endpointList.popAll(it.keys.toList()) }
 
     val members = this::class.declaredMemberProperties
