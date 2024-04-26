@@ -170,10 +170,12 @@ class AllNet(
         return "http://$addr:$port/$base/" + when (gameId) {
             "SDBT" -> "chu2/$ver/$serial/"
             "SDHD" -> "chu3/$ver/"
-            "SDGS" -> "chu3/$ver/"
+            "SDGS" -> "chu3/$ver/" // International (c3exp)
             "SBZV" -> "diva/"
             "SDDT" -> "ongeki/"
             "SDEY" -> "mai/"
+            "SDGA" -> "mai/" // International (Exp) - TODO: Test it
+            "SDGB" -> "mai/" // International (China) - TODO: Test it
             "SDEZ" -> "mai2/"
             "SDFE" -> "wacca" // Note: Wacca must not end with a trailing slash
             "SDED" -> "card/"
