@@ -51,7 +51,7 @@ class Migrations(
                     log.error("> Conflicting card found for ${c.luid}: $new")
                     new++
                 }
-                cardRepo.save(c.apply { extId = new })
+                cardRepo.save(c.apply { extId = new; luid = new.toString() })
             }
         }
     }
