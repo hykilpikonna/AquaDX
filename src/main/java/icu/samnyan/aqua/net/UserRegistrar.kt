@@ -41,7 +41,10 @@ class UserRegistrar(
         // We chose 1e9 as the start because normal cards took 0...1e9-1
         // This is because games can only take uint32 for card ID, which is at max 10 digits (4294967295)
         const val cardExtIdStart = 1e9.toLong()
-        const val cardExtIdEnd = 4294967295
+        // Actually, let's not use the UInt32 max but use signed int32 max instead, because Wacca doesn't support uint32
+        // const val cardExtIdEnd = 4294967295
+        // This range already gives us 1147483647 users, which is more than enough for now
+        const val cardExtIdEnd = Int.MAX_VALUE.toLong()
 
         val log = LoggerFactory.getLogger(UserRegistrar::class.java)
     }
