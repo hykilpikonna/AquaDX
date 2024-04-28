@@ -13,10 +13,17 @@ This mod is heavily WIP. More details will be added as the development progresse
 * Remove the starting logo and warning cutscene
 * Single Player (1P) mode
 * Skip from card scanning directly to music selection (experimental)
+* Disable daily automatic reboot
+* Customize version text
+* Skip the current song by holding 7
 
 **Bug Fixes**
 
 * Fix crash in the character selection screen
+
+**Performance**
+
+* Speed up things
 
 ### Development
 
