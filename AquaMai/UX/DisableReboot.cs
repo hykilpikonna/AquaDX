@@ -24,8 +24,9 @@ namespace AquaMai.UX
         }
         
         // RemainingMinutes
+        // Original: private int RemainingMinutes => (this._secServerMaintenance + 59) / 60;
         [HarmonyPrefix]
-        [HarmonyPatch(typeof(MaintenanceTimer), "RemainingMinutes")]
+        [HarmonyPatch(typeof(MaintenanceTimer), "RemainingMinutes", MethodType.Getter)]
         public static bool RemainingMinutes(ref int __result)
         {
             __result = 600;
@@ -53,11 +54,17 @@ namespace AquaMai.UX
         // Execute
         [HarmonyPrefix]
         [HarmonyPatch(typeof(MaintenanceTimer), "Execute")]
-        public static bool Execute(MaintenanceTimer __instance) => false;
+        public static bool Execute(MaintenanceTimer __instance)
+        {
+            return false;
+        }
         
         // UpdateTimes
         [HarmonyPrefix]
         [HarmonyPatch(typeof(MaintenanceTimer), "UpdateTimes")]
-        public static bool UpdateTimes(MaintenanceTimer __instance) => false;
+        public static bool UpdateTimes(MaintenanceTimer __instance)
+        {
+            return false;
+        }
     }
 }
