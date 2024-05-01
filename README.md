@@ -44,6 +44,9 @@ Check out these docs for more information.
 2. Run `git clone https://github.com/hykilpikonna/AquaDX` to clone this repo.
 3. Run `docker compose up` in the AquaDX folder.
 
+If you're getting BAD on title server checks after the docker server is up, please edit `config/application.properties` 
+and change `allnet.server.host` to your LAN IP address (e.g. 192.168.0.?). You can find your LAN address using the `ipconfig` command on Windows or `ifconfig` on Linux. 
+
 ### Updating Instructions
 
 > [!NOTE]
