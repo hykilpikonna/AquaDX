@@ -24,6 +24,5 @@ QuickSkip=true
 LoadAssetBundleWithoutManifest=true
 
 [Performance]
-# Disable some useless checks and delays to speed up the game boot process
-# !! Known issue: The game may crash if DX Pass scanning is enabled
+# Disable some useless delays to speed up the game boot process
 ImproveLoadSpeed=false
