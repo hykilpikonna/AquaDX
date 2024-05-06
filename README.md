@@ -19,7 +19,7 @@ Below is a list of games supported by this server.
 | SDEZ: MaiMai DX            | 1.40 | BUDDiES       | [@肥宅虾哥](https://github.com/FeiZhaixiage)   |
 | SDED: Card Maker           | 1.34 |               |                                            |
 | SBZV: Project DIVA Arcade  | 7.10 | Future Tone   |                                            |
-| SDDT: O.N.G.E.K.I.         | 1.39 | bright MEMORY | [@Gamer2097](https://github.com/Gamer2097) |
+| SDDT: O.N.G.E.K.I.         | 1.45 | bright MEMORY Act.3 | [@Gamer2097](https://github.com/Gamer2097) |
 | SDFE: Wacca (*ALPHA STAGE) | 3.07 | Reverse       |                                            |
 
 > **News**: AquaDX just added Wacca support on Mar 29, 2024! Feel free to test it out, but expect bugs and issues.
