@@ -9,8 +9,6 @@ import io.ktor.client.request.*
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.time.Instant
-import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import kotlin.reflect.full.declaredMemberProperties
 
@@ -218,14 +216,17 @@ class Maimai2ServletController(
         // And it's using local timezone instead of treating it as UTC.
         // The official maimai cabs will reboot every day, but we don't want that
         // So, we need to return the hour and minute 5 hours ago
-        val rebootStart = Instant.now().atZone(ZoneId.of("Asia/Tokyo")).minusHours(5)
-        val rebootEnd = rebootStart.plusSeconds(60)
+        // val rebootStart = Instant.now().atZone(ZoneId.of("Asia/Tokyo")).minusHours(5)
+        // val rebootEnd = rebootStart.plusSeconds(60)
+        // Nope that didn't work
 
         mapOf(
             "isAouAccession" to true,
             "gameSetting" to mapOf(
-                "rebootStartTime" to GAME_SETTING_DATE_FMT.format(rebootStart),
-                "rebootEndTime" to GAME_SETTING_DATE_FMT.format(rebootEnd),
+//                "rebootStartTime" to GAME_SETTING_DATE_FMT.format(rebootStart),
+//                "rebootEndTime" to GAME_SETTING_DATE_FMT.format(rebootEnd),
+                "rebootStartTime" to "2020-01-01 23:59:00.0",
+                "rebootEndTime" to "2020-01-01 23:59:00.0",
                 "rebootInterval" to 0,
 
                 // Fields below doesn't seem to be used by the client at all

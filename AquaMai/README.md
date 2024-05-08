@@ -16,6 +16,7 @@ This mod is heavily WIP. More details will be added as the development progresse
 * Disable daily automatic reboot
 * Customize version text
 * Skip the current song by holding 7
+* Skip "new event" and "information" screen for new players.
 
 **Bug Fixes**
 
