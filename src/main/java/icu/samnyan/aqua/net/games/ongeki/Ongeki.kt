@@ -29,11 +29,15 @@ class Ongeki(
     ) }
 
     override suspend fun userSummary(username: String) = us.cardByName(username) { card ->
-//        val extra = userGeneralDataRepository.findByUser_Card_ExtId(u.ghostCard.extId)
-//            .associate { it.propertyKey to it.propertyValue }
+        val extra = userGeneralDataRepository.findByUser_Card_ExtId(card.extId)
+            .associate { it.propertyKey to it.propertyValue }
 
-        // TODO: Rating composition
+        val ratingComposition = mapOf(
+            "best30" to (extra["rating_base_best"] ?: ""),
+            "best15" to (extra["rating_base_new_best"] ?: ""),
+            "recent10" to (extra["rating_base_hot_best"] ?: "")
+        )
 
-        genericUserSummary(card, mapOf())
+        genericUserSummary(card, ratingComposition)
     }
 }
