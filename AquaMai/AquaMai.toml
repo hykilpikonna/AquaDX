@@ -24,6 +24,8 @@ QuickSkip=true
 LoadAssetBundleWithoutManifest=true
 # Skip "New Event" and "Information" text boxes for new users
 SkipEventInfo=true
+# Random BGM, put Mai2Cue.{acb,awb} of old version of the game in `LocalAssets\Mai2Cue` and rename them
+RandomBgm=false
 
 [Performance]
 # Disable some useless delays to speed up the game boot process

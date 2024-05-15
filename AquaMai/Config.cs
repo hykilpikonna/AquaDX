@@ -22,6 +22,7 @@ namespace AquaMai
             public bool LoadJacketPng { get; set; }
             public bool LoadAssetBundleWithoutManifest { get; set; }
             public bool QuickSkip { get; set; }
+            public bool RandomBgm { get; set; }
             public string CustomVersionString { get; set; }
         }
         
