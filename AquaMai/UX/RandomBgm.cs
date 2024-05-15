@@ -57,5 +57,23 @@ namespace AquaMai.UX
                     return;
             }
         }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(SoundManager), "PlayBGM")]
+        public static bool PrePlayBGM(ref int target)
+        {
+            switch (target)
+            {
+                case 0:
+                    return true;
+                case 1:
+                    return false;
+                case 2:
+                    target = 0;
+                    return true;
+                default:
+                    return false;
+            }
+        }
     }
 }
