@@ -11,9 +11,8 @@ namespace AquaMai.UX
 {
     public class RandomBgm
     {
-        private static List<CriAtomExAcb> _acbs = new List<CriAtomExAcb>();
+        private static List<string> _acbs = new List<string>();
         private static Random _rng = new Random();
-        private static CriAtomExAcb _originalAcb;
 
         [HarmonyPostfix]
         [HarmonyPatch(typeof(SoundManager), "Initialize")]
@@ -23,35 +22,29 @@ namespace AquaMai.UX
             foreach (var file in files)
             {
                 if (!file.EndsWith(".acb")) continue;
-                _acbs.Add(CriAtomExAcb.LoadAcbFile(null, file, Path.ChangeExtension(file, "awb")));
+                // Seems there's limit for max opened ACB files
+                _acbs.Add(Path.ChangeExtension(file, null));
             }
 
             MelonLogger.Msg($"Random BGM loaded {_acbs.Count} files");
         }
 
-        [HarmonyPostfix]
-        [HarmonyPatch(typeof(CriAtomExAcb), "LoadAcbFile")]
-        public static void PostLoadAcbFile(string acbPath, CriAtomExAcb __result)
-        {
-            if (acbPath.EndsWith("SoundData/Mai2Cue.acb"))
-                _originalAcb = __result;
-        }
-
         [HarmonyPrefix]
-        [HarmonyPatch(typeof(CriAtomExPlayer), "SetCue")]
-        [HarmonyPatch(new[] { typeof(CriAtomExAcb), typeof(int) })]
-        public static void PreSetCue(ref CriAtomExAcb acb, int id)
+        [HarmonyPatch(typeof(SoundManager), "Play")]
+        public static void PrePlay(ref SoundManager.AcbID acbID, int cueID)
         {
-            if (acb != _originalAcb) return;
-            var cueIndex = (Cue)id;
+            if (acbID != SoundManager.AcbID.Default) return;
+            var cueIndex = (Cue)cueID;
             switch (cueIndex)
             {
                 case Cue.BGM_ENTRY:
                 case Cue.BGM_COLLECTION:
                 case Cue.BGM_RESULT_CLEAR:
                 case Cue.BGM_RESULT:
-                    acb = _acbs[_rng.Next(_acbs.Count)];
-                    MelonLogger.Msg($"Picked random BGM for {cueIndex}");
+                    var acb = _acbs[_rng.Next(_acbs.Count)];
+                    acbID = SoundManager.AcbID.Max;
+                    var result = Singleton<SoundCtrl>.Instance.LoadCueSheet((int)acbID, acb);
+                    MelonLogger.Msg($"Picked {acb} for {cueIndex}, result: {result}");
                     return;
                 default:
                     return;
