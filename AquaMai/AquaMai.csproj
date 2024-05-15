@@ -35,6 +35,9 @@
     <Reference Include="Assembly-CSharp">
       <HintPath>Libs\Assembly-CSharp.dll</HintPath>
     </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>Libs\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
     <Reference Include="MelonLoader">
       <HintPath>Libs\MelonLoader.dll</HintPath>
     </Reference>
@@ -274,6 +277,7 @@
     <Compile Include="UX\LoadJacketPng.cs" />
     <Compile Include="UX\LoadAssetBundleWithoutManifest.cs" />
     <Compile Include="UX\QuickSkip.cs" />
+    <Compile Include="UX\RandomBgm.cs" />
     <Compile Include="UX\SinglePlayer.cs" />
     <Compile Include="UX\SkipEventInfo.cs" />
     <Compile Include="UX\SkipWarningScreen.cs" />
