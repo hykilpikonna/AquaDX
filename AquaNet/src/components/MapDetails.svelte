@@ -16,7 +16,15 @@
   let mapData = g.split(":").map(Number)
   let mult = getMult(mapData[3], game)
   let mapRank: number | undefined = meta?.notes?.[mapData[1] === 10 ? 0 : mapData[1]]?.lv
-  </script>
+
+  let gameIndexMap = {
+  'mai2': 3,
+  'ongeki': 2,
+  'chu3': 2
+  };
+
+  let gameIndex = gameIndexMap[game as keyof typeof gameIndexMap];
+</script>
 
   <div class="map-detail-container" transition:slide>
     <div class="scores">
@@ -30,11 +38,11 @@
             </span>
           </div>
           <div class="second-line">
-            <span class={`rank-${getMult(mapData[3], game)[2].toString()[0]}`}>
+            <span class={`rank-${getMult(mapData[gameIndex], game)[2].toString()[0]}`}>
 
-              <span class="rank-text">{("" + getMult(mapData[3], game)[2]).replace("p", "+")}</span>
-              <span class="rank-num" use:tooltip={(mapData[3] / 10000).toFixed(4)}>
-                {roundFloor(mapData[3], game, 1)}%
+              <span class="rank-text">{("" + getMult(mapData[gameIndex], game)[2]).replace("p", "+")}</span>
+              <span class="rank-num" use:tooltip={(mapData[gameIndex] / 10000).toFixed(4)}>
+                {roundFloor(mapData[gameIndex], game, 1)}%
               </span>
             </span>
             {#if game === 'mai2'}
