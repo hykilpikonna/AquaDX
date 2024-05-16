@@ -21,7 +21,7 @@
   import Icon from "@iconify/svelte";
   import { GAME_TITLE, t } from "../libs/i18n";
   import RankDetails from "../components/RankDetails.svelte";
-  import MapDetails from "../components/MapDetails.svelte";
+  import RatingComposition from "../components/RatingComposition.svelte";
 
   const TREND_DAYS = 60
 
@@ -231,57 +231,10 @@
       </div>
     </div>
 
-    {#if d.user.ratingComposition.best30}
-      <div>
-        <h2>B30</h2>
-        <div class="rating-composition">
-          {#each d.user.ratingComposition.best30.split(",") as map}
-            <div>
-              <MapDetails g={map} meta={allMusics[map.split(":")[0]]} game={game}/>
-            </div>
-          {/each}
-        </div>
-      </div>
-    {/if}
-
-    {#if d.user.ratingComposition.best35}
-      <div>
-        <h2>B35</h2>
-        <div class="rating-composition">
-          {#each d.user.ratingComposition.best35.split(",") as map}
-            <div>
-              <MapDetails g={map} meta={allMusics[map.split(":")[0]]} game={game}/>
-            </div>
-          {/each}
-        </div>
-      </div>
-    {/if}
-
-    {#if d.user.ratingComposition.best15}
-      <div>
-        <h2>B15</h2>
-        <div class="rating-composition">
-          {#each d.user.ratingComposition.best15.split(",") as map}
-            <div>
-              <MapDetails g={map} meta={allMusics[map.split(":")[0]]} game={game}/>
-            </div>
-          {/each}
-        </div>
-      </div>
-    {/if}
-
-    {#if d.user.ratingComposition.recent10}
-      <div>
-        <h2>R10</h2>
-        <div class="rating-composition-2">
-          {#each d.user.ratingComposition.recent10.split(",") as map}
-            <div>
-              <MapDetails g={map} meta={allMusics[map.split(":")[0]]} game={game}/>
-            </div>
-          {/each}
-        </div>
-      </div>
-    {/if}
+    <RatingComposition title="B30" comp={d.user.ratingComposition.best30} {allMusics} {game}/>
+    <RatingComposition title="B35" comp={d.user.ratingComposition.best35} {allMusics} {game}/>
+    <RatingComposition title="B15" comp={d.user.ratingComposition.best15} {allMusics} {game}/>
+    <RatingComposition title="Recent 10" comp={d.user.ratingComposition.recent10} {allMusics} {game}/>
 
     <div class="recent">
       <h2>{t('UserHome.RecentScores')}</h2>
@@ -569,17 +522,4 @@
         &:before
           content: "+"
         color: $c-good
-
-.rating-composition
-  display: grid
-  // 3 columns
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))
-  gap: $gap
-
-.rating-composition-2
-  display: grid
-  // 2 columns
-  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr))
-  gap: $gap  
-
 </style>
