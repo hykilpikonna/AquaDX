@@ -19,11 +19,11 @@
   const tabs = [ 'profile', 'game' ]
 
   const profileFields = [
-    [ 'displayName', "Display Name" ],
-    [ 'username', "Username" ],
-    [ 'password', "Password" ],
-    [ 'profileLocation', "Location" ],
-    [ 'profileBio', "Bio" ],
+    [ 'displayName', t('settings.profile.name') ],
+    [ 'username', t('settings.profile.username') ],
+    [ 'password', t('settings.profile.password') ],
+    [ 'profileLocation', t('settings.profile.location') ],
+    [ 'profileBio', t('settings.profile.bio') ],
   ]
 
   let gameFields: GameOption[] = []
@@ -90,7 +90,7 @@
     <!-- Tab 0: Profile settings -->
     <div out:fade={FADE_OUT} in:fade={FADE_IN} class="fields">
       <div class="field">
-        <label for="profile-upload">Profile Picture</label>
+        <label for="profile-upload">{t('settings.profile.picture')}</label>
         <div>
           {#if me && me.profilePicture}
             <div on:click={() => pfpField.click()} on:keydown={e => e.key === 'Enter' && pfpField.click()}
@@ -99,7 +99,7 @@
             </div>
           {:else}
             <button on:click={() => pfpField.click()}>
-              Upload New
+              {t('settings.profile.upload-new')}
             </button>
           {/if}
         </div>
@@ -113,13 +113,13 @@
           <div>
             <input id={field} type="text" use:passwordAction={field === 'password'}
                    bind:value={values[i]} on:input={() => changed = [...changed, field]}
-                   placeholder={field === 'password' ? 'Unchanged' : 'Unset'}/>
+                   placeholder={field === 'password' ? t('settings.profile.unchanged') : t('settings.profile.unset')}/>
             {#if changed.includes(field) && values[i]}
               <button transition:slide={{axis: 'x'}} on:click={() => submit(field, values[i])}>
                 {#if submitting === field}
                   <Icon icon="line-md:loading-twotone-loop" />
                 {:else}
-                  Save
+                  {t('settings.profile.save')}
                 {/if}
               </button>
             {/if}

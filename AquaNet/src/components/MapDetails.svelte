@@ -26,6 +26,7 @@
   let gameIndex = gameIndexMap[game as keyof typeof gameIndexMap];
 </script>
 
+{#if mapData[0] !== 0}
   <div class="map-detail-container" transition:slide>
     <div class="scores">
       <div>
@@ -55,6 +56,7 @@
       </div>
     </div>
   </div>
+{/if}
 
   <style lang="sass">
 

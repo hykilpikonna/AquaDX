@@ -7,6 +7,7 @@
   import moment from "moment"
   import Icon from "@iconify/svelte";
   import StatusOverlays from "../../components/StatusOverlays.svelte";
+  import { t } from "../../libs/i18n";
 
   // State
   let state: 'ready' | 'linking-AC' | 'linking-SN' | 'loading' = "loading"
@@ -55,7 +56,7 @@
 
     // Check if this card is already linked in the account
     if (me?.cards?.some(c => formatLUID(c.luid, c.isGhost).toLowerCase() === id.toLowerCase())) {
-      setError("This card is already linked to your account", type)
+      setError(t('home.linkcard.linked-own'), type)
       state = "ready"
       return
     }
@@ -63,7 +64,7 @@
     // First, lookup the card summary
     const card = (await CARD.summary(id).catch(e => {
       // If card is not found, create a card and link it
-      if (e.message === "Card not found") {
+      if (e.message === t('home.linkcard.notfound')) {
         doLink(id, "")
         return
       }
@@ -76,7 +77,7 @@
 
     // Check if it's already linked
     if (card.card.linked) {
-      setError("This card is already linked to another account", type)
+      setError(t('home.linkcard.linked-another'), type)
       state = "ready"
       return
     }
@@ -143,8 +144,8 @@
 
   async function unlink(card: Card) {
     showConfirm = {
-      title: "Unlink Card",
-      message: "Are you sure you want to unlink this card?",
+      title: t('home.linkcard.unlink'),
+      message: t('home.linkcard.unlink-notice'),
       confirm: async () => {
         await CARD.unlink(card.luid)
         await updateMe()
@@ -211,16 +212,16 @@
 </script>
 
 <div class="link-card">
-  <h2>Your Cards</h2>
-  <p>Here are the cards you have linked to your account:</p>
+  <h2>{t('home.linkcard.cards')}</h2>
+  <p>{t('home.linkcard.description')}:</p>
 
   {#if me}
     <div class="existing-cards" transition:slide>
       {#each me.cards as card (card.luid)}
         <div class:ghost={card.isGhost} class='existing card' transition:fade|global>
-          <span class="type">{card.isGhost ? "Account Card" : cardType(card.luid)}</span>
-          <span class="register">Registered: {moment(card.registerTime).format("YYYY MMM DD")}</span>
-          <span class="last">Last used: {moment(card.accessTime).format("YYYY MMM DD")}</span>
+          <span class="type">{card.isGhost ? "{t('home.linkcard.account-card')}" : cardType(card.luid)}</span>
+          <span class="register">{t('home.linkcard.registered')}: {moment(card.registerTime).format("YYYY MMM DD")}</span>
+          <span class="last">{t('home.linkcard.lastused')}: {moment(card.accessTime).format("YYYY MMM DD")}</span>
           <div/>
           <span class="id">{formatLUID(card.luid, card.isGhost)}</span>
           {#if !card.isGhost}
@@ -231,12 +232,11 @@
     </div>
   {/if}
 
-  <h2>Link Card</h2>
-  <p>Please enter the following information:</p>
+  <h2>{t('home.link-card')}</h2>
+  <p>{t('home.linkcard.enter-info')}:</p>
   {#if !inputSN}
     <div out:slide={{ duration: 250 }}>
-  <p>The 20-digit access code on the back of your card.
-    (If it doesn't work, please try scanning your card in game and enter the access code shown on screen)</p>
+  <p>{t('home.linkcard.access-code')}</p>
   <label>
     <!-- DO NOT change the order of bind:value and on:input. Their order determines the order of reactivity -->
     <input placeholder="e.g. 5200 1234 5678 9012 3456"
@@ -249,7 +249,7 @@
            on:input={inputACChange}
            class:error={inputAC && (!inputACRegex.test(inputAC) || errorAC)}>
     {#if inputAC.length > 0}
-      <button transition:slide={{axis: 'x'}} on:click={() => {link('AC');inputAC=''}}>Link</button>
+      <button transition:slide={{axis: 'x'}} on:click={() => {link('AC');inputAC=''}}>{t('home.linkcard.link')}</button>
     {/if}
   </label>
   {#if errorAC}
@@ -260,10 +260,10 @@
 
   {#if !inputAC}
     <div out:slide={{ duration: 250 }}>
-  <p>Download the NFC Tools app on your phone
+  <p>{t('home.linkcard.enter-sn1')}
     (<a href="https://play.google.com/store/apps/details?id=com.wakdev.wdnfc">Android</a> /
-    <a href="https://apps.apple.com/us/app/nfc-tools/id1252962749">Apple</a>) and scan your card.
-    Then, enter the Serial Number.
+    <a href="https://apps.apple.com/us/app/nfc-tools/id1252962749">Apple</a>)
+    {t('home.linkcard.enter-sn2')}
   </p>
   <label>
     <input placeholder="e.g. 01:2E:1A:2B:3C:4D:5E:6F"
@@ -276,7 +276,7 @@
            on:input={inputSNChange}
            class:error={inputSN && (!inputSNRegex.test(inputSN) || errorSN)}>
     {#if inputSN.length > 0}
-      <button transition:slide={{axis: 'x'}} on:click={() => {link('SN'); inputSN = ''}}>Link</button>
+      <button transition:slide={{axis: 'x'}} on:click={() => {link('SN'); inputSN = ''}}>{t('home.linkcard.link')}</button>
     {/if}
   </label>
   {#if errorSN}
@@ -288,28 +288,27 @@
   {#if conflictOld && conflictNew && me}
     <div class="overlay" transition:fade>
       <div>
-        <h2>Data Conflict</h2>
-        <p>The card contains data for {conflictGame}, which is already present on your account.
-          Please choose the data you would like to keep</p>
+        <h2>{t('home.linkcard.data-conflict')}</h2>
+        <p></p>
         <div class="conflict-cards">
           <div class="old card clickable" on:click={() => linkConflictContinue('old')}
                role="button" tabindex="0" on:keydown={e => e.key === "Enter" && linkConflictContinue('old')}>
-            <span class="type">Account Card</span>
-            <span>Name: {conflictOld.name}</span>
-            <span>Rating: {conflictOld.rating}</span>
-            <span>Last Login: {moment(conflictOld.lastLogin).format("YYYY MMM DD")}</span>
+            <span class="type">{t('home.linkcard.account-card')}</span>
+            <span>{t('home.linkcard.name')}: {conflictOld.name}</span>
+            <span>{t('home.linkcard.rating')}: {conflictOld.rating}</span>
+            <span>{t('home.linkcard.last-login')}: {moment(conflictOld.lastLogin).format("YYYY MMM DD")}</span>
             <span class="id">{formatLUID(me.ghostCard.luid, true)}</span>
           </div>
           <div class="new card clickable" on:click={() => linkConflictContinue('new')}
                role="button" tabindex="0" on:keydown={e => e.key === "Enter" && linkConflictContinue('new')}>
             <span class="type">{cardType(conflictCardID)}</span>
-            <span>Name: {conflictNew.name}</span>
-            <span>Rating: {conflictNew.rating}</span>
-            <span>Last Login: {moment(conflictNew.lastLogin).format("YYYY MMM DD")}</span>
+            <span>{t('home.linkcard.name')}: {conflictNew.name}</span>
+            <span>{t('home.linkcard.rating')}: {conflictNew.rating}</span>
+            <span>{t('home.linkcard.last-login')}: {moment(conflictNew.lastLogin).format("YYYY MMM DD")}</span>
             <span class="id">{conflictCardID}</span>
           </div>
         </div>
-        <button class="error" on:click={linkConflictCancel}>Cancel</button>
+        <button class="error" on:click={linkConflictCancel}>{t('action.cancel')}</button>
       </div>
     </div>
   {/if}
