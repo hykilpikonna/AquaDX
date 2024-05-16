@@ -6,6 +6,7 @@
   import type { AquaNetUser } from "../../libs/generalTypes";
   import { codeToHtml } from 'shiki'
   import { AQUA_CONNECTION, DISCORD_INVITE, FADE_IN, FADE_OUT } from "../../libs/config";
+  import { t } from "../../libs/i18n";
 
   let user: AquaNetUser
   let keychip: string;
@@ -29,7 +30,7 @@ default=${AQUA_CONNECTION}
 
 [keychip]
 enable=1
-; This is your unique keychip, do not share it with anyone
+; ${t('home.setup.keychip-tips')}
 id=${keychip.slice(0, 4)}-${keychip.slice(4)}1337`.trim(), {
         lang: 'ini',
         theme: 'rose-pine',
@@ -41,27 +42,24 @@ id=${keychip.slice(0, 4)}-${keychip.slice(4)}1337`.trim(), {
 </script>
 
 <div class="setup-instructions">
-  <h2>Setup Connection</h2>
+  <h2>{t('home.setup')}</h2>
   <p>
-    Welcome! If you own an arcade cabinet or game setup,
-    please follow the instructions below to set up the connection with AquaDX.
+    {t('home.setup.welcome')}
   </p>
   <blockquote>
-    We assume that you already have the required files and can run the game (e.g. ROM and segatools)
-    that come with the cabinet or game setup.
-    If not, please contact the seller of your device for the required files, as we will not provide them for copyright reasons.
+    {t('home.setup.blockquote')}
   </blockquote>
 
   {#if user}
     <div transition:slide>
       {#if !keychip && !keychipCode}
         <div class="no-margin" out:fade={FADE_OUT}>
-          <button class="emp" on:click={getStarted}>Get started</button>
+          <button class="emp" on:click={getStarted}>{t('home.setup.get')}</button>
         </div>
       {:else}
         <div class="no-margin" in:fade={FADE_IN}>
           <p>
-            Please edit your segatools.ini file and modify the following lines:
+            {t('home.setup.edit')}:
           </p>
 
           <div class="code">
@@ -69,10 +67,10 @@ id=${keychip.slice(0, 4)}-${keychip.slice(4)}1337`.trim(), {
           </div>
 
           <p>
-            Then, after you restart the game, you should be able to connect to AquaDX. Please verify that the network tests are all GOOD in the test menu.
+            {t('home.setup.test')}
           </p>
           <p>
-            If you have any questions, please ask in our <a href={DISCORD_INVITE}>Discord server</a>.
+            {t('home.setup.ask')} <a href={DISCORD_INVITE}>Discord</a> {t('home.setup.support')}.
           </p>
         </div>
       {/if}
