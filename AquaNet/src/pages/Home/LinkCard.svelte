@@ -219,7 +219,7 @@
     <div class="existing-cards" transition:slide>
       {#each me.cards as card (card.luid)}
         <div class:ghost={card.isGhost} class='existing card' transition:fade|global>
-          <span class="type">{card.isGhost ? "{t('home.linkcard.account-card')}" : cardType(card.luid)}</span>
+          <span class="type">{card.isGhost ? t('home.linkcard.account-card') : cardType(card.luid)}</span>
           <span class="register">{t('home.linkcard.registered')}: {moment(card.registerTime).format("YYYY MMM DD")}</span>
           <span class="last">{t('home.linkcard.lastused')}: {moment(card.accessTime).format("YYYY MMM DD")}</span>
           <div/>
