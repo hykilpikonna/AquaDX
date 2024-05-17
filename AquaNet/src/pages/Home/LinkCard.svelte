@@ -187,7 +187,7 @@
   }
 
   function formatLUID(luid: string, ghost: boolean = false) {
-    if (ghost) return luid.slice(0, 6) + " " + luid.slice(6).match(/.{4}/g)!.join(" ")
+    if (ghost) return luid.slice(0, 6) + " " + (luid.slice(6).match(/.{4}/g)?.join(" ") ?? "")
     switch (cardType(luid)) {
       case "Felica SN":
         return BigInt(luid).toString(16).toUpperCase().padStart(16, "0").match(/.{1,2}/g)!.join(":")
@@ -219,7 +219,7 @@
     <div class="existing-cards" transition:slide>
       {#each me.cards as card (card.luid)}
         <div class:ghost={card.isGhost} class='existing card' transition:fade|global>
-          <span class="type">{card.isGhost ? "{t('home.linkcard.account-card')}" : cardType(card.luid)}</span>
+          <span class="type">{card.isGhost ? t('home.linkcard.account-card') : cardType(card.luid)}</span>
           <span class="register">{t('home.linkcard.registered')}: {moment(card.registerTime).format("YYYY MMM DD")}</span>
           <span class="last">{t('home.linkcard.lastused')}: {moment(card.accessTime).format("YYYY MMM DD")}</span>
           <div/>
