@@ -187,7 +187,7 @@
   }
 
   function formatLUID(luid: string, ghost: boolean = false) {
-    if (ghost) return luid.slice(0, 6) + " " + luid.slice(6).match(/.{4}/g)!.join(" ")
+    if (ghost) return luid.slice(0, 6) + " " + (luid.slice(6).match(/.{4}/g)?.join(" ") ?? "")
     switch (cardType(luid)) {
       case "Felica SN":
         return BigInt(luid).toString(16).toUpperCase().padStart(16, "0").match(/.{1,2}/g)!.join(":")
