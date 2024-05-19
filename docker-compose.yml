@@ -17,6 +17,8 @@ services:
     volumes:
       - ./config:/app/config
       - ./data:/app/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
 
   db:
     image: mariadb:latest
