@@ -278,6 +278,7 @@
     <Compile Include="UX\LoadAssetBundleWithoutManifest.cs" />
     <Compile Include="UX\QuickSkip.cs" />
     <Compile Include="UX\RandomBgm.cs" />
+    <Compile Include="UX\RunCommandOnEvents.cs" />
     <Compile Include="UX\SinglePlayer.cs" />
     <Compile Include="UX\SkipEventInfo.cs" />
     <Compile Include="UX\SkipWarningScreen.cs" />
