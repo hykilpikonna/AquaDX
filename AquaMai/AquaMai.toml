@@ -26,6 +26,8 @@ LoadAssetBundleWithoutManifest=true
 SkipEventInfo=true
 # Random BGM, put Mai2Cue.{acb,awb} of old version of the game in `LocalAssets\Mai2Cue` and rename them
 RandomBgm=false
+# Play "Master" difficulty on Demo screen
+DemoMaster=true
 # Execute some command on game idle or on game start
 ExecOnIdle=""
 ExecOnEntry=""
