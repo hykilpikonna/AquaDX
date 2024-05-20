@@ -28,6 +28,16 @@ namespace AquaMai.UX
             }
         }
 
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(MusicSelectProcess), "OnStart")]
+        public static void MusicSelectProcessPreStart()
+        {
+            if (!string.IsNullOrWhiteSpace(AquaMai.AppConfig.UX.ExecOnEntry))
+            {
+                Exec(AquaMai.AppConfig.UX.ExecOnEntry);
+            }
+        }
+
         private static void Exec(string command)
         {
             var process = new System.Diagnostics.Process();
