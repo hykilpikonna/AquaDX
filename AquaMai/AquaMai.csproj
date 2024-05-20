@@ -266,6 +266,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cheat\MapUnlock.cs" />
     <Compile Include="Cheat\TicketUnlock.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Fix\FixCharaCrash.cs" />

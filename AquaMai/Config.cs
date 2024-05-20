@@ -12,6 +12,7 @@ namespace AquaMai
         public class CheatConfig
         {
             public bool TicketUnlock { get; set; }
+            public bool MapUnlock { get; set; }
         }
 
         public class UXConfig

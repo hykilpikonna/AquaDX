@@ -4,6 +4,8 @@
 [Cheat]
 # Unlock normally event-only tickets
 TicketUnlock=true
+# Unlock maps that are not in this version
+MapUnlock=true
 
 # ===================================
 # UX: User Experience Improvements
