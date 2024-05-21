@@ -25,6 +25,7 @@ namespace AquaMai
             public bool QuickSkip { get; set; }
             public bool RandomBgm { get; set; }
             public bool DemoMaster { get; set; }
+            public bool ExtendTimer { get; set; }
             public string CustomVersionString { get; set; }
             public string ExecOnIdle { get; set; }
             public string ExecOnEntry { get; set; }

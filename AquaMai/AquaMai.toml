@@ -33,6 +33,8 @@ DemoMaster=true
 # Execute some command on game idle or on game start
 ExecOnIdle=""
 ExecOnEntry=""
+# Change every timer to 200 seconds
+ExtendTimer=true
 
 [Performance]
 # Disable some useless delays to speed up the game boot process
