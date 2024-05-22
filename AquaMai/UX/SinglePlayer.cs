@@ -21,12 +21,10 @@ namespace AquaMai.UX
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(MeshButton), "IsPointInPolygon", new Type[] { typeof(Vector2[]), typeof(Vector2) })]
-        public static bool IsPointInPolygon(Vector2[] polygon, ref Vector2 point)
+        public static bool IsPointInPolygon(Vector2[] polygon, ref Vector2 point, MeshButton __instance, ref bool __result)
         {
-            var screenWidth = Screen.width;
-            point = new Vector2(point.x - (screenWidth / 2), point.y);
-
-            return true;
+            __result = RectTransformUtility.RectangleContainsScreenPoint(__instance.GetComponent<RectTransform>(), point, Camera.main);
+            return false;
         }
     }
 }
