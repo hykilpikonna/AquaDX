@@ -34,6 +34,7 @@ namespace AquaMai.UX
             {
                 _keyPressFrames = 0;
                 MelonLogger.Msg(_container.processManager.Dump());
+                MelonLogger.Msg(Singleton<UserDataManager>.Instance.GetUserData(0).Dump());
                 return;
             }
 
@@ -50,6 +51,7 @@ namespace AquaMai.UX
                 {
                     // After login
                     case "Process.ModeSelect.ModeSelectProcess":
+                    case "Process.LoginBonus.LoginBonusProcess":
                     case "Process.RegionalSelectProcess":
                     case "Process.CharacterSelectProcess":
                     case "Process.TicketSelect.TicketSelectProcess":

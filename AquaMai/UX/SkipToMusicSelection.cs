@@ -1,5 +1,9 @@
 ﻿using HarmonyLib;
+using MAI2.Util;
 using Manager;
+using Manager.UserDatas;
+using MelonLoader;
+using Monitor;
 using Process;
 using Process.Information;
 
@@ -21,6 +25,16 @@ namespace AquaMai.UX
             ___container.processManager.AddProcess(new MusicSelectProcess(___container));
             ___container.processManager.ReleaseProcess(__instance);
             return false;
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(MapResultMonitor), "Initialize")]
+        public static void MapResultMonitorPreInitialize(int monIndex)
+        {
+            var userData = Singleton<UserDataManager>.Instance.GetUserData(monIndex);
+            var index = userData.MapList.FindIndex((UserMapData m) => m.ID == userData.Detail.SelectMapID);
+            if (index >= 0) return;
+            userData.MapList.Clear();
         }
     }
 }
