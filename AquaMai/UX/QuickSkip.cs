@@ -5,6 +5,7 @@ using MAI2.Util;
 using Main;
 using Manager;
 using MelonLoader;
+using Monitor;
 using Process;
 using UnityEngine;
 
@@ -73,6 +74,32 @@ namespace AquaMai.UX
             {
                 GameManager.SetMaxTrack();
                 _container.processManager.AddProcess(new FadeProcess(_container, processToRelease, new MusicSelectProcess(_container)));
+            }
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(PlInformationMonitor), "IsPlayPlInfoEnd")]
+        public static bool IWontTapOrSlideVigorously(ref bool __result)
+        {
+            __result = true;
+            return false;
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(GameOverMonitor), "IsPlayEnd")]
+        public static bool GameOverMonitorPlayEnd(ref bool __result)
+        {
+            __result = true;
+            return false;
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(GameOverProcess), "OnUpdate")]
+        public static void GameOverProcessOnUpdate(ref GameOverProcess.GameOverSequence ____state)
+        {
+            if (____state == GameOverProcess.GameOverSequence.SkyChange)
+            {
+                ____state = GameOverProcess.GameOverSequence.Disp;
             }
         }
     }
