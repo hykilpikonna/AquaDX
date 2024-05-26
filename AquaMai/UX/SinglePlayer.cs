@@ -1,6 +1,12 @@
-using System;
 using HarmonyLib;
+using MAI2.Util;
+using Manager;
+using MelonLoader;
+using Monitor.Common;
+using Monitor.Entry;
+using Monitor.Entry.Parts.Screens;
 using UnityEngine;
+using Type = System.Type;
 
 namespace AquaMai.UX
 {
@@ -24,6 +30,28 @@ namespace AquaMai.UX
         public static bool IsPointInPolygon(Vector2[] polygon, ref Vector2 point, MeshButton __instance, ref bool __result)
         {
             __result = RectTransformUtility.RectangleContainsScreenPoint(__instance.GetComponent<RectTransform>(), point, Camera.main);
+            return false;
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(EntryMonitor), "DecideEntry")]
+        public static void PostDecideEntry(EntryMonitor __instance)
+        {
+            MelonLogger.Msg("Confirm Entry");
+            TimeManager.MarkGameStartTime();
+            Singleton<EventManager>.Instance.UpdateEvent();
+            Singleton<ScoreRankingManager>.Instance.UpdateData();
+            __instance.Process.CreateDownloadProcess();
+            __instance.ProcessManager.SendMessage(new Message(ProcessType.CommonProcess, 30001));
+            __instance.ProcessManager.SendMessage(new Message(ProcessType.CommonProcess, 40000, 0, OperationInformationController.InformationType.Hide));
+            __instance.Process.SetNextProcess();
+        }
+
+        // To prevent the "長押受付終了" overlay from appearing
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(WaitPartner), "Open")]
+        public static bool WaitPartnerPreOpen()
+        {
             return false;
         }
     }
