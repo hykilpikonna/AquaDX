@@ -62,11 +62,6 @@ namespace AquaMai.UX
                         SoundManager.PlayBGM(Cue.BGM_COLLECTION, 2);
                         _container.processManager.AddProcess(new FadeProcess(_container, process.Process, new UnlockMusicProcess(_container)));
                         break;
-
-                    case "Process.GameProcess":
-                        // This is original typo in Assembly-CSharp
-                        Singleton<GamePlayManager>.Instance.SetQuickRetryFrag(flag: true);
-                        break;
                 }
             }
 
@@ -74,6 +69,25 @@ namespace AquaMai.UX
             {
                 GameManager.SetMaxTrack();
                 _container.processManager.AddProcess(new FadeProcess(_container, processToRelease, new MusicSelectProcess(_container)));
+            }
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(GameProcess), "OnUpdate")]
+        public static void PostGameProcessUpdate(GameProcess __instance, Message[] ____message, ProcessDataContainer ___container)
+        {
+            if (InputManager.GetButtonDown(0, InputManager.ButtonSetting.Select))
+            {
+                var traverse = Traverse.Create(__instance);
+                ___container.processManager.SendMessage(____message[0]);
+                Singleton<GamePlayManager>.Instance.SetSyncResult(0);
+                traverse.Method("SetRelease").GetValue();
+            }
+
+            if (Input.GetKey(KeyCode.Alpha7))
+            {
+                // This is original typo in Assembly-CSharp
+                Singleton<GamePlayManager>.Instance.SetQuickRetryFrag(flag: true);
             }
         }
 
