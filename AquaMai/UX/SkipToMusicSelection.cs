@@ -1,8 +1,6 @@
 ﻿using HarmonyLib;
 using MAI2.Util;
 using Manager;
-using Manager.UserDatas;
-using MelonLoader;
 using Monitor;
 using Process;
 using Process.Information;
