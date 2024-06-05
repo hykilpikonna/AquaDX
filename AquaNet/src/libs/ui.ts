@@ -95,7 +95,7 @@ export function renderCal(el: HTMLElement, d: { date: any, value: any }[]): Prom
       radius: 2, width: 11, height: 11, gutter: 4
     },
     range: 12,
-    data: { source: d, x: 'date', y: 'value' },
+    data: { source: d.filter(x => x.value > 0), x: 'date', y: 'value' },
     scale: {
       color: {
         type: 'linear',
