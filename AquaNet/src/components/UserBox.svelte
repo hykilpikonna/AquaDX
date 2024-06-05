@@ -654,10 +654,14 @@
       label
         display: flex
         flex-direction: column
+
+      select
+        width: 100%
   
     .field
       display: flex
       flex-direction: column
+      width: 100%
   
       label
         max-width: max-content
