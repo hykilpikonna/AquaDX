@@ -1,4 +1,4 @@
-import { AQUA_HOST, DATA_HOST } from "./config";
+import { AQUA_HOST, DATA_HOST } from './config'
 import type {
   AllMusic,
   Card,
@@ -6,9 +6,12 @@ import type {
   GenericGameSummary,
   GenericRanking,
   TrendEntry,
-  AquaNetUser, GameOption
-} from "./generalTypes";
-import type { GameName } from "./scoring";
+  AquaNetUser, GameOption,
+  UserBox,
+  ChangeUserBoxReq,
+  UserBoxItemKind
+} from './generalTypes'
+import type { GameName } from './scoring'
 
 interface RequestInitWithParams extends RequestInit {
   params?: { [index: string]: string }
@@ -22,7 +25,7 @@ interface RequestInitWithParams extends RequestInit {
  * @param callback Callback for modification
  */
 export function reconstructUrl(input: URL | RequestInfo, callback: (url: URL) => URL | void): RequestInfo | URL {
-  let u = new URL((input instanceof Request) ? input.url : input);
+  let u = new URL((input instanceof Request) ? input.url : input)
   const result = callback(u)
   if (result) u = result
   if (input instanceof Request) {
@@ -41,7 +44,7 @@ export function fetchWithParams(input: URL | RequestInfo, init?: RequestInitWith
   }), init)
 }
 
-let cache: { [index: string]: any } = {}
+const cache: { [index: string]: any } = {}
 
 export async function post(endpoint: string, params: any, init?: RequestInitWithParams): Promise<any> {
   // Add token if exists
@@ -53,7 +56,7 @@ export async function post(endpoint: string, params: any, init?: RequestInitWith
     if (cached) return cached
   }
 
-  let res = await fetchWithParams(AQUA_HOST + endpoint, {
+  const res = await fetchWithParams(AQUA_HOST + endpoint, {
     method: 'POST',
     params,
     ...init
@@ -86,6 +89,136 @@ export async function post(endpoint: string, params: any, init?: RequestInitWith
   cache[endpoint + JSON.stringify(params) + JSON.stringify(init)] = ret
 
   return ret
+}
+
+export async function get(endpoint: string, params:any,init?: RequestInitWithParams): Promise<any> {
+  // Add token if exists
+  const token = localStorage.getItem('token')
+
+  if (init?.localCache) {
+    const cached = cache[endpoint + JSON.stringify(init)]
+    if (cached) return cached
+  }
+
+  const res = await fetchWithParams(AQUA_HOST + endpoint, {
+    method: 'GET',
+    params,
+    ...init
+  }).catch(e => {
+    console.error(e)
+    throw new Error('Network error')
+  })
+
+  if (!res.ok) {
+    const text = await res.text()
+    console.error(`${res.status}: ${text}`)
+
+    // If 400 invalid token is caught, should invalidate the token and redirect to signin
+    if (text === 'Invalid token') {
+      localStorage.removeItem('token')
+      window.location.href = '/'
+    }
+
+    // Try to parse as json
+    let json
+    try {
+      json = JSON.parse(text)
+    } catch (e) {
+      throw new Error(text)
+    }
+    if (json.error) throw new Error(json.error)
+  }
+
+  const ret = res.json()
+  cache[endpoint + JSON.stringify(init)] = ret
+
+  return ret
+}
+
+export async function put(endpoint: string, params: any, init?: RequestInitWithParams): Promise<any> {
+  // Add token if exists
+  const token = localStorage.getItem('token')
+  if (token && !('token' in params)) params = { ...(params ?? {}), token }
+
+  if (init?.localCache) {
+    const cached = cache[endpoint + JSON.stringify(params) + JSON.stringify(init)]
+    if (cached) return cached
+  }
+
+  const res = await fetchWithParams(AQUA_HOST + endpoint, {
+    method: 'PUT',
+    body: JSON.stringify(params),
+    headers:{
+      'Content-Type':'application/json',
+      ...init?.headers
+    },
+    ...init
+  }).catch(e => {
+    console.error(e)
+    throw new Error('Network error')
+  })
+
+  if (!res.ok) {
+    const text = await res.text()
+    console.error(`${res.status}: ${text}`)
+
+    // If 400 invalid token is caught, should invalidate the token and redirect to signin
+    if (text === 'Invalid token') {
+      localStorage.removeItem('token')
+      window.location.href = '/'
+    }
+
+    // Try to parse as json
+    let json
+    try {
+      json = JSON.parse(text)
+    } catch (e) {
+      throw new Error(text)
+    }
+    if (json.error) throw new Error(json.error)
+  }
+
+  const ret = res.json()
+  cache[endpoint + JSON.stringify(params) + JSON.stringify(init)] = ret
+
+  return ret
+}
+
+export async function realPost(endpoint: string, params: any, init?: RequestInitWithParams): Promise<any> {
+  const res = await fetchWithParams(AQUA_HOST + endpoint, {
+    method: 'POST',
+    body: JSON.stringify(params),
+    headers:{
+      'Content-Type':'application/json',
+      ...init?.headers
+    },
+    ...init
+  }).catch(e => {
+    console.error(e)
+    throw new Error('Network error')
+  })
+
+  if (!res.ok) {
+    const text = await res.text()
+    console.error(`${res.status}: ${text}`)
+
+    // If 400 invalid token is caught, should invalidate the token and redirect to signin
+    if (text === 'Invalid token') {
+      localStorage.removeItem('token')
+      window.location.href = '/'
+    }
+
+    // Try to parse as json
+    let json
+    try {
+      json = JSON.parse(text)
+    } catch (e) {
+      throw new Error(text)
+    }
+    if (json.error) throw new Error(json.error)
+  }
+
+  return res.json()
 }
 
 /**
@@ -126,6 +259,26 @@ export const USER = {
   },
   isLoggedIn,
   ensureLoggedIn,
+}
+
+export const USERBOX = {
+  getAimeId:(cardId:string):Promise<{luid:string}|null> =>realPost('/api/sega/aime/getByAccessCode',{ accessCode:cardId }),
+  getProfile:(aimeId:string):Promise<UserBox> =>get('/api/game/chuni/v2/profile',{ aimeId }),
+  getUnlockedItems:(aimeId:string, itemId: UserBoxItemKind):Promise<{itemKind:number, itemId:number,stock:number,isValid:boolean}[]> =>
+    get(`/api/game/chuni/v2/item/${itemId}`,{ aimeId }),
+  getItemLabels:() => {
+    const kinds = [ 'nameplate', 'frame', 'trophy', 'mapicon', 'sysvoice', 'avatar' ]
+
+    return Promise.all(kinds.map(it =>
+      get(`/api/game/chuni/v2/data/${it}`,{}).then((res:{id:number,name:string}[]) =>
+        // Use the id as the key
+        res.reduce((acc, cur) => ({ ...acc, [cur.id]: cur.name }), {}) as { [index: number]: string }
+      ))).then(([ nameplate, frame, trophy, mapicon, sysvoice, avatar ]) => ({
+      nameplate, frame, trophy, mapicon, sysvoice, avatar
+    }))
+  },
+  setUserBox:({ kind,...body }:ChangeUserBoxReq) =>
+    put(`/api/game/chuni/v2/profile/${kind}`, body),
 }
 
 export const CARD = {

@@ -11,5 +11,7 @@ export const DISCORD_INVITE = 'https://discord.gg/FNgveqFF7s'
 // UI
 export const FADE_OUT = { duration: 200 }
 export const FADE_IN = { delay: 400 }
-export const DEFAULT_PFP = "/assets/imgs/no_profile.png"
+export const DEFAULT_PFP = '/assets/imgs/no_profile.png'
 
+// USERBOX_ASSETS
+export const HAS_USERBOX_ASSETS = true
