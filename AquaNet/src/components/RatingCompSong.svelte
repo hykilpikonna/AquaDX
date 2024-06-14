@@ -24,7 +24,7 @@
   };
 
   let gameIndex = gameIndexMap[game as keyof typeof gameIndexMap];
-</script>
+  </script>
 
 <div class="map-detail-container" transition:slide>
   <div class="scores">
@@ -47,7 +47,7 @@
           </span>
           {#if game === 'mai2'}
             <span class="dx-change">
-              { mapRank ? (mapRank * Number(mult[1])).toFixed(0) : '-' }
+              { mapRank ? Math.floor(mapRank * mult[1] * (Math.min(100.5, mapData[3] / 10000) / 100)) : '-' }
             </span>
           {/if}
         </div>
