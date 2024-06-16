@@ -277,6 +277,7 @@
     <Compile Include="UX\DemoMaster.cs" />
     <Compile Include="UX\DisableReboot.cs" />
     <Compile Include="UX\ExtendTimer.cs" />
+    <Compile Include="UX\ImmediateSave.cs" />
     <Compile Include="UX\LoadJacketPng.cs" />
     <Compile Include="UX\LoadAssetBundleWithoutManifest.cs" />
     <Compile Include="UX\QuickSkip.cs" />

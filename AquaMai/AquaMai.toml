@@ -33,8 +33,10 @@ DemoMaster=true
 # Execute some command on game idle or on game start
 ExecOnIdle=""
 ExecOnEntry=""
-# Change every timer to 200 seconds
+# Disable timers
 ExtendTimer=true
+# Save immediate after playing a song
+ImmediateSave=true
 
 [Performance]
 # Disable some useless delays to speed up the game boot process

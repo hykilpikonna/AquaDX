@@ -27,6 +27,7 @@ namespace AquaMai
             public bool DemoMaster { get; set; }
             public bool ExtendTimer { get; set; }
             public bool SkipEventInfo { get; set; }
+            public bool ImmediateSave { get; set; }
             public string CustomVersionString { get; set; }
             public string ExecOnIdle { get; set; }
             public string ExecOnEntry { get; set; }
