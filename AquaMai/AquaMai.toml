@@ -6,6 +6,8 @@
 TicketUnlock=true
 # Unlock maps that are not in this version
 MapUnlock=true
+# Unlock Utage without the need of DXRating 10000
+UnlockUtage=true
 
 # ===================================
 # UX: User Experience Improvements
