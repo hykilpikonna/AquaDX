@@ -5,7 +5,6 @@ using System.Reflection;
 using HarmonyLib;
 using UnityEngine;
 using System.Text.RegularExpressions;
-using MelonLoader;
 
 namespace AquaMai.UX
 {
@@ -27,26 +26,49 @@ namespace AquaMai.UX
             }
 
             var id = matches[0].Groups[1].Value;
+
+            var texture = GetJacketTexture2D(id);
+            if (texture is null)
+            {
+                __result = __instance.LoadAsset<Texture2D>($"Jacket/UI_Jacket_{id}.png");
+            }
+            else
+            {
+                __result = texture;
+            }
+
+            return false;
+        }
+
+        private static string GetJacketPath(string id)
+        {
             foreach (var ext in new[] { ".jpg", ".png", ".webp", ".bmp", ".gif" })
             {
                 if (File.Exists(Path.Combine(Environment.CurrentDirectory, "LocalAssets", id + ext)))
                 {
-                    filename = id + ext;
+                    return Path.Combine(Environment.CurrentDirectory, "LocalAssets", id + ext);
                 }
             }
 
-            var localPath = Path.Combine(Environment.CurrentDirectory, "LocalAssets", filename);
-            if (File.Exists(localPath))
+            return null;
+        }
+
+        public static Texture2D GetJacketTexture2D(string id)
+        {
+            var path = GetJacketPath(id);
+            if (path == null)
             {
-                __result = new Texture2D(1, 1);
-                ImageConversion.LoadImage(__result, File.ReadAllBytes(localPath));
-            }
-            else
-            {
-                __result = __instance.LoadAsset<Texture2D>($"Jacket/UI_Jacket_{id}.png");
+                return null;
             }
 
-            return false;
+            var texture = new Texture2D(1, 1);
+            texture.LoadImage(File.ReadAllBytes(path));
+            return texture;
+        }
+
+        public static Texture2D GetJacketTexture2D(int id)
+        {
+            return GetJacketTexture2D($"{id:000000}");
         }
     }
 }

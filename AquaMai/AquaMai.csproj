@@ -13,6 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
+    <LangVersion>12</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
@@ -281,6 +282,7 @@
     <Compile Include="UX\ImmediateSave.cs" />
     <Compile Include="UX\LoadJacketPng.cs" />
     <Compile Include="UX\LoadAssetBundleWithoutManifest.cs" />
+    <Compile Include="UX\LoadLocalBga.cs" />
     <Compile Include="UX\QuickSkip.cs" />
     <Compile Include="UX\RandomBgm.cs" />
     <Compile Include="UX\RunCommandOnEvents.cs" />

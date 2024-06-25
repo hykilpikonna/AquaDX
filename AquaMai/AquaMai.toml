@@ -22,6 +22,9 @@ SkipToMusicSelection=false
 CustomVersionString=""
 # Load Jacket image from folder "LocalAssets" and filename "{MusicID}.png" for self-made charts
 LoadJacketPng=true
+# Use the png jacket above as BGA if BGA is not found for self-made charts
+# Use together with `LoadJacketPng`
+LoadLocalBga=true
 # Press key "7" for 1 second to skip to next step or restart current song
 QuickSkip=true
 # Add ".ab" image resources without the need of rebuilding a manifest
