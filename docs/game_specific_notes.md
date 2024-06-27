@@ -7,7 +7,7 @@ This document is for detailed game specific notes, if any.
 
 | Name              | Game ID | Latest supported version | Latest supported option | Actively supported | Requires patch |
 |-------------------|---------|--------------------------|-------------------------|--------------------|----------------|
-| Chunithm (Chusan) | SDHD    | Sun                      | A152                    | Yes                | Yes            |
+| Chunithm (Chusan) | SDHD    | Luminous                 | A143                    | Yes                | Yes            |
 | Chunithm          | SDBT    | Paradise Lost            | A032                    | Yes                | Yes (Paradise) |
 | Maimai DX         | SDEZ    | Buddies                  | H061                    | Yes                | Yes            |
 | O.N.G.E.K.I       | SDDT    | Bright memory            | A108                    | Yes                | Yes            |
