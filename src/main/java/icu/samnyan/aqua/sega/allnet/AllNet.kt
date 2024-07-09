@@ -174,8 +174,8 @@ class AllNet(
             "SBZV" -> "diva/"
             "SDDT" -> "ongeki/"
             "SDEY" -> "mai/"
-            "SDGA" -> "mai/" // International (Exp) - TODO: Test it
-            "SDGB" -> "mai/" // International (China) - TODO: Test it
+            "SDGA" -> "mai2/" // International (Exp)
+            "SDGB" -> "mai2/" // International (China) - TODO: Test it
             "SDEZ" -> "mai2/"
             "SDFE" -> "wacca" // Note: Wacca must not end with a trailing slash
             "SDED" -> "card/"
