@@ -8,6 +8,7 @@ namespace AquaMai
         public UXConfig UX { get; set; }
         public CheatConfig Cheat { get; set; }
         public PerformanceConfig Performance { get; set; }
+        public FixConfig Fix { get; set; }
 
         public class CheatConfig
         {
@@ -30,7 +31,6 @@ namespace AquaMai
             public bool SkipEventInfo { get; set; }
             public bool ImmediateSave { get; set; }
             public bool LoadLocalBga { get; set; }
-            public bool SkipVersionCheck { get; set; }
             public string CustomVersionString { get; set; }
             public string ExecOnIdle { get; set; }
             public string ExecOnEntry { get; set; }
@@ -39,6 +39,11 @@ namespace AquaMai
         public class PerformanceConfig
         {
             public bool ImproveLoadSpeed { get; set; }
+        }
+
+        public class FixConfig
+        {
+            public bool SkipVersionCheck { get; set; }
         }
     }
 }

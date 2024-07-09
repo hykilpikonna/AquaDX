@@ -42,9 +42,11 @@ ExecOnEntry=""
 ExtendTimer=true
 # Save immediate after playing a song
 ImmediateSave=true
-# Allow login with higher data version
-SkipVersionCheck=true
 
 [Performance]
 # Disable some useless delays to speed up the game boot process
 ImproveLoadSpeed=false
+
+[Fix]
+# Allow login with higher data version
+SkipVersionCheck=true
