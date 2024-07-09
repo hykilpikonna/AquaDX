@@ -44,6 +44,7 @@ namespace AquaMai
         public class FixConfig
         {
             public bool SkipVersionCheck { get; set; }
+            public bool RemoveEncryption { get; set; }
         }
     }
 }

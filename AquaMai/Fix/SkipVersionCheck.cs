@@ -1,7 +1,7 @@
 using HarmonyLib;
 using Process.Entry.State;
 
-namespace AquaMai.UX
+namespace AquaMai.Fix
 {
     public class SkipVersionCheck
     {

@@ -50,3 +50,4 @@ ImproveLoadSpeed=false
 [Fix]
 # Allow login with higher data version
 SkipVersionCheck=true
+RemoveEncryption=true

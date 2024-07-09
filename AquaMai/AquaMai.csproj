@@ -33,6 +33,9 @@
     <Reference Include="0Harmony">
       <HintPath>Libs\0Harmony.dll</HintPath>
     </Reference>
+    <Reference Include="AMDaemon.NET">
+      <HintPath>Libs\AMDaemon.NET.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>Libs\Assembly-CSharp.dll</HintPath>
     </Reference>
@@ -271,7 +274,10 @@
     <Compile Include="Cheat\TicketUnlock.cs" />
     <Compile Include="Cheat\UnlockUtage.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="Fix\BasicFix.cs" />
     <Compile Include="Fix\FixCharaCrash.cs" />
+    <Compile Include="Fix\RemoveEncryption.cs" />
+    <Compile Include="Fix\SkipVersionCheck.cs" />
     <Compile Include="Performance\ImproveLoadSpeed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Main.cs" />
@@ -288,7 +294,6 @@
     <Compile Include="UX\RunCommandOnEvents.cs" />
     <Compile Include="UX\SinglePlayer.cs" />
     <Compile Include="UX\SkipEventInfo.cs" />
-    <Compile Include="UX\SkipVersionCheck.cs" />
     <Compile Include="UX\SkipWarningScreen.cs" />
     <Compile Include="UX\SkipToMusicSelection.cs" />
   </ItemGroup>

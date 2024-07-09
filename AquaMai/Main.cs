@@ -81,6 +81,7 @@ namespace AquaMai
             Patch(typeof(CustomVersionString));
             Patch(typeof(DisableReboot));
             Patch(typeof(RunCommandOnEvents));
+            Patch(typeof(BasicFix));
 
             MelonLogger.Msg("Loaded!");
         }
