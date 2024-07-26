@@ -257,7 +257,17 @@ class Maimai2ServletController(
         )
     }
 
-    val endpointList = setOf("GetGameEventApi", "GetGameRankingApi", "GetGameSettingApi", "GetGameTournamentInfoApi",
+    val getGameWeeklyData = BaseHandler {
+        mapOf(
+            "gameWeeklyData" to mapOf(
+                "missionCategory" to 0,
+                "updateDate" to "2024-01-01 00:00:00.0",
+                "beforeDate" to "2077-01-01 00:00:00.0"
+            )
+        )
+    }
+
+    val endpointList = setOf("GetGameEventApi", "GetGameRankingApi", "GetGameSettingApi", "GetGameTournamentInfoApi", "GetGameWeeklyDataApi",
         "GetTransferFriendApi", "GetUserActivityApi", "GetUserCardApi", "GetUserCharacterApi", "GetUserDataApi",
         "GetUserExtendApi", "GetUserFavoriteApi", "GetUserGhostApi", "GetUserItemApi", "GetUserLoginBonusApi",
         "GetUserMapApi", "GetUserMusicApi", "GetUserOptionApi", "GetUserPortraitApi", "GetUserPreviewApi",
