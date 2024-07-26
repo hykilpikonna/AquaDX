@@ -1,7 +1,7 @@
 using HarmonyLib;
 using Manager.Operation;
 
-namespace AquaMai.UX
+namespace AquaMai.Fix
 {
     public class DisableReboot
     {
@@ -13,7 +13,7 @@ namespace AquaMai.UX
             __result = false;
             return false;
         }
-        
+
         // IsUnderServerMaintenance
         [HarmonyPrefix]
         [HarmonyPatch(typeof(MaintenanceTimer), "IsUnderServerMaintenance")]
@@ -22,7 +22,7 @@ namespace AquaMai.UX
             __result = false;
             return false;
         }
-        
+
         // RemainingMinutes
         // Original: private int RemainingMinutes => (this._secServerMaintenance + 59) / 60;
         [HarmonyPrefix]
@@ -32,7 +32,7 @@ namespace AquaMai.UX
             __result = 600;
             return false;
         }
-        
+
         // GetAutoRebootSec
         [HarmonyPrefix]
         [HarmonyPatch(typeof(MaintenanceTimer), "GetAutoRebootSec")]
@@ -41,7 +41,7 @@ namespace AquaMai.UX
             __result = 60 * 60 * 10;
             return false;
         }
-        
+
         // GetServerMaintenanceSec
         [HarmonyPrefix]
         [HarmonyPatch(typeof(MaintenanceTimer), "GetServerMaintenanceSec")]
@@ -50,7 +50,7 @@ namespace AquaMai.UX
             __result = 60 * 60 * 10;
             return false;
         }
-        
+
         // Execute
         [HarmonyPrefix]
         [HarmonyPatch(typeof(MaintenanceTimer), "Execute")]
@@ -58,12 +58,28 @@ namespace AquaMai.UX
         {
             return false;
         }
-        
+
         // UpdateTimes
         [HarmonyPrefix]
         [HarmonyPatch(typeof(MaintenanceTimer), "UpdateTimes")]
         public static bool UpdateTimes(MaintenanceTimer __instance)
         {
+            return false;
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(ClosingTimer), "IsShowRemainingMinutes")]
+        public static bool IsShowRemainingMinutes(ref bool __result)
+        {
+            __result = false;
+            return false;
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(ClosingTimer), "IsClosed")]
+        public static bool IsClosed(ref bool __result)
+        {
+            __result = false;
             return false;
         }
     }

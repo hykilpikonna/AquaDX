@@ -3,15 +3,13 @@ using AMDaemon.Allnet;
 using HarmonyLib;
 using Manager;
 using Manager.Operation;
-using IniFile = MAI2System.IniFile;
-using Network = AMDaemon.Network;
 
 namespace AquaMai.Fix;
 
 public class BasicFix
 {
     [HarmonyPrefix]
-    [HarmonyPatch(typeof(IniFile), "clear")]
+    [HarmonyPatch(typeof(MAI2System.IniFile), "clear")]
     private static bool PreIniFileClear()
     {
         return false;
@@ -26,7 +24,7 @@ public class BasicFix
     }
 
     [HarmonyPrefix]
-    [HarmonyPatch(typeof(Network), "IsLanAvailable", MethodType.Getter)]
+    [HarmonyPatch(typeof(AMDaemon.Network), "IsLanAvailable", MethodType.Getter)]
     private static bool PreIsLanAvailable(ref bool __result)
     {
         __result = false;
@@ -41,5 +39,13 @@ public class BasicFix
         {
             ____operationData.ServerUri = Auth.GameServerUri;
         }
+    }
+
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(Manager.Credit), "IsFreePlay")]
+    private static bool PreIsFreePlay(ref bool __result)
+    {
+        __result = true;
+        return false;
     }
 }

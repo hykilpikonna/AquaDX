@@ -275,6 +275,7 @@
     <Compile Include="Cheat\UnlockUtage.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Fix\BasicFix.cs" />
+    <Compile Include="Fix\DisableReboot.cs" />
     <Compile Include="Fix\FixCharaCrash.cs" />
     <Compile Include="Fix\RemoveEncryption.cs" />
     <Compile Include="Fix\SkipVersionCheck.cs" />
@@ -283,7 +284,6 @@
     <Compile Include="Main.cs" />
     <Compile Include="UX\CustomVersionString.cs" />
     <Compile Include="UX\DemoMaster.cs" />
-    <Compile Include="UX\DisableReboot.cs" />
     <Compile Include="UX\ExtendTimer.cs" />
     <Compile Include="UX\ImmediateSave.cs" />
     <Compile Include="UX\LoadJacketPng.cs" />
