@@ -34,8 +34,12 @@ namespace AquaMai.UX
         {
             SaveDataFix();
             var userData = Singleton<UserDataManager>.Instance.GetUserData(0);
+# if SDGA145
+            PacketHelper.StartPacket(new PacketUploadUserPlaylog(0, userData, (int)GameManager.MusicTrackNumber - 1,
+# else
             var accessToken = Singleton<OperationManager>.Instance.GetAccessToken(0);
             PacketHelper.StartPacket(new PacketUploadUserPlaylog(0, userData, (int)GameManager.MusicTrackNumber - 1, accessToken,
+# endif
                 delegate { MelonLogger.Msg("Playlog saved"); },
                 delegate(PacketStatus err)
                 {
@@ -43,7 +47,11 @@ namespace AquaMai.UX
                     MelonLogger.Error("Playlog save error");
                     MelonLogger.Error(err);
                 }));
+# if SDGA145
+            PacketHelper.StartPacket(new PacketUpsertUserAll(0, userData, delegate(int code)
+# else
             PacketHelper.StartPacket(new PacketUpsertUserAll(0, userData, accessToken, delegate(int code)
+# endif
             {
                 if (code == 1)
                 {
