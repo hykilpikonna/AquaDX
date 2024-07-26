@@ -192,6 +192,18 @@ class Maimai2ServletController(
         )
     }
 
+    val getUserShopStock = UserReqHandler { req, userId ->
+        val shopItemIdList = req["shopItemIdList"] as List<*>
+
+        mapOf(
+            "userId" to userId,
+            "userShopStockList" to shopItemIdList.map { mapOf(
+                "shopItemId" to it,
+                "tradeCount" to 0
+            ) }
+        )
+    }
+
     // Empty List Handlers
     val getUserRecommendRateMusic = UserReqHandler { _, userId -> mapOf(
         "userId" to userId,
@@ -204,6 +216,10 @@ class Maimai2ServletController(
     val getUserCardPrintError = BaseHandler { mapOf("length" to 0, "userPrintDetailList" to empty) }
     val getUserRegion = UserReqHandler { _, uid -> mapOf("userId" to uid, "length" to 0, "userRegionList" to empty) }
     val getUserGhost = UserReqHandler { _, uid -> mapOf("userId" to uid, "userGhostList" to empty) }
+    val getUserFriendBonus = UserReqHandler { _, uid -> mapOf("userId" to uid, "returnCode" to 0, "getMiles" to 0) }
+    val getUserFriendCheck = BaseHandler { mapOf("returnCode" to 0) }
+    val userFriendRegist = BaseHandler { mapOf("returnCode1" to 0, "returnCode2" to 0) }
+    val getUserIntimate = UserReqHandler { _, uid -> mapOf("userId" to uid, "length" to 0, "userIntimateList" to empty) }
     val getTransferFriend = UserReqHandler { _, uid -> mapOf("userId" to uid, "transferFriendList" to empty) }
     val getGameNgMusicId = BaseHandler { mapOf("length" to 0, "musicIdList" to empty) }
     val getGameRanking = BaseHandler { mapOf("type" to it["type"].toString(), "gameRankingList" to empty) }
@@ -257,20 +273,29 @@ class Maimai2ServletController(
         )
     }
 
-    val getGameWeeklyData = BaseHandler {
-        mapOf(
-            "gameWeeklyData" to mapOf(
-                "missionCategory" to 0,
-                "updateDate" to "2024-01-01 00:00:00.0",
-                "beforeDate" to "2077-01-01 00:00:00.0"
-            )
+    val getGameWeeklyData = BaseHandler { mapOf(
+        "gameWeeklyData" to mapOf(
+            "missionCategory" to 0,
+            "updateDate" to "2024-01-01 00:00:00.0",
+            "beforeDate" to "2077-01-01 00:00:00.0"
         )
-    }
+    ) }
+
+    val getUserMissionData = UserReqHandler { _, uid -> mapOf(
+        "userId" to uid,
+        "userWeeklyData" to mapOf (
+            "lastLoginWeek" to "",
+            "beforeLoginWeek" to "",
+            "friendBonusFlag" to false
+        ),
+        "userMissionDataList" to empty
+    ) }
 
     val endpointList = setOf("GetGameEventApi", "GetGameRankingApi", "GetGameSettingApi", "GetGameTournamentInfoApi", "GetGameWeeklyDataApi",
         "GetTransferFriendApi", "GetUserActivityApi", "GetUserCardApi", "GetUserCharacterApi", "GetUserDataApi",
         "GetUserExtendApi", "GetUserFavoriteApi", "GetUserGhostApi", "GetUserItemApi", "GetUserLoginBonusApi",
         "GetUserMapApi", "GetUserMusicApi", "GetUserOptionApi", "GetUserPortraitApi", "GetUserPreviewApi",
+        "GetUserFriendBonusApi", "GetUserFriendCheckApi", "UserFriendRegistApi", "GetUserMissionDataApi", "GetUserIntimateApi", "GetUserShopStockApi",
         "GetUserRatingApi", "GetUserRegionApi", "UploadUserPhotoApi", "UploadUserPlaylogApi", "UploadUserPortraitApi",
         "UserLoginApi", "UserLogoutApi", "UpsertUserAllApi", "GetGameChargeApi", "GetUserChargeApi",
         "GetUserCourseApi", "GetGameNgMusicIdApi", "GetUserFriendSeasonRankingApi", "CreateTokenApi",
