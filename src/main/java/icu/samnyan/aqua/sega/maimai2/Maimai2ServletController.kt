@@ -30,6 +30,7 @@ class Maimai2ServletController(
     val upsertUserPrint: UpsertUserPrintHandler,
     val getUserFavoriteItem: GetUserFavoriteItemHandler,
     val getUserRivalMusic: GetUserRivalMusicHandler,
+    val getUserCharacter: GetUserCharacterHandler,
     val repos: Mai2Repos
 ) {
     companion object {
@@ -72,11 +73,6 @@ class Maimai2ServletController(
         "userId" to userId,
         "nextIndex" to 0,
         "userCardList" to repos.userCard.findByUser_Card_ExtId(userId)
-    ) }
-
-    val getUserCharacter = UserReqHandler { _, userId -> mapOf(
-        "userId" to userId,
-        "userCharacterList" to repos.userCharacter.findByUser_Card_ExtId(userId)
     ) }
 
     val getUserCharge = UserReqHandler { _, userId -> repos.userCharge.findByUser_Card_ExtId(userId).let { mapOf(
