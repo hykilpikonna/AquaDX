@@ -127,6 +127,18 @@ class UpsertUserAllHandler(
                 }.sortedBy { it.sortNumber })
         }
 
+        if(req.isNewFavoritemusicList.equals("0"))
+            // According to code, 0 here represents favourite differ and will send complete new list via userFavoritemusicList.
+            // Or userFavoritemusicList will be empty
+            req.userFavoritemusicList?.let { news ->
+                val key = "favorite_music"
+                val data = repos.userGeneralData.findByUserAndPropertyKey(u, key)()
+                    ?: Mai2UserGeneralData().apply { user = u; propertyKey = key }
+                repos.userGeneralData.save(data.apply {
+                    propertyValue = news.map { it.id }.joinToString(",")
+                })
+            }
+
         return SUCCESS
     }
 

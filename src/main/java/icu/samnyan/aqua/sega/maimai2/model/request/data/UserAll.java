@@ -34,6 +34,7 @@ public class UserAll implements Serializable {
 	private List<Mai2UserFavorite> userFavoriteList;
 	private List<Mai2UserActivity> userActivityList;
 	private List<Map<String, Object>> userGamePlaylogList;
+	private List<UserFavoriteItem> userFavoritemusicList;
 	private String isNewCharacterList;
 	private String isNewMapList;
 	private String isNewLoginBonusList;
@@ -42,4 +43,5 @@ public class UserAll implements Serializable {
 	private String isNewCourseList;
 	private String isNewFavoriteList;
 	private String isNewFriendSeasonRankingList;
+	private String isNewFavoritemusicList;
 }
