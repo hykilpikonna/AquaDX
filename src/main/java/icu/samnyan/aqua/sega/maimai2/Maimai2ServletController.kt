@@ -97,9 +97,9 @@ class Maimai2ServletController(
         "userCourseList" to repos.userCourse.findByUser_Card_ExtId(userId)
     ) }
 
-    val getUserFavorite = UserReqHandler { _, userId -> mapOf(
+    val getUserFavorite = UserReqHandler { req, userId -> mapOf(
         "userId" to userId,
-        "userFavoriteData" to repos.userFavorite.findByUser_Card_ExtId(userId)
+        "userFavorite" to repos.userFavorite.findByUser_Card_ExtIdAndItemKind(userId, req["itemKind"] as Int)
     ) }
 
     val getUserActivity = UserReqHandler { _, userId ->

@@ -61,6 +61,8 @@ interface Mai2UserFavoriteRepo : Mai2UserLinked<Mai2UserFavorite> {
     fun findByUserAndItemKind(user: Mai2UserDetail, kind: Int): Optional<Mai2UserFavorite>
 
     fun findByUserIdAndItemKind(userId: Long, kind: Int): List<Mai2UserFavorite>
+
+    fun findByUser_Card_ExtIdAndItemKind(userId: Long, kind: Int): Optional<Mai2UserFavorite>
 }
 
 interface Mai2UserFriendSeasonRankingRepo : Mai2UserLinked<Mai2UserFriendSeasonRanking> {
