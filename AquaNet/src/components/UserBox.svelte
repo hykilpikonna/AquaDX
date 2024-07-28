@@ -154,14 +154,8 @@
       });
   }
 
-  async function fetchData(card: string) {
-    const userId = await USERBOX.getAimeId(card);
-
-    if (!userId) return;
-
-    aimeId = userId.luid;
-
-    const currentValues = await USERBOX.getProfile(userId.luid).catch((e) => {
+  async function fetchData() {
+    const currentValues = await USERBOX.getProfile(aimeId).catch((e) => {
       loading = false;
       error = t("userbox.error.noprofile")
       return;
@@ -195,7 +189,7 @@
     await Promise.all(
       userBoxItems.map(async (kind) => {
         // Populate info about the items
-        return USERBOX.getUnlockedItems(userId.luid, kind).then((items) => {
+        return USERBOX.getUnlockedItems(aimeId, kind).then((items) => {
           switch (kind) {
             case UserBoxItemKind.nameplate:
               // Add the item id and the label to the available options
@@ -347,8 +341,10 @@
       user = u;
       const card = user.cards.length > 0 ? user.cards[0].luid : "";
 
-      if (card) {
-        fetchData(card);
+      aimeId = card;
+
+      if (aimeId) {
+        fetchData();
       } else {
         loading = false;
       }
