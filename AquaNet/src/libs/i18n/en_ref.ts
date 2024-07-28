@@ -109,6 +109,7 @@ export const EN_REF_HOME = {
   'home.setup.ask': 'If you have any questions, please ask in our',
   'home.setup.support': 'server',
   'home.setup.keychip-tips': 'This is your unique keychip, do not share it with anyone',
+  'home.favlimit': 'You have reached the limit of favorite songs',
 }
 
 export const EN_REF_SETTINGS = {

@@ -15,7 +15,7 @@
   import { Line } from 'svelte-chartjs';
   import moment from "moment";
   import 'chartjs-adapter-moment';
-  import { CARD, DATA, GAME, USER } from "../libs/sdk";
+  import { CARD, DATA, GAME, USER, USERBOX } from "../libs/sdk";
   import { type GameName, getMult, roundFloor } from "../libs/scoring";
   import StatusOverlays from "../components/StatusOverlays.svelte";
   import Icon from "@iconify/svelte";
@@ -90,6 +90,32 @@
       })
     }).catch((e) => error = e.message);
   }).catch((e) => { error = e.message; console.error(e) } );
+
+  // Function to add to favorites
+  async function toggleFavSong(musicId: number) {
+    if(!d || !me) return
+
+    const card = me.cards.length > 0 ? me.cards[0].luid : "";
+
+    if (d.user.favSongs.includes(musicId)) {
+
+      await USERBOX.toggleFavSong(card, musicId)
+
+      d.user.favSongs = d.user.favSongs.filter(id => id !== musicId)
+    } else {
+      // If there are 20 fav songs, cancel the request
+      if (d.user.favSongs.length >= 20){
+        error = t("home.favlimit")
+        return
+      }
+
+      await USERBOX.toggleFavSong(card, musicId)
+
+      const newFav = [...d.user.favSongs, musicId]
+
+      d.user.favSongs = newFav
+    }
+  }
 </script>
 
 <main id="user-home" class="content">
@@ -254,6 +280,17 @@
                     {roundFloor(r.achievement, game, 1)}%
                   </span>
                 </span>
+                {#if r.musicId !== 0}
+                <span>
+                  <button class="fav-button" on:click={() => toggleFavSong(r.musicId)}>
+                    {#if me && d.user.favSongs.includes(r.musicId)}
+                      <Icon icon="material-symbols:star" />
+                    {:else}
+                      <Icon icon="material-symbols:star-outline" />
+                    {/if}
+                  </button>
+                </span>
+                {/if}
                 {#if game === 'mai2' || game === 'wacca'}
                   <span class:increased={r.afterRating - r.beforeRating > 0} class="dx-change">
                     {r.afterRating === r.beforeRating ? '-' : (r.afterRating - r.beforeRating).toFixed(0)}
@@ -313,6 +350,16 @@
     height: 100px
     border-radius: $border-radius
     object-fit: cover
+
+  .fav-button
+    background: none
+    border: none
+    cursor: pointer
+    padding: 0
+    color: $c-main
+    font-size: 1.5rem
+    display: flex
+    margin-left: .5rem
 
   @media (max-width: $w-mobile)
     .user-pfp
@@ -457,6 +504,11 @@
           display: flex
           justify-content: space-between
           overflow: hidden
+          align-items: center
+
+          > div
+            align-items: center
+            display: flex
 
           // Limit song name to one line
           > div:first-child

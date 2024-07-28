@@ -93,7 +93,7 @@ abstract class GameApiController<T : IUserData>(name: String, userDataClass: KCl
         }
     }
 
-    fun genericUserSummary(card: Card, ratingComp: Map<String, String>): GenericGameSummary {
+    fun genericUserSummary(card: Card, ratingComp: Map<String, String>, favSongs: List<Int>? = null): GenericGameSummary {
         // Summary values: total plays, player rating, server-wide ranking
         // number of each rank, max combo, number of full combo, number of all perfect
         val user = userDataRepo.findByCard(card) ?: (404 - "Game data not found")
@@ -137,8 +137,9 @@ abstract class GameApiController<T : IUserData>(name: String, userDataClass: KCl
             lastSeen = user.lastPlayDate.toString(),
             lastVersion = user.lastRomVersion,
             ratingComposition = ratingComp,
+            favSongs = favSongs,
             recent = plays.sortedBy { it.userPlayDate.toString() }.takeLast(15).reversed(),
-            lastPlayedHost = us.userRepo.findByKeychip(user.lastClientId)?.username
+            lastPlayedHost = us.userRepo.findByKeychip(user.lastClientId)?.username,
         )
     }
 }
