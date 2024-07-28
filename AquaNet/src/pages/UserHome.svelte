@@ -22,6 +22,8 @@
   import { GAME_TITLE, t } from "../libs/i18n";
   import RankDetails from "../components/RankDetails.svelte";
   import RatingComposition from "../components/RatingComposition.svelte";
+  import SongSelector from "../components/SongSelector.svelte";
+  import Tooltip from "../components/Tooltip.svelte";
 
   const TREND_DAYS = 60
 
@@ -32,6 +34,7 @@
   let calElement: HTMLElement
   let error: string;
   let me: AquaNetUser
+  let songSelectorOpen = false;
   title(`User ${username}`)
 
   const titleText = GAME_TITLE[game]
@@ -91,9 +94,13 @@
     }).catch((e) => error = e.message);
   }).catch((e) => { error = e.message; console.error(e) } );
 
+  function closeSongSelector() {
+    songSelectorOpen = false
+  }
+
   // Function to add to favorites
   async function toggleFavSong(musicId: number) {
-    if(!d || !me) return
+    if(!d || !me || !d.user.favSongs) return
 
     const card = me.cards.length > 0 ? me.cards[0].luid : "";
 
@@ -280,7 +287,14 @@
                     {roundFloor(r.achievement, game, 1)}%
                   </span>
                 </span>
-                {#if r.musicId !== 0}
+                {#if game === 'mai2' || game === 'wacca'}
+                  <span class:increased={r.afterRating - r.beforeRating > 0} class="dx-change">
+                    {r.afterRating === r.beforeRating ? '-' : (r.afterRating - r.beforeRating).toFixed(0)}
+                  </span>
+                {/if}
+              </div>
+            </div>
+            {#if r.musicId !== 0 && !!d.user.favSongs}
                 <span>
                   <button class="fav-button" on:click={() => toggleFavSong(r.musicId)}>
                     {#if me && d.user.favSongs.includes(r.musicId)}
@@ -291,20 +305,49 @@
                   </button>
                 </span>
                 {/if}
-                {#if game === 'mai2' || game === 'wacca'}
-                  <span class:increased={r.afterRating - r.beforeRating > 0} class="dx-change">
-                    {r.afterRating === r.beforeRating ? '-' : (r.afterRating - r.beforeRating).toFixed(0)}
-                  </span>
-                {/if}
-              </div>
-            </div>
           </div>
         {/each}
       </div>
     </div>
+
+    {#if d.user.favSongs}
+    <div class="favorites">
+      <div class="favorite-title">
+        <h2>{t('home.favoritesongs')} ({d.user.favSongs.length}/20)</h2>
+        <button class="addsongs" disabled={d.user.favSongs.length>=20} on:click={()=>songSelectorOpen=true}>{t("home.addsong")}</button>
+        {#if d.user.favSongs.length>=20}
+        <Tooltip triggeredBy=".addsongs">
+          {t("home.favlimit")}
+        </Tooltip>
+        {/if}
+      </div>
+      <div class="scores">
+        {#each d.user.favSongs as f,i}
+        <div class:alt={i % 2 === 0}>
+            <img src={`${DATA_HOST}/d/${game}/music/00${f.toString().padStart(6, '0').substring(2)}.png`} alt="" on:error={coverNotFound} />
+            <div class="info">
+              <div>{allMusics[f]?.name ?? t("UserHome.UnknownSong")}</div>
+            </div>
+            <span>
+              <button class="fav-button" on:click={() => toggleFavSong(f)}>
+                {#if me && d.user.favSongs.includes(f)}
+                  <Icon icon="material-symbols:star" />
+                {:else}
+                  <Icon icon="material-symbols:star-outline" />
+                {/if}
+              </button>
+            </span>
+          </div>
+        {/each}
+      </div>
+    </div>
+    {/if}
   {/if}
 
   <StatusOverlays {error} loading={!d} />
+  {#if songSelectorOpen && d?.user.favSongs}
+    <SongSelector {game} favSongs={d.user.favSongs} close={closeSongSelector} toggleFav={toggleFavSong}/>
+  {/if}
 </main>
 
 <style lang="sass">
@@ -471,8 +514,17 @@
           flex-direction: row
           justify-content: space-between
 
+  .favorite-title
+    display: flex
+    justify-content: space-between
+    align-items: center
+    gap: $gap
+
+    h2
+      font-size: 1.5rem
+
   // Recent Scores section
-  .recent
+  .recent, .favorites
     .scores
       display: flex
       flex-direction: column

@@ -59,6 +59,9 @@
 {/if}
 
 <style lang="sass">
+  .overlay
+    z-index:1200
+
   .actions
     display: flex
     gap: 16px
