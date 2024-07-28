@@ -15,6 +15,7 @@ import icu.samnyan.aqua.sega.util.jackson.BasicMapper
 import lombok.AllArgsConstructor
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
+import kotlin.math.log
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -64,7 +65,10 @@ class UpsertUserAllHandler(
         // Set users
         req.run { listOf(userExtend, userOption, userCharacterList, userMapList, userLoginBonusList, userItemList,
             userMusicDetailList, userCourseList, userFriendSeasonRankingList, userFavoriteList) }
-            .flatten().forEach { it.user = u }
+            .flatten().forEach {
+                logger.info(it.toString())
+                it.user = u
+            }
 
         req.userExtend?.getOrNull(0)?.let {
             repos.userExtend.save(it.apply { id = repos.userExtend.findSingleByUser(u)()?.id ?: 0 })
@@ -127,7 +131,7 @@ class UpsertUserAllHandler(
                 }.sortedBy { it.sortNumber })
         }
 
-        if(req.isNewFavoritemusicList.equals("0"))
+        if(req.isNewFavoritemusicList == "0")
             // According to code, 0 here represents favourite differ and will send complete new list via userFavoritemusicList.
             // Or userFavoritemusicList will be empty
             req.userFavoritemusicList?.let { news ->
