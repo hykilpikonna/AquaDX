@@ -31,7 +31,7 @@ class Frontier(
         ftk.checkFtk()
 
         if (accessCode.length != 20) 400 - "Invalid access code"
-        if (!accessCode.startsWith("9900")) 400 - "Frontier access code must start with 9900"
+//        if (!accessCode.startsWith("9900")) 400 - "Frontier access code must start with 9900"
         if (async { cardService.cardRepo.findByLuid(accessCode) }.isPresent) 400 - "Card already registered"
 
         val card = async { cardService.registerByAccessCode(accessCode) }
