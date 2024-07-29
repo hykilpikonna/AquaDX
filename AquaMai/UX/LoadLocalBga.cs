@@ -14,10 +14,6 @@ public class LoadLocalBga
     [HarmonyPatch(typeof(GameCtrl), "IsReady")]
     public static void LoadLocalBgaAwake(GameObject ____movieMaskObj)
     {
-        var components = ____movieMaskObj.GetComponentsInChildren<Component>(false);
-        var movie = components.FirstOrDefault(it => it.name == "Movie");
-        if (movie is null) return;
-
         var music = Singleton<DataManager>.Instance.GetMusic(GameManager.SelectMusicID[0]);
         if (music is null) return;
 
@@ -28,8 +24,13 @@ public class LoadLocalBga
         if (jacket is null)
         {
             MelonLogger.Msg("No jacket found for music " + music);
+            return;
         }
-        else
+
+        var components = ____movieMaskObj.GetComponentsInChildren<Component>(false);
+        var movies = components.Where(it => it.name == "Movie");
+
+        foreach (var movie in movies)
         {
             // If I create a new RawImage component, the jacket will be not be displayed
             // I think it will be difficult to make it work with RawImage
@@ -39,7 +40,5 @@ public class LoadLocalBga
             sprite.sprite = Sprite.Create(jacket, new Rect(0, 0, jacket.width, jacket.height), new Vector2(0.5f, 0.5f));
             sprite.material = new Material(Shader.Find("Sprites/Default"));
         }
-
-        // movie.gameObject.SetActive(false);
     }
 }

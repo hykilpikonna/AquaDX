@@ -12,10 +12,13 @@ namespace AquaMai.UX
         [HarmonyPatch(typeof(AdvDemoProcess), "OnStart")]
         public static void AdvDemoProcessPostStart()
         {
-            var userOption = Singleton<GamePlayManager>.Instance.GetGameScore(0).UserOption;
-            userOption.NoteSpeed = OptionNotespeedID.Speed7_0;
+            for (int i = 0; i < 2; i++)
+            {
+                var userOption = Singleton<GamePlayManager>.Instance.GetGameScore(i).UserOption;
+                userOption.NoteSpeed = OptionNotespeedID.Speed6_5;
+            }
         }
-        
+
         [HarmonyPrefix]
         [HarmonyPatch(typeof(GamePlayManager), "InitializeAdvertise")]
         public static void PreInitializeAdvertise()

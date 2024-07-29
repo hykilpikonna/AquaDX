@@ -32,6 +32,7 @@ LoadAssetBundleWithoutManifest=true
 # Skip "New Event" and "Information" text boxes for new users
 SkipEventInfo=true
 # Random BGM, put Mai2Cue.{acb,awb} of old version of the game in `LocalAssets\Mai2Cue` and rename them
+# Do not enable when SinglePlayer is off
 RandomBgm=false
 # Play "Master" difficulty on Demo screen
 DemoMaster=true
@@ -39,6 +40,7 @@ DemoMaster=true
 ExecOnIdle=""
 ExecOnEntry=""
 # Disable timers
+# Not recommand to enable when SinglePlayer is off
 ExtendTimer=true
 # Save immediate after playing a song
 ImmediateSave=true
