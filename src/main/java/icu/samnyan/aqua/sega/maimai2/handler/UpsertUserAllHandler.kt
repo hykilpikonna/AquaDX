@@ -28,7 +28,7 @@ class UpsertUserAllHandler(
     val repos: Mai2Repos
 ) : BaseHandler {
 
-    fun String.isValidUsername() = isNotBlank() && length <= 8 && all { it in SEGA_USERNAME_CAHRS }
+    fun String.isValidUsername() = isNotBlank() && length <= 8
 
     @Throws(JsonProcessingException::class)
     override fun handle(request: Map<String, Any>): Any? {
