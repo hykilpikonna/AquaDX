@@ -32,50 +32,54 @@ namespace AquaMai.UX
         [HarmonyPatch(typeof(ResultProcess), "OnStart")]
         public static void ResultProcessOnStart()
         {
-            SaveDataFix();
-            var userData = Singleton<UserDataManager>.Instance.GetUserData(0);
+            for (int i = 0; i < 2; i++)
+            {
+                var userData = Singleton<UserDataManager>.Instance.GetUserData(i);
+                if(!userData.IsEntry) continue;
+                if(userData.IsGuest()) continue;
+
+                SaveDataFix(userData);
 # if SDGA145
-            PacketHelper.StartPacket(new PacketUploadUserPlaylog(0, userData, (int)GameManager.MusicTrackNumber - 1,
+                PacketHelper.StartPacket(new PacketUploadUserPlaylog(i, userData, (int)GameManager.MusicTrackNumber - 1,
 # else
-            var accessToken = Singleton<OperationManager>.Instance.GetAccessToken(0);
-            PacketHelper.StartPacket(new PacketUploadUserPlaylog(0, userData, (int)GameManager.MusicTrackNumber - 1, accessToken,
+                var accessToken = Singleton<OperationManager>.Instance.GetAccessToken(i);
+                PacketHelper.StartPacket(new PacketUploadUserPlaylog(i, userData, (int)GameManager.MusicTrackNumber - 1, accessToken,
 # endif
-                delegate { MelonLogger.Msg("Playlog saved"); },
-                delegate(PacketStatus err)
+                    delegate { MelonLogger.Msg("Playlog saved"); },
+                    delegate(PacketStatus err)
+                    {
+                        SoundManager.PlaySE(Mai2.Mai2Cue.Cue.SE_ENTRY_AIME_ERROR, i);
+                        MelonLogger.Error("Playlog save error");
+                        MelonLogger.Error(err);
+                    }));
+# if SDGA145
+                PacketHelper.StartPacket(new PacketUpsertUserAll(i, userData, delegate(int code)
+# else
+                PacketHelper.StartPacket(new PacketUpsertUserAll(i, userData, accessToken, delegate(int code)
+# endif
                 {
-                    SoundManager.PlaySE(Mai2.Mai2Cue.Cue.SE_ENTRY_AIME_ERROR, 0);
-                    MelonLogger.Error("Playlog save error");
+                    if (code == 1)
+                    {
+                        MelonLogger.Msg("UserAll saved");
+                    }
+                    else
+                    {
+                        SoundManager.PlaySE(Mai2.Mai2Cue.Cue.SE_ENTRY_AIME_ERROR, i);
+                        MelonLogger.Error("UserAll upsert error");
+                        MelonLogger.Error(code);
+                    }
+                }, delegate(PacketStatus err)
+                {
+                    SoundManager.PlaySE(Mai2.Mai2Cue.Cue.SE_ENTRY_AIME_ERROR, i);
+                    MelonLogger.Error("UserAll upsert error");
                     MelonLogger.Error(err);
                 }));
-# if SDGA145
-            PacketHelper.StartPacket(new PacketUpsertUserAll(0, userData, delegate(int code)
-# else
-            PacketHelper.StartPacket(new PacketUpsertUserAll(0, userData, accessToken, delegate(int code)
-# endif
-            {
-                if (code == 1)
-                {
-                    MelonLogger.Msg("UserAll saved");
-                }
-                else
-                {
-                    SoundManager.PlaySE(Mai2.Mai2Cue.Cue.SE_ENTRY_AIME_ERROR, 0);
-                    MelonLogger.Error("UserAll upsert error");
-                    MelonLogger.Error(code);
-                }
-            }, delegate(PacketStatus err)
-            {
-                SoundManager.PlaySE(Mai2.Mai2Cue.Cue.SE_ENTRY_AIME_ERROR, 0);
-                MelonLogger.Error("UserAll upsert error");
-                MelonLogger.Error(err);
-            }));
+            }
         }
 
 
-        private static void SaveDataFix()
+        private static void SaveDataFix(UserData userData)
         {
-            UserData userData = Singleton<UserDataManager>.Instance.GetUserData(0);
-
             UserDetail detail = userData.Detail;
             _ = userData.ScoreList;
             userData.AddPlayCount();
@@ -171,16 +175,8 @@ namespace AquaMai.UX
             }
 
             userData.RatingList.NextNewRatingList = list2;
-            int num3 = SingletonStateMachine<AmManager, AmManager.EState>.Instance.Credit.GameCostEnoughPlay();
-            if (GameManager.IsFreedomMode)
-            {
-                num3 = SingletonStateMachine<AmManager, AmManager.EState>.Instance.Credit.GameCostEnoughFreedom();
-            }
 
-            int boughtTicketId = Singleton<TicketManager>.Instance.GetBoughtTicketId(0);
-            int ticketCredit = Singleton<TicketManager>.Instance.GetTicketCredit(boughtTicketId);
-            int lastPlayCredit = num3 + ticketCredit;
-            userData.Detail.LastPlayCredit = lastPlayCredit;
+            userData.Detail.LastPlayCredit = 0;
             userData.Detail.LastPlayMode = 0;
             if (GameManager.IsFreedomMode)
             {
