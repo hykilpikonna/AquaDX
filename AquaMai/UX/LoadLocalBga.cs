@@ -19,6 +19,8 @@ public class LoadLocalBga
         if (movie is null) return;
 
         var music = Singleton<DataManager>.Instance.GetMusic(GameManager.SelectMusicID[0]);
+        if (music is null) return;
+
         var moviePath = string.Format(Singleton<OptionDataManager>.Instance.GetMovieDataPath($"{music.movieName.id:000000}") + ".dat");
         if (!moviePath.Contains("dummy")) return;
 
