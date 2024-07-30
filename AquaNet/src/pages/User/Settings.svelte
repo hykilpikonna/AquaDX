@@ -3,7 +3,7 @@
 <script lang="ts">
   import { slide, fade } from "svelte/transition";
   import type { AquaNetUser, GameOption } from "../../libs/generalTypes";
-  import { SETTING, USER } from "../../libs/sdk";
+  import {CARD, SETTING, USER} from "../../libs/sdk";
   import StatusOverlays from "../../components/StatusOverlays.svelte";
   import Icon from "@iconify/svelte";
   import { pfp } from "../../libs/ui";
@@ -17,7 +17,7 @@
   let error: string;
   let submitting = ""
   let tab = 0
-  const tabs = [ 'profile', 'game', 'userbox']
+  let tabs = [ 'profile', 'game' ]
 
   const profileFields = [
     [ 'displayName', t('settings.profile.name') ],
@@ -34,6 +34,13 @@
     gameFields = s
     me = m
     values = profileFields.map(([field]) => me[field as keyof AquaNetUser])
+
+    CARD.userGames(m.username).then(games => {
+
+      if (games.chu3 && !tabs.includes('userbox')) {
+        tabs = [...tabs, 'userbox']
+      }
+    })
   }).catch(e => error = e.message)
   getMe()
 
