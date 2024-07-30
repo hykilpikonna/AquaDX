@@ -118,5 +118,68 @@ export type AllMusic = { [key: string]: MusicMeta }
 export interface GameOption {
   key: string
   value: any
-  type: "Boolean"
+  type: 'Boolean'
 }
+
+export interface UserBox {
+  userName:string,
+  level:number,
+  exp:string,
+  point:number,
+  totalPoint:number,
+  playerRating:number,
+  highestRating:number,
+  nameplateId:number,
+  frameId:number,
+  characterId:number,
+  trophyId:number,
+  totalMapNum:number,
+  totalHiScore: number,
+  totalBasicHighScore:number,
+  totalAdvancedHighScore:number,
+  totalExpertHighScore:number,
+  totalMasterHighScore:number,
+  totalUltimaHighScore:number,
+  friendCount:number,
+  firstPlayDate:Date,
+  lastPlayDate:Date,
+  courseClass:number,
+  overPowerPoint:number,
+  overPowerRate:number,
+  mapIconId:number,
+  voiceId:number,
+  avatarWear: number,
+  avatarHead: number,
+  avatarFace: number,
+  avatarSkin: number,
+  avatarItem: number,
+  avatarFront: number,
+  avatarBack: number,
+}
+
+// Assign a number to each kind of user box item with an enum
+export enum UserBoxItemKind {
+  nameplate = 1,
+  frame = 2,
+  trophy = 3,
+  mapicon = 8,
+  sysvoice = 9,
+  avatar = 11,
+}
+
+// Define type only with the keys
+export type UserBoxItemKindStr = keyof typeof UserBoxItemKind;
+
+type ChangePlateReq = {kind:'plate', nameplateId:number}
+type ChangeFrameReq = {kind:'frame', frameId:number}
+type ChangeTrophyReq = {kind:'trophy',trophyId:number}
+type ChangeMapIconReq = {kind:'mapicon',mapiconid:number}
+type ChangeVoiceReq = {kind:'sysvoice',voiceId:number}
+type ChangeAvatarReq = {
+  kind:'avatar',
+  accId:number,
+  category:number
+}
+
+export type ChangeUserBoxReq = {aimeId:string} & (ChangePlateReq | ChangeFrameReq | ChangeTrophyReq | ChangeMapIconReq | ChangeVoiceReq | ChangeAvatarReq);
+

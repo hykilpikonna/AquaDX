@@ -9,6 +9,7 @@
   import { pfp } from "../../libs/ui";
   import { t, ts } from "../../libs/i18n";
   import { FADE_IN, FADE_OUT } from "../../libs/config";
+  import UserBox from "../../components/UserBox.svelte";
 
   USER.ensureLoggedIn()
 
@@ -16,7 +17,7 @@
   let error: string;
   let submitting = ""
   let tab = 0
-  const tabs = [ 'profile', 'game' ]
+  const tabs = [ 'profile', 'game', 'userbox']
 
   const profileFields = [
     [ 'displayName', t('settings.profile.name') ],
@@ -145,6 +146,9 @@
         </div>
       {/each}
     </div>
+    {:else if tab === 2}
+    <!-- Tab 2: Userbox settings -->
+    <UserBox />
   {/if}
 
   <StatusOverlays {error} loading={!me || !!submitting} />
