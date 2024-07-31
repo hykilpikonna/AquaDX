@@ -34,34 +34,53 @@
         break
     }
   }
+
+  function exportData() {
+    submitting = "export"
+    GAME.export('mai2')
+      .then(data => download(JSON.stringify(data), `AquaDX_maimai2_export_${values[0]}.json`))
+      .catch(e => error = e.message)
+      .finally(() => submitting = "")
+  }
+
+  function download(data: string, filename: string) {
+    const blob = new Blob([data]);
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.click();
+  }
 </script>
 
-<main>
-  <div class="fields" out:fade={FADE_OUT} in:fade={FADE_IN}>
-    {#each profileFields as [field, name], i (field)}
-      <div class="field">
-        <label for={field}>{name}</label>
-        <div>
-          <input id={field} type="text"
-                 bind:value={values[i]} on:input={() => changed = [...changed, field]}
-                 placeholder={field === 'password' ? t('settings.profile.unchanged') : t('settings.profile.unset')}/>
-          {#if changed.includes(field) && values[i]}
-            <button transition:slide={{axis: 'x'}} on:click={() => submit(field, values[i])}>
-              {#if submitting === field}
-                <Icon icon="line-md:loading-twotone-loop"/>
-              {:else}
-                {t('settings.profile.save')}
-              {/if}
-            </button>
-          {/if}
-        </div>
+<div class="fields" out:fade={FADE_OUT} in:fade={FADE_IN}>
+  {#each profileFields as [field, name], i (field)}
+    <div class="field">
+      <label for={field}>{name}</label>
+      <div>
+        <input id={field} type="text"
+               bind:value={values[i]} on:input={() => changed = [...changed, field]}
+               placeholder={field === 'password' ? t('settings.profile.unchanged') : t('settings.profile.unset')}/>
+        {#if changed.includes(field) && values[i]}
+          <button transition:slide={{axis: 'x'}} on:click={() => submit(field, values[i])}>
+            {#if submitting === field}
+              <Icon icon="line-md:loading-twotone-loop"/>
+            {:else}
+              {t('settings.profile.save')}
+            {/if}
+          </button>
+        {/if}
       </div>
-    {/each}
-    <GameSettingFields game="mai2"/>
-  </div>
+    </div>
+  {/each}
+  <GameSettingFields game="mai2"/>
+  <button class="exportButton" on:click={exportData}>
+    <Icon icon="bxs:file-export"/>
+    {t('settings.export')}
+  </button>
+</div>
 
-  <StatusOverlays {error} loading={!values[0] || !!submitting}/>
-</main>
+<StatusOverlays {error} loading={!values[0] || !!submitting}/>
 
 <style lang="sass">
   .fields
@@ -84,4 +103,10 @@
 
       > input
         flex: 1
+
+  .exportButton
+    display: flex
+    justify-content: center
+    align-items: center
+    gap: 5px
 </style>

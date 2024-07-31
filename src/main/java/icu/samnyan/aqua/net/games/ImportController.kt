@@ -108,11 +108,11 @@ abstract class ImportController<ExportModel: IExportClass<UserModel>, UserModel:
         // Check existing data
         userDataRepo.findByCard(u.ghostCard)?.also { gu ->
             // Store a backup of the old data
-            val fl = "mai2-backup-${u.auId}-${LocalDateTime.now().urlSafeStr()}.json"
+            val fl = "${game}-backup-${u.auId}-${LocalDateTime.now().urlSafeStr()}.json"
             (Path(netProps.importBackupPath) / fl).writeText(export(u).toJson())
 
             // Delete the old data (After migration v1000.7, all user-linked entities have ON DELETE CASCADE)
-            log.info("Mai2 Import: Deleting old data for user ${u.auId}")
+            log.info("$game Import: Deleting old data for user ${u.auId}")
             userDataRepo.delete(gu)
             userDataRepo.flush()
         }

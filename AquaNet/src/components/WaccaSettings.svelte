@@ -4,8 +4,6 @@
   import GameSettingFields from "./GameSettingFields.svelte";
 </script>
 
-<main>
-  <div out:fade={FADE_OUT} in:fade={FADE_IN}>
-    <GameSettingFields game="wacca"/>
-  </div>
-</main>
+<div out:fade={FADE_OUT} in:fade={FADE_IN}>
+  <GameSettingFields game="wacca"/>
+</div>

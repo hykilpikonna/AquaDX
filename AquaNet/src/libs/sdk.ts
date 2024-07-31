@@ -46,7 +46,7 @@ export function fetchWithParams(input: URL | RequestInfo, init?: RequestInitWith
 
 const cache: { [index: string]: any } = {}
 
-export async function post(endpoint: string, params: any, init?: RequestInitWithParams): Promise<any> {
+export async function post(endpoint: string, params: Record<string, any> = {}, init?: RequestInitWithParams): Promise<any> {
   // Add token if exists
   const token = localStorage.getItem('token')
   if (token && !('token' in params)) params = { ...(params ?? {}), token }
@@ -301,6 +301,8 @@ export const GAME = {
     post(`/api/v2/game/${game}/ranking`, { }),
   changeName: (game: GameName, newName: string): Promise<{ newName: string }> =>
     post(`/api/v2/game/${game}/change-name`, { newName }),
+  export: (game: GameName): Promise<Record<string, any>> =>
+    post(`/api/v2/game/${game}/export`),
 }
 
 export const DATA = {

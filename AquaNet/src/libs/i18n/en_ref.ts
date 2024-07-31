@@ -141,6 +141,7 @@ export const EN_REF_SETTINGS = {
   'settings.profile.bio': 'Bio',
   'settings.profile.unset': 'Unset',
   'settings.profile.unchanged': 'Unchanged',
+  'settings.export': 'Export Player Data',
 }
 
 export const EN_REF_USERBOX = {

@@ -150,6 +150,7 @@ const zhSettings: typeof EN_REF_SETTINGS = {
   'settings.profile.bio': '简介',
   'settings.profile.unset': '未设置',
   'settings.profile.unchanged': '未更改',
+  'settings.export': '导出玩家数据',
 }
 
 export const ZH = { ...zhUser, ...zhWelcome, ...zhGeneral,
