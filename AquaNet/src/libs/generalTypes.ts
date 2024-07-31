@@ -98,6 +98,7 @@ export interface GenericGameSummary {
   lastSeen: string
   lastVersion: string
   ratingComposition: { [key: string]: any }
+  favSongs?: number[]
   recent: GenericGamePlaylog[]
 }
 

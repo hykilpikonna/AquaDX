@@ -68,6 +68,12 @@ export const EN_REF_GENERAL = {
   'action.refresh': 'Refresh',
   'action.cancel': 'Cancel',
   'action.confirm': 'Confirm',
+  'actions.close': 'Close',
+  'labels.prev': 'Prev',
+  'labels.next': 'Next',
+  'labels.first': 'First',
+  'labels.last': 'Last',
+  'labels.search': 'Search',
 }
 
 export const EN_REF_HOME = {
@@ -109,6 +115,10 @@ export const EN_REF_HOME = {
   'home.setup.ask': 'If you have any questions, please ask in our',
   'home.setup.support': 'server',
   'home.setup.keychip-tips': 'This is your unique keychip, do not share it with anyone',
+  'home.favoritesongs': 'Favorite Songs',
+  'home.favlimit': 'You have reached the limit of favorite songs',
+  'home.addsong': 'Add Song',
+  'home.songlist': 'Song List',
 }
 
 export const EN_REF_SETTINGS = {

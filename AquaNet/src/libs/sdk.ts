@@ -178,10 +178,13 @@ export async function put(endpoint: string, params: any, init?: RequestInitWithP
     if (json.error) throw new Error(json.error)
   }
 
-  const ret = res.json()
-  cache[endpoint + JSON.stringify(params) + JSON.stringify(init)] = ret
+  // Json the response only if body is not empty
+  if (res.headers.get('content-length') !== '0') {
+    const ret = res.json()
+    cache[endpoint + JSON.stringify(params) + JSON.stringify(init)] = ret
 
-  return ret
+    return ret
+  }
 }
 
 export async function realPost(endpoint: string, params: any, init?: RequestInitWithParams): Promise<any> {
@@ -262,7 +265,7 @@ export const USER = {
 }
 
 export const USERBOX = {
-  getAimeId:(cardId:string):Promise<{luid:string}|null> =>realPost('/api/sega/aime/getByAccessCode',{ accessCode:cardId }),
+  toggleFavSong:(aimeId:string, songId:number) =>put(`/api/game/chuni/v2/song/${songId}/favorite?aimeId=${aimeId}`,{}, { params:{ aimeId } }),
   getProfile:(aimeId:string):Promise<UserBox> =>get('/api/game/chuni/v2/profile',{ aimeId }),
   getUnlockedItems:(aimeId:string, itemId: UserBoxItemKind):Promise<{itemKind:number, itemId:number,stock:number,isValid:boolean}[]> =>
     get(`/api/game/chuni/v2/item/${itemId}`,{ aimeId }),

@@ -39,6 +39,8 @@ class Chusan(
             "recent" to (extra["recent_rating_list"] ?: ""),
         )
 
-        genericUserSummary(card, ratingComposition)
+        val favoriteSongs = extra["favorite_music"]?.split(",")?.mapNotNull { it.toIntOrNull() } ?: emptyList()
+
+        genericUserSummary(card, ratingComposition, favoriteSongs)
     }
 }

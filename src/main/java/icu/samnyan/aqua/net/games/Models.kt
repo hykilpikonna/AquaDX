@@ -44,6 +44,7 @@ data class GenericGameSummary(
     val lastPlayedHost: String? = null,
 
     val ratingComposition: Map<String, Any>,
+    val favSongs: List<Int>?,
 
     val recent: List<IGenericGamePlaylog>
 )
