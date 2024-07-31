@@ -6,6 +6,7 @@ import icu.samnyan.aqua.net.games.*
 import icu.samnyan.aqua.net.utils.*
 import icu.samnyan.aqua.sega.maimai2.model.*
 import icu.samnyan.aqua.sega.maimai2.model.userdata.*
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
 import java.util.*
 
@@ -38,5 +39,16 @@ class Maimai2(
         )
 
         genericUserSummary(card, ratingComposition)
+    }
+
+    @PostMapping("change-name")
+    suspend fun changeName(@RP token: String, @RP newName: String) = us.jwt.auth(token) { u ->
+        val newNameFull = toFullWidth(newName)
+        us.cardByName(u.username) { card ->
+            val user = userDataRepo.findByCard(card) ?: (404 - "User not found")
+            settableFields["userName"]?.invoke(user, newNameFull)
+            userDataRepo.save(user)
+        }
+        mapOf("newName" to newNameFull)
     }
 }

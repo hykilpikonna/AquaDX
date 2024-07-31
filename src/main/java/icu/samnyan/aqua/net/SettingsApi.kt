@@ -21,7 +21,8 @@ class SettingsApi(
         .mapNotNull { it.findAnnotation<SettingField>()?.let { an -> it to an } }
     val fieldMap = fields.associate { (f, _) -> f.name to f }
     val fieldDesc = fields.map { (f, _) -> mapOf(
-        "key" to f.name, "type" to f.returnType.jvmErasure.simpleName
+        "key" to f.name, "type" to f.returnType.jvmErasure.simpleName,
+        "game" to f.findAnnotation<SettingField>()!!.game,
     ) }
 
     @API("get")

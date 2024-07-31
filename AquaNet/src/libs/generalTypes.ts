@@ -39,6 +39,7 @@ export interface CardSummary {
   chu3: CardSummaryGame | null
   ongeki: CardSummaryGame | null
   diva: CardSummaryGame | null
+  wacca: CardSummaryGame | null
 }
 
 
@@ -119,6 +120,7 @@ export interface GameOption {
   key: string
   value: any
   type: 'Boolean'
+  game: string
 }
 
 export interface UserBox {

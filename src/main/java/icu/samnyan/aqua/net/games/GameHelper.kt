@@ -23,6 +23,18 @@ fun usernameCheck(chars: String): (IUserData, String) -> Unit = { u, v ->
     v.find { it !in chars }?.let { 400 - "Invalid character '$it' in username" }
 }
 
+fun toFullWidth(input: String): String {
+    val stringBuilder = StringBuilder()
+    for (char in input.toCharArray()) {
+        if (char.code in 33..126) {
+            stringBuilder.append((char.code + 65248).toChar())
+        } else {
+            stringBuilder.append(char)
+        }
+    }
+    return stringBuilder.toString()
+}
+
 data class TrendLog(val date: String, val rating: Int)
 
 /**

@@ -14,22 +14,22 @@ class AquaGameOptions(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
 
-    @SettingField
+    @SettingField("mai2")
     var unlockMusic: Boolean = false,
 
-    @SettingField
+    @SettingField("mai2")
     var unlockChara: Boolean = false,
 
-    @SettingField
+    @SettingField("mai2")
     var unlockCollectables: Boolean = false,
 
-    @SettingField
+    @SettingField("mai2")
     var unlockTickets: Boolean = false,
 
-    @SettingField
+    @SettingField("wacca")
     var waccaInfiniteWp: Boolean = false,
 
-    @SettingField
+    @SettingField("wacca")
     var waccaAlwaysVip: Boolean = false,
 )
 

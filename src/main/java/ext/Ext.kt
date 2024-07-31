@@ -47,7 +47,9 @@ annotation class Doc(
 
 @Target(AnnotationTarget.PROPERTY)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class SettingField
+annotation class SettingField(
+    val game: String
+)
 
 // Reflection
 @Suppress("UNCHECKED_CAST")

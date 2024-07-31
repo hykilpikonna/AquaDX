@@ -2,14 +2,16 @@
 
 <script lang="ts">
   import { slide, fade } from "svelte/transition";
-  import type { AquaNetUser, GameOption } from "../../libs/generalTypes";
-  import {CARD, SETTING, USER} from "../../libs/sdk";
+  import type { AquaNetUser } from "../../libs/generalTypes";
+  import { CARD, USER } from "../../libs/sdk";
   import StatusOverlays from "../../components/StatusOverlays.svelte";
   import Icon from "@iconify/svelte";
   import { pfp } from "../../libs/ui";
   import { t, ts } from "../../libs/i18n";
   import { FADE_IN, FADE_OUT } from "../../libs/config";
   import UserBox from "../../components/UserBox.svelte";
+  import Mai2Settings from "../../components/Mai2Settings.svelte";
+  import WaccaSettings from "../../components/WaccaSettings.svelte";
 
   USER.ensureLoggedIn()
 
@@ -17,7 +19,7 @@
   let error: string;
   let submitting = ""
   let tab = 0
-  let tabs = [ 'profile', 'game' ]
+  let tabs = [ 'profile' ]
 
   const profileFields = [
     [ 'displayName', t('settings.profile.name') ],
@@ -27,18 +29,20 @@
     [ 'profileBio', t('settings.profile.bio') ],
   ]
 
-  let gameFields: GameOption[] = []
-
   // Fetch user data
-  const getMe = () => Promise.all([USER.me(), SETTING.get()]).then(([m, s]) => {
-    gameFields = s
+  const getMe = () => USER.me().then((m) => {
     me = m
     values = profileFields.map(([field]) => me[field as keyof AquaNetUser])
 
     CARD.userGames(m.username).then(games => {
-
-      if (games.chu3 && !tabs.includes('userbox')) {
-        tabs = [...tabs, 'userbox']
+      if (games.chu3 && !tabs.includes('chu3')) {
+        tabs = [...tabs, 'chu3']
+      }
+      if (games.mai2 && !tabs.includes('mai2')) {
+        tabs = [...tabs, 'mai2']
+      }
+      if (games.wacca && !tabs.includes('wacca')) {
+        tabs = [...tabs, 'wacca']
       }
     })
   }).catch(e => error = e.message)
@@ -55,13 +59,6 @@
     USER.setting(field, value).then(() => {
       changed = changed.filter(c => c !== field)
     }).catch(e => error = e.message).finally(() => submitting = "")
-  }
-
-  function submitGameOption(field: string, value: any) {
-    if (submitting) return
-    submitting = field
-
-    SETTING.set(field, value).catch(e => error = e.message).finally(() => submitting = "")
   }
 
   function uploadPfp(file: File) {
@@ -135,27 +132,13 @@
         </div>
       {/each}
     </div>
-  {:else if tab === 1}
-    <!-- Tab 1: Game settings -->
-    <div out:fade={FADE_OUT} in:fade={FADE_IN} class="fields">
-      {#each gameFields as field}
-        <div class="field">
-          {#if field.type === "Boolean"}
-            <div class="bool">
-              <input id={field.key} type="checkbox" bind:checked={field.value}
-                     on:change={() => submitGameOption(field.key, field.value)} />
-              <label for={field.key}>
-                <span class="name">{ts(`settings.fields.${field.key}.name`)}</span>
-                <span class="desc">{ts(`settings.fields.${field.key}.desc`)}</span>
-              </label>
-            </div>
-          {/if}
-        </div>
-      {/each}
-    </div>
-    {:else if tab === 2}
-    <!-- Tab 2: Userbox settings -->
+  {:else if tabs[tab] === 'chu3'}
+    <!-- Userbox settings -->
     <UserBox />
+  {:else if tabs[tab] === 'mai2'}
+    <Mai2Settings username={me.username} />
+  {:else if tabs[tab] === 'wacca'}
+    <WaccaSettings />
   {/if}
 
   <StatusOverlays {error} loading={!me || !!submitting} />
@@ -168,18 +151,6 @@
     display: flex
     flex-direction: column
     gap: 12px
-
-  .bool
-    display: flex
-    align-items: center
-    gap: 1rem
-
-    label
-      display: flex
-      flex-direction: column
-
-      .desc
-        opacity: 0.6
 
   .field
     display: flex
