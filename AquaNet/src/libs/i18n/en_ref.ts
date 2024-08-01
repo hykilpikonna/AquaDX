@@ -82,6 +82,8 @@ export const EN_REF_HOME = {
   'home.join-discord-description': 'Join our Discord server to chat with other players and get help.',
   'home.setup': 'Setup Connection',
   'home.setup-description': 'If you own a cab or arcade setup, begin setting up the connection.',
+  'home.import': 'Import Player Data',
+  'home.import-description': 'If you are from another server, you can import your data here.',
   'home.linkcard.cards': 'Your Cards',
   'home.linkcard.description': 'Here are the cards you have linked to your account',
   'home.linkcard.account-card': 'Account Card',
@@ -109,6 +111,9 @@ export const EN_REF_HOME = {
   'home.setup.ask': 'If you have any questions, please ask in our',
   'home.setup.support': 'server',
   'home.setup.keychip-tips': 'This is your unique keychip, do not share it with anyone',
+  'home.import.unknown-game': 'Unknown game type',
+  'home.import.new-data': 'Data to import',
+  'home.import.data-conflict': 'Proceed will override your current data',
 }
 
 export const EN_REF_SETTINGS = {

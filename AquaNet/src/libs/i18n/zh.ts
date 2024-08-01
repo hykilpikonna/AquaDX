@@ -91,6 +91,8 @@ const zhHome: typeof EN_REF_HOME = {
   'home.join-discord-description': '加入我们的 Discord 群，与其他玩家聊天、获取帮助',
   'home.setup': '连接到 AquaDX',
   'home.setup-description': '如果您有街机框体或者手台，点击这里设置服务器的连接',
+  'home.import': '导入玩家数据',
+  'home.import-description': '如果你来自其他在线服，可以点击这里导入从其他服务器导出的数据',
   'home.linkcard.cards': "已绑卡片",
   'home.linkcard.description': "这些是您绑定到帐户的卡",
   'home.linkcard.account-card': "账户卡",
@@ -118,6 +120,9 @@ const zhHome: typeof EN_REF_HOME = {
   'home.setup.ask': "如果您有任何问题, 请加入我们的",
   'home.setup.support': "以获取支持",
   'home.setup.keychip-tips': "这是你的狗号, 不要与任何人分享",
+  'home.import.unknown-game': '未知游戏类型',
+  'home.import.new-data': '要导入的数据',
+  'home.import.data-conflict': '继续导入将覆盖现有数据',
 }
 
 const zhSettings: typeof EN_REF_SETTINGS = {

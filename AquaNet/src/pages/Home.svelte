@@ -8,6 +8,7 @@
   import StatusOverlays from "../components/StatusOverlays.svelte";
   import ActionCard from "../components/ActionCard.svelte";
   import { t } from "../libs/i18n";
+  import ImportDataAction from "./Home/ImportDataAction.svelte";
 
   USER.ensureLoggedIn();
 
@@ -54,6 +55,8 @@
         <h3>{t('home.setup')}</h3>
         <span>{t('home.setup-description')}</span>
       </ActionCard>
+
+      <ImportDataAction/>
     </div>
   {:else if tab === 1}
     <div out:fade={FADE_OUT} in:fade={FADE_IN}>

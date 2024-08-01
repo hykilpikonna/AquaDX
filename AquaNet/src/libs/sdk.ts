@@ -303,6 +303,8 @@ export const GAME = {
     post(`/api/v2/game/${game}/change-name`, { newName }),
   export: (game: GameName): Promise<Record<string, any>> =>
     post(`/api/v2/game/${game}/export`),
+  import: (game: GameName, data: any): Promise<Record<string, any>> =>
+    post(`/api/v2/game/${game}/import`, {}, { body: JSON.stringify(data) }),
 }
 
 export const DATA = {
