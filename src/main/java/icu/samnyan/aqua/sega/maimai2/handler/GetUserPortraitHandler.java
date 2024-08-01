@@ -1,9 +1,14 @@
 package icu.samnyan.aqua.sega.maimai2.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import icu.samnyan.aqua.net.db.AquaNetUser;
+import icu.samnyan.aqua.net.utils.PathProps;
 import icu.samnyan.aqua.sega.general.BaseHandler;
+import icu.samnyan.aqua.sega.general.dao.CardRepository;
+import icu.samnyan.aqua.sega.general.model.Card;
 import icu.samnyan.aqua.sega.maimai2.model.request.data.UserPortrait;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +16,6 @@ import org.springframework.security.crypto.codec.Utf8;
 import org.springframework.stereotype.Component;
 
 import java.io.FileInputStream;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -23,22 +27,18 @@ public class GetUserPortraitHandler implements BaseHandler {
     private static final Logger logger = LoggerFactory.getLogger(GetUserPortraitHandler.class);
 
     private final BasicMapper mapper;
-    private final String picSavePath;
     private final boolean enable;
+    private final CardRepository cardRepo;
+    private final String portraitPath;
 
     public GetUserPortraitHandler(BasicMapper mapper,
     @Value("${game.maimai2.userPhoto.enable:true}") boolean enable,
-    @Value("${paths.mai2-portrait:data/userPhoto}") String picSavePath) {
+    CardRepository cardRepo,
+    PathProps paths) {
         this.mapper = mapper;
-        this.picSavePath = picSavePath;
         this.enable = enable;
-
-        if (enable) {
-            try {
-                Files.createDirectories(Paths.get(picSavePath));
-            } catch (Exception ignored) {
-            }
-        }
+        this.cardRepo = cardRepo;
+        this.portraitPath = paths.getAquaNetPortrait();
     }
 
     @Override
@@ -46,14 +46,13 @@ public class GetUserPortraitHandler implements BaseHandler {
         if (enable) {
             var userId = ((Number) request.get("userId")).longValue();
             var list = new ArrayList<UserPortrait>();
+            var card = cardRepo.findByExtId(userId);
+            var user = card.map(Card::getAquaUser);
+            var profilePicture = user.map(AquaNetUser::getProfilePicture).orElse(null);
 
             try {
-                var filePath = Paths.get(picSavePath, userId + "-up.jpg");
-
-                if (Files.exists(filePath)) {
-                    var templateJsonStr = Files.readString(Paths.get(picSavePath, userId + "-up.json"));
-                    var templateUserPortrait = mapper.read(templateJsonStr, UserPortrait.class);
-
+                if (!StringUtils.isEmpty(profilePicture)) {
+                    var filePath = Paths.get(portraitPath, profilePicture);
                     var buffer = new byte[10240];
 
                     var stream = new FileInputStream(filePath.toFile());
@@ -64,11 +63,11 @@ public class GetUserPortraitHandler implements BaseHandler {
 
                         var userPortrait = new UserPortrait();
 
-                        userPortrait.setFileName(templateUserPortrait.getFileName());
-                        userPortrait.setPlaceId(templateUserPortrait.getPlaceId());
-                        userPortrait.setUserId(templateUserPortrait.getUserId());
-                        userPortrait.setClientId(templateUserPortrait.getClientId());
-                        userPortrait.setUploadDate(templateUserPortrait.getUploadDate());
+                        userPortrait.setFileName("portrait.jpg");
+                        userPortrait.setPlaceId(0);
+                        userPortrait.setUserId(userId);
+                        userPortrait.setClientId("");
+                        userPortrait.setUploadDate("1970-01-01 09:00:00.0");
                         userPortrait.setDivData(Utf8.decode(Base64.getEncoder().encode(encodeBuffer)));
 
                         userPortrait.setDivNumber(list.size());
