@@ -3,6 +3,7 @@ package icu.samnyan.aqua.api.controller.general;
 import icu.samnyan.aqua.sega.diva.dao.userdata.PlayerScreenShotRepository;
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerScreenShot;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -20,6 +21,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("api/static")
+@ConditionalOnProperty(prefix = "aquaviewer.api", name = "enabled", havingValue = "true")
 @AllArgsConstructor
 public class StaticController {
     private final PlayerScreenShotRepository playerScreenShotRepository;

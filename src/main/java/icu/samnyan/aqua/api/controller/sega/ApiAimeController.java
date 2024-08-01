@@ -3,6 +3,7 @@ package icu.samnyan.aqua.api.controller.sega;
 import icu.samnyan.aqua.sega.general.model.Card;
 import icu.samnyan.aqua.sega.general.service.CardService;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("api/sega/aime")
+@ConditionalOnProperty(prefix = "aquaviewer.api", name = "enabled", havingValue = "true")
 @AllArgsConstructor
 public class ApiAimeController {
 

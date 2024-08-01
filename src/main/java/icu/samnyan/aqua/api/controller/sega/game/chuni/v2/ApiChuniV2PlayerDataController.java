@@ -22,6 +22,7 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -39,6 +40,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("api/game/chuni/v2")
+@ConditionalOnProperty(prefix = "aquaviewer.api", name = "enabled", havingValue = "true")
 @AllArgsConstructor
 public class ApiChuniV2PlayerDataController {
 
@@ -163,7 +165,7 @@ public class ApiChuniV2PlayerDataController {
             profile.setAvatarBack((Integer) request.get("accId"));
             break;
         }
-        
+
         return userDataService.saveUserData(profile);
     }
 
@@ -304,12 +306,12 @@ public class ApiChuniV2PlayerDataController {
         UserGeneralData userGeneralData = userGeneralDataService.getByUserAndKey(profile, "favorite_music")
                     .orElseGet(() -> new UserGeneralData(profile, "favorite_music"));
         List<String> favoriteSongs = new LinkedList<String>(Arrays.asList(userGeneralData.getPropertyValue().split(",")));
-        
+
         if(!favoriteSongs.remove(id))
         {
             favoriteSongs.add(id);
         }
-        
+
         StringBuilder sb = new StringBuilder();
         favoriteSongs.forEach(favSong -> {
             if(!favSong.isEmpty()) sb.append(favSong).append(",");

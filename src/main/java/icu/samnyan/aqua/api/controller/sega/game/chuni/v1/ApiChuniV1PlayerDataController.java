@@ -23,6 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -40,6 +41,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("api/game/chuni/v1")
+@ConditionalOnProperty(prefix = "aquaviewer.api", name = "enabled", havingValue = "true")
 @AllArgsConstructor
 public class ApiChuniV1PlayerDataController {
 

@@ -9,6 +9,7 @@ import icu.samnyan.aqua.sega.diva.model.common.Edition;
 import icu.samnyan.aqua.sega.diva.model.userdata.*;
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("api/game/diva")
+@ConditionalOnProperty(prefix = "aquaviewer.api", name = "enabled", havingValue = "true")
 @AllArgsConstructor
 public class ApiDivaPlayerDataController {
 

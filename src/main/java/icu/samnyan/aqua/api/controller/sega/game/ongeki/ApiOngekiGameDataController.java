@@ -3,6 +3,7 @@ package icu.samnyan.aqua.api.controller.sega.game.ongeki;
 import icu.samnyan.aqua.sega.ongeki.dao.gamedata.*;
 import icu.samnyan.aqua.sega.ongeki.model.gamedata.*;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/game/ongeki/data")
+@ConditionalOnProperty(prefix = "aquaviewer.api", name = "enabled", havingValue = "true")
 @AllArgsConstructor
 public class ApiOngekiGameDataController {
 

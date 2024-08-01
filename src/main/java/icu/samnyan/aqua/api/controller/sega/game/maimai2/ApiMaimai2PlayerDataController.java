@@ -16,6 +16,7 @@ import icu.samnyan.aqua.sega.maimai2.model.*;
 import icu.samnyan.aqua.sega.maimai2.model.userdata.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -36,6 +37,7 @@ import java.util.stream.Stream;
  */
 @RestController
 @RequestMapping("api/game/maimai2")
+@ConditionalOnProperty(prefix = "aquaviewer.api", name = "enabled", havingValue = "true")
 @AllArgsConstructor
 public class ApiMaimai2PlayerDataController {
 

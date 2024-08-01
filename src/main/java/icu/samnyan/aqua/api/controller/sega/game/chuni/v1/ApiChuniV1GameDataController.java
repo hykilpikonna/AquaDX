@@ -7,6 +7,7 @@ import icu.samnyan.aqua.sega.chunithm.model.gamedata.CharacterSkill;
 import icu.samnyan.aqua.sega.chunithm.model.gamedata.Music;
 import icu.samnyan.aqua.sega.chunithm.service.GameMusicService;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/game/chuni/v1/data")
+@ConditionalOnProperty(prefix = "aquaviewer.api", name = "enabled", havingValue = "true")
 @AllArgsConstructor
 public class ApiChuniV1GameDataController {
 

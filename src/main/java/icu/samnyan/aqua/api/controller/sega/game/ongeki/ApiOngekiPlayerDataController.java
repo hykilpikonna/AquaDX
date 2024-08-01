@@ -18,6 +18,7 @@ import icu.samnyan.aqua.sega.ongeki.model.response.data.UserRivalData;
 import icu.samnyan.aqua.sega.ongeki.model.userdata.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -36,6 +37,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("api/game/ongeki")
+@ConditionalOnProperty(prefix = "aquaviewer.api", name = "enabled", havingValue = "true")
 @AllArgsConstructor
 public class ApiOngekiPlayerDataController {
 
