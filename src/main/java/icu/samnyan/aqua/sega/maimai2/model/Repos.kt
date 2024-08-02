@@ -94,6 +94,8 @@ interface Mai2UserMusicDetailRepo : Mai2UserLinked<Mai2UserMusicDetail> {
     fun findByUser_Card_ExtIdAndMusicId(userId: Long, id: Int): List<Mai2UserMusicDetail>
 
     fun findByUserAndMusicIdAndLevel(user: Mai2UserDetail, musicId: Int, level: Int): Optional<Mai2UserMusicDetail>
+
+    fun findByUser_Card_ExtIdAndMusicIdIn(userId: Long, musicId: List<Int>): List<Mai2UserMusicDetail>
 }
 
 interface Mai2UserOptionRepo : Mai2UserLinked<Mai2UserOption>
