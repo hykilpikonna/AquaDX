@@ -3,6 +3,7 @@ using AMDaemon.Allnet;
 using HarmonyLib;
 using Manager;
 using Manager.Operation;
+using Net;
 using UnityEngine;
 
 namespace AquaMai.Fix;
@@ -79,6 +80,14 @@ public class BasicFix
     private static bool GetMouseButtonDown(ref bool __result, int button)
     {
         __result = UnityEngine.Input.GetMouseButtonDown(button);
+        return false;
+    }
+
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(NetHttpClient), "CheckServerHash")]
+    private static bool CheckServerHash(ref bool __result)
+    {
+        __result = true;
         return false;
     }
 }
