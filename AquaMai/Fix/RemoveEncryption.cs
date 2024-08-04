@@ -25,8 +25,13 @@ public class RemoveEncryption
 
         public static bool Prefix(byte[] data, ref byte[] __result)
         {
-            __result = data;
-            return false;
+            if (AquaMai.AppConfig.Fix.RemoveEncryption)
+            {
+                __result = data;
+                return false;
+            }
+
+            return true;
         }
     }
 
@@ -40,8 +45,13 @@ public class RemoveEncryption
 
         public static bool Prefix(byte[] encryptData, ref byte[] __result)
         {
-            __result = encryptData;
-            return false;
+            if (AquaMai.AppConfig.Fix.RemoveEncryption)
+            {
+                __result = encryptData;
+                return false;
+            }
+
+            return true;
         }
     }
 }
