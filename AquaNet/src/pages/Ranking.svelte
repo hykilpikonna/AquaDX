@@ -56,7 +56,11 @@
               <span>{user.name}</span>
             {/if}
           </span>
-          <span class="rating">{user.rating.toLocaleString()}</span>
+          <span class="rating">{
+            game === 'chu3' ?
+              (user.rating / 100).toFixed(2) :
+              user.rating.toLocaleString()
+          }</span>
           <span class="accuracy">{(+user.accuracy).toFixed(2)}%</span>
           <span class="fc">{user.fullCombo}</span>
           <span class="ap">{user.allPerfect}</span>

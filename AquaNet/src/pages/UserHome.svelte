@@ -131,7 +131,11 @@
           <div class="info-top">
             <div class="rating">
               <span>{game === 'mai2' ? t("UserHome.DXRating"): t("UserHome.Rating")}</span>
-              <span>{d.user.rating.toLocaleString()}</span>
+              <span>{
+                game === 'chu3' ?
+                  (d.user.rating / 100).toFixed(2) :
+                  d.user.rating.toLocaleString()
+              }</span>
             </div>
 
             <div class="rank">
