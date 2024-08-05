@@ -47,7 +47,8 @@ class Maimai2(
                 if (u.username == username) return@auth null
                 us.cardByName(u.username) { myCard ->
                     val user = repos.userData.findByCardExtId(card.extId).orElse(null) ?: (404 - "User not found")
-                    val myRival = repos.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(myCard.extId, "favorite_rival").map { it.propertyValue.split(',') }.orElse(emptyList()).map { it.long() }
+                    val myRival = repos.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(myCard.extId, "favorite_rival")
+                        .map { it.propertyValue.split(',') }.orElse(emptyList()).filter { it.isNotEmpty() }.map { it.long() }
                     myRival.contains(user.id)
                 }
             }
