@@ -90,4 +90,12 @@ public class BasicFix
         __result = true;
         return false;
     }
+
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(GameManager), "CalcSpecialNum")]
+    private static bool CalcSpecialNum(ref int __result)
+    {
+        __result = 1024;
+        return false;
+    }
 }
