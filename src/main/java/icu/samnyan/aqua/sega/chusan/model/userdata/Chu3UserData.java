@@ -223,6 +223,7 @@ public class Chu3UserData implements Serializable, IUserData {
 
     private String lastAllNetId;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String lastClientId;
 
     private String lastCountryCode;

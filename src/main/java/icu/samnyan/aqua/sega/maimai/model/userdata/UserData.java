@@ -117,6 +117,7 @@ public class UserData implements Serializable {
 
     private String lastRegionName;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String lastClientId;
 
     private String lastCountryCode;

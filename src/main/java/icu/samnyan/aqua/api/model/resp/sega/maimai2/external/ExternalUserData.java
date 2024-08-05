@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.api.model.resp.sega.maimai2.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -49,6 +50,7 @@ public class ExternalUserData implements Serializable {
     private int lastAllNetId;
     private int lastRegionId;
     private String lastRegionName;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String lastClientId;
     private String lastCountryCode;
     private int lastSelectEMoney;

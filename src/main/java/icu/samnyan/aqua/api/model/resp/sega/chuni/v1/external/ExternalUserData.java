@@ -114,5 +114,6 @@ public class ExternalUserData {
 
     private String lastAllNetId;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String lastClientId;
 }

@@ -70,6 +70,8 @@ class Mai2UserDetail(
     var lastAllNetId: Int = 0,
     var lastRegionId: Int = 0,
     var lastRegionName: String = "",
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     override var lastClientId: String = "",
     var lastCountryCode: String = "",
     var lastSelectEMoney: Int = 0,

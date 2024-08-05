@@ -150,6 +150,7 @@ public class UserData implements Serializable, IUserData {
 
     private int lastAllNetId;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String lastClientId;
 
     private int lastUsedDeckId;

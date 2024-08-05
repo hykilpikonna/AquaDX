@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.api.model.resp.sega.ongeki.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -124,6 +125,7 @@ public class ExternalUserData implements Serializable {
 
     private int lastAllNetId;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String lastClientId;
 
     private int lastUsedDeckId;
