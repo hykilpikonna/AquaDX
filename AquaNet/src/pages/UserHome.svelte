@@ -47,6 +47,7 @@
 
   let allMusics: AllMusic
   let showDetailRank = false
+  let isLoading = false
   USER.isLoggedIn() && USER.me().then(u => me = u)
 
 
@@ -90,6 +91,13 @@
       })
     }).catch((e) => error = e.message);
   }).catch((e) => { error = e.message; console.error(e) } );
+
+  const setRival = (isAdd: boolean) => {
+    isLoading = true
+    GAME.setRival(game, username, isAdd).then(() => {
+      d!.user.rival = isAdd
+    }).catch(e => error = e.message).finally(() => isLoading = false)
+  }
 </script>
 
 <main id="user-home" class="content">
@@ -98,6 +106,11 @@
       <img use:pfp={d.user.aquaUser} alt="" class="pfp" on:error={pfpNotFound}>
       <div class="name-box">
         <h2>{d.user.name}</h2>
+        {#if typeof d.user.rival === 'boolean' && game === 'mai2'}
+          <a class="clickable" on:click={()=>setRival(!d.user.rival)}>
+            {d.user.rival ? t("UserHome.RemoveRival") : t("UserHome.AddRival")}
+          </a>
+        {/if}
         {#if me && me.username === username}
           <a class="setting-icon clickable" use:tooltip={t("UserHome.Settings")} href="/settings">
             <Icon icon="eos-icons:rotating-gear"/>
@@ -267,7 +280,7 @@
     </div>
   {/if}
 
-  <StatusOverlays {error} loading={!d} />
+  <StatusOverlays {error} loading={!d || isLoading} />
 </main>
 
 <style lang="sass">

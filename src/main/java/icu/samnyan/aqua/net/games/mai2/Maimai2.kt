@@ -17,7 +17,7 @@ class Maimai2(
     override val playlogRepo: Mai2UserPlaylogRepo,
     override val userDataRepo: Mai2UserDataRepo,
     val repos: Mai2Repos,
-): GameApiController<Mai2UserDetail>("mai2", Mai2UserDetail::class) {
+) : GameApiController<Mai2UserDetail>("mai2", Mai2UserDetail::class) {
     override suspend fun trend(@RP username: Str): List<TrendOut> = us.cardByName(username) { card ->
         findTrend(playlogRepo.findByUserCardExtId(card.extId)
             .map { TrendLog(it.playDate, it.afterRating) })
@@ -25,11 +25,13 @@ class Maimai2(
 
     // Only show > S rank
     override val shownRanks = mai2Scores.filter { it.first >= 97 * 10000 }
-    override val settableFields: Map<String, (Mai2UserDetail, String) -> Unit> by lazy { mapOf(
-        "userName" to usernameCheck(SEGA_USERNAME_CAHRS),
-    ) }
+    override val settableFields: Map<String, (Mai2UserDetail, String) -> Unit> by lazy {
+        mapOf(
+            "userName" to usernameCheck(SEGA_USERNAME_CAHRS),
+        )
+    }
 
-    override suspend fun userSummary(@RP username: Str) = us.cardByName(username) { card ->
+    override suspend fun userSummary(@RP username: Str, @RP token: String?) = us.cardByName(username) { card ->
         val extra = repos.userGeneralData.findByUser_Card_ExtId(card.extId)
             .associate { it.propertyKey to it.propertyValue }
 
@@ -38,7 +40,20 @@ class Maimai2(
             "best15" to (extra["recent_rating_new"] ?: "")
         )
 
-        genericUserSummary(card, ratingComposition)
+        // if isLogin than boolean or null
+        // use the type to check user login in frontend
+        val isMyRival = token?.let { t ->
+            us.jwt.auth(t) { u ->
+                if (u.username == username) return@auth null
+                us.cardByName(u.username) { myCard ->
+                    val user = repos.userData.findByCardExtId(card.extId).orElse(null) ?: (404 - "User not found")
+                    val myRival = repos.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(myCard.extId, "favorite_rival").map { it.propertyValue.split(',') }.orElse(emptyList()).map { it.long() }
+                    myRival.contains(user.id)
+                }
+            }
+        }
+
+        genericUserSummary(card, ratingComposition, isMyRival)
     }
 
     @API("user-rating")
@@ -99,5 +114,31 @@ class Maimai2(
             userDataRepo.save(user)
         }
         mapOf("newName" to newNameFull)
+    }
+
+    @PostMapping("set-rival")
+    suspend fun setRival(@RP token: String, @RP rivalUserName: String, @RP isAdd: Boolean) = us.jwt.auth(token) { u ->
+        us.cardByName(u.username) { myCard ->
+            val rivalCard = us.cardByName(rivalUserName) { it }
+            val rivalUser = repos.userData.findByCardExtId(rivalCard.extId).orElse(null) ?: (404 - "User not found")
+            val myRival = repos.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(myCard.extId, "favorite_rival").orElse(null)
+                ?: Mai2UserGeneralData().apply {
+                    user = repos.userData.findByCardExtId(myCard.extId).orElse(null) ?: (404 - "User not found")
+                    propertyKey = "favorite_rival"
+                }
+            val myRivalList = myRival.propertyValue.split(',').toMutableSet()
+
+            if (isAdd && myRivalList.size >= 4) {
+                (400 - "Rival list is full")
+            } else if (isAdd) {
+                myRivalList.add(rivalUser.id.toString())
+            } else {
+                myRivalList.remove(rivalUser.id.toString())
+            }
+
+            myRival.propertyValue = myRivalList.joinToString(",")
+            repos.userGeneralData.save(myRival)
+        }
+        SUCCESS
     }
 }

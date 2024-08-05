@@ -24,6 +24,8 @@ export const EN_REF_USER = {
   'UserHome.RankDetail.Title': 'Achievement Details',
   'UserHome.RankDetail.Level': 'Level',
   'UserHome.B50': 'B50',
+  'UserHome.AddRival': "Add to Rival",
+  'UserHome.RemoveRival': "Remove from Rival",
 }
 
 export const EN_REF_Welcome = {

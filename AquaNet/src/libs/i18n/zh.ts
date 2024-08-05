@@ -33,6 +33,8 @@ const zhUser: typeof EN_REF_USER = {
   'UserHome.RankDetail.Title': '评分详细',
   'UserHome.RankDetail.Level': "等级",
   'UserHome.B50': "B50",
+  'UserHome.AddRival': "添加劲敌",
+  'UserHome.RemoveRival': "移除劲敌",
 }
 
 const zhWelcome: typeof EN_REF_Welcome = {

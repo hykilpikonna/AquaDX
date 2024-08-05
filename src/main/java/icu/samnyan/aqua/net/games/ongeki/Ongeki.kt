@@ -28,7 +28,7 @@ class Ongeki(
         "userName" to usernameCheck(SEGA_USERNAME_CAHRS)
     ) }
 
-    override suspend fun userSummary(username: String) = us.cardByName(username) { card ->
+    override suspend fun userSummary(username: String, token: String?) = us.cardByName(username) { card ->
         val extra = userGeneralDataRepository.findByUser_Card_ExtId(card.extId)
             .associate { it.propertyKey to it.propertyValue }
 

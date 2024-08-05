@@ -38,7 +38,7 @@ public class GetUserRivalMusicHandler implements BaseHandler {
         long userId = ((Number) request.get("userId")).longValue();
         long rivalId = ((Number) request.get("rivalId")).intValue();
 
-        List<Mai2UserMusicDetail> details = userMusicDetailRepository.findByUser_Card_ExtId(rivalId);
+        List<Mai2UserMusicDetail> details = userMusicDetailRepository.findByUserId(rivalId);
         List<UserRivalMusic> userRivalMusicList = new LinkedList<>();
         Map<Integer, UserRivalMusic> userRivalMusicMap = new HashMap<>();
         for (Mai2UserMusicDetail detail : details) {

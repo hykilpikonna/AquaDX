@@ -25,7 +25,7 @@ class Wacca(
             .map { TrendLog(it.userPlayDate.utc().isoDate(), it.afterRating) })
     }
 
-    override suspend fun userSummary(@RP username: String) = us.cardByName(username) { card ->
+    override suspend fun userSummary(@RP username: String, @RP token: String?) = us.cardByName(username) { card ->
         // TODO: Rating composition
         genericUserSummary(card, mapOf())
     }

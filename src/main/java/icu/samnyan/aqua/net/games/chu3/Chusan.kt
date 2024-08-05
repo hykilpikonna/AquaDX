@@ -29,7 +29,7 @@ class Chusan(
         "userName" to usernameCheck(SEGA_USERNAME_CAHRS)
     ) }
 
-    override suspend fun userSummary(@RP username: Str) = us.cardByName(username) { card ->
+    override suspend fun userSummary(@RP username: Str, @RP token: String?) = us.cardByName(username) { card ->
         // Summary values: total plays, player rating, server-wide ranking
         // number of each rank, max combo, number of full combo, number of all perfect
         val extra = userGeneralDataRepository.findByUser_Card_ExtId(card.extId)

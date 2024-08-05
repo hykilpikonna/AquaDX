@@ -122,11 +122,13 @@ class Maimai2ServletController(
     val getUserRivalData = UserReqHandler { req, userId ->
         val rivalId = parsing { (req["rivalId"] as Number).toLong() }
 
+        // rivalId should store and fetch with the id column of table rather than card_ext_id
+        // or user will be able to get others' ext_id by setting them as rival
         mapOf(
             "userId" to userId,
             "userRivalData" to mapOf(
                 "rivalId" to rivalId,
-                "rivalName" to (repos.userData.findByCardExtId(rivalId)()?.userName ?: "")
+                "rivalName" to (repos.userData.findById(rivalId)()?.userName ?: "")
             )
         )
     }

@@ -24,7 +24,7 @@ abstract class GameApiController<T : IUserData>(name: String, userDataClass: KCl
     @API("trend")
     abstract suspend fun trend(@RP username: String): List<TrendOut>
     @API("user-summary")
-    abstract suspend fun userSummary(@RP username: String): GenericGameSummary
+    abstract suspend fun userSummary(@RP username: String, @RP token: String?): GenericGameSummary
 
     @API("recent")
     suspend fun recent(@RP username: String): List<IGenericGamePlaylog> = us.cardByName(username) { card ->
@@ -93,7 +93,7 @@ abstract class GameApiController<T : IUserData>(name: String, userDataClass: KCl
         }
     }
 
-    fun genericUserSummary(card: Card, ratingComp: Map<String, String>): GenericGameSummary {
+    fun genericUserSummary(card: Card, ratingComp: Map<String, String>, rival: Boolean? = null): GenericGameSummary {
         // Summary values: total plays, player rating, server-wide ranking
         // number of each rank, max combo, number of full combo, number of all perfect
         val user = userDataRepo.findByCard(card) ?: (404 - "Game data not found")
@@ -138,7 +138,8 @@ abstract class GameApiController<T : IUserData>(name: String, userDataClass: KCl
             lastVersion = user.lastRomVersion,
             ratingComposition = ratingComp,
             recent = plays.sortedBy { it.userPlayDate.toString() }.takeLast(15).reversed(),
-            lastPlayedHost = us.userRepo.findByKeychip(user.lastClientId)?.username
+            lastPlayedHost = us.userRepo.findByKeychip(user.lastClientId)?.username,
+            rival = rival
         )
     }
 }

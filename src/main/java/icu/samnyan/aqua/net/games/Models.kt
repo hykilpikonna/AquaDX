@@ -45,7 +45,9 @@ data class GenericGameSummary(
 
     val ratingComposition: Map<String, Any>,
 
-    val recent: List<IGenericGamePlaylog>
+    val recent: List<IGenericGamePlaylog>,
+
+    val rival: Boolean?
 )
 
 data class GenericRankingPlayer(
