@@ -18,7 +18,7 @@ class GetUserFavoriteItemHandler(val repos: Mai2Repos) : BaseHandler {
             else -> Optional.empty()
         }()?.let { fav ->
             val v = fav.propertyValue
-            if (v.isNotBlank()) v.split(",").dropLastWhile { it.isEmpty() }.mapIndexed { i, record ->
+            if (v.isNotBlank()) v.split(",").filter { it.isNotEmpty() }.mapIndexed { i, record ->
                 mapOf("id" to record.toInt(), "orderId" to i) }
             else null
         } ?: emptyList()
