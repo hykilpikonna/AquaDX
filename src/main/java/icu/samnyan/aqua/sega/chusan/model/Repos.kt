@@ -92,6 +92,9 @@ interface Chu3UserItemRepo : Chu3UserLinked<UserItem> {
 
 interface Chu3UserMapRepo : Chu3UserLinked<UserMap> {
     fun findTopByUserAndMapAreaIdOrderByIdDesc(user: Chu3UserData, mapAreaId: Int): Optional<UserMap>
+
+    @Query("SELECT uma FROM ChusanUserMapArea uma WHERE uma.user.card.extId = :extId AND uma.mapAreaId IN :mapAreaIds")
+    fun findAllUserMaps(extId: Long, mapAreaIds: List<Int>): List<UserMap>
 }
 
 interface Chu3UserMusicDetailRepo : Chu3UserLinked<UserMusicDetail> {
