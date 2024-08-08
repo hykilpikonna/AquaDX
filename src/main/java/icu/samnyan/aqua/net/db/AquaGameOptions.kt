@@ -14,16 +14,16 @@ class AquaGameOptions(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
 
-    @SettingField("mai2")
+    @SettingField("general")
     var unlockMusic: Boolean = false,
 
-    @SettingField("mai2")
+    @SettingField("general")
     var unlockChara: Boolean = false,
 
-    @SettingField("mai2")
+    @SettingField("general")
     var unlockCollectables: Boolean = false,
 
-    @SettingField("mai2")
+    @SettingField("general")
     var unlockTickets: Boolean = false,
 
     @SettingField("wacca")

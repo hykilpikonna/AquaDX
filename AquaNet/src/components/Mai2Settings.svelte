@@ -1,7 +1,6 @@
 <script lang="ts">
   import { slide, fade } from "svelte/transition";
   import { FADE_IN, FADE_OUT } from "../libs/config";
-  import GameSettingFields from "./GameSettingFields.svelte";
   import { t } from "../libs/i18n.js";
   import Icon from "@iconify/svelte";
   import StatusOverlays from "./StatusOverlays.svelte";
@@ -73,7 +72,6 @@
       </div>
     </div>
   {/each}
-  <GameSettingFields game="mai2"/>
   <button class="exportButton" on:click={exportData}>
     <Icon icon="bxs:file-export"/>
     {t('settings.export')}

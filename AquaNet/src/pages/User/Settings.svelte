@@ -12,6 +12,7 @@
   import UserBox from "../../components/UserBox.svelte";
   import Mai2Settings from "../../components/Mai2Settings.svelte";
   import WaccaSettings from "../../components/WaccaSettings.svelte";
+  import GeneralGameSettings from "../../components/GeneralGameSettings.svelte";
 
   USER.ensureLoggedIn()
 
@@ -19,7 +20,7 @@
   let error: string;
   let submitting = ""
   let tab = 0
-  let tabs = [ 'profile' ]
+  let tabs = [ 'profile', 'game' ]
 
   const profileFields = [
     [ 'displayName', t('settings.profile.name') ],
@@ -139,6 +140,8 @@
     <Mai2Settings username={me.username} />
   {:else if tabs[tab] === 'wacca'}
     <WaccaSettings />
+  {:else if tabs[tab] === 'game'}
+    <GeneralGameSettings />
   {/if}
 
   <StatusOverlays {error} loading={!me || !!submitting} />
