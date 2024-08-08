@@ -2,12 +2,14 @@
   import { DATA_HOST } from "../libs/config";
   import { getMaimai, getMaimaiAllMusic } from "../libs/maimai";
   import type { ParsedRating, Rating } from "../libs/maimaiTypes";
-  import { getMult } from "../libs/scoring";
+  import { getMult, roundFloor } from "../libs/scoring";
   import StatusOverlays from "../components/StatusOverlays.svelte";
+  import useLocalStorage from "../libs/hooks/useLocalStorage.svelte";
 
   export let userId: any
   userId = +userId
   let error: string | null;
+  const rounding = useLocalStorage("rounding", true);
 
   if (!userId) console.error("No user ID provided")
 
@@ -80,7 +82,13 @@
             <div class="detail">
               <span class="name">{rating.music.name}</span>
               <span class="rating">
-              <span>{(rating.achievement / 10000).toFixed(2)}%</span>
+              <span>
+                {
+                  rounding.value ?
+                    roundFloor(rating.achievement, 'mai2', 1) :
+                    (rating.achievement / 10000).toFixed(4)
+                }%
+              </span>
               <img class="rank" src={`${DATA_HOST}/maimai/sprites/rankimage/UI_GAM_Rank_${rating.rank}.png`} alt="">
             </span>
               <span>{rating.calc.toFixed(1)}</span>

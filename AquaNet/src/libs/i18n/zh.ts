@@ -146,6 +146,8 @@ const zhSettings: typeof EN_REF_SETTINGS = {
   'settings.fields.waccaInfiniteWp.desc': '将 WP 设置为 999999',
   'settings.fields.waccaAlwaysVip.name': 'Wacca: 永久会员',
   'settings.fields.waccaAlwaysVip.desc': '将 VIP 到期时间设置为 2077-01-01',
+  'settings.fields.rounding.name': '分数舍入',
+  'settings.fields.rounding.desc': '把分数四舍五入到一位小数',
   'settings.mai2.name': '玩家名字',
   'settings.profile.picture': '头像',
   'settings.profile.upload-new': '上传',

@@ -8,6 +8,7 @@
   import { coverNotFound } from "../libs/ui";
   import type { MusicMeta } from "../libs/generalTypes";
   import { tooltip } from "../libs/ui";
+  import useLocalStorage from "../libs/hooks/useLocalStorage.svelte";
 
   export let g: string
   export let meta: MusicMeta
@@ -16,6 +17,9 @@
   let mapData = g.split(":").map(Number)
   let mult = getMult(mapData[3], game)
   let mapRank: number | undefined = meta?.notes?.[mapData[1] === 10 ? 0 : mapData[1]]?.lv
+  const rounding = useLocalStorage("rounding", true);
+
+  console.log(rounding.value)
 
   let gameIndexMap = {
   'mai2': 3,
@@ -42,7 +46,11 @@
 
             <span class="rank-text">{("" + getMult(mapData[gameIndex], game)[2]).replace("p", "+")}</span>
             <span class="rank-num" use:tooltip={(mapData[gameIndex] / 10000).toFixed(4)}>
-              {roundFloor(mapData[gameIndex], game, 1)}%
+              {
+                rounding.value ?
+                  roundFloor(mapData[gameIndex], game, 1) :
+                  (mapData[gameIndex] / 10000).toFixed(4)
+              }%
             </span>
           </span>
           {#if game === 'mai2'}

@@ -137,6 +137,8 @@ export const EN_REF_SETTINGS = {
   'settings.fields.waccaInfiniteWp.desc': 'Set WP to 999999',
   'settings.fields.waccaAlwaysVip.name': 'Wacca: Always VIP',
   'settings.fields.waccaAlwaysVip.desc': 'Set VIP expiration date to 2077-01-01',
+  'settings.fields.rounding.name': 'Score Rounding',
+  'settings.fields.rounding.desc': 'Round the score to one decimal place',
   'settings.mai2.name': 'Player Name',
   'settings.profile.picture': 'Profile Picture',
   'settings.profile.upload-new': 'Upload New',

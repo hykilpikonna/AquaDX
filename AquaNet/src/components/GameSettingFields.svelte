@@ -38,7 +38,7 @@
   {/each}
 </div>
 
-<StatusOverlays {error} loading={!gameFields.length && !!submitting}/>
+<StatusOverlays {error} loading={!gameFields.length || !!submitting}/>
 
 <style lang="sass">
   .fields

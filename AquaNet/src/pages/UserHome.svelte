@@ -22,6 +22,7 @@
   import { GAME_TITLE, t } from "../libs/i18n";
   import RankDetails from "../components/RankDetails.svelte";
   import RatingComposition from "../components/RatingComposition.svelte";
+  import useLocalStorage from "../libs/hooks/useLocalStorage.svelte";
 
   const TREND_DAYS = 60
 
@@ -33,6 +34,7 @@
   let error: string;
   let me: AquaNetUser
   title(`User ${username}`)
+  const rounding = useLocalStorage("rounding", true);
 
   const titleText = GAME_TITLE[game]
 
@@ -268,7 +270,11 @@
                 <span class={`rank-${getMult(r.achievement, game)[2].toString()[0]}`}>
                   <span class="rank-text">{("" + getMult(r.achievement, game)[2]).replace("p", "+")}</span>
                   <span class="rank-num" use:tooltip={(r.achievement / 10000).toFixed(4)}>
-                    {roundFloor(r.achievement, game, 1)}%
+                    {
+                      rounding.value ?
+                        roundFloor(r.achievement, game, 1) :
+                        (r.achievement / 10000).toFixed(4)
+                    }%
                   </span>
                 </span>
                 {#if game === 'mai2' || game === 'wacca'}
