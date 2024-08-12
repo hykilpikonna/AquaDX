@@ -82,7 +82,6 @@ namespace AquaMai.UX
         {
             UserDetail detail = userData.Detail;
             _ = userData.ScoreList;
-            userData.AddPlayCount();
             detail.EventWatchedDate = TimeManager.GetDateString(TimeManager.PlayBaseTime);
             userData.CalcTotalValue();
             float num = 0f;
