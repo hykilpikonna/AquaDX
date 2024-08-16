@@ -1,0 +1,51 @@
+name: Build AquaMai
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - AquaMai/**
+    branches:
+      - v1-dev
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        target:
+          - SDEZ141
+          - SDGA145
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Checkout Assets
+        uses: actions/checkout@v4
+        with:
+          repository: clansty/AquaMai-Build-Assets
+          ssh-key: ${{ secrets.BUILD_ASSETS_KEY }}
+          path: build-assets
+
+      - uses: microsoft/setup-msbuild@v2
+
+      - name: Build AquaMai
+        shell: cmd
+        run: |
+          copy /y build-assets\${{ matrix.target }}\* AquaMai\Libs
+          cd AquaMai
+          msbuild /p:Configuration=Release /p:DefineConstants="${{ matrix.target }}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.target }}
+          path: AquaMai\Output\AquaMai.dll
+
+      - name: Send to Telegram
+        run: |
+          $Uri = "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendDocument"
+          $Form = @{
+            chat_id = "-1002231087502"
+            caption = "${{ github.event.commits[0].message }} `n`n For ${{ matrix.target }}"
+            document = Get-Item AquaMai\Output\AquaMai.dll
+          }
+          Invoke-RestMethod -Uri $uri -Form $Form -Method Post
