@@ -45,7 +45,7 @@ jobs:
           $Uri = "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendDocument"
           $Form = @{
             chat_id = "-1002231087502"
-            caption = "${{ github.event.commits[0].message }} `n`n For ${{ matrix.target }}"
+            caption = "${{ github.event.commits[0].message }} `n`nFor ${{ matrix.target }}"
             document = Get-Item AquaMai\Output\AquaMai.dll
           }
           Invoke-RestMethod -Uri $uri -Form $Form -Method Post

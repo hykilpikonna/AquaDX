@@ -303,6 +303,7 @@
     <Compile Include="UX\SkipEventInfo.cs" />
     <Compile Include="UX\SkipWarningScreen.cs" />
     <Compile Include="UX\SkipToMusicSelection.cs" />
+    <Compile Include="UX\TestProof.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

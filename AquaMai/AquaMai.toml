@@ -44,6 +44,8 @@ ExecOnEntry=""
 ExtendTimer=true
 # Save immediate after playing a song
 ImmediateSave=true
+# Prevent accidental touch of the Test button
+TestProof=false
 
 [Performance]
 # Disable some useless delays to speed up the game boot process

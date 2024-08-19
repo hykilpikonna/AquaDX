@@ -31,6 +31,7 @@ namespace AquaMai
             public bool SkipEventInfo { get; set; }
             public bool ImmediateSave { get; set; }
             public bool LoadLocalBga { get; set; }
+            public bool TestProof { get; set; }
             public string CustomVersionString { get; set; }
             public string ExecOnIdle { get; set; }
             public string ExecOnEntry { get; set; }
