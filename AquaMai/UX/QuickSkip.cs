@@ -5,7 +5,6 @@ using MAI2.Util;
 using Main;
 using Manager;
 using MelonLoader;
-using Monitor;
 using Process;
 using UnityEngine;
 
@@ -28,17 +27,17 @@ namespace AquaMai.UX
         public static void OnGameMainObjectUpdate()
         {
             // The button between [1p] and [2p] button on ADX
-            if (Input.GetKey(KeyCode.Alpha7)) _keyPressFrames++;
+            if (Input.GetKey(KeyCode.Alpha7) || InputManager.GetSystemInputPush(InputManager.SystemButtonSetting.ButtonService)) _keyPressFrames++;
 
-            if (Input.GetKeyUp(KeyCode.Alpha7))
+            if (_keyPressFrames > 0 && !Input.GetKey(KeyCode.Alpha7) && !InputManager.GetSystemInputPush(InputManager.SystemButtonSetting.ButtonService))
             {
                 _keyPressFrames = 0;
                 MelonLogger.Msg(_container.processManager.Dump());
-                MelonLogger.Msg(Singleton<UserDataManager>.Instance.GetUserData(0).Dump());
                 return;
             }
 
             if (_keyPressFrames != 60) return;
+            MelonLogger.Msg("[QuickSkip] Activated");
 
             var traverse = Traverse.Create(_container.processManager);
             var processList = traverse.Field("_processList").GetValue<LinkedList<ProcessManager.ProcessControle>>();
