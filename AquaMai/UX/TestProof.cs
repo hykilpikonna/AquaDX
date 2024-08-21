@@ -2,7 +2,6 @@
 using System.Linq;
 using HarmonyLib;
 using Manager;
-using MelonLoader;
 
 namespace AquaMai.UX;
 
@@ -38,8 +37,6 @@ public class TestProof
             {
                 __result = true;
             }
-
-            MelonLogger.Msg(_keyPressFrames);
         }
 
         return false;
