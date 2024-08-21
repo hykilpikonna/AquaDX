@@ -1,0 +1,72 @@
+
+# ===================================
+# “作弊”功能
+[Cheat]
+# 解锁游戏里所有可能的跑图券
+TicketUnlock=true
+# 解锁游戏里所有的区域，包括非当前版本的（并不会帮你跑完）
+MapUnlock=true
+# 不需要万分也可以进宴会场
+UnlockUtage=true
+
+# ===================================
+# 用户体验改进
+[UX]
+# 跳过日服启动时候的 WARNING 界面
+SkipWarningScreen=true
+# 单人模式，不显示 2P
+SinglePlayer=true
+# 登录完成后直接进入选歌界面
+SkipToMusicSelection=false
+# 把右上角的版本更改为自定义文本
+CustomVersionString=""
+# 通过游戏目录下 `LocalAssets\000000（歌曲 ID）.png` 加载封面，自制谱用
+LoadJacketPng=true
+# 如果没有 dat 格式的 BGA 的话，就用歌曲的封面做背景，而不是显示迪拉熊的笑脸
+# 请和 `LoadJacketPng` 一起用
+LoadLocalBga=true
+# 长按 Service 键或者键盘上的 “7” 键（ADX 默认固件下箭头键中间的圆形按键）可以：
+# - 跳过登录过程中的界面直接进入选歌界面
+# - 在选歌界面直接结束游戏
+# 在游玩界面，按一下 “7” 或者 Service 键重开当前的歌，按 1P 的“选择”键立即结束当前乐曲
+# 打完最后一个音符之后也可以
+QuickSkip=true
+# 优化图片资源的加载，就算没有 AssetBundleImages.manifest 也可以正常加载 ab 格式的图片资源
+# 导入了删除曲包之类的话，应该需要开启这个
+LoadAssetBundleWithoutManifest=true
+# 跳过登录 / 注册游戏时候可能的 “发现了新的区域哟” “乐曲增加” “有活动哟” 之类的提示
+SkipEventInfo=true
+# 在 `LocalAssets\Mai2Cue` 这个目录下放置了旧版游戏的 Mai2Cue.{acb,awb} 并重命名的话，可以在播放游戏 BGM 的时候随机播放这里面的旧版游戏 BGM
+# 和 2P 模式有冲突，如果你没有开启 'SinglePlayer' 的话，请关闭这个
+RandomBgm=false
+# 在闲置时的演示画面上播放紫谱而不是绿谱
+DemoMaster=true
+# 在游戏闲置或者玩家登录的时候执行指定的命令脚本
+# 比如说可以在游戏闲置是降低显示器的亮度
+ExecOnIdle=""
+ExecOnEntry=""
+# 关掉那些游戏中的倒计时
+# 如果你没有开启 'SinglePlayer' 的话，不建议开这个，不过要开的话也不是不可以
+ExtendTimer=true
+# 打完一首歌的时候立即向服务器保存成绩
+ImmediateSave=true
+# 防止你不小心按到 Test 键，Test 键需要长按 1 秒才能生效
+TestProof=false
+
+# ===================================
+# 一些性能优化
+[Performance]
+# 在自检界面，每个屏幕结束的时候都会等两秒才进入下一个屏幕，很浪费时间
+# 开了这个选项之后就不会等了
+ImproveLoadSpeed=true
+
+# ===================================
+# 修复一些潜在的问题
+[Fix]
+# 原先如果你的账号版本比当前游戏设定的版本高的话，就会不能登录
+# 开了这个选项之后就可以登录了，不过你的账号版本还是会被设定为当前游戏的版本
+SkipVersionCheck=true
+# 如果你在用未经修改的客户端，会默认加密到服务器的连接，而连接私服的时候不应该加密
+# 开了这个选项之后就不会加密连接了，同时也会移除不同版本的客户端可能会对 API 接口加的后缀
+# 正常情况下，请保持这个选项开启
+RemoveEncryption=true

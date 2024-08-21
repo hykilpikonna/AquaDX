@@ -49,7 +49,7 @@ TestProof=false
 
 [Performance]
 # Disable some useless delays to speed up the game boot process
-ImproveLoadSpeed=false
+ImproveLoadSpeed=true
 
 [Fix]
 # Allow login with higher data version
