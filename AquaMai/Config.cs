@@ -46,6 +46,8 @@ namespace AquaMai
         {
             public bool SkipVersionCheck { get; set; }
             public bool RemoveEncryption { get; set; }
+            public bool ForceAsServer { get; set; } = true;
+            public bool ForceFreePlay { get; set; } = true;
         }
     }
 }

@@ -284,6 +284,8 @@
     <Compile Include="Fix\BasicFix.cs" />
     <Compile Include="Fix\DisableReboot.cs" />
     <Compile Include="Fix\FixCharaCrash.cs" />
+    <Compile Include="Fix\ForceAsServer.cs" />
+    <Compile Include="Fix\ForceFreePlay.cs" />
     <Compile Include="Fix\RemoveEncryption.cs" />
     <Compile Include="Fix\SkipVersionCheck.cs" />
     <Compile Include="Performance\ImproveLoadSpeed.cs" />
