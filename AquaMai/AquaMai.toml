@@ -48,6 +48,8 @@ ExtendTimer=true
 ImmediateSave=true
 # Prevent accidental touch of the Test button
 TestProof=false
+# Custom shop name in photo (SDEZ only)
+CustomPlaceName=""
 
 [Performance]
 # Disable some useless delays to speed up the game boot process

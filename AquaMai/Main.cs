@@ -79,6 +79,7 @@ namespace AquaMai
             // These don't need to be configurable
             Patch(typeof(FixCharaCrash));
             Patch(typeof(CustomVersionString));
+            Patch(typeof(CustomPlaceName));
             Patch(typeof(DisableReboot));
             Patch(typeof(RunCommandOnEvents));
             Patch(typeof(BasicFix));

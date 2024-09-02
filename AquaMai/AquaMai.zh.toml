@@ -54,6 +54,8 @@ ExtendTimer=true
 ImmediateSave=true
 # 防止你不小心按到 Test 键，Test 键需要长按 1 秒才能生效
 TestProof=false
+# 自定义拍照的店铺名称（仅 SDEZ）
+CustomPlaceName=""
 
 # ===================================
 # 一些性能优化

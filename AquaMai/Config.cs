@@ -34,6 +34,7 @@ namespace AquaMai
             public bool LoadLocalBga { get; set; }
             public bool TestProof { get; set; }
             public string CustomVersionString { get; set; }
+            public string CustomPlaceName { get; set; }
             public string ExecOnIdle { get; set; }
             public string ExecOnEntry { get; set; }
         }
