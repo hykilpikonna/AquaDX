@@ -277,6 +277,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cheat\DebugFeature.cs" />
     <Compile Include="Cheat\MapUnlock.cs" />
     <Compile Include="Cheat\TicketUnlock.cs" />
     <Compile Include="Cheat\UnlockUtage.cs" />

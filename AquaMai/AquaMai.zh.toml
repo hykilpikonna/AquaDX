@@ -8,6 +8,8 @@ TicketUnlock=true
 MapUnlock=true
 # 不需要万分也可以进宴会场
 UnlockUtage=true
+# 恢复 SDGA 的自动播放（Home）和暂停（Enter）按键
+DebugFeature=true
 
 # ===================================
 # 用户体验改进

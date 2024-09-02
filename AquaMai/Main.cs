@@ -12,20 +12,20 @@ namespace AquaMai
         public const string Description = "Mod for Sinmai";
         public const string Author = "Aza";
         public const string Company = null;
-        public const string Version = "1.0.0";
+        public const string Version = "1.0.1";
         public const string DownloadLink = null;
     }
 
     public class AquaMai : MelonMod
     {
         public static Config AppConfig { get; private set; }
-        
+
         private static void Patch(Type type)
         {
             MelonLogger.Msg($"> Patching {type}");
             HarmonyLib.Harmony.CreateAndPatchAll(type);
         }
-        
+
         /**
          * Apply patches using reflection, based on the settings
          */
@@ -44,10 +44,10 @@ namespace AquaMai
                 {
                     // The property should be a boolean
                     if (settingProp.PropertyType != typeof(bool)) continue;
-                    
+
                     // Check if the boolean value is true
                     if (!(bool) settingProp.GetValue(categoryValue)) continue;
-                    
+
                     // Get the Type from the config directive name
                     var directiveType = Type.GetType($"AquaMai.{categoryProp.Name}.{settingProp.Name}");
 
@@ -57,8 +57,8 @@ namespace AquaMai
                 }
             }
         }
-        
-        public override void OnInitializeMelon() 
+
+        public override void OnInitializeMelon()
         {
             MelonLogger.Msg("Loading mod settings...");
 
@@ -71,10 +71,10 @@ namespace AquaMai
 
             // Read AquaMai.toml to load settings
             AppConfig = TomletMain.To<Config>(System.IO.File.ReadAllText("AquaMai.toml"));
-            
+
             // Apply patches based on the settings
             ApplyPatches();
-            
+
             // Fixes that does not have side effects
             // These don't need to be configurable
             Patch(typeof(FixCharaCrash));
