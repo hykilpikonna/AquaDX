@@ -48,7 +48,8 @@ ExtendTimer=true
 ImmediateSave=true
 # Prevent accidental touch of the Test button
 TestProof=false
-# Custom shop name in photo (SDEZ only)
+# Custom shop name in photo
+# Also enable shop name display in SDGA
 CustomPlaceName=""
 
 [Performance]
