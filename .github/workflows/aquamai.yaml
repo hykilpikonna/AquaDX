@@ -20,11 +20,14 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Checkout Assets
-        uses: actions/checkout@v4
+        uses: clansty/checkout@main
         with:
           repository: clansty/AquaMai-Build-Assets
           ssh-key: ${{ secrets.BUILD_ASSETS_KEY }}
           path: build-assets
+          max-attempts: 50
+          min-retry-interval: 1
+          max-retry-interval: 5
 
       - uses: microsoft/setup-msbuild@v2
 
