@@ -53,7 +53,7 @@ namespace AquaMai.UX
                 if (!Directory.Exists(Path.Combine(aDir, @"AssetBundleImages\jacket"))) continue;
                 foreach (var file in Directory.GetFiles(Path.Combine(aDir, @"AssetBundleImages\jacket")))
                 {
-                    if (!imageExts.Contains(Path.GetExtension(file))) continue;
+                    if (!imageExts.Contains(Path.GetExtension(file).ToLowerInvariant())) continue;
                     var idStr = Path.GetFileName(file).Substring("ui_jacket_".Length, 6);
                     jacketPaths[idStr] = file;
                 }
