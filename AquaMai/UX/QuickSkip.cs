@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AquaMai.Helpers;
 using HarmonyLib;
 using Mai2.Mai2Cue;
 using MAI2.Util;
@@ -12,15 +13,7 @@ namespace AquaMai.UX
 {
     public class QuickSkip
     {
-        private static ProcessDataContainer _container;
         private static int _keyPressFrames;
-
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(ProcessDataContainer), MethodType.Constructor)]
-        public static void OnCreateProcessDataContainer(ProcessDataContainer __instance)
-        {
-            _container = __instance;
-        }
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(GameMainObject), "Update")]
@@ -32,14 +25,14 @@ namespace AquaMai.UX
             if (_keyPressFrames > 0 && !Input.GetKey(KeyCode.Alpha7) && !InputManager.GetSystemInputPush(InputManager.SystemButtonSetting.ButtonService))
             {
                 _keyPressFrames = 0;
-                MelonLogger.Msg(_container.processManager.Dump());
+                MelonLogger.Msg(SharedInstances.ProcessDataContainer.processManager.Dump());
                 return;
             }
 
             if (_keyPressFrames != 60) return;
             MelonLogger.Msg("[QuickSkip] Activated");
 
-            var traverse = Traverse.Create(_container.processManager);
+            var traverse = Traverse.Create(SharedInstances.ProcessDataContainer.processManager);
             var processList = traverse.Field("_processList").GetValue<LinkedList<ProcessManager.ProcessControle>>();
 
             ProcessBase processToRelease = null;
@@ -61,7 +54,7 @@ namespace AquaMai.UX
                         // Skip to save
                         SoundManager.PreviewEnd();
                         SoundManager.PlayBGM(Cue.BGM_COLLECTION, 2);
-                        _container.processManager.AddProcess(new FadeProcess(_container, process.Process, new UnlockMusicProcess(_container)));
+                        SharedInstances.ProcessDataContainer.processManager.AddProcess(new FadeProcess(SharedInstances.ProcessDataContainer, process.Process, new UnlockMusicProcess(SharedInstances.ProcessDataContainer)));
                         break;
                 }
             }
@@ -69,7 +62,7 @@ namespace AquaMai.UX
             if (processToRelease != null)
             {
                 GameManager.SetMaxTrack();
-                _container.processManager.AddProcess(new FadeProcess(_container, processToRelease, new MusicSelectProcess(_container)));
+                SharedInstances.ProcessDataContainer.processManager.AddProcess(new FadeProcess(SharedInstances.ProcessDataContainer, processToRelease, new MusicSelectProcess(SharedInstances.ProcessDataContainer)));
             }
         }
 

@@ -57,6 +57,9 @@ TestProof=false
 # 自定义拍照的店铺名称
 # 同时在 SDGA 中会启用店铺名称的显示（但是不会在游戏里有设置）
 CustomPlaceName=""
+# 选歌界面按下 Service 键或者键盘上的 “7” 键（ADX 默认固件下箭头键中间的圆形按键）切换自制谱的显示和隐藏
+# 是否是自制谱的判断方式是 Axxx 目录里没有 DataConfig.xml 或 OfficialChartsMark.txt 就认为这个目录里是自制谱
+HideSelfMadeCharts=true
 
 # ===================================
 # 一些性能优化

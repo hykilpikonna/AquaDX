@@ -293,6 +293,9 @@
     <Compile Include="Fix\ForceFreePlay.cs" />
     <Compile Include="Fix\RemoveEncryption.cs" />
     <Compile Include="Fix\SkipVersionCheck.cs" />
+    <Compile Include="Helpers\MessageHelper.cs" />
+    <Compile Include="Helpers\MusicDirHelper.cs" />
+    <Compile Include="Helpers\SharedInstances.cs" />
     <Compile Include="Performance\ImproveLoadSpeed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Main.cs" />
@@ -300,6 +303,7 @@
     <Compile Include="UX\CustomVersionString.cs" />
     <Compile Include="UX\DemoMaster.cs" />
     <Compile Include="UX\ExtendTimer.cs" />
+    <Compile Include="UX\HideSelfMadeCharts.cs" />
     <Compile Include="UX\ImmediateSave.cs" />
     <Compile Include="UX\LoadJacketPng.cs" />
     <Compile Include="UX\LoadAssetBundleWithoutManifest.cs" />

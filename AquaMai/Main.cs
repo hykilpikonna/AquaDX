@@ -1,5 +1,6 @@
 ﻿using System;
 using AquaMai.Fix;
+using AquaMai.Helpers;
 using AquaMai.UX;
 using MelonLoader;
 using Tomlet;
@@ -46,7 +47,7 @@ namespace AquaMai
                     if (settingProp.PropertyType != typeof(bool)) continue;
 
                     // Check if the boolean value is true
-                    if (!(bool) settingProp.GetValue(categoryValue)) continue;
+                    if (!(bool)settingProp.GetValue(categoryValue)) continue;
 
                     // Get the Type from the config directive name
                     var directiveType = Type.GetType($"AquaMai.{categoryProp.Name}.{settingProp.Name}");
@@ -72,17 +73,24 @@ namespace AquaMai
             // Read AquaMai.toml to load settings
             AppConfig = TomletMain.To<Config>(System.IO.File.ReadAllText("AquaMai.toml"));
 
-            // Apply patches based on the settings
-            ApplyPatches();
-
             // Fixes that does not have side effects
             // These don't need to be configurable
+
+            // Helpers
+            Patch(typeof(MessageHelper));
+            Patch(typeof(MusicDirHelper));
+            Patch(typeof(SharedInstances));
+            // Fixes
             Patch(typeof(FixCharaCrash));
+            Patch(typeof(BasicFix));
+            Patch(typeof(DisableReboot));
+            // UX
             Patch(typeof(CustomVersionString));
             Patch(typeof(CustomPlaceName));
-            Patch(typeof(DisableReboot));
             Patch(typeof(RunCommandOnEvents));
-            Patch(typeof(BasicFix));
+
+            // Apply patches based on the settings
+            ApplyPatches();
 
             MelonLogger.Msg("Loaded!");
         }

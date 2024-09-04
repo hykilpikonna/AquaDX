@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -67,7 +66,7 @@ namespace AquaMai.UX
                     jacketPaths[match.Groups[1].Value] = laFile;
                 }
 
-            MelonLogger.Msg($"Loaded {jacketPaths.Count} custom jacket images.");
+            MelonLogger.Msg($"[LoadJacketPng] Loaded {jacketPaths.Count} custom jacket images.");
         }
 
         private static string GetJacketPath(string id)
