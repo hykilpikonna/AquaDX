@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\ILMerge.Fody.1.24.0\build\ILMerge.Fody.props" Condition="Exists('packages\ILMerge.Fody.1.24.0\build\ILMerge.Fody.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
@@ -49,6 +50,9 @@
     <Reference Include="Assembly-CSharp-firstpass">
       <HintPath>Libs\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
+    <Reference Include="ILMerge, Version=1.24.0.0, Culture=neutral, PublicKeyToken=4d0e9a1cbec0d397, processorArchitecture=MSIL">
+      <HintPath>packages\ILMerge.Fody.1.24.0\lib\net452\ILMerge.dll</HintPath>
+    </Reference>
     <Reference Include="MelonLoader">
       <HintPath>Libs\MelonLoader.dll</HintPath>
     </Reference>
@@ -74,8 +78,8 @@
     <Reference Include="System.Xml">
       <HintPath>Libs\System.Xml.dll</HintPath>
     </Reference>
-    <Reference Include="Tomlet">
-      <HintPath>Libs\Tomlet.dll</HintPath>
+    <Reference Include="Tomlet, Version=5.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Samboy063.Tomlet.5.4.0\lib\net35\Tomlet.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
       <HintPath>Libs\Unity.Analytics.DataPrivacy.dll</HintPath>
@@ -312,9 +316,21 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="AquaMai.zh.toml" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AquaMai.toml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="packages\Fody.6.8.1\build\Fody.targets" Condition="Exists('packages\Fody.6.8.1\build\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Fody.6.8.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Fody.6.8.1\build\Fody.targets'))" />
+    <Error Condition="!Exists('packages\ILMerge.Fody.1.24.0\build\ILMerge.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\ILMerge.Fody.1.24.0\build\ILMerge.Fody.props'))" />
+  </Target>
 </Project>
