@@ -18,6 +18,7 @@ namespace AquaMai.UX
         [HarmonyPatch(typeof(SoundManager), "Initialize")]
         public static void Init()
         {
+            if (!Directory.Exists(Path.Combine(Environment.CurrentDirectory, "LocalAssets", "Mai2Cue"))) return;
             var files = Directory.EnumerateFiles(Path.Combine(Environment.CurrentDirectory, "LocalAssets", "Mai2Cue"));
             foreach (var file in files)
             {
@@ -34,6 +35,7 @@ namespace AquaMai.UX
         public static void PrePlay(ref SoundManager.AcbID acbID, int cueID)
         {
             if (acbID != SoundManager.AcbID.Default) return;
+            if (_acbs.Count == 0) return;
             var cueIndex = (Cue)cueID;
             switch (cueIndex)
             {

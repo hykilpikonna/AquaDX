@@ -59,12 +59,13 @@ namespace AquaMai.UX
                 }
             }
 
-            foreach (var laFile in Directory.EnumerateFiles(Path.Combine(Environment.CurrentDirectory, "LocalAssets")))
-            {
-                var match = localAssetsJacketExt.Match(Path.GetFileName(laFile));
-                if (!match.Success) continue;
-                jacketPaths[match.Groups[1].Value] = laFile;
-            }
+            if (Directory.Exists(Path.Combine(Environment.CurrentDirectory, "LocalAssets")))
+                foreach (var laFile in Directory.EnumerateFiles(Path.Combine(Environment.CurrentDirectory, "LocalAssets")))
+                {
+                    var match = localAssetsJacketExt.Match(Path.GetFileName(laFile));
+                    if (!match.Success) continue;
+                    jacketPaths[match.Groups[1].Value] = laFile;
+                }
 
             MelonLogger.Msg($"Loaded {jacketPaths.Count} custom jacket images.");
         }
