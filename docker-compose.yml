@@ -1,12 +1,13 @@
-version: '3.8'
-
 services:
   app:
-    image: hykilpikonna/aquadx:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "80:80"
       - "8443:8443"
       - "22345:22345"
+    restart: on-failure:3
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mariadb://db:3306/main
       - SPRING_DATASOURCE_USERNAME=cat
@@ -17,7 +18,6 @@ services:
     volumes:
       - ./config:/app/config
       - ./data:/app/data
-
   db:
     image: mariadb:latest
     environment:
@@ -26,9 +26,9 @@ services:
       MYSQL_USER: cat
       MYSQL_PASSWORD: meow
     ports:
-      - "127.0.0.1:3369:3306"
+      - "${AQUADX_DB_PORT:-127.0.0.1:3369}:3306"
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - "${AQUADX_DB_DATA:-mariadb_data}:/var/lib/mysql"
 
 volumes:
   mariadb_data:
