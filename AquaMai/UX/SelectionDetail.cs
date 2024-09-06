@@ -79,8 +79,10 @@ public class SelectionDetail
 
             window = GUIWindow.Begin($"ID: {SelectData.MusicData.name.id}", x, Screen.height * 0.87f, 200, 50, 10, 22, 5, true, true, true);
             window.Label(MusicDirHelper.LookupPath(SelectData.MusicData.name.id).Split('/').Reverse().ToArray()[3]);
-            window.Label(SelectData.MusicData.genreName?.str);
-            window.Label(SelectData.MusicData.AddVersion?.str);
+            if (SelectData.MusicData.genreName is not null) // SelectData.MusicData.genreName.str may not correct
+                window.Label(Singleton<DataManager>.Instance.GetMusicGenre(SelectData.MusicData.genreName.id)?.genreName);
+            if (SelectData.MusicData.AddVersion is not null)
+                window.Label(Singleton<DataManager>.Instance.GetMusicVersion(SelectData.MusicData.AddVersion.id)?.genreName);
             var notesData = SelectData.MusicData.notesData[difficulty[player]];
             window.Label($"{notesData?.level}.{notesData?.levelDecimal}");
 
