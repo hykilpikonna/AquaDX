@@ -54,6 +54,8 @@ CustomPlaceName=""
 # In the song selection screen, press the Service button or the "7" key (the round button in the middle of the arrow keys in the default ADX firmware) to toggle the display of self-made charts.
 # A directory is considered to contain self-made charts if it does not have DataConfig.xml or OfficialChartsMark.txt in the Axxx directory.
 HideSelfMadeCharts=true
+# Show detail of selected song in music selection screen
+SelectionDetail=true
 
 [Performance]
 # Disable some useless delays to speed up the game boot process

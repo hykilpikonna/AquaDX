@@ -279,6 +279,9 @@
     <Reference Include="UnityEngine.XRModule">
       <HintPath>Libs\UnityEngine.XRModule.dll</HintPath>
     </Reference>
+    <Reference Include="UrGUI">
+      <HintPath>Libs\UrGUI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cheat\DebugFeature.cs" />
@@ -311,6 +314,7 @@
     <Compile Include="UX\QuickSkip.cs" />
     <Compile Include="UX\RandomBgm.cs" />
     <Compile Include="UX\RunCommandOnEvents.cs" />
+    <Compile Include="UX\SelectionDetail.cs" />
     <Compile Include="UX\SinglePlayer.cs" />
     <Compile Include="UX\SkipEventInfo.cs" />
     <Compile Include="UX\SkipWarningScreen.cs" />
