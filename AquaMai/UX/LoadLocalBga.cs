@@ -20,7 +20,7 @@ public class LoadLocalBga
         var moviePath = string.Format(Singleton<OptionDataManager>.Instance.GetMovieDataPath($"{music.movieName.id:000000}") + ".dat");
         if (!moviePath.Contains("dummy")) return;
 
-        var jacket = LoadJacketPng.GetJacketTexture2D(music.movieName.id);
+        var jacket = LoadAssetsPng.GetJacketTexture2D(music.movieName.id);
         if (jacket is null)
         {
             MelonLogger.Msg("No jacket found for music " + music);

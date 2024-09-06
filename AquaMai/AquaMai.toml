@@ -22,8 +22,10 @@ SinglePlayer=true
 SkipToMusicSelection=false
 # Set the version string displayed at the top-right corner of the screen
 CustomVersionString=""
+# Deprecated: Use `LoadAssetsPng` instead
+# LoadJacketPng=true
 # Load Jacket image from folder "LocalAssets" and filename "{MusicID}.png" for self-made charts
-LoadJacketPng=true
+LoadAssetsPng=true
 # Use the png jacket above as BGA if BGA is not found for self-made charts
 # Use together with `LoadJacketPng`
 LoadLocalBga=true

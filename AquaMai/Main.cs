@@ -73,6 +73,10 @@ namespace AquaMai
             // Read AquaMai.toml to load settings
             AppConfig = TomletMain.To<Config>(System.IO.File.ReadAllText("AquaMai.toml"));
 
+            // Migrate old settings
+            AppConfig.UX.LoadAssetsPng = AppConfig.UX.LoadAssetsPng || AppConfig.UX.LoadJacketPng;
+            AppConfig.UX.LoadJacketPng = false;
+
             // Fixes that does not have side effects
             // These don't need to be configurable
 

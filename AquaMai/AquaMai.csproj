@@ -308,7 +308,7 @@
     <Compile Include="UX\ExtendTimer.cs" />
     <Compile Include="UX\HideSelfMadeCharts.cs" />
     <Compile Include="UX\ImmediateSave.cs" />
-    <Compile Include="UX\LoadJacketPng.cs" />
+    <Compile Include="UX\LoadAssetsPng.cs" />
     <Compile Include="UX\LoadAssetBundleWithoutManifest.cs" />
     <Compile Include="UX\LoadLocalBga.cs" />
     <Compile Include="UX\QuickSkip.cs" />

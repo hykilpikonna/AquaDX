@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using Tomlet.Attributes;
 
 namespace AquaMai
 {
@@ -23,6 +24,7 @@ namespace AquaMai
             public bool SkipWarningScreen { get; set; }
             public bool SinglePlayer { get; set; }
             public bool SkipToMusicSelection { get; set; }
+            public bool LoadAssetsPng { get; set; }
             public bool LoadJacketPng { get; set; }
             public bool LoadAssetBundleWithoutManifest { get; set; }
             public bool QuickSkip { get; set; }

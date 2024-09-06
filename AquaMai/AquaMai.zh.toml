@@ -22,8 +22,10 @@ SinglePlayer=true
 SkipToMusicSelection=false
 # 把右上角的版本更改为自定义文本
 CustomVersionString=""
+# 已弃用，请使用 LoadAssetsPng
+# LoadJacketPng=true
 # 通过游戏目录下 `LocalAssets\000000（歌曲 ID）.png` 加载封面，自制谱用
-LoadJacketPng=true
+LoadAssetsPng=true
 # 如果没有 dat 格式的 BGA 的话，就用歌曲的封面做背景，而不是显示迪拉熊的笑脸
 # 请和 `LoadJacketPng` 一起用
 LoadLocalBga=true
