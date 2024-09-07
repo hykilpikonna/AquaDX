@@ -86,12 +86,6 @@ public class HideSelfMadeCharts
     [HarmonyPatch(typeof(MusicSelectProcess), "OnStart")]
     public static void MusicSelectProcessOnStart(ref MusicSelectProcess __instance)
     {
-        if (File.Exists(Path.Combine(Environment.CurrentDirectory, "LocalAssets", "DisableSelfMadeCharts.txt")))
-        {
-            isForceDisable = true;
-            return;
-        }
-
         if (File.Exists(Path.Combine(Environment.CurrentDirectory, "LocalAssets", "SelfMadeChartsDenyUsers.txt")))
         {
             var userIds = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "LocalAssets", "SelfMadeChartsDenyUsers.txt"));
@@ -100,6 +94,19 @@ public class HideSelfMadeCharts
                 var user = Singleton<UserDataManager>.Instance.GetUserData(i);
                 if (!user.IsEntry) continue;
                 if (!userIds.Contains(user.Detail.UserID.ToString())) continue;
+                isForceDisable = true;
+                return;
+            }
+        }
+
+        if (File.Exists(Path.Combine(Environment.CurrentDirectory, "LocalAssets", "SelfMadeChartsWhiteListUsers.txt")))
+        {
+            var userIds = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "LocalAssets", "SelfMadeChartsWhiteListUsers.txt"));
+            for (var i = 0; i < 2; i++)
+            {
+                var user = Singleton<UserDataManager>.Instance.GetUserData(i);
+                if (!user.IsEntry) continue;
+                if (userIds.Contains(user.Detail.UserID.ToString())) continue;
                 isForceDisable = true;
                 return;
             }
