@@ -77,4 +77,12 @@ public class HideSelfMadeCharts
             _keyPressFrames = 0;
         }
     }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(EntryProcess), "OnStart")]
+    public static void EntryProcessOnStart(ref EntryProcess __instance)
+    {
+        // reset status on login
+        isShowSelfMadeCharts = true;
+    }
 }
