@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AquaMai.Helpers;
 using HarmonyLib;
+using MAI2.Util;
 using Manager;
 using MelonLoader;
 using Process;
@@ -19,6 +21,7 @@ public class HideSelfMadeCharts
     private static Safe.ReadonlySortedDictionary<int, Manager.MaiStudio.MusicData> _musicsNoneSelfMade;
 
     private static bool isShowSelfMadeCharts = true;
+    private static bool isForceDisable;
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(DataManager), "GetMusics")]
@@ -46,7 +49,7 @@ public class HideSelfMadeCharts
         var stackTrace = new StackTrace(); // get call stack
         var stackFrames = stackTrace.GetFrames(); // get method calls (frames)
         if (stackFrames.All(it => it.GetMethod().DeclaringType.Name != "MusicSelectProcess")) return;
-        if (isShowSelfMadeCharts) return;
+        if (isShowSelfMadeCharts && !isForceDisable) return;
         __result = _musicsNoneSelfMade;
     }
 
@@ -56,6 +59,7 @@ public class HideSelfMadeCharts
     [HarmonyPatch(typeof(MusicSelectProcess), "OnUpdate")]
     public static void MusicSelectProcessOnUpdate(ref MusicSelectProcess __instance)
     {
+        if (isForceDisable) return;
         if (Input.GetKey(KeyCode.Alpha7) || InputManager.GetSystemInputPush(InputManager.SystemButtonSetting.ButtonService))
         {
             _keyPressFrames++;
@@ -77,6 +81,33 @@ public class HideSelfMadeCharts
             _keyPressFrames = 0;
         }
     }
+
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(MusicSelectProcess), "OnStart")]
+    public static void MusicSelectProcessOnStart(ref MusicSelectProcess __instance)
+    {
+        if (File.Exists(Path.Combine(Environment.CurrentDirectory, "LocalAssets", "DisableSelfMadeCharts.txt")))
+        {
+            isForceDisable = true;
+            return;
+        }
+
+        if (File.Exists(Path.Combine(Environment.CurrentDirectory, "LocalAssets", "SelfMadeChartsDenyUsers.txt")))
+        {
+            var userIds = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "LocalAssets", "SelfMadeChartsDenyUsers.txt"));
+            for (var i = 0; i < 2; i++)
+            {
+                var user = Singleton<UserDataManager>.Instance.GetUserData(i);
+                if (!user.IsEntry) continue;
+                if (!userIds.Contains(user.Detail.UserID.ToString())) continue;
+                isForceDisable = true;
+                return;
+            }
+        }
+
+        isForceDisable = false;
+    }
+
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(EntryProcess), "OnStart")]
