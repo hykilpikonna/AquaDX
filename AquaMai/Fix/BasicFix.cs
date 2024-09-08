@@ -2,6 +2,7 @@
 using HarmonyLib;
 using Manager;
 using Manager.Operation;
+using Monitor.MusicSelect.ChainList;
 using Net;
 using UnityEngine;
 
@@ -72,5 +73,24 @@ public class BasicFix
     {
         __result = 1024;
         return false;
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(MusicChainCardObejct), "SetLevel")]
+    private static void FixLevelShift(MusicLevelID levelID, ref SpriteCounter ____digitLevel, ref SpriteCounter ____doubleDigitLevel)
+    {
+        switch (levelID)
+        {
+            case > MusicLevelID.Level9P:
+                ____digitLevel.gameObject.SetActive(value: false);
+                ____doubleDigitLevel.gameObject.SetActive(value: true);
+                ____doubleDigitLevel.ChangeText(levelID.GetLevelNum().PadRight(3));
+                break;
+            case >= MusicLevelID.None:
+                ____digitLevel.gameObject.SetActive(value: true);
+                ____doubleDigitLevel.gameObject.SetActive(value: false);
+                ____digitLevel.ChangeText(levelID.GetLevelNum().PadRight(2));
+                break;
+        }
     }
 }
