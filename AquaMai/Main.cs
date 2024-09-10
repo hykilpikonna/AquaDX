@@ -25,6 +25,10 @@ namespace AquaMai
         {
             MelonLogger.Msg($"> Patching {type}");
             HarmonyInstance.PatchAll(type);
+            foreach (var nested in type.GetNestedTypes())
+            {
+                Patch(nested);
+            }
         }
 
         /**
@@ -56,10 +60,6 @@ namespace AquaMai
                     if (directiveType != null)
                     {
                         Patch(directiveType);
-                        foreach (var nested in directiveType.GetNestedTypes())
-                        {
-                            Patch(nested);
-                        }
                     }
                     else MelonLogger.Error($"Type not found for {categoryProp.Name}.{settingProp.Name}");
                 }
