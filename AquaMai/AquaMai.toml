@@ -69,3 +69,7 @@ SkipVersionCheck=true
 RemoveEncryption=true
 ForceAsServer=true
 ForceFreePlay=true
+
+[Utils]
+# Log user ID on login
+LogUserId=false

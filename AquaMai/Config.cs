@@ -10,6 +10,7 @@ namespace AquaMai
         public CheatConfig Cheat { get; set; }
         public PerformanceConfig Performance { get; set; }
         public FixConfig Fix { get; set; }
+        public UtilsConfig Utils { get; set; }
 
         public class CheatConfig
         {
@@ -54,6 +55,11 @@ namespace AquaMai
             public bool RemoveEncryption { get; set; }
             public bool ForceAsServer { get; set; } = true;
             public bool ForceFreePlay { get; set; } = true;
+        }
+
+        public class UtilsConfig
+        {
+            public bool LogUserId { get; set; }
         }
     }
 }

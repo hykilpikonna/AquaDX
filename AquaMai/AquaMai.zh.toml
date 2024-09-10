@@ -85,3 +85,7 @@ RemoveEncryption=true
 # 如果要配置店内招募的话，应该要把这个关闭
 ForceAsServer=true
 ForceFreePlay=true
+
+[Utils]
+# 登录时将 UserID 输出到日志
+LogUserId=false
