@@ -11,6 +11,7 @@ using MelonLoader;
 [assembly: AssemblyFileVersion(AquaMai.BuildInfo.Version)]
 [assembly: MelonInfo(typeof(AquaMai.AquaMai), AquaMai.BuildInfo.Name, AquaMai.BuildInfo.Version, AquaMai.BuildInfo.Author, AquaMai.BuildInfo.DownloadLink)]
 [assembly: MelonColor()]
+[assembly: HarmonyDontPatchAll]
 
 // Create and Setup a MelonGame Attribute to mark a Melon as Universal or Compatible with specific Games.
 // If no MelonGame Attribute is found or any of the Values for any MelonGame Attribute on the Melon is null or empty it will be assumed the Melon is Universal.

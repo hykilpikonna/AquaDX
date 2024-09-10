@@ -21,16 +21,16 @@ namespace AquaMai
     {
         public static Config AppConfig { get; private set; }
 
-        private static void Patch(Type type)
+        private void Patch(Type type)
         {
             MelonLogger.Msg($"> Patching {type}");
-            HarmonyLib.Harmony.CreateAndPatchAll(type);
+            HarmonyInstance.PatchAll(type);
         }
 
         /**
          * Apply patches using reflection, based on the settings
          */
-        private static void ApplyPatches()
+        private void ApplyPatches()
         {
             // Iterate over all properties of AppConfig
             foreach (var categoryProp in AppConfig.GetType().GetProperties())
@@ -53,7 +53,14 @@ namespace AquaMai
                     var directiveType = Type.GetType($"AquaMai.{categoryProp.Name}.{settingProp.Name}");
 
                     // If the type is found, call the Patch method
-                    if (directiveType != null) Patch(directiveType);
+                    if (directiveType != null)
+                    {
+                        Patch(directiveType);
+                        foreach (var nested in directiveType.GetNestedTypes())
+                        {
+                            Patch(nested);
+                        }
+                    }
                     else MelonLogger.Error($"Type not found for {categoryProp.Name}.{settingProp.Name}");
                 }
             }
