@@ -38,7 +38,7 @@
     </a>
   {/if}
   <a href="/home">home</a>
-  <div on:click={() => alert("Coming soon!")} on:keydown={e => e.key === "Enter" && alert("Coming soon!")}
+  <div on:click={() => alert("Coming soon™")} on:keydown={e => e.key === "Enter" && alert("Coming soon™")}
        role="button" tabindex="0">maps</div>
   <a href="/ranking">rankings</a>
   {#if me}
