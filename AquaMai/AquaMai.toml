@@ -69,6 +69,8 @@ SkipVersionCheck=true
 RemoveEncryption=true
 ForceAsServer=true
 ForceFreePlay=true
+# Add notes sprite to the pool to prevent use up
+ExtendNotesPool=128
 
 [Utils]
 # Log user ID on login

@@ -291,6 +291,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="Fix\BasicFix.cs" />
     <Compile Include="Fix\DisableReboot.cs" />
+    <Compile Include="Fix\ExtendNotesPool.cs" />
     <Compile Include="Fix\FixCharaCrash.cs" />
     <Compile Include="Fix\ForceAsServer.cs" />
     <Compile Include="Fix\ForceFreePlay.cs" />
