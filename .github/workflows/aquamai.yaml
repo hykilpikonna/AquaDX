@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         target:
-          - SDEZ141
+          - SDEZ
           - SDGA145
     steps:
       - uses: actions/checkout@v4
