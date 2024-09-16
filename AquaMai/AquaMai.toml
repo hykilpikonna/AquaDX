@@ -78,3 +78,9 @@ ExtendNotesPool=128
 [Utils]
 # Log user ID on login
 LogUserId=false
+# Globally increase A judgment, unit is the same as in the game
+JudgeAdjustA=0.0
+# Globally increase B judgment, unit is the same as in the game
+JudgeAdjustB=0.0
+# Touch screen delay, unit is milliseconds, one second = 1000 milliseconds. Must be an integer
+TouchDelay=0

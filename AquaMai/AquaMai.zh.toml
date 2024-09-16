@@ -94,3 +94,9 @@ ExtendNotesPool=128
 [Utils]
 # 登录时将 UserID 输出到日志
 LogUserId=false
+# 全局增加 A 判，单位和游戏里一样
+JudgeAdjustA=0.0
+# 全局增加 B 判，单位和游戏里一样
+JudgeAdjustB=0.0
+# 触摸屏延迟，单位为毫秒，一秒 = 1000 毫秒。必须是整数
+TouchDelay=0

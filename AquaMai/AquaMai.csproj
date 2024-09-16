@@ -305,6 +305,7 @@
     <Compile Include="Performance\ImproveLoadSpeed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="Utils\JudgeAdjust.cs" />
     <Compile Include="Utils\LogUserId.cs" />
     <Compile Include="UX\CustomPlaceName.cs" />
     <Compile Include="UX\CustomVersionString.cs" />

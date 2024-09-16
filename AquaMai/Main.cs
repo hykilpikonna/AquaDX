@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using AquaMai.Fix;
 using AquaMai.Helpers;
+using AquaMai.Utils;
 using AquaMai.UX;
 using MelonLoader;
 using Tomlet;
@@ -132,6 +133,8 @@ namespace AquaMai
             Patch(typeof(CustomVersionString));
             Patch(typeof(CustomPlaceName));
             Patch(typeof(RunCommandOnEvents));
+            // Utils
+            Patch(typeof(JudgeAdjust));
 
             // Apply patches based on the settings
             ApplyPatches();

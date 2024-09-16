@@ -62,6 +62,9 @@ namespace AquaMai
         public class UtilsConfig
         {
             public bool LogUserId { get; set; }
+            public float JudgeAdjustA { get; set; }
+            public float JudgeAdjustB { get; set; }
+            public int TouchDelay { get; set; }
         }
     }
 }
