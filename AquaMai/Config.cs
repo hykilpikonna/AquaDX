@@ -6,11 +6,12 @@ namespace AquaMai
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
     public class Config
     {
-        public UXConfig UX { get; set; }
-        public CheatConfig Cheat { get; set; }
-        public PerformanceConfig Performance { get; set; }
-        public FixConfig Fix { get; set; }
-        public UtilsConfig Utils { get; set; }
+        public UXConfig UX { get; set; } = new();
+        public CheatConfig Cheat { get; set; } = new();
+        public PerformanceConfig Performance { get; set; } = new();
+        public FixConfig Fix { get; set; } = new();
+        public UtilsConfig Utils { get; set; } = new();
+        public TouchSensitivityConfig TouchSensitivity { get; set; } = new();
 
         public class CheatConfig
         {
@@ -65,6 +66,45 @@ namespace AquaMai
             public float JudgeAdjustA { get; set; }
             public float JudgeAdjustB { get; set; }
             public int TouchDelay { get; set; }
+        }
+
+        public class TouchSensitivityConfig
+        {
+            public bool Enable { get; set; }
+            public byte A1 { get; set; } = 40;
+            public byte A2 { get; set; } = 40;
+            public byte A3 { get; set; } = 40;
+            public byte A4 { get; set; } = 40;
+            public byte A5 { get; set; } = 40;
+            public byte A6 { get; set; } = 40;
+            public byte A7 { get; set; } = 40;
+            public byte A8 { get; set; } = 40;
+            public byte B1 { get; set; } = 20;
+            public byte B2 { get; set; } = 20;
+            public byte B3 { get; set; } = 20;
+            public byte B4 { get; set; } = 20;
+            public byte B5 { get; set; } = 20;
+            public byte B6 { get; set; } = 20;
+            public byte B7 { get; set; } = 20;
+            public byte B8 { get; set; } = 20;
+            public byte C1 { get; set; } = 20;
+            public byte C2 { get; set; } = 20;
+            public byte D1 { get; set; } = 20;
+            public byte D2 { get; set; } = 20;
+            public byte D3 { get; set; } = 20;
+            public byte D4 { get; set; } = 20;
+            public byte D5 { get; set; } = 20;
+            public byte D6 { get; set; } = 20;
+            public byte D7 { get; set; } = 20;
+            public byte D8 { get; set; } = 20;
+            public byte E1 { get; set; } = 20;
+            public byte E2 { get; set; } = 20;
+            public byte E3 { get; set; } = 20;
+            public byte E4 { get; set; } = 20;
+            public byte E5 { get; set; } = 20;
+            public byte E6 { get; set; } = 20;
+            public byte E7 { get; set; } = 20;
+            public byte E8 { get; set; } = 20;
         }
     }
 }
