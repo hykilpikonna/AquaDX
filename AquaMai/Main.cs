@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using AquaMai.Fix;
 using AquaMai.Helpers;
 using AquaMai.UX;
@@ -20,6 +21,7 @@ namespace AquaMai
     public class AquaMai : MelonMod
     {
         public static Config AppConfig { get; private set; }
+        private static bool _hasErrors;
 
         private void Patch(Type type)
         {
@@ -35,6 +37,7 @@ namespace AquaMai
             catch (Exception e)
             {
                 MelonLogger.Error($"Failed to patch {type}: {e}");
+                _hasErrors = true;
             }
         }
 
@@ -73,8 +76,14 @@ namespace AquaMai
             }
         }
 
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool SetConsoleOutputCP(uint wCodePageID);
+
         public override void OnInitializeMelon()
         {
+            // Prevent Chinese characters from being garbled
+            SetConsoleOutputCP(65001);
+
             MelonLogger.Msg("Loading mod settings...");
 
             // Check if AquaMai.toml exists
@@ -111,6 +120,21 @@ namespace AquaMai
 
             // Apply patches based on the settings
             ApplyPatches();
+
+            if (_hasErrors)
+            {
+                MelonLogger.Warning("!!!!!=================================================================!!!!!");
+                MelonLogger.Warning("加载过程中检测到错误！");
+                MelonLogger.Warning("- 请检查你是否安装了错误的 AquaMai 版本，比如在 SDGA 上使用了 SDEZ 的版本");
+                MelonLogger.Warning("- 你是否正在使用魔改的 Assembly-CSharp.dll，这会导致函数不一致而无法找到需要修改的函数");
+                MelonLogger.Warning("- 请检查是否有冲突的 Mod，或者开启了不兼容的选项");
+                MelonLogger.Warning("!!!!!=================================================================!!!!!");
+                MelonLogger.Warning("Errors detected while loading!");
+                MelonLogger.Warning("- Check if you have installed the wrong version of AquaMai, such as using SDEZ version on SDGA");
+                MelonLogger.Warning("- Are you using a modified Assembly-CSharp.dll, which will cause inconsistent functions and cannot find the functions that need to be modified");
+                MelonLogger.Warning("- Check for conflicting mods, or enabled incompatible options");
+                MelonLogger.Warning("!!!!!=================================================================!!!!!");
+            }
 
             MelonLogger.Msg("Loaded!");
         }
