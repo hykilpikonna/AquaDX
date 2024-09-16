@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using AquaMai.Fix;
 using AquaMai.Helpers;
@@ -79,6 +80,13 @@ namespace AquaMai
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern bool SetConsoleOutputCP(uint wCodePageID);
 
+        private void WriteEmbeddedResourceToFile(string resource, string file)
+        {
+            using var s = MelonAssembly.Assembly.GetManifestResourceStream(resource);
+            using var fs = File.Open(file, FileMode.Create);
+            s.CopyTo(fs);
+        }
+
         public override void OnInitializeMelon()
         {
             // Prevent Chinese characters from being garbled
@@ -87,14 +95,21 @@ namespace AquaMai
             MelonLogger.Msg("Loading mod settings...");
 
             // Check if AquaMai.toml exists
-            if (!System.IO.File.Exists("AquaMai.toml"))
+            if (!File.Exists("AquaMai.toml"))
             {
+                WriteEmbeddedResourceToFile("AquaMai.AquaMai.toml", "AquaMai.example.toml");
+                WriteEmbeddedResourceToFile("AquaMai.AquaMai.zh.toml", "AquaMai.example.zh.toml");
+                MelonLogger.Error("======================================!!!");
                 MelonLogger.Error("AquaMai.toml not found! Please create it.");
+                MelonLogger.Error("找不到配置文件 AquaMai.toml！请创建。");
+                MelonLogger.Error("Example copied to AquaMai.example.toml");
+                MelonLogger.Error("示例已复制到 AquaMai.example.zh.toml");
+                MelonLogger.Error("=========================================");
                 return;
             }
 
             // Read AquaMai.toml to load settings
-            AppConfig = TomletMain.To<Config>(System.IO.File.ReadAllText("AquaMai.toml"));
+            AppConfig = TomletMain.To<Config>(File.ReadAllText("AquaMai.toml"));
 
             // Migrate old settings
             AppConfig.UX.LoadAssetsPng = AppConfig.UX.LoadAssetsPng || AppConfig.UX.LoadJacketPng;
@@ -123,17 +138,17 @@ namespace AquaMai
 
             if (_hasErrors)
             {
-                MelonLogger.Warning("!!!!!=================================================================!!!!!");
+                MelonLogger.Warning("========================================================================!!!");
                 MelonLogger.Warning("加载过程中检测到错误！");
                 MelonLogger.Warning("- 请检查你是否安装了错误的 AquaMai 版本，比如在 SDGA 上使用了 SDEZ 的版本");
                 MelonLogger.Warning("- 你是否正在使用魔改的 Assembly-CSharp.dll，这会导致函数不一致而无法找到需要修改的函数");
                 MelonLogger.Warning("- 请检查是否有冲突的 Mod，或者开启了不兼容的选项");
-                MelonLogger.Warning("!!!!!=================================================================!!!!!");
+                MelonLogger.Warning("===========================================================================");
                 MelonLogger.Warning("Errors detected while loading!");
                 MelonLogger.Warning("- Check if you have installed the wrong version of AquaMai, such as using SDEZ version on SDGA");
                 MelonLogger.Warning("- Are you using a modified Assembly-CSharp.dll, which will cause inconsistent functions and cannot find the functions that need to be modified");
                 MelonLogger.Warning("- Check for conflicting mods, or enabled incompatible options");
-                MelonLogger.Warning("!!!!!=================================================================!!!!!");
+                MelonLogger.Warning("===========================================================================");
             }
 
             MelonLogger.Msg("Loaded!");

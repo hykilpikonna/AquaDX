@@ -327,11 +327,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="AquaMai.zh.toml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="AquaMai.toml" />
+    <EmbeddedResource Include="AquaMai.zh.toml" WithCulture="false" />
+    <EmbeddedResource Include="AquaMai.toml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
