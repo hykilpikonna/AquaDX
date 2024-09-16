@@ -24,10 +24,17 @@ namespace AquaMai
         private void Patch(Type type)
         {
             MelonLogger.Msg($"> Patching {type}");
-            HarmonyInstance.PatchAll(type);
-            foreach (var nested in type.GetNestedTypes())
+            try
             {
-                Patch(nested);
+                HarmonyInstance.PatchAll(type);
+                foreach (var nested in type.GetNestedTypes())
+                {
+                    Patch(nested);
+                }
+            }
+            catch (Exception e)
+            {
+                MelonLogger.Error($"Failed to patch {type}: {e}");
             }
         }
 
@@ -96,6 +103,7 @@ namespace AquaMai
             Patch(typeof(BasicFix));
             Patch(typeof(DisableReboot));
             Patch(typeof(ExtendNotesPool));
+            Patch(typeof(FixCheckAuth));
             // UX
             Patch(typeof(CustomVersionString));
             Patch(typeof(CustomPlaceName));

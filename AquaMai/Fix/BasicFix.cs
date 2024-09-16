@@ -1,7 +1,5 @@
-﻿using AMDaemon.Allnet;
-using HarmonyLib;
+﻿using HarmonyLib;
 using Manager;
-using Manager.Operation;
 using Monitor.MusicSelect.ChainList;
 using Net;
 using UnityEngine;
@@ -15,16 +13,6 @@ public class BasicFix
     private static bool PreIniFileClear()
     {
         return false;
-    }
-
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(OperationManager), "CheckAuth_Proc")]
-    private static void PostCheckAuthProc(ref OperationData ____operationData)
-    {
-        if (Auth.GameServerUri.StartsWith("http://") || Auth.GameServerUri.StartsWith("https://"))
-        {
-            ____operationData.ServerUri = Auth.GameServerUri;
-        }
     }
 
     [HarmonyPrefix]
