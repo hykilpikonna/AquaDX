@@ -68,7 +68,10 @@ ImproveLoadSpeed=true
 SkipVersionCheck=true
 RemoveEncryption=true
 ForceAsServer=true
+# Force the game to be in FreePlay mode
 ForceFreePlay=true
+# Force the game to be in PaidPlay mode with 24 coins locked, conflicts with ForceFreePlay
+ForcePaidPlay=false
 # Add notes sprite to the pool to prevent use up
 ExtendNotesPool=128
 

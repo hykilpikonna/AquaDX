@@ -84,7 +84,10 @@ SkipVersionCheck=true
 RemoveEncryption=true
 # 如果要配置店内招募的话，应该要把这个关闭
 ForceAsServer=true
+# 强制改为免费游玩（FreePlay）
 ForceFreePlay=true
+# 强制付费游玩并锁定 24 个币，和 ForceFreePlay 冲突
+ForcePaidPlay=false
 # 增加更多待命的音符贴图，防止奇怪的自制谱用完音符贴图池
 ExtendNotesPool=128
 

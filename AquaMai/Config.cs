@@ -55,6 +55,7 @@ namespace AquaMai
             public bool RemoveEncryption { get; set; }
             public bool ForceAsServer { get; set; } = true;
             public bool ForceFreePlay { get; set; } = true;
+            public bool ForcePaidPlay { get; set; }
             public int ExtendNotesPool { get; set; }
         }
 

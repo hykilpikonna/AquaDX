@@ -295,6 +295,7 @@
     <Compile Include="Fix\FixCharaCrash.cs" />
     <Compile Include="Fix\ForceAsServer.cs" />
     <Compile Include="Fix\ForceFreePlay.cs" />
+    <Compile Include="Fix\ForcePaidPlay.cs" />
     <Compile Include="Fix\RemoveEncryption.cs" />
     <Compile Include="Fix\SkipVersionCheck.cs" />
     <Compile Include="Helpers\MessageHelper.cs" />
