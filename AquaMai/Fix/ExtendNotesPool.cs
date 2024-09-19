@@ -116,11 +116,4 @@ public class ExtendNotesPool
             ____barGuideObjectList.Add(barGuide);
         }
     }
-
-    [HarmonyPrefix]
-    [HarmonyPatch(typeof(SlideRoot), "UpdateAlpha")]
-    public static void UpdateAlpha(int ____dispLaneNum)
-    {
-        MelonLogger.Msg(____dispLaneNum);
-    }
 }

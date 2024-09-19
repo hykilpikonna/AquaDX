@@ -21,7 +21,7 @@ public class DebugFeature
         {
             GameManager.AutoPlay = (GameManager.AutoPlayMode)((int)(GameManager.AutoPlay + 1) % Enum.GetNames(typeof(GameManager.AutoPlayMode)).Length);
         }
-        else if (DebugInput.GetKeyDown(KeyCode.Return))
+        else if (Input.GetKeyDown(KeyCode.Return))
         {
             isPause = !isPause;
             SoundManager.PauseMusic(isPause);
