@@ -16,6 +16,7 @@
     "@sveltejs/vite-plugin-svelte": "^3.1.0",
     "@tsconfig/svelte": "^5.0.4",
     "@types/d3": "^7",
+    "@unocss/svelte-scoped": "^0.62.4",
     "chartjs-adapter-moment": "^1.0.1",
     "eslint": "^8.57.0",
     "eslint-plugin-svelte": "^2.37.0",
@@ -28,6 +29,7 @@
     "tslib": "^2.6.2",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.7.0",
+    "unocss": "^0.62.4",
     "vite": "^5.2.10"
   },
   "dependencies": {
