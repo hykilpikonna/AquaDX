@@ -39,10 +39,10 @@ namespace AquaMai
             public bool TestProof { get; set; }
             public bool HideSelfMadeCharts { get; set; }
             public bool SelectionDetail { get; set; }
-            public string CustomVersionString { get; set; }
-            public string CustomPlaceName { get; set; }
-            public string ExecOnIdle { get; set; }
-            public string ExecOnEntry { get; set; }
+            public string CustomVersionString { get; set; } = "";
+            public string CustomPlaceName { get; set; } = "";
+            public string ExecOnIdle { get; set; } = "";
+            public string ExecOnEntry { get; set; } = "";
         }
 
         public class PerformanceConfig
