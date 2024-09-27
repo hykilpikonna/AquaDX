@@ -284,12 +284,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cheat\DebugFeature.cs" />
     <Compile Include="Cheat\MapUnlock.cs" />
     <Compile Include="Cheat\TicketUnlock.cs" />
     <Compile Include="Cheat\UnlockUtage.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Fix\BasicFix.cs" />
+    <Compile Include="Fix\DebugFeature.cs" />
     <Compile Include="Fix\DisableReboot.cs" />
     <Compile Include="Fix\ExtendNotesPool.cs" />
     <Compile Include="Fix\FixCharaCrash.cs" />

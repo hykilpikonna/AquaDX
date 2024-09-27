@@ -8,8 +8,6 @@ TicketUnlock=true
 MapUnlock=true
 # Unlock Utage without the need of DXRating 10000
 UnlockUtage=true
-# Restore AutoPlay(Home) and Pause(Enter) for SDGA
-DebugFeature=true
 
 # ===================================
 # UX: User Experience Improvements

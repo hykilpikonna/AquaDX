@@ -18,7 +18,6 @@ namespace AquaMai
             public bool TicketUnlock { get; set; }
             public bool MapUnlock { get; set; }
             public bool UnlockUtage { get; set; }
-            public bool DebugFeature { get; set; }
         }
 
         public class UXConfig

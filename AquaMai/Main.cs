@@ -129,6 +129,7 @@ namespace AquaMai
             Patch(typeof(DisableReboot));
             Patch(typeof(ExtendNotesPool));
             Patch(typeof(FixCheckAuth));
+            Patch(typeof(DebugFeature));
             // UX
             Patch(typeof(CustomVersionString));
             Patch(typeof(CustomPlaceName));
