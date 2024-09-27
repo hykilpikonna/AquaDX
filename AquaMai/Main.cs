@@ -73,7 +73,6 @@ namespace AquaMai
                     {
                         Patch(directiveType);
                     }
-                    else MelonLogger.Error($"Type not found for {categoryProp.Name}.{settingProp.Name}");
                 }
             }
         }
@@ -119,6 +118,7 @@ namespace AquaMai
             // Fixes that does not have side effects
             // These don't need to be configurable
 
+            WindowState.Execute();
             // Helpers
             Patch(typeof(MessageHelper));
             Patch(typeof(MusicDirHelper));

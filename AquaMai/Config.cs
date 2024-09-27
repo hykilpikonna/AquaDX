@@ -57,6 +57,9 @@ namespace AquaMai
             public float JudgeAdjustA { get; set; }
             public float JudgeAdjustB { get; set; }
             public int TouchDelay { get; set; }
+            public bool Windowed { get; set; }
+            public int Width { get; set; }
+            public int Height { get; set; }
         }
 
         public class TimeSavingConfig

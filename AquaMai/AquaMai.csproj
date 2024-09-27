@@ -314,6 +314,7 @@
     <Compile Include="TouchSensitivity\Enable.cs" />
     <Compile Include="Utils\JudgeAdjust.cs" />
     <Compile Include="Utils\LogUserId.cs" />
+    <Compile Include="Utils\WindowState.cs" />
     <Compile Include="UX\CustomPlaceName.cs" />
     <Compile Include="UX\CustomVersionString.cs" />
     <Compile Include="UX\DemoMaster.cs" />

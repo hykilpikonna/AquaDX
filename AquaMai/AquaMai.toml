@@ -72,6 +72,12 @@ JudgeAdjustA=0.0
 JudgeAdjustB=0.0
 # Touch screen delay, unit is milliseconds, one second = 1000 milliseconds. Must be an integer
 TouchDelay=0
+# Window the game
+Windowed=false
+# Width and height for windowed mode, rendering resolution for fullscreen mode
+# If set to 0, windowed mode will remember the user-set size, fullscreen mode will use the current display resolution
+Width=0
+Height=0
 
 # ===================================
 # Save some potentially unnecessary time
