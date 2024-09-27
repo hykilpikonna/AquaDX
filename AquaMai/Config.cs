@@ -8,9 +8,9 @@ namespace AquaMai
     {
         public UXConfig UX { get; set; } = new();
         public CheatConfig Cheat { get; set; } = new();
-        public PerformanceConfig Performance { get; set; } = new();
         public FixConfig Fix { get; set; } = new();
         public UtilsConfig Utils { get; set; } = new();
+        public TimeSavingConfig TimeSaving { get; set; } = new();
         public TouchSensitivityConfig TouchSensitivity { get; set; } = new();
 
         public class CheatConfig
@@ -23,9 +23,7 @@ namespace AquaMai
 
         public class UXConfig
         {
-            public bool SkipWarningScreen { get; set; }
             public bool SinglePlayer { get; set; }
-            public bool SkipToMusicSelection { get; set; }
             public bool LoadAssetsPng { get; set; }
             public bool LoadJacketPng { get; set; }
             public bool LoadAssetBundleWithoutManifest { get; set; }
@@ -33,7 +31,6 @@ namespace AquaMai
             public bool RandomBgm { get; set; }
             public bool DemoMaster { get; set; }
             public bool ExtendTimer { get; set; }
-            public bool SkipEventInfo { get; set; }
             public bool ImmediateSave { get; set; }
             public bool LoadLocalBga { get; set; }
             public bool TestProof { get; set; }
@@ -43,11 +40,6 @@ namespace AquaMai
             public string CustomPlaceName { get; set; } = "";
             public string ExecOnIdle { get; set; } = "";
             public string ExecOnEntry { get; set; } = "";
-        }
-
-        public class PerformanceConfig
-        {
-            public bool ImproveLoadSpeed { get; set; }
         }
 
         public class FixConfig
@@ -66,6 +58,16 @@ namespace AquaMai
             public float JudgeAdjustA { get; set; }
             public float JudgeAdjustB { get; set; }
             public int TouchDelay { get; set; }
+        }
+
+        public class TimeSavingConfig
+        {
+            public bool SkipWarningScreen { get; set; }
+            public bool ImproveLoadSpeed { get; set; }
+            public bool SkipToMusicSelection { get; set; }
+            public bool SkipEventInfo { get; set; }
+            public bool IWontTapOrSlideVigorously { get; set; }
+            public bool SkipGameOverScreen { get; set; }
         }
 
         public class TouchSensitivityConfig

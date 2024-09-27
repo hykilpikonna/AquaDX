@@ -14,12 +14,8 @@ DebugFeature=true
 # ===================================
 # UX: User Experience Improvements
 [UX]
-# Skip the warning screen and logo shown after the POST sequence
-SkipWarningScreen=true
 # Single player: Show 1P only, at the center of the screen
 SinglePlayer=true
-# !!EXPERIMENTAL!! Skip from the card-scanning screen directly to music selection screen
-SkipToMusicSelection=false
 # Set the version string displayed at the top-right corner of the screen
 CustomVersionString=""
 # Deprecated: Use `LoadAssetsPng` instead
@@ -33,8 +29,6 @@ LoadLocalBga=true
 QuickSkip=true
 # Add ".ab" image resources without the need of rebuilding a manifest
 LoadAssetBundleWithoutManifest=true
-# Skip "New Event" and "Information" text boxes for new users
-SkipEventInfo=true
 # Random BGM, put Mai2Cue.{acb,awb} of old version of the game in `LocalAssets\Mai2Cue` and rename them
 # Do not enable when SinglePlayer is off
 RandomBgm=false
@@ -59,10 +53,6 @@ HideSelfMadeCharts=true
 # Show detail of selected song in music selection screen
 SelectionDetail=true
 
-[Performance]
-# Disable some useless delays to speed up the game boot process
-ImproveLoadSpeed=true
-
 [Fix]
 # Allow login with higher data version
 SkipVersionCheck=true
@@ -84,6 +74,22 @@ JudgeAdjustA=0.0
 JudgeAdjustB=0.0
 # Touch screen delay, unit is milliseconds, one second = 1000 milliseconds. Must be an integer
 TouchDelay=0
+
+# ===================================
+# Save some potentially unnecessary time
+[TimeSaving]
+# Skip the warning screen and logo shown after the POST sequence
+SkipWarningScreen=true
+# Disable some useless delays to speed up the game boot process
+ImproveLoadSpeed=true
+# Directly enter the song selection screen after login
+SkipToMusicSelection=false
+# Skip possible prompts like "New area discovered", "New songs added", "There are events" during game login/registration
+SkipEventInfo=true
+# Skip the "Do not tap or slide vigorously" screen, immediately proceed to the next screen once data is loaded
+IWontTapOrSlideVigorously=true
+# Skip the "Goodbye" screen at the end of the game
+SkipGameOverScreen=true
 
 [TouchSensitivity]
 # Enable custom sensitivity

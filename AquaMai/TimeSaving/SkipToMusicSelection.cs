@@ -5,7 +5,7 @@ using Monitor;
 using Process;
 using Process.Information;
 
-namespace AquaMai.UX
+namespace AquaMai.TimeSaving
 {
     public class SkipToMusicSelection
     {

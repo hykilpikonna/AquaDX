@@ -1,4 +1,7 @@
 
+# 试试使用 MaiChartManager 图形化配置 AquaMai 吧！
+# https://github.com/clansty/MaiChartManager
+
 # ===================================
 # “作弊”功能
 [Cheat]
@@ -14,12 +17,8 @@ DebugFeature=true
 # ===================================
 # 用户体验改进
 [UX]
-# 跳过日服启动时候的 WARNING 界面
-SkipWarningScreen=true
 # 单人模式，不显示 2P
 SinglePlayer=true
-# 登录完成后直接进入选歌界面
-SkipToMusicSelection=false
 # 把右上角的版本更改为自定义文本
 CustomVersionString=""
 # 已弃用，请使用 LoadAssetsPng
@@ -38,8 +37,6 @@ QuickSkip=true
 # 优化图片资源的加载，就算没有 AssetBundleImages.manifest 也可以正常加载 ab 格式的图片资源
 # 导入了删除曲包之类的话，应该需要开启这个
 LoadAssetBundleWithoutManifest=true
-# 跳过登录 / 注册游戏时候可能的 “发现了新的区域哟” “乐曲增加” “有活动哟” 之类的提示
-SkipEventInfo=true
 # 在 `LocalAssets\Mai2Cue` 这个目录下放置了旧版游戏的 Mai2Cue.{acb,awb} 并重命名的话，可以在播放游戏 BGM 的时候随机播放这里面的旧版游戏 BGM
 # 和 2P 模式有冲突，如果你没有开启 'SinglePlayer' 的话，请关闭这个
 RandomBgm=false
@@ -64,13 +61,6 @@ CustomPlaceName=""
 HideSelfMadeCharts=true
 # 选歌界面显示选择的歌曲的详情
 SelectionDetail=true
-
-# ===================================
-# 一些性能优化
-[Performance]
-# 在自检界面，每个屏幕结束的时候都会等两秒才进入下一个屏幕，很浪费时间
-# 开了这个选项之后就不会等了
-ImproveLoadSpeed=true
 
 # ===================================
 # 修复一些潜在的问题
@@ -100,6 +90,23 @@ JudgeAdjustA=0.0
 JudgeAdjustB=0.0
 # 触摸屏延迟，单位为毫秒，一秒 = 1000 毫秒。必须是整数
 TouchDelay=0
+
+# ===================================
+# 节省一些不知道有用没用的时间
+[TimeSaving]
+# 跳过日服启动时候的 WARNING 界面
+SkipWarningScreen=true
+# 在自检界面，每个屏幕结束的时候都会等两秒才进入下一个屏幕，很浪费时间
+# 开了这个选项之后就不会等了
+ImproveLoadSpeed=true
+# 登录完成后直接进入选歌界面
+SkipToMusicSelection=false
+# 跳过登录 / 注册游戏时候可能的 “发现了新的区域哟” “乐曲增加” “有活动哟” 之类的提示
+SkipEventInfo=true
+# 跳过“不要大力拍打或滑动哦”这个界面，数据一旦加载完就立马进入下一个界面
+IWontTapOrSlideVigorously=true
+# 跳过游戏结束的“再见”界面
+SkipGameOverScreen=true
 
 [TouchSensitivity]
 # 是否启用自定义灵敏度

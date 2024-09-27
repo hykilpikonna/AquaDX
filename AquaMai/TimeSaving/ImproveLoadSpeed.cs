@@ -2,7 +2,7 @@
 using HarmonyLib;
 using Process;
 
-namespace AquaMai.Performance
+namespace AquaMai.TimeSaving
 {
     public class ImproveLoadSpeed
     {

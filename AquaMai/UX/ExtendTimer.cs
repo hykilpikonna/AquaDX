@@ -52,31 +52,5 @@ namespace AquaMai.UX
             ____monitors[0].SetButtonPressed(InputManager.ButtonSetting.Button04);
             Traverse.Create(__instance).Method("OnTimeUp").GetValue();
         }
-
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(PlInformationMonitor), "IsPlayPlInfoEnd")]
-        public static bool IWontTapOrSlideVigorously(ref bool __result)
-        {
-            __result = true;
-            return false;
-        }
-
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(GameOverMonitor), "IsPlayEnd")]
-        public static bool GameOverMonitorPlayEnd(ref bool __result)
-        {
-            __result = true;
-            return false;
-        }
-
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(GameOverProcess), "OnUpdate")]
-        public static void GameOverProcessOnUpdate(ref GameOverProcess.GameOverSequence ____state)
-        {
-            if (____state == GameOverProcess.GameOverSequence.SkyChange)
-            {
-                ____state = GameOverProcess.GameOverSequence.Disp;
-            }
-        }
     }
 }
