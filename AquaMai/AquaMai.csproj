@@ -309,6 +309,7 @@
     <Compile Include="TimeSaving\SkipEventInfo.cs" />
     <Compile Include="TimeSaving\SkipGameOverScreen.cs" />
     <Compile Include="TimeSaving\SkipToMusicSelection.cs" />
+    <Compile Include="TimeSaving\SkipTrackStart.cs" />
     <Compile Include="TimeSaving\SkipWarningScreen.cs" />
     <Compile Include="TouchSensitivity\Enable.cs" />
     <Compile Include="Utils\JudgeAdjust.cs" />

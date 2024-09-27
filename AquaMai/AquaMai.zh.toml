@@ -107,6 +107,8 @@ SkipEventInfo=true
 IWontTapOrSlideVigorously=true
 # 跳过游戏结束的“再见”界面
 SkipGameOverScreen=true
+# 跳过乐曲开始界面
+SkipTrackStart=true
 
 [TouchSensitivity]
 # 是否启用自定义灵敏度

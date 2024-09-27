@@ -90,6 +90,8 @@ SkipEventInfo=true
 IWontTapOrSlideVigorously=true
 # Skip the "Goodbye" screen at the end of the game
 SkipGameOverScreen=true
+# Skip TrackStart screen
+SkipTrackStart=true
 
 [TouchSensitivity]
 # Enable custom sensitivity

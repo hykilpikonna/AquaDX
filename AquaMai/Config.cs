@@ -68,6 +68,7 @@ namespace AquaMai
             public bool SkipEventInfo { get; set; }
             public bool IWontTapOrSlideVigorously { get; set; }
             public bool SkipGameOverScreen { get; set; }
+            public bool SkipTrackStart { get; set; }
         }
 
         public class TouchSensitivityConfig
