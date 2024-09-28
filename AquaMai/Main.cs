@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using AquaMai.Fix;
 using AquaMai.Helpers;
@@ -35,6 +36,9 @@ namespace AquaMai
                 {
                     Patch(nested);
                 }
+
+                var customMethod = type.GetMethod("DoCustomPatch", BindingFlags.Public | BindingFlags.Static);
+                customMethod?.Invoke(null, [HarmonyInstance]);
             }
             catch (Exception e)
             {
