@@ -320,6 +320,7 @@ DEBUG</DefineConstants>
     <Compile Include="Utils\JudgeAdjust.cs" />
     <Compile Include="Utils\LogUserId.cs" />
     <Compile Include="Utils\PractiseMode.cs" />
+    <Compile Include="Utils\PractiseModeUI.cs" />
     <Compile Include="Utils\WindowState.cs" />
     <Compile Include="UX\CustomPlaceName.cs" />
     <Compile Include="UX\CustomVersionString.cs" />

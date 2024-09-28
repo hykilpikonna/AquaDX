@@ -5,7 +5,6 @@ using AquaMai.Fix;
 using AquaMai.Helpers;
 using HarmonyLib;
 using Manager;
-using MelonLoader;
 using Monitor;
 using Process;
 using UnityEngine;
@@ -15,13 +14,13 @@ namespace AquaMai.Utils;
 
 public class PractiseMode
 {
-    private static double repeatStart = -1;
-    private static double repeatEnd = -1;
-    private static float speed = 1;
+    public static double repeatStart = -1;
+    public static double repeatEnd = -1;
+    public static float speed = 1;
     private static CriAtomExPlayer player;
     private static MovieMaterialMai2 movie;
 
-    private static void SetRepeatEnd(double time)
+    public static void SetRepeatEnd(double time)
     {
         if (repeatStart == -1)
         {
@@ -38,13 +37,13 @@ public class PractiseMode
         repeatEnd = time;
     }
 
-    private static void ClearRepeat()
+    public static void ClearRepeat()
     {
         repeatStart = -1;
         repeatEnd = -1;
     }
 
-    private static void SetSpeed()
+    public static void SetSpeed()
     {
         player.SetPitch((float)(1200 * Math.Log(speed, 2)));
         // player.SetDspTimeStretchRatio(1 / speed);
@@ -53,7 +52,7 @@ public class PractiseMode
         movie.player.SetSpeed(speed);
     }
 
-    private static void SpeedUp()
+    public static void SpeedUp()
     {
         speed += .05f;
         if (speed > 2)
@@ -64,7 +63,7 @@ public class PractiseMode
         SetSpeed();
     }
 
-    private static void SpeedDown()
+    public static void SpeedDown()
     {
         speed -= .05f;
         if (speed < 0.5)
@@ -75,7 +74,7 @@ public class PractiseMode
         SetSpeed();
     }
 
-    private static void SpeedReset()
+    public static void SpeedReset()
     {
         speed = 1;
         SetSpeed();
@@ -108,7 +107,7 @@ public class PractiseMode
         }
     }
 
-    private static DebugWindow debugWin;
+    public static PractiseModeUI ui;
 
     [HarmonyPatch(typeof(GameProcess), "OnStart")]
     [HarmonyPostfix]
@@ -117,23 +116,31 @@ public class PractiseMode
         repeatStart = -1;
         repeatEnd = -1;
         speed = 1;
+        ui = null;
         SetSpeed();
+    }
+
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(GenericProcess), "OnUpdate")]
+    public static void OnGenericProcessUpdate(GenericMonitor[] ____monitors)
+    {
+        if (Input.GetKeyDown(KeyCode.F12))
+        {
+            ____monitors[0].gameObject.AddComponent<DebugWindow>();
+        }
+        else if (Input.GetKeyDown(KeyCode.F11))
+        {
+            ____monitors[0].gameObject.AddComponent<PractiseModeUI>();
+        }
     }
 
     [HarmonyPatch(typeof(GameProcess), "OnUpdate")]
     [HarmonyPostfix]
     public static void GameProcessPostUpdate(GameProcess __instance, GameMonitor[] ____monitors)
     {
-        if (Input.GetKeyDown(KeyCode.F12))
+        if (InputManager.GetSystemInputPush(InputManager.SystemButtonSetting.ButtonTest) && ui is null)
         {
-            if (debugWin is null)
-            {
-                debugWin = ____monitors[0].gameObject.AddComponent<DebugWindow>();
-            }
-            else
-            {
-                MelonLogger.Msg("[PractiseMode] 调试窗口作用中");
-            }
+            ui = ____monitors[0].gameObject.AddComponent<PractiseModeUI>();
         }
 
         if (repeatStart >= 0 && repeatEnd >= 0)
