@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Reflection;
 using AquaMai.Fix;
 using AquaMai.Helpers;
 using HarmonyLib;
@@ -19,7 +18,7 @@ public class PractiseMode
     private static double repeatStart = -1;
     private static double repeatEnd = -1;
     private static float speed = 1;
-    private static List<CriAtomExPlayer> players = [];
+    private static CriAtomExPlayer player;
     private static MovieMaterialMai2 movie;
 
     private static void SetRepeatEnd(double time)
@@ -47,11 +46,9 @@ public class PractiseMode
 
     private static void SetSpeed()
     {
-        foreach (var player in players)
-        {
-            player.SetPitch((float)(1200 * Math.Log(speed, 2)));
-            player.UpdateAll();
-        }
+        player.SetPitch((float)(1200 * Math.Log(speed, 2)));
+        // player.SetDspTimeStretchRatio(1 / speed);
+        player.UpdateAll();
 
         movie.player.SetSpeed(speed);
     }
@@ -120,6 +117,7 @@ public class PractiseMode
         repeatStart = -1;
         repeatEnd = -1;
         speed = 1;
+        SetSpeed();
     }
 
     [HarmonyPatch(typeof(GameProcess), "OnUpdate")]
@@ -161,19 +159,23 @@ public class PractiseMode
         ____curMSec = (float)num + ____msecStartGap;
     }
 
-    [HarmonyPatch]
-    public static class PlayerObjCreate
+    [HarmonyPatch(typeof(SoundCtrl), "Initialize")]
+    [HarmonyPostfix]
+    public static void SoundCtrlPostInitialize(SoundCtrl.InitParam param, Dictionary<int, object> ____players)
     {
-        public static MethodBase TargetMethod()
-        {
-            var type = typeof(SoundCtrl).GetNestedType("PlayerObj", BindingFlags.NonPublic);
-            return AccessTools.Method(type, "Create");
-        }
+        var wrapper = ____players[2];
+        player = (CriAtomExPlayer)wrapper.GetType().GetField("Player").GetValue(wrapper);
+        // var pool = new CriAtomExStandardVoicePool(1, 8, 96000, true, 2);
+        // pool.AttachDspTimeStretch();
+        // player.SetVoicePoolIdentifier(pool.identifier);
 
-        public static void Postfix(CriAtomExPlayer ___Player)
-        {
-            players.Add(___Player);
-        }
+        // debug
+        // var wrapper1 = ____players[7];
+        // var player1 = (CriAtomExPlayer)wrapper1.GetType().GetField("Player").GetValue(wrapper1);
+        // var pool = new CriAtomExStandardVoicePool(1, 8, 96000, true, 2);
+        // pool.AttachDspTimeStretch();
+        // player1.SetVoicePoolIdentifier(pool.identifier);
+        // player1.SetDspTimeStretchRatio(2);
     }
 
     [HarmonyPatch(typeof(MovieController), "Awake")]
