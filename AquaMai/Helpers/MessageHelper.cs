@@ -31,7 +31,7 @@ public class MessageHelper
             replaceText = true,
             text = message,
             changeSize = true,
-            sizeID = size
+            sizeID = size,
         });
     }
 }

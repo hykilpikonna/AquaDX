@@ -37,6 +37,11 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>SDGA145
+DEBUG</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>Libs\0Harmony.dll</HintPath>
@@ -314,6 +319,7 @@
     <Compile Include="TouchSensitivity\Enable.cs" />
     <Compile Include="Utils\JudgeAdjust.cs" />
     <Compile Include="Utils\LogUserId.cs" />
+    <Compile Include="Utils\PractiseMode.cs" />
     <Compile Include="Utils\WindowState.cs" />
     <Compile Include="UX\CustomPlaceName.cs" />
     <Compile Include="UX\CustomVersionString.cs" />

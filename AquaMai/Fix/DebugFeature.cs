@@ -17,6 +17,7 @@ public class DebugFeature
     private static MovieController _gameMovie;
     private static GameMonitor[] _monitors;
     private static object _debugFeatureOriginal;
+    private static System.Type _debugFeatureType;
 
     [HarmonyPatch(typeof(GameProcess), "OnStart")]
     [HarmonyPostfix]
@@ -39,28 +40,79 @@ public class DebugFeature
         else
         {
             MelonLogger.Msg("  > [DebugFeature] Already included");
+            _debugFeatureType = typeof(GameProcess).GetNestedType("DebugFeature", BindingFlags.Instance | BindingFlags.NonPublic);
             h.PatchAll(typeof(GetOriginal));
         }
     }
 
-    public static void SetPause(bool pause)
+    public static bool Pause
     {
+        get
+        {
+            if (IsPolyfill)
+            {
+                return PolyFill.isPause;
+            }
+
+            return (bool)_debugFeatureType.GetField("_debugPause", BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(_debugFeatureOriginal);
+        }
+
+        set
+        {
+            if (IsPolyfill)
+            {
+                PolyFill.isPause = value;
+            }
+            else
+            {
+                _debugFeatureType.GetField("_debugPause", BindingFlags.Instance | BindingFlags.NonPublic)?.SetValue(_debugFeatureOriginal, value);
+            }
+
+            SoundManager.PauseMusic(value);
+            _gameMovie.Pause(value);
+            NotesManager.Pause(value);
+        }
+    }
+
+    public static void Seek(int msec)
+    {
+        Singleton<GamePlayManager>.Instance.Initialize();
         if (IsPolyfill)
         {
-            PolyFill.isPause = pause;
+            PolyFill.DebugTimeSkip(msec);
         }
         else
         {
-            var debugFeatureClass = typeof(GameProcess).GetNestedType("DebugFeature", BindingFlags.Instance | BindingFlags.NonPublic);
-            debugFeatureClass?.GetField("_debugPause", BindingFlags.Instance | BindingFlags.NonPublic)?.SetValue(_debugFeatureOriginal, pause);
+            _debugFeatureType.GetMethod("DebugTimeSkip", BindingFlags.Instance | BindingFlags.NonPublic)?.Invoke(_debugFeatureOriginal, new object[] { msec });
         }
-
-        SoundManager.PauseMusic(pause);
-        _gameMovie.Pause(pause);
-        NotesManager.Pause(pause);
     }
 
-    [HarmonyPatch]
+    public static double CurrentPlayMsec
+    {
+        get
+        {
+            if (IsPolyfill)
+            {
+                return PolyFill.timer;
+            }
+
+            return (double)_debugFeatureType.GetField("_debugTimer", BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(_debugFeatureOriginal);
+        }
+        set
+        {
+            if (IsPolyfill)
+            {
+                PolyFill.timer = value;
+            }
+            else
+            {
+                _debugFeatureType.GetField("_debugTimer", BindingFlags.Instance | BindingFlags.NonPublic)?.SetValue(_debugFeatureOriginal, value);
+            }
+
+            Seek(0);
+        }
+    }
+
     private static class GetOriginal
     {
         [HarmonyPatch(typeof(GameProcess), "OnStart")]
@@ -71,7 +123,6 @@ public class DebugFeature
         }
     }
 
-    [HarmonyPatch]
     private static class PolyFill
     {
         public static bool isPause;

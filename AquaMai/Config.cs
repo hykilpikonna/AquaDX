@@ -60,6 +60,7 @@ namespace AquaMai
             public bool Windowed { get; set; }
             public int Width { get; set; }
             public int Height { get; set; }
+            public bool PractiseMode { get; set; }
         }
 
         public class TimeSavingConfig
