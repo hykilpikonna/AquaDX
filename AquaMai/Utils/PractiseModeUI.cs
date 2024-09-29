@@ -8,8 +8,6 @@ namespace AquaMai.Utils;
 
 public class PractiseModeUI : MonoBehaviour
 {
-    private GUIWindow window;
-
     private float playerWidth;
     private float playerCenter;
     private float windowTop;

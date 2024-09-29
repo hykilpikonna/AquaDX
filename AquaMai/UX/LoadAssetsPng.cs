@@ -68,7 +68,7 @@ public class LoadAssetsPng
             return null;
         }
 
-        var texture = new Texture2D(1, 1);
+        var texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
         texture.LoadImage(File.ReadAllBytes(path));
         return texture;
     }
@@ -125,7 +125,7 @@ public class LoadAssetsPng
             var filename = genre.FileName.ToLowerInvariant();
             var locPath = localAssetsContents.TryGetValue(filename, out var laPath) ? laPath : tabTitlePaths.GetValueOrDefault(filename);
             if (locPath is null) continue;
-            var texture = new Texture2D(1, 1);
+            var texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
             texture.LoadImage(File.ReadAllBytes(locPath));
             ____genreSprite[id] = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         }
@@ -137,7 +137,7 @@ public class LoadAssetsPng
             var filename = version.FileName.ToLowerInvariant();
             var locPath = localAssetsContents.TryGetValue(filename, out var laPath) ? laPath : tabTitlePaths.GetValueOrDefault(filename);
             if (locPath is null) continue;
-            var texture = new Texture2D(1, 1);
+            var texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
             texture.LoadImage(File.ReadAllBytes(locPath));
             ____versionSprite[id] = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         }
