@@ -8,7 +8,6 @@ using Manager;
 using Monitor;
 using Process;
 using UnityEngine;
-using UrGUI.GUIWindow;
 
 namespace AquaMai.Utils;
 
@@ -80,33 +79,6 @@ public class PractiseMode
         SetSpeed();
     }
 
-    private class DebugWindow : MonoBehaviour
-    {
-        private GUIWindow window;
-
-        public void Start()
-        {
-            window = GUIWindow.Begin("练习模式 测试");
-            window.Button("暂停", () => DebugFeature.Pause = !DebugFeature.Pause);
-            window.SameLine();
-            window.Button("向前", () => DebugFeature.Seek(-1000));
-            window.Button("向后", () => DebugFeature.Seek(1000));
-            window.SameLine(1, 1, 1);
-            window.Button("循环开始", () => repeatStart = DebugFeature.CurrentPlayMsec);
-            window.Button("循环结束", () => SetRepeatEnd(DebugFeature.CurrentPlayMsec));
-            window.Button("循环解除", ClearRepeat);
-            window.SameLine(1, 1, 1);
-            window.Button("加速", SpeedUp);
-            window.Button("减速", SpeedDown);
-            window.Button("速度重置", SpeedReset);
-        }
-
-        private void OnGUI()
-        {
-            window?.Draw();
-        }
-    }
-
     public static PractiseModeUI ui;
 
     [HarmonyPatch(typeof(GameProcess), "OnStart")]
@@ -124,11 +96,7 @@ public class PractiseMode
     [HarmonyPatch(typeof(GenericProcess), "OnUpdate")]
     public static void OnGenericProcessUpdate(GenericMonitor[] ____monitors)
     {
-        if (Input.GetKeyDown(KeyCode.F12))
-        {
-            ____monitors[0].gameObject.AddComponent<DebugWindow>();
-        }
-        else if (Input.GetKeyDown(KeyCode.F11))
+        if (Input.GetKeyDown(KeyCode.F11))
         {
             ____monitors[0].gameObject.AddComponent<PractiseModeUI>();
         }

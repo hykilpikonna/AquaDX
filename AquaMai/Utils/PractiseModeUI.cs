@@ -1,65 +1,42 @@
 ﻿using System;
 using AquaMai.Fix;
+using AquaMai.Helpers;
 using Manager;
 using UnityEngine;
-using UrGUI.GUIWindow;
 
 namespace AquaMai.Utils;
 
 public class PractiseModeUI : MonoBehaviour
 {
-    private float playerWidth;
-    private float playerCenter;
-    private float windowTop;
-    private float controlHeight;
-    private float margin;
-    private float sideButtonWidth;
-    private float centerButtonWidth;
-    private int fontSize;
+    private static float windowTop => Screen.height - GuiSizes.PlayerWidth + GuiSizes.PlayerWidth * .22f;
+    private static float controlHeight => GuiSizes.PlayerWidth * .13f;
+    private static float sideButtonWidth => GuiSizes.PlayerWidth * .1f;
+    private static float centerButtonWidth => GuiSizes.PlayerWidth * .28f;
+    private static int fontSize => (int)(GuiSizes.PlayerWidth * .02f);
 
-    public void Start()
-    {
-        playerWidth = Screen.height / 1920f * 1080;
-        if (AquaMai.AppConfig.UX.SinglePlayer)
-        {
-            playerCenter = Screen.width / 2f;
-        }
-        else
-        {
-            playerCenter = Screen.width / 2f - playerWidth / 2;
-        }
-
-        windowTop = Screen.height - playerWidth + playerWidth * .22f;
-        controlHeight = playerWidth * .13f;
-        margin = playerWidth * .01f;
-        sideButtonWidth = playerWidth * .1f;
-        centerButtonWidth = playerWidth * .28f;
-        fontSize = (int)(playerWidth * .02f);
-    }
-
-    public Rect GetButtonRect(int pos, int row)
+    private static Rect GetButtonRect(int pos, int row)
     {
         float x;
         float width;
         switch (pos)
         {
             case 0:
-                x = playerCenter - centerButtonWidth / 2 - sideButtonWidth - margin;
+                x = GuiSizes.PlayerCenter - centerButtonWidth / 2 - sideButtonWidth - GuiSizes.Margin;
                 width = sideButtonWidth;
                 break;
             case 1:
-                x = playerCenter - centerButtonWidth / 2;
+                x = GuiSizes.PlayerCenter - centerButtonWidth / 2;
                 width = centerButtonWidth;
                 break;
             case 2:
-                x = playerCenter + centerButtonWidth / 2 + margin;
+                x = GuiSizes.PlayerCenter + centerButtonWidth / 2 + GuiSizes.Margin;
                 width = sideButtonWidth;
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(pos), pos, null);
         }
 
-        return new Rect(x, windowTop + (margin + controlHeight) * row + margin, width, controlHeight);
+        return new Rect(x, windowTop + (GuiSizes.Margin + controlHeight) * row + GuiSizes.Margin, width, controlHeight);
     }
 
     public void OnGUI()
@@ -72,10 +49,10 @@ public class PractiseModeUI : MonoBehaviour
         buttonStyle.fontSize = fontSize;
 
         GUI.Box(new Rect(
-            playerCenter - centerButtonWidth / 2 - sideButtonWidth - margin * 2,
+            GuiSizes.PlayerCenter - centerButtonWidth / 2 - sideButtonWidth - GuiSizes.Margin * 2,
             windowTop,
-            centerButtonWidth + sideButtonWidth * 2 + margin * 4,
-            controlHeight * 4 + margin * 5
+            centerButtonWidth + sideButtonWidth * 2 + GuiSizes.Margin * 4,
+            controlHeight * 4 + GuiSizes.Margin * 5
         ), "");
 
         GUI.Button(GetButtonRect(0, 0), "Seek <<");

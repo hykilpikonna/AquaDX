@@ -284,9 +284,6 @@ DEBUG</DefineConstants>
     <Reference Include="UnityEngine.XRModule">
       <HintPath>Libs\UnityEngine.XRModule.dll</HintPath>
     </Reference>
-    <Reference Include="UrGUI">
-      <HintPath>Libs\UrGUI.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cheat\MapUnlock.cs" />
@@ -304,6 +301,7 @@ DEBUG</DefineConstants>
     <Compile Include="Fix\ForcePaidPlay.cs" />
     <Compile Include="Fix\RemoveEncryption.cs" />
     <Compile Include="Fix\SkipVersionCheck.cs" />
+    <Compile Include="Helpers\GuiSizes.cs" />
     <Compile Include="Helpers\MessageHelper.cs" />
     <Compile Include="Helpers\MusicDirHelper.cs" />
     <Compile Include="Helpers\SharedInstances.cs" />
@@ -318,9 +316,11 @@ DEBUG</DefineConstants>
     <Compile Include="TimeSaving\SkipWarningScreen.cs" />
     <Compile Include="TouchSensitivity\Enable.cs" />
     <Compile Include="Utils\JudgeAdjust.cs" />
+    <Compile Include="Utils\LogNetworkErrors.cs" />
     <Compile Include="Utils\LogUserId.cs" />
     <Compile Include="Utils\PractiseMode.cs" />
     <Compile Include="Utils\PractiseModeUI.cs" />
+    <Compile Include="Utils\SelectionDetail.cs" />
     <Compile Include="Utils\WindowState.cs" />
     <Compile Include="UX\CustomPlaceName.cs" />
     <Compile Include="UX\CustomVersionString.cs" />
@@ -334,7 +334,6 @@ DEBUG</DefineConstants>
     <Compile Include="UX\QuickSkip.cs" />
     <Compile Include="UX\RandomBgm.cs" />
     <Compile Include="UX\RunCommandOnEvents.cs" />
-    <Compile Include="UX\SelectionDetail.cs" />
     <Compile Include="UX\SinglePlayer.cs" />
     <Compile Include="UX\TestProof.cs" />
   </ItemGroup>

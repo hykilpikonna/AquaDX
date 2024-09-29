@@ -140,6 +140,9 @@ namespace AquaMai
             Patch(typeof(RunCommandOnEvents));
             // Utils
             Patch(typeof(JudgeAdjust));
+# if DEBUG
+            Patch(typeof(LogNetworkErrors));
+# endif
 
             // Apply patches based on the settings
             ApplyPatches();

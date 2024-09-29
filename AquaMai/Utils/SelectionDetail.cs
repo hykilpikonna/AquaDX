@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using AquaMai.Helpers;
 using HarmonyLib;
 using MAI2.Util;
@@ -8,9 +9,8 @@ using Manager.UserDatas;
 using Monitor;
 using Process;
 using UnityEngine;
-using UrGUI.GUIWindow;
 
-namespace AquaMai.UX;
+namespace AquaMai.Utils;
 
 public class SelectionDetail
 {
@@ -65,31 +65,38 @@ public class SelectionDetail
 
     private abstract class Window : MonoBehaviour
     {
-        private GUIWindow window;
         protected abstract int player { get; }
 
-        public void Start()
+        public void OnGUI()
         {
-            var x = Screen.width / 2f - 100;
-            if (!AquaMai.AppConfig.UX.SinglePlayer)
-            {
-                var halfPlayerWidth = Screen.height / 1920f * 1080 / 2;
-                x += halfPlayerWidth * (player == 0 ? -1 : 1);
-            }
-
-            window = GUIWindow.Begin($"ID: {SelectData.MusicData.name.id}", x, Screen.height * 0.87f, 200, 50, 10, 22, 5, true, true, true);
-            window.Label(MusicDirHelper.LookupPath(SelectData.MusicData.name.id).Split('/').Reverse().ToArray()[3]);
+            var dataToShow = new List<string>();
+            dataToShow.Add($"ID: {SelectData.MusicData.name.id}");
+            dataToShow.Add(MusicDirHelper.LookupPath(SelectData.MusicData.name.id).Split('/').Reverse().ToArray()[3]);
             if (SelectData.MusicData.genreName is not null) // SelectData.MusicData.genreName.str may not correct
-                window.Label(Singleton<DataManager>.Instance.GetMusicGenre(SelectData.MusicData.genreName.id)?.genreName);
+                dataToShow.Add(Singleton<DataManager>.Instance.GetMusicGenre(SelectData.MusicData.genreName.id)?.genreName);
             if (SelectData.MusicData.AddVersion is not null)
-                window.Label(Singleton<DataManager>.Instance.GetMusicVersion(SelectData.MusicData.AddVersion.id)?.genreName);
+                dataToShow.Add(Singleton<DataManager>.Instance.GetMusicVersion(SelectData.MusicData.AddVersion.id)?.genreName);
             var notesData = SelectData.MusicData.notesData[difficulty[player]];
-            window.Label($"{notesData?.level}.{notesData?.levelDecimal}");
+            dataToShow.Add($"{notesData?.level}.{notesData?.levelDecimal}");
 
             var rate = CalcB50(SelectData.MusicData, difficulty[player]);
             if (rate > 0)
             {
-                window.Label($"SSS+ => DXRating += {rate}");
+                dataToShow.Add($"SSS+ => DXRating += {rate}");
+            }
+
+
+            var x = GuiSizes.PlayerCenter - 100 + GuiSizes.PlayerWidth * player;
+            var y = Screen.height * 0.87f;
+
+            var labelStyle = GUI.skin.GetStyle("label");
+            labelStyle.fontSize = GuiSizes.FontSize;
+            labelStyle.alignment = TextAnchor.MiddleCenter;
+
+            GUI.Box(new Rect(x, y, 200, dataToShow.Count * GuiSizes.LabelHeight + 2 * GuiSizes.Margin), "");
+            for (var i = 0; i < dataToShow.Count; i++)
+            {
+                GUI.Label(new Rect(x, y + GuiSizes.Margin + i * GuiSizes.LabelHeight, 200, GuiSizes.LabelHeight), dataToShow[i]);
             }
         }
 
@@ -105,11 +112,6 @@ public class SelectionDetail
             }
 
             return 0;
-        }
-
-        private void OnGUI()
-        {
-            window?.Draw();
         }
 
         public void Close()
