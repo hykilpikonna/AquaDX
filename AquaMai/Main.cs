@@ -1,13 +1,17 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading;
 using AquaMai.Fix;
 using AquaMai.Helpers;
+using AquaMai.Resources;
 using AquaMai.Utils;
 using AquaMai.UX;
 using MelonLoader;
 using Tomlet;
+using UnityEngine;
 
 namespace AquaMai
 {
@@ -91,6 +95,22 @@ namespace AquaMai
             s.CopyTo(fs);
         }
 
+        private static void InitLocale()
+        {
+            if (!string.IsNullOrEmpty(AppConfig.UX.Locale))
+            {
+                Locale.Culture = CultureInfo.GetCultureInfo(AppConfig.UX.Locale);
+                return;
+            }
+
+            Locale.Culture = Application.systemLanguage switch
+            {
+                SystemLanguage.Chinese or SystemLanguage.ChineseSimplified or SystemLanguage.ChineseTraditional => CultureInfo.GetCultureInfo("zh"),
+                SystemLanguage.English => CultureInfo.GetCultureInfo("en"),
+                _ => CultureInfo.InvariantCulture
+            };
+        }
+
         public override void OnInitializeMelon()
         {
             // Prevent Chinese characters from being garbled
@@ -118,6 +138,11 @@ namespace AquaMai
             // Migrate old settings
             AppConfig.UX.LoadAssetsPng = AppConfig.UX.LoadAssetsPng || AppConfig.UX.LoadJacketPng;
             AppConfig.UX.LoadJacketPng = false;
+
+            // Init locale with patching C# runtime
+            // https://stackoverflow.com/questions/1952638/single-assembly-multi-language-windows-forms-deployment-ilmerge-and-satellite-a
+            Patch(typeof(I18nSingleAssemblyHook));
+            InitLocale();
 
             // Fixes that does not have side effects
             // These don't need to be configurable

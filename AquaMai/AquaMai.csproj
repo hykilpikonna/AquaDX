@@ -299,6 +299,7 @@ DEBUG</DefineConstants>
     <Compile Include="Fix\ForceAsServer.cs" />
     <Compile Include="Fix\ForceFreePlay.cs" />
     <Compile Include="Fix\ForcePaidPlay.cs" />
+    <Compile Include="Fix\I18nSingleAssemblyHook.cs" />
     <Compile Include="Fix\RemoveEncryption.cs" />
     <Compile Include="Fix\SkipVersionCheck.cs" />
     <Compile Include="Helpers\GuiSizes.cs" />
@@ -307,6 +308,11 @@ DEBUG</DefineConstants>
     <Compile Include="Helpers\SharedInstances.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="Resources\Locale.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Locale.resx</DependentUpon>
+    </Compile>
     <Compile Include="TimeSaving\ImproveLoadSpeed.cs" />
     <Compile Include="TimeSaving\IWontTapOrSlideVigorously.cs" />
     <Compile Include="TimeSaving\SkipEventInfo.cs" />
@@ -344,6 +350,13 @@ DEBUG</DefineConstants>
   <ItemGroup>
     <EmbeddedResource Include="AquaMai.zh.toml" WithCulture="false" />
     <EmbeddedResource Include="AquaMai.toml" />
+    <EmbeddedResource Include="Resources\Locale.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Locale.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Locale.zh.resx" WithCulture="false">
+      <DependentUpon>Locale.resx</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />

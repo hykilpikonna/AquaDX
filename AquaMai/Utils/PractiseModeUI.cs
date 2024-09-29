@@ -1,6 +1,7 @@
 ﻿using System;
 using AquaMai.Fix;
 using AquaMai.Helpers;
+using AquaMai.Resources;
 using Manager;
 using UnityEngine;
 
@@ -55,31 +56,31 @@ public class PractiseModeUI : MonoBehaviour
             controlHeight * 4 + GuiSizes.Margin * 5
         ), "");
 
-        GUI.Button(GetButtonRect(0, 0), "Seek <<");
-        GUI.Button(GetButtonRect(1, 0), "Pause");
-        GUI.Button(GetButtonRect(2, 0), "Seek >>");
+        GUI.Button(GetButtonRect(0, 0), Locale.SeekBackward);
+        GUI.Button(GetButtonRect(1, 0), Locale.Pause);
+        GUI.Button(GetButtonRect(2, 0), Locale.SeekForward);
 
         if (PractiseMode.repeatStart == -1)
         {
-            GUI.Button(GetButtonRect(0, 1), "Start");
-            GUI.Label(GetButtonRect(1, 1), "Loop not set");
+            GUI.Button(GetButtonRect(0, 1), Locale.MarkRepeatStart);
+            GUI.Label(GetButtonRect(1, 1), Locale.RepeatNotSet);
         }
         else if (PractiseMode.repeatEnd == -1)
         {
-            GUI.Button(GetButtonRect(0, 1), "End");
-            GUI.Label(GetButtonRect(1, 1), "Loop start set");
-            GUI.Button(GetButtonRect(2, 1), "Reset");
+            GUI.Button(GetButtonRect(0, 1), Locale.MarkRepeatEnd);
+            GUI.Label(GetButtonRect(1, 1), Locale.RepeatStartSet);
+            GUI.Button(GetButtonRect(2, 1), Locale.RepeatReset);
         }
         else
         {
-            GUI.Label(GetButtonRect(1, 1), "Loop set");
-            GUI.Button(GetButtonRect(2, 1), "Reset");
+            GUI.Label(GetButtonRect(1, 1), Locale.RepeatStartEndSet);
+            GUI.Button(GetButtonRect(2, 1), Locale.RepeatReset);
         }
 
-        GUI.Button(GetButtonRect(0, 2), "Speed -");
-        GUI.Label(GetButtonRect(1, 2), $"Speed {PractiseMode.speed * 100:000}%");
-        GUI.Button(GetButtonRect(2, 2), "Speed +");
-        GUI.Button(GetButtonRect(1, 3), "Speed Reset");
+        GUI.Button(GetButtonRect(0, 2), Locale.SpeedDown);
+        GUI.Label(GetButtonRect(1, 2), $"{Locale.Speed} {PractiseMode.speed * 100:000}%");
+        GUI.Button(GetButtonRect(2, 2), Locale.SpeedUp);
+        GUI.Button(GetButtonRect(1, 3), Locale.SpeedReset);
     }
 
     public void Update()

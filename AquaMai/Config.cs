@@ -22,6 +22,7 @@ namespace AquaMai
 
         public class UXConfig
         {
+            public string Locale { get; set; }
             public bool SinglePlayer { get; set; }
             public bool LoadAssetsPng { get; set; }
             public bool LoadJacketPng { get; set; }
