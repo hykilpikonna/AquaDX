@@ -57,4 +57,16 @@
     <data name="SpeedReset" xml:space="preserve">
         <value>Speed Reset</value>
     </data>
+    <data name="LoadError" xml:space="preserve">
+        <value>Errors detected while loading!
+- Check if you have installed the wrong version of AquaMai, such as using SDEZ version on SDGA
+- Are you using a modified Assembly-CSharp.dll, which will cause inconsistent functions and cannot find the functions that need to be modified
+- Check for conflicting mods, or enabled incompatible options</value>
+    </data>
+    <data name="SavingDontExit" xml:space="preserve">
+        <value>Saving... Do not exit the game</value>
+    </data>
+    <data name="Loaded" xml:space="preserve">
+        <value>Loaded!</value>
+    </data>
 </root>

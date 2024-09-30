@@ -175,19 +175,11 @@ namespace AquaMai
             if (_hasErrors)
             {
                 MelonLogger.Warning("========================================================================!!!");
-                MelonLogger.Warning("加载过程中检测到错误！");
-                MelonLogger.Warning("- 请检查你是否安装了错误的 AquaMai 版本，比如在 SDGA 上使用了 SDEZ 的版本");
-                MelonLogger.Warning("- 你是否正在使用魔改的 Assembly-CSharp.dll，这会导致函数不一致而无法找到需要修改的函数");
-                MelonLogger.Warning("- 请检查是否有冲突的 Mod，或者开启了不兼容的选项");
-                MelonLogger.Warning("===========================================================================");
-                MelonLogger.Warning("Errors detected while loading!");
-                MelonLogger.Warning("- Check if you have installed the wrong version of AquaMai, such as using SDEZ version on SDGA");
-                MelonLogger.Warning("- Are you using a modified Assembly-CSharp.dll, which will cause inconsistent functions and cannot find the functions that need to be modified");
-                MelonLogger.Warning("- Check for conflicting mods, or enabled incompatible options");
+                MelonLogger.Warning(Locale.LoadError);
                 MelonLogger.Warning("===========================================================================");
             }
 
-            MelonLogger.Msg("Loaded!");
+            MelonLogger.Msg(Locale.Loaded);
         }
     }
 }

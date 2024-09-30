@@ -7,12 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using MelonLoader;
-
 namespace AquaMai.Resources {
     using System;
-
-
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -24,15 +22,15 @@ namespace AquaMai.Resources {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Locale {
-
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Locale() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -46,7 +44,7 @@ namespace AquaMai.Resources {
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -60,7 +58,28 @@ namespace AquaMai.Resources {
                 resourceCulture = value;
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loaded!.
+        /// </summary>
+        internal static string Loaded {
+            get {
+                return ResourceManager.GetString("Loaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Errors detected while loading!
+        ///- Check if you have installed the wrong version of AquaMai, such as using SDEZ version on SDGA
+        ///- Are you using a modified Assembly-CSharp.dll, which will cause inconsistent functions and cannot find the functions that need to be modified
+        ///- Check for conflicting mods, or enabled incompatible options.
+        /// </summary>
+        internal static string LoadError {
+            get {
+                return ResourceManager.GetString("LoadError", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to End.
         /// </summary>
@@ -69,7 +88,7 @@ namespace AquaMai.Resources {
                 return ResourceManager.GetString("MarkRepeatEnd", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Start.
         /// </summary>
@@ -78,7 +97,7 @@ namespace AquaMai.Resources {
                 return ResourceManager.GetString("MarkRepeatStart", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Pause.
         /// </summary>
@@ -87,7 +106,7 @@ namespace AquaMai.Resources {
                 return ResourceManager.GetString("Pause", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Loop Not Set.
         /// </summary>
@@ -96,7 +115,7 @@ namespace AquaMai.Resources {
                 return ResourceManager.GetString("RepeatNotSet", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Reset.
         /// </summary>
@@ -105,7 +124,7 @@ namespace AquaMai.Resources {
                 return ResourceManager.GetString("RepeatReset", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Loop Set.
         /// </summary>
@@ -114,7 +133,7 @@ namespace AquaMai.Resources {
                 return ResourceManager.GetString("RepeatStartEndSet", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Loop Start Set.
         /// </summary>
@@ -123,7 +142,16 @@ namespace AquaMai.Resources {
                 return ResourceManager.GetString("RepeatStartSet", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving... Do not exit the game.
+        /// </summary>
+        internal static string SavingDontExit {
+            get {
+                return ResourceManager.GetString("SavingDontExit", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Seek &lt;&lt;.
         /// </summary>
@@ -132,7 +160,7 @@ namespace AquaMai.Resources {
                 return ResourceManager.GetString("SeekBackward", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Seek &gt;&gt;.
         /// </summary>
@@ -141,7 +169,7 @@ namespace AquaMai.Resources {
                 return ResourceManager.GetString("SeekForward", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Speed.
         /// </summary>
@@ -150,7 +178,7 @@ namespace AquaMai.Resources {
                 return ResourceManager.GetString("Speed", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Speed -.
         /// </summary>
@@ -159,7 +187,7 @@ namespace AquaMai.Resources {
                 return ResourceManager.GetString("SpeedDown", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Speed Reset.
         /// </summary>
@@ -168,7 +196,7 @@ namespace AquaMai.Resources {
                 return ResourceManager.GetString("SpeedReset", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Speed +.
         /// </summary>
