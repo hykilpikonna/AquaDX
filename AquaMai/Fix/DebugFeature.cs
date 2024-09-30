@@ -26,6 +26,7 @@ public class DebugFeature
         _gameProcess = __instance;
         _gameMovie = ____gameMovie;
         _monitors = ____monitors;
+        PolyFill.timer = 0;
     }
 
     public static void DoCustomPatch(HarmonyLib.Harmony h)
