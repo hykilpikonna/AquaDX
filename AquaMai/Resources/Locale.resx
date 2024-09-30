@@ -69,4 +69,16 @@
     <data name="Loaded" xml:space="preserve">
         <value>Loaded!</value>
     </data>
+    <data name="NetErrIsAliveServer" xml:space="preserve">
+        <value>Server communication error</value>
+    </data>
+    <data name="NetErrIsAliveAimeReader" xml:space="preserve">
+        <value>Aime reader error</value>
+    </data>
+    <data name="NetErrIsAliveAimeServer" xml:space="preserve">
+        <value>Aime server error</value>
+    </data>
+    <data name="NetErrWasDownloadSuccessOnce" xml:space="preserve">
+        <value>Data download not success</value>
+    </data>
 </root>

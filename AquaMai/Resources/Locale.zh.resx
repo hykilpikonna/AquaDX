@@ -62,4 +62,16 @@
     <data name="Loaded" xml:space="preserve">
         <value>加载完成！</value>
     </data>
+    <data name="NetErrIsAliveServer" xml:space="preserve">
+        <value>主服务器通信错误</value>
+    </data>
+    <data name="NetErrIsAliveAimeReader" xml:space="preserve">
+        <value>Aime 读卡器错误</value>
+    </data>
+    <data name="NetErrIsAliveAimeServer" xml:space="preserve">
+        <value>AimeDB 通信错误</value>
+    </data>
+    <data name="NetErrWasDownloadSuccessOnce" xml:space="preserve">
+        <value>数据下载不成功</value>
+    </data>
 </root>

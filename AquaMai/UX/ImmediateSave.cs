@@ -42,13 +42,10 @@ public class ImmediateSave
         void CheckSaveDone()
         {
             doneCount++;
-            if (doneCount == 4)
-            {
-                if (ui != null)
-                {
-                    UnityEngine.Object.Destroy(ui);
-                }
-            }
+            if (doneCount != 4) return;
+            if (ui == null) return;
+            UnityEngine.Object.Destroy(ui);
+            ui = null;
         }
 
         for (int i = 0; i < 2; i++)

@@ -99,6 +99,42 @@ namespace AquaMai.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aime reader error.
+        /// </summary>
+        internal static string NetErrIsAliveAimeReader {
+            get {
+                return ResourceManager.GetString("NetErrIsAliveAimeReader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aime server error.
+        /// </summary>
+        internal static string NetErrIsAliveAimeServer {
+            get {
+                return ResourceManager.GetString("NetErrIsAliveAimeServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server communication error.
+        /// </summary>
+        internal static string NetErrIsAliveServer {
+            get {
+                return ResourceManager.GetString("NetErrIsAliveServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data download not success.
+        /// </summary>
+        internal static string NetErrWasDownloadSuccessOnce {
+            get {
+                return ResourceManager.GetString("NetErrWasDownloadSuccessOnce", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pause.
         /// </summary>
         internal static string Pause {

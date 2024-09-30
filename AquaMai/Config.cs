@@ -62,6 +62,7 @@ namespace AquaMai
             public int Height { get; set; }
             public bool PractiseMode { get; set; }
             public bool SelectionDetail { get; set; }
+            public bool ShowNetErrorDetail { get; set; }
         }
 
         public class TimeSavingConfig

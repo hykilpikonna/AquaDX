@@ -327,6 +327,7 @@ DEBUG</DefineConstants>
     <Compile Include="Utils\PractiseMode.cs" />
     <Compile Include="Utils\PractiseModeUI.cs" />
     <Compile Include="Utils\SelectionDetail.cs" />
+    <Compile Include="Utils\ShowNetErrorDetail.cs" />
     <Compile Include="Utils\WindowState.cs" />
     <Compile Include="UX\CustomPlaceName.cs" />
     <Compile Include="UX\CustomVersionString.cs" />

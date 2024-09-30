@@ -96,6 +96,8 @@ IWontTapOrSlideVigorously=true
 SkipGameOverScreen=true
 # Skip TrackStart screen
 SkipTrackStart=true
+# Show reason when net icon is gray
+ShowNetErrorDetail=true
 
 [TouchSensitivity]
 # Enable custom sensitivity

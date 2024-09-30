@@ -94,6 +94,8 @@ Width=0
 Height=0
 # 选歌界面显示选择的歌曲的详情
 SelectionDetail=true
+# 出现灰网时显示原因
+ShowNetErrorDetail=true
 
 # ===================================
 # 节省一些不知道有用没用的时间

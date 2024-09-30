@@ -174,8 +174,7 @@ namespace AquaMai
 
             if (_hasErrors)
             {
-                MelonLogger.Warning("========================================================================!!!");
-                MelonLogger.Warning(Locale.LoadError);
+                MelonLogger.Warning("========================================================================!!!\n" + Locale.LoadError);
                 MelonLogger.Warning("===========================================================================");
             }
 
