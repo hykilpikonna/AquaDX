@@ -81,4 +81,7 @@
     <data name="NetErrWasDownloadSuccessOnce" xml:space="preserve">
         <value>Data download not success</value>
     </data>
+    <data name="RatingUpWhenSSSp" xml:space="preserve">
+        <value>SSS+ =&gt; DXRating += {0}</value>
+    </data>
 </root>

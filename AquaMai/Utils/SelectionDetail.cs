@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AquaMai.Helpers;
+using AquaMai.Resources;
 using HarmonyLib;
 using MAI2.Util;
 using Manager;
@@ -82,21 +83,22 @@ public class SelectionDetail
             var rate = CalcB50(SelectData.MusicData, difficulty[player]);
             if (rate > 0)
             {
-                dataToShow.Add($"SSS+ => DXRating += {rate}");
+                dataToShow.Add(string.Format(Locale.RatingUpWhenSSSp, rate));
             }
 
 
-            var x = GuiSizes.PlayerCenter - 100 + GuiSizes.PlayerWidth * player;
+            var width = GuiSizes.FontSize * 15f;
+            var x = GuiSizes.PlayerCenter - width / 2f + GuiSizes.PlayerWidth * player;
             var y = Screen.height * 0.87f;
 
             var labelStyle = GUI.skin.GetStyle("label");
             labelStyle.fontSize = GuiSizes.FontSize;
             labelStyle.alignment = TextAnchor.MiddleCenter;
 
-            GUI.Box(new Rect(x, y, 200, dataToShow.Count * GuiSizes.LabelHeight + 2 * GuiSizes.Margin), "");
+            GUI.Box(new Rect(x, y, width, dataToShow.Count * GuiSizes.LabelHeight + 2 * GuiSizes.Margin), "");
             for (var i = 0; i < dataToShow.Count; i++)
             {
-                GUI.Label(new Rect(x, y + GuiSizes.Margin + i * GuiSizes.LabelHeight, 200, GuiSizes.LabelHeight), dataToShow[i]);
+                GUI.Label(new Rect(x, y + GuiSizes.Margin + i * GuiSizes.LabelHeight, width, GuiSizes.LabelHeight), dataToShow[i]);
             }
         }
 

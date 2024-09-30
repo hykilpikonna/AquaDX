@@ -74,4 +74,7 @@
     <data name="NetErrWasDownloadSuccessOnce" xml:space="preserve">
         <value>数据下载不成功</value>
     </data>
+    <data name="RatingUpWhenSSSp" xml:space="preserve">
+        <value>推到鸟加可上 {0} 分</value>
+    </data>
 </root>

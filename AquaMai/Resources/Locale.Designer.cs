@@ -144,6 +144,15 @@ namespace AquaMai.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SSS+ =&gt; DXRating += {0}.
+        /// </summary>
+        internal static string RatingUpWhenSSSp {
+            get {
+                return ResourceManager.GetString("RatingUpWhenSSSp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loop Not Set.
         /// </summary>
         internal static string RepeatNotSet {
