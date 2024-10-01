@@ -92,6 +92,7 @@ public class PractiseMode
         SetSpeed();
     }
 
+# if DEBUG
     [HarmonyPrefix]
     [HarmonyPatch(typeof(GenericProcess), "OnUpdate")]
     public static void OnGenericProcessUpdate(GenericMonitor[] ____monitors)
@@ -101,6 +102,7 @@ public class PractiseMode
             ____monitors[0].gameObject.AddComponent<PractiseModeUI>();
         }
     }
+# endif
 
     [HarmonyPatch(typeof(GameProcess), "OnUpdate")]
     [HarmonyPostfix]

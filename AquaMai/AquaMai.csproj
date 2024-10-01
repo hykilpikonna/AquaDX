@@ -328,7 +328,6 @@ DEBUG</DefineConstants>
     <Compile Include="Utils\PractiseModeUI.cs" />
     <Compile Include="Utils\SelectionDetail.cs" />
     <Compile Include="Utils\ShowNetErrorDetail.cs" />
-    <Compile Include="Utils\WindowState.cs" />
     <Compile Include="UX\CustomPlaceName.cs" />
     <Compile Include="UX\CustomVersionString.cs" />
     <Compile Include="UX\DemoMaster.cs" />
@@ -343,6 +342,7 @@ DEBUG</DefineConstants>
     <Compile Include="UX\RunCommandOnEvents.cs" />
     <Compile Include="UX\SinglePlayer.cs" />
     <Compile Include="UX\TestProof.cs" />
+    <Compile Include="WindowState\Enable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

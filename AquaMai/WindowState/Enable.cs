@@ -3,32 +3,32 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace AquaMai.Utils;
+namespace AquaMai.WindowState;
 
-public class WindowState
+public class Enable
 {
     private const int GWL_STYLE = -16;
-    private const int WS_WHATEVER  = 0x14CF0000;
+    private const int WS_WHATEVER = 0x14CF0000;
 
     private static IntPtr hwnd = IntPtr.Zero;
 
-    public static void Execute()
+    public static void DoCustomPatch(HarmonyLib.Harmony h)
     {
-        if (AquaMai.AppConfig.Utils.Windowed)
+        if (AquaMai.AppConfig.WindowState.Windowed)
         {
             var alreadyWindowed = Screen.fullScreenMode == FullScreenMode.Windowed;
-            if (AquaMai.AppConfig.Utils.Width == 0 || AquaMai.AppConfig.Utils.Height == 0)
+            if (AquaMai.AppConfig.WindowState.Width == 0 || AquaMai.AppConfig.WindowState.Height == 0)
             {
                 Screen.fullScreenMode = FullScreenMode.Windowed;
             }
             else
             {
                 alreadyWindowed = false;
-                Screen.SetResolution(AquaMai.AppConfig.Utils.Width, AquaMai.AppConfig.Utils.Height, FullScreenMode.Windowed);
+                Screen.SetResolution(AquaMai.AppConfig.WindowState.Width, AquaMai.AppConfig.WindowState.Height, FullScreenMode.Windowed);
             }
 
             hwnd = GetWindowHandle();
-            if(alreadyWindowed)
+            if (alreadyWindowed)
             {
                 SetResizeable();
             }
@@ -44,8 +44,8 @@ public class WindowState
         }
         else
         {
-            var width = AquaMai.AppConfig.Utils.Width == 0 ? Display.main.systemWidth : AquaMai.AppConfig.Utils.Width;
-            var height = AquaMai.AppConfig.Utils.Height == 0 ? Display.main.systemHeight : AquaMai.AppConfig.Utils.Height;
+            var width = AquaMai.AppConfig.WindowState.Width == 0 ? Display.main.systemWidth : AquaMai.AppConfig.WindowState.Width;
+            var height = AquaMai.AppConfig.WindowState.Height == 0 ? Display.main.systemHeight : AquaMai.AppConfig.WindowState.Height;
             Screen.SetResolution(width, height, FullScreenMode.FullScreenWindow);
         }
     }

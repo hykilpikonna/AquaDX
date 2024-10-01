@@ -11,6 +11,7 @@ namespace AquaMai
         public FixConfig Fix { get; set; } = new();
         public UtilsConfig Utils { get; set; } = new();
         public TimeSavingConfig TimeSaving { get; set; } = new();
+        public WindowStateConfig WindowState { get; set; } = new();
         public TouchSensitivityConfig TouchSensitivity { get; set; } = new();
 
         public class CheatConfig
@@ -57,9 +58,6 @@ namespace AquaMai
             public float JudgeAdjustA { get; set; }
             public float JudgeAdjustB { get; set; }
             public int TouchDelay { get; set; }
-            public bool Windowed { get; set; }
-            public int Width { get; set; }
-            public int Height { get; set; }
             public bool PractiseMode { get; set; }
             public bool SelectionDetail { get; set; }
             public bool ShowNetErrorDetail { get; set; }
@@ -74,6 +72,14 @@ namespace AquaMai
             public bool IWontTapOrSlideVigorously { get; set; }
             public bool SkipGameOverScreen { get; set; }
             public bool SkipTrackStart { get; set; }
+        }
+
+        public class WindowStateConfig
+        {
+            public bool Enable { get; set; }
+            public bool Windowed { get; set; }
+            public int Width { get; set; }
+            public int Height { get; set; }
         }
 
         public class TouchSensitivityConfig
