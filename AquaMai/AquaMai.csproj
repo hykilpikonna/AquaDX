@@ -290,6 +290,8 @@ DEBUG</DefineConstants>
     <Compile Include="Cheat\TicketUnlock.cs" />
     <Compile Include="Cheat\UnlockUtage.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="CustomKeyMap\Enable.cs" />
+    <Compile Include="CustomKeyMap\KeyCodeID.cs" />
     <Compile Include="Fix\BasicFix.cs" />
     <Compile Include="Fix\DebugFeature.cs" />
     <Compile Include="Fix\DisableReboot.cs" />
@@ -299,6 +301,7 @@ DEBUG</DefineConstants>
     <Compile Include="Fix\ForceAsServer.cs" />
     <Compile Include="Fix\ForceFreePlay.cs" />
     <Compile Include="Fix\ForcePaidPlay.cs" />
+    <Compile Include="Fix\FrameRateLock.cs" />
     <Compile Include="Fix\I18nSingleAssemblyHook.cs" />
     <Compile Include="Fix\RemoveEncryption.cs" />
     <Compile Include="Fix\SkipVersionCheck.cs" />
@@ -321,6 +324,7 @@ DEBUG</DefineConstants>
     <Compile Include="TimeSaving\SkipTrackStart.cs" />
     <Compile Include="TimeSaving\SkipWarningScreen.cs" />
     <Compile Include="TouchSensitivity\Enable.cs" />
+    <Compile Include="Utils\FrameRateDisplay.cs" />
     <Compile Include="Utils\JudgeAdjust.cs" />
     <Compile Include="Utils\LogNetworkErrors.cs" />
     <Compile Include="Utils\LogUserId.cs" />

@@ -60,6 +60,8 @@ ForceFreePlay=true
 ForcePaidPlay=false
 # Add notes sprite to the pool to prevent use up
 ExtendNotesPool=128
+# Force the frame rate limit to 60 FPS and disable vSync. Do not use if your game has no issues
+FrameRateLock=false
 
 [Utils]
 # Log user ID on login
@@ -78,6 +80,8 @@ Width=0
 Height=0
 # Show detail of selected song in music selection screen
 SelectionDetail=true
+# Display framerate
+FrameRateDisplay=false
 
 # ===================================
 # Save some potentially unnecessary time

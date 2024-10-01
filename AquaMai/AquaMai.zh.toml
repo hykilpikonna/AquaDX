@@ -76,6 +76,8 @@ ForceFreePlay=true
 ForcePaidPlay=false
 # 增加更多待命的音符贴图，防止奇怪的自制谱用完音符贴图池
 ExtendNotesPool=128
+# 强制设置帧率上限为 60 帧并关闭垂直同步。如果你的游戏没有问题，请不要使用
+FrameRateLock=false
 
 [Utils]
 # 登录时将 UserID 输出到日志
@@ -96,6 +98,8 @@ Height=0
 SelectionDetail=true
 # 出现灰网时显示原因
 ShowNetErrorDetail=true
+# 显示帧率
+FrameRateDisplay=false
 
 # ===================================
 # 节省一些不知道有用没用的时间

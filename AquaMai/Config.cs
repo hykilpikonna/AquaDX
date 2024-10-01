@@ -50,6 +50,7 @@ namespace AquaMai
             public bool ForceFreePlay { get; set; } = true;
             public bool ForcePaidPlay { get; set; }
             public int ExtendNotesPool { get; set; }
+            public bool FrameRateLock { get; set; }
         }
 
         public class UtilsConfig
@@ -61,6 +62,7 @@ namespace AquaMai
             public bool PractiseMode { get; set; }
             public bool SelectionDetail { get; set; }
             public bool ShowNetErrorDetail { get; set; }
+            public bool FrameRateDisplay { get; set; }
         }
 
         public class TimeSavingConfig
@@ -119,6 +121,12 @@ namespace AquaMai
             public byte E6 { get; set; } = 20;
             public byte E7 { get; set; } = 20;
             public byte E8 { get; set; } = 20;
+        }
+
+        public class CustomKeyMapConfig
+        {
+            public bool Enable { get; set; }
+            public string[] KeyMap { get; set; } = new string[0];
         }
     }
 }
