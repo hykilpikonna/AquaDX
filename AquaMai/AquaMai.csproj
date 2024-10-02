@@ -336,6 +336,7 @@ DEBUG</DefineConstants>
     <Compile Include="UX\CustomVersionString.cs" />
     <Compile Include="UX\DemoMaster.cs" />
     <Compile Include="UX\ExtendTimer.cs" />
+    <Compile Include="UX\HideMask.cs" />
     <Compile Include="UX\HideSelfMadeCharts.cs" />
     <Compile Include="UX\ImmediateSave.cs" />
     <Compile Include="UX\LoadAssetsPng.cs" />

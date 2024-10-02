@@ -26,6 +26,7 @@ namespace AquaMai
         {
             public string Locale { get; set; }
             public bool SinglePlayer { get; set; }
+            public bool HideMask { get; set; }
             public bool LoadAssetsPng { get; set; }
             public bool LoadJacketPng { get; set; }
             public bool LoadAssetBundleWithoutManifest { get; set; }

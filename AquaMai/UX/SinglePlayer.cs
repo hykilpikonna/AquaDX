@@ -16,13 +16,10 @@ namespace AquaMai.UX
     {
         [HarmonyPrefix]
         [HarmonyPatch(typeof(Main.GameMain), "LateInitialize", new Type[] { typeof(MonoBehaviour), typeof(Transform), typeof(Transform) })]
-        public static bool LateInitialize(MonoBehaviour gameMainObject, ref Transform left, ref Transform right)
+        public static void LateInitialize(MonoBehaviour gameMainObject, ref Transform left, ref Transform right)
         {
             left.transform.position = Vector3.zero;
             right.localScale = Vector3.zero;
-            GameObject.Find("Mask").SetActive(false);
-
-            return true;
         }
 
         [HarmonyPrefix]

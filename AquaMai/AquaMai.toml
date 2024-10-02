@@ -14,6 +14,8 @@ UnlockUtage=true
 [UX]
 # Single player: Show 1P only, at the center of the screen
 SinglePlayer=true
+# Remove the circle mask in the game
+HideMask=true
 # Set the version string displayed at the top-right corner of the screen
 CustomVersionString=""
 # Deprecated: Use `LoadAssetsPng` instead

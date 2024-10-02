@@ -17,6 +17,8 @@ UnlockUtage=true
 [UX]
 # 单人模式，不显示 2P
 SinglePlayer=true
+# 移除遮罩
+HideMask=true
 # 把右上角的版本更改为自定义文本
 CustomVersionString=""
 # 已弃用，请使用 LoadAssetsPng
