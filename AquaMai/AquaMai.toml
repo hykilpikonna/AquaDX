@@ -50,6 +50,9 @@ CustomPlaceName=""
 # In the song selection screen, press the Service button or the "7" key (the round button in the middle of the arrow keys in the default ADX firmware) to toggle the display of self-made charts.
 # A directory is considered to contain self-made charts if it does not have DataConfig.xml or OfficialChartsMark.txt in the Axxx directory.
 HideSelfMadeCharts=true
+# Place font.ttf in the LocalAssets directory to replace the game's global font
+# Cannot be used together with FontFix
+CustomFont=false
 
 [Fix]
 # Allow login with higher data version
@@ -64,6 +67,9 @@ ForcePaidPlay=false
 ExtendNotesPool=128
 # Force the frame rate limit to 60 FPS and disable vSync. Do not use if your game has no issues
 FrameRateLock=false
+# Use Microsoft YaHei Bold to display characters not in the font library
+# Cannot be used together with CustomFont
+FontFix=true
 
 [Utils]
 # Log user ID on login

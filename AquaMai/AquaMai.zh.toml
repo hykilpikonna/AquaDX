@@ -59,6 +59,9 @@ CustomPlaceName=""
 # 选歌界面按下 Service 键或者键盘上的 “7” 键（ADX 默认固件下箭头键中间的圆形按键）切换自制谱的显示和隐藏
 # 是否是自制谱的判断方式是 Axxx 目录里没有 DataConfig.xml 或 OfficialChartsMark.txt 就认为这个目录里是自制谱
 HideSelfMadeCharts=true
+# 在 LocalAssets 目录下放置 font.ttf 可以替换游戏的全局字体
+# 不可以和 FontFix 一起使用
+CustomFont=false
 
 # ===================================
 # 修复一些潜在的问题
@@ -80,6 +83,9 @@ ForcePaidPlay=false
 ExtendNotesPool=128
 # 强制设置帧率上限为 60 帧并关闭垂直同步。如果你的游戏没有问题，请不要使用
 FrameRateLock=false
+# 在显示字库里没有的字时使用微软雅黑 Bold 显示
+# 不可以和 CustomFont 一起使用
+FontFix=true
 
 [Utils]
 # 登录时将 UserID 输出到日志
