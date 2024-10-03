@@ -90,6 +90,9 @@ Height=0
 SelectionDetail=true
 # Display framerate
 FrameRateDisplay=false
+# Practice mode, activated by pressing Test in the game
+# Must be used together with TestProof
+PracticeMode=true
 
 # ===================================
 # Save some potentially unnecessary time

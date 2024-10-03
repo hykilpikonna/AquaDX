@@ -108,6 +108,9 @@ SelectionDetail=true
 ShowNetErrorDetail=true
 # 显示帧率
 FrameRateDisplay=false
+# 练习模式，在游戏中按 Test 打开
+# 必须和 TestProof 一起用
+PracticeMode=true
 
 # ===================================
 # 节省一些不知道有用没用的时间
