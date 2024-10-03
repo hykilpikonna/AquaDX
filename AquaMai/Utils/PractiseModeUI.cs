@@ -81,6 +81,9 @@ public class PractiseModeUI : MonoBehaviour
         GUI.Label(GetButtonRect(1, 2), $"{Locale.Speed} {PractiseMode.speed * 100:000}%");
         GUI.Button(GetButtonRect(2, 2), Locale.SpeedUp);
         GUI.Button(GetButtonRect(1, 3), Locale.SpeedReset);
+
+        GUI.Label(GetButtonRect(0, 3), TimeSpan.FromMilliseconds(DebugFeature.CurrentPlayMsec).ToString(@"mm\:ss\.fff"));
+        GUI.Label(GetButtonRect(2, 3), TimeSpan.FromMilliseconds(NotesManager.Instance().getPlayFinalMsec()).ToString(@"mm\:ss\.fff"));
     }
 
     public void Update()
