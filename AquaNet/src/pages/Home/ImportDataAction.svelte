@@ -39,9 +39,10 @@
       const data = JSON.parse(await file.text()) as any;
       const me = await USER.me();
 
-      if (Array.isArray(data) && data.every(it => Array.isArray(it?.userMusicDetailList))) {
+      const maybeUserMusicList = data?.userMusicList || data;
+      if (Array.isArray(maybeUserMusicList) && maybeUserMusicList.every(it => Array.isArray(it?.userMusicDetailList))) {
         // Is music list array
-        await GAME.importMusicDetail("mai2", data.flatMap(it => it.userMusicDetailList));
+        await GAME.importMusicDetail("mai2", maybeUserMusicList.flatMap(it => it.userMusicDetailList));
         location.href = `/u/${me.username}/mai2`;
         return;
       }
