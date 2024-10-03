@@ -20,6 +20,7 @@ namespace AquaMai.UX
         {
             left.transform.position = Vector3.zero;
             right.localScale = Vector3.zero;
+            GameObject.Find("Mask").transform.position = new Vector3(540f, 0f, 0f);
         }
 
         [HarmonyPrefix]
