@@ -5,6 +5,7 @@
   import StatusOverlays from "../../components/StatusOverlays.svelte";
   import { CARD, GAME, USER } from "../../libs/sdk";
   import Icon from "@iconify/svelte";
+  import { showOpenFilePicker } from 'show-open-file-picker'
 
   let load = false;
   let error = "";
@@ -17,8 +18,8 @@
   let confirmAction: (override: boolean) => void;
 
   const startImport = async () => {
-    const [fileHandle] = await window.showOpenFilePicker({
-      id: 'aquadx_import',
+    const [fileHandle] = await (window.showOpenFilePicker || showOpenFilePicker)({
+      id: 'aquadx_import' as any,
       startIn: 'downloads',
       types: [
         {
@@ -36,9 +37,16 @@
     try {
       const file = await fileHandle.getFile();
       const data = JSON.parse(await file.text()) as any;
-      const game = getGameByCode(data.gameId);
-
       const me = await USER.me();
+
+      if (Array.isArray(data) && data.every(it => Array.isArray(it?.userMusicDetailList))) {
+        // Is music list array
+        await GAME.importMusicDetail("mai2", data.flatMap(it => it.userMusicDetailList));
+        location.href = `/u/${me.username}/mai2`;
+        return;
+      }
+
+      const game = getGameByCode(data.gameId);
       const userGames = await CARD.userGames(me.username);
 
       const existed = userGames[game];
@@ -78,42 +86,42 @@
 </script>
 
 <ActionCard color="209, 124, 102" icon="bxs:file-import" on:click={startImport}>
-  <h3>{t('home.import')}</h3>
-  <span>{t('home.import-description')}</span>
+    <h3>{t('home.import')}</h3>
+    <span>{t('home.import-description')}</span>
 </ActionCard>
 
 <StatusOverlays {error} loading={load}/>
 
 {#if conflict}
-  <div class="overlay" transition:fade>
-    <div>
-      <h2>{t('home.import.data-conflict')}</h2>
-      <p></p>
-      <div class="conflict-cards">
-        <div class="old card">
-          <span class="type">{t('home.linkcard.account-card')}</span>
-          <span>{t('home.linkcard.name')}: {conflict.oldName}</span>
-          <span>{t('home.linkcard.rating')}: {conflict.oldRating}</span>
-          <div class="trash">
-            <Icon icon="ph:trash-duotone"/>
-          </div>
+    <div class="overlay" transition:fade>
+        <div>
+            <h2>{t('home.import.data-conflict')}</h2>
+            <p></p>
+            <div class="conflict-cards">
+                <div class="old card">
+                    <span class="type">{t('home.linkcard.account-card')}</span>
+                    <span>{t('home.linkcard.name')}: {conflict.oldName}</span>
+                    <span>{t('home.linkcard.rating')}: {conflict.oldRating}</span>
+                    <div class="trash">
+                        <Icon icon="ph:trash-duotone"/>
+                    </div>
+                </div>
+                <div class="icon">
+                    <Icon icon="icon-park-outline:down"/>
+                </div>
+                <div class="new card">
+                    <span class="type">{t('home.import.new-data')}</span>
+                    <span>{t('home.linkcard.name')}: {conflict.newName}</span>
+                    <span>{t('home.linkcard.rating')}: {conflict.newRating}</span>
+                </div>
+            </div>
+            <p></p>
+            <div class="buttons">
+                <button on:click={() => confirmAction(false)}>{t('action.cancel')}</button>
+                <button class="error" on:click={() => confirmAction(true)}>{t('action.confirm')}</button>
+            </div>
         </div>
-        <div class="icon">
-          <Icon icon="icon-park-outline:down"/>
-        </div>
-        <div class="new card">
-          <span class="type">{t('home.import.new-data')}</span>
-          <span>{t('home.linkcard.name')}: {conflict.newName}</span>
-          <span>{t('home.linkcard.rating')}: {conflict.newRating}</span>
-        </div>
-      </div>
-      <p></p>
-      <div class="buttons">
-        <button on:click={() => confirmAction(false)}>{t('action.cancel')}</button>
-        <button class="error" on:click={() => confirmAction(true)}>{t('action.confirm')}</button>
-      </div>
     </div>
-  </div>
 {/if}
 
 <style lang="sass">
