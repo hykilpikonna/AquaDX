@@ -16,6 +16,7 @@ namespace AquaMai.UX
             {
                 var userOption = Singleton<GamePlayManager>.Instance.GetGameScore(i).UserOption;
                 userOption.NoteSpeed = OptionNotespeedID.Speed6_5;
+                userOption.TouchSpeed = OptionTouchspeedID.Speed7_0;
             }
         }
 
