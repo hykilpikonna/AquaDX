@@ -4,8 +4,10 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
+using AquaMai.CustomSkin;
 using AquaMai.Fix;
 using AquaMai.Helpers;
+using AquaMai.RenderTweak;
 using AquaMai.Resources;
 using AquaMai.Utils;
 using AquaMai.UX;
@@ -164,6 +166,13 @@ namespace AquaMai
             Patch(typeof(RunCommandOnEvents));
             // Utils
             Patch(typeof(JudgeAdjust));
+            
+            // My Patches
+            Patch(typeof(CustomNoteSkin));
+            Patch(typeof(SlideAutoPlayTweak));
+            Patch(typeof(TrackStartProcessTweak));
+            Patch(typeof(SlideJudgeTweak));
+            Patch(typeof(FixConnSlide));
 # if DEBUG
             Patch(typeof(LogNetworkErrors));
 # endif

@@ -292,12 +292,14 @@ DEBUG</DefineConstants>
     <Compile Include="Config.cs" />
     <Compile Include="CustomKeyMap\Enable.cs" />
     <Compile Include="CustomKeyMap\KeyCodeID.cs" />
+    <Compile Include="CustomSkin\CustomNoteSkin.cs" />
     <Compile Include="Fix\BasicFix.cs" />
     <Compile Include="Fix\DebugFeature.cs" />
     <Compile Include="Fix\DisableReboot.cs" />
     <Compile Include="Fix\ExtendNotesPool.cs" />
     <Compile Include="Fix\FixCharaCrash.cs" />
     <Compile Include="Fix\FixCheckAuth.cs" />
+    <Compile Include="Fix\FixConnSlide.cs" />
     <Compile Include="Fix\FontFix.cs" />
     <Compile Include="Fix\ForceAsServer.cs" />
     <Compile Include="Fix\ForceFreePlay.cs" />
@@ -312,6 +314,9 @@ DEBUG</DefineConstants>
     <Compile Include="Helpers\SharedInstances.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="RenderTweak\SlideAutoPlayTweak.cs" />
+    <Compile Include="RenderTweak\SlideJudgeTweak.cs" />
+    <Compile Include="RenderTweak\TrackStartProcessTweak.cs" />
     <Compile Include="Resources\Locale.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
