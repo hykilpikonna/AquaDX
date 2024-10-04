@@ -12,7 +12,6 @@ namespace AquaMai.UX
     public class RandomBgm
     {
         private static List<string> _acbs = new List<string>();
-        private static Random _rng = new Random();
 
         [HarmonyPostfix]
         [HarmonyPatch(typeof(SoundManager), "Initialize")]
@@ -43,7 +42,7 @@ namespace AquaMai.UX
                 case Cue.BGM_COLLECTION:
                 case Cue.BGM_RESULT_CLEAR:
                 case Cue.BGM_RESULT:
-                    var acb = _acbs[_rng.Next(_acbs.Count)];
+                    var acb = _acbs[UnityEngine.Random.Range(0, _acbs.Count)];
                     acbID = SoundManager.AcbID.Max;
                     var result = Singleton<SoundCtrl>.Instance.LoadCueSheet((int)acbID, acb);
                     MelonLogger.Msg($"Picked {acb} for {cueIndex}, result: {result}");

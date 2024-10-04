@@ -338,6 +338,7 @@ DEBUG</DefineConstants>
     <Compile Include="Utils\SelectionDetail.cs" />
     <Compile Include="Utils\ShowNetErrorDetail.cs" />
     <Compile Include="UX\CustomFont.cs" />
+    <Compile Include="UX\CustomLogo.cs" />
     <Compile Include="UX\CustomNoteSkin.cs" />
     <Compile Include="UX\CustomPlaceName.cs" />
     <Compile Include="UX\CustomVersionString.cs" />

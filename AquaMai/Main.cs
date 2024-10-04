@@ -164,6 +164,7 @@ namespace AquaMai
             Patch(typeof(CustomVersionString));
             Patch(typeof(CustomPlaceName));
             Patch(typeof(RunCommandOnEvents));
+            Patch(typeof(CustomLogo));
             // Utils
             Patch(typeof(JudgeAdjust));
 # if DEBUG
