@@ -1,7 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-using System.Reflection;
+using System.IO;
 using HarmonyLib;
 using MelonLoader;
 using Monitor;
@@ -9,13 +8,13 @@ using Monitor.Game;
 using Process;
 using UnityEngine;
 
-namespace AquaMai.CustomSkin;
+namespace AquaMai.UX;
 
 public class CustomNoteSkin
 {
     private static readonly List<string> ImageExts = [".jpg", ".png", ".jpeg"];
     private static readonly List<string> SlideFanFields = ["_normalSlideFan", "_eachSlideFan", "_breakSlideFan", "_breakSlideFanEff"];
-    
+
     private static Sprite customOutline;
     private static Sprite[,] customSlideFan = new Sprite[4, 11];
 
@@ -28,7 +27,7 @@ public class CustomNoteSkin
             MelonLogger.Msg($"[CustomNoteSkin] Cannot found field {fieldName}");
             return false;
         }
-        
+
         var fieldType = fieldTraverse.GetValueType();
         if (!idx1.HasValue)
         {
@@ -83,19 +82,19 @@ public class CustomNoteSkin
 
         return true;
     }
-    
+
     [HarmonyPostfix]
     [HarmonyPatch(typeof(GameNotePrefabContainer), "Initialize")]
     private static void LoadNoteSkin()
     {
         if (!Directory.Exists(Path.Combine(Environment.CurrentDirectory, "Skins"))) return;
-        
+
         foreach (var laFile in Directory.EnumerateFiles(Path.Combine(Environment.CurrentDirectory, "Skins")))
         {
             if (!ImageExts.Contains(Path.GetExtension(laFile).ToLowerInvariant())) continue;
             var texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
             texture.LoadImage(File.ReadAllBytes(laFile));
-            
+
             var name = Path.GetFileNameWithoutExtension(laFile);
             var args = name.Split('_');
             // 文件名的格式是 XXXXXXXX_A_B 表示 GameNoteImageContainer._XXXXXXXX[A, B]
@@ -105,7 +104,7 @@ public class CustomNoteSkin
             int? idx2 = (args.Length < 3)? null : (int.TryParse(args[2], out temp) ? temp : null);
 
             Traverse traverse;
-            
+
             if (fieldName == "_outline")
             {
                 customOutline = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 1f);
@@ -140,14 +139,14 @@ public class CustomNoteSkin
                     0, SpriteMeshType.Tight, target.sprite.border
                 );
                 target.sprite = custom;
-                
+
                 traverse = Traverse.Create(GameNotePrefabContainer.TouchTapC);
                 noticeObject = traverse.Field<GameObject>("NoticeObject").Value;
                 noticeObject.GetComponent<SpriteRenderer>().sprite = custom;
                 MelonLogger.Msg($"[CustomNoteSkin] Successfully loaded {name}");
                 continue;
             }
-            
+
             if (fieldName == "_touchHold")
             {
                 if (!idx1.HasValue)
@@ -170,7 +169,7 @@ public class CustomNoteSkin
                 MelonLogger.Msg($"[CustomNoteSkin] Successfully loaded {name}");
                 continue;
             }
-            
+
             if (fieldName == "_normalTouchBorder")
             {
                 if (!idx1.HasValue)
@@ -192,7 +191,7 @@ public class CustomNoteSkin
                 MelonLogger.Msg($"[CustomNoteSkin] Successfully loaded {name}");
                 continue;
             }
-            
+
             if (fieldName == "_eachTouchBorder")
             {
                 if (!idx1.HasValue)
@@ -214,14 +213,14 @@ public class CustomNoteSkin
                 MelonLogger.Msg($"[CustomNoteSkin] Successfully loaded {name}");
                 continue;
             }
-                
+
             if (LoadIntoGameNoteImageContainer(fieldName, idx1, idx2, texture))
             {
                 MelonLogger.Msg($"[CustomNoteSkin] Successfully loaded {name}");
             }
         }
     }
-    
+
     [HarmonyPostfix]
     [HarmonyPatch(typeof(GameCtrl), "Initialize")]
     private static void ChangeOutlineTexture(GameObject ____guideEndPointObj)
@@ -231,7 +230,7 @@ public class CustomNoteSkin
             ____guideEndPointObj.GetComponent<SpriteRenderer>().sprite = customOutline;
         }
     }
-    
+
     [HarmonyPostfix]
     [HarmonyPatch(typeof(SlideFan), "Initialize")]
     private static void ChangeFanTexture(
@@ -251,7 +250,7 @@ public class CustomNoteSkin
                     position = ____spriteLines[2 * i].transform.localPosition;
                     ____spriteLines[2 * i].transform.localPosition = new Vector3(0, position.y, position.z);
                     ____spriteLines[2 * i].color = Color.white;
-                    
+
                     ____spriteLines[2 * i + 1].sprite = sprite;
                     position = ____spriteLines[2 * i + 1].transform.localPosition;
                     ____spriteLines[2 * i + 1].transform.localPosition = new Vector3(0, position.y, position.z);
@@ -264,7 +263,7 @@ public class CustomNoteSkin
                     position = ____effectSprites[2 * i].transform.localPosition;
                     ____effectSprites[2 * i].transform.localPosition = new Vector3(0, position.y, position.z);
                     ____effectSprites[2 * i].color = Color.white;
-                    
+
                     ____effectSprites[2 * i + 1].sprite = sprite;
                     position = ____effectSprites[2 * i + 1].transform.localPosition;
                     ____effectSprites[2 * i + 1].transform.localPosition = new Vector3(0, position.y, position.z);
@@ -283,7 +282,7 @@ public class CustomNoteSkin
                     position = ____spriteLines[2 * i].transform.localPosition;
                     ____spriteLines[2 * i].transform.localPosition = new Vector3(0, position.y, position.z);
                     ____spriteLines[2 * i].color = Color.white;
-                    
+
                     ____spriteLines[2 * i + 1].sprite = sprite;
                     position = ____spriteLines[2 * i + 1].transform.localPosition;
                     ____spriteLines[2 * i + 1].transform.localPosition = new Vector3(0, position.y, position.z);
@@ -302,7 +301,7 @@ public class CustomNoteSkin
                     position = ____spriteLines[2 * i].transform.localPosition;
                     ____spriteLines[2 * i].transform.localPosition = new Vector3(0, position.y, position.z);
                     ____spriteLines[2 * i].color = Color.white;
-                    
+
                     ____spriteLines[2 * i + 1].sprite = sprite;
                     position = ____spriteLines[2 * i + 1].transform.localPosition;
                     ____spriteLines[2 * i + 1].transform.localPosition = new Vector3(0, position.y, position.z);

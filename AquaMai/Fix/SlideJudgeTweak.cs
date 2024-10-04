@@ -5,7 +5,7 @@ using Monitor;
 using Process;
 using UnityEngine;
 
-namespace AquaMai.RenderTweak;
+namespace AquaMai.Fix;
 
 public class SlideJudgeTweak
 {
@@ -60,7 +60,7 @@ public class SlideJudgeTweak
             }
         }
     }
-    
+
     /*
      * 这个 Patch 让 Wifi Slide 的判定显示有上下的区别 (原本所有 Wifi 的判定显示都是朝向圆心的), 就像 majdata 里那样
      * 这个 bug 产生的原因是 SBGA 忘记给 Wifi 的 EndButtonId 赋值了

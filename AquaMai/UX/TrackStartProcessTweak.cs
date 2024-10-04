@@ -4,7 +4,7 @@ using Process;
 using UI;
 using UnityEngine;
 
-namespace AquaMai.RenderTweak;
+namespace AquaMai.UX;
 
 public class TrackStartProcessTweak
 {

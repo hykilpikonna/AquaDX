@@ -3,14 +3,14 @@ using HarmonyLib;
 using Manager;
 using Monitor;
 
-namespace AquaMai.RenderTweak;
+namespace AquaMai.Fix;
 
 public class SlideAutoPlayTweak
 {
     /* 这个 Patch 用于修复以下 bug:
      *     SlideFan 在 AutoPlay 时, 只有第一个箭头会消失
      * 原 method 逻辑如下:
-     * 
+     *
      *     if (this.IsNoteCheckTimeStartIgnoreJudgeWait())
      *     {
      *         // do something ...
@@ -34,7 +34,7 @@ public class SlideAutoPlayTweak
      *         }
      *         // do something ...
      *     }
-     * 
+     *
      * 导致这个 bug 的原因是 else 分支的 for 循环终止条件写错了, 应该是 11.0 (因为有 11 个箭头), SBGA 写成了 1.0
      * 这个 method 中一共只有 5 处 ldc.r4 的 IL Code, 依次为 10.0, 11.0, 1.0, 1.0, 0.0
      * 修复 bug 需要把第三处的 1.0 更改为 11.0, 这里使用 Transpiler 解决
@@ -61,7 +61,7 @@ public class SlideAutoPlayTweak
         }
         return instList;
     }
-    
+
     /* 这个 Patch 让 Slide 在 AutoPlay 的时候, 每个区仍然会分按下和松开两段进行推进 (加上 this._hitIn 的变化)
      * 原 method 逻辑如下:
      *
@@ -98,5 +98,5 @@ public class SlideAutoPlayTweak
             ____hitIn = ____hitAreaList.Count * prop > ____hitIndex + 0.5f;
         }
     }
-    
+
 }
