@@ -160,6 +160,7 @@ namespace AquaMai
             Patch(typeof(DebugFeature));
             Patch(typeof(FixConnSlide));
             Patch(typeof(SlideAutoPlayTweak));
+            Patch(typeof(FixLevelDisplay));
             // UX
             Patch(typeof(CustomVersionString));
             Patch(typeof(CustomPlaceName));

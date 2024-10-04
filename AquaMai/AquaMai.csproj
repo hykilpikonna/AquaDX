@@ -299,6 +299,7 @@ DEBUG</DefineConstants>
     <Compile Include="Fix\FixCharaCrash.cs" />
     <Compile Include="Fix\FixCheckAuth.cs" />
     <Compile Include="Fix\FixConnSlide.cs" />
+    <Compile Include="Fix\FixLevelDisplay.cs" />
     <Compile Include="Fix\FontFix.cs" />
     <Compile Include="Fix\ForceAsServer.cs" />
     <Compile Include="Fix\ForceFreePlay.cs" />
