@@ -68,6 +68,9 @@ CustomNoteSkin=false
 # 隐藏“TRACK X”字样和 DX/标准谱面的显示框
 # 录制谱面确认用
 TrackStartProcessTweak=false
+# 完全隐藏烟花
+# 不能和 HanabiFix 一起使用
+HideHanabi=false
 
 # ===================================
 # 修复一些潜在的问题
@@ -95,6 +98,9 @@ FontFix=true
 # 让 BreakSlide 的 Critical 判定也可以像 BreakTap 一样闪烁
 # 让圆弧形的 Slide 的判定显示与判定线精确对齐 (原本会有一点歪)
 SlideJudgeTweak=true
+# 修复 1p 模式下的烟花大小
+# 不能和 HideHanabi 一起使用
+HanabiFix=true
 
 [Utils]
 # 登录时将 UserID 输出到日志

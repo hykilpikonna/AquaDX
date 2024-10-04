@@ -59,6 +59,8 @@ CustomNoteSkin=false
 # Hide "TRACK X" text and DX/Standard chart display box
 # For recording chart confirmation
 TrackStartProcessTweak=false
+# Cannot be used together with HanabiFix
+HideHanabi=false
 
 [Fix]
 # Allow login with higher data version
@@ -79,6 +81,8 @@ FontFix=true
 # Make the Critical judgment of BreakSlide flash like BreakTap
 # Align the judgment display of arc-shaped Slide with the judgment line accurately (it was slightly off before)
 SlideJudgeTweak=true
+# Cannot be used together with HideHanabi
+HanabiFix=false
 
 [Utils]
 # Log user ID on login

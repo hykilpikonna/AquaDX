@@ -304,6 +304,7 @@ DEBUG</DefineConstants>
     <Compile Include="Fix\ForceFreePlay.cs" />
     <Compile Include="Fix\ForcePaidPlay.cs" />
     <Compile Include="Fix\FrameRateLock.cs" />
+    <Compile Include="Fix\HanabiFix.cs" />
     <Compile Include="Fix\I18nSingleAssemblyHook.cs" />
     <Compile Include="Fix\RemoveEncryption.cs" />
     <Compile Include="Fix\SkipVersionCheck.cs" />
@@ -342,6 +343,7 @@ DEBUG</DefineConstants>
     <Compile Include="UX\CustomVersionString.cs" />
     <Compile Include="UX\DemoMaster.cs" />
     <Compile Include="UX\ExtendTimer.cs" />
+    <Compile Include="UX\HideHanabi.cs" />
     <Compile Include="UX\HideMask.cs" />
     <Compile Include="UX\HideSelfMadeCharts.cs" />
     <Compile Include="UX\ImmediateSave.cs" />
