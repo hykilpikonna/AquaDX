@@ -48,14 +48,6 @@ public class BasicFix
     }
 
     [HarmonyPrefix]
-    [HarmonyPatch(typeof(NetHttpClient), "CheckServerHash")]
-    private static bool CheckServerHash(ref bool __result)
-    {
-        __result = true;
-        return false;
-    }
-
-    [HarmonyPrefix]
     [HarmonyPatch(typeof(GameManager), "CalcSpecialNum")]
     private static bool CalcSpecialNum(ref int __result)
     {
@@ -80,5 +72,13 @@ public class BasicFix
                 ____digitLevel.ChangeText(levelID.GetLevelNum().PadRight(2));
                 break;
         }
+    }
+
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(NetHttpClient), "CheckServerHash")]
+    private static bool CheckServerHash(ref bool __result)
+    {
+        __result = true;
+        return false;
     }
 }

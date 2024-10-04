@@ -50,6 +50,9 @@ CustomPlaceName=""
 # In the song selection screen, press the Service button or the "7" key (the round button in the middle of the arrow keys in the default ADX firmware) to toggle the display of self-made charts.
 # A directory is considered to contain self-made charts if it does not have DataConfig.xml or OfficialChartsMark.txt in the Axxx directory.
 HideSelfMadeCharts=true
+# Place font.ttf in the LocalAssets directory to replace the game's global font
+# Cannot be used together with FontFix
+CustomFont=false
 
 [Fix]
 # Allow login with higher data version
@@ -64,6 +67,9 @@ ForcePaidPlay=false
 ExtendNotesPool=128
 # Force the frame rate limit to 60 FPS and disable vSync. Do not use if your game has no issues
 FrameRateLock=false
+# Use Microsoft YaHei Bold to display characters not in the font library
+# Cannot be used together with CustomFont
+FontFix=true
 
 [Utils]
 # Log user ID on login
@@ -74,16 +80,13 @@ JudgeAdjustA=0.0
 JudgeAdjustB=0.0
 # Touch screen delay, unit is milliseconds, one second = 1000 milliseconds. Must be an integer
 TouchDelay=0
-# Window the game
-Windowed=false
-# Width and height for windowed mode, rendering resolution for fullscreen mode
-# If set to 0, windowed mode will remember the user-set size, fullscreen mode will use the current display resolution
-Width=0
-Height=0
 # Show detail of selected song in music selection screen
 SelectionDetail=true
 # Display framerate
 FrameRateDisplay=false
+# Practice mode, activated by pressing Test in the game
+# Must be used together with TestProof
+PractiseMode=true
 
 # ===================================
 # Save some potentially unnecessary time
@@ -104,6 +107,16 @@ SkipGameOverScreen=true
 SkipTrackStart=true
 # Show reason when net icon is gray
 ShowNetErrorDetail=true
+
+[WindowState]
+# If not enabled, no operations will be performed on the game window
+Enable=false
+# Window the game
+Windowed=false
+# Width and height for windowed mode, rendering resolution for fullscreen mode
+# If set to 0, windowed mode will remember the user-set size, fullscreen mode will use the current display resolution
+Width=0
+Height=0
 
 [TouchSensitivity]
 # Enable custom sensitivity
@@ -150,3 +163,27 @@ E5=20
 E6=20
 E7=20
 E8=20
+
+[CustomKeyMap]
+Enable = false
+# These settings will work regardless of whether you have enabled segatools' io4 emulation
+Test = "ScrollLock"
+Service = "Pause"
+Button1_1P = "W"
+Button2_1P = "E"
+Button3_1P = "D"
+Button4_1P = "C"
+Button5_1P = "X"
+Button6_1P = "Z"
+Button7_1P = "A"
+Button8_1P = "Q"
+Select_1P = "Alpha3"
+Button1_2P = "Keypad8"
+Button2_2P = "Keypad9"
+Button3_2P = "Keypad6"
+Button4_2P = "Keypad3"
+Button5_2P = "Keypad2"
+Button6_2P = "Keypad1"
+Button7_2P = "Keypad4"
+Button8_2P = "Keypad7"
+Select_2P = "KeypadMultiply"

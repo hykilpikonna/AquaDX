@@ -300,6 +300,7 @@ DEBUG</DefineConstants>
     <Compile Include="Fix\FixCharaCrash.cs" />
     <Compile Include="Fix\FixCheckAuth.cs" />
     <Compile Include="Fix\FixConnSlide.cs" />
+    <Compile Include="Fix\FontFix.cs" />
     <Compile Include="Fix\ForceAsServer.cs" />
     <Compile Include="Fix\ForceFreePlay.cs" />
     <Compile Include="Fix\ForcePaidPlay.cs" />
@@ -337,6 +338,7 @@ DEBUG</DefineConstants>
     <Compile Include="Utils\PractiseModeUI.cs" />
     <Compile Include="Utils\SelectionDetail.cs" />
     <Compile Include="Utils\ShowNetErrorDetail.cs" />
+    <Compile Include="UX\CustomFont.cs" />
     <Compile Include="UX\CustomPlaceName.cs" />
     <Compile Include="UX\CustomVersionString.cs" />
     <Compile Include="UX\DemoMaster.cs" />

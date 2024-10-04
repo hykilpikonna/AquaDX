@@ -38,6 +38,7 @@ namespace AquaMai
             public bool LoadLocalBga { get; set; }
             public bool TestProof { get; set; }
             public bool HideSelfMadeCharts { get; set; }
+            public bool CustomFont { get; set; }
             public string CustomVersionString { get; set; } = "";
             public string CustomPlaceName { get; set; } = "";
             public string ExecOnIdle { get; set; } = "";
@@ -53,6 +54,7 @@ namespace AquaMai
             public bool ForcePaidPlay { get; set; }
             public int ExtendNotesPool { get; set; }
             public bool FrameRateLock { get; set; }
+            public bool FontFix { get; set; }
         }
 
         public class UtilsConfig
