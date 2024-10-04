@@ -40,17 +40,19 @@ public class CustomLogo
     {
         if (segaLogo.Count > 0)
         {
+            var logo = segaLogo[UnityEngine.Random.Range(0, segaLogo.Count)];
             foreach (var monitor in ____monitors)
             {
-                monitor.transform.Find("Canvas/Main/SegaAllNet_LOGO/NUL_ADT_SegaAllNet_LOGO/SegaLogo").GetComponent<Image>().sprite = segaLogo[UnityEngine.Random.Range(0, segaLogo.Count)];
+                monitor.transform.Find("Canvas/Main/SegaAllNet_LOGO/NUL_ADT_SegaAllNet_LOGO/SegaLogo").GetComponent<Image>().sprite = logo;
             }
         }
 
         if (allNetLogo.Count > 0)
         {
+            var logo = allNetLogo[UnityEngine.Random.Range(0, allNetLogo.Count)];
             foreach (var monitor in ____monitors)
             {
-                monitor.transform.Find("Canvas/Main/SegaAllNet_LOGO/NUL_ADT_SegaAllNet_LOGO/AllNetLogo").GetComponent<Image>().sprite = (allNetLogo[UnityEngine.Random.Range(0, allNetLogo.Count)]);
+                monitor.transform.Find("Canvas/Main/SegaAllNet_LOGO/NUL_ADT_SegaAllNet_LOGO/AllNetLogo").GetComponent<Image>().sprite = logo;
             }
         }
     }
