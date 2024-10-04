@@ -12,7 +12,7 @@ namespace AquaMai.UX;
 
 public class CustomNoteSkin
 {
-    private static readonly List<string> ImageExts = [".jpg", ".png", ".jpeg"];
+    private static readonly List<string> ImageExts = [".png", ".jpg", ".jpeg"];
     private static readonly List<string> SlideFanFields = ["_normalSlideFan", "_eachSlideFan", "_breakSlideFan", "_breakSlideFanEff"];
 
     private static Sprite customOutline;
@@ -37,6 +37,7 @@ public class CustomNoteSkin
                 MelonLogger.Msg($"[CustomNoteSkin] Field {fieldName} is a {fieldType.Name}, not a Sprite");
                 return false;
             }
+
             var target = fieldTraverse.GetValue<Sprite>();
             var pivot = new Vector2(target.pivot.x / target.rect.width, target.pivot.y / target.rect.height);
             var custom = Sprite.Create(
@@ -53,6 +54,7 @@ public class CustomNoteSkin
                 MelonLogger.Msg($"[CustomNoteSkin] Field {fieldName} is a {fieldType.Name}, not a Sprite[]");
                 return false;
             }
+
             var targetArray = fieldTraverse.GetValue<Sprite[]>();
             var target = targetArray[idx1.Value];
             var pivot = new Vector2(target.pivot.x / target.rect.width, target.pivot.y / target.rect.height);
@@ -70,6 +72,7 @@ public class CustomNoteSkin
                 MelonLogger.Msg($"[CustomNoteSkin] Field {fieldName} is a {fieldType.Name}, not a Sprite[,]");
                 return false;
             }
+
             var targetArray = fieldTraverse.GetValue<Sprite[,]>();
             var target = targetArray[idx1.Value, idx2.Value];
             var pivot = new Vector2(target.pivot.x / target.rect.width, target.pivot.y / target.rect.height);
@@ -87,9 +90,9 @@ public class CustomNoteSkin
     [HarmonyPatch(typeof(GameNotePrefabContainer), "Initialize")]
     private static void LoadNoteSkin()
     {
-        if (!Directory.Exists(Path.Combine(Environment.CurrentDirectory, "Skins"))) return;
+        if (!Directory.Exists(Path.Combine(Environment.CurrentDirectory, "LocalAssets", "Skins"))) return;
 
-        foreach (var laFile in Directory.EnumerateFiles(Path.Combine(Environment.CurrentDirectory, "Skins")))
+        foreach (var laFile in Directory.EnumerateFiles(Path.Combine(Environment.CurrentDirectory, "LocalAssets", "Skins")))
         {
             if (!ImageExts.Contains(Path.GetExtension(laFile).ToLowerInvariant())) continue;
             var texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
@@ -100,8 +103,8 @@ public class CustomNoteSkin
             // 文件名的格式是 XXXXXXXX_A_B 表示 GameNoteImageContainer._XXXXXXXX[A, B]
             // 视具体情况, A, B 可能不存在
             var fieldName = '_' + args[0];
-            int? idx1 = (args.Length < 2)? null : (int.TryParse(args[1], out var temp) ? temp : null);
-            int? idx2 = (args.Length < 3)? null : (int.TryParse(args[2], out temp) ? temp : null);
+            int? idx1 = (args.Length < 2) ? null : (int.TryParse(args[1], out var temp) ? temp : null);
+            int? idx2 = (args.Length < 3) ? null : (int.TryParse(args[2], out temp) ? temp : null);
 
             Traverse traverse;
 
@@ -119,6 +122,7 @@ public class CustomNoteSkin
                     MelonLogger.Msg($"[CustomNoteSkin] Field {fieldName} needs a index");
                     continue;
                 }
+
                 var i = SlideFanFields.IndexOf(fieldName);
                 customSlideFan[i, idx1.Value] = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(1f, 0.5f), 1f);
                 MelonLogger.Msg($"[CustomNoteSkin] Successfully loaded {name}");
@@ -154,6 +158,7 @@ public class CustomNoteSkin
                     MelonLogger.Msg($"[CustomNoteSkin] Field {fieldName} needs a index");
                     continue;
                 }
+
                 traverse = Traverse.Create(GameNotePrefabContainer.TouchHoldC);
                 var target = traverse.Field<SpriteRenderer[]>("ColorsObject").Value;
                 var renderer = target[idx1.Value];
@@ -177,6 +182,7 @@ public class CustomNoteSkin
                     MelonLogger.Msg($"[CustomNoteSkin] Field {fieldName} needs a index");
                     continue;
                 }
+
                 traverse = Traverse.Create(GameNotePrefabContainer.TouchReserve);
                 var target = traverse.Field<Sprite[]>("_reserveSingleSprite").Value;
                 var targetSprite = target[idx1.Value - 2];
@@ -199,6 +205,7 @@ public class CustomNoteSkin
                     MelonLogger.Msg($"[CustomNoteSkin] Field {fieldName} needs a index");
                     continue;
                 }
+
                 traverse = Traverse.Create(GameNotePrefabContainer.TouchReserve);
                 var target = traverse.Field<Sprite[]>("_reserveEachSprite").Value;
                 var targetSprite = target[idx1.Value - 2];
@@ -256,6 +263,7 @@ public class CustomNoteSkin
                     ____spriteLines[2 * i + 1].transform.localPosition = new Vector3(0, position.y, position.z);
                     ____spriteLines[2 * i + 1].color = Color.white;
                 }
+
                 sprite = customSlideFan[3, i];
                 if (sprite != null)
                 {

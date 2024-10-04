@@ -53,6 +53,12 @@ HideSelfMadeCharts=true
 # Place font.ttf in the LocalAssets directory to replace the game's global font
 # Cannot be used together with FontFix
 CustomFont=false
+# Provide the ability to use custom note skins (advanced feature)
+CustomNoteSkin=false
+# Delayed the animation of the song start screen
+# Hide "TRACK X" text and DX/Standard chart display box
+# For recording chart confirmation
+TrackStartProcessTweak=false
 
 [Fix]
 # Allow login with higher data version
@@ -70,6 +76,9 @@ FrameRateLock=false
 # Use Microsoft YaHei Bold to display characters not in the font library
 # Cannot be used together with CustomFont
 FontFix=true
+# Make the Critical judgment of BreakSlide flash like BreakTap
+# Align the judgment display of arc-shaped Slide with the judgment line accurately (it was slightly off before)
+SlideJudgeTweak=true
 
 [Utils]
 # Log user ID on login

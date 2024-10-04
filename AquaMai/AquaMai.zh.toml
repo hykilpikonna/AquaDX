@@ -62,6 +62,12 @@ HideSelfMadeCharts=true
 # 在 LocalAssets 目录下放置 font.ttf 可以替换游戏的全局字体
 # 不可以和 FontFix 一起使用
 CustomFont=false
+# 提供自定义音符皮肤的能力（高级功能）
+CustomNoteSkin=false
+# 推迟了歌曲开始界面的动画
+# 隐藏“TRACK X”字样和 DX/标准谱面的显示框
+# 录制谱面确认用
+TrackStartProcessTweak=false
 
 # ===================================
 # 修复一些潜在的问题
@@ -86,6 +92,9 @@ FrameRateLock=false
 # 在显示字库里没有的字时使用微软雅黑 Bold 显示
 # 不可以和 CustomFont 一起使用
 FontFix=true
+# 让 BreakSlide 的 Critical 判定也可以像 BreakTap 一样闪烁
+# 让圆弧形的 Slide 的判定显示与判定线精确对齐 (原本会有一点歪)
+SlideJudgeTweak=true
 
 [Utils]
 # 登录时将 UserID 输出到日志
