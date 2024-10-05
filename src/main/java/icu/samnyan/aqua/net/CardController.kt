@@ -16,7 +16,10 @@ import icu.samnyan.aqua.sega.wacca.model.db.WcUserRepo
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.RestController
+import java.time.LocalDateTime
 import kotlin.jvm.optionals.getOrNull
+import kotlin.random.Random
+import kotlin.random.nextULong
 
 @RestController
 @API("/api/v2/card")
@@ -130,12 +133,20 @@ class CardController(
  *
  * Assumption: The card is already linked to the user.
  */
-suspend fun <T : IUserData> migrateCard(repo: GenericUserDataRepo<T>, card: Card): Bool
+suspend fun <T : IUserData> migrateCard(repo: GenericUserDataRepo<T>, cardRepo: CardRepository, card: Card): Bool
 {
+    val ghost = card.aquaUser!!.ghostCard
+
     // Check if data already exists in the user's ghost card
-    async { repo.findByCard(card.aquaUser!!.ghostCard) }?.let {
-        // Unbind the data from the card
-        it.card = null
+    async { repo.findByCard(ghost) }?.let {
+        // Create a new dummy card for deleted data
+        it.card = async { cardRepo.save(Card().apply {
+            luid = "Migrated data of ghost card ${ghost.id} for user ${card.aquaUser!!.auId}"
+            // Randomize an extId outside the normal range
+            extId = Random.nextLong(0x7FFFFFFFL shl 32, 0x7FFFFFFEL shl 32)
+            registerTime = LocalDateTime.now()
+            accessTime = registerTime
+        }) }
         async { repo.save(it) }
     }
 
