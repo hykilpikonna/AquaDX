@@ -39,6 +39,9 @@ namespace AquaMai
             public bool TestProof { get; set; }
             public bool HideSelfMadeCharts { get; set; }
             public bool CustomFont { get; set; }
+            public bool CustomNoteSkin { get; set; }
+            public bool TrackStartProcessTweak { get; set; }
+            public bool HideHanabi { get; set; }
             public string CustomVersionString { get; set; } = "";
             public string CustomPlaceName { get; set; } = "";
             public string ExecOnIdle { get; set; } = "";
@@ -55,6 +58,8 @@ namespace AquaMai
             public int ExtendNotesPool { get; set; }
             public bool FrameRateLock { get; set; }
             public bool FontFix { get; set; }
+            public bool SlideJudgeTweak { get; set; }
+            public bool HanabiFix { get; set; }
         }
 
         public class UtilsConfig

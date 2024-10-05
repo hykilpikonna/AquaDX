@@ -48,14 +48,6 @@ public class BasicFix
     }
 
     [HarmonyPrefix]
-    [HarmonyPatch(typeof(NetHttpClient), "CheckServerHash")]
-    private static bool CheckServerHash(ref bool __result)
-    {
-        __result = true;
-        return false;
-    }
-
-    [HarmonyPrefix]
     [HarmonyPatch(typeof(GameManager), "CalcSpecialNum")]
     private static bool CalcSpecialNum(ref int __result)
     {
@@ -63,22 +55,11 @@ public class BasicFix
         return false;
     }
 
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(MusicChainCardObejct), "SetLevel")]
-    private static void FixLevelShift(MusicLevelID levelID, ref SpriteCounter ____digitLevel, ref SpriteCounter ____doubleDigitLevel)
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(NetHttpClient), "CheckServerHash")]
+    private static bool CheckServerHash(ref bool __result)
     {
-        switch (levelID)
-        {
-            case > MusicLevelID.Level9P:
-                ____digitLevel.gameObject.SetActive(value: false);
-                ____doubleDigitLevel.gameObject.SetActive(value: true);
-                ____doubleDigitLevel.ChangeText(levelID.GetLevelNum().PadRight(3));
-                break;
-            case >= MusicLevelID.None:
-                ____digitLevel.gameObject.SetActive(value: true);
-                ____doubleDigitLevel.gameObject.SetActive(value: false);
-                ____digitLevel.ChangeText(levelID.GetLevelNum().PadRight(2));
-                break;
-        }
+        __result = true;
+        return false;
     }
 }

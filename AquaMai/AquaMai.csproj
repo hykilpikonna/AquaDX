@@ -298,14 +298,19 @@ DEBUG</DefineConstants>
     <Compile Include="Fix\ExtendNotesPool.cs" />
     <Compile Include="Fix\FixCharaCrash.cs" />
     <Compile Include="Fix\FixCheckAuth.cs" />
+    <Compile Include="Fix\FixConnSlide.cs" />
+    <Compile Include="Fix\FixLevelDisplay.cs" />
     <Compile Include="Fix\FontFix.cs" />
     <Compile Include="Fix\ForceAsServer.cs" />
     <Compile Include="Fix\ForceFreePlay.cs" />
     <Compile Include="Fix\ForcePaidPlay.cs" />
     <Compile Include="Fix\FrameRateLock.cs" />
+    <Compile Include="Fix\HanabiFix.cs" />
     <Compile Include="Fix\I18nSingleAssemblyHook.cs" />
     <Compile Include="Fix\RemoveEncryption.cs" />
     <Compile Include="Fix\SkipVersionCheck.cs" />
+    <Compile Include="Fix\SlideAutoPlayTweak.cs" />
+    <Compile Include="Fix\SlideJudgeTweak.cs" />
     <Compile Include="Helpers\GuiSizes.cs" />
     <Compile Include="Helpers\MessageHelper.cs" />
     <Compile Include="Helpers\MusicDirHelper.cs" />
@@ -334,10 +339,13 @@ DEBUG</DefineConstants>
     <Compile Include="Utils\SelectionDetail.cs" />
     <Compile Include="Utils\ShowNetErrorDetail.cs" />
     <Compile Include="UX\CustomFont.cs" />
+    <Compile Include="UX\CustomLogo.cs" />
+    <Compile Include="UX\CustomNoteSkin.cs" />
     <Compile Include="UX\CustomPlaceName.cs" />
     <Compile Include="UX\CustomVersionString.cs" />
     <Compile Include="UX\DemoMaster.cs" />
     <Compile Include="UX\ExtendTimer.cs" />
+    <Compile Include="UX\HideHanabi.cs" />
     <Compile Include="UX\HideMask.cs" />
     <Compile Include="UX\HideSelfMadeCharts.cs" />
     <Compile Include="UX\ImmediateSave.cs" />
@@ -349,6 +357,7 @@ DEBUG</DefineConstants>
     <Compile Include="UX\RunCommandOnEvents.cs" />
     <Compile Include="UX\SinglePlayer.cs" />
     <Compile Include="UX\TestProof.cs" />
+    <Compile Include="UX\TrackStartProcessTweak.cs" />
     <Compile Include="WindowState\Enable.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -368,9 +377,6 @@ DEBUG</DefineConstants>
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Performance\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Fody.6.8.1\build\Fody.targets" Condition="Exists('packages\Fody.6.8.1\build\Fody.targets')" />

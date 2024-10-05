@@ -53,6 +53,14 @@ HideSelfMadeCharts=true
 # Place font.ttf in the LocalAssets directory to replace the game's global font
 # Cannot be used together with FontFix
 CustomFont=false
+# Provide the ability to use custom note skins (advanced feature)
+CustomNoteSkin=false
+# Delayed the animation of the song start screen
+# Hide "TRACK X" text and DX/Standard chart display box
+# For recording chart confirmation
+TrackStartProcessTweak=false
+# Cannot be used together with HanabiFix
+HideHanabi=false
 
 [Fix]
 # Allow login with higher data version
@@ -70,6 +78,11 @@ FrameRateLock=false
 # Use Microsoft YaHei Bold to display characters not in the font library
 # Cannot be used together with CustomFont
 FontFix=true
+# Make the Critical judgment of BreakSlide flash like BreakTap
+# Align the judgment display of arc-shaped Slide with the judgment line accurately (it was slightly off before)
+SlideJudgeTweak=true
+# Cannot be used together with HideHanabi
+HanabiFix=false
 
 [Utils]
 # Log user ID on login
@@ -80,16 +93,13 @@ JudgeAdjustA=0.0
 JudgeAdjustB=0.0
 # Touch screen delay, unit is milliseconds, one second = 1000 milliseconds. Must be an integer
 TouchDelay=0
-# Window the game
-Windowed=false
-# Width and height for windowed mode, rendering resolution for fullscreen mode
-# If set to 0, windowed mode will remember the user-set size, fullscreen mode will use the current display resolution
-Width=0
-Height=0
 # Show detail of selected song in music selection screen
 SelectionDetail=true
 # Display framerate
 FrameRateDisplay=false
+# Practice mode, activated by pressing Test in the game
+# Must be used together with TestProof
+PractiseMode=true
 
 # ===================================
 # Save some potentially unnecessary time
@@ -110,6 +120,16 @@ SkipGameOverScreen=true
 SkipTrackStart=true
 # Show reason when net icon is gray
 ShowNetErrorDetail=true
+
+[WindowState]
+# If not enabled, no operations will be performed on the game window
+Enable=false
+# Window the game
+Windowed=false
+# Width and height for windowed mode, rendering resolution for fullscreen mode
+# If set to 0, windowed mode will remember the user-set size, fullscreen mode will use the current display resolution
+Width=0
+Height=0
 
 [TouchSensitivity]
 # Enable custom sensitivity
@@ -156,3 +176,27 @@ E5=20
 E6=20
 E7=20
 E8=20
+
+[CustomKeyMap]
+Enable = false
+# These settings will work regardless of whether you have enabled segatools' io4 emulation
+Test = "ScrollLock"
+Service = "Pause"
+Button1_1P = "W"
+Button2_1P = "E"
+Button3_1P = "D"
+Button4_1P = "C"
+Button5_1P = "X"
+Button6_1P = "Z"
+Button7_1P = "A"
+Button8_1P = "Q"
+Select_1P = "Alpha3"
+Button1_2P = "Keypad8"
+Button2_2P = "Keypad9"
+Button3_2P = "Keypad6"
+Button4_2P = "Keypad3"
+Button5_2P = "Keypad2"
+Button6_2P = "Keypad1"
+Button7_2P = "Keypad4"
+Button8_2P = "Keypad7"
+Select_2P = "KeypadMultiply"

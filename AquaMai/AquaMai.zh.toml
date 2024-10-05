@@ -62,6 +62,15 @@ HideSelfMadeCharts=true
 # 在 LocalAssets 目录下放置 font.ttf 可以替换游戏的全局字体
 # 不可以和 FontFix 一起使用
 CustomFont=false
+# 提供自定义音符皮肤的能力（高级功能）
+CustomNoteSkin=false
+# 推迟了歌曲开始界面的动画
+# 隐藏“TRACK X”字样和 DX/标准谱面的显示框
+# 录制谱面确认用
+TrackStartProcessTweak=false
+# 完全隐藏烟花
+# 不能和 HanabiFix 一起使用
+HideHanabi=false
 
 # ===================================
 # 修复一些潜在的问题
@@ -86,6 +95,12 @@ FrameRateLock=false
 # 在显示字库里没有的字时使用微软雅黑 Bold 显示
 # 不可以和 CustomFont 一起使用
 FontFix=true
+# 让 BreakSlide 的 Critical 判定也可以像 BreakTap 一样闪烁
+# 让圆弧形的 Slide 的判定显示与判定线精确对齐 (原本会有一点歪)
+SlideJudgeTweak=true
+# 修复 1p 模式下的烟花大小
+# 不能和 HideHanabi 一起使用
+HanabiFix=true
 
 [Utils]
 # 登录时将 UserID 输出到日志
@@ -96,18 +111,15 @@ JudgeAdjustA=0.0
 JudgeAdjustB=0.0
 # 触摸屏延迟，单位为毫秒，一秒 = 1000 毫秒。必须是整数
 TouchDelay=0
-# 窗口化游戏
-Windowed=false
-# 宽度和高度窗口化时为游戏窗口大小，全屏时为渲染分辨率
-# 如果设为 0，窗口化将记住用户设定的大小，全屏时将使用当前显示器分辨率
-Width=0
-Height=0
 # 选歌界面显示选择的歌曲的详情
 SelectionDetail=true
 # 出现灰网时显示原因
 ShowNetErrorDetail=true
 # 显示帧率
 FrameRateDisplay=false
+# 练习模式，在游戏中按 Test 打开
+# 必须和 TestProof 一起用
+PractiseMode=true
 
 # ===================================
 # 节省一些不知道有用没用的时间
@@ -127,6 +139,16 @@ IWontTapOrSlideVigorously=true
 SkipGameOverScreen=true
 # 跳过乐曲开始界面
 SkipTrackStart=true
+
+[WindowState]
+# 不启用的话，不会对游戏窗口做任何操作
+Enable=false
+# 窗口化游戏
+Windowed=false
+# 宽度和高度窗口化时为游戏窗口大小，全屏时为渲染分辨率
+# 如果设为 0，窗口化将记住用户设定的大小，全屏时将使用当前显示器分辨率
+Width=0
+Height=0
 
 [TouchSensitivity]
 # 是否启用自定义灵敏度
@@ -173,3 +195,27 @@ E5=20
 E6=20
 E7=20
 E8=20
+
+[CustomKeyMap]
+Enable = false
+# 这里的设置无论你是否启用了 segatools 的 io4 模拟都会工作
+Test = "ScrollLock"
+Service = "Pause"
+Button1_1P = "W"
+Button2_1P = "E"
+Button3_1P = "D"
+Button4_1P = "C"
+Button5_1P = "X"
+Button6_1P = "Z"
+Button7_1P = "A"
+Button8_1P = "Q"
+Select_1P = "Alpha3"
+Button1_2P = "Keypad8"
+Button2_2P = "Keypad9"
+Button3_2P = "Keypad6"
+Button4_2P = "Keypad3"
+Button5_2P = "Keypad2"
+Button6_2P = "Keypad1"
+Button7_2P = "Keypad4"
+Button8_2P = "Keypad7"
+Select_2P = "KeypadMultiply"

@@ -158,10 +158,14 @@ namespace AquaMai
             Patch(typeof(ExtendNotesPool));
             Patch(typeof(FixCheckAuth));
             Patch(typeof(DebugFeature));
+            Patch(typeof(FixConnSlide));
+            Patch(typeof(SlideAutoPlayTweak));
+            Patch(typeof(FixLevelDisplay));
             // UX
             Patch(typeof(CustomVersionString));
             Patch(typeof(CustomPlaceName));
             Patch(typeof(RunCommandOnEvents));
+            Patch(typeof(CustomLogo));
             // Utils
             Patch(typeof(JudgeAdjust));
 # if DEBUG
