@@ -187,10 +187,10 @@ class CardGameService(
         // An easy migration is to change the UserData card field to the user's ghost card
         games.forEach { game ->
             when (game) {
-                "mai2" -> migrateCard(maimai2, crd)
-                "chu3" -> migrateCard(chusan, crd)
-                "ongeki" -> migrateCard(ongeki, crd)
-                "wacca" -> migrateCard(wacca, crd)
+                "mai2" -> migrateCard(maimai2, cardRepo, crd)
+                "chu3" -> migrateCard(chusan, cardRepo, crd)
+                "ongeki" -> migrateCard(ongeki, cardRepo, crd)
+                "wacca" -> migrateCard(wacca, cardRepo, crd)
                 // TODO: diva
 //                "diva" -> diva.findByPdId(card.extId.toInt()).getOrNull()?.let {
 //                    it.pdId = card.aquaUser!!.ghostCard
