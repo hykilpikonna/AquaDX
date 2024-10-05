@@ -30,7 +30,7 @@ class BotController(
     }
 
     @PostMapping("/ranking-ban")
-    @Doc("Register a new card by access code", "Card information")
+    @Doc("Ban a user from the leaderboard", "Success status")
     suspend fun rankingBan(@RP secret: Str, @RP username: Str) {
         secret.checkSecret()
 
