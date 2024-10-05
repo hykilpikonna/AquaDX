@@ -143,7 +143,7 @@ suspend fun <T : IUserData> migrateCard(repo: GenericUserDataRepo<T>, cardRepo: 
         it.card = async { cardRepo.save(Card().apply {
             luid = "Migrated data of ghost card ${ghost.id} for user ${card.aquaUser!!.auId}"
             // Randomize an extId outside the normal range
-            extId = Random.nextLong(0x7FFFFFFFL shl 32, 0x7FFFFFFEL shl 32)
+            extId = Random.nextLong(0x7FFFFFF7L shl 32, 0x7FFFFFFFL shl 32)
             registerTime = LocalDateTime.now()
             accessTime = registerTime
         }) }
