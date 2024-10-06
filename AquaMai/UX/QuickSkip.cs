@@ -78,7 +78,7 @@ namespace AquaMai.UX
                 traverse.Method("SetRelease").GetValue();
             }
 
-            if (Input.GetKey(KeyCode.Alpha7))
+            if (Input.GetKey(KeyCode.Alpha7) || InputManager.GetSystemInputPush(InputManager.SystemButtonSetting.ButtonService))
             {
                 // This is original typo in Assembly-CSharp
                 Singleton<GamePlayManager>.Instance.SetQuickRetryFrag(flag: true);
