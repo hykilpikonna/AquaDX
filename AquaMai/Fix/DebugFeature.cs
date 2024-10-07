@@ -55,7 +55,7 @@ public class DebugFeature
                 return PolyFill.isPause;
             }
 
-            return (bool)_debugFeatureType.GetField("_debugPause", BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(_debugFeatureOriginal);
+            return (bool)_debugFeatureType.GetField("_debugPause", BindingFlags.Instance | BindingFlags.Public).GetValue(_debugFeatureOriginal);
         }
 
         set
@@ -66,7 +66,7 @@ public class DebugFeature
             }
             else
             {
-                _debugFeatureType.GetField("_debugPause", BindingFlags.Instance | BindingFlags.NonPublic)?.SetValue(_debugFeatureOriginal, value);
+                _debugFeatureType.GetField("_debugPause", BindingFlags.Instance | BindingFlags.Public).SetValue(_debugFeatureOriginal, value);
             }
 
             SoundManager.PauseMusic(value);
@@ -84,7 +84,7 @@ public class DebugFeature
         }
         else
         {
-            _debugFeatureType.GetMethod("DebugTimeSkip", BindingFlags.Instance | BindingFlags.NonPublic)?.Invoke(_debugFeatureOriginal, new object[] { msec });
+            _debugFeatureType.GetMethod("DebugTimeSkip", BindingFlags.Instance | BindingFlags.Public).Invoke(_debugFeatureOriginal, new object[] { msec });
         }
     }
 
@@ -97,7 +97,7 @@ public class DebugFeature
                 return PolyFill.timer;
             }
 
-            return (double)_debugFeatureType.GetField("_debugTimer", BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(_debugFeatureOriginal);
+            return (double)_debugFeatureType.GetField("_debugTimer", BindingFlags.Instance | BindingFlags.Public).GetValue(_debugFeatureOriginal);
         }
         set
         {
@@ -107,7 +107,7 @@ public class DebugFeature
             }
             else
             {
-                _debugFeatureType.GetField("_debugTimer", BindingFlags.Instance | BindingFlags.NonPublic)?.SetValue(_debugFeatureOriginal, value);
+                _debugFeatureType.GetField("_debugTimer", BindingFlags.Instance | BindingFlags.Public).SetValue(_debugFeatureOriginal, value);
             }
 
             Seek(0);

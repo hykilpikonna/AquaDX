@@ -39,8 +39,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>SDGA145
-DEBUG</DefineConstants>
+    <DefineConstants>DEBUG</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
