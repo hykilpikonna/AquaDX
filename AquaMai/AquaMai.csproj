@@ -356,6 +356,7 @@
     <Compile Include="UX\RunCommandOnEvents.cs" />
     <Compile Include="UX\SinglePlayer.cs" />
     <Compile Include="UX\TestProof.cs" />
+    <Compile Include="UX\TouchToButtonInput.cs" />
     <Compile Include="UX\TrackStartProcessTweak.cs" />
     <Compile Include="WindowState\Enable.cs" />
   </ItemGroup>
