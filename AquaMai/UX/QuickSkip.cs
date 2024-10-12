@@ -84,5 +84,10 @@ namespace AquaMai.UX
                 Singleton<GamePlayManager>.Instance.SetQuickRetryFrag(flag: true);
             }
         }
+
+        // [HarmonyPrefix]
+        // [HarmonyPatch(typeof(QuickRetry), "Update")]
+        // public static void OnGameMainObjectUpdate()
+        // {
     }
 }
