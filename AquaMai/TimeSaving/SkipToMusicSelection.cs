@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using DB;
+using HarmonyLib;
 using MAI2.Util;
 using Manager;
 using Monitor;
@@ -20,6 +21,16 @@ namespace AquaMai.TimeSaving
         public static bool OnUpdate(InformationProcess __instance, ProcessDataContainer ___container)
         {
             GameManager.SetMaxTrack();
+            // Set headphone volume
+            for (var i = 0; i < 2; i++)
+            {
+                var userData = UserDataManager.Instance.GetUserData(i);
+                if (userData.IsEntry)
+                {
+                    OptionHeadphonevolumeID headPhoneVolume = userData.Option.HeadPhoneVolume;
+                    SoundManager.SetHeadPhoneVolume(i, headPhoneVolume.GetValue());
+                }
+            }
             ___container.processManager.AddProcess(new MusicSelectProcess(___container));
             ___container.processManager.ReleaseProcess(__instance);
             return false;
