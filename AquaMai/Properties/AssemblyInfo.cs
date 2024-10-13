@@ -1,9 +1,14 @@
 ﻿using System.Reflection;
 using MelonLoader;
 
+[assembly: AssemblyTitle(AquaMai.BuildInfo.Description)]
 [assembly: AssemblyDescription(AquaMai.BuildInfo.Description)]
+[assembly: AssemblyCompany(AquaMai.BuildInfo.Company)]
+[assembly: AssemblyProduct(AquaMai.BuildInfo.Name)]
 [assembly: AssemblyCopyright("Created by " + AquaMai.BuildInfo.Author)]
 [assembly: AssemblyTrademark(AquaMai.BuildInfo.Company)]
+[assembly: AssemblyVersion(AquaMai.BuildInfo.Version)]
+[assembly: AssemblyFileVersion(AquaMai.BuildInfo.Version)]
 [assembly: MelonInfo(typeof(AquaMai.AquaMai), AquaMai.BuildInfo.Name, AquaMai.BuildInfo.Version, AquaMai.BuildInfo.Author, AquaMai.BuildInfo.DownloadLink)]
 [assembly: MelonColor()]
 [assembly: HarmonyDontPatchAll]
