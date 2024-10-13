@@ -29,14 +29,12 @@ jobs:
           min-retry-interval: 1
           max-retry-interval: 5
 
-      - uses: microsoft/setup-msbuild@v2
-
       - name: Build AquaMai
         shell: cmd
         run: |
           copy /y build-assets\${{ matrix.target }}\* AquaMai\Libs
           cd AquaMai
-          msbuild /t:Restore,Build /p:Configuration=Release /p:DefineConstants="${{ matrix.target }}" /p:RestorePackagesConfig=true
+          dotnet build -c Release /p:DefineConstants="${{ matrix.target }}"
 
       - uses: actions/upload-artifact@v4
         with:
@@ -44,6 +42,7 @@ jobs:
           path: AquaMai\Output\AquaMai.dll
 
       - name: Send to Telegram
+        if: github.event_name != 'pull_request'
         run: |
           $Uri = "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendDocument"
           $Form = @{
