@@ -7,6 +7,9 @@ on:
       - AquaMai/**
     branches:
       - v1-dev
+  pull_request:
+    paths:
+      - AquaMai/**
 
 jobs:
   build:
@@ -29,11 +32,6 @@ jobs:
           min-retry-interval: 1
           max-retry-interval: 5
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 4.7.2
-
       - name: Build AquaMai
         shell: cmd
         run: |
@@ -44,9 +42,10 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.target }}
-          path: AquaMai\Output\net472\AquaMai.dll
+          path: AquaMai\Output\AquaMai.dll
 
       - name: Send to Telegram
+        if: github.event_name != 'pull_request'
         run: |
           $Uri = "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendDocument"
           $Form = @{
