@@ -40,6 +40,7 @@ namespace AquaMai
             public bool HideSelfMadeCharts { get; set; }
             public bool CustomFont { get; set; }
             public bool CustomNoteSkin { get; set; }
+            public bool TouchToButtonInput { get; set; }
             public bool TrackStartProcessTweak { get; set; }
             public bool HideHanabi { get; set; }
             public string CustomVersionString { get; set; } = "";

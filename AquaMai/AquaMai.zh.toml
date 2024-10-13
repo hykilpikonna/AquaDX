@@ -65,6 +65,8 @@ HideSelfMadeCharts=true
 CustomFont=false
 # 提供自定义音符皮肤的能力（高级功能）
 CustomNoteSkin=false
+# 映射触摸操作至实体按键
+TouchToButtonInput=false
 # 推迟了歌曲开始界面的动画
 # 隐藏“TRACK X”字样和 DX/标准谱面的显示框
 # 录制谱面确认用

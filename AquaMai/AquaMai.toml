@@ -56,6 +56,8 @@ HideSelfMadeCharts=true
 CustomFont=false
 # Provide the ability to use custom note skins (advanced feature)
 CustomNoteSkin=false
+# Map touch actions to buttons
+TouchToButtonInput=false
 # Delayed the animation of the song start screen
 # Hide "TRACK X" text and DX/Standard chart display box
 # For recording chart confirmation
