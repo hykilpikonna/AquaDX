@@ -30,13 +30,6 @@
     <DebugSymbols>false</DebugSymbols>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SDGA145|AnyCPU' ">
-    <OutputPath>Output\</OutputPath>
-    <DefineConstants>SDGA145</DefineConstants>
-    <Optimize>true</Optimize>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <PlatformTarget>x64</PlatformTarget>
-  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG</DefineConstants>
@@ -336,6 +329,7 @@
     <Compile Include="Utils\PractiseMode.cs" />
     <Compile Include="Utils\PractiseModeUI.cs" />
     <Compile Include="Utils\SelectionDetail.cs" />
+    <Compile Include="Utils\Shim.cs" />
     <Compile Include="Utils\ShowNetErrorDetail.cs" />
     <Compile Include="UX\CustomFont.cs" />
     <Compile Include="UX\CustomLogo.cs" />
