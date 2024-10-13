@@ -8,15 +8,21 @@ namespace AquaMai.UX;
 public class TouchToButtonInput
 {
     private static bool _isPlaying = false;
-    
+
     [HarmonyPostfix]
-    [HarmonyPatch(typeof(GameProcess),"OnUpdate")]
-    public static void OnUpdate(GameProcess __instance)
+    [HarmonyPatch(typeof(GameProcess), "OnStart")]
+    public static void OnGameProcessStart(GameProcess __instance)
     {
-        var notesManager = new NotesManager();
-        _isPlaying = notesManager.IsPlaying();
+        _isPlaying = true;
     }
-        
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(GameProcess), "OnRelease")]
+    public static void OnGameProcessRelease(GameProcess __instance)
+    {
+        _isPlaying = false;
+    }
+
     [HarmonyPostfix]
     [HarmonyPatch(typeof(Manager.InputManager), "GetButtonDown")]
     public static void GetButtonDown(ref bool __result, int monitorId, ButtonSetting button)
