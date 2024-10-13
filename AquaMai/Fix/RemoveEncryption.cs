@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Reflection;
 using HarmonyLib;
-using Net;
 using Net.Packet;
 
 namespace AquaMai.Fix;
@@ -48,25 +46,5 @@ public class RemoveEncryption
             }
             return false;
         }
-    }
-
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(NetHttpClient), MethodType.Constructor)]
-    public static void OnNetHttpClientConstructor(NetHttpClient __instance)
-    {
-        // Bypass Cake.dll hash check
-        var tInstance = Traverse.Create(__instance).Field("isTrueDll");
-        if (tInstance.FieldExists())
-        {
-            tInstance.SetValue(true);
-        }
-    }
-
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(NetHttpClient), "Create")]
-    public static void OnNetHttpClientCreate()
-    {
-        // Unset the certificate validation callback (SSL pinning) to restore the default behavior
-        ServicePointManager.ServerCertificateValidationCallback = null;
     }
 }

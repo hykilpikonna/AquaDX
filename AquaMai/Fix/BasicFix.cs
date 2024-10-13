@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using System.Net;
+using HarmonyLib;
 using Manager;
 using Monitor.MusicSelect.ChainList;
 using Net;
@@ -55,11 +56,23 @@ public class BasicFix
         return false;
     }
 
-    [HarmonyPrefix]
-    [HarmonyPatch(typeof(NetHttpClient), "CheckServerHash")]
-    private static bool CheckServerHash(ref bool __result)
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(NetHttpClient), MethodType.Constructor)]
+    private static void OnNetHttpClientConstructor(NetHttpClient __instance)
     {
-        __result = true;
-        return false;
+        // Bypass Cake.dll hash check
+        var tInstance = Traverse.Create(__instance).Field("isTrueDll");
+        if (tInstance.FieldExists())
+        {
+            tInstance.SetValue(true);
+        }
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(NetHttpClient), "Create")]
+    private static void OnNetHttpClientCreate()
+    {
+        // Unset the certificate validation callback (SSL pinning) to restore the default behavior
+        ServicePointManager.ServerCertificateValidationCallback = null;
     }
 }
