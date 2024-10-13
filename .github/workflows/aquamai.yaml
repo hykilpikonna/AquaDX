@@ -7,9 +7,6 @@ on:
       - AquaMai/**
     branches:
       - v1-dev
-  pull_request:
-    paths:
-      - AquaMai/**
 
 jobs:
   build:

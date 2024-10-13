@@ -15,6 +15,7 @@
     <OutputPath>$(SolutionDir)Output\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -285,6 +286,13 @@
   <ItemGroup>
     <EmbeddedResource Include="AquaMai.zh.toml" WithCulture="false" />
     <EmbeddedResource Include="AquaMai.toml" />
+    <EmbeddedResource Include="Resources\Locale.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Locale.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Locale.zh.resx" WithCulture="false">
+      <DependentUpon>Locale.resx</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
