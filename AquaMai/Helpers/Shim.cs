@@ -6,7 +6,7 @@ using Manager;
 using Net.Packet;
 using Net.Packet.Mai2;
 
-namespace AquaMai.Utils;
+namespace AquaMai.Helpers;
 
 public static class Shim
 {
