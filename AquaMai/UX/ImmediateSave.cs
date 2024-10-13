@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using AquaMai.Helpers;
 using AquaMai.Resources;
+using AquaMai.Utils;
+using CriAtomDebugDetail;
 using DB;
 using HarmonyLib;
 using MAI2.Util;
@@ -63,12 +65,7 @@ public class ImmediateSave
             }
 
             SaveDataFix(userData);
-# if SDGA145
-            PacketHelper.StartPacket(new PacketUploadUserPlaylog(i, userData, (int)GameManager.MusicTrackNumber - 1,
-# else
-            var accessToken = Singleton<OperationManager>.Instance.GetAccessToken(i);
-            PacketHelper.StartPacket(new PacketUploadUserPlaylog(i, userData, (int)GameManager.MusicTrackNumber - 1, accessToken,
-# endif
+            PacketHelper.StartPacket(Shim.CreatePacketUploadUserPlaylog(i, userData, (int)GameManager.MusicTrackNumber - 1,
                 delegate
                 {
                     MelonLogger.Msg("Playlog saved");
@@ -82,11 +79,7 @@ public class ImmediateSave
                     MessageHelper.ShowMessage("Playlog save error");
                     CheckSaveDone();
                 }));
-# if SDGA145
-            PacketHelper.StartPacket(new PacketUpsertUserAll(i, userData, delegate(int code)
-# else
-            PacketHelper.StartPacket(new PacketUpsertUserAll(i, userData, accessToken, delegate(int code)
-# endif
+            PacketHelper.StartPacket(Shim.CreatePacketUpsertUserAll(i, userData, delegate(int code)
             {
                 if (code == 1)
                 {
@@ -222,11 +215,7 @@ public class ImmediateSave
             userData.Detail.LastPlayMode = 2;
         }
 
-# if SDGA145
-        userData.Detail.LastGameId = "SDGA";
-# else
-        userData.Detail.LastGameId = "SDEZ";
-# endif
+        userData.Detail.LastGameId = ConstParameter.GameIDStr;
         userData.Detail.LastRomVersion = Singleton<SystemConfig>.Instance.config.romVersionInfo.versionNo.versionString;
         userData.Detail.LastDataVersion = Singleton<SystemConfig>.Instance.config.dataVersionInfo.versionNo.versionString;
     }
