@@ -26,7 +26,7 @@ public static class Shim
       var type = typeof(PacketUploadUserPlaylog);
       if (type.GetConstructor([typeof(int), typeof(UserData), typeof(int), typeof(Action<int>), typeof(Action<PacketStatus>)]) is ConstructorInfo ctor1) {
         return (index, src, trackNo, onDone, onError) => {
-          var args = new object[] {index, src, trackNo, "", onDone, onError};
+          var args = new object[] {index, src, trackNo, onDone, onError};
           return (PacketUploadUserPlaylog)ctor1.Invoke(args);
         };
       }
@@ -48,7 +48,7 @@ public static class Shim
       var type = typeof(PacketUpsertUserAll);
       if (type.GetConstructor([typeof(int), typeof(UserData), typeof(Action<int>), typeof(Action<PacketStatus>)]) is ConstructorInfo ctor1) {
         return (index, src, onDone, onError) => {
-          var args = new object[] {index, src, "", onDone, onError};
+          var args = new object[] {index, src, onDone, onError};
           return (PacketUpsertUserAll)ctor1.Invoke(args);
         };
       }
