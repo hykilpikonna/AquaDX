@@ -1,8 +1,6 @@
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: hykilpikonna/aquadx:latest
     ports:
       - "80:80"
       - "8443:8443"
