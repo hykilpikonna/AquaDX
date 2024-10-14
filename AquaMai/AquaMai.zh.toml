@@ -153,6 +153,14 @@ Windowed=false
 Width=0
 Height=0
 
+[CustomCameraId]
+# 是否启用自定义摄像头ID
+# 启用后可以指定游戏使用的摄像头
+Enable=false
+LeftQrCamera=0
+RightQrCamera=0
+PhotoCamera=0
+
 [TouchSensitivity]
 # 是否启用自定义灵敏度
 # 这里启用之后 Test 里的就不再起作用了

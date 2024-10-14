@@ -134,6 +134,14 @@ Windowed=false
 Width=0
 Height=0
 
+[CustomCameraId]
+# Enable custom CameraId
+# If enabled, you can customize the game to use the specified camera
+Enable=false
+LeftQrCamera=0
+RightQrCamera=0
+PhotoCamera=0
+
 [TouchSensitivity]
 # Enable custom sensitivity
 # When enabled, the settings in Test mode will not take effect
