@@ -29,6 +29,15 @@ jobs:
         with:
           username: hykilpikonna
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+          
+      # 3. Log in to GitHub Container Registry (ghcr.io)
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          # Use GITHUB_TOKEN for authentication
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       # 4. Cache Docker layers to speed up builds (optional but recommended)
       - name: Cache Docker layers
