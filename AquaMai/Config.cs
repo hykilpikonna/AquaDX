@@ -61,6 +61,7 @@ namespace AquaMai
             public bool FontFix { get; set; }
             public bool SlideJudgeTweak { get; set; }
             public bool HanabiFix { get; set; }
+            public bool IgnoreAimeServerError { get; set; }
         }
 
         public class UtilsConfig

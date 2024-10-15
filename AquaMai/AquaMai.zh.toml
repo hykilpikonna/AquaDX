@@ -104,6 +104,8 @@ SlideJudgeTweak=true
 # 修复 1p 模式下的烟花大小
 # 不能和 HideHanabi 一起使用
 HanabiFix=true
+# 防止因错误认为 AimeDB 服务器问题引起的灰网
+IgnoreAimeServerError=true
 
 [Utils]
 # 登录时将 UserID 输出到日志

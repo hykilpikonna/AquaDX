@@ -86,6 +86,8 @@ FontFix=true
 SlideJudgeTweak=true
 # Cannot be used together with HideHanabi
 HanabiFix=false
+# Prevent gray network caused by mistakenly thinking it's an AimeDB server issue
+IgnoreAimeServerError=true
 
 [Utils]
 # Log user ID on login
