@@ -78,3 +78,11 @@ INSERT INTO chusan_game_event (id, end_date, start_date, type, enable) VALUES (1
 INSERT INTO chusan_game_event (id, end_date, start_date, type, enable) VALUES (15069, '2029-01-01 00:00:00.000000', '2019-01-01 00:00:00.000000', 8, true);
 INSERT INTO chusan_game_event (id, end_date, start_date, type, enable) VALUES (15070, '2029-01-01 00:00:00.000000', '2019-01-01 00:00:00.000000', 8, true);
 INSERT INTO chusan_game_event (id, end_date, start_date, type, enable) VALUES (15071, '2029-01-01 00:00:00.000000', '2019-01-01 00:00:00.000000', 8, true);
+INSERT INTO chusan_game_event (id, end_date, start_date, type, enable) VALUES (15100, '2029-01-01 00:00:00.000000', '2019-01-01 00:00:00.000000', 3, true);
+INSERT INTO chusan_game_event (id, end_date, start_date, type, enable) VALUES (15101, '2029-01-01 00:00:00.000000', '2019-01-01 00:00:00.000000', 1, true);
+INSERT INTO chusan_game_event (id, end_date, start_date, type, enable) VALUES (15102, '2029-01-01 00:00:00.000000', '2019-01-01 00:00:00.000000', 2, true);
+INSERT INTO chusan_game_event (id, end_date, start_date, type, enable) VALUES (15103, '2029-01-01 00:00:00.000000', '2019-01-01 00:00:00.000000', 8, true);
+INSERT INTO chusan_game_event (id, end_date, start_date, type, enable) VALUES (15104, '2029-01-01 00:00:00.000000', '2019-01-01 00:00:00.000000', 1, true);
+INSERT INTO chusan_game_event (id, end_date, start_date, type, enable) VALUES (15106, '2029-01-01 00:00:00.000000', '2019-01-01 00:00:00.000000', 11, true);
+INSERT INTO chusan_game_event (id, end_date, start_date, type, enable) VALUES (15107, '2029-01-01 00:00:00.000000', '2019-01-01 00:00:00.000000', 4, true);
+INSERT INTO chusan_game_event (id, end_date, start_date, type, enable) VALUES (15108, '2029-01-01 00:00:00.000000', '2019-01-01 00:00:00.000000', 5, true);
