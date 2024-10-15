@@ -144,6 +144,8 @@ IWontTapOrSlideVigorously=true
 SkipGameOverScreen=true
 # 跳过乐曲开始界面
 SkipTrackStart=true
+# 音符结束之后显示像 AstroDX 一样的“跳过”按钮
+ShowQuickEndPlay=true
 
 [WindowState]
 # 不启用的话，不会对游戏窗口做任何操作

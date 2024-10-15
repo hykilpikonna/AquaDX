@@ -85,6 +85,7 @@ namespace AquaMai
             public bool IWontTapOrSlideVigorously { get; set; }
             public bool SkipGameOverScreen { get; set; }
             public bool SkipTrackStart { get; set; }
+            public bool ShowQuickEndPlay { get; set; }
         }
 
         public class WindowStateConfig

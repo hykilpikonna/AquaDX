@@ -125,6 +125,8 @@ SkipGameOverScreen=true
 SkipTrackStart=true
 # Show reason when net icon is gray
 ShowNetErrorDetail=true
+# Show a "skip" button like AstroDX after the notes end
+ShowQuickEndPlay=true
 
 [WindowState]
 # If not enabled, no operations will be performed on the game window
