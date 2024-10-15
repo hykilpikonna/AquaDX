@@ -54,9 +54,9 @@ public class Enable
         webcamtex[photoCameraId] = new WebCamTexture(WebCamTexture.devices[photoCameraId].name, GameCameraParam.Width, GameCameraParam.Height, GameCameraParam.Fps);
         webcamtexField.SetValue(__instance, webcamtex);
         
-        DeviceId[0] = leftQrCameraId;
-        DeviceId[1] = rightQrCameraId;
-        DeviceId[2] = photoCameraId;
+        DeviceId[(int) CameraTypeEnum.QRLeft] = leftQrCameraId;
+        DeviceId[(int) CameraTypeEnum.QRRight] = rightQrCameraId;
+        DeviceId[(int) CameraTypeEnum.Photo] = photoCameraId;
             
         for (int i = 0; i < webcamtex.Length; i++)
         {
