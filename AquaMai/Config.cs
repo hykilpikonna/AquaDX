@@ -101,6 +101,7 @@ namespace AquaMai
             public int LeftQrCamera { get; set; } = 0;
             public int RightQrCamera { get; set; } = 0;
             public int PhotoCamera { get; set; } = 0;
+            public int ChimeCamera { get; set; } = 0;
         }
 
         public class TouchSensitivityConfig

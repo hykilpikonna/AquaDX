@@ -160,6 +160,7 @@ Enable=false
 LeftQrCamera=0
 RightQrCamera=0
 PhotoCamera=0
+ChimeCamera=0
 
 [TouchSensitivity]
 # 是否启用自定义灵敏度

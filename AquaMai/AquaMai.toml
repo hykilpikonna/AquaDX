@@ -141,6 +141,7 @@ Enable=false
 LeftQrCamera=0
 RightQrCamera=0
 PhotoCamera=0
+ChimeCamera=0
 
 [TouchSensitivity]
 # Enable custom sensitivity
