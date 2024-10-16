@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using AquaMai.Fix;
@@ -51,6 +52,17 @@ public class PractiseMode
         movie.player.SetSpeed(speed);
     }
 
+    private static IEnumerator SetSpeedCoroutineInner()
+    {
+        yield return null;
+        SetSpeed();
+    }
+
+    public static void SetSpeedCoroutine()
+    {
+        SharedInstances.GameMainObject.StartCoroutine(SetSpeedCoroutineInner());
+    }
+
     public static void SpeedUp()
     {
         speed += .05f;
@@ -65,9 +77,9 @@ public class PractiseMode
     public static void SpeedDown()
     {
         speed -= .05f;
-        if (speed < 0.5)
+        if (speed < 0.05)
         {
-            speed = 0.5f;
+            speed = 0.05f;
         }
 
         SetSpeed();

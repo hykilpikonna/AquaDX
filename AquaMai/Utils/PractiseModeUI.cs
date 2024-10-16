@@ -91,14 +91,20 @@ public class PractiseModeUI : MonoBehaviour
         if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.E8))
         {
             DebugFeature.Seek(-1000);
+            PractiseMode.SetSpeedCoroutine();
         }
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.E2))
         {
             DebugFeature.Seek(1000);
+            PractiseMode.SetSpeedCoroutine();
         }
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B8) || InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B1))
         {
             DebugFeature.Pause = !DebugFeature.Pause;
+            if (!DebugFeature.Pause)
+            {
+                PractiseMode.SetSpeedCoroutine();
+            }
         }
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B7) && PractiseMode.repeatStart == -1)
         {
