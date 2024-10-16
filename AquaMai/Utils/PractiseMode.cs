@@ -94,6 +94,26 @@ public class PractiseMode
         SetSpeed();
     }
 
+    public static void Seek(int addMsec)
+    {
+        // Debug feature 里面那个 timer 不能感知变速
+        // 为了和魔改版本统一，polyfill 里面不修这个
+        // 这里重新实现一个能感知变速的 Seek
+        var msec = CurrentPlayMsec + addMsec;
+        if (msec < 0)
+        {
+            msec = 0;
+        }
+
+        DebugFeature.CurrentPlayMsec = msec;
+    }
+
+    public static double CurrentPlayMsec
+    {
+        get => NotesManager.GetCurrentMsec() - 91;
+        set => DebugFeature.CurrentPlayMsec = value;
+    }
+
     public static PractiseModeUI ui;
 
     [HarmonyPatch(typeof(GameProcess), "OnStart")]
@@ -136,9 +156,9 @@ public class PractiseMode
 
         if (repeatStart >= 0 && repeatEnd >= 0)
         {
-            if (DebugFeature.CurrentPlayMsec >= repeatEnd)
+            if (CurrentPlayMsec >= repeatEnd)
             {
-                DebugFeature.CurrentPlayMsec = repeatStart;
+                CurrentPlayMsec = repeatStart;
             }
         }
     }

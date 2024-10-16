@@ -82,7 +82,7 @@ public class PractiseModeUI : MonoBehaviour
         GUI.Button(GetButtonRect(2, 2), Locale.SpeedUp);
         GUI.Button(GetButtonRect(1, 3), Locale.SpeedReset);
 
-        GUI.Label(GetButtonRect(0, 3), TimeSpan.FromMilliseconds(DebugFeature.CurrentPlayMsec).ToString(@"mm\:ss\.fff"));
+        GUI.Label(GetButtonRect(0, 3), TimeSpan.FromMilliseconds(PractiseMode.CurrentPlayMsec).ToString(@"mm\:ss\.fff"));
         GUI.Label(GetButtonRect(2, 3), TimeSpan.FromMilliseconds(NotesManager.Instance().getPlayFinalMsec()).ToString(@"mm\:ss\.fff"));
     }
 
@@ -90,12 +90,12 @@ public class PractiseModeUI : MonoBehaviour
     {
         if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.E8))
         {
-            DebugFeature.Seek(-1000);
+            PractiseMode.Seek(-1000);
             PractiseMode.SetSpeedCoroutine();
         }
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.E2))
         {
-            DebugFeature.Seek(1000);
+            PractiseMode.Seek(1000);
             PractiseMode.SetSpeedCoroutine();
         }
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B8) || InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B1))
@@ -103,17 +103,17 @@ public class PractiseModeUI : MonoBehaviour
             DebugFeature.Pause = !DebugFeature.Pause;
             if (!DebugFeature.Pause)
             {
-                DebugFeature.Seek(0);
+                PractiseMode.Seek(0);
                 PractiseMode.SetSpeedCoroutine();
             }
         }
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B7) && PractiseMode.repeatStart == -1)
         {
-            PractiseMode.repeatStart = DebugFeature.CurrentPlayMsec;
+            PractiseMode.repeatStart = PractiseMode.CurrentPlayMsec;
         }
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B7) && PractiseMode.repeatEnd == -1)
         {
-            PractiseMode.SetRepeatEnd(DebugFeature.CurrentPlayMsec);
+            PractiseMode.SetRepeatEnd(PractiseMode.CurrentPlayMsec);
         }
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B2))
         {
