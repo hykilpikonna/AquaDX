@@ -12,6 +12,7 @@ namespace AquaMai
         public UtilsConfig Utils { get; set; } = new();
         public TimeSavingConfig TimeSaving { get; set; } = new();
         public WindowStateConfig WindowState { get; set; } = new();
+        public CustomCameraIdConfig CustomCameraId { get; set; } = new();
         public TouchSensitivityConfig TouchSensitivity { get; set; } = new();
         public CustomKeyMapConfig CustomKeyMap { get; set; } = new();
 
@@ -94,6 +95,16 @@ namespace AquaMai
             public bool Windowed { get; set; }
             public int Width { get; set; }
             public int Height { get; set; }
+        }
+
+        public class CustomCameraIdConfig
+        {
+            public bool Enable { get; set; }
+            public bool PrintCameraList { get; set; } = false;
+            public int LeftQrCamera { get; set; } = 0;
+            public int RightQrCamera { get; set; } = 0;
+            public int PhotoCamera { get; set; } = 0;
+            public int ChimeCamera { get; set; } = 0;
         }
 
         public class TouchSensitivityConfig
