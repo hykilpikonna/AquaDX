@@ -98,6 +98,7 @@ namespace AquaMai
         public class CustomCameraIdConfig
         {
             public bool Enable { get; set; }
+            public bool PrintCameraList { get; set; } = false;
             public int LeftQrCamera { get; set; } = 0;
             public int RightQrCamera { get; set; } = 0;
             public int PhotoCamera { get; set; } = 0;

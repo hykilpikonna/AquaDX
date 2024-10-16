@@ -22,7 +22,7 @@ public class Enable
     [HarmonyPatch(typeof(CameraManager), "Initialize")]
     public static void SetCameraResolution(CameraManager __instance)
     {
-        PrintCameraList();
+        if(AquaMai.AppConfig.CustomCameraId.PrintCameraList) PrintCameraList();
         WebCamDevice gameDevice = WebCamTexture.devices[AquaMai.AppConfig.CustomCameraId.PhotoCamera];
         WebCamDevice qrDevice = WebCamTexture.devices[GameInfo.GetGameId() == "SDGB" ? AquaMai.AppConfig.CustomCameraId.ChimeCamera : AquaMai.AppConfig.CustomCameraId.LeftQrCamera];
         WebCamTexture gameTexture = new WebCamTexture(gameDevice.name);
