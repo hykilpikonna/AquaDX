@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using AquaMai.Fix;
 using AquaMai.Helpers;
 using HarmonyLib;
@@ -20,7 +21,8 @@ public class PractiseMode
     public static float speed = 1;
     private static CriAtomExPlayer player;
     private static MovieMaterialMai2 movie;
-    private static GameCtrl gameCtrl;
+    public static GameCtrl gameCtrl;
+    public static bool keepNoteSpeed = false;
 
     public static void SetRepeatEnd(double time)
     {
@@ -115,6 +117,22 @@ public class PractiseMode
     }
 
     public static PractiseModeUI ui;
+
+    [HarmonyPatch]
+    public class PatchNoteSpeed
+    {
+        public static IEnumerable<MethodBase> TargetMethods()
+        {
+            yield return AccessTools.Method(typeof(GameManager), "GetNoteSpeed");
+            yield return AccessTools.Method(typeof(GameManager), "GetTouchSpeed");
+        }
+
+        public static void Postfix(ref float __result)
+        {
+            if (!keepNoteSpeed) return;
+            __result /= speed;
+        }
+    }
 
     [HarmonyPatch(typeof(GameProcess), "OnStart")]
     [HarmonyPostfix]

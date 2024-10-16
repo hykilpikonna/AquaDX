@@ -82,8 +82,8 @@ public class PractiseModeUI : MonoBehaviour
         GUI.Button(GetButtonRect(2, 2), Locale.SpeedUp);
         GUI.Button(GetButtonRect(1, 3), Locale.SpeedReset);
 
-        GUI.Label(GetButtonRect(0, 3), TimeSpan.FromMilliseconds(PractiseMode.CurrentPlayMsec).ToString(@"mm\:ss\.fff"));
-        GUI.Label(GetButtonRect(2, 3), TimeSpan.FromMilliseconds(NotesManager.Instance().getPlayFinalMsec()).ToString(@"mm\:ss\.fff"));
+        GUI.Label(GetButtonRect(0, 3), $"{TimeSpan.FromMilliseconds(PractiseMode.CurrentPlayMsec):mm\\:ss\\.fff}\n{TimeSpan.FromMilliseconds(NotesManager.Instance().getPlayFinalMsec()):mm\\:ss\\.fff}");
+        GUI.Button(GetButtonRect(2, 3), $"保持流速\n{(PractiseMode.keepNoteSpeed ? "ON" : "OFF")}");
     }
 
     public void Update()
@@ -130,6 +130,11 @@ public class PractiseModeUI : MonoBehaviour
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B5) || InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B4))
         {
             PractiseMode.SpeedReset();
+        }
+        else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.E4))
+        {
+            PractiseMode.keepNoteSpeed = !PractiseMode.keepNoteSpeed;
+            PractiseMode.gameCtrl?.ResetOptionSpeed();
         }
         else if (
             InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.A1) ||
