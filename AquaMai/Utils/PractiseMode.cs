@@ -7,6 +7,7 @@ using AquaMai.Helpers;
 using HarmonyLib;
 using Manager;
 using Monitor;
+using Monitor.Game;
 using Process;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ public class PractiseMode
     public static float speed = 1;
     private static CriAtomExPlayer player;
     private static MovieMaterialMai2 movie;
+    private static GameCtrl gameCtrl;
 
     public static void SetRepeatEnd(double time)
     {
@@ -50,6 +52,7 @@ public class PractiseMode
         player.UpdateAll();
 
         movie.player.SetSpeed(speed);
+        gameCtrl?.ResetOptionSpeed();
     }
 
     private static IEnumerator SetSpeedCoroutineInner()
@@ -101,7 +104,13 @@ public class PractiseMode
         repeatEnd = -1;
         speed = 1;
         ui = null;
-        SetSpeed();
+    }
+
+    [HarmonyPatch(typeof(GameCtrl), "Initialize")]
+    [HarmonyPostfix]
+    public static void GameCtrlPostInitialize(GameCtrl __instance)
+    {
+        gameCtrl = __instance;
     }
 
 # if DEBUG
@@ -134,18 +143,39 @@ public class PractiseMode
         }
     }
 
-    [HarmonyPatch(typeof(NotesManager), "UpdateTimer")]
+    private static float startGap = -1f;
+
+    [HarmonyPatch(typeof(NotesManager), "StartPlay")]
     [HarmonyPostfix]
-    public static void NotesManagerPostUpdateTimer(bool ____isPlaying, Stopwatch ____stopwatch, ref float ____curMSec, ref float ____curMSecPre, float ____msecStartGap)
+    public static void NotesManagerPostUpdateTimer(float msecStartGap)
     {
-        var num = 0d;
-        if (____isPlaying && ____stopwatch != null)
+        startGap = msecStartGap;
+    }
+
+    [HarmonyPatch(typeof(NotesManager), "UpdateTimer")]
+    [HarmonyPrefix]
+    public static bool NotesManagerPostUpdateTimer(bool ____isPlaying, Stopwatch ____stopwatch, ref float ____curMSec, ref float ____curMSecPre, float ____msecStartGap)
+    {
+        if (startGap != -1f)
         {
-            num = (double)____stopwatch.ElapsedTicks / Stopwatch.Frequency * 1000.0 * speed;
+            ____curMSec = startGap;
+            ____curMSecPre = startGap;
+            ____stopwatch?.Reset();
+            startGap = -1f;
+        }
+        else
+        {
+            ____curMSecPre = ____curMSec;
+            if (____isPlaying && ____stopwatch != null && !DebugFeature.Pause)
+            {
+                var num = (double)____stopwatch.ElapsedTicks / Stopwatch.Frequency * 1000.0 * speed;
+                ____curMSec += (float)num;
+                ____stopwatch.Reset();
+                ____stopwatch.Start();
+            }
         }
 
-        ____curMSecPre = ____curMSec;
-        ____curMSec = (float)num + ____msecStartGap;
+        return false;
     }
 
     [HarmonyPatch(typeof(SoundCtrl), "Initialize")]

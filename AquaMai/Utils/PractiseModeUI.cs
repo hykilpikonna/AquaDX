@@ -103,6 +103,7 @@ public class PractiseModeUI : MonoBehaviour
             DebugFeature.Pause = !DebugFeature.Pause;
             if (!DebugFeature.Pause)
             {
+                DebugFeature.Seek(0);
                 PractiseMode.SetSpeedCoroutine();
             }
         }
