@@ -1,5 +1,6 @@
 ﻿using static Manager.CameraManager;
 using System.Collections;
+using System.Diagnostics;
 using AquaMai.Utils;
 using HarmonyLib;
 using Manager;
@@ -10,6 +11,9 @@ namespace AquaMai.CustomCameraId;
 
 public class Enable
 {
+    private static CameraParameter _gameCameraParam;
+    private static CameraParameter _qrCameraParam;
+    
     [HarmonyPrefix]
     [HarmonyPatch(typeof(CameraManager), "CameraInitialize")]
     public static bool CameraInitialize(CameraManager __instance, ref IEnumerator __result)
@@ -23,25 +27,26 @@ public class Enable
     public static void SetCameraResolution(CameraManager __instance)
     {
         if(AquaMai.AppConfig.CustomCameraId.PrintCameraList) PrintCameraList();
+        if (GameInfo.GetGameId() != "SDEZ")
+        {
+            WebCamDevice qrDevice = WebCamTexture.devices[GameInfo.GetGameId() == "SDGB" ? AquaMai.AppConfig.CustomCameraId.ChimeCamera : AquaMai.AppConfig.CustomCameraId.LeftQrCamera];
+            WebCamTexture qrTexture = new WebCamTexture(qrDevice.name);
+            qrTexture.Play();
+            _qrCameraParam = new CameraParameter(qrTexture.width, qrTexture.height, (int)qrTexture.requestedFPS);
+            AccessTools.Field(typeof(CameraManager), "QrCameraParam").SetValue(__instance, _qrCameraParam);
+            qrTexture.Stop();
+        }
         WebCamDevice gameDevice = WebCamTexture.devices[AquaMai.AppConfig.CustomCameraId.PhotoCamera];
-        WebCamDevice qrDevice = WebCamTexture.devices[GameInfo.GetGameId() == "SDGB" ? AquaMai.AppConfig.CustomCameraId.ChimeCamera : AquaMai.AppConfig.CustomCameraId.LeftQrCamera];
         WebCamTexture gameTexture = new WebCamTexture(gameDevice.name);
-        WebCamTexture qrTexture = new WebCamTexture(qrDevice.name);
         gameTexture.Play();
-        qrTexture.Play();
-        CameraParameter gameCameraParam = new CameraParameter(gameTexture.width, gameTexture.height, (int)gameTexture.requestedFPS);
-        CameraParameter qrCameraParam = new CameraParameter(qrTexture.width, qrTexture.height, (int)qrTexture.requestedFPS);
-        AccessTools.Field(typeof(CameraManager), "GameCameraParam").SetValue(__instance, gameCameraParam);
-        AccessTools.Field(typeof(CameraManager), "QrCameraParam").SetValue(__instance, qrCameraParam);
+        _gameCameraParam = new CameraParameter(gameTexture.width, gameTexture.height, (int)gameTexture.requestedFPS);
+        AccessTools.Field(typeof(CameraManager), "GameCameraParam").SetValue(__instance, _gameCameraParam);
         gameTexture.Stop();
-        qrTexture.Stop();
     }
     
     private static IEnumerator CameraInitialize(CameraManager __instance)
     {
-        var webcamtexField = AccessTools.Field(typeof(CameraManager), "_webcamtex");
-        WebCamTexture[] webcamtex = new WebCamTexture[GameInfo.GetGameId() == "SDGB" ? 2 : 3];
-        
+        WebCamTexture[] webcamtex = new WebCamTexture[WebCamTexture.devices.Length];
         int leftQrCameraId = ((AquaMai.AppConfig.CustomCameraId.LeftQrCamera < WebCamTexture.devices.Length)
             ? AquaMai.AppConfig.CustomCameraId.LeftQrCamera
             : 0);
@@ -54,23 +59,30 @@ public class Enable
         int chimeQrCameraId= ((AquaMai.AppConfig.CustomCameraId.ChimeCamera < WebCamTexture.devices.Length)
             ? AquaMai.AppConfig.CustomCameraId.ChimeCamera
             : 0);
+
+        switch (GameInfo.GetGameId())
+        {
+            case "SDGB":
+                webcamtex[chimeQrCameraId] = new WebCamTexture(WebCamTexture.devices[chimeQrCameraId].name, _qrCameraParam.Width, _qrCameraParam.Height, _qrCameraParam.Fps);
+                DeviceId[0] = chimeQrCameraId;
+                DeviceId[1] = photoCameraId;
+                break;
+            case "SDEZ":
+                webcamtex[leftQrCameraId] = new WebCamTexture(WebCamTexture.devices[leftQrCameraId].name, _qrCameraParam.Width, _qrCameraParam.Height, _qrCameraParam.Fps);
+                webcamtex[rightQrCameraId] = new WebCamTexture(WebCamTexture.devices[rightQrCameraId].name, _qrCameraParam.Width, _qrCameraParam.Height, _qrCameraParam.Fps);
+                DeviceId[0] = leftQrCameraId;
+                DeviceId[1] = rightQrCameraId;
+                DeviceId[2] = photoCameraId;
+                break;
+            default:
+                DeviceId[0] = photoCameraId;
+                break;
+        }
+        webcamtex[photoCameraId] = new WebCamTexture(WebCamTexture.devices[photoCameraId].name, _gameCameraParam.Width, _gameCameraParam.Height, _gameCameraParam.Fps);
+        AccessTools.Field(typeof(CameraManager), "_webcamtex").SetValue(__instance, webcamtex);
         
-        if (GameInfo.GetGameId() == "SDGB")
-        {
-            webcamtex[chimeQrCameraId] = new WebCamTexture(WebCamTexture.devices[chimeQrCameraId].name, QrCameraParam.Width, QrCameraParam.Height, QrCameraParam.Fps);
-            DeviceId[0] = chimeQrCameraId;
-            DeviceId[1] = photoCameraId;
-        }
-        else
-        {
-            webcamtex[leftQrCameraId] = new WebCamTexture(WebCamTexture.devices[leftQrCameraId].name, QrCameraParam.Width, QrCameraParam.Height, QrCameraParam.Fps);
-            webcamtex[rightQrCameraId] = new WebCamTexture(WebCamTexture.devices[rightQrCameraId].name, QrCameraParam.Width, QrCameraParam.Height, QrCameraParam.Fps);
-            DeviceId[(int) CameraTypeEnum.QRLeft] = leftQrCameraId;
-            DeviceId[(int) CameraTypeEnum.QRRight] = rightQrCameraId;
-            DeviceId[(int) CameraTypeEnum.Photo] = photoCameraId;
-        }
-        webcamtex[photoCameraId] = new WebCamTexture(WebCamTexture.devices[photoCameraId].name, GameCameraParam.Width, GameCameraParam.Height, GameCameraParam.Fps);
-        webcamtexField.SetValue(__instance, webcamtex);
+        __instance.isAvailableCamera = new bool[webcamtex.Length];
+        __instance.cameraProcMode = new CameraManager.CameraProcEnum[webcamtex.Length];
         
         for (int i = 0; i < webcamtex.Length; i++)
         {
