@@ -84,4 +84,7 @@
     <data name="RatingUpWhenSSSp" xml:space="preserve">
         <value>SSS+ =&gt; DXRating += {0}</value>
     </data>
+    <data name="Skip" xml:space="preserve">
+        <value>Skip</value>
+    </data>
 </root>

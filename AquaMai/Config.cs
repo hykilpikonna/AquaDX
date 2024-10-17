@@ -62,6 +62,7 @@ namespace AquaMai
             public bool FontFix { get; set; }
             public bool SlideJudgeTweak { get; set; }
             public bool HanabiFix { get; set; }
+            public bool IgnoreAimeServerError { get; set; }
         }
 
         public class UtilsConfig
@@ -85,6 +86,7 @@ namespace AquaMai
             public bool IWontTapOrSlideVigorously { get; set; }
             public bool SkipGameOverScreen { get; set; }
             public bool SkipTrackStart { get; set; }
+            public bool ShowQuickEndPlay { get; set; }
         }
 
         public class WindowStateConfig

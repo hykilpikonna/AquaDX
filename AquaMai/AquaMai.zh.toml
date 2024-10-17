@@ -104,6 +104,8 @@ SlideJudgeTweak=true
 # 修复 1p 模式下的烟花大小
 # 不能和 HideHanabi 一起使用
 HanabiFix=true
+# 防止因错误认为 AimeDB 服务器问题引起的灰网
+IgnoreAimeServerError=true
 
 [Utils]
 # 登录时将 UserID 输出到日志
@@ -142,6 +144,8 @@ IWontTapOrSlideVigorously=true
 SkipGameOverScreen=true
 # 跳过乐曲开始界面
 SkipTrackStart=true
+# 音符结束之后显示像 AstroDX 一样的“跳过”按钮
+ShowQuickEndPlay=true
 
 [WindowState]
 # 不启用的话，不会对游戏窗口做任何操作

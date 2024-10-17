@@ -82,31 +82,35 @@ public class PractiseModeUI : MonoBehaviour
         GUI.Button(GetButtonRect(2, 2), Locale.SpeedUp);
         GUI.Button(GetButtonRect(1, 3), Locale.SpeedReset);
 
-        GUI.Label(GetButtonRect(0, 3), TimeSpan.FromMilliseconds(DebugFeature.CurrentPlayMsec).ToString(@"mm\:ss\.fff"));
-        GUI.Label(GetButtonRect(2, 3), TimeSpan.FromMilliseconds(NotesManager.Instance().getPlayFinalMsec()).ToString(@"mm\:ss\.fff"));
+        GUI.Label(GetButtonRect(0, 3), $"{TimeSpan.FromMilliseconds(PractiseMode.CurrentPlayMsec):mm\\:ss\\.fff}\n{TimeSpan.FromMilliseconds(NotesManager.Instance().getPlayFinalMsec()):mm\\:ss\\.fff}");
+        GUI.Button(GetButtonRect(2, 3), $"保持流速\n{(PractiseMode.keepNoteSpeed ? "ON" : "OFF")}");
     }
 
     public void Update()
     {
         if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.E8))
         {
-            DebugFeature.Seek(-1000);
+            PractiseMode.Seek(-1000);
         }
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.E2))
         {
-            DebugFeature.Seek(1000);
+            PractiseMode.Seek(1000);
         }
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B8) || InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B1))
         {
             DebugFeature.Pause = !DebugFeature.Pause;
+            if (!DebugFeature.Pause)
+            {
+                PractiseMode.Seek(0);
+            }
         }
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B7) && PractiseMode.repeatStart == -1)
         {
-            PractiseMode.repeatStart = DebugFeature.CurrentPlayMsec;
+            PractiseMode.repeatStart = PractiseMode.CurrentPlayMsec;
         }
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B7) && PractiseMode.repeatEnd == -1)
         {
-            PractiseMode.SetRepeatEnd(DebugFeature.CurrentPlayMsec);
+            PractiseMode.SetRepeatEnd(PractiseMode.CurrentPlayMsec);
         }
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B2))
         {
@@ -123,6 +127,11 @@ public class PractiseModeUI : MonoBehaviour
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B5) || InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B4))
         {
             PractiseMode.SpeedReset();
+        }
+        else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.E4))
+        {
+            PractiseMode.keepNoteSpeed = !PractiseMode.keepNoteSpeed;
+            PractiseMode.gameCtrl?.ResetOptionSpeed();
         }
         else if (
             InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.A1) ||

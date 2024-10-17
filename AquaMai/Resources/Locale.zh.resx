@@ -77,4 +77,7 @@
     <data name="RatingUpWhenSSSp" xml:space="preserve">
         <value>推到鸟加可上 {0} 分</value>
     </data>
+    <data name="Skip" xml:space="preserve">
+        <value>跳过</value>
+    </data>
 </root>
