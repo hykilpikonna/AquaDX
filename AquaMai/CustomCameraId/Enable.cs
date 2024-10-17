@@ -1,6 +1,5 @@
 ﻿using static Manager.CameraManager;
 using System.Collections;
-using System.Diagnostics;
 using AquaMai.Utils;
 using HarmonyLib;
 using Manager;
@@ -56,7 +55,7 @@ public class Enable
         int photoCameraId = ((AquaMai.AppConfig.CustomCameraId.PhotoCamera < WebCamTexture.devices.Length)
             ? AquaMai.AppConfig.CustomCameraId.PhotoCamera
             : 0);
-        int chimeQrCameraId= ((AquaMai.AppConfig.CustomCameraId.ChimeCamera < WebCamTexture.devices.Length)
+        int chimeQrCameraId = ((AquaMai.AppConfig.CustomCameraId.ChimeCamera < WebCamTexture.devices.Length)
             ? AquaMai.AppConfig.CustomCameraId.ChimeCamera
             : 0);
 
