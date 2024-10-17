@@ -23,7 +23,10 @@ public class Enable
     [HarmonyPatch(typeof(CameraManager), "CameraInitialize")]
     public static bool CameraInitialize(CameraManager __instance, ref IEnumerator __result)
     {
-        PrintCameraList();
+        if (AquaMai.AppConfig.CustomCameraId.PrintCameraList)
+        {
+            PrintCameraList();
+        }
         __result = CameraInitialize(__instance);
         return false;
     }
