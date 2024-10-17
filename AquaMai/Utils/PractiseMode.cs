@@ -107,13 +107,17 @@ public class PractiseMode
             msec = 0;
         }
 
-        DebugFeature.CurrentPlayMsec = msec;
+        CurrentPlayMsec = msec;
     }
 
     public static double CurrentPlayMsec
     {
         get => NotesManager.GetCurrentMsec() - 91;
-        set => DebugFeature.CurrentPlayMsec = value;
+        set
+        {
+            DebugFeature.CurrentPlayMsec = value;
+            SetSpeedCoroutine();
+        }
     }
 
     public static PractiseModeUI ui;
