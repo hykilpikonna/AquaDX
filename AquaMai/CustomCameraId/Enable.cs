@@ -1,6 +1,7 @@
-﻿using static Manager.CameraManager;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections;
-using AquaMai.Utils;
+using System.Linq;
 using HarmonyLib;
 using Manager;
 using MelonLoader;
@@ -10,6 +11,14 @@ namespace AquaMai.CustomCameraId;
 
 public class Enable
 {
+    private static readonly Dictionary<string, string> CameraTypeMap = new Dictionary<string, string>
+    {
+        ["LeftQrCamera"] = "QRLeft",
+        ["RightQrCamera"] = "QRRight",
+        ["PhotoCamera"] = "Photo",
+        ["ChimeCamera"] = "Chime",
+    };
+
     [HarmonyPrefix]
     [HarmonyPatch(typeof(CameraManager), "CameraInitialize")]
     public static bool CameraInitialize(CameraManager __instance, ref IEnumerator __result)
@@ -17,88 +26,53 @@ public class Enable
         __result = CameraInitialize(__instance);
         return false;
     }
-    
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(CameraManager), "Initialize")]
-    public static void SetCameraResolution(CameraManager __instance)
-    {
-        if(AquaMai.AppConfig.CustomCameraId.PrintCameraList) PrintCameraList();
-        WebCamDevice gameDevice = WebCamTexture.devices[AquaMai.AppConfig.CustomCameraId.PhotoCamera];
-        WebCamDevice qrDevice = WebCamTexture.devices[GameInfo.GetGameId() == "SDGB" ? AquaMai.AppConfig.CustomCameraId.ChimeCamera : AquaMai.AppConfig.CustomCameraId.LeftQrCamera];
-        WebCamTexture gameTexture = new WebCamTexture(gameDevice.name);
-        WebCamTexture qrTexture = new WebCamTexture(qrDevice.name);
-        gameTexture.Play();
-        qrTexture.Play();
-        CameraParameter gameCameraParam = new CameraParameter(gameTexture.width, gameTexture.height, (int)gameTexture.requestedFPS);
-        CameraParameter qrCameraParam = new CameraParameter(qrTexture.width, qrTexture.height, (int)qrTexture.requestedFPS);
-        AccessTools.Field(typeof(CameraManager), "GameCameraParam").SetValue(__instance, gameCameraParam);
-        AccessTools.Field(typeof(CameraManager), "QrCameraParam").SetValue(__instance, qrCameraParam);
-        gameTexture.Stop();
-        qrTexture.Stop();
-    }
-    
+
     private static IEnumerator CameraInitialize(CameraManager __instance)
     {
-        var webcamtexField = AccessTools.Field(typeof(CameraManager), "_webcamtex");
-        WebCamTexture[] webcamtex = new WebCamTexture[GameInfo.GetGameId() == "SDGB" ? 2 : 3];
-        
-        int leftQrCameraId = ((AquaMai.AppConfig.CustomCameraId.LeftQrCamera < WebCamTexture.devices.Length)
-            ? AquaMai.AppConfig.CustomCameraId.LeftQrCamera
-            : 0);
-        int rightQrCameraId = ((AquaMai.AppConfig.CustomCameraId.RightQrCamera < WebCamTexture.devices.Length)
-            ? AquaMai.AppConfig.CustomCameraId.RightQrCamera
-            : 0);
-        int photoCameraId = ((AquaMai.AppConfig.CustomCameraId.PhotoCamera < WebCamTexture.devices.Length)
-            ? AquaMai.AppConfig.CustomCameraId.PhotoCamera
-            : 0);
-        int chimeQrCameraId= ((AquaMai.AppConfig.CustomCameraId.ChimeCamera < WebCamTexture.devices.Length)
-            ? AquaMai.AppConfig.CustomCameraId.ChimeCamera
-            : 0);
-        
-        if (GameInfo.GetGameId() == "SDGB")
+        var textureCache = new WebCamTexture[WebCamTexture.devices.Length];
+        SortedDictionary<CameraManager.CameraTypeEnum, WebCamTexture> webCamTextures = [];
+        foreach (var (configEntry, cameraTypeName) in CameraTypeMap)
         {
-            webcamtex[chimeQrCameraId] = new WebCamTexture(WebCamTexture.devices[chimeQrCameraId].name, QrCameraParam.Width, QrCameraParam.Height, QrCameraParam.Fps);
-            DeviceId[0] = chimeQrCameraId;
-            DeviceId[1] = photoCameraId;
+            int deviceId = Traverse.Create(AquaMai.AppConfig.CustomCameraId).Field(configEntry).GetValue<int>();
+            if (deviceId < 0 || deviceId >= WebCamTexture.devices.Length)
+            {
+                MelonLogger.Warning($"[CustomCameraId] Ignoring custom camera {configEntry}: camera ID {deviceId} out of range");
+                continue;
+            }
+
+            if (!Enum.TryParse<CameraManager.CameraTypeEnum>(cameraTypeName, out var cameraType))
+            {
+                MelonLogger.Warning($"[CustomCameraId] Ignoring custom camera {configEntry}: camera type {cameraTypeName} not present");
+                continue;
+            }
+
+            if (textureCache[deviceId] != null)
+            {
+                webCamTextures[cameraType] = textureCache[deviceId];
+            }
+            else
+            {
+                var webCamTexture = new WebCamTexture(WebCamTexture.devices[deviceId].name);
+                webCamTextures[cameraType] = webCamTexture;
+                textureCache[deviceId] = webCamTexture;
+            }
         }
-        else
+
+        int textureCount = webCamTextures.Count;
+        __instance.isAvailableCamera = new bool[textureCount];
+        __instance.cameraProcMode = new CameraManager.CameraProcEnum[textureCount];
+
+        int textureIndex = 0;
+        foreach (var (cameraType, webCamTexture) in webCamTextures)
         {
-            webcamtex[leftQrCameraId] = new WebCamTexture(WebCamTexture.devices[leftQrCameraId].name, QrCameraParam.Width, QrCameraParam.Height, QrCameraParam.Fps);
-            webcamtex[rightQrCameraId] = new WebCamTexture(WebCamTexture.devices[rightQrCameraId].name, QrCameraParam.Width, QrCameraParam.Height, QrCameraParam.Fps);
-            DeviceId[(int) CameraTypeEnum.QRLeft] = leftQrCameraId;
-            DeviceId[(int) CameraTypeEnum.QRRight] = rightQrCameraId;
-            DeviceId[(int) CameraTypeEnum.Photo] = photoCameraId;
+            __instance.isAvailableCamera[textureIndex] = true;
+            __instance.cameraProcMode[textureIndex] = CameraManager.CameraProcEnum.Good;
+            CameraManager.DeviceId[(int)cameraType] = textureIndex;
+            textureIndex++;
         }
-        webcamtex[photoCameraId] = new WebCamTexture(WebCamTexture.devices[photoCameraId].name, GameCameraParam.Width, GameCameraParam.Height, GameCameraParam.Fps);
-        webcamtexField.SetValue(__instance, webcamtex);
-        
-        for (int i = 0; i < webcamtex.Length; i++)
-        {
-            __instance.isAvailableCamera[i] = true;
-            __instance.cameraProcMode[i] = CameraManager.CameraProcEnum.Good;
-        }
+        Traverse.Create(__instance).Field("_webcamtex").SetValue(webCamTextures.Values.ToArray());
 
         CameraManager.IsReady = true;
         yield break;
-    }
-    
-    private static void PrintCameraList()
-    {
-        WebCamDevice[] devices = WebCamTexture.devices;
-        string cameraList = "Connected Web Cameras:\n";
-        for (int i = 0; i < devices.Length; i++)
-        {
-            WebCamDevice webCamDevice = devices[i];
-            WebCamTexture webCamTexture = new WebCamTexture(webCamDevice.name);
-            webCamTexture.Play();
-            cameraList += "==================================================\n";
-            cameraList += "Name: " + webCamDevice.name + "\n";
-            cameraList += $"ID: {i}\n";
-            cameraList += $"Resolution: {webCamTexture.width} * {webCamTexture.height}\n";
-            cameraList += $"FPS: {webCamTexture.requestedFPS}\n";
-            webCamTexture.Stop();
-        }
-        cameraList += "==================================================";
-        MelonLogger.Msg(cameraList);
     }
 }
