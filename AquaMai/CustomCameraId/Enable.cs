@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 using HarmonyLib;
 using Manager;
 using MelonLoader;
 using UnityEngine;
-using System;
-using System.Linq;
 
 namespace AquaMai.CustomCameraId;
 
@@ -23,10 +23,6 @@ public class Enable
     [HarmonyPatch(typeof(CameraManager), "CameraInitialize")]
     public static bool CameraInitialize(CameraManager __instance, ref IEnumerator __result)
     {
-        if (AquaMai.AppConfig.CustomCameraId.PrintCameraList)
-        {
-            PrintCameraList();
-        }
         __result = CameraInitialize(__instance);
         return false;
     }
@@ -78,33 +74,5 @@ public class Enable
 
         CameraManager.IsReady = true;
         yield break;
-    }
-
-    private static bool printedCameraList = false;
-    private static void PrintCameraList()
-    {
-        if (printedCameraList) return;
-        printedCameraList = true;
-
-        WebCamDevice[] devices = WebCamTexture.devices;
-        string cameraList = "Connected Web Cameras:\n";
-        for (int i = 0; i < devices.Length; i++)
-        {
-            WebCamDevice webCamDevice = devices[i];
-            WebCamTexture webCamTexture = new WebCamTexture(webCamDevice.name);
-            webCamTexture.Play();
-            cameraList += "==================================================\n";
-            cameraList += "Name: " + webCamDevice.name + "\n";
-            cameraList += $"ID: {i}\n";
-            cameraList += $"Resolution: {webCamTexture.width} * {webCamTexture.height}\n";
-            cameraList += $"FPS: {webCamTexture.requestedFPS}\n";
-            webCamTexture.Stop();
-        }
-        cameraList += "==================================================";
-        
-        foreach (var line in cameraList.Split('\n'))
-        {
-            MelonLogger.Msg($"[CustomCameraId] {line}");
-        }
     }
 }
