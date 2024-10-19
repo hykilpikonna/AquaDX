@@ -26,10 +26,12 @@ public class ShowQuickEndPlay
     [HarmonyPostfix]
     public static void GameProcessPostUpdate(GameProcess __instance, Message[] ____message, ProcessDataContainer ___container, byte ____sequence)
     {
-        if (____sequence > 4)
+        _showUi = ____sequence switch
         {
-            _showUi = true;
-        }
+            9 => false,
+            > 4 => true,
+            _ => false
+        };
 
         if (_showUi && (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B4) || InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.E4)))
         {
