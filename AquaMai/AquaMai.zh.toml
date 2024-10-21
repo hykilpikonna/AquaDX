@@ -125,6 +125,10 @@ FrameRateDisplay=false
 # 练习模式，在游戏中按 Test 打开
 # 必须和 TestProof 一起用
 PractiseMode=true
+# 调整触摸屏串口波特率，默认值 9600
+# 需要硬件配合。如果你不清楚你是否可以使用，那你不能使用
+# 改为 0 禁用
+TouchPanelBaudRate=0
 
 # ===================================
 # 节省一些不知道有用没用的时间

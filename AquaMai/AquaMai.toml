@@ -105,6 +105,10 @@ FrameRateDisplay=false
 # Practice mode, activated by pressing Test in the game
 # Must be used together with TestProof
 PractiseMode=true
+# Adjust the baud rate of the touch screen serial port, default value is 9600
+# Requires hardware support. If you are unsure whether you can use it, you cannot use it
+# Set to 0 to disable
+TouchPanelBaudRate=0
 
 # ===================================
 # Save some potentially unnecessary time

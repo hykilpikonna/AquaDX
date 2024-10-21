@@ -168,6 +168,7 @@ namespace AquaMai
             Patch(typeof(CustomLogo));
             // Utils
             Patch(typeof(JudgeAdjust));
+            Patch(typeof(TouchPanelBaudRate));
 # if DEBUG
             Patch(typeof(LogNetworkErrors));
 # endif
