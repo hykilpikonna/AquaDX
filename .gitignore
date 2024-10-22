@@ -81,3 +81,4 @@ gradle-app.setting
 src/main/resources/meta/*/*.json
 *.log.*.gz
 *.salive
+/.vs/AquaDX/v17
