@@ -47,8 +47,6 @@ namespace AquaMai.UX
             __instance.Process.CreateDownloadProcess();
             __instance.ProcessManager.SendMessage(new Message(ProcessType.CommonProcess, 30001));
             __instance.ProcessManager.SendMessage(new Message(ProcessType.CommonProcess, 40000, 0, OperationInformationController.InformationType.Hide));
-            SingletonStateMachine<AmManager, AmManager.EState>.Instance.AimeReader.EnableRead(false);
-            SingletonStateMachine<AmManager, AmManager.EState>.Instance.AimeReader.BeginPlay();
             // SDGB 在扫码状态下会降低帧率以适应摄像头，直接SetNextProcess会导致摄像头未能正确关闭
             if (SinglePlayer.IsSDGB != true){ __instance.Process.SetNextProcess();}
         }
