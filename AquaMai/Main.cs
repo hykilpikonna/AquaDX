@@ -151,6 +151,7 @@ namespace AquaMai
             Patch(typeof(MessageHelper));
             Patch(typeof(MusicDirHelper));
             Patch(typeof(SharedInstances));
+            Patch(typeof(GuiSizes));
             // Fixes
             Patch(typeof(FixCharaCrash));
             Patch(typeof(BasicFix));
@@ -186,6 +187,12 @@ namespace AquaMai
             }
 
             MelonLogger.Msg(Locale.Loaded);
+        }
+
+        public override void OnGUI()
+        {
+            GuiSizes.SetupStyles();
+            base.OnGUI();
         }
     }
 }
