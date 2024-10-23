@@ -48,14 +48,6 @@ public class BasicFix
         return false;
     }
 
-    [HarmonyPrefix]
-    [HarmonyPatch(typeof(GameManager), "CalcSpecialNum")]
-    private static bool CalcSpecialNum(ref int __result)
-    {
-        __result = 1024;
-        return false;
-    }
-
     [HarmonyPostfix]
     [HarmonyPatch(typeof(NetHttpClient), MethodType.Constructor)]
     private static void OnNetHttpClientConstructor(NetHttpClient __instance)
@@ -74,5 +66,22 @@ public class BasicFix
     {
         // Unset the certificate validation callback (SSL pinning) to restore the default behavior
         ServicePointManager.ServerCertificateValidationCallback = null;
+    }
+
+    public static void DoCustomPatch(HarmonyLib.Harmony h)
+    {
+        if (typeof(GameManager).GetMethod("CalcSpecialNum") is null) return;
+        h.PatchAll(typeof(CalcSpecialNumPatch));
+    }
+
+    private class CalcSpecialNumPatch
+    {
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(GameManager), "CalcSpecialNum")]
+        private static bool CalcSpecialNum(ref int __result)
+        {
+            __result = 1024;
+            return false;
+        }
     }
 }

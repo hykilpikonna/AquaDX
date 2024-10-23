@@ -70,7 +70,6 @@ namespace AquaMai.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to Errors detected while loading!
-        ///- Check if you have installed the wrong version of AquaMai, such as using SDEZ version on SDGA
         ///- Are you using a modified Assembly-CSharp.dll, which will cause inconsistent functions and cannot find the functions that need to be modified
         ///- Check for conflicting mods, or enabled incompatible options.
         /// </summary>

@@ -52,7 +52,6 @@
     </data>
     <data name="LoadError" xml:space="preserve">
         <value>加载过程中检测到错误！
-- 请检查你是否安装了错误的 AquaMai 版本，比如在 SDGA 上使用了 SDEZ 的版本
 - 你是否正在使用魔改的 Assembly-CSharp.dll，这会导致函数不一致而无法找到需要修改的函数
 - 请检查是否有冲突的 Mod，或者开启了不兼容的选项</value>
     </data>

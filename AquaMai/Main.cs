@@ -155,12 +155,15 @@ namespace AquaMai
             Patch(typeof(FixCharaCrash));
             Patch(typeof(BasicFix));
             Patch(typeof(DisableReboot));
-            Patch(typeof(ExtendNotesPool));
+            if (GameInfo.GameVersion >= 23000)
+                Patch(typeof(ExtendNotesPool));
             Patch(typeof(FixCheckAuth));
             Patch(typeof(DebugFeature));
-            Patch(typeof(FixConnSlide));
+            if (GameInfo.GameVersion >= 23000)
+                Patch(typeof(FixConnSlide));
             Patch(typeof(SlideAutoPlayTweak));
-            Patch(typeof(FixLevelDisplay));
+            if (GameInfo.GameVersion >= 24000)
+                Patch(typeof(FixLevelDisplay));
             // UX
             Patch(typeof(CustomVersionString));
             Patch(typeof(CustomPlaceName));

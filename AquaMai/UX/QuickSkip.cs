@@ -10,82 +10,90 @@ using Monitor;
 using Process;
 using UnityEngine;
 
-namespace AquaMai.UX
+namespace AquaMai.UX;
+
+public class QuickSkip
 {
-    public class QuickSkip
+    private static int _keyPressFrames;
+
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(GameMainObject), "Update")]
+    public static void OnGameMainObjectUpdate()
     {
-        private static int _keyPressFrames;
+        // The button between [1p] and [2p] button on ADX
+        if (Input.GetKey(KeyCode.Alpha7) || InputManager.GetSystemInputPush(InputManager.SystemButtonSetting.ButtonService)) _keyPressFrames++;
 
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(GameMainObject), "Update")]
-        public static void OnGameMainObjectUpdate()
+        if (_keyPressFrames > 0 && !Input.GetKey(KeyCode.Alpha7) && !InputManager.GetSystemInputPush(InputManager.SystemButtonSetting.ButtonService))
         {
-            // The button between [1p] and [2p] button on ADX
-            if (Input.GetKey(KeyCode.Alpha7) || InputManager.GetSystemInputPush(InputManager.SystemButtonSetting.ButtonService)) _keyPressFrames++;
+            _keyPressFrames = 0;
+            MelonLogger.Msg(SharedInstances.ProcessDataContainer.processManager.Dump());
+            return;
+        }
 
-            if (_keyPressFrames > 0 && !Input.GetKey(KeyCode.Alpha7) && !InputManager.GetSystemInputPush(InputManager.SystemButtonSetting.ButtonService))
+        if (_keyPressFrames != 60) return;
+        MelonLogger.Msg("[QuickSkip] Activated");
+
+        var traverse = Traverse.Create(SharedInstances.ProcessDataContainer.processManager);
+        var processList = traverse.Field("_processList").GetValue<LinkedList<ProcessManager.ProcessControle>>();
+
+        ProcessBase processToRelease = null;
+
+        foreach (ProcessManager.ProcessControle process in processList)
+        {
+            switch (process.Process.ToString())
             {
-                _keyPressFrames = 0;
-                MelonLogger.Msg(SharedInstances.ProcessDataContainer.processManager.Dump());
-                return;
-            }
+                // After login
+                case "Process.ModeSelect.ModeSelectProcess":
+                case "Process.LoginBonus.LoginBonusProcess":
+                case "Process.RegionalSelectProcess":
+                case "Process.CharacterSelectProcess":
+                case "Process.TicketSelect.TicketSelectProcess":
+                    processToRelease = process.Process;
+                    break;
 
-            if (_keyPressFrames != 60) return;
-            MelonLogger.Msg("[QuickSkip] Activated");
-
-            var traverse = Traverse.Create(SharedInstances.ProcessDataContainer.processManager);
-            var processList = traverse.Field("_processList").GetValue<LinkedList<ProcessManager.ProcessControle>>();
-
-            ProcessBase processToRelease = null;
-
-            foreach (ProcessManager.ProcessControle process in processList)
-            {
-                switch (process.Process.ToString())
-                {
-                    // After login
-                    case "Process.ModeSelect.ModeSelectProcess":
-                    case "Process.LoginBonus.LoginBonusProcess":
-                    case "Process.RegionalSelectProcess":
-                    case "Process.CharacterSelectProcess":
-                    case "Process.TicketSelect.TicketSelectProcess":
-                        processToRelease = process.Process;
-                        break;
-
-                    case "Process.MusicSelectProcess":
-                        // Skip to save
-                        SoundManager.PreviewEnd();
-                        SoundManager.PlayBGM(Cue.BGM_COLLECTION, 2);
-                        SharedInstances.ProcessDataContainer.processManager.AddProcess(new FadeProcess(SharedInstances.ProcessDataContainer, process.Process, new UnlockMusicProcess(SharedInstances.ProcessDataContainer)));
-                        break;
-                }
-            }
-
-            if (processToRelease != null)
-            {
-                GameManager.SetMaxTrack();
-                SharedInstances.ProcessDataContainer.processManager.AddProcess(new FadeProcess(SharedInstances.ProcessDataContainer, processToRelease, new MusicSelectProcess(SharedInstances.ProcessDataContainer)));
+                case "Process.MusicSelectProcess":
+                    // Skip to save
+                    SoundManager.PreviewEnd();
+                    SoundManager.PlayBGM(Cue.BGM_COLLECTION, 2);
+                    SharedInstances.ProcessDataContainer.processManager.AddProcess(new FadeProcess(SharedInstances.ProcessDataContainer, process.Process, new UnlockMusicProcess(SharedInstances.ProcessDataContainer)));
+                    break;
             }
         }
 
-        [HarmonyPostfix]
-        [HarmonyPatch(typeof(GameProcess), "OnUpdate")]
-        public static void PostGameProcessUpdate(GameProcess __instance, Message[] ____message, ProcessDataContainer ___container)
+        if (processToRelease != null)
         {
-            if (InputManager.GetButtonDown(0, InputManager.ButtonSetting.Select))
-            {
-                var traverse = Traverse.Create(__instance);
-                ___container.processManager.SendMessage(____message[0]);
-                Singleton<GamePlayManager>.Instance.SetSyncResult(0);
-                traverse.Method("SetRelease").GetValue();
-            }
+            GameManager.SetMaxTrack();
+            SharedInstances.ProcessDataContainer.processManager.AddProcess(new FadeProcess(SharedInstances.ProcessDataContainer, processToRelease, new MusicSelectProcess(SharedInstances.ProcessDataContainer)));
+        }
+    }
 
-            if (Input.GetKey(KeyCode.Alpha7) || InputManager.GetSystemInputPush(InputManager.SystemButtonSetting.ButtonService))
-            {
-                // This is original typo in Assembly-CSharp
-                Singleton<GamePlayManager>.Instance.SetQuickRetryFrag(flag: true);
-            }
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(GameProcess), "OnUpdate")]
+    public static void PostGameProcessUpdate(GameProcess __instance, Message[] ____message, ProcessDataContainer ___container)
+    {
+        if (InputManager.GetButtonDown(0, InputManager.ButtonSetting.Select))
+        {
+            var traverse = Traverse.Create(__instance);
+            ___container.processManager.SendMessage(____message[0]);
+            Singleton<GamePlayManager>.Instance.SetSyncResult(0);
+            traverse.Method("SetRelease").GetValue();
         }
 
+        if (Input.GetKey(KeyCode.Alpha7) || InputManager.GetSystemInputPush(InputManager.SystemButtonSetting.ButtonService) && GameInfo.GameVersion >= 23000)
+        {
+            // This is original typo in Assembly-CSharp
+            Singleton<GamePlayManager>.Instance.SetQuickRetryFrag(flag: true);
+        }
+    }
+
+    public static void DoCustomPatch(HarmonyLib.Harmony h)
+    {
+        if (GameInfo.GameVersion < 23000) return;
+        h.PatchAll(typeof(FestivalAndLaterQuickRetryPatch));
+    }
+
+    private class FestivalAndLaterQuickRetryPatch
+    {
         [HarmonyPrefix]
         [HarmonyPatch(typeof(QuickRetry), "IsQuickRetryEnable")]
         public static bool OnQuickRetryIsQuickRetryEnable(ref bool __result)
