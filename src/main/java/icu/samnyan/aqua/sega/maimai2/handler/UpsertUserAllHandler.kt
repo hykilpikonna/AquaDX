@@ -64,7 +64,7 @@ class UpsertUserAllHandler(
 
         // Set users
         req.run { listOf(userExtend, userOption, userCharacterList, userMapList, userLoginBonusList, userItemList,
-            userMusicDetailList, userCourseList, userFriendSeasonRankingList, userFavoriteList) }
+            userMusicDetailList, userCourseList, userFriendSeasonRankingList, userFavoriteList).filterNotNull() }
             .flatten().forEach {
                 logger.info(it.toString())
                 it.user = u
