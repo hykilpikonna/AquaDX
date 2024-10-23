@@ -100,6 +100,10 @@ JudgeAdjustB=0.0
 TouchDelay=0
 # Show detail of selected song in music selection screen
 SelectionDetail=true
+# Show Network error detail in the game
+ShowNetErrorDetail=true
+# Show error log in the game
+ShowErrorLog=false
 # Display framerate
 FrameRateDisplay=false
 # Practice mode, activated by pressing Test in the game

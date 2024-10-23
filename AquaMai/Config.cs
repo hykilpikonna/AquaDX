@@ -74,6 +74,7 @@ namespace AquaMai
             public bool PractiseMode { get; set; }
             public bool SelectionDetail { get; set; }
             public bool ShowNetErrorDetail { get; set; }
+            public bool ShowErrorLog { get; set; }
             public bool FrameRateDisplay { get; set; }
             public int TouchPanelBaudRate { get; set; }
         }
