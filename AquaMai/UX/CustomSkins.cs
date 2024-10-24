@@ -10,13 +10,18 @@ using UnityEngine;
 
 namespace AquaMai.UX;
 
-public class CustomNoteSkin
+public class CustomSkins
 {
     private static readonly List<string> ImageExts = [".png", ".jpg", ".jpeg"];
     private static readonly List<string> SlideFanFields = ["_normalSlideFan", "_eachSlideFan", "_breakSlideFan", "_breakSlideFanEff"];
+    private static readonly List<string> CustomTrackStartFields = ["_musicBase", "_musicTab", "_musicLvBase", "_musicLvText"];
 
     private static Sprite customOutline;
     private static Sprite[,] customSlideFan = new Sprite[4, 11];
+    
+    public static readonly Sprite[,] CustomJudge = new Sprite[2, ((int)NoteJudge.ETiming.End + 1)];
+    public static readonly Sprite[,,,] CustomJudgeSlide = new Sprite[2, 3, 2, ((int)NoteJudge.ETiming.End + 1)];
+    public static readonly Texture2D[] CustomTrackStart = new Texture2D[4];
 
     private static bool LoadIntoGameNoteImageContainer(string fieldName, int? idx1, int? idx2, Texture2D texture)
     {
@@ -105,12 +110,74 @@ public class CustomNoteSkin
             var fieldName = '_' + args[0];
             int? idx1 = (args.Length < 2) ? null : (int.TryParse(args[1], out var temp) ? temp : null);
             int? idx2 = (args.Length < 3) ? null : (int.TryParse(args[2], out temp) ? temp : null);
+            int? idx3 = (args.Length < 4) ? null : (int.TryParse(args[3], out temp) ? temp : null);
 
             Traverse traverse;
+            
+            if (CustomTrackStartFields.Contains(fieldName))
+            {
+                var i = CustomTrackStartFields.IndexOf(fieldName);
+                CustomTrackStart[i] = texture;
+                MelonLogger.Msg($"[CustomNoteSkin] Successfully loaded {name}");
+                continue;
+            }
 
             if (fieldName == "_outline")
             {
                 customOutline = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 1f);
+                MelonLogger.Msg($"[CustomNoteSkin] Successfully loaded {name}");
+                continue;
+            }
+
+            if (fieldName == "_judgeNormal" || fieldName == "_judgeBreak")
+            {
+                if (!idx1.HasValue)
+                {
+                    MelonLogger.Msg($"[CustomNoteSkin] Field {fieldName} needs a index");
+                    continue;
+                }
+
+                var i = (fieldName == "_judgeBreak") ? 1 : 0;
+                CustomJudge[i, idx1.Value] = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 1f);
+                MelonLogger.Msg($"[CustomNoteSkin] Successfully loaded {name}");
+                continue;
+            }
+            
+            if (fieldName == "_judgeSlideNormal" || fieldName == "_judgeSlideBreak")
+            {
+                if (!idx1.HasValue || !idx2.HasValue || !idx3.HasValue)
+                {
+                    MelonLogger.Msg($"[CustomNoteSkin] Field {fieldName} needs 3 indices");
+                    continue;
+                }
+
+                var i = (fieldName == "_judgeSlideBreak") ? 1 : 0;
+                Vector2 pivot;
+                switch (idx1.Value)
+                {
+                    case 0 when idx2.Value == 0:
+                        pivot = new Vector2(0f, 0.5f);
+                        break;
+                    case 0 when idx2.Value == 1:
+                        pivot = new Vector2(1f, 0.5f);
+                        break;
+                    case 1 when idx2.Value == 0:
+                        pivot = new Vector2(0f, 0.3f);
+                        break;
+                    case 1 when idx2.Value == 1:
+                        pivot = new Vector2(1f, 0.3f);
+                        break;
+                    case 2 when idx2.Value == 0:
+                        pivot = new Vector2(0.5f, 0.8f);
+                        break;
+                    case 2 when idx2.Value == 1:
+                        pivot = new Vector2(0.5f, 0.2f);
+                        break;
+                    default:
+                        pivot = new Vector2(0.5f, 0.5f);
+                        break;
+                }
+                CustomJudgeSlide[i, idx1.Value, idx2.Value, idx3.Value] = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), pivot, 1f);
                 MelonLogger.Msg($"[CustomNoteSkin] Successfully loaded {name}");
                 continue;
             }

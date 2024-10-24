@@ -5,7 +5,7 @@ using Monitor;
 
 namespace AquaMai.Fix;
 
-public class SlideAutoPlayTweak
+public class FixSlideAutoPlay
 {
     /* 这个 Patch 用于修复以下 bug:
      *     SlideFan 在 AutoPlay 时, 只有第一个箭头会消失
