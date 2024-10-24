@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Reflection;
 using HarmonyLib;
 using MAI2.Util;
 using Manager;
@@ -14,13 +16,22 @@ namespace AquaMai.UX
     // Note: this is not my original work. I simply interpreted the code and rewrote it as a mod.
     public class SinglePlayer
     {
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(Main.GameMain), "LateInitialize", new Type[] { typeof(MonoBehaviour), typeof(Transform), typeof(Transform) })]
-        public static void LateInitialize(MonoBehaviour gameMainObject, ref Transform left, ref Transform right)
+        [HarmonyPatch]
+        public class WhateverInitialize
         {
-            left.transform.position = Vector3.zero;
-            right.localScale = Vector3.zero;
-            GameObject.Find("Mask").transform.position = new Vector3(540f, 0f, 0f);
+            public static IEnumerable<MethodBase> TargetMethods()
+            {
+                var lateInitialize = AccessTools.Method(typeof(Main.GameMain), "LateInitialize", [typeof(MonoBehaviour), typeof(Transform), typeof(Transform)]);
+                if (lateInitialize is not null) return [lateInitialize];
+                return [AccessTools.Method(typeof(Main.GameMain), "Initialize", [typeof(MonoBehaviour), typeof(Transform), typeof(Transform)])];
+            }
+
+            public static void Prefix(MonoBehaviour gameMainObject, ref Transform left, ref Transform right)
+            {
+                left.transform.position = Vector3.zero;
+                right.localScale = Vector3.zero;
+                GameObject.Find("Mask").transform.position = new Vector3(540f, 0f, 0f);
+            }
         }
 
         [HarmonyPrefix]

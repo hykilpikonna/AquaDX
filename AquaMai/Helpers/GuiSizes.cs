@@ -36,6 +36,7 @@ public static class GuiSizes
         GUI.backgroundColor = backgroundColor;
     }
 
+    [HarmonyPatch]
     public class BoxBackground
     {
         public static IEnumerable<MethodBase> TargetMethods()
