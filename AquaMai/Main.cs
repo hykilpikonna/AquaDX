@@ -192,6 +192,11 @@ namespace AquaMai
             Patch(typeof(BreakSlideJudgeBlink));
             Patch(typeof(FixCircleSlideJudge)); // 这个我觉得算无副作用, 可以常开
             
+            // 这是一项往 Sinmai 里加各种新 note 的企划, 目前只完成了可高度自定义形状的星星
+            // 未来还会缓慢更新, 我建议单开一个功能分类
+            // 注意需要往 UserLib 里放入 System.Numeric.dll
+            Patch(typeof(CustomNoteTypePatch));
+            
 # if DEBUG
             Patch(typeof(LogNetworkErrors));
 # endif
