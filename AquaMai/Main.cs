@@ -6,10 +6,12 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using AquaMai.Fix;
 using AquaMai.Helpers;
+using AquaMai.MaimaiDX2077;
 using AquaMai.Resources;
 using AquaMai.Utils;
 using AquaMai.UX;
 using MelonLoader;
+using Monitor;
 using Tomlet;
 using UnityEngine;
 
@@ -162,7 +164,7 @@ namespace AquaMai
             Patch(typeof(DebugFeature));
             if (GameInfo.GameVersion >= 23000)
                 Patch(typeof(FixConnSlide));
-            Patch(typeof(SlideAutoPlayTweak));
+            Patch(typeof(FixSlideAutoPlay)); // Rename: SlideAutoPlayTweak -> FixSlideAutoPlay, 不过这个应该无副作用所以不需要改配置文件
             if (GameInfo.GameVersion >= 24000)
                 Patch(typeof(FixLevelDisplay));
             // UX
@@ -173,6 +175,28 @@ namespace AquaMai
             // Utils
             Patch(typeof(JudgeAdjust));
             Patch(typeof(TouchPanelBaudRate));
+
+            // New Features & Changes
+            // 现在自定义皮肤相关的功能应该有 CustomSkin, JudgeDisplay4B, CustomTrackStartDiff
+            // 后续应该还会接着做, 所以也许可以考虑把自定义皮肤相关的部分单独分一类 ?
+            Patch(typeof(CustomSkins)); // Rename: CustomNoteSkin -> CustomSkins
+            Patch(typeof(JudgeDisplay4B));
+            Patch(typeof(CustomTrackStartDiff));
+            
+            Patch(typeof(RealisticRandomJudge)); // 本来是用来调试判定显示4B的, 觉得还挺有趣就单独做成功能了
+            
+            Patch(typeof(DisableTrackStartTabs)); // 从 TrackStartProcessTweak 里单独拆出来了
+            
+            // 以下三项拆分自 SlideJudgeTweak
+            Patch(typeof(FanJudgeFlip));
+            Patch(typeof(BreakSlideJudgeBlink));
+            Patch(typeof(FixCircleSlideJudge)); // 这个我觉得算无副作用, 可以常开
+            
+            // 这是一项往 Sinmai 里加各种新 note 的企划, 目前只完成了可高度自定义形状的星星
+            // 未来还会缓慢更新, 我建议单开一个功能分类
+            // 注意需要往 UserLib 里放入 System.Numeric.dll
+            Patch(typeof(CustomNoteTypePatch));
+            
 # if DEBUG
             Patch(typeof(LogNetworkErrors));
 # endif

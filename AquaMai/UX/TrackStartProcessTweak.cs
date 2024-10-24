@@ -1,8 +1,10 @@
-﻿using HarmonyLib;
+﻿using System.Collections.Generic;
+using HarmonyLib;
 using Monitor;
 using Process;
 using UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace AquaMai.UX;
 
@@ -10,7 +12,6 @@ public class TrackStartProcessTweak
 {
     // 总之这个 Patch 没啥用, 是我个人用 sinmai 录谱面确认时用得到, 顺手也写进来了
     // 具体而言就是推迟了歌曲开始界面的动画便于后期剪辑
-    // 然后把“TRACK X”字样和 DX/标准谱面的显示框隐藏掉, 让他看起来不那么 sinmai, 更像是 majdata
 
     [HarmonyPrefix]
     [HarmonyPatch(typeof(TrackStartProcess), "OnUpdate")]
@@ -65,19 +66,6 @@ public class TrackStartProcessTweak
         return true;
     }
 
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(TrackStartMonitor), "SetTrackStart")]
-    private static void DisableTabs(
-        SpriteCounter ____trackNumber, SpriteCounter ____bossTrackNumber, SpriteCounter ____utageTrackNumber,
-        MultipleImage ____musicTabImage, GameObject[] ____musicTabObj
-    )
-    {
-        ____trackNumber.transform.parent.gameObject.SetActive(false);
-        ____bossTrackNumber.transform.parent.gameObject.SetActive(false);
-        ____utageTrackNumber.transform.parent.gameObject.SetActive(false);
-        ____musicTabImage.gameObject.SetActive(false);
-        ____musicTabObj[0].gameObject.SetActive(false);
-        ____musicTabObj[1].gameObject.SetActive(false);
-        ____musicTabObj[2].gameObject.SetActive(false);
-    }
+    
 }
+
