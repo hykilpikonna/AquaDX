@@ -6,7 +6,6 @@ using System.Threading;
 using AquaMai.Helpers;
 using HarmonyLib;
 using Main;
-using Manager;
 using MelonLoader;
 using UnityEngine;
 
@@ -18,7 +17,7 @@ public class ShowErrorLog
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(GameMain), "ExceptionHandler")]
-    private static void PostfixGetIsException(GameMain __instance, Exception e)
+    private static void ExceptionHandler(GameMain __instance, Exception e)
     {
         if (_errorUi == null)
         {
@@ -38,14 +37,13 @@ public class ShowErrorLog
             _errorUi.SetErrorLog(e.ToString());
         }
 
-        Application.quitting += ApplicationOnquitting;
-        // 启动一个协程来刷新显示GUI
+        Application.quitting += ApplicationOnQuitting;
         _errorUi.StartCoroutine(_errorUi.Show());
     }
 
-    private static void ApplicationOnquitting()
+    private static void ApplicationOnQuitting()
     {
-        Thread.Sleep(Timeout.Infinite); // 让你结束进程了吗?我堵死你!
+        Thread.Sleep(Timeout.Infinite);
     }
 
     private class Ui : MonoBehaviour
