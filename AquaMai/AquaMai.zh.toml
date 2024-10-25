@@ -120,6 +120,8 @@ TouchDelay=0
 SelectionDetail=true
 # 出现灰网时显示原因
 ShowNetErrorDetail=true
+# 在游戏中显示错误日志窗口而不是关闭游戏进程
+ShowErrorLog=false
 # 显示帧率
 FrameRateDisplay=false
 # 练习模式，在游戏中按 Test 打开
