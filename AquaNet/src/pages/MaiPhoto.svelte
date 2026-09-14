@@ -14,16 +14,46 @@
   let loading = true;
   let error: any = null;
 
+  // Monotonic token so a slow response can never overwrite a newer one
+  let requestSeq = 0;
+
+  function readPageFromUrl(): number {
+    const raw = new URL(window.location.toString()).searchParams.get("page");
+    return raw ? parseInt(raw, 10) || 1 : 1;
+  }
+
+  /**
+   * Keep the url in sync with the page the server actually served, since
+   * out-of-range pages are clamped server-side.
+   */
+  function syncUrl(effectivePage: number) {
+    const url = new URL(window.location.toString());
+    const current = url.searchParams.get("page");
+    const target = effectivePage > 1 ? effectivePage.toString() : null;
+    if (current === target) return;
+    if (target === null) url.searchParams.delete("page");
+    else url.searchParams.set("page", target);
+    history.replaceState({}, "", url.toString());
+  }
+
   async function loadPhotos(targetPage: number) {
+    const seq = ++requestSeq;
+    // Apply the target immediately so the pager and further clicks act on it
+    // instead of on the page that is still being fetched
+    page = targetPage;
     loading = true;
     error = null;
     try {
-      photoData = await GAME.photos(targetPage, pageSize);
-      page = photoData.page;
+      const data = await GAME.photos(targetPage, pageSize);
+      if (seq !== requestSeq) return;
+      photoData = data;
+      page = data.page;
+      syncUrl(data.page);
     } catch (e) {
+      if (seq !== requestSeq) return;
       error = e;
     } finally {
-      loading = false;
+      if (seq === requestSeq) loading = false;
     }
   }
 
@@ -38,18 +68,9 @@
   }
 
   onMount(() => {
-    const url = new URL(window.location.toString());
-    const pageParam = url.searchParams.get("page");
-    if (pageParam) {
-      page = parseInt(pageParam, 10) || 1;
-    }
-    loadPhotos(page);
+    loadPhotos(readPageFromUrl());
 
-    const onPopState = () => {
-      const currentUrl = new URL(window.location.toString());
-      const p = parseInt(currentUrl.searchParams.get("page") || "1", 10) || 1;
-      loadPhotos(p);
-    };
+    const onPopState = () => loadPhotos(readPageFromUrl());
 
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
@@ -66,7 +87,7 @@
   {:else if error}
     <Error {error}/>
   {:else if photoData}
-    {#if photoData.total === 0 || photoData.photos.length === 0}
+    {#if photoData.total === 0}
       <blockquote class="info">{t('maiphoto.none')}</blockquote>
     {:else}
       {#if photoData.totalPages > 1}

@@ -250,9 +250,11 @@ class Maimai2(
             }
         } else {
             val pageSize = (size ?: 12).coerceIn(1, 100)
-            val pageNum = page.coerceAtLeast(1)
             val total = files.size
             val totalPages = if (total == 0) 0 else (total + pageSize - 1) / pageSize
+            // Clamp to the nearest valid page: out-of-range pages return the closest real page
+            // instead of an empty grid, and the offset can no longer overflow Int
+            val pageNum = page.coerceIn(1, maxOf(1, totalPages))
             val pagedFiles = files.drop((pageNum - 1) * pageSize).take(pageSize)
             val photos = pagedFiles.map {
                 photoHashMap.computeIfAbsent(it) { f -> myPhotoGetHash(f) }
