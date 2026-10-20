@@ -14,6 +14,7 @@ import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserTicketLimitDate
 import icu.samnyan.aqua.sega.maimai2.model.userdata.MAIMAI_DATETIME
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserRegions
 import java.time.LocalDate
+import java.time.LocalDateTime
 import kotlin.random.Random
 
 fun Maimai2ServletController.initApis() {
@@ -108,24 +109,27 @@ fun Maimai2ServletController.initApis() {
         }
         db.userPass.save(storedPass)
 
-        // attempt to give user ticket 40001 (+1 track ticket) up to a max of 10
+        // attempt to give user 5x ticket 40001 (+1 track ticket) up to a max of 10
         val ticketId = 40001
+        val limit = db.userTicketLimitDate.findByUserAndItemId(user, ticketId)
+            ?: Mai2UserTicketLimitDate().apply { this.user = user; itemId = ticketId }
         val ticket = (db.userItem.findByUserAndItemKindAndItemId(user, Mai2ItemKind.ticket.id, ticketId)
             ?: Mai2UserItem().apply {
                 this.user = user
                 itemKind = Mai2ItemKind.ticket.id
                 itemId = ticketId
             }).apply {
-                stock = (stock + 1).coerceAtMost(10)
+                // clear old tickets if they're past expiry
+                if (limit.limitDate.isNotEmpty() && LocalDateTime.parse(limit.limitDate, MAIMAI_DATETIME).isBefore(now)) {
+                    stock = 0
+                }
+                stock = (stock + 5).coerceAtMost(10)
                 isValid = true
             }
         db.userItem.save(ticket)
 
         // set expiry date for newly granted ticket
-        val limit = (db.userTicketLimitDate.findByUserAndItemId(user, ticketId)
-            ?: Mai2UserTicketLimitDate().apply { this.user = user; itemId = ticketId }).apply {
-                limitDate = endDate
-            }
+        limit.limitDate = endDate
         db.userTicketLimitDate.save(limit)
 
         mapOf(
